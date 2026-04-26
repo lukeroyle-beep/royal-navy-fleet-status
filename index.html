@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentinel Replay MVP</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <section class="globe-stage" aria-label="3D globe replay">
+        <canvas id="globe"></canvas>
+        <div class="topbar">
+          <div>
+            <p class="eyebrow">Sentinel Replay</p>
+            <h1>Nord Stream, September 2022</h1>
+          </div>
+          <div class="clock">
+            <span id="dateLabel">Loading</span>
+            <strong id="timeLabel">00:00 UTC</strong>
+          </div>
+        </div>
+        <div class="legend" aria-label="Map legend">
+          <span><i class="legend-dot vessel"></i>Maritime AIS</span>
+          <span><i class="legend-dot flight"></i>Flight track</span>
+          <span><i class="legend-dot satellite"></i>Satellite pass</span>
+          <span><i class="legend-dot incident"></i>Incident</span>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Event narrative panel">
+        <div class="panel-header">
+          <p class="eyebrow">Curated OSINT Replay</p>
+          <h2 id="chapterTitle">Initializing timeline</h2>
+          <p id="chapterSummary"></p>
+        </div>
+
+        <div class="metric-grid">
+          <div>
+            <span>Active layers</span>
+            <strong id="activeLayers">0</strong>
+          </div>
+          <div>
+            <span>Visible tracks</span>
+            <strong id="visibleTracks">0</strong>
+          </div>
+        </div>
+
+        <div class="intel-feed">
+          <h3>Replay Notes</h3>
+          <ul id="intelList"></ul>
+        </div>
+      </aside>
+
+      <section class="timeline" aria-label="Timeline playback controls">
+        <button id="playPause" class="icon-button" type="button" aria-label="Play replay">
+          <span id="playIcon" class="play-mark" aria-hidden="true"></span>
+        </button>
+        <input id="scrubber" type="range" min="0" max="1000" value="0" aria-label="Timeline scrubber" />
+        <div class="speed-control">
+          <label for="speed">Speed</label>
+          <select id="speed">
+            <option value="0.35">0.5x</option>
+            <option value="0.7" selected>1x</option>
+            <option value="1.4">2x</option>
+            <option value="2.8">4x</option>
+          </select>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
