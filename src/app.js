@@ -17,6 +17,14 @@ const chapterSummary = document.querySelector("#chapterSummary");
 const intelList = document.querySelector("#intelList");
 const activeLayers = document.querySelector("#activeLayers");
 const visibleTracks = document.querySelector("#visibleTracks");
+const detailKind = document.querySelector("#detailKind");
+const detailTitle = document.querySelector("#detailTitle");
+const detailDescription = document.querySelector("#detailDescription");
+const detailMeta = document.querySelector("#detailMeta");
+const confidenceRow = document.querySelector("#confidenceRow");
+const confidenceLabel = document.querySelector("#confidenceLabel");
+const confidenceBar = document.querySelector("#confidenceBar");
+const layerToggleInputs = [...document.querySelectorAll("[data-layer-toggle]")];
 
 let replay;
 let current = 0;
@@ -25,6 +33,14 @@ let lastFrame = performance.now();
 let trackObjects = [];
 let incidentObjects = [];
 let zoneObjects = [];
+let selectedEntity = null;
+
+const layerState = {
+  aircraft: true,
+  maritime: true,
+  incidents: true,
+  zones: true,
+};
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x070b12, 3.1, 6.2);
@@ -42,6 +58,10 @@ controls.minDistance = 2.05;
 controls.maxDistance = 4.8;
 controls.autoRotate = true;
 controls.autoRotateSpeed = 0.15;
+
+const raycaster = new THREE.Raycaster();
+raycaster.params.Line.threshold = 0.025;
+const pointer = new THREE.Vector2();
 
 const globeGroup = new THREE.Group();
 scene.add(globeGroup);
@@ -90,6 +110,19 @@ playPause.addEventListener("click", () => {
   playPause.setAttribute("aria-label", playing ? "Pause replay" : "Play replay");
 });
 
+canvas.addEventListener("pointerdown", handleCanvasPick);
+
+layerToggleInputs.forEach((input) => {
+  input.addEventListener("change", () => {
+    layerState[input.dataset.layerToggle] = input.checked;
+    if (selectedEntity && !isEntityLayerEnabled(selectedEntity)) {
+      selectedEntity = null;
+      renderDefaultDetails();
+    }
+    updateReplay();
+  });
+});
+
 scrubber.addEventListener("input", () => {
   if (!replay) return;
   playing = false;
@@ -108,6 +141,7 @@ try {
   current = replay.start;
   bindScenario(replay);
   updateReplay();
+  renderDefaultDetails();
   animate();
 } catch (error) {
   showLoadError(error);
@@ -210,8 +244,9 @@ function createTrack(track) {
     new THREE.SphereGeometry(markerRadius, 20, 20),
     new THREE.MeshBasicMaterial({ color: track.colorValue }),
   );
-  marker.userData.trackType = track.type;
+  marker.userData.entity = { kind: "track", ref: track };
   globeGroup.add(marker);
+  trail.userData.entity = { kind: "track", ref: track };
 
   return { ...track, trail, marker };
 }
@@ -229,8 +264,18 @@ function createIncident(incident) {
   const anchor = latLonToVector3(incident.lat, incident.lon, 1.012);
   ring.position.copy(anchor);
   ring.lookAt(anchor.clone().multiplyScalar(1.2));
+  ring.userData.entity = { kind: "incident", ref: incident };
   globeGroup.add(ring);
-  return { ...incident, object: ring };
+
+  const hitTarget = new THREE.Mesh(
+    new THREE.SphereGeometry(0.055, 16, 16),
+    new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 }),
+  );
+  hitTarget.position.copy(anchor);
+  hitTarget.userData.entity = { kind: "incident", ref: incident };
+  globeGroup.add(hitTarget);
+
+  return { ...incident, object: ring, hitObject: hitTarget };
 }
 
 function createZone(zone) {
@@ -241,6 +286,7 @@ function createZone(zone) {
     opacity: 0.72,
   });
   const boundary = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), material);
+  boundary.userData.entity = { kind: "zone", ref: zone };
   globeGroup.add(boundary);
   return { ...zone, object: boundary };
 }
@@ -263,10 +309,11 @@ function updateReplay() {
 
   for (const track of trackObjects) {
     const sampled = sampleTrack(track, current);
-    track.marker.visible = Boolean(sampled);
-    track.trail.visible = Boolean(sampled);
+    const enabled = isTrackLayerEnabled(track);
+    track.marker.visible = Boolean(sampled) && enabled;
+    track.trail.visible = Boolean(sampled) && enabled;
 
-    if (!sampled) continue;
+    if (!sampled || !enabled) continue;
 
     visibleTypes.add(track.type);
     visibleCount += 1;
@@ -283,7 +330,8 @@ function updateReplay() {
   }
 
   for (const incident of incidentObjects) {
-    incident.object.visible = incident.time <= current;
+    incident.object.visible = incident.time <= current && layerState.incidents;
+    incident.hitObject.visible = incident.object.visible;
     if (incident.object.visible) {
       visibleTypes.add("incident");
       const pulse = 1 + Math.sin(performance.now() / 260) * 0.18;
@@ -292,10 +340,17 @@ function updateReplay() {
   }
 
   for (const zone of zoneObjects) {
-    zone.object.visible = current >= zone.activeStart && current <= zone.activeEnd;
+    zone.object.visible = current >= zone.activeStart && current <= zone.activeEnd && layerState.zones;
     if (zone.object.visible) {
       visibleTypes.add("zone");
     }
+  }
+
+  if (selectedEntity && !isEntityVisible(selectedEntity)) {
+    selectedEntity = null;
+    renderDefaultDetails();
+  } else if (selectedEntity) {
+    renderEntityDetails(selectedEntity);
   }
 
   activeLayers.textContent = visibleTypes.size.toString();
@@ -308,21 +363,25 @@ function updateNarrative() {
   chapterTitle.textContent = chapter.title;
   chapterSummary.textContent = chapter.summary;
 
-  const incidentNotes = replay.incidents
+  const incidentNotes = layerState.incidents
+    ? replay.incidents
     .filter((incident) => incident.time <= current)
     .map((incident) => ({
       time: incident.time,
       sourceType: `${incident.category} | ${incident.confidence} confidence`,
       text: `${incident.title}: ${incident.description}`,
-    }));
+    }))
+    : [];
 
-  const zoneNotes = replay.zones
+  const zoneNotes = layerState.zones
+    ? replay.zones
     .filter((zone) => current >= zone.activeStart && current <= zone.activeEnd)
     .map((zone) => ({
       time: zone.activeStart,
       sourceType: zone.type.replaceAll("_", " "),
       text: `${zone.title}: ${zone.description}`,
-    }));
+    }))
+    : [];
 
   const notes = [...replay.notes.filter((item) => item.time <= current), ...incidentNotes, ...zoneNotes]
     .sort((a, b) => a.time - b.time)
@@ -335,6 +394,158 @@ function updateNarrative() {
       return `<li><time>${stamp} UTC | ${note.sourceType}</time>${note.text}</li>`;
     })
     .join("");
+}
+
+function handleCanvasPick(event) {
+  if (!replay) return;
+
+  const rect = canvas.getBoundingClientRect();
+  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+  raycaster.setFromCamera(pointer, camera);
+  const pickable = [
+    ...trackObjects.flatMap((track) => [track.marker, track.trail]),
+    ...incidentObjects.flatMap((incident) => [incident.object, incident.hitObject]),
+    ...zoneObjects.map((zone) => zone.object),
+  ].filter((object) => object.visible);
+  const hits = raycaster.intersectObjects(pickable, false).filter((item) => item.object.userData.entity);
+  const hit =
+    hits.find((item) => item.object.userData.entity.kind === "incident") ||
+    hits.find((item) => item.object.userData.entity.kind === "track") ||
+    hits.find((item) => item.object.userData.entity.kind === "zone");
+
+  if (!hit) return;
+
+  selectedEntity = hit.object.userData.entity;
+  renderEntityDetails(selectedEntity);
+}
+
+function renderDefaultDetails() {
+  detailKind.textContent = "Replay engine";
+  detailTitle.textContent = "Click a track, marker, or zone";
+  detailDescription.textContent =
+    "The globe is focused on the scenario region. Play or scrub the timeline, then select visible evidence layers for source and confidence details.";
+  confidenceRow.hidden = true;
+  renderMeta([
+    ["Region", replay?.metadata.region || "Loading"],
+    ["Scenario", replay?.metadata.subtitle || "Curated demo"],
+    ["Data", "Static mocked OSINT-style JSON"],
+  ]);
+}
+
+function renderEntityDetails(entity) {
+  if (entity.kind === "track") {
+    renderTrackDetails(entity.ref);
+  } else if (entity.kind === "incident") {
+    renderIncidentDetails(entity.ref);
+  } else if (entity.kind === "zone") {
+    renderZoneDetails(entity.ref);
+  }
+}
+
+function renderTrackDetails(track) {
+  const sample = sampleTrack(track, current) || track.points.at(-1);
+  detailKind.textContent = track.type === "vessel" ? "Maritime track" : track.type === "flight" ? "Aircraft track" : "Context track";
+  detailTitle.textContent = track.name;
+  detailDescription.textContent = track.assetType
+    ? `${track.assetType} from ${track.sourceLabel}.`
+    : `Curated ${track.type} movement from ${track.sourceLabel}.`;
+  confidenceRow.hidden = true;
+
+  const meta = [
+    ["ID", track.id],
+    ["Source", track.sourceLabel],
+    ["Position", `${sample.lat.toFixed(2)}, ${sample.lon.toFixed(2)}`],
+  ];
+
+  if (typeof sample.altitudeFt === "number") {
+    meta.push(["Altitude", `${Math.round(sample.altitudeFt).toLocaleString("en-GB")} ft`]);
+  }
+  if (typeof sample.speedKnots === "number") {
+    meta.push(["Speed", `${sample.speedKnots.toFixed(1)} kt`]);
+  }
+  if (typeof sample.courseDeg === "number") {
+    meta.push(["Course", `${Math.round(sample.courseDeg)} deg`]);
+  }
+
+  renderMeta(meta);
+}
+
+function renderIncidentDetails(incident) {
+  detailKind.textContent = `${incident.category} marker`;
+  detailTitle.textContent = incident.title;
+  detailDescription.textContent = incident.description;
+  setConfidence(incident.confidence);
+  renderMeta([
+    ["Timestamp", formatTimestamp(incident.time)],
+    ["Position", `${incident.lat.toFixed(2)}, ${incident.lon.toFixed(2)}`],
+    ["Source", incident.sourceUrl],
+  ]);
+}
+
+function renderZoneDetails(zone) {
+  detailKind.textContent = zone.type.replaceAll("_", " ");
+  detailTitle.textContent = zone.title;
+  detailDescription.textContent = zone.description;
+  confidenceRow.hidden = true;
+  renderMeta([
+    ["Active from", formatTimestamp(zone.activeStart)],
+    ["Active until", formatTimestamp(zone.activeEnd)],
+    ["Source", zone.sourceLabel],
+    ["Vertices", zone.polygon.length.toString()],
+  ]);
+}
+
+function renderMeta(rows) {
+  detailMeta.replaceChildren();
+  for (const [label, value] of rows) {
+    const row = document.createElement("div");
+    const term = document.createElement("dt");
+    const description = document.createElement("dd");
+    term.textContent = label;
+    description.textContent = value;
+    row.append(term, description);
+    detailMeta.append(row);
+  }
+}
+
+function setConfidence(confidence) {
+  const settings = {
+    low: { fill: "34%", glow: "rgba(255, 93, 115, 0.32)" },
+    medium: { fill: "66%", glow: "rgba(243, 186, 77, 0.32)" },
+    high: { fill: "100%", glow: "rgba(47, 208, 181, 0.32)" },
+  };
+  const next = settings[confidence] || settings.low;
+  confidenceRow.hidden = false;
+  confidenceLabel.textContent = confidence;
+  confidenceBar.style.setProperty("--confidence-fill", next.fill);
+  confidenceBar.style.setProperty("--confidence-glow", next.glow);
+}
+
+function formatTimestamp(time) {
+  return `${new Date(time).toISOString().replace("T", " ").slice(0, 16)} UTC`;
+}
+
+function isTrackLayerEnabled(track) {
+  if (track.type === "flight") return layerState.aircraft;
+  if (track.type === "vessel") return layerState.maritime;
+  return layerState.incidents;
+}
+
+function isEntityLayerEnabled(entity) {
+  if (entity.kind === "track") return isTrackLayerEnabled(entity.ref);
+  if (entity.kind === "incident") return layerState.incidents;
+  if (entity.kind === "zone") return layerState.zones;
+  return true;
+}
+
+function isEntityVisible(entity) {
+  if (!isEntityLayerEnabled(entity)) return false;
+  if (entity.kind === "track") return Boolean(sampleTrack(entity.ref, current));
+  if (entity.kind === "incident") return entity.ref.time <= current;
+  if (entity.kind === "zone") return current >= entity.ref.activeStart && current <= entity.ref.activeEnd;
+  return true;
 }
 
 function getIncidentColor(category) {

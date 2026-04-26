@@ -50,6 +50,27 @@
           </div>
         </div>
 
+        <div class="layer-controls" aria-label="Layer toggles">
+          <label><input type="checkbox" data-layer-toggle="aircraft" checked /> Aircraft</label>
+          <label><input type="checkbox" data-layer-toggle="maritime" checked /> Maritime</label>
+          <label><input type="checkbox" data-layer-toggle="incidents" checked /> Incidents</label>
+          <label><input type="checkbox" data-layer-toggle="zones" checked /> Zones</label>
+        </div>
+
+        <div class="detail-card" id="detailCard">
+          <div class="detail-heading">
+            <p class="eyebrow" id="detailKind">Selected item</p>
+            <h3 id="detailTitle">Click a track, marker, or zone</h3>
+          </div>
+          <p id="detailDescription">Details will appear here while the timeline remains synchronized with the globe.</p>
+          <div class="confidence-row" id="confidenceRow" hidden>
+            <span>Source confidence</span>
+            <strong id="confidenceLabel">Unknown</strong>
+            <i id="confidenceBar"></i>
+          </div>
+          <dl id="detailMeta" class="detail-meta"></dl>
+        </div>
+
         <div class="intel-feed">
           <h3>Replay Notes</h3>
           <ul id="intelList"></ul>

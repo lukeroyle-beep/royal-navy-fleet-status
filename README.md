@@ -9,6 +9,9 @@ OSINT globe viewer and incident tracker. This is a static browser prototype for 
 - Moving maritime, aircraft, satellite, and OSINT-style tracks
 - Incident markers synchronized to time
 - Side panel with chapter narrative and OSINT replay notes
+- Clickable tracks, incident markers, and active zones with source details
+- Layer toggles for Aircraft, Maritime, Incidents, and Zones
+- Source-confidence indicator for incident / OSINT markers
 - Local JSON scenario loading from `data/scenarios/red-sea-disruption.json`
 - TypeScript data contracts in `src/types.ts`
 
