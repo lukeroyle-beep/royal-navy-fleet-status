@@ -12,7 +12,7 @@ OSINT globe viewer and incident tracker. This is a static browser prototype for 
 - Clickable tracks, incident markers, and active zones with source details
 - Layer toggles for Aircraft, Maritime, Incidents, and Zones
 - Source-confidence indicator for incident / OSINT markers
-- Local JSON scenario loading from `data/scenarios/red-sea-disruption.json`
+- Local JSON scenario loading from `data/scenarios/red-sea-demo.json`
 - TypeScript data contracts in `src/types.ts`
 
 The included event is a fictionalized but realistic Red Sea maritime disruption replay. The data is mocked and curated for UX validation, not attribution, live monitoring, or operational use.
@@ -27,6 +27,21 @@ Primary local JSON layers are:
 - `zones`: `restricted_airspace`, `maritime_warning_area`, and `conflict_zone` polygons with timestamped `activeFrom` / `activeUntil` windows.
 
 The demo also keeps auxiliary curated `tracks` for satellite passes and OSINT report movement so the replay can show richer context without fetching live data.
+
+## Architecture
+
+The first version is intentionally simple and split into reusable modules:
+
+- `src/app.js`: application coordinator and replay state loop.
+- `src/components/ScenarioLoader.js`: loads local JSON and normalizes feed-specific records into replay-ready objects.
+- `src/components/GlobeView.js`: Three.js globe, tracks, incidents, zones, timeline visibility, and picking.
+- `src/components/TimelineControls.js`: play/pause, speed, and scrubber behavior.
+- `src/components/LayerTogglePanel.js`: Aircraft, Maritime, Incidents, and Zones layer toggles.
+- `src/components/EventDetailsPanel.js`: selected object details and source-confidence display.
+- `src/types.ts`: strongly typed scenario, track, incident, and zone data contracts.
+- `src/utils/geo.js`: globe texture and lat/lon conversion helpers.
+
+This keeps the current MVP static and working while preserving clear component boundaries for a later React/Vite conversion.
 
 ## Stack direction
 

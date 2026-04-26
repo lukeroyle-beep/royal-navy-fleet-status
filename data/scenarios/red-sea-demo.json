@@ -1,0 +1,226 @@
+{
+  "metadata": {
+    "id": "red-sea-disruption",
+    "title": "Red Sea Maritime Disruption Replay",
+    "subtitle": "Fictionalized OSINT-style scenario",
+    "disclaimer": "Mocked and curated sample data shaped like open-source feeds. This scenario is fictionalized for product validation and does not fetch live sensitive data.",
+    "region": "Red Sea, Bab el-Mandeb, Gulf of Aden",
+    "center": { "lat": 15.1, "lon": 42.7 }
+  },
+  "start": "2024-01-14T00:00:00Z",
+  "end": "2024-01-16T18:00:00Z",
+  "chapters": [
+    {
+      "at": "2024-01-14T00:00:00Z",
+      "title": "Commercial traffic reroutes",
+      "summary": "The replay opens with merchant vessels adjusting speed and spacing through the southern Red Sea. AIS-like tracks, patrol aircraft, and satellite collection windows are shown as separate evidence layers."
+    },
+    {
+      "at": "2024-01-14T18:30:00Z",
+      "title": "Warning area expands",
+      "summary": "Representative maritime advisories push traffic east of the normal corridor. A patrol aircraft begins an overwatch loop while a container ship diverts toward the Gulf of Aden."
+    },
+    {
+      "at": "2024-01-15T07:45:00Z",
+      "title": "Uncrewed aerial contact reported",
+      "summary": "A short-lived aerial track appears near the shipping lane. The incident marker is intentionally non-attributional and exists to validate synchronized event storytelling."
+    },
+    {
+      "at": "2024-01-16T05:20:00Z",
+      "title": "Damage assessment window",
+      "summary": "Satellite and maritime layers converge after the disruption. Analysts can scrub backward to compare vessel movement, air patrol coverage, and reported incident timing."
+    }
+  ],
+  "notes": [
+    {
+      "at": "2024-01-14T03:15:00Z",
+      "sourceType": "AIS",
+      "text": "Bulk carrier slows southbound transit and holds wider separation from nearby traffic."
+    },
+    {
+      "at": "2024-01-14T18:30:00Z",
+      "sourceType": "Maritime advisory",
+      "text": "Mocked advisory polygon increases perceived risk near the Bab el-Mandeb approach."
+    },
+    {
+      "at": "2024-01-15T07:45:00Z",
+      "sourceType": "OSINT report",
+      "text": "Uncrewed aerial contact reported near a commercial vessel track; no attribution is modeled."
+    },
+    {
+      "at": "2024-01-15T11:20:00Z",
+      "sourceType": "Flight tracking",
+      "text": "Maritime patrol aircraft begins repeated east-west search legs across the shipping corridor."
+    },
+    {
+      "at": "2024-01-16T05:20:00Z",
+      "sourceType": "Satellite tasking",
+      "text": "Low-resolution collection pass crosses the incident area for post-event cueing."
+    },
+    {
+      "at": "2024-01-16T12:05:00Z",
+      "sourceType": "Port call",
+      "text": "Diverting vessel continues toward a safer anchorage while traffic density shifts south."
+    }
+  ],
+  "aircraftTracks": [
+    {
+      "id": "adsb-watchtower-01",
+      "callsign": "WATCHR21",
+      "aircraftType": "P-8A Poseidon",
+      "sourceLabel": "ADS-B Exchange mock",
+      "color": "#f3ba4d",
+      "points": [
+        { "timestamp": "2024-01-15T10:30:00Z", "lat": 12.2, "lon": 41.0, "altitudeFt": 28000 },
+        { "timestamp": "2024-01-15T11:20:00Z", "lat": 13.5, "lon": 42.9, "altitudeFt": 26500 },
+        { "timestamp": "2024-01-15T12:10:00Z", "lat": 14.4, "lon": 44.8, "altitudeFt": 25000 },
+        { "timestamp": "2024-01-15T13:00:00Z", "lat": 13.3, "lon": 46.0, "altitudeFt": 27000 },
+        { "timestamp": "2024-01-15T13:50:00Z", "lat": 12.2, "lon": 44.4, "altitudeFt": 28500 },
+        { "timestamp": "2024-01-15T14:30:00Z", "lat": 13.4, "lon": 42.6, "altitudeFt": 27500 }
+      ]
+    }
+  ],
+  "maritimeTracks": [
+    {
+      "vesselId": "IMO-MOCK-9482001",
+      "vesselName": "MV Aurora Trader",
+      "vesselType": "Bulk carrier",
+      "sourceLabel": "AIS mock",
+      "color": "#2fd0b5",
+      "points": [
+        { "timestamp": "2024-01-14T00:00:00Z", "lat": 19.1, "lon": 39.2, "speedKnots": 15.4, "courseDeg": 151 },
+        { "timestamp": "2024-01-14T10:00:00Z", "lat": 17.7, "lon": 40.2, "speedKnots": 13.8, "courseDeg": 148 },
+        { "timestamp": "2024-01-14T22:00:00Z", "lat": 15.8, "lon": 41.7, "speedKnots": 11.2, "courseDeg": 143 },
+        { "timestamp": "2024-01-15T12:00:00Z", "lat": 13.6, "lon": 43.1, "speedKnots": 10.6, "courseDeg": 139 },
+        { "timestamp": "2024-01-16T10:00:00Z", "lat": 12.4, "lon": 44.9, "speedKnots": 14.7, "courseDeg": 125 }
+      ]
+    },
+    {
+      "vesselId": "MMSI-MOCK-636018512",
+      "vesselName": "MV Cedar Star",
+      "vesselType": "Container ship",
+      "sourceLabel": "AIS mock",
+      "color": "#2fd0b5",
+      "points": [
+        { "timestamp": "2024-01-14T04:00:00Z", "lat": 14.2, "lon": 42.6, "speedKnots": 17.1, "courseDeg": 121 },
+        { "timestamp": "2024-01-14T16:30:00Z", "lat": 13.8, "lon": 43.1, "speedKnots": 12.4, "courseDeg": 116 },
+        { "timestamp": "2024-01-15T06:00:00Z", "lat": 13.0, "lon": 44.2, "speedKnots": 13.2, "courseDeg": 120 },
+        { "timestamp": "2024-01-15T20:00:00Z", "lat": 12.1, "lon": 45.7, "speedKnots": 15.8, "courseDeg": 115 },
+        { "timestamp": "2024-01-16T15:00:00Z", "lat": 11.7, "lon": 47.8, "speedKnots": 16.3, "courseDeg": 101 }
+      ]
+    }
+  ],
+  "tracks": [
+    {
+      "id": "uav-contact-echo",
+      "type": "osint",
+      "name": "Reported aerial contact",
+      "color": "#ff5d73",
+      "altitude": 0.08,
+      "points": [
+        ["2024-01-15T07:20:00Z", 14.8, 42.0],
+        ["2024-01-15T07:45:00Z", 14.2, 42.8],
+        ["2024-01-15T08:05:00Z", 13.7, 43.5]
+      ]
+    },
+    {
+      "id": "sat-pass-cerulean",
+      "type": "satellite",
+      "name": "Satellite collection pass",
+      "color": "#8ab4ff",
+      "altitude": 0.1,
+      "points": [
+        ["2024-01-16T04:35:00Z", 20.4, 38.0],
+        ["2024-01-16T05:00:00Z", 17.5, 40.4],
+        ["2024-01-16T05:20:00Z", 14.4, 42.8],
+        ["2024-01-16T05:45:00Z", 11.6, 45.3],
+        ["2024-01-16T06:10:00Z", 8.7, 47.7]
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "timestamp": "2024-01-14T18:30:00Z",
+      "lat": 13.9,
+      "lon": 42.6,
+      "title": "Expanded maritime warning area",
+      "description": "Mocked maritime advisory expands a caution area around the Bab el-Mandeb approach.",
+      "category": "alert",
+      "confidence": "medium",
+      "sourceUrl": "https://example.invalid/osint/red-sea/advisory-001"
+    },
+    {
+      "timestamp": "2024-01-15T07:45:00Z",
+      "lat": 14.2,
+      "lon": 42.8,
+      "title": "Reported aerial contact near shipping lane",
+      "description": "Fictionalized OSINT report places a short-lived uncrewed aerial sighting near a commercial vessel track.",
+      "category": "sighting",
+      "confidence": "low",
+      "sourceUrl": "https://example.invalid/osint/red-sea/sighting-echo"
+    },
+    {
+      "timestamp": "2024-01-16T05:20:00Z",
+      "lat": 14.4,
+      "lon": 42.8,
+      "title": "Satellite pass over incident box",
+      "description": "Mock collection window crosses the incident area for post-event cueing and later review.",
+      "category": "satellite",
+      "confidence": "high",
+      "sourceUrl": "https://example.invalid/osint/red-sea/satellite-pass-cerulean"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-bab-el-mandeb-warning",
+      "type": "maritime_warning_area",
+      "title": "Bab el-Mandeb maritime warning area",
+      "description": "Fictional maritime warning box used to cue rerouting and risk-aware transit behavior.",
+      "activeFrom": "2024-01-14T18:30:00Z",
+      "activeUntil": "2024-01-16T18:00:00Z",
+      "polygon": [
+        [12.2, 41.2],
+        [15.1, 41.8],
+        [15.4, 43.6],
+        [12.6, 44.6],
+        [12.2, 41.2]
+      ],
+      "sourceLabel": "Maritime advisory mock",
+      "color": "#ff5d73"
+    },
+    {
+      "id": "zone-red-sea-airspace-caution",
+      "type": "restricted_airspace",
+      "title": "Temporary airspace caution zone",
+      "description": "Fictional restricted-airspace window used to model aircraft rerouting and patrol containment.",
+      "activeFrom": "2024-01-15T06:00:00Z",
+      "activeUntil": "2024-01-15T18:00:00Z",
+      "polygon": [
+        [13.0, 40.6],
+        [15.2, 41.7],
+        [14.8, 44.5],
+        [12.6, 43.7],
+        [13.0, 40.6]
+      ],
+      "sourceLabel": "NOTAM-style mock",
+      "color": "#f3ba4d"
+    },
+    {
+      "id": "zone-southern-red-sea-conflict-risk",
+      "type": "conflict_zone",
+      "title": "Southern Red Sea conflict-risk zone",
+      "description": "Broad fictional conflict-risk area that remains visible during the escalation window.",
+      "activeFrom": "2024-01-15T00:00:00Z",
+      "activeUntil": "2024-01-16T12:00:00Z",
+      "polygon": [
+        [11.8, 41.0],
+        [16.2, 42.0],
+        [15.6, 46.2],
+        [11.4, 46.8],
+        [11.8, 41.0]
+      ],
+      "sourceLabel": "Conflict zone mock",
+      "color": "#8ab4ff"
+    }
+  ]
+}
