@@ -63,48 +63,54 @@
       "text": "Diverting vessel continues toward a safer anchorage while traffic density shifts south."
     }
   ],
-  "tracks": [
+  "aircraftTracks": [
     {
-      "id": "ais-convoy-aurora",
-      "type": "vessel",
-      "name": "MV Aurora Trader",
-      "color": "#2fd0b5",
-      "points": [
-        ["2024-01-14T00:00:00Z", 19.1, 39.2],
-        ["2024-01-14T10:00:00Z", 17.7, 40.2],
-        ["2024-01-14T22:00:00Z", 15.8, 41.7],
-        ["2024-01-15T12:00:00Z", 13.6, 43.1],
-        ["2024-01-16T10:00:00Z", 12.4, 44.9]
-      ]
-    },
-    {
-      "id": "ais-diverting-cedar",
-      "type": "vessel",
-      "name": "MV Cedar Star",
-      "color": "#2fd0b5",
-      "points": [
-        ["2024-01-14T04:00:00Z", 14.2, 42.6],
-        ["2024-01-14T16:30:00Z", 13.8, 43.1],
-        ["2024-01-15T06:00:00Z", 13.0, 44.2],
-        ["2024-01-15T20:00:00Z", 12.1, 45.7],
-        ["2024-01-16T15:00:00Z", 11.7, 47.8]
-      ]
-    },
-    {
-      "id": "mpa-watchtower",
-      "type": "flight",
-      "name": "Maritime patrol aircraft",
+      "id": "adsb-watchtower-01",
+      "callsign": "WATCHR21",
+      "aircraftType": "P-8A Poseidon",
+      "sourceLabel": "ADS-B Exchange mock",
       "color": "#f3ba4d",
-      "altitude": 0.055,
       "points": [
-        ["2024-01-15T10:30:00Z", 12.2, 41.0],
-        ["2024-01-15T11:20:00Z", 13.5, 42.9],
-        ["2024-01-15T12:10:00Z", 14.4, 44.8],
-        ["2024-01-15T13:00:00Z", 13.3, 46.0],
-        ["2024-01-15T13:50:00Z", 12.2, 44.4],
-        ["2024-01-15T14:30:00Z", 13.4, 42.6]
+        { "timestamp": "2024-01-15T10:30:00Z", "lat": 12.2, "lon": 41.0, "altitudeFt": 28000 },
+        { "timestamp": "2024-01-15T11:20:00Z", "lat": 13.5, "lon": 42.9, "altitudeFt": 26500 },
+        { "timestamp": "2024-01-15T12:10:00Z", "lat": 14.4, "lon": 44.8, "altitudeFt": 25000 },
+        { "timestamp": "2024-01-15T13:00:00Z", "lat": 13.3, "lon": 46.0, "altitudeFt": 27000 },
+        { "timestamp": "2024-01-15T13:50:00Z", "lat": 12.2, "lon": 44.4, "altitudeFt": 28500 },
+        { "timestamp": "2024-01-15T14:30:00Z", "lat": 13.4, "lon": 42.6, "altitudeFt": 27500 }
+      ]
+    }
+  ],
+  "maritimeTracks": [
+    {
+      "vesselId": "IMO-MOCK-9482001",
+      "vesselName": "MV Aurora Trader",
+      "vesselType": "Bulk carrier",
+      "sourceLabel": "AIS mock",
+      "color": "#2fd0b5",
+      "points": [
+        { "timestamp": "2024-01-14T00:00:00Z", "lat": 19.1, "lon": 39.2, "speedKnots": 15.4, "courseDeg": 151 },
+        { "timestamp": "2024-01-14T10:00:00Z", "lat": 17.7, "lon": 40.2, "speedKnots": 13.8, "courseDeg": 148 },
+        { "timestamp": "2024-01-14T22:00:00Z", "lat": 15.8, "lon": 41.7, "speedKnots": 11.2, "courseDeg": 143 },
+        { "timestamp": "2024-01-15T12:00:00Z", "lat": 13.6, "lon": 43.1, "speedKnots": 10.6, "courseDeg": 139 },
+        { "timestamp": "2024-01-16T10:00:00Z", "lat": 12.4, "lon": 44.9, "speedKnots": 14.7, "courseDeg": 125 }
       ]
     },
+    {
+      "vesselId": "MMSI-MOCK-636018512",
+      "vesselName": "MV Cedar Star",
+      "vesselType": "Container ship",
+      "sourceLabel": "AIS mock",
+      "color": "#2fd0b5",
+      "points": [
+        { "timestamp": "2024-01-14T04:00:00Z", "lat": 14.2, "lon": 42.6, "speedKnots": 17.1, "courseDeg": 121 },
+        { "timestamp": "2024-01-14T16:30:00Z", "lat": 13.8, "lon": 43.1, "speedKnots": 12.4, "courseDeg": 116 },
+        { "timestamp": "2024-01-15T06:00:00Z", "lat": 13.0, "lon": 44.2, "speedKnots": 13.2, "courseDeg": 120 },
+        { "timestamp": "2024-01-15T20:00:00Z", "lat": 12.1, "lon": 45.7, "speedKnots": 15.8, "courseDeg": 115 },
+        { "timestamp": "2024-01-16T15:00:00Z", "lat": 11.7, "lon": 47.8, "speedKnots": 16.3, "courseDeg": 101 }
+      ]
+    }
+  ],
+  "tracks": [
     {
       "id": "uav-contact-echo",
       "type": "osint",

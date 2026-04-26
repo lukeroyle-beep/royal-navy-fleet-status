@@ -121,17 +121,53 @@ async function loadScenario(url) {
 }
 
 function normalizeScenario(raw) {
+  const aircraftTracks = (raw.aircraftTracks || []).map((track) => ({
+    id: track.id,
+    type: "flight",
+    name: track.callsign,
+    assetType: track.aircraftType,
+    sourceLabel: track.sourceLabel,
+    color: track.color || "#f3ba4d",
+    colorValue: new THREE.Color(track.color || "#f3ba4d").getHex(),
+    points: track.points.map((point) => ({
+      time: Date.parse(point.timestamp),
+      lat: point.lat,
+      lon: point.lon,
+      altitudeFt: point.altitudeFt,
+    })),
+  }));
+
+  const maritimeTracks = (raw.maritimeTracks || []).map((track) => ({
+    id: track.vesselId,
+    type: "vessel",
+    name: track.vesselName,
+    assetType: track.vesselType,
+    sourceLabel: track.sourceLabel,
+    color: track.color || "#2fd0b5",
+    colorValue: new THREE.Color(track.color || "#2fd0b5").getHex(),
+    points: track.points.map((point) => ({
+      time: Date.parse(point.timestamp),
+      lat: point.lat,
+      lon: point.lon,
+      speedKnots: point.speedKnots,
+      courseDeg: point.courseDeg,
+    })),
+  }));
+
+  const auxiliaryTracks = (raw.tracks || []).map((track) => ({
+    ...track,
+    sourceLabel: track.sourceLabel || "Curated OSINT mock",
+    colorValue: new THREE.Color(track.color).getHex(),
+    points: track.points.map(([time, lat, lon]) => ({ time: Date.parse(time), lat, lon })),
+  }));
+
   return {
     ...raw,
     start: Date.parse(raw.start),
     end: Date.parse(raw.end),
     chapters: raw.chapters.map((item) => ({ ...item, time: Date.parse(item.at) })),
     notes: raw.notes.map((item) => ({ ...item, time: Date.parse(item.at) })),
-    tracks: raw.tracks.map((track) => ({
-      ...track,
-      colorValue: new THREE.Color(track.color).getHex(),
-      points: track.points.map(([time, lat, lon]) => ({ time: Date.parse(time), lat, lon })),
-    })),
+    tracks: [...maritimeTracks, ...aircraftTracks, ...auxiliaryTracks],
     incidents: raw.incidents.map((incident) => ({
       ...incident,
       time: Date.parse(incident.at),
@@ -214,11 +250,12 @@ function updateReplay() {
 
     visibleTypes.add(track.type);
     visibleCount += 1;
-    track.marker.position.copy(latLonToVector3(sampled.lat, sampled.lon, 1.028 + (track.altitude || 0)));
+    const altitude = getVisualAltitude(track, sampled);
+    track.marker.position.copy(latLonToVector3(sampled.lat, sampled.lon, 1.028 + altitude));
 
     const trailPoints = track.points
       .filter((point) => point.time <= current)
-      .map((point) => latLonToVector3(point.lat, point.lon, 1.018 + (track.altitude || 0)));
+      .map((point) => latLonToVector3(point.lat, point.lon, 1.018 + getVisualAltitude(track, point)));
 
     trailPoints.push(track.marker.position.clone());
     track.trail.geometry.dispose();
@@ -268,11 +305,26 @@ function sampleTrack(track, time) {
       return {
         lat: THREE.MathUtils.lerp(start.lat, end.lat, amount),
         lon: THREE.MathUtils.lerp(start.lon, end.lon, amount),
+        altitudeFt: interpolateOptional(start.altitudeFt, end.altitudeFt, amount),
+        speedKnots: interpolateOptional(start.speedKnots, end.speedKnots, amount),
+        courseDeg: interpolateOptional(start.courseDeg, end.courseDeg, amount),
       };
     }
   }
 
   return track.points.at(-1);
+}
+
+function interpolateOptional(start, end, amount) {
+  if (typeof start !== "number" || typeof end !== "number") return undefined;
+  return THREE.MathUtils.lerp(start, end, amount);
+}
+
+function getVisualAltitude(track, point) {
+  if (typeof point.altitudeFt === "number") {
+    return THREE.MathUtils.clamp(point.altitudeFt / 500000, 0.025, 0.12);
+  }
+  return track.altitude || 0;
 }
 
 function latLonToVector3(lat, lon, radius) {

@@ -2,6 +2,21 @@ export type TrackType = "vessel" | "flight" | "satellite" | "osint";
 
 export type TimedPoint = [isoTime: string, latitude: number, longitude: number];
 
+export interface AircraftPoint {
+  timestamp: string;
+  lat: number;
+  lon: number;
+  altitudeFt: number;
+}
+
+export interface MaritimePoint {
+  timestamp: string;
+  lat: number;
+  lon: number;
+  speedKnots: number;
+  courseDeg: number;
+}
+
 export interface ScenarioMetadata {
   id: string;
   title: string;
@@ -35,6 +50,24 @@ export interface ScenarioTrack {
   points: TimedPoint[];
 }
 
+export interface AircraftTrack {
+  id: string;
+  callsign: string;
+  aircraftType: string;
+  sourceLabel: string;
+  color?: string;
+  points: AircraftPoint[];
+}
+
+export interface MaritimeTrack {
+  vesselId: string;
+  vesselName: string;
+  vesselType: string;
+  sourceLabel: string;
+  color?: string;
+  points: MaritimePoint[];
+}
+
 export interface ScenarioIncident {
   at: string;
   type: string;
@@ -49,6 +82,8 @@ export interface ReplayScenario {
   end: string;
   chapters: ScenarioChapter[];
   notes: ScenarioNote[];
+  aircraftTracks: AircraftTrack[];
+  maritimeTracks: MaritimeTrack[];
   tracks: ScenarioTrack[];
   incidents: ScenarioIncident[];
 }
