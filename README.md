@@ -56,3 +56,12 @@ python -m http.server 5173
 ```
 
 Then visit `http://localhost:5173`.
+
+## Next steps
+
+- Move the static module components into a Vite + React + TypeScript app once package tooling is available.
+- Replace the hand-drawn globe texture with CesiumJS, deck.gl, or react-globe.gl if richer terrain, camera paths, and annotations become important.
+- Add schema validation for scenario JSON so malformed feeds fail with useful editor and runtime errors.
+- Add scenario switching so multiple curated replays can live under `data/scenarios/`.
+- Add analyst-focused affordances: selected object timeline pins, source filtering, confidence filtering, and exportable replay clips.
+- Keep live ingestion, auth, accounts, payments, and databases out of scope until the static replay UX is compelling.
