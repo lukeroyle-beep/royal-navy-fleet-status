@@ -1,6 +1,6 @@
 # Sentinel Replay MVP
 
-A static browser prototype for replaying curated geopolitical/security events on a 3D globe timeline.
+OSINT globe viewer and incident tracker. This is a static browser prototype for replaying curated geopolitical/security events on a 3D globe timeline.
 
 ## What is included
 
