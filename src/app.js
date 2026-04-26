@@ -1,129 +1,11 @@
 import * as THREE from "https://esm.sh/three@0.164.1";
 import { OrbitControls } from "https://esm.sh/three@0.164.1/examples/jsm/controls/OrbitControls.js";
 
-const replay = {
-  start: Date.parse("2022-09-25T00:00:00Z"),
-  end: Date.parse("2022-09-27T18:00:00Z"),
-  chapters: [
-    {
-      at: "2022-09-25T00:00:00Z",
-      title: "Pre-event maritime pattern",
-      summary:
-        "The replay opens around Bornholm with representative AIS tracks and patrol activity. The goal is to show how an analyst could scrub correlated open-source layers in one place.",
-    },
-    {
-      at: "2022-09-26T02:00:00Z",
-      title: "Regional monitoring intensifies",
-      summary:
-        "Flight and maritime layers converge on the southern Baltic. Satellite passes are shown as timed collection windows rather than fixed assets.",
-    },
-    {
-      at: "2022-09-26T17:03:00Z",
-      title: "First pressure anomaly",
-      summary:
-        "Incident markers appear near the pipeline corridor as the timeline reaches the reported anomaly window. The side panel keeps context synchronized with the globe.",
-    },
-    {
-      at: "2022-09-27T07:00:00Z",
-      title: "Surface disturbance confirmed",
-      summary:
-        "The replay combines persistent incident markers, vessel positions, aircraft movement, and later satellite detections to show an analyst-ready event narrative.",
-    },
-  ],
-  notes: [
-    {
-      at: "2022-09-25T06:20:00Z",
-      text: "AIS layer: merchant vessel and patrol routes remain visible near Bornholm and the pipeline corridor.",
-    },
-    {
-      at: "2022-09-26T02:10:00Z",
-      text: "Flight layer: maritime patrol aircraft track enters the southern Baltic monitoring area.",
-    },
-    {
-      at: "2022-09-26T17:03:00Z",
-      text: "Incident layer: pressure anomaly marker added near the Nord Stream corridor.",
-    },
-    {
-      at: "2022-09-27T05:40:00Z",
-      text: "Satellite layer: pass window crosses the incident area for visual confirmation cueing.",
-    },
-    {
-      at: "2022-09-27T09:15:00Z",
-      text: "OSINT note: prototype data is curated and representative, designed to validate replay UX rather than assert attribution.",
-    },
-  ],
-  tracks: [
-    {
-      id: "ais-alpha",
-      type: "vessel",
-      name: "AIS contact A",
-      color: 0x2fd0b5,
-      points: [
-        ["2022-09-25T00:00:00Z", 54.62, 13.05],
-        ["2022-09-25T12:00:00Z", 54.74, 14.18],
-        ["2022-09-26T04:30:00Z", 55.02, 15.04],
-        ["2022-09-26T16:30:00Z", 55.21, 15.62],
-        ["2022-09-27T10:30:00Z", 55.42, 16.12],
-      ],
-    },
-    {
-      id: "ais-bravo",
-      type: "vessel",
-      name: "AIS contact B",
-      color: 0x2fd0b5,
-      points: [
-        ["2022-09-25T04:00:00Z", 55.78, 13.8],
-        ["2022-09-25T20:00:00Z", 55.35, 14.52],
-        ["2022-09-26T08:00:00Z", 55.12, 15.1],
-        ["2022-09-26T22:00:00Z", 55.08, 15.74],
-        ["2022-09-27T14:00:00Z", 54.88, 16.42],
-      ],
-    },
-    {
-      id: "mpa-01",
-      type: "flight",
-      name: "Maritime patrol flight",
-      color: 0xf3ba4d,
-      altitude: 0.055,
-      points: [
-        ["2022-09-26T01:30:00Z", 54.36, 10.8],
-        ["2022-09-26T03:00:00Z", 54.95, 12.25],
-        ["2022-09-26T04:10:00Z", 55.35, 14.85],
-        ["2022-09-26T05:20:00Z", 55.2, 16.1],
-        ["2022-09-26T06:10:00Z", 54.65, 15.2],
-      ],
-    },
-    {
-      id: "sat-pass",
-      type: "satellite",
-      name: "Satellite collection pass",
-      color: 0x8ab4ff,
-      altitude: 0.09,
-      points: [
-        ["2022-09-27T04:30:00Z", 58.5, 10.8],
-        ["2022-09-27T05:10:00Z", 57.1, 12.9],
-        ["2022-09-27T05:50:00Z", 55.4, 15.3],
-        ["2022-09-27T06:30:00Z", 53.8, 17.1],
-        ["2022-09-27T07:10:00Z", 52.3, 19.2],
-      ],
-    },
-  ],
-  incidents: [
-    {
-      at: "2022-09-26T17:03:00Z",
-      label: "Pressure anomaly",
-      lat: 55.54,
-      lon: 15.78,
-    },
-    {
-      at: "2022-09-27T07:00:00Z",
-      label: "Surface disturbance",
-      lat: 55.59,
-      lon: 15.64,
-    },
-  ],
-};
+const SCENARIO_URL = "./data/scenarios/red-sea-disruption.json";
 
+const scenarioTitle = document.querySelector("#scenarioTitle");
+const scenarioSubtitle = document.querySelector("#scenarioSubtitle");
+const scenarioDisclaimer = document.querySelector("#scenarioDisclaimer");
 const canvas = document.querySelector("#globe");
 const dateLabel = document.querySelector("#dateLabel");
 const timeLabel = document.querySelector("#timeLabel");
@@ -136,9 +18,12 @@ const intelList = document.querySelector("#intelList");
 const activeLayers = document.querySelector("#activeLayers");
 const visibleTracks = document.querySelector("#visibleTracks");
 
-let current = replay.start;
+let replay;
+let current = 0;
 let playing = true;
 let lastFrame = performance.now();
+let trackObjects = [];
+let incidentObjects = [];
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x070b12, 3.1, 6.2);
@@ -155,7 +40,7 @@ controls.enablePan = false;
 controls.minDistance = 2.05;
 controls.maxDistance = 4.8;
 controls.autoRotate = true;
-controls.autoRotateSpeed = 0.18;
+controls.autoRotateSpeed = 0.15;
 
 const globeGroup = new THREE.Group();
 scene.add(globeGroup);
@@ -198,9 +83,6 @@ const keyLight = new THREE.DirectionalLight(0xffffff, 2.4);
 keyLight.position.set(2.5, 1.4, 1.7);
 scene.add(keyLight);
 
-const trackObjects = replay.tracks.map(createTrack);
-const incidentObjects = replay.incidents.map(createIncident);
-
 playPause.addEventListener("click", () => {
   playing = !playing;
   playPause.classList.toggle("is-playing", playing);
@@ -208,8 +90,10 @@ playPause.addEventListener("click", () => {
 });
 
 scrubber.addEventListener("input", () => {
+  if (!replay) return;
   playing = false;
   playPause.classList.remove("is-playing");
+  playPause.setAttribute("aria-label", "Play replay");
   const progress = Number(scrubber.value) / 1000;
   current = replay.start + (replay.end - replay.start) * progress;
   updateReplay();
@@ -217,38 +101,80 @@ scrubber.addEventListener("input", () => {
 
 window.addEventListener("resize", resize);
 resize();
-playPause.classList.add("is-playing");
-playPause.setAttribute("aria-label", "Pause replay");
-updateReplay();
-animate();
+
+try {
+  replay = normalizeScenario(await loadScenario(SCENARIO_URL));
+  current = replay.start;
+  bindScenario(replay);
+  updateReplay();
+  animate();
+} catch (error) {
+  showLoadError(error);
+}
+
+async function loadScenario(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Could not load scenario JSON from ${url}`);
+  }
+  return response.json();
+}
+
+function normalizeScenario(raw) {
+  return {
+    ...raw,
+    start: Date.parse(raw.start),
+    end: Date.parse(raw.end),
+    chapters: raw.chapters.map((item) => ({ ...item, time: Date.parse(item.at) })),
+    notes: raw.notes.map((item) => ({ ...item, time: Date.parse(item.at) })),
+    tracks: raw.tracks.map((track) => ({
+      ...track,
+      colorValue: new THREE.Color(track.color).getHex(),
+      points: track.points.map(([time, lat, lon]) => ({ time: Date.parse(time), lat, lon })),
+    })),
+    incidents: raw.incidents.map((incident) => ({
+      ...incident,
+      time: Date.parse(incident.at),
+    })),
+  };
+}
+
+function bindScenario(nextReplay) {
+  scenarioTitle.textContent = nextReplay.metadata.title;
+  scenarioSubtitle.textContent = nextReplay.metadata.subtitle;
+  scenarioDisclaimer.textContent = nextReplay.metadata.disclaimer;
+  document.title = `${nextReplay.metadata.title} | Sentinel Replay MVP`;
+  globeGroup.rotation.y = THREE.MathUtils.degToRad(-(nextReplay.metadata.center.lon + 90));
+  globeGroup.rotation.x = THREE.MathUtils.degToRad(nextReplay.metadata.center.lat * 0.25);
+  trackObjects = nextReplay.tracks.map(createTrack);
+  incidentObjects = nextReplay.incidents.map(createIncident);
+  playPause.classList.add("is-playing");
+  playPause.setAttribute("aria-label", "Pause replay");
+}
 
 function createTrack(track) {
   const material = new THREE.LineBasicMaterial({
-    color: track.color,
+    color: track.colorValue,
     transparent: true,
     opacity: 0.94,
   });
   const trail = new THREE.Line(new THREE.BufferGeometry(), material);
   globeGroup.add(trail);
 
+  const markerRadius = track.type === "flight" || track.type === "osint" ? 0.018 : 0.015;
   const marker = new THREE.Mesh(
-    new THREE.SphereGeometry(track.type === "flight" ? 0.018 : 0.015, 20, 20),
-    new THREE.MeshBasicMaterial({ color: track.color }),
+    new THREE.SphereGeometry(markerRadius, 20, 20),
+    new THREE.MeshBasicMaterial({ color: track.colorValue }),
   );
   marker.userData.trackType = track.type;
   globeGroup.add(marker);
 
-  return {
-    ...track,
-    points: track.points.map(([time, lat, lon]) => ({ time: Date.parse(time), lat, lon })),
-    trail,
-    marker,
-  };
+  return { ...track, trail, marker };
 }
 
 function createIncident(incident) {
   const ring = new THREE.Mesh(
-    new THREE.RingGeometry(0.018, 0.032, 30),
+    new THREE.RingGeometry(0.018, 0.034, 30),
     new THREE.MeshBasicMaterial({
       color: 0xff5d73,
       transparent: true,
@@ -260,10 +186,12 @@ function createIncident(incident) {
   ring.position.copy(anchor);
   ring.lookAt(anchor.clone().multiplyScalar(1.2));
   globeGroup.add(ring);
-  return { ...incident, time: Date.parse(incident.at), object: ring };
+  return { ...incident, object: ring };
 }
 
 function updateReplay() {
+  if (!replay) return;
+
   const now = new Date(current);
   dateLabel.textContent = now.toLocaleDateString("en-GB", {
     day: "2-digit",
@@ -292,12 +220,7 @@ function updateReplay() {
       .filter((point) => point.time <= current)
       .map((point) => latLonToVector3(point.lat, point.lon, 1.018 + (track.altitude || 0)));
 
-    if (trailPoints.length === 1) {
-      trailPoints.push(track.marker.position.clone());
-    } else if (trailPoints.length > 1) {
-      trailPoints.push(track.marker.position.clone());
-    }
-
+    trailPoints.push(track.marker.position.clone());
     track.trail.geometry.dispose();
     track.trail.geometry = new THREE.BufferGeometry().setFromPoints(trailPoints);
   }
@@ -317,16 +240,11 @@ function updateReplay() {
 }
 
 function updateNarrative() {
-  const chapter = replay.chapters
-    .map((item) => ({ ...item, time: Date.parse(item.at) }))
-    .filter((item) => item.time <= current)
-    .at(-1);
-
-  chapterTitle.textContent = chapter?.title || replay.chapters[0].title;
-  chapterSummary.textContent = chapter?.summary || replay.chapters[0].summary;
+  const chapter = replay.chapters.filter((item) => item.time <= current).at(-1) || replay.chapters[0];
+  chapterTitle.textContent = chapter.title;
+  chapterSummary.textContent = chapter.summary;
 
   const notes = replay.notes
-    .map((item) => ({ ...item, time: Date.parse(item.at) }))
     .filter((item) => item.time <= current)
     .slice(-5)
     .reverse();
@@ -334,7 +252,7 @@ function updateNarrative() {
   intelList.innerHTML = notes
     .map((note) => {
       const stamp = new Date(note.time).toISOString().replace("T", " ").slice(0, 16);
-      return `<li><time>${stamp} UTC</time>${note.text}</li>`;
+      return `<li><time>${stamp} UTC | ${note.sourceType}</time>${note.text}</li>`;
     })
     .join("");
 }
@@ -491,4 +409,14 @@ function animate(time = performance.now()) {
   controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
+}
+
+function showLoadError(error) {
+  playing = false;
+  scenarioTitle.textContent = "Scenario failed to load";
+  chapterTitle.textContent = "Local JSON unavailable";
+  chapterSummary.textContent = error instanceof Error ? error.message : "Unknown scenario loading error.";
+  scenarioDisclaimer.textContent = "Serve the project over HTTP so the browser can load local JSON files.";
+  activeLayers.textContent = "0";
+  visibleTracks.textContent = "0";
 }

@@ -167,6 +167,11 @@ h1 {
   background: var(--satellite);
 }
 
+.osint {
+  color: var(--incident);
+  background: var(--incident);
+}
+
 .incident {
   color: var(--incident);
   background: var(--incident);
@@ -196,6 +201,15 @@ h1 {
   margin-bottom: 0;
   color: #d6e0e4;
   line-height: 1.5;
+}
+
+.disclaimer {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .metric-grid {

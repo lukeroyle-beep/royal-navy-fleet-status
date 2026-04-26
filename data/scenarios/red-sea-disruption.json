@@ -1,0 +1,158 @@
+{
+  "metadata": {
+    "id": "red-sea-disruption",
+    "title": "Red Sea Maritime Disruption Replay",
+    "subtitle": "Fictionalized OSINT-style scenario",
+    "disclaimer": "Mocked and curated sample data shaped like open-source feeds. This scenario is fictionalized for product validation and does not fetch live sensitive data.",
+    "region": "Red Sea, Bab el-Mandeb, Gulf of Aden",
+    "center": { "lat": 15.1, "lon": 42.7 }
+  },
+  "start": "2024-01-14T00:00:00Z",
+  "end": "2024-01-16T18:00:00Z",
+  "chapters": [
+    {
+      "at": "2024-01-14T00:00:00Z",
+      "title": "Commercial traffic reroutes",
+      "summary": "The replay opens with merchant vessels adjusting speed and spacing through the southern Red Sea. AIS-like tracks, patrol aircraft, and satellite collection windows are shown as separate evidence layers."
+    },
+    {
+      "at": "2024-01-14T18:30:00Z",
+      "title": "Warning area expands",
+      "summary": "Representative maritime advisories push traffic east of the normal corridor. A patrol aircraft begins an overwatch loop while a container ship diverts toward the Gulf of Aden."
+    },
+    {
+      "at": "2024-01-15T07:45:00Z",
+      "title": "Uncrewed aerial contact reported",
+      "summary": "A short-lived aerial track appears near the shipping lane. The incident marker is intentionally non-attributional and exists to validate synchronized event storytelling."
+    },
+    {
+      "at": "2024-01-16T05:20:00Z",
+      "title": "Damage assessment window",
+      "summary": "Satellite and maritime layers converge after the disruption. Analysts can scrub backward to compare vessel movement, air patrol coverage, and reported incident timing."
+    }
+  ],
+  "notes": [
+    {
+      "at": "2024-01-14T03:15:00Z",
+      "sourceType": "AIS",
+      "text": "Bulk carrier slows southbound transit and holds wider separation from nearby traffic."
+    },
+    {
+      "at": "2024-01-14T18:30:00Z",
+      "sourceType": "Maritime advisory",
+      "text": "Mocked advisory polygon increases perceived risk near the Bab el-Mandeb approach."
+    },
+    {
+      "at": "2024-01-15T07:45:00Z",
+      "sourceType": "OSINT report",
+      "text": "Uncrewed aerial contact reported near a commercial vessel track; no attribution is modeled."
+    },
+    {
+      "at": "2024-01-15T11:20:00Z",
+      "sourceType": "Flight tracking",
+      "text": "Maritime patrol aircraft begins repeated east-west search legs across the shipping corridor."
+    },
+    {
+      "at": "2024-01-16T05:20:00Z",
+      "sourceType": "Satellite tasking",
+      "text": "Low-resolution collection pass crosses the incident area for post-event cueing."
+    },
+    {
+      "at": "2024-01-16T12:05:00Z",
+      "sourceType": "Port call",
+      "text": "Diverting vessel continues toward a safer anchorage while traffic density shifts south."
+    }
+  ],
+  "tracks": [
+    {
+      "id": "ais-convoy-aurora",
+      "type": "vessel",
+      "name": "MV Aurora Trader",
+      "color": "#2fd0b5",
+      "points": [
+        ["2024-01-14T00:00:00Z", 19.1, 39.2],
+        ["2024-01-14T10:00:00Z", 17.7, 40.2],
+        ["2024-01-14T22:00:00Z", 15.8, 41.7],
+        ["2024-01-15T12:00:00Z", 13.6, 43.1],
+        ["2024-01-16T10:00:00Z", 12.4, 44.9]
+      ]
+    },
+    {
+      "id": "ais-diverting-cedar",
+      "type": "vessel",
+      "name": "MV Cedar Star",
+      "color": "#2fd0b5",
+      "points": [
+        ["2024-01-14T04:00:00Z", 14.2, 42.6],
+        ["2024-01-14T16:30:00Z", 13.8, 43.1],
+        ["2024-01-15T06:00:00Z", 13.0, 44.2],
+        ["2024-01-15T20:00:00Z", 12.1, 45.7],
+        ["2024-01-16T15:00:00Z", 11.7, 47.8]
+      ]
+    },
+    {
+      "id": "mpa-watchtower",
+      "type": "flight",
+      "name": "Maritime patrol aircraft",
+      "color": "#f3ba4d",
+      "altitude": 0.055,
+      "points": [
+        ["2024-01-15T10:30:00Z", 12.2, 41.0],
+        ["2024-01-15T11:20:00Z", 13.5, 42.9],
+        ["2024-01-15T12:10:00Z", 14.4, 44.8],
+        ["2024-01-15T13:00:00Z", 13.3, 46.0],
+        ["2024-01-15T13:50:00Z", 12.2, 44.4],
+        ["2024-01-15T14:30:00Z", 13.4, 42.6]
+      ]
+    },
+    {
+      "id": "uav-contact-echo",
+      "type": "osint",
+      "name": "Reported aerial contact",
+      "color": "#ff5d73",
+      "altitude": 0.08,
+      "points": [
+        ["2024-01-15T07:20:00Z", 14.8, 42.0],
+        ["2024-01-15T07:45:00Z", 14.2, 42.8],
+        ["2024-01-15T08:05:00Z", 13.7, 43.5]
+      ]
+    },
+    {
+      "id": "sat-pass-cerulean",
+      "type": "satellite",
+      "name": "Satellite collection pass",
+      "color": "#8ab4ff",
+      "altitude": 0.1,
+      "points": [
+        ["2024-01-16T04:35:00Z", 20.4, 38.0],
+        ["2024-01-16T05:00:00Z", 17.5, 40.4],
+        ["2024-01-16T05:20:00Z", 14.4, 42.8],
+        ["2024-01-16T05:45:00Z", 11.6, 45.3],
+        ["2024-01-16T06:10:00Z", 8.7, 47.7]
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "at": "2024-01-14T18:30:00Z",
+      "type": "advisory",
+      "label": "Expanded warning area",
+      "lat": 13.9,
+      "lon": 42.6
+    },
+    {
+      "at": "2024-01-15T07:45:00Z",
+      "type": "report",
+      "label": "Reported aerial contact",
+      "lat": 14.2,
+      "lon": 42.8
+    },
+    {
+      "at": "2024-01-16T05:20:00Z",
+      "type": "collection",
+      "label": "Satellite pass over incident box",
+      "lat": 14.4,
+      "lon": 42.8
+    }
+  ]
+}
