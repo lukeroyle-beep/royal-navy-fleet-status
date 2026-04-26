@@ -140,25 +140,87 @@
   ],
   "incidents": [
     {
-      "at": "2024-01-14T18:30:00Z",
-      "type": "advisory",
-      "label": "Expanded warning area",
+      "timestamp": "2024-01-14T18:30:00Z",
       "lat": 13.9,
-      "lon": 42.6
+      "lon": 42.6,
+      "title": "Expanded maritime warning area",
+      "description": "Mocked maritime advisory expands a caution area around the Bab el-Mandeb approach.",
+      "category": "alert",
+      "confidence": "medium",
+      "sourceUrl": "https://example.invalid/osint/red-sea/advisory-001"
     },
     {
-      "at": "2024-01-15T07:45:00Z",
-      "type": "report",
-      "label": "Reported aerial contact",
+      "timestamp": "2024-01-15T07:45:00Z",
       "lat": 14.2,
-      "lon": 42.8
+      "lon": 42.8,
+      "title": "Reported aerial contact near shipping lane",
+      "description": "Fictionalized OSINT report places a short-lived uncrewed aerial sighting near a commercial vessel track.",
+      "category": "sighting",
+      "confidence": "low",
+      "sourceUrl": "https://example.invalid/osint/red-sea/sighting-echo"
     },
     {
-      "at": "2024-01-16T05:20:00Z",
-      "type": "collection",
-      "label": "Satellite pass over incident box",
+      "timestamp": "2024-01-16T05:20:00Z",
       "lat": 14.4,
-      "lon": 42.8
+      "lon": 42.8,
+      "title": "Satellite pass over incident box",
+      "description": "Mock collection window crosses the incident area for post-event cueing and later review.",
+      "category": "satellite",
+      "confidence": "high",
+      "sourceUrl": "https://example.invalid/osint/red-sea/satellite-pass-cerulean"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-bab-el-mandeb-warning",
+      "type": "maritime_warning_area",
+      "title": "Bab el-Mandeb maritime warning area",
+      "description": "Fictional maritime warning box used to cue rerouting and risk-aware transit behavior.",
+      "activeFrom": "2024-01-14T18:30:00Z",
+      "activeUntil": "2024-01-16T18:00:00Z",
+      "polygon": [
+        [12.2, 41.2],
+        [15.1, 41.8],
+        [15.4, 43.6],
+        [12.6, 44.6],
+        [12.2, 41.2]
+      ],
+      "sourceLabel": "Maritime advisory mock",
+      "color": "#ff5d73"
+    },
+    {
+      "id": "zone-red-sea-airspace-caution",
+      "type": "restricted_airspace",
+      "title": "Temporary airspace caution zone",
+      "description": "Fictional restricted-airspace window used to model aircraft rerouting and patrol containment.",
+      "activeFrom": "2024-01-15T06:00:00Z",
+      "activeUntil": "2024-01-15T18:00:00Z",
+      "polygon": [
+        [13.0, 40.6],
+        [15.2, 41.7],
+        [14.8, 44.5],
+        [12.6, 43.7],
+        [13.0, 40.6]
+      ],
+      "sourceLabel": "NOTAM-style mock",
+      "color": "#f3ba4d"
+    },
+    {
+      "id": "zone-southern-red-sea-conflict-risk",
+      "type": "conflict_zone",
+      "title": "Southern Red Sea conflict-risk zone",
+      "description": "Broad fictional conflict-risk area that remains visible during the escalation window.",
+      "activeFrom": "2024-01-15T00:00:00Z",
+      "activeUntil": "2024-01-16T12:00:00Z",
+      "polygon": [
+        [11.8, 41.0],
+        [16.2, 42.0],
+        [15.6, 46.2],
+        [11.4, 46.8],
+        [11.8, 41.0]
+      ],
+      "sourceLabel": "Conflict zone mock",
+      "color": "#8ab4ff"
     }
   ]
 }

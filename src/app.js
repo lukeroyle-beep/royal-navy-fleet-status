@@ -24,6 +24,7 @@ let playing = true;
 let lastFrame = performance.now();
 let trackObjects = [];
 let incidentObjects = [];
+let zoneObjects = [];
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x070b12, 3.1, 6.2);
@@ -168,9 +169,15 @@ function normalizeScenario(raw) {
     chapters: raw.chapters.map((item) => ({ ...item, time: Date.parse(item.at) })),
     notes: raw.notes.map((item) => ({ ...item, time: Date.parse(item.at) })),
     tracks: [...maritimeTracks, ...aircraftTracks, ...auxiliaryTracks],
-    incidents: raw.incidents.map((incident) => ({
+    incidents: (raw.incidents || []).map((incident) => ({
       ...incident,
-      time: Date.parse(incident.at),
+      time: Date.parse(incident.timestamp),
+    })),
+    zones: (raw.zones || []).map((zone) => ({
+      ...zone,
+      activeStart: Date.parse(zone.activeFrom),
+      activeEnd: Date.parse(zone.activeUntil),
+      colorValue: new THREE.Color(zone.color || "#ff5d73").getHex(),
     })),
   };
 }
@@ -184,6 +191,7 @@ function bindScenario(nextReplay) {
   globeGroup.rotation.x = THREE.MathUtils.degToRad(nextReplay.metadata.center.lat * 0.25);
   trackObjects = nextReplay.tracks.map(createTrack);
   incidentObjects = nextReplay.incidents.map(createIncident);
+  zoneObjects = nextReplay.zones.map(createZone);
   playPause.classList.add("is-playing");
   playPause.setAttribute("aria-label", "Pause replay");
 }
@@ -212,7 +220,7 @@ function createIncident(incident) {
   const ring = new THREE.Mesh(
     new THREE.RingGeometry(0.018, 0.034, 30),
     new THREE.MeshBasicMaterial({
-      color: 0xff5d73,
+      color: getIncidentColor(incident.category),
       transparent: true,
       opacity: 0.92,
       side: THREE.DoubleSide,
@@ -223,6 +231,18 @@ function createIncident(incident) {
   ring.lookAt(anchor.clone().multiplyScalar(1.2));
   globeGroup.add(ring);
   return { ...incident, object: ring };
+}
+
+function createZone(zone) {
+  const points = zone.polygon.map(([lat, lon]) => latLonToVector3(lat, lon, 1.016));
+  const material = new THREE.LineBasicMaterial({
+    color: zone.colorValue,
+    transparent: true,
+    opacity: 0.72,
+  });
+  const boundary = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), material);
+  globeGroup.add(boundary);
+  return { ...zone, object: boundary };
 }
 
 function updateReplay() {
@@ -271,6 +291,13 @@ function updateReplay() {
     }
   }
 
+  for (const zone of zoneObjects) {
+    zone.object.visible = current >= zone.activeStart && current <= zone.activeEnd;
+    if (zone.object.visible) {
+      visibleTypes.add("zone");
+    }
+  }
+
   activeLayers.textContent = visibleTypes.size.toString();
   visibleTracks.textContent = visibleCount.toString();
   updateNarrative();
@@ -281,8 +308,24 @@ function updateNarrative() {
   chapterTitle.textContent = chapter.title;
   chapterSummary.textContent = chapter.summary;
 
-  const notes = replay.notes
-    .filter((item) => item.time <= current)
+  const incidentNotes = replay.incidents
+    .filter((incident) => incident.time <= current)
+    .map((incident) => ({
+      time: incident.time,
+      sourceType: `${incident.category} | ${incident.confidence} confidence`,
+      text: `${incident.title}: ${incident.description}`,
+    }));
+
+  const zoneNotes = replay.zones
+    .filter((zone) => current >= zone.activeStart && current <= zone.activeEnd)
+    .map((zone) => ({
+      time: zone.activeStart,
+      sourceType: zone.type.replaceAll("_", " "),
+      text: `${zone.title}: ${zone.description}`,
+    }));
+
+  const notes = [...replay.notes.filter((item) => item.time <= current), ...incidentNotes, ...zoneNotes]
+    .sort((a, b) => a.time - b.time)
     .slice(-5)
     .reverse();
 
@@ -292,6 +335,19 @@ function updateNarrative() {
       return `<li><time>${stamp} UTC | ${note.sourceType}</time>${note.text}</li>`;
     })
     .join("");
+}
+
+function getIncidentColor(category) {
+  const colors = {
+    strike: 0xff5d73,
+    alert: 0xff9f43,
+    closure: 0xf3ba4d,
+    sighting: 0xff5d73,
+    statement: 0xd7e1ea,
+    satellite: 0x8ab4ff,
+    social: 0xb58cff,
+  };
+  return colors[category] || 0xff5d73;
 }
 
 function sampleTrack(track, time) {

@@ -1,6 +1,9 @@
 export type TrackType = "vessel" | "flight" | "satellite" | "osint";
+export type IncidentCategory = "strike" | "alert" | "closure" | "sighting" | "statement" | "satellite" | "social";
+export type ZoneType = "restricted_airspace" | "maritime_warning_area" | "conflict_zone";
 
 export type TimedPoint = [isoTime: string, latitude: number, longitude: number];
+export type PolygonPoint = [latitude: number, longitude: number];
 
 export interface AircraftPoint {
   timestamp: string;
@@ -69,11 +72,26 @@ export interface MaritimeTrack {
 }
 
 export interface ScenarioIncident {
-  at: string;
-  type: string;
-  label: string;
+  timestamp: string;
   lat: number;
   lon: number;
+  title: string;
+  description: string;
+  category: IncidentCategory;
+  confidence: "low" | "medium" | "high";
+  sourceUrl: string;
+}
+
+export interface ScenarioZone {
+  id: string;
+  type: ZoneType;
+  title: string;
+  description: string;
+  activeFrom: string;
+  activeUntil: string;
+  polygon: PolygonPoint[];
+  sourceLabel: string;
+  color?: string;
 }
 
 export interface ReplayScenario {
@@ -86,4 +104,5 @@ export interface ReplayScenario {
   maritimeTracks: MaritimeTrack[];
   tracks: ScenarioTrack[];
   incidents: ScenarioIncident[];
+  zones: ScenarioZone[];
 }

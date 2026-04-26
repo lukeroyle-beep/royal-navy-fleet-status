@@ -20,6 +20,8 @@ Primary local JSON layers are:
 
 - `aircraftTracks`: `id`, `callsign`, `aircraftType`, `sourceLabel`, and timestamped `lat` / `lon` / `altitudeFt` points.
 - `maritimeTracks`: `vesselId`, `vesselName`, `vesselType`, `sourceLabel`, and timestamped `lat` / `lon` / `speedKnots` / `courseDeg` points.
+- `incidents`: `timestamp`, `lat`, `lon`, `title`, `description`, `category`, `confidence`, and `sourceUrl` placeholder.
+- `zones`: `restricted_airspace`, `maritime_warning_area`, and `conflict_zone` polygons with timestamped `activeFrom` / `activeUntil` windows.
 
 The demo also keeps auxiliary curated `tracks` for satellite passes and OSINT report movement so the replay can show richer context without fetching live data.
 
