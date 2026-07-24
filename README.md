@@ -1,67 +1,72 @@
-# Sentinel Replay MVP
+# Royal Navy and RFA OSINT Fleet Map
 
-OSINT globe viewer and incident tracker. This is a static browser prototype for replaying curated geopolitical/security events on a 3D globe timeline.
+A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive 3D globe.
+
+The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Markers may represent a named port or a broad operational area rather than an exact vessel position.
 
 ## What is included
 
-- Interactive Three.js globe with orbit controls
-- Timeline scrubber, play/pause, and replay speed controls
-- Moving maritime, aircraft, satellite, and OSINT-style tracks
-- Incident markers synchronized to time
-- Side panel with chapter narrative and OSINT replay notes
-- Clickable tracks, incident markers, and active zones with source details
-- Layer toggles for Aircraft, Maritime, Incidents, and Zones
-- Source-confidence indicator for incident / OSINT markers
-- Local JSON scenario loading from `data/scenarios/red-sea-demo.json`
-- TypeScript data contracts in `src/types.ts`
+- A 71-vessel Royal Navy and RFA roster derived from the supplied status workbook
+- Search by vessel name or pennant number
+- Filters for service, vessel type, operational status and location classification
+- Interactive Three.js globe markers for explicitly recorded coordinates
+- Vessel details with status, recorded location, data date and supporting source
+- Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
+- Automated dataset validation and production-build checks
+- Responsive desktop and mobile layouts
 
-The included event is a fictionalized but realistic Red Sea maritime disruption replay. The data is mocked and curated for UX validation, not attribution, live monitoring, or operational use.
+## Location safeguards
 
-## Data layers
+- Coordinates exist only as explicit fields in the curated dataset.
+- The browser performs no geocoding, course extrapolation or positional inference.
+- Approximate markers are labelled as representative ports or operational areas.
+- Unknown and withheld vessels remain in the roster but are not plotted.
+- Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
+- Undisclosed submarine patrol positions are never inferred or displayed.
 
-Primary local JSON layers are:
-
-- `aircraftTracks`: `id`, `callsign`, `aircraftType`, `sourceLabel`, and timestamped `lat` / `lon` / `altitudeFt` points.
-- `maritimeTracks`: `vesselId`, `vesselName`, `vesselType`, `sourceLabel`, and timestamped `lat` / `lon` / `speedKnots` / `courseDeg` points.
-- `incidents`: `timestamp`, `lat`, `lon`, `title`, `description`, `category`, `confidence`, and `sourceUrl` placeholder.
-- `zones`: `restricted_airspace`, `maritime_warning_area`, and `conflict_zone` polygons with timestamped `activeFrom` / `activeUntil` windows.
-
-The demo also keeps auxiliary curated `tracks` for satellite passes and OSINT report movement so the replay can show richer context without fetching live data.
-
-## Architecture
-
-The first version is intentionally simple and split into reusable modules:
-
-- `src/app.js`: application coordinator and replay state loop.
-- `src/components/ScenarioLoader.js`: loads local JSON and normalizes feed-specific records into replay-ready objects.
-- `src/components/GlobeView.js`: Three.js globe, tracks, incidents, zones, timeline visibility, and picking.
-- `src/components/TimelineControls.js`: play/pause, speed, and scrubber behavior.
-- `src/components/LayerTogglePanel.js`: Aircraft, Maritime, Incidents, and Zones layer toggles.
-- `src/components/EventDetailsPanel.js`: selected object details and source-confidence display.
-- `src/types.ts`: strongly typed scenario, track, incident, and zone data contracts.
-- `src/utils/geo.js`: globe texture and lat/lon conversion helpers.
-
-This keeps the current MVP static and working while preserving clear component boundaries for a later React/Vite conversion.
-
-## Stack direction
-
-The checked-in prototype runs as static browser code with CDN-loaded Three.js so it works in this workspace without installing packages. `package.json` captures the intended Vite + React + TypeScript + Tailwind direction for the next iteration.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision label shown in the interface.
 
 ## Run locally
 
-Serve the folder with any static file server so the browser can load local JSON files.
+Install dependencies:
 
-```powershell
-python -m http.server 5173
+```bash
+npm install
 ```
 
-Then visit `http://localhost:5173`.
+Start the browser application:
 
-## Next steps
+```bash
+npm run dev
+```
 
-- Move the static module components into a Vite + React + TypeScript app once package tooling is available.
-- Replace the hand-drawn globe texture with CesiumJS, deck.gl, or react-globe.gl if richer terrain, camera paths, and annotations become important.
-- Add schema validation for scenario JSON so malformed feeds fail with useful editor and runtime errors.
-- Add scenario switching so multiple curated replays can live under `data/scenarios/`.
-- Add analyst-focused affordances: selected object timeline pins, source filtering, confidence filtering, and exportable replay clips.
-- Keep live ingestion, auth, accounts, payments, and databases out of scope until the static replay UX is compelling.
+Open the address printed by Vite in a browser.
+
+To inspect the production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Validate and build
+
+```bash
+npm run validate:data
+npm run build
+```
+
+The validation rejects duplicate vessel identifiers, invalid classifications, missing evidence links, invalid coordinates, unmapped records without reasons and submarine patrol records containing coordinates.
+
+## Data maintenance
+
+Fleet data is stored in `data/royal-navy/vessels.json`. Any update should:
+
+1. retain all roster records;
+2. include a public supporting source;
+3. update the record date;
+4. classify the location precision;
+5. omit coordinates where the location is unknown or withheld; and
+6. pass `npm run validate:data`.
+
+Automated collection, third-party tracking feeds, scheduled refreshes and public deployment are outside the current version.
