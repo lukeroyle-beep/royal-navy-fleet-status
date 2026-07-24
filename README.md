@@ -1,6 +1,6 @@
 # Sentinel Replay MVP
 
-OSINT globe viewer and incident tracker. This is a static browser prototype for replaying curated geopolitical/security events on a 3D globe timeline.
+Interactive OSINT map of last publicly reported Royal Navy and Royal Fleet Auxiliary vessel locations.
 
 ## What is included
 
