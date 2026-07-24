@@ -1,3 +1,5 @@
+const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
+
 export class ScenarioLoader {
   constructor(url) {
     this.url = url;
@@ -6,66 +8,56 @@ export class ScenarioLoader {
   async load() {
     const response = await fetch(this.url);
     if (!response.ok) {
-      throw new Error(`Could not load scenario JSON from ${this.url}`);
+      throw new Error(`Could not load fleet data from ${this.url}.`);
     }
-    return normalizeScenario(await response.json());
+    return validateFleet(await response.json());
   }
 }
 
-function normalizeScenario(raw) {
-  const aircraftTracks = (raw.aircraftTracks || []).map((track) => ({
-    id: track.id,
-    type: "flight",
-    name: track.callsign,
-    assetType: track.aircraftType,
-    sourceLabel: track.sourceLabel,
-    color: track.color || "#f3ba4d",
-    points: track.points.map((point) => ({
-      time: Date.parse(point.timestamp),
-      lat: point.lat,
-      lon: point.lon,
-      altitudeFt: point.altitudeFt,
-    })),
-  }));
+export function validateFleet(raw) {
+  if (!raw || typeof raw !== "object" || !raw.metadata || !Array.isArray(raw.vessels)) {
+    throw new Error("Fleet data must contain metadata and a vessels array.");
+  }
+  if (!raw.vessels.length) {
+    throw new Error("Fleet data contains no vessel records.");
+  }
 
-  const maritimeTracks = (raw.maritimeTracks || []).map((track) => ({
-    id: track.vesselId,
-    type: "vessel",
-    name: track.vesselName,
-    assetType: track.vesselType,
-    sourceLabel: track.sourceLabel,
-    color: track.color || "#2fd0b5",
-    points: track.points.map((point) => ({
-      time: Date.parse(point.timestamp),
-      lat: point.lat,
-      lon: point.lon,
-      speedKnots: point.speedKnots,
-      courseDeg: point.courseDeg,
-    })),
-  }));
+  const ids = new Set();
+  for (const [index, vessel] of raw.vessels.entries()) {
+    const label = `Vessel ${index + 1}`;
+    for (const field of ["id", "name", "service", "vesselClass", "vesselType", "status", "locationClassification", "lastReportedLocation", "recordDate"]) {
+      if (typeof vessel[field] !== "string" || !vessel[field].trim()) {
+        throw new Error(`${label} has an invalid ${field}.`);
+      }
+    }
+    if (ids.has(vessel.id)) throw new Error(`Duplicate vessel id: ${vessel.id}.`);
+    ids.add(vessel.id);
+    if (!CLASSIFICATIONS.has(vessel.locationClassification)) {
+      throw new Error(`${vessel.name} has an invalid location classification.`);
+    }
 
-  const auxiliaryTracks = (raw.tracks || []).map((track) => ({
-    ...track,
-    sourceLabel: track.sourceLabel || "Curated OSINT mock",
-    points: track.points.map(([time, lat, lon]) => ({ time: Date.parse(time), lat, lon })),
-  }));
+    const mapped = vessel.locationClassification === "mapped" || vessel.locationClassification === "approximate";
+    if (mapped) {
+      if (!vessel.position || !Number.isFinite(vessel.position.lat) || !Number.isFinite(vessel.position.lon)) {
+        throw new Error(`${vessel.name} is mapped without valid coordinates.`);
+      }
+      if (Math.abs(vessel.position.lat) > 90 || Math.abs(vessel.position.lon) > 180) {
+        throw new Error(`${vessel.name} has coordinates outside valid ranges.`);
+      }
+    } else if (vessel.position !== null) {
+      throw new Error(`${vessel.name} must not contain coordinates when ${vessel.locationClassification}.`);
+    }
 
-  return {
-    ...raw,
-    start: Date.parse(raw.start),
-    end: Date.parse(raw.end),
-    chapters: raw.chapters.map((item) => ({ ...item, time: Date.parse(item.at) })),
-    notes: raw.notes.map((item) => ({ ...item, time: Date.parse(item.at) })),
-    tracks: [...maritimeTracks, ...aircraftTracks, ...auxiliaryTracks],
-    incidents: (raw.incidents || []).map((incident) => ({
-      ...incident,
-      time: Date.parse(incident.timestamp),
-    })),
-    zones: (raw.zones || []).map((zone) => ({
-      ...zone,
-      activeStart: Date.parse(zone.activeFrom),
-      activeEnd: Date.parse(zone.activeUntil),
-    })),
-  };
+    if (!vessel.source || typeof vessel.source.url !== "string" || !vessel.source.url.startsWith("https://")) {
+      throw new Error(`${vessel.name} has no valid supporting source.`);
+    }
+    if ((vessel.locationClassification === "unknown" || vessel.locationClassification === "withheld") && !vessel.unmappedReason) {
+      throw new Error(`${vessel.name} requires an unmapped reason.`);
+    }
+    if ((vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") && /patrol/i.test(vessel.lastReportedLocation) && vessel.position) {
+      throw new Error(`${vessel.name} cannot expose a submarine patrol position.`);
+    }
+  }
+
+  return raw;
 }
-

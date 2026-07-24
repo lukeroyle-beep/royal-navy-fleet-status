@@ -1,183 +1,174 @@
-import { GlobeView, isEntityVisible, sampleTrack } from "./components/GlobeView.js";
-import { ScenarioLoader } from "./components/ScenarioLoader.js";
-import { TimelineControls } from "./components/TimelineControls.js";
-import { LayerTogglePanel } from "./components/LayerTogglePanel.js";
 import { EventDetailsPanel } from "./components/EventDetailsPanel.js";
+import { GlobeView } from "./components/GlobeView.js";
+import { ScenarioLoader } from "./components/ScenarioLoader.js";
 
-const SCENARIO_URL = "./data/scenarios/red-sea-demo.json";
-
+const DATA_URL = "./data/royal-navy/vessels.json";
 const elements = {
-  scenarioTitle: document.querySelector("#scenarioTitle"),
-  scenarioSubtitle: document.querySelector("#scenarioSubtitle"),
-  scenarioDisclaimer: document.querySelector("#scenarioDisclaimer"),
-  dateLabel: document.querySelector("#dateLabel"),
-  timeLabel: document.querySelector("#timeLabel"),
-  chapterTitle: document.querySelector("#chapterTitle"),
-  chapterSummary: document.querySelector("#chapterSummary"),
-  intelList: document.querySelector("#intelList"),
-  activeLayers: document.querySelector("#activeLayers"),
-  visibleTracks: document.querySelector("#visibleTracks"),
+  title: document.querySelector("#mapTitle"),
+  subtitle: document.querySelector("#mapSubtitle"),
+  asOfDate: document.querySelector("#asOfDate"),
+  totalCount: document.querySelector("#totalCount"),
+  mappedCount: document.querySelector("#mappedCount"),
+  filteredCount: document.querySelector("#filteredCount"),
+  search: document.querySelector("#searchInput"),
+  service: document.querySelector("#serviceFilter"),
+  status: document.querySelector("#statusFilter"),
+  type: document.querySelector("#typeFilter"),
+  location: document.querySelector("#locationFilter"),
+  reset: document.querySelector("#resetFilters"),
+  list: document.querySelector("#vesselList"),
+  resultsStatus: document.querySelector("#resultsStatus"),
+  disclaimer: document.querySelector("#dataDisclaimer"),
+  error: document.querySelector("#loadError"),
+  errorMessage: document.querySelector("#loadErrorMessage"),
 };
 
-let scenario;
-let current = 0;
-let playing = true;
-let lastFrame = performance.now();
-let selectedEntity = null;
-let layerState = {
-  aircraft: true,
-  maritime: true,
-  incidents: true,
-  zones: true,
-};
-
-const detailsPanel = new EventDetailsPanel({
+const details = new EventDetailsPanel({
   kind: document.querySelector("#detailKind"),
   title: document.querySelector("#detailTitle"),
   description: document.querySelector("#detailDescription"),
   meta: document.querySelector("#detailMeta"),
-  confidenceRow: document.querySelector("#confidenceRow"),
-  confidenceLabel: document.querySelector("#confidenceLabel"),
-  confidenceBar: document.querySelector("#confidenceBar"),
+  source: document.querySelector("#detailSource"),
 });
 
-const timeline = new TimelineControls({
-  playPause: document.querySelector("#playPause"),
-  scrubber: document.querySelector("#scrubber"),
-  speed: document.querySelector("#speed"),
-  onPlayChange: (nextPlaying) => {
-    playing = nextPlaying;
-  },
-  onScrub: (time) => {
-    current = time;
-    updateReplay();
-  },
-});
+let dataset;
+let selectedId = null;
 
-new LayerTogglePanel({
-  inputs: [...document.querySelectorAll("[data-layer-toggle]")],
-  onChange: (nextState) => {
-    layerState = nextState;
-    if (selectedEntity && !isEntityVisible(selectedEntity, current, layerState)) {
-      selectedEntity = null;
-      detailsPanel.renderDefault(scenario);
-    }
-    updateReplay();
-  },
-});
-
-const globeView = new GlobeView({
+const globe = new GlobeView({
   canvas: document.querySelector("#globe"),
-  onSelect: (entity) => {
-    selectedEntity = entity;
-    detailsPanel.renderEntity(entity, current, sampleTrack);
-  },
+  onSelect: (vessel) => selectVessel(vessel),
 });
 
-try {
-  scenario = await new ScenarioLoader(SCENARIO_URL).load();
-  current = scenario.start;
-  bindScenario(scenario);
-  updateReplay();
-  detailsPanel.renderDefault(scenario);
-  timeline.setPlaying(true);
-  requestAnimationFrame(animate);
-} catch (error) {
-  showLoadError(error);
+initialize();
+
+async function initialize() {
+  try {
+    dataset = await new ScenarioLoader(DATA_URL).load();
+    bindDataset();
+  } catch (error) {
+    showError(error);
+  }
 }
 
-function bindScenario(nextScenario) {
-  elements.scenarioTitle.textContent = nextScenario.metadata.title;
-  elements.scenarioSubtitle.textContent = nextScenario.metadata.subtitle;
-  elements.scenarioDisclaimer.textContent = nextScenario.metadata.disclaimer;
-  document.title = `${nextScenario.metadata.title} | Sentinel Replay MVP`;
-  timeline.bindRange(nextScenario.start, nextScenario.end);
-  globeView.setScenario(nextScenario);
+function bindDataset() {
+  elements.title.textContent = dataset.metadata.title;
+  elements.subtitle.textContent = dataset.metadata.subtitle;
+  elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
+  elements.disclaimer.textContent = dataset.metadata.disclaimer;
+  elements.totalCount.textContent = dataset.vessels.length.toString();
+  elements.mappedCount.textContent = dataset.vessels.filter((vessel) => vessel.position).length.toString();
+  fillSelect(elements.service, uniqueValues("service"));
+  fillSelect(elements.status, uniqueValues("status"));
+  fillSelect(elements.type, uniqueValues("vesselType"));
+  globe.setVessels(dataset.vessels);
+  details.renderDefault(dataset);
+
+  for (const input of [elements.search, elements.service, elements.status, elements.type, elements.location]) {
+    input.addEventListener("input", applyFilters);
+    input.addEventListener("change", applyFilters);
+  }
+  elements.reset.addEventListener("click", resetFilters);
+  applyFilters();
 }
 
-function updateReplay() {
-  if (!scenario) return;
+function uniqueValues(field) {
+  return [...new Set(dataset.vessels.map((vessel) => vessel[field]))].sort((a, b) => a.localeCompare(b));
+}
 
-  const now = new Date(current);
-  elements.dateLabel.textContent = now.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
+function fillSelect(select, values) {
+  for (const value of values) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.append(option);
+  }
+}
+
+function applyFilters() {
+  const query = elements.search.value.trim().toLocaleLowerCase("en-GB");
+  const filtered = dataset.vessels.filter((vessel) => {
+    const matchesQuery =
+      !query ||
+      vessel.name.toLocaleLowerCase("en-GB").includes(query) ||
+      (vessel.pennantNumber || "").toLocaleLowerCase("en-GB").includes(query);
+    return (
+      matchesQuery &&
+      (!elements.service.value || vessel.service === elements.service.value) &&
+      (!elements.status.value || vessel.status === elements.status.value) &&
+      (!elements.type.value || vessel.vesselType === elements.type.value) &&
+      (!elements.location.value || vessel.locationClassification === elements.location.value)
+    );
+  });
+
+  elements.filteredCount.textContent = filtered.length.toString();
+  elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
+  renderList(filtered);
+  globe.setVisibleVessels(filtered);
+  if (selectedId && !filtered.some((vessel) => vessel.id === selectedId)) {
+    selectedId = null;
+    details.renderDefault(dataset);
+  }
+}
+
+function renderList(vessels) {
+  elements.list.replaceChildren(
+    ...vessels.map((vessel) => {
+      const item = document.createElement("li");
+      const button = document.createElement("button");
+      const heading = document.createElement("span");
+      const meta = document.createElement("small");
+      button.type = "button";
+      button.dataset.vesselId = vessel.id;
+      button.className = vessel.id === selectedId ? "is-selected" : "";
+      heading.textContent = vessel.name;
+      meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatClassification(vessel.locationClassification)}`;
+      button.append(heading, meta);
+      button.addEventListener("click", () => selectVessel(vessel));
+      item.append(button);
+      return item;
+    }),
+  );
+}
+
+function selectVessel(vessel) {
+  selectedId = vessel.id;
+  details.renderVessel(vessel);
+  for (const button of elements.list.querySelectorAll("button")) {
+    button.classList.toggle("is-selected", button.dataset.vesselId === vessel.id);
+  }
+  document.querySelector("#detailCard").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function resetFilters() {
+  elements.search.value = "";
+  elements.service.value = "";
+  elements.status.value = "";
+  elements.type.value = "";
+  elements.location.value = "";
+  applyFilters();
+  elements.search.focus();
+}
+
+function showError(error) {
+  elements.error.hidden = false;
+  elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
+  elements.subtitle.textContent = "Fleet data unavailable";
+}
+
+function formatDate(value) {
+  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
     year: "numeric",
     timeZone: "UTC",
   });
-  elements.timeLabel.textContent = `${now.toISOString().slice(11, 16)} UTC`;
-  timeline.setTime(current);
-
-  const status = globeView.update(current, layerState, selectedEntity);
-  if (!status.selectedStillVisible) {
-    selectedEntity = null;
-    detailsPanel.renderDefault(scenario);
-  } else if (selectedEntity) {
-    detailsPanel.renderEntity(selectedEntity, current, sampleTrack);
-  }
-
-  elements.activeLayers.textContent = status.activeLayers.toString();
-  elements.visibleTracks.textContent = status.visibleTracks.toString();
-  updateNarrative();
 }
 
-function updateNarrative() {
-  const chapter = scenario.chapters.filter((item) => item.time <= current).at(-1) || scenario.chapters[0];
-  elements.chapterTitle.textContent = chapter.title;
-  elements.chapterSummary.textContent = chapter.summary;
-
-  const incidentNotes = layerState.incidents
-    ? scenario.incidents
-      .filter((incident) => incident.time <= current)
-      .map((incident) => ({
-        time: incident.time,
-        sourceType: `${incident.category} | ${incident.confidence} confidence`,
-        text: `${incident.title}: ${incident.description}`,
-      }))
-    : [];
-
-  const zoneNotes = layerState.zones
-    ? scenario.zones
-      .filter((zone) => current >= zone.activeStart && current <= zone.activeEnd)
-      .map((zone) => ({
-        time: zone.activeStart,
-        sourceType: zone.type.replaceAll("_", " "),
-        text: `${zone.title}: ${zone.description}`,
-      }))
-    : [];
-
-  const notes = [...scenario.notes.filter((item) => item.time <= current), ...incidentNotes, ...zoneNotes]
-    .sort((a, b) => a.time - b.time)
-    .slice(-5)
-    .reverse();
-
-  elements.intelList.innerHTML = notes
-    .map((note) => {
-      const stamp = new Date(note.time).toISOString().replace("T", " ").slice(0, 16);
-      return `<li><time>${stamp} UTC | ${note.sourceType}</time>${note.text}</li>`;
-    })
-    .join("");
-}
-
-function animate(time = performance.now()) {
-  const delta = time - lastFrame;
-  lastFrame = time;
-
-  if (playing) {
-    current += delta * timeline.getSpeed() * 240;
-    if (current >= scenario.end) current = scenario.start;
-  }
-
-  updateReplay();
-  requestAnimationFrame(animate);
-}
-
-function showLoadError(error) {
-  playing = false;
-  elements.scenarioTitle.textContent = "Scenario failed to load";
-  elements.chapterTitle.textContent = "Local JSON unavailable";
-  elements.chapterSummary.textContent = error instanceof Error ? error.message : "Unknown scenario loading error.";
-  elements.scenarioDisclaimer.textContent = "Serve the project over HTTP so the browser can load local JSON files.";
-  elements.activeLayers.textContent = "0";
-  elements.visibleTracks.textContent = "0";
+function formatClassification(value) {
+  return {
+    mapped: "Mapped",
+    approximate: "Approximate",
+    unknown: "Unknown",
+    withheld: "Withheld",
+  }[value];
 }
