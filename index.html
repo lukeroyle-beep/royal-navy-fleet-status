@@ -3,96 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sentinel Replay MVP</title>
+    <meta
+      name="description"
+      content="Interactive map of last publicly reported Royal Navy and Royal Fleet Auxiliary vessel locations."
+    />
+    <title>Royal Navy and RFA OSINT Fleet Map</title>
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
     <main id="app">
-      <section class="globe-stage" aria-label="3D globe replay">
+      <section class="globe-stage" aria-label="Interactive fleet globe">
         <canvas id="globe"></canvas>
-        <div class="topbar">
+        <header class="topbar">
           <div>
-            <p class="eyebrow" id="scenarioSubtitle">Sentinel Replay</p>
-            <h1 id="scenarioTitle">Loading scenario</h1>
+            <p class="eyebrow">Curated open-source intelligence</p>
+            <h1 id="mapTitle">Royal Navy and RFA Fleet Map</h1>
+            <p id="mapSubtitle" class="subtitle">Loading last publicly reported locations</p>
           </div>
-          <div class="clock">
-            <span id="dateLabel">Loading</span>
-            <strong id="timeLabel">00:00 UTC</strong>
+          <div class="as-of">
+            <span>Dataset as of</span>
+            <strong id="asOfDate">Loading</strong>
           </div>
-        </div>
-        <div class="legend" aria-label="Map legend">
-          <span><i class="legend-dot vessel"></i>Maritime tracks</span>
-          <span><i class="legend-dot flight"></i>Aircraft tracks</span>
-          <span><i class="legend-dot satellite"></i>Satellite pass</span>
-          <span><i class="legend-dot osint"></i>OSINT report</span>
-          <span><i class="legend-dot incident"></i>Incident marker</span>
-          <span><i class="legend-dot zone"></i>Active zone</span>
+        </header>
+        <div class="legend" aria-label="Location marker legend">
+          <span><i class="legend-dot mapped"></i>Mapped public location</span>
+          <span><i class="legend-dot approximate"></i>Approximate port or area</span>
         </div>
       </section>
 
-      <aside class="side-panel" aria-label="Event narrative panel">
-        <div class="panel-header">
-          <p class="eyebrow">Curated OSINT Replay</p>
-          <h2 id="chapterTitle">Initializing timeline</h2>
-          <p id="chapterSummary"></p>
-          <p id="scenarioDisclaimer" class="disclaimer"></p>
-        </div>
+      <aside class="side-panel" aria-label="Fleet search and vessel details">
+        <section class="summary" aria-label="Fleet summary">
+          <div><span>Fleet records</span><strong id="totalCount">0</strong></div>
+          <div><span>Mapped records</span><strong id="mappedCount">0</strong></div>
+          <div><span>Shown by filters</span><strong id="filteredCount">0</strong></div>
+        </section>
 
-        <div class="metric-grid">
-          <div>
-            <span>Active layers</span>
-            <strong id="activeLayers">0</strong>
+        <section class="filters" aria-label="Fleet filters">
+          <label>
+            Search vessel or pennant
+            <input id="searchInput" type="search" autocomplete="off" placeholder="e.g. HMS Duncan or D37" />
+          </label>
+          <div class="filter-grid">
+            <label>
+              Service
+              <select id="serviceFilter"><option value="">All services</option></select>
+            </label>
+            <label>
+              Status
+              <select id="statusFilter"><option value="">All statuses</option></select>
+            </label>
+            <label>
+              Vessel type
+              <select id="typeFilter"><option value="">All vessel types</option></select>
+            </label>
+            <label>
+              Location
+              <select id="locationFilter">
+                <option value="">All classifications</option>
+                <option value="mapped">Mapped</option>
+                <option value="approximate">Approximate</option>
+                <option value="unknown">Unknown</option>
+                <option value="withheld">Withheld</option>
+              </select>
+            </label>
           </div>
-          <div>
-            <span>Visible tracks</span>
-            <strong id="visibleTracks">0</strong>
-          </div>
-        </div>
+          <button id="resetFilters" type="button">Reset filters</button>
+        </section>
 
-        <div class="layer-controls" aria-label="Layer toggles">
-          <label><input type="checkbox" data-layer-toggle="aircraft" checked /> Aircraft</label>
-          <label><input type="checkbox" data-layer-toggle="maritime" checked /> Maritime</label>
-          <label><input type="checkbox" data-layer-toggle="incidents" checked /> Incidents</label>
-          <label><input type="checkbox" data-layer-toggle="zones" checked /> Zones</label>
-        </div>
-
-        <div class="detail-card" id="detailCard">
-          <div class="detail-heading">
-            <p class="eyebrow" id="detailKind">Selected item</p>
-            <h3 id="detailTitle">Click a track, marker, or zone</h3>
-          </div>
-          <p id="detailDescription">Details will appear here while the timeline remains synchronized with the globe.</p>
-          <div class="confidence-row" id="confidenceRow" hidden>
-            <span>Source confidence</span>
-            <strong id="confidenceLabel">Unknown</strong>
-            <i id="confidenceBar"></i>
-          </div>
+        <section class="detail-card" id="detailCard" aria-live="polite">
+          <p class="eyebrow" id="detailKind">Fleet record</p>
+          <h2 id="detailTitle">Select a vessel</h2>
+          <p id="detailDescription">Choose a marker or a vessel from the results list.</p>
           <dl id="detailMeta" class="detail-meta"></dl>
-        </div>
+          <a id="detailSource" class="source-link" href="#" target="_blank" rel="noreferrer" hidden>Open supporting source</a>
+        </section>
 
-        <div class="intel-feed">
-          <h3>Replay Notes</h3>
-          <ul id="intelList"></ul>
-        </div>
+        <section class="results" aria-label="Filtered vessel results">
+          <div class="results-heading">
+            <h2>Vessels</h2>
+            <span id="resultsStatus" role="status"></span>
+          </div>
+          <ul id="vesselList"></ul>
+        </section>
+
+        <p id="dataDisclaimer" class="disclaimer"></p>
       </aside>
-
-      <section class="timeline" aria-label="Timeline playback controls">
-        <button id="playPause" class="icon-button" type="button" aria-label="Play replay">
-          <span id="playIcon" class="play-mark" aria-hidden="true"></span>
-        </button>
-        <input id="scrubber" type="range" min="0" max="1000" value="0" aria-label="Timeline scrubber" />
-        <div class="speed-control">
-          <label for="speed">Speed</label>
-          <select id="speed">
-            <option value="0.35">0.5x</option>
-            <option value="0.7" selected>1x</option>
-            <option value="1.4">2x</option>
-            <option value="2.8">4x</option>
-          </select>
-        </div>
-      </section>
     </main>
+
+    <div id="loadError" class="load-error" role="alert" hidden>
+      <strong>Fleet data could not be loaded.</strong>
+      <span id="loadErrorMessage">Check the dataset and reload the page.</span>
+    </div>
 
     <script type="module" src="./src/app.js"></script>
   </body>
