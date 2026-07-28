@@ -10,7 +10,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
 - Interactive Three.js globe markers for explicitly recorded coordinates
-- Vessel details with status, recorded location, data date and supporting source
+- Vessel details with status, recorded location, evidence date, checked date, evidence classification and supporting source
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
 - Responsive desktop and mobile layouts
@@ -24,7 +24,18 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred or displayed.
 
-The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision label shown in the interface.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision and evidence labels shown in the interface.
+
+## Evidence model
+
+Every vessel record separates two dates:
+
+- `locationEvidenceDate` is the publication or observation date that supports the displayed location. It is `null` when no defensible date is available.
+- `evidenceCheckedDate` is the date a maintainer last checked the cited source.
+
+Mapped and approximate records require a named-vessel source that directly supports the displayed location, a valid location evidence date, and either `direct-report` or `direct-tracker` evidence. Generic fleet, class, capability, and home-port pages are not sufficient current-location evidence on their own.
+
+Records that do not meet that threshold use `unknown`, contain no coordinates, and explain the downgrade. Withheld submarine positions use `withheld`, contain no coordinates, and never infer patrol areas. The interface displays an unknown evidence date as “Unknown”; maintainers must not substitute the check date or dataset date.
 
 ## Run locally
 
@@ -56,7 +67,7 @@ npm run validate:data
 npm run build
 ```
 
-The validation rejects duplicate vessel identifiers, invalid classifications, missing evidence links, invalid coordinates, unmapped records without reasons and submarine patrol records containing coordinates.
+The validation rejects duplicate vessel identifiers, invalid location or evidence classifications, missing source labels or HTTPS links, missing or invalid evidence dates, insufficient mapped evidence, invalid coordinates, unmapped records without reasons and submarine patrol records containing coordinates.
 
 ## Data maintenance
 
@@ -64,9 +75,11 @@ Fleet data is stored in `data/royal-navy/vessels.json`. Any update should:
 
 1. retain all roster records;
 2. include a public supporting source;
-3. update the record date;
-4. classify the location precision;
-5. omit coordinates where the location is unknown or withheld; and
-6. pass `npm run validate:data`.
+3. record the source observation or publication date separately from the date the source was checked;
+4. classify both location precision and evidence quality;
+5. use only a source that directly identifies the vessel and supports the displayed location for mapped or approximate records;
+6. downgrade unsupported locations to `unknown`, remove coordinates and explain why;
+7. omit coordinates where a submarine position is withheld; and
+8. pass `npm run validate:data` and `npm test`.
 
 Automated collection, third-party tracking feeds, scheduled refreshes and public deployment are outside the current version.
