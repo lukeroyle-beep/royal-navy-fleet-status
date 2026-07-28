@@ -1,6 +1,7 @@
 import { EventDetailsPanel } from "./components/EventDetailsPanel.js";
-import { GlobeView } from "./components/GlobeView.js";
+import { FleetMap } from "./components/FleetMap.js";
 import { ScenarioLoader } from "./components/ScenarioLoader.js";
+import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
 const elements = {
@@ -21,6 +22,8 @@ const elements = {
   disclaimer: document.querySelector("#dataDisclaimer"),
   error: document.querySelector("#loadError"),
   errorMessage: document.querySelector("#loadErrorMessage"),
+  mapNotice: document.querySelector("#mapNotice"),
+  mapReset: document.querySelector("#resetMap"),
 };
 
 const details = new EventDetailsPanel({
@@ -33,10 +36,12 @@ const details = new EventDetailsPanel({
 
 let dataset;
 let selectedId = null;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const globe = new GlobeView({
-  canvas: document.querySelector("#globe"),
-  onSelect: (vessel) => selectVessel(vessel),
+const fleetMap = new FleetMap({
+  container: document.querySelector("#fleetMap"),
+  notice: elements.mapNotice,
+  onSelect: (vessel) => selectVessel(vessel, { source: "map" }),
 });
 
 initialize();
@@ -60,14 +65,15 @@ function bindDataset() {
   fillSelect(elements.service, uniqueValues("service"));
   fillSelect(elements.status, uniqueValues("status"));
   fillSelect(elements.type, uniqueValues("vesselType"));
-  globe.setVessels(dataset.vessels);
+  fleetMap.setVessels(dataset.vessels);
   details.renderDefault(dataset);
 
-  for (const input of [elements.search, elements.service, elements.status, elements.type, elements.location]) {
-    input.addEventListener("input", applyFilters);
-    input.addEventListener("change", applyFilters);
+  elements.search.addEventListener("input", applyFilters);
+  for (const select of [elements.service, elements.status, elements.type, elements.location]) {
+    select.addEventListener("change", applyFilters);
   }
   elements.reset.addEventListener("click", resetFilters);
+  elements.mapReset.addEventListener("click", () => fleetMap.resetView());
   applyFilters();
 }
 
@@ -103,10 +109,11 @@ function applyFilters() {
   elements.filteredCount.textContent = filtered.length.toString();
   elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
   renderList(filtered);
-  globe.setVisibleVessels(filtered);
+  fleetMap.setVisibleVessels(filtered);
   if (selectedId && !filtered.some((vessel) => vessel.id === selectedId)) {
     selectedId = null;
     details.renderDefault(dataset);
+    fleetMap.clearSelection();
   }
 }
 
@@ -123,20 +130,23 @@ function renderList(vessels) {
       heading.textContent = vessel.name;
       meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatClassification(vessel.locationClassification)}`;
       button.append(heading, meta);
-      button.addEventListener("click", () => selectVessel(vessel));
+      button.addEventListener("click", () => selectVessel(vessel, { source: "list" }));
       item.append(button);
       return item;
     }),
   );
 }
 
-function selectVessel(vessel) {
+function selectVessel(vessel, { source = "list" } = {}) {
   selectedId = vessel.id;
   details.renderVessel(vessel);
+  fleetMap.selectVessel(vessel, { focus: source === "list" });
   for (const button of elements.list.querySelectorAll("button")) {
     button.classList.toggle("is-selected", button.dataset.vesselId === vessel.id);
   }
-  document.querySelector("#detailCard").scrollIntoView({ behavior: "smooth", block: "nearest" });
+  document
+    .querySelector("#detailCard")
+    .scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest" });
 }
 
 function resetFilters() {

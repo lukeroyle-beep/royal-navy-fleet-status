@@ -1,6 +1,6 @@
 # Royal Navy and RFA OSINT Fleet Map
 
-A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive 3D globe.
+A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive two-dimensional map.
 
 The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Markers may represent a named port or a broad operational area rather than an exact vessel position.
 
@@ -9,11 +9,21 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - A 71-vessel Royal Navy and RFA roster derived from the supplied status workbook
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
-- Interactive Three.js globe markers for explicitly recorded coordinates
+- Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
 - Vessel details with status, recorded location, evidence date, checked date, evidence classification and supporting source
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
 - Responsive desktop and mobile layouts
+
+## Map controls
+
+- Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
+- Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
+- Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
+- Unknown and withheld vessels remain available through search and the vessel list without being plotted.
+- If basemap tiles are unavailable, vessel search, evidence details and supporting links continue to work.
+
+The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
 
 ## Location safeguards
 

@@ -9,12 +9,11 @@
     />
     <title>Royal Navy and RFA OSINT Fleet Map</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
     <main id="app">
-      <section class="globe-stage" aria-label="Interactive fleet globe">
-        <canvas id="globe"></canvas>
+      <section class="map-stage" aria-label="Interactive fleet map">
+        <div id="fleetMap" role="region" aria-label="Map of evidenced vessel locations"></div>
         <header class="topbar">
           <div>
             <p class="eyebrow">Curated open-source intelligence</p>
@@ -26,9 +25,15 @@
             <strong id="asOfDate">Loading</strong>
           </div>
         </header>
-        <div class="legend" aria-label="Location marker legend">
-          <span><i class="legend-dot mapped"></i>Mapped public location</span>
-          <span><i class="legend-dot approximate"></i>Approximate port or area</span>
+        <div class="map-tools">
+          <div class="legend" aria-label="Location marker legend">
+            <span><i class="legend-dot mapped"></i>Mapped public location</span>
+            <span><i class="legend-dot approximate"></i>Approximate port or area</span>
+          </div>
+          <button id="resetMap" class="map-reset" type="button">Show all plotted vessels</button>
+        </div>
+        <div id="mapNotice" class="map-notice" role="status" hidden>
+          Basemap tiles are unavailable. Vessel search, details and evidence links remain available.
         </div>
       </section>
 
