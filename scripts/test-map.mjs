@@ -43,6 +43,17 @@ for (const width of [1024, 1080, 1180, 1366]) {
 assert.equal(shouldStackLayout(700, 400), true);
 assert.equal(shouldStackLayout(1280, 720), false);
 
+const plottedLongitudes = plottedVessels(dataset.vessels).map((vessel) => vessel.position.lon);
+const plottedLatitudes = plottedVessels(dataset.vessels).map((vessel) => vessel.position.lat);
+const zoomZeroWidth =
+  ((Math.max(...plottedLongitudes) - Math.min(...plottedLongitudes)) / 360) * 256 + 68;
+const zoomZeroHeight =
+  Math.abs(mercatorY(Math.max(...plottedLatitudes)) - mercatorY(Math.min(...plottedLatitudes))) *
+    256 +
+  68;
+assert.ok(zoomZeroWidth <= 320, "The full fleet must fit the minimum supported width.");
+assert.ok(zoomZeroHeight <= 500, "The full fleet must fit the minimum map height.");
+
 assert.match(html, /id="fleetMap" role="region"/);
 assert.match(html, /id="resetMap"/);
 assert.match(html, /id="mapNotice"[\s\S]*role="status"/);
@@ -52,8 +63,17 @@ assert.match(styles, /max-width:\s*700px/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(mapComponent, /spiderfyOnMaxZoom:\s*true/);
 assert.match(mapComponent, /zoomToBoundsOnClick:\s*true/);
+assert.match(mapComponent, /minZoom:\s*0/);
+assert.match(mapComponent, /this\.tiles\.on\("loading"/);
 assert.match(mapComponent, /tileerror/);
+assert.match(mapComponent, /this\.tiles\.on\("load"/);
+assert.match(mapComponent, /#hideTileNotice/);
 assert.match(mapComponent, /https:\/\/tile\.openstreetmap\.org/);
 assert.match(mapComponent, /OpenStreetMap/);
 
 console.log("Fleet map tests passed.");
+
+function mercatorY(latitude) {
+  const sine = Math.sin((latitude * Math.PI) / 180);
+  return 0.5 - Math.log((1 + sine) / (1 - sine)) / (4 * Math.PI);
+}
