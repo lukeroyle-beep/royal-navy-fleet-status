@@ -7,12 +7,15 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "validate:data": "node scripts/validate-fleet-data.mjs",
-    "test": "node scripts/test-loader.mjs",
+    "test": "node scripts/test-loader.mjs && node scripts/test-map.mjs",
     "build": "npm run validate:data && npm test && vite build && node scripts/copy-fleet-data.mjs",
     "preview": "vite preview --host 127.0.0.1"
   },
   "devDependencies": {
-    "three": "^0.164.1",
     "vite": "^6.0.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3"
   }
 }
