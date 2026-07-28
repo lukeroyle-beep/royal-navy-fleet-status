@@ -28,7 +28,7 @@ export class FleetMap {
     this.map = L.map(container, {
       center: DEFAULT_VIEW.centre,
       zoom: DEFAULT_VIEW.zoom,
-      minZoom: 2,
+      minZoom: 0,
       maxZoom: 19,
       worldCopyJump: true,
       zoomControl: false,
@@ -48,7 +48,17 @@ export class FleetMap {
       detectRetina: false,
       updateWhenIdle: true,
     });
-    this.tiles.on("tileerror", () => this.#showTileNotice());
+    this.tileLoadFailed = false;
+    this.tiles.on("loading", () => {
+      this.tileLoadFailed = false;
+    });
+    this.tiles.on("tileerror", () => {
+      this.tileLoadFailed = true;
+      this.#showTileNotice();
+    });
+    this.tiles.on("load", () => {
+      if (!this.tileLoadFailed) this.#hideTileNotice();
+    });
     this.tiles.addTo(this.map);
 
     this.clusterGroup = L.markerClusterGroup({
@@ -181,6 +191,11 @@ export class FleetMap {
   #showTileNotice() {
     if (!this.notice) return;
     this.notice.hidden = false;
+  }
+
+  #hideTileNotice() {
+    if (!this.notice) return;
+    this.notice.hidden = true;
   }
 }
 
