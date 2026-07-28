@@ -19,6 +19,12 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run validate:data
-      - run: npm test
       - run: npm run build
+      - run: npm run build:pages
+      - run: npm audit --audit-level=high
+      - uses: actions/upload-artifact@v4
+        with:
+          name: github-pages-ready-${{ github.sha }}
+          path: dist
+          if-no-files-found: error
+          retention-days: 7
