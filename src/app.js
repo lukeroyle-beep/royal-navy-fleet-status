@@ -68,9 +68,9 @@ function bindDataset() {
   fleetMap.setVessels(dataset.vessels);
   details.renderDefault(dataset);
 
-  for (const input of [elements.search, elements.service, elements.status, elements.type, elements.location]) {
-    input.addEventListener("input", applyFilters);
-    input.addEventListener("change", applyFilters);
+  elements.search.addEventListener("input", applyFilters);
+  for (const select of [elements.service, elements.status, elements.type, elements.location]) {
+    select.addEventListener("change", applyFilters);
   }
   elements.reset.addEventListener("click", resetFilters);
   elements.mapReset.addEventListener("click", () => fleetMap.resetView());
