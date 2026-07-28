@@ -30,7 +30,9 @@ export class EventDetailsPanel {
       ["Status", vessel.status],
       ["Location", vessel.lastReportedLocation],
       ["Precision", formatClassification(vessel.locationClassification)],
-      ["Record date", formatDate(vessel.recordDate)],
+      ["Location evidence date", formatDate(vessel.locationEvidenceDate)],
+      ["Evidence checked", formatDate(vessel.evidenceCheckedDate)],
+      ["Evidence classification", formatEvidenceClassification(vessel.evidenceClassification)],
       ["Source", vessel.source.label],
     ];
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
@@ -59,10 +61,20 @@ function formatClassification(value) {
 }
 
 function formatDate(value) {
+  if (!value) return "Unknown";
   return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+function formatEvidenceClassification(value) {
+  return {
+    "direct-report": "Direct dated report",
+    "direct-tracker": "Direct tracker observation",
+    insufficient: "Insufficient for mapping",
+    "withheld-policy": "Withheld by policy",
+  }[value];
 }
