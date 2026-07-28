@@ -70,6 +70,51 @@ npm run build
 npm run preview
 ```
 
+## Private release testing
+
+The production build can be tested on another device without publishing the repository or
+application. Build the application, then supply the specific Tailscale hostname that will proxy the
+local preview:
+
+```powershell
+npm run build
+npm run preview:private -- <device>.<tailnet>.ts.net
+```
+
+The private-preview command accepts only a hostname ending in `.ts.net`, adds only that hostname to
+Vite's allowlist and keeps the server bound to `127.0.0.1`. It does not store the hostname in the
+repository. Do not include `https://`, a port or a path.
+
+In a second terminal:
+
+```powershell
+tailscale serve 4173
+```
+
+Connect the iPad or other test device to the same Tailscale network and open the HTTPS address
+printed by Tailscale. Keep both terminal windows open during testing and press `Ctrl+C` in both when
+finished. Use the full checklist in
+[`docs/private-release-test.md`](docs/private-release-test.md) and record physical-device evidence in
+[`docs/release-test-report.md`](docs/release-test-report.md).
+
+## GitHub Pages preparation
+
+Create a Pages-compatible project build with:
+
+```bash
+npm run build:pages
+```
+
+This uses `/royal-navy-fleet-status/` as the project path and validates the built JavaScript, CSS
+(Cascading Style Sheets) and fleet-data output. Continuous Integration (CI) also stores this output
+as a private workflow artifact for seven days. Repository read access is required to download it
+from the relevant Actions run.
+
+No Pages deployment workflow is configured. GitHub Free supports Pages for public repositories,
+while privately published Pages sites require an eligible organisation using GitHub Enterprise
+Cloud. Enabling Pages, changing repository visibility or adding deployment permissions requires a
+separate human-approved change.
+
 ## Validate and build
 
 ```bash
