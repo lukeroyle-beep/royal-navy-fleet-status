@@ -1,4 +1,5 @@
 const COMMONS_API = "https://commons.wikimedia.org/w/api.php";
+const WIKIPEDIA_SUMMARY = "https://en.wikipedia.org/api/rest_v1/page/summary/";
 const EXCLUDED_TITLES = /\b(badge|crest|emblem|logo|pennant|ensign|coat of arms|ship's bell|plaque)\b/i;
 
 export class VesselPhotoService {
@@ -38,12 +39,23 @@ export class VesselPhotoService {
       const info = candidate.imageinfo?.[0];
       return info?.thumburl && info.mime?.startsWith("image/") && !EXCLUDED_TITLES.test(candidate.title);
     });
-    if (!page) return null;
+    if (!page) return this.#findWikipediaImage(vessel);
 
     const info = page.imageinfo[0];
     return {
       imageUrl: info.thumburl,
       pageUrl: info.descriptionurl,
+    };
+  }
+
+  async #findWikipediaImage(vessel) {
+    const response = await this.fetcher(`${WIKIPEDIA_SUMMARY}${encodeURIComponent(vessel.name)}`);
+    if (!response.ok) return null;
+    const page = await response.json();
+    if (!page.thumbnail?.source || !page.content_urls?.desktop?.page) return null;
+    return {
+      imageUrl: page.thumbnail.source.replace(/\/\d+px-/, "/900px-"),
+      pageUrl: page.content_urls.desktop.page,
     };
   }
 }
