@@ -5,6 +5,10 @@ import { validateFleet } from "../src/components/ScenarioLoader.js";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
+const page = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+
+assert.match(page, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
+assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
 
 assert.equal(validateFleet(dataset).vessels.length, 71);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
