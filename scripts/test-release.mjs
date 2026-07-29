@@ -58,7 +58,7 @@ assert.match(checklist, /Portrait/);
 assert.match(checklist, /Landscape/);
 assert.match(report, /Observed defect/);
 assert.match(report, /Screenshot or notes/);
-assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
+assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.doesNotMatch(indexHtml, /id="mapSubtitle"/);
 assert.doesNotMatch(indexHtml, /Curated open-source intelligence/i);
 assert.doesNotMatch(indexHtml, /Last publicly reported vessel locations/i);
