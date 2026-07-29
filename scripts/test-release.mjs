@@ -34,6 +34,8 @@ const workflow = fs.readFileSync(
   "utf8",
 );
 const viteConfig = fs.readFileSync(new URL("../vite.config.js", import.meta.url), "utf8");
+const indexHtml = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const appSource = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
 const checklist = fs.readFileSync(
   new URL("../docs/private-release-test.md", import.meta.url),
   "utf8",
@@ -56,6 +58,15 @@ assert.match(checklist, /Portrait/);
 assert.match(checklist, /Landscape/);
 assert.match(report, /Observed defect/);
 assert.match(report, /Screenshot or notes/);
+assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
+assert.doesNotMatch(indexHtml, /id="mapSubtitle"/);
+assert.doesNotMatch(indexHtml, /Curated open-source intelligence/i);
+assert.doesNotMatch(indexHtml, /Last publicly reported vessel locations/i);
+assert.doesNotMatch(
+  appSource,
+  /mapSubtitle|elements\.subtitle/,
+  "Application initialisation must not require the removed subtitle element.",
+);
 
 for (const file of [workflow, viteConfig, checklist, report]) {
   assert.doesNotMatch(file, /tail[0-9a-f]{6,}/i, "A user-specific tailnet identifier was committed.");

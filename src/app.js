@@ -6,7 +6,6 @@ import "./styles.css";
 const DATA_URL = "./data/royal-navy/vessels.json";
 const elements = {
   title: document.querySelector("#mapTitle"),
-  subtitle: document.querySelector("#mapSubtitle"),
   asOfDate: document.querySelector("#asOfDate"),
   totalCount: document.querySelector("#totalCount"),
   mappedCount: document.querySelector("#mappedCount"),
@@ -57,7 +56,6 @@ async function initialize() {
 
 function bindDataset() {
   elements.title.textContent = dataset.metadata.title;
-  elements.subtitle.textContent = dataset.metadata.subtitle;
   elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
   elements.disclaimer.textContent = dataset.metadata.disclaimer;
   elements.totalCount.textContent = dataset.vessels.length.toString();
@@ -162,7 +160,6 @@ function resetFilters() {
 function showError(error) {
   elements.error.hidden = false;
   elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
-  elements.subtitle.textContent = "Fleet data unavailable";
 }
 
 function formatDate(value) {
