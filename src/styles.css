@@ -311,6 +311,32 @@ h1 {
   line-height: 1.45;
 }
 
+
+.detail-photo {
+  margin: 0 0 14px;
+}
+
+.detail-photo img {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  border-radius: 7px;
+  background: #071018;
+  object-fit: cover;
+  aspect-ratio: 16 / 9;
+}
+
+.detail-photo figcaption {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+.detail-photo a {
+  color: #8edcf7;
+}
+
 .detail-meta {
   display: grid;
   gap: 7px;
