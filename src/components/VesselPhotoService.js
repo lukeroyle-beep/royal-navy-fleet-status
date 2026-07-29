@@ -1,5 +1,6 @@
 const COMMONS_API = "https://commons.wikimedia.org/w/api.php";
 const WIKIPEDIA_SUMMARY = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+const LOCAL_PHOTOS = new Map([["hms-prince-of-wales", "./vessel-photos/prince_of_wales.jpg"]]);
 const EXCLUDED_TITLES = /\b(badge|crest|emblem|logo|pennant|ensign|coat of arms|ship's bell|plaque)\b/i;
 
 export class VesselPhotoService {
@@ -16,6 +17,11 @@ export class VesselPhotoService {
   }
 
   async #search(vessel) {
+    const localPhoto = LOCAL_PHOTOS.get(vessel.id);
+    if (localPhoto) {
+      return { imageUrl: localPhoto, pageUrl: null };
+    }
+
     const query = [vessel.name, vessel.pennantNumber].filter(Boolean).join(" ");
     const url = new URL(COMMONS_API);
     url.search = new URLSearchParams({
