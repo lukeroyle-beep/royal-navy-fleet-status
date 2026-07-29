@@ -33,7 +33,7 @@
           <button id="resetMap" class="map-reset" type="button">Show all plotted vessels</button>
         </div>
         <div id="mapNotice" class="map-notice" role="status" hidden>
-          Basemap tiles are unavailable. Vessel search, details and evidence links remain available.
+          Basemap tiles are unavailable. Vessel search and details remain available.
         </div>
       </section>
 
@@ -79,9 +79,12 @@
         <section class="detail-card" id="detailCard" aria-live="polite">
           <p class="eyebrow" id="detailKind">Fleet record</p>
           <h2 id="detailTitle">Select a vessel</h2>
+          <figure id="detailPhoto" class="detail-photo" hidden>
+            <img id="detailPhotoImage" alt="" />
+            <figcaption><a id="detailPhotoCredit" target="_blank" rel="noreferrer">Photograph: Wikimedia Commons</a></figcaption>
+          </figure>
           <p id="detailDescription">Choose a marker or a vessel from the results list.</p>
           <dl id="detailMeta" class="detail-meta"></dl>
-          <a id="detailSource" class="source-link" href="#" target="_blank" rel="noreferrer" hidden>Open supporting source</a>
         </section>
 
         <section class="results" aria-label="Filtered vessel results">
