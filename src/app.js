@@ -30,7 +30,9 @@ const details = new EventDetailsPanel({
   title: document.querySelector("#detailTitle"),
   description: document.querySelector("#detailDescription"),
   meta: document.querySelector("#detailMeta"),
-  source: document.querySelector("#detailSource"),
+  photo: document.querySelector("#detailPhoto"),
+  photoImage: document.querySelector("#detailPhotoImage"),
+  photoCredit: document.querySelector("#detailPhotoCredit"),
 });
 
 let dataset;
