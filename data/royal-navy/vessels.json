@@ -16,18 +16,22 @@
       "commissionedDate": "1778",
       "homePort": "Portsmouth",
       "status": "Museum ship",
-      "locationClassification": "unknown",
+      "locationClassification": "mapped",
       "lastReportedLocation": "Portsmouth Historic Dockyard",
-      "position": null,
-      "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted.",
-      "source": {
-        "id": "RN_OFFICIAL_SHIPS",
-        "label": "Royal Navy official ships page",
-        "url": "https://www.royalnavy.mod.uk/equipment/ships"
+      "position": {
+        "lat": 50.801468,
+        "lon": -1.1095,
+        "label": "HMS Victory, Portsmouth Historic Dockyard"
       },
-      "evidenceCheckedDate": "2026-07-23",
-      "locationEvidenceDate": null,
-      "evidenceClassification": "insufficient"
+      "unmappedReason": null,
+      "source": {
+        "id": "RN_VICTORY_PORTSMOUTH_2026",
+        "label": "Royal Navy: HMS Victory conservation at Portsmouth Historic Dockyard",
+        "url": "https://www.royalnavy.mod.uk/news/2026/may/22/20260522-coins-found-under-hms-victory-mast"
+      },
+      "evidenceCheckedDate": "2026-07-31",
+      "locationEvidenceDate": "2026-05-22",
+      "evidenceClassification": "direct-report"
     },
     {
       "id": "hms-vanguard",

@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "validate:data": "node scripts/validate-fleet-data.mjs",
-    "test": "node scripts/test-loader.mjs && node scripts/test-map.mjs && node scripts/test-release.mjs",
+    "test": "node scripts/test-loader.mjs && node scripts/test-map.mjs && node scripts/test-photos.mjs && node scripts/test-release.mjs",
     "build": "npm run validate:data && npm test && vite build && node scripts/copy-fleet-data.mjs",
     "build:pages": "npm run validate:data && npm test && vite build --base=/royal-navy-fleet-status/ && node scripts/copy-fleet-data.mjs && node scripts/test-pages-build.mjs",
     "preview": "vite preview --host 127.0.0.1",

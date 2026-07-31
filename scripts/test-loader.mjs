@@ -17,11 +17,15 @@ const directEvidence = dataset.vessels.find((vessel) => vessel.locationClassific
 assert.match(directEvidence.locationEvidenceDate, /^\d{4}-\d{2}-\d{2}$/);
 assert.match(directEvidence.evidenceCheckedDate, /^\d{4}-\d{2}-\d{2}$/);
 
-const safelyDowngraded = dataset.vessels.find((vessel) => vessel.id === "hms-victory");
-assert.equal(safelyDowngraded.locationClassification, "unknown");
-assert.equal(safelyDowngraded.position, null);
-assert.equal(safelyDowngraded.locationEvidenceDate, null);
-assert.equal(safelyDowngraded.evidenceClassification, "insufficient");
+const victory = dataset.vessels.find((vessel) => vessel.id === "hms-victory");
+assert.equal(victory.locationClassification, "mapped");
+assert.deepEqual(victory.position, {
+  lat: 50.801468,
+  lon: -1.1095,
+  label: "HMS Victory, Portsmouth Historic Dockyard",
+});
+assert.equal(victory.locationEvidenceDate, "2026-05-22");
+assert.equal(victory.evidenceClassification, "direct-report");
 
 const unknownWithCoordinates = structuredClone(dataset);
 const unknown = unknownWithCoordinates.vessels.find((vessel) => vessel.locationClassification === "unknown");
