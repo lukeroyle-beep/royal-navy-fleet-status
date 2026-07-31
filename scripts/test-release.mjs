@@ -63,6 +63,7 @@ assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
 assert.match(indexHtml, /id="activeCount"/);
 assert.match(indexHtml, /id="activePercentage"/);
+assert.match(indexHtml, /class="title-card"[\s\S]*id="activeCount"[\s\S]*<\/div>\s*<div class="as-of">/);
 assert.doesNotMatch(indexHtml, /Royal Navy and RFA OSINT Fleet Map/);
 assert.doesNotMatch(indexHtml, /id="mapSubtitle"/);
 assert.doesNotMatch(indexHtml, /Curated open-source intelligence/i);

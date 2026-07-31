@@ -29,6 +29,7 @@ export class EventDetailsPanel {
       ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Class", vessel.vesselClass],
       ["Type", vessel.vesselType],
+      ["Commission date", vessel.commissionedDate || "Not recorded"],
       ["Status", vessel.status],
       ["Location", vessel.lastReportedLocation],
     ];

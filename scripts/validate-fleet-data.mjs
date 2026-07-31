@@ -71,12 +71,12 @@ for (const vessel of dataset.vessels) {
       vessel.locationClassification !== "withheld" ||
       vessel.status !== "Deployed" ||
       vessel.position !== null ||
-      vessel.lastReportedLocation !== "Classified." ||
+      vessel.lastReportedLocation !== "On patrol - classified" ||
       !Number.isFinite(symbolic?.lat) ||
       !Number.isFinite(symbolic?.lon) ||
       Math.abs(symbolic.lat) > 90 ||
       Math.abs(symbolic.lon) > 180 ||
-      symbolic.label !== "Classified."
+      symbolic.label !== "On patrol - classified"
     ) {
       throw new Error(`${vessel.name} has an invalid classified symbolic marker.`);
     }

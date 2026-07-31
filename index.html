@@ -15,23 +15,23 @@
       <section class="map-stage" aria-label="Interactive fleet map">
         <div id="fleetMap" role="region" aria-label="Map of evidenced vessel locations"></div>
         <header class="topbar">
-          <div>
+          <div class="title-card">
             <h1 id="mapTitle">Royal Navy Fleet Status</h1>
+            <section class="active-summary" aria-label="Active vessel summary">
+              <div>
+                <span>Total number of active vessels</span>
+                <strong id="activeCount">0</strong>
+              </div>
+              <div>
+                <span>Percentage of active vessels</span>
+                <strong id="activePercentage">0%</strong>
+              </div>
+            </section>
           </div>
           <div class="as-of">
             <span>Dataset as of</span>
             <strong id="asOfDate">Loading</strong>
           </div>
-          <section class="active-summary" aria-label="Active vessel summary">
-            <div>
-              <span>Total number of active vessels</span>
-              <strong id="activeCount">0</strong>
-            </div>
-            <div>
-              <span>Percentage of active vessels</span>
-              <strong id="activePercentage">0%</strong>
-            </div>
-          </section>
         </header>
         <div class="map-tools">
           <div class="legend" aria-label="Location marker legend">

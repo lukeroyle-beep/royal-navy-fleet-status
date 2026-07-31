@@ -73,8 +73,8 @@ assert.equal(vanguard.symbolicPosition, undefined);
 
 const vengeance = dataset.vessels.find((vessel) => vessel.id === "hms-vengeance");
 assert.equal(vengeance.status, "Deployed");
-assert.equal(vengeance.lastReportedLocation, "Classified.");
-assert.equal(vengeance.symbolicPosition.label, "Classified.");
+assert.equal(vengeance.lastReportedLocation, "On patrol - classified");
+assert.equal(vengeance.symbolicPosition.label, "On patrol - classified");
 
 const vigilant = dataset.vessels.find((vessel) => vessel.id === "hms-vigilant");
 assert.equal(vigilant.status, "Unknown");
