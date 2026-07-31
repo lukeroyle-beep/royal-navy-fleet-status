@@ -36,6 +36,7 @@ const workflow = fs.readFileSync(
 const viteConfig = fs.readFileSync(new URL("../vite.config.js", import.meta.url), "utf8");
 const indexHtml = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const appSource = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
+const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
 const checklist = fs.readFileSync(
   new URL("../docs/private-release-test.md", import.meta.url),
   "utf8",
@@ -59,14 +60,19 @@ assert.match(checklist, /Landscape/);
 assert.match(report, /Observed defect/);
 assert.match(report, /Screenshot or notes/);
 assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
+assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
+assert.doesNotMatch(indexHtml, /Royal Navy and RFA OSINT Fleet Map/);
 assert.doesNotMatch(indexHtml, /id="mapSubtitle"/);
 assert.doesNotMatch(indexHtml, /Curated open-source intelligence/i);
 assert.doesNotMatch(indexHtml, /Last publicly reported vessel locations/i);
 assert.doesNotMatch(
   appSource,
-  /mapSubtitle|elements\.subtitle/,
-  "Application initialisation must not require the removed subtitle element.",
+  /mapSubtitle|elements\.subtitle|elements\.title/,
+  "Application initialisation must not overwrite the static fleet title.",
 );
+assert.match(styles, /\.topbar\s*\{[^}]*right:\s*28px;[^}]*left:\s*auto;/s);
+assert.match(styles, /\.topbar\s*\{[^}]*flex-direction:\s*column;[^}]*align-items:\s*flex-end;/s);
+assert.match(styles, /h1\s*\{[^}]*font-size:\s*clamp\(1rem,\s*1\.35vw,\s*1\.35rem\);/s);
 
 for (const file of [workflow, viteConfig, checklist, report]) {
   assert.doesNotMatch(file, /tail[0-9a-f]{6,}/i, "A user-specific tailnet identifier was committed.");
