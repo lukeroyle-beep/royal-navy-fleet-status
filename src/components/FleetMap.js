@@ -5,6 +5,7 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 
 import {
   clusterSizeClass,
+  getMapPosition,
   hasPlottablePosition,
   markerClassName,
   plottedVessels,
@@ -142,7 +143,8 @@ export class FleetMap {
   }
 
   #createMarker(vessel) {
-    const marker = L.marker([vessel.position.lat, vessel.position.lon], {
+    const position = getMapPosition(vessel);
+    const marker = L.marker([position.lat, position.lon], {
       alt: `${vessel.name}, ${formatClassification(vessel.locationClassification)} location`,
       icon: this.#createMarkerIcon(vessel),
       keyboard: true,
@@ -151,7 +153,7 @@ export class FleetMap {
       vessel,
     });
     marker.bindTooltip(
-      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(vessel.position.label)}</span>`,
+      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)}</span>`,
       {
         className: "fleet-tooltip",
         direction: "top",
@@ -200,7 +202,11 @@ export class FleetMap {
 }
 
 function formatClassification(value) {
-  return value === "mapped" ? "mapped public" : "approximate";
+  return {
+    mapped: "mapped public",
+    approximate: "approximate",
+    withheld: "classified symbolic",
+  }[value] || value;
 }
 
 function escapeHtml(value) {

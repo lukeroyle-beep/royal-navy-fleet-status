@@ -28,6 +28,7 @@ const LOCAL_PHOTO_CREDITS = new Map([
       creditLabel: "Photograph: Ministry of Defence",
     },
   ],
+  ["astute.jpg", commonsCredit("HMS_Astute_Arrives_at_Faslane_for_the_First_Time_MOD_45150830.jpg")],
   ["audacious.jpg", commonsCredit("Audacious_Under_Construction_MOD_45155779.jpg")],
   ["daring.jpg", commonsCredit("Royal_Navy_Type_45_Destroyer_HMS_Daring_MOD_45153705.jpg")],
   ["duncan.jpg", commonsCredit("HMS_Duncan_-_1.jpg")],

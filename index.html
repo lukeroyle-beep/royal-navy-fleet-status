@@ -27,6 +27,7 @@
           <div class="legend" aria-label="Location marker legend">
             <span><i class="legend-dot mapped"></i>Mapped public location</span>
             <span><i class="legend-dot approximate"></i>Approximate port or area</span>
+            <span><i class="legend-dot classified"></i>Classified (symbolic marker)</span>
           </div>
           <button id="resetMap" class="map-reset" type="button">Show all plotted vessels</button>
         </div>
@@ -79,7 +80,6 @@
           <h2 id="detailTitle">Select a vessel</h2>
           <figure id="detailPhoto" class="detail-photo" hidden>
             <img id="detailPhotoImage" alt="" />
-            <figcaption hidden><a id="detailPhotoCredit" target="_blank" rel="noreferrer"></a></figcaption>
           </figure>
           <p id="detailDescription">Choose a marker or a vessel from the results list.</p>
           <dl id="detailMeta" class="detail-meta"></dl>
@@ -92,8 +92,6 @@
           </div>
           <ul id="vesselList"></ul>
         </section>
-
-        <p id="dataDisclaimer" class="disclaimer"></p>
       </aside>
     </main>
 

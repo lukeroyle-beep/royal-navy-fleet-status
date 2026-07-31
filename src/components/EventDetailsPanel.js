@@ -1,15 +1,13 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
 
 export class EventDetailsPanel {
-  constructor({ kind, title, description, meta, photo, photoImage, photoCredit }) {
+  constructor({ kind, title, description, meta, photo, photoImage }) {
     this.kind = kind;
     this.title = title;
     this.description = description;
     this.meta = meta;
     this.photo = photo;
     this.photoImage = photoImage;
-    this.photoCredit = photoCredit;
-    this.photoCaption = photoCredit.closest("figcaption");
     this.photoService = new VesselPhotoService();
     this.renderToken = 0;
     this.photoImage.addEventListener("error", () => this.#hidePhoto());
@@ -49,13 +47,6 @@ export class EventDetailsPanel {
       .then((result) => {
         if (token !== this.renderToken || !result) return;
         this.photoImage.src = result.imageUrl;
-        this.photoCredit.textContent = result.creditLabel || "";
-        if (result.pageUrl && result.creditLabel) {
-          this.photoCredit.href = result.pageUrl;
-        } else {
-          this.photoCredit.removeAttribute("href");
-        }
-        if (this.photoCaption) this.photoCaption.hidden = !result.creditLabel;
         this.photo.hidden = false;
       })
       .catch(() => {
@@ -67,9 +58,6 @@ export class EventDetailsPanel {
     this.photo.hidden = true;
     this.photoImage.removeAttribute("src");
     this.photoImage.alt = "";
-    this.photoCredit.removeAttribute("href");
-    this.photoCredit.textContent = "";
-    if (this.photoCaption) this.photoCaption.hidden = true;
   }
 }
 

@@ -15,18 +15,24 @@ const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
 const mapComponent = fs.readFileSync(new URL("../src/components/FleetMap.js", import.meta.url), "utf8");
 
-assert.equal(plottedVessels(dataset.vessels).length, 36);
+assert.equal(plottedVessels(dataset.vessels).length, 39);
 assert.equal(
   plottedVessels(dataset.vessels).every((vessel) =>
-    ["mapped", "approximate"].includes(vessel.locationClassification),
+    ["mapped", "approximate", "withheld"].includes(vessel.locationClassification),
   ),
   true,
 );
 assert.equal(
   dataset.vessels
-    .filter((vessel) => ["unknown", "withheld"].includes(vessel.locationClassification))
+    .filter((vessel) => vessel.locationClassification === "unknown")
     .every((vessel) => !hasPlottablePosition(vessel)),
   true,
+);
+assert.equal(
+  dataset.vessels
+    .filter((vessel) => vessel.locationClassification === "withheld")
+    .filter(hasPlottablePosition).length,
+  1,
 );
 
 const plotted = plottedVessels(dataset.vessels)[0];
@@ -45,8 +51,12 @@ for (const width of [1024, 1080, 1180, 1366]) {
 assert.equal(shouldStackLayout(700, 400), true);
 assert.equal(shouldStackLayout(1280, 720), false);
 
-const plottedLongitudes = plottedVessels(dataset.vessels).map((vessel) => vessel.position.lon);
-const plottedLatitudes = plottedVessels(dataset.vessels).map((vessel) => vessel.position.lat);
+const plottedLongitudes = plottedVessels(dataset.vessels).map(
+  (vessel) => (vessel.position || vessel.symbolicPosition).lon,
+);
+const plottedLatitudes = plottedVessels(dataset.vessels).map(
+  (vessel) => (vessel.position || vessel.symbolicPosition).lat,
+);
 const zoomZeroWidth =
   ((Math.max(...plottedLongitudes) - Math.min(...plottedLongitudes)) / 360) * 256 + 68;
 const zoomZeroHeight =

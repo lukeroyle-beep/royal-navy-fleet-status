@@ -24,7 +24,7 @@ assert.deepEqual(victory.position, {
   lon: -1.1095,
   label: "HMS Victory, Portsmouth Historic Dockyard",
 });
-assert.equal(victory.locationEvidenceDate, "2026-05-22");
+assert.equal(victory.locationEvidenceDate, "2026-07-31");
 assert.equal(victory.evidenceClassification, "direct-report");
 
 const unknownWithCoordinates = structuredClone(dataset);
@@ -54,9 +54,30 @@ assert.throws(() => validateFleet(missingSourceLabel), /no valid supporting sour
 const submarinePatrol = structuredClone(dataset);
 const submarine = submarinePatrol.vessels.find((vessel) => vessel.vesselType === "SSBN");
 submarine.locationClassification = "approximate";
+submarine.lastReportedLocation = "Deterrent patrol";
 submarine.position = { lat: 0, lon: 0, label: "Invalid patrol position" };
+delete submarine.symbolicPosition;
 submarine.locationEvidenceDate = "2026-07-23";
 submarine.evidenceClassification = "direct-report";
 assert.throws(() => validateFleet(submarinePatrol), /cannot expose a submarine patrol position/i);
+
+const vanguard = dataset.vessels.find((vessel) => vessel.id === "hms-vanguard");
+assert.equal(vanguard.lastReportedLocation, "HMNB Clyde (Faslane); returned 12 June 2026");
+assert.equal(vanguard.locationEvidenceDate, "2026-06-12");
+assert.equal(vanguard.symbolicPosition, undefined);
+
+const vengeance = dataset.vessels.find((vessel) => vessel.id === "hms-vengeance");
+assert.equal(vengeance.status, "Deployed");
+assert.equal(vengeance.lastReportedLocation, "Classified");
+assert.match(vengeance.symbolicPosition.label, /North Atlantic patrol marker/i);
+
+const vigilant = dataset.vessels.find((vessel) => vessel.id === "hms-vigilant");
+assert.equal(vigilant.status, "Unknown");
+assert.equal(vigilant.symbolicPosition, undefined);
+assert.equal(vigilant.lastReportedLocation, "HMNB Clyde (Faslane); last directly reported 10 October 2025");
+assert.equal(vigilant.locationEvidenceDate, "2025-10-10");
+assert.equal(vigilant.position.label, "HMNB Clyde (Faslane)");
+
+assert.equal(dataset.vessels.some((vessel) => vessel.id === "hms-valiant"), false);
 
 console.log("Fleet loader tests passed.");

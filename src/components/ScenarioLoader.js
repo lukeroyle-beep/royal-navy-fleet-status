@@ -63,6 +63,25 @@ export function validateFleet(raw) {
       throw new Error(`${vessel.name} must not contain coordinates when ${vessel.locationClassification}.`);
     }
 
+    if (vessel.symbolicPosition !== undefined) {
+      const symbolic = vessel.symbolicPosition;
+      if (
+        vessel.vesselType !== "SSBN" ||
+        vessel.locationClassification !== "withheld" ||
+        vessel.status !== "Deployed" ||
+        vessel.position !== null ||
+        vessel.lastReportedLocation !== "Classified" ||
+        !symbolic ||
+        !Number.isFinite(symbolic.lat) ||
+        !Number.isFinite(symbolic.lon) ||
+        Math.abs(symbolic.lat) > 90 ||
+        Math.abs(symbolic.lon) > 180 ||
+        !/classified.*symbolic|symbolic.*classified/i.test(symbolic.label || "")
+      ) {
+        throw new Error(`${vessel.name} has an invalid classified symbolic marker.`);
+      }
+    }
+
     if (
       !vessel.source ||
       typeof vessel.source.label !== "string" ||
@@ -80,6 +99,9 @@ export function validateFleet(raw) {
     }
     if (vessel.locationClassification === "withheld" && vessel.evidenceClassification !== "withheld-policy") {
       throw new Error(`${vessel.name} must use the withheld evidence policy.`);
+    }
+    if (vessel.status === "Deployed" && vessel.locationClassification === "withheld" && !vessel.symbolicPosition) {
+      throw new Error(`${vessel.name} requires a classified symbolic marker when deployed.`);
     }
     if ((vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") && /patrol/i.test(vessel.lastReportedLocation) && vessel.position) {
       throw new Error(`${vessel.name} cannot expose a submarine patrol position.`);

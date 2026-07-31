@@ -2,8 +2,7 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-07-23",
-    "disclaimer": "This is a curated OSINT snapshot, not a live tracking service. Markers may represent ports or broad operational areas. Unknown and withheld positions are not inferred."
+    "asOfDate": "2026-07-31"
   },
   "vessels": [
     {
@@ -25,12 +24,12 @@
       },
       "unmappedReason": null,
       "source": {
-        "id": "RN_VICTORY_PORTSMOUTH_2026",
-        "label": "Royal Navy: HMS Victory conservation at Portsmouth Historic Dockyard",
-        "url": "https://www.royalnavy.mod.uk/news/2026/may/22/20260522-coins-found-under-hms-victory-mast"
+        "id": "PHD_VICTORY_CURRENT_2026",
+        "label": "Portsmouth Historic Dockyard: HMS Victory and the Big Repair",
+        "url": "https://historicdockyard.co.uk/attractions/hms-victory/"
       },
       "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-05-22",
+      "locationEvidenceDate": "2026-07-31",
       "evidenceClassification": "direct-report"
     },
     {
@@ -42,19 +41,23 @@
       "pennantNumber": "S28",
       "commissionedDate": "1993",
       "homePort": "HMNB Clyde",
-      "status": "Unknown",
-      "locationClassification": "withheld",
-      "lastReportedLocation": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
-      "position": null,
-      "unmappedReason": "Deterrent patrol location is withheld; no position is inferred.",
-      "source": {
-        "id": "HMNB_CLYDE_OFFICIAL",
-        "label": "Royal Navy HMNB Clyde",
-        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde"
+      "status": "Available",
+      "locationClassification": "approximate",
+      "lastReportedLocation": "HMNB Clyde (Faslane); returned 12 June 2026",
+      "position": {
+        "lat": 56.07,
+        "lon": -4.82,
+        "label": "HMNB Clyde (Faslane)"
       },
-      "evidenceCheckedDate": "2026-07-23",
-      "locationEvidenceDate": null,
-      "evidenceClassification": "withheld-policy"
+      "unmappedReason": null,
+      "source": {
+        "id": "VANGUARD_RETURN_CLYDE_2026",
+        "label": "HMS Vanguard return to HMNB Clyde; Royal Navy unit and base reference",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/ballistic-submarines/hms-vanguard"
+      },
+      "evidenceCheckedDate": "2026-07-31",
+      "locationEvidenceDate": "2026-06-12",
+      "evidenceClassification": "direct-report"
     },
     {
       "id": "hms-victorious",
@@ -79,7 +82,7 @@
         "label": "HMS Victorious Devonport maintenance report",
         "url": "https://www.royalnavy.mod.uk/news/2025/may/23/20250523-victorious-milestone-as-submarine-enters-devonport"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2025-05-23",
       "evidenceClassification": "direct-report"
     },
@@ -93,18 +96,22 @@
       "commissionedDate": "1996",
       "homePort": "HMNB Clyde",
       "status": "Unknown",
-      "locationClassification": "withheld",
-      "lastReportedLocation": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
-      "position": null,
-      "unmappedReason": "Deterrent patrol location is withheld; no position is inferred.",
-      "source": {
-        "id": "HMNB_CLYDE_OFFICIAL",
-        "label": "Royal Navy HMNB Clyde",
-        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde"
+      "locationClassification": "approximate",
+      "lastReportedLocation": "HMNB Clyde (Faslane); last directly reported 10 October 2025",
+      "position": {
+        "lat": 56.07,
+        "lon": -4.82,
+        "label": "HMNB Clyde (Faslane)"
       },
-      "evidenceCheckedDate": "2026-07-23",
-      "locationEvidenceDate": null,
-      "evidenceClassification": "withheld-policy"
+      "unmappedReason": null,
+      "source": {
+        "id": "VIGILANT_FASLANE_2025",
+        "label": "Royal Navy: Vigilant crew hosts affiliates in Faslane",
+        "url": "https://www.royalnavy.mod.uk/news/2025/october/10/20251010-vigilant-crew-hosts-affiliates-in-faslane-as-thank-you-for-support"
+      },
+      "evidenceCheckedDate": "2026-07-31",
+      "locationEvidenceDate": "2025-10-10",
+      "evidenceClassification": "direct-report"
     },
     {
       "id": "hms-vengeance",
@@ -115,17 +122,22 @@
       "pennantNumber": "S31",
       "commissionedDate": "1999",
       "homePort": "HMNB Clyde",
-      "status": "Unknown",
+      "status": "Deployed",
       "locationClassification": "withheld",
-      "lastReportedLocation": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+      "lastReportedLocation": "Classified",
       "position": null,
-      "unmappedReason": "Deterrent patrol location is withheld; no position is inferred.",
+      "symbolicPosition": {
+        "lat": 45,
+        "lon": -35,
+        "label": "Classified — symbolic North Atlantic patrol marker"
+      },
+      "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position.",
       "source": {
         "id": "HMNB_CLYDE_OFFICIAL",
         "label": "Royal Navy HMNB Clyde",
         "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "withheld-policy"
     },
@@ -152,7 +164,7 @@
         "label": "Royal Navy attack submarine fleet update",
         "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -179,7 +191,7 @@
         "label": "Royal Navy attack submarine fleet update",
         "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -206,7 +218,7 @@
         "label": "Royal Navy attack submarine fleet update",
         "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -233,7 +245,7 @@
         "label": "Royal Navy attack submarine fleet update",
         "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -260,7 +272,7 @@
         "label": "Royal Navy attack submarine fleet update",
         "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -287,7 +299,7 @@
         "label": "UK Parliament HMS Agamemnon timeline",
         "url": "https://questions-statements.parliament.uk/written-questions/detail/2026-06-16/10515"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-16",
       "evidenceClassification": "direct-report"
     },
@@ -314,7 +326,7 @@
         "label": "Royal Navy takes charge of NATO naval reaction force",
         "url": "https://www.royalnavy.mod.uk/news/2026/july/07/20260707-royal-navy-takes-charge-of-nato-naval-reaction-force"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-07",
       "evidenceClassification": "direct-report"
     },
@@ -327,22 +339,22 @@
       "pennantNumber": "R09",
       "commissionedDate": "10th December 2019",
       "homePort": "HMNB Portsmouth",
-      "status": "Deployed",
+      "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "North Atlantic / off Iceland; Operation FIRECREST / Neptune Strike 26-3",
+      "lastReportedLocation": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
       "position": {
-        "lat": 64.2,
-        "lon": -18.3,
-        "label": "North Atlantic / off Iceland"
+        "lat": 50.81,
+        "lon": -1.1,
+        "label": "HMNB Portsmouth"
       },
       "unmappedReason": null,
       "source": {
-        "id": "CSG_NEPTUNE_2026",
-        "label": "Royal Navy carrier strike group Arctic deployment",
-        "url": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/"
+        "id": "PWLS_RETURN_PORTSMOUTH_2026",
+        "label": "Royal Navy: HMS Prince of Wales returned to Portsmouth",
+        "url": "https://www.royalnavy.mod.uk/news/2026/july/25/20260725-pwls-crew"
       },
-      "evidenceCheckedDate": "2026-07-23",
-      "locationEvidenceDate": "2026-07-20",
+      "evidenceCheckedDate": "2026-07-31",
+      "locationEvidenceDate": "2026-07-24",
       "evidenceClassification": "direct-report"
     },
     {
@@ -364,7 +376,7 @@
         "label": "Type 45 availability update",
         "url": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -391,7 +403,7 @@
         "label": "HMS Dauntless public AIS-derived report",
         "url": "https://www.myshiptracking.com/vessels/hms-dauntless-mmsi-234586000-imo-"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-20",
       "evidenceClassification": "direct-tracker"
     },
@@ -414,7 +426,7 @@
         "label": "Type 45 availability update",
         "url": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -441,7 +453,7 @@
         "label": "RFA Lyme Bay Middle East deployment",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-23",
       "evidenceClassification": "direct-report"
     },
@@ -464,7 +476,7 @@
         "label": "Type 45 availability update",
         "url": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -477,22 +489,22 @@
       "pennantNumber": "D37",
       "commissionedDate": "26th September 2013",
       "homePort": "HMNB Portsmouth",
-      "status": "Deployed",
+      "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "North Atlantic / off Iceland; Operation FIRECREST / Neptune Strike 26-3",
+      "lastReportedLocation": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
       "position": {
-        "lat": 64.2,
-        "lon": -18.3,
-        "label": "North Atlantic / off Iceland"
+        "lat": 50.81,
+        "lon": -1.1,
+        "label": "HMNB Portsmouth"
       },
       "unmappedReason": null,
       "source": {
-        "id": "CSG_NEPTUNE_2026",
-        "label": "Royal Navy carrier strike group Arctic deployment",
-        "url": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/"
+        "id": "CSG_RETURN_PORTSMOUTH_2026",
+        "label": "HMS Prince of Wales and HMS Duncan return to Portsmouth",
+        "url": "https://www.v2radio.co.uk/news/west-sussex/hms-prince-of-wales-and-hms-duncan-return-to-portsmouth-after-arctic-mission/"
       },
-      "evidenceCheckedDate": "2026-07-23",
-      "locationEvidenceDate": "2026-07-20",
+      "evidenceCheckedDate": "2026-07-31",
+      "locationEvidenceDate": "2026-07-24",
       "evidenceClassification": "direct-report"
     },
     {
@@ -518,7 +530,7 @@
         "label": "Royal Navy fleet retirement announcement",
         "url": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-13",
       "evidenceClassification": "direct-report"
     },
@@ -545,7 +557,7 @@
         "label": "Royal Navy fleet retirement announcement",
         "url": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-13",
       "evidenceClassification": "direct-report"
     },
@@ -572,7 +584,7 @@
         "label": "Royal Navy carrier strike group Arctic deployment",
         "url": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-20",
       "evidenceClassification": "direct-report"
     },
@@ -595,7 +607,7 @@
         "label": "Royal Navy frigate availability update",
         "url": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -618,7 +630,7 @@
         "label": "Royal Navy frigate availability update",
         "url": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -641,7 +653,7 @@
         "label": "Royal Navy frigate availability update",
         "url": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -668,7 +680,7 @@
         "label": "HMS St Albans public AIS-derived report",
         "url": "https://maritimeoptima.com/public/vessels/pages/imo%3A8949721/mmsi%3A232002833/WARSHIP.html"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-23",
       "evidenceClassification": "direct-tracker"
     },
@@ -695,7 +707,7 @@
         "label": "Royal Navy monitoring off Plymouth",
         "url": "https://www.forcesnews.com/services/navy/royal-navy-monitor-russian-warship-conducting-live-fire-exercise-plymouth-coast"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-21",
       "evidenceClassification": "direct-report"
     },
@@ -722,7 +734,7 @@
         "label": "Royal Navy Russian warship monitoring",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/26/20260625-fre-round-up"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -749,7 +761,7 @@
         "label": "Royal Navy Russian warship monitoring",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/26/20260625-fre-round-up"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-25",
       "evidenceClassification": "direct-report"
     },
@@ -776,7 +788,7 @@
         "label": "Royal Navy Falklands guard ship handover",
         "url": "https://www.royalnavy.mod.uk/news/2026/january/19/20260119-its-goodbye-from-forth-hello-from-medway-as-patrol-ships-swap-places-in-falklands"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-01-19",
       "evidenceClassification": "direct-report"
     },
@@ -803,7 +815,7 @@
         "label": "HMS Medway Falklands mission",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/08/20260608-hms-medway-completes-midwinter-mercy-dash-to-worlds-remotest-island"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-08",
       "evidenceClassification": "direct-report"
     },
@@ -830,7 +842,7 @@
         "label": "HMS Trent public AIS-derived report",
         "url": "https://www.myshiptracking.com/vessels/hms-trent-mmsi-232005754-imo-0"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-23",
       "evidenceClassification": "direct-tracker"
     },
@@ -857,7 +869,7 @@
         "label": "HMS Tamar South Pacific mission",
         "url": "https://www.royalnavy.mod.uk/news/2026/march/06/20260306-hms-tamar-ready-for-south-pacific-mission-after-passing-thorough-assessment-in-australia"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-03-06",
       "evidenceClassification": "direct-report"
     },
@@ -884,7 +896,7 @@
         "label": "HMS Spey South East Asia deployment",
         "url": "https://www.royalnavy.mod.uk/news/2026/may/18/20260518-hms-spey-back-in-south-east-asia"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-05-18",
       "evidenceClassification": "direct-report"
     },
@@ -907,7 +919,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -930,7 +942,7 @@
         "label": "Royal Navy HMNB Clyde",
         "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -953,7 +965,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -976,7 +988,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -999,7 +1011,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1026,7 +1038,7 @@
         "label": "Sea Breeze 2026 mine-warfare exercise",
         "url": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-15",
       "evidenceClassification": "direct-report"
     },
@@ -1049,7 +1061,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1076,7 +1088,7 @@
         "label": "Sea Breeze 2026 mine-warfare exercise",
         "url": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-15",
       "evidenceClassification": "direct-report"
     },
@@ -1099,7 +1111,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1122,7 +1134,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1149,7 +1161,7 @@
         "label": "HMS Puncher and HMS Smiter at Baltops 26",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-26",
       "evidenceClassification": "direct-report"
     },
@@ -1172,7 +1184,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1195,7 +1207,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1218,7 +1230,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1245,7 +1257,7 @@
         "label": "HMS Puncher and HMS Smiter at Baltops 26",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-26",
       "evidenceClassification": "direct-report"
     },
@@ -1268,7 +1280,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1291,7 +1303,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1314,7 +1326,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1337,7 +1349,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1360,7 +1372,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1383,7 +1395,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1406,7 +1418,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1429,7 +1441,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1452,7 +1464,7 @@
         "label": "Royal Navy Archer class",
         "url": "https://www.royalnavy.mod.uk/equipment/ships/archer-class"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1475,7 +1487,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1498,7 +1510,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1525,7 +1537,7 @@
         "label": "HMS Scott public AIS-derived report",
         "url": "https://maritimeoptima.com/public/vessels/pages/imo%3A9127289/mmsi%3A233844000/HMS_SCOTT.html"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-23",
       "evidenceClassification": "direct-tracker"
     },
@@ -1548,7 +1560,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1571,7 +1583,7 @@
         "label": "Royal Navy official ships page",
         "url": "https://www.royalnavy.mod.uk/equipment/ships"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1598,7 +1610,7 @@
         "label": "RFA Lyme Bay Middle East deployment",
         "url": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-06-23",
       "evidenceClassification": "direct-report"
     },
@@ -1625,7 +1637,7 @@
         "label": "RFA Mounts Bay sea trials",
         "url": "https://www.forcesnews.com/services/navy/boost-royal-navy-rfa-mounts-bay-returns-sea-after-year-long-refit-complete"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-07",
       "evidenceClassification": "direct-report"
     },
@@ -1652,7 +1664,7 @@
         "label": "RFA workforce recovery and ships to sea",
         "url": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-05-21",
       "evidenceClassification": "direct-report"
     },
@@ -1679,7 +1691,7 @@
         "label": "RFA Proteus public AIS-derived report",
         "url": "https://www.myshiptracking.com/vessels/rfa-proteus-mmsi-232047056-imo-0"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-20",
       "evidenceClassification": "direct-tracker"
     },
@@ -1706,7 +1718,7 @@
         "label": "Royal Navy carrier strike group Arctic deployment",
         "url": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-07-20",
       "evidenceClassification": "direct-report"
     },
@@ -1733,7 +1745,7 @@
         "label": "RFA workforce recovery and ships to sea",
         "url": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": "2026-05-21",
       "evidenceClassification": "direct-report"
     },
@@ -1756,7 +1768,7 @@
         "label": "RFA workforce recovery and ships to sea",
         "url": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     },
@@ -1779,7 +1791,7 @@
         "label": "RFA workforce recovery and ships to sea",
         "url": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/"
       },
-      "evidenceCheckedDate": "2026-07-23",
+      "evidenceCheckedDate": "2026-07-31",
       "locationEvidenceDate": null,
       "evidenceClassification": "insufficient"
     }
