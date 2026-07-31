@@ -5,7 +5,6 @@ import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
 const elements = {
-  title: document.querySelector("#mapTitle"),
   asOfDate: document.querySelector("#asOfDate"),
   totalCount: document.querySelector("#totalCount"),
   mappedCount: document.querySelector("#mappedCount"),
@@ -57,7 +56,6 @@ async function initialize() {
 }
 
 function bindDataset() {
-  elements.title.textContent = dataset.metadata.title;
   elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
   elements.disclaimer.textContent = dataset.metadata.disclaimer;
   elements.totalCount.textContent = dataset.vessels.length.toString();
