@@ -15,8 +15,18 @@
       <section class="map-stage" aria-label="Interactive fleet map">
         <div id="fleetMap" role="region" aria-label="Map of evidenced vessel locations"></div>
         <header class="topbar">
-          <div>
+          <div class="title-card">
             <h1 id="mapTitle">Royal Navy Fleet Status</h1>
+            <section class="active-summary" aria-label="Active vessel summary">
+              <div>
+                <span>Total number of active vessels</span>
+                <strong id="activeCount">0</strong>
+              </div>
+              <div>
+                <span>Percentage of active vessels</span>
+                <strong id="activePercentage">0%</strong>
+              </div>
+            </section>
           </div>
           <div class="as-of">
             <span>Dataset as of</span>
@@ -78,11 +88,10 @@
         <section class="detail-card" id="detailCard" aria-live="polite">
           <p class="eyebrow" id="detailKind">Fleet record</p>
           <h2 id="detailTitle">Select a vessel</h2>
+          <dl id="detailMeta" class="detail-meta"></dl>
           <figure id="detailPhoto" class="detail-photo" hidden>
             <img id="detailPhotoImage" alt="" />
           </figure>
-          <p id="detailDescription">Choose a marker or a vessel from the results list.</p>
-          <dl id="detailMeta" class="detail-meta"></dl>
         </section>
 
         <section class="results" aria-label="Filtered vessel results">

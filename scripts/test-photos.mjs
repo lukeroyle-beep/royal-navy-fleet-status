@@ -12,8 +12,17 @@ assert.doesNotMatch(photoService, /Photograph supplied locally/);
 assert.ok(!filenames.includes("duncan.png"), "The historical HMS Duncan image must not be shipped.");
 assert.ok(!filenames.includes("vigilant.png"), "The corrupt HMS Vigilant image must not be shipped.");
 assert.doesNotMatch(html, /figcaption|detailPhotoCredit|dataDisclaimer/);
-assert.doesNotMatch(detailPanel, /photoCredit|photoCaption/);
+assert.doesNotMatch(html, /detailDescription|Marker shows the last publicly reported/);
+assert.match(html, /id="detailMeta"[^>]*><\/dl>\s*<figure id="detailPhoto"/);
+assert.doesNotMatch(detailPanel, /photoCredit|photoCaption|Marker shows the last publicly reported/);
 assert.match(photoService, /HMS_Astute_Arrives_at_Faslane_for_the_First_Time/);
+assert.match(photoService, /200407-hms-audacious-back-in-faslane/);
+assert.doesNotMatch(photoService, /Audacious_Under_Construction/);
+assert.match(photoService, /RFA_Proteus_in_Cammell_Laird/);
+assert.match(
+  detailPanel,
+  /\["Type", vessel\.vesselType\],[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Status", vessel\.status\]/,
+);
 
 for (const filename of filenames) {
   const bytes = fs.readFileSync(new URL(filename, photoDirectory));
