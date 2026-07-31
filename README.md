@@ -6,7 +6,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 
 ## What is included
 
-- A 71-vessel Royal Navy and RFA roster derived from the supplied status workbook
+- A 71-vessel Royal Navy and RFA roster
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
 - Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
@@ -20,7 +20,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
 - Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
 - Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
-- Unknown and withheld vessels remain available through search and the vessel list without being plotted.
+- Unknown vessels remain available through search and the vessel list without being plotted. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
 - If basemap tiles are unavailable, vessel search, evidence details and supporting links continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
@@ -30,7 +30,7 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 - Coordinates exist only as explicit fields in the curated dataset.
 - The browser performs no geocoding, course extrapolation or positional inference.
 - Approximate markers are labelled as representative ports or operational areas.
-- Unknown and withheld vessels remain in the roster but are not plotted.
+- Unknown vessels remain in the roster but are not plotted. Any withheld SSBN marker is deliberately symbolic and is not evidence of a vessel's position.
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred or displayed.
 

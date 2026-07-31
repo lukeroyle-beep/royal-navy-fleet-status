@@ -1,9 +1,16 @@
 export function hasPlottablePosition(vessel) {
+  return Boolean(getMapPosition(vessel));
+}
+
+export function getMapPosition(vessel) {
+  const position = vessel?.position || vessel?.symbolicPosition;
   return Boolean(
-    vessel?.position &&
-      Number.isFinite(vessel.position.lat) &&
-      Number.isFinite(vessel.position.lon),
-  );
+    position &&
+      Number.isFinite(position.lat) &&
+      Number.isFinite(position.lon),
+  )
+    ? position
+    : null;
 }
 
 export function plottedVessels(vessels) {

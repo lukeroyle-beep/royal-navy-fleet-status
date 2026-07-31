@@ -1,6 +1,7 @@
 import { EventDetailsPanel } from "./components/EventDetailsPanel.js";
 import { FleetMap } from "./components/FleetMap.js";
 import { ScenarioLoader } from "./components/ScenarioLoader.js";
+import { hasPlottablePosition } from "./utils/map.js";
 import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
@@ -17,7 +18,6 @@ const elements = {
   reset: document.querySelector("#resetFilters"),
   list: document.querySelector("#vesselList"),
   resultsStatus: document.querySelector("#resultsStatus"),
-  disclaimer: document.querySelector("#dataDisclaimer"),
   error: document.querySelector("#loadError"),
   errorMessage: document.querySelector("#loadErrorMessage"),
   mapNotice: document.querySelector("#mapNotice"),
@@ -31,7 +31,6 @@ const details = new EventDetailsPanel({
   meta: document.querySelector("#detailMeta"),
   photo: document.querySelector("#detailPhoto"),
   photoImage: document.querySelector("#detailPhotoImage"),
-  photoCredit: document.querySelector("#detailPhotoCredit"),
 });
 
 let dataset;
@@ -57,9 +56,8 @@ async function initialize() {
 
 function bindDataset() {
   elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
-  elements.disclaimer.textContent = dataset.metadata.disclaimer;
   elements.totalCount.textContent = dataset.vessels.length.toString();
-  elements.mappedCount.textContent = dataset.vessels.filter((vessel) => vessel.position).length.toString();
+  elements.mappedCount.textContent = dataset.vessels.filter(hasPlottablePosition).length.toString();
   fillSelect(elements.service, uniqueValues("service"));
   fillSelect(elements.status, uniqueValues("status"));
   fillSelect(elements.type, uniqueValues("vesselType"));
@@ -176,6 +174,6 @@ function formatClassification(value) {
     mapped: "Mapped",
     approximate: "Approximate",
     unknown: "Unknown",
-    withheld: "Withheld",
+    withheld: "Classified",
   }[value];
 }
