@@ -70,13 +70,13 @@ export function validateFleet(raw) {
         vessel.locationClassification !== "withheld" ||
         vessel.status !== "Deployed" ||
         vessel.position !== null ||
-        vessel.lastReportedLocation !== "Classified" ||
+        vessel.lastReportedLocation !== "Classified." ||
         !symbolic ||
         !Number.isFinite(symbolic.lat) ||
         !Number.isFinite(symbolic.lon) ||
         Math.abs(symbolic.lat) > 90 ||
         Math.abs(symbolic.lon) > 180 ||
-        !/classified.*symbolic|symbolic.*classified/i.test(symbolic.label || "")
+        symbolic.label !== "Classified."
       ) {
         throw new Error(`${vessel.name} has an invalid classified symbolic marker.`);
       }

@@ -41,7 +41,7 @@ const LOCAL_PHOTO_CREDITS = new Map([
   ["mounts_bay.jpg", commonsCredit("Mounts_Bay_(L3008).jpg")],
   ["portland.jpg", commonsCredit("HMS_Portland_Sails_Near_Huge_Glacier_in_South_Georgia_MOD_45151714.jpg")],
   ["protector.jpg", commonsCredit("Royal_Navy_Antarctic_Patrol_Ship_HMS_Protector_MOD_45153156.jpg")],
-  ["proteus.jpg", commonsCredit("K60_RFA_Proteus_Multi-Role_Ocean_Surveillance_(MROS)_ship.jpg")],
+  ["proteus.jpg", commonsCredit("RFA_Proteus_in_Cammell_Laird.webp")],
   ["pursuer.jpg", commonsCredit("HMS_Pursuer.jpg")],
   ["st_albans.jpg", commonsCredit("PHOTEXOF_HMS_ST_ALBANS_MOD_45161945.jpg")],
   ["sutherland.jpg", commonsCredit("HMS_Sutherland_(F81)_MoD.jpg")],

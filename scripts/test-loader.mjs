@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
+import { getActiveFleetSummary } from "../src/utils/fleet.js";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
@@ -12,6 +13,10 @@ assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
 
 assert.equal(validateFleet(dataset).vessels.length, 71);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
+
+const activeFleet = getActiveFleetSummary(dataset.vessels);
+assert.equal(activeFleet.total, 51);
+assert.equal(activeFleet.percentage.toFixed(1), "71.8");
 
 const directEvidence = dataset.vessels.find((vessel) => vessel.locationClassification === "approximate");
 assert.match(directEvidence.locationEvidenceDate, /^\d{4}-\d{2}-\d{2}$/);
@@ -68,8 +73,8 @@ assert.equal(vanguard.symbolicPosition, undefined);
 
 const vengeance = dataset.vessels.find((vessel) => vessel.id === "hms-vengeance");
 assert.equal(vengeance.status, "Deployed");
-assert.equal(vengeance.lastReportedLocation, "Classified");
-assert.match(vengeance.symbolicPosition.label, /North Atlantic patrol marker/i);
+assert.equal(vengeance.lastReportedLocation, "Classified.");
+assert.equal(vengeance.symbolicPosition.label, "Classified.");
 
 const vigilant = dataset.vessels.find((vessel) => vessel.id === "hms-vigilant");
 assert.equal(vigilant.status, "Unknown");

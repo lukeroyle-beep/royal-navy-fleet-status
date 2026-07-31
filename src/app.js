@@ -1,12 +1,15 @@
 import { EventDetailsPanel } from "./components/EventDetailsPanel.js";
 import { FleetMap } from "./components/FleetMap.js";
 import { ScenarioLoader } from "./components/ScenarioLoader.js";
+import { getActiveFleetSummary } from "./utils/fleet.js";
 import { hasPlottablePosition } from "./utils/map.js";
 import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
 const elements = {
   asOfDate: document.querySelector("#asOfDate"),
+  activeCount: document.querySelector("#activeCount"),
+  activePercentage: document.querySelector("#activePercentage"),
   totalCount: document.querySelector("#totalCount"),
   mappedCount: document.querySelector("#mappedCount"),
   filteredCount: document.querySelector("#filteredCount"),
@@ -27,7 +30,6 @@ const elements = {
 const details = new EventDetailsPanel({
   kind: document.querySelector("#detailKind"),
   title: document.querySelector("#detailTitle"),
-  description: document.querySelector("#detailDescription"),
   meta: document.querySelector("#detailMeta"),
   photo: document.querySelector("#detailPhoto"),
   photoImage: document.querySelector("#detailPhotoImage"),
@@ -55,7 +57,10 @@ async function initialize() {
 }
 
 function bindDataset() {
+  const activeFleet = getActiveFleetSummary(dataset.vessels);
   elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
+  elements.activeCount.textContent = activeFleet.total.toString();
+  elements.activePercentage.textContent = `${activeFleet.percentage.toFixed(1)}%`;
   elements.totalCount.textContent = dataset.vessels.length.toString();
   elements.mappedCount.textContent = dataset.vessels.filter(hasPlottablePosition).length.toString();
   fillSelect(elements.service, uniqueValues("service"));

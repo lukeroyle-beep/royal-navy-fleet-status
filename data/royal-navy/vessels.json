@@ -124,12 +124,12 @@
       "homePort": "HMNB Clyde",
       "status": "Deployed",
       "locationClassification": "withheld",
-      "lastReportedLocation": "Classified",
+      "lastReportedLocation": "Classified.",
       "position": null,
       "symbolicPosition": {
         "lat": 45,
         "lon": -35,
-        "label": "Classified — symbolic North Atlantic patrol marker"
+        "label": "Classified."
       },
       "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position.",
       "source": {

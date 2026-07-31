@@ -81,6 +81,7 @@ button {
 
 .topbar > div:first-child,
 .as-of,
+.active-summary,
 .legend,
 .map-reset,
 .map-notice {
@@ -145,6 +146,41 @@ h1 {
 
 .as-of strong {
   margin-top: 3px;
+}
+
+.active-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(320px, 100%);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(5, 14, 21, 0.86);
+  text-align: right;
+}
+
+.active-summary div {
+  min-width: 0;
+  padding: 10px 12px;
+}
+
+.active-summary div + div {
+  border-left: 1px solid var(--line);
+}
+
+.active-summary span,
+.active-summary strong {
+  display: block;
+}
+
+.active-summary span {
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.25;
+}
+
+.active-summary strong {
+  margin-top: 5px;
+  font-size: 1.05rem;
 }
 
 .map-tools {
@@ -313,14 +349,8 @@ h1 {
   font-size: 1.2rem;
 }
 
-#detailDescription {
-  color: #d7e2e6;
-  font-size: 0.88rem;
-  line-height: 1.45;
-}
-
 .detail-photo {
-  margin: 0 0 14px;
+  margin: 14px 0 0;
 }
 
 .detail-photo img {
@@ -331,6 +361,10 @@ h1 {
   background: #071018;
   object-fit: cover;
   aspect-ratio: 16 / 9;
+}
+
+#detailPhotoImage[data-vessel-id="rfa-proteus"] {
+  object-fit: contain;
 }
 
 .detail-meta {
@@ -612,6 +646,10 @@ a:focus-visible {
     min-width: 0;
     padding: 8px 11px;
     text-align: right;
+  }
+
+  .active-summary {
+    width: min(300px, 100%);
   }
 
   .map-tools {

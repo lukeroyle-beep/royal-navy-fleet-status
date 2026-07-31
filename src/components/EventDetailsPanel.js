@@ -1,10 +1,9 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
 
 export class EventDetailsPanel {
-  constructor({ kind, title, description, meta, photo, photoImage }) {
+  constructor({ kind, title, meta, photo, photoImage }) {
     this.kind = kind;
     this.title = title;
-    this.description = description;
     this.meta = meta;
     this.photo = photo;
     this.photoImage = photoImage;
@@ -17,7 +16,6 @@ export class EventDetailsPanel {
     this.renderToken += 1;
     this.kind.textContent = "Fleet record";
     this.title.textContent = "Select a vessel";
-    this.description.textContent = `${dataset.vessels.length} Royal Navy and Royal Fleet Auxiliary records are available.`;
     this.meta.replaceChildren();
     this.#hidePhoto();
   }
@@ -26,10 +24,6 @@ export class EventDetailsPanel {
     const token = ++this.renderToken;
     this.kind.textContent = vessel.service;
     this.title.textContent = vessel.name;
-    this.description.textContent =
-      vessel.locationClassification === "unknown" || vessel.locationClassification === "withheld"
-        ? vessel.unmappedReason
-        : "Marker shows the last publicly reported port or representative operational area recorded in this dataset.";
 
     const entries = [
       ["Pennant", vessel.pennantNumber || "Not recorded"],
@@ -41,6 +35,7 @@ export class EventDetailsPanel {
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
     this.#hidePhoto();
     this.photoImage.alt = `Photograph of ${vessel.name}`;
+    this.photoImage.dataset.vesselId = vessel.id;
 
     this.photoService
       .find(vessel)
@@ -57,6 +52,7 @@ export class EventDetailsPanel {
   #hidePhoto() {
     this.photo.hidden = true;
     this.photoImage.removeAttribute("src");
+    delete this.photoImage.dataset.vesselId;
     this.photoImage.alt = "";
   }
 }
