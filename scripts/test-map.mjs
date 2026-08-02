@@ -15,7 +15,15 @@ const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
 const mapComponent = fs.readFileSync(new URL("../src/components/FleetMap.js", import.meta.url), "utf8");
 
-assert.equal(plottedVessels(dataset.vessels).length, 39);
+const expectedPlottedVessels = dataset.vessels.filter(
+  (vessel) =>
+    ["mapped", "approximate"].includes(vessel.locationClassification) ||
+    Boolean(vessel.symbolicPosition),
+);
+assert.deepEqual(
+  plottedVessels(dataset.vessels).map((vessel) => vessel.id),
+  expectedPlottedVessels.map((vessel) => vessel.id),
+);
 assert.equal(
   plottedVessels(dataset.vessels).every((vessel) =>
     ["mapped", "approximate", "withheld"].includes(vessel.locationClassification),

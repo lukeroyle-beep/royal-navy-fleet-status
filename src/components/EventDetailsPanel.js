@@ -32,8 +32,14 @@ export class EventDetailsPanel {
       ["Commission date", vessel.commissionedDate || "Not recorded"],
       ["Status", vessel.status],
       ["Location", vessel.lastReportedLocation],
+      ["Location evidence date", formatEvidenceDate(vessel.locationEvidenceDate)],
+      ["Evidence checked date", formatEvidenceDate(vessel.evidenceCheckedDate)],
+      ["Evidence classification", formatEvidenceClassification(vessel.evidenceClassification)],
     ];
-    this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
+    this.meta.replaceChildren(
+      ...entries.map(([term, value]) => createEntry(term, value)),
+      createSourceEntry(vessel.source),
+    );
     this.#hidePhoto();
     this.photoImage.alt = `Photograph of ${vessel.name}`;
     this.photoImage.dataset.vesselId = vessel.id;
@@ -66,4 +72,38 @@ function createEntry(term, value) {
   dd.textContent = value;
   wrapper.append(dt, dd);
   return wrapper;
+}
+
+function createSourceEntry(source) {
+  const wrapper = document.createElement("div");
+  const dt = document.createElement("dt");
+  const dd = document.createElement("dd");
+  const link = document.createElement("a");
+  dt.textContent = "Source";
+  link.href = source.url;
+  link.textContent = source.label;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  dd.append(link);
+  wrapper.append(dt, dd);
+  return wrapper;
+}
+
+export function formatEvidenceDate(value) {
+  if (!value) return "Unknown";
+  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+export function formatEvidenceClassification(value) {
+  return {
+    "direct-report": "Direct public report",
+    "direct-tracker": "Direct public tracker",
+    insufficient: "Insufficient for plotting",
+    "withheld-policy": "Withheld by policy",
+  }[value] || value;
 }
