@@ -137,4 +137,11 @@ Fleet data is stored in `data/royal-navy/vessels.json`. Any update should:
 7. omit coordinates where a submarine position is withheld; and
 8. pass `npm run validate:data` and `npm test`.
 
+Location review decisions are recorded append-only in
+`data/royal-navy/location-decisions.jsonl`. Each JSON Lines record preserves the vessel,
+source, evidence/check dates, classification decision, freshness policy and rationale even when a
+review correctly leaves a vessel unknown. Validate the log with `npm run validate:decisions`.
+Pull-request CI compares the file with the base commit and rejects deleted, reordered or modified
+existing records; corrections must be appended as new superseding decisions.
+
 Automated collection, third-party tracking feeds, scheduled refreshes and public deployment are outside the current version.

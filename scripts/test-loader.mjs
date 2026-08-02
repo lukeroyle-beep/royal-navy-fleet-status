@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
+import {
+  formatEvidenceClassification,
+  formatEvidenceDate,
+} from "../src/components/EventDetailsPanel.js";
 import { getActiveFleetSummary } from "../src/utils/fleet.js";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
@@ -13,6 +17,10 @@ assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
 
 assert.equal(validateFleet(dataset).vessels.length, 71);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
+assert.equal(formatEvidenceDate("2026-07-20"), "20 July 2026");
+assert.equal(formatEvidenceDate(null), "Unknown");
+assert.equal(formatEvidenceClassification("direct-report"), "Direct public report");
+assert.equal(formatEvidenceClassification("insufficient"), "Insufficient for plotting");
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
 assert.equal(activeFleet.total, 51);
