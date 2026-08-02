@@ -10,7 +10,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
 - Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
-- Vessel details with status, recorded location, evidence date, checked date, evidence classification and supporting source
+- Vessel details with status, recorded location and location evidence date
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
 - Responsive desktop and mobile layouts
@@ -21,7 +21,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
 - Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
 - Unknown vessels remain available through search and the vessel list without being plotted. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
-- If basemap tiles are unavailable, vessel search, evidence details and supporting links continue to work.
+- If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
 
@@ -34,7 +34,7 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred or displayed.
 
-The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision and evidence labels shown in the interface.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed location classification and the project's internal evidence review.
 
 ## Evidence model
 
@@ -42,6 +42,10 @@ Every vessel record separates two dates:
 
 - `locationEvidenceDate` is the publication or observation date that supports the displayed location. It is `null` when no defensible date is available.
 - `evidenceCheckedDate` is the date a maintainer last checked the cited source.
+
+The vessel card displays the location evidence date. Checked dates, evidence classifications and
+supporting sources remain in the underlying provenance data for validation and audit rather than
+being presented on the card.
 
 Mapped and approximate records require a named-vessel source that directly supports the displayed location, a valid location evidence date, and either `direct-report` or `direct-tracker` evidence. Generic fleet, class, capability, and home-port pages are not sufficient current-location evidence on their own.
 
