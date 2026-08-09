@@ -43,6 +43,25 @@ assert.equal(
   1,
 );
 
+const middleton = dataset.vessels.find((vessel) => vessel.id === "hms-middleton");
+if (middleton.source.id === "MIDDLETON_UK_PATROL_2026") {
+  assert.ok(
+    middleton.position.lon >= 0 && middleton.position.lon <= 4,
+    "HMS Middleton's representative UK east-coast patrol marker must remain in the North Sea.",
+  );
+}
+
+const tideforce = dataset.vessels.find((vessel) => vessel.id === "rfa-tideforce");
+if (tideforce.source.id === "TIDEFORCE_UK_WATERS_2026") {
+  assert.ok(
+    tideforce.position.lat >= 53 &&
+      tideforce.position.lat <= 59 &&
+      tideforce.position.lon >= 0.5 &&
+      tideforce.position.lon <= 5,
+    "RFA Tideforce's representative monitoring marker must remain in the North Sea.",
+  );
+}
+
 const plotted = plottedVessels(dataset.vessels)[0];
 assert.match(markerClassName(plotted, plotted.id), /is-selected/);
 assert.doesNotMatch(markerClassName(plotted, "another-id"), /is-selected/);
