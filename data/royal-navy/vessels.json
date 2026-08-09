@@ -775,9 +775,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "UK waters / Dover approaches; handover with HMS Severn observed 23–26 July 2026",
       "position": {
-        "lat": 51.1,
-        "lon": 1,
-        "label": "UK waters / Dover approaches (representative)"
+        "lat": 51.2,
+        "lon": 1.8,
+        "label": "North Sea off the Dover approaches (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -830,8 +830,8 @@
       "lastReportedLocation": "Falkland Islands / South Atlantic; Falklands guard ship",
       "position": {
         "lat": -51.7,
-        "lon": -57.85,
-        "label": "Falkland Islands"
+        "lon": -57.5,
+        "label": "Falkland Islands / South Atlantic (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -856,9 +856,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Tampa, Florida; logistics and maintenance stop reported 25 June 2026",
       "position": {
-        "lat": 27.95,
-        "lon": -82.46,
-        "label": "Tampa, Florida (representative)"
+        "lat": 27.938,
+        "lon": -82.445,
+        "label": "Port Tampa Bay (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -884,8 +884,8 @@
       "lastReportedLocation": "Suva Port, Fiji; reception aboard reported 28 April 2026",
       "position": {
         "lat": -18.14,
-        "lon": 178.43,
-        "label": "Suva Port, Fiji (representative)"
+        "lon": 178.415,
+        "label": "Suva Harbour, Fiji (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -911,8 +911,8 @@
       "lastReportedLocation": "Indo-Pacific; South East Asia / Far East patrols after Singapore overhaul",
       "position": {
         "lat": 4,
-        "lon": 108,
-        "label": "South East Asia / Far East"
+        "lon": 110,
+        "label": "South China Sea / South East Asia (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1019,8 +1019,8 @@
       "lastReportedLocation": "UK east coast–Scotland–Isle of Man patrol circuit; deployment reported 2 June 2026",
       "position": {
         "lat": 55,
-        "lon": -2,
-        "label": "UK coastal patrol circuit (representative)"
+        "lon": 1,
+        "label": "North Sea leg of UK coastal patrol circuit (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1045,9 +1045,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Bahrain / Gulf region; operational 40th anniversary reported 8 November 2024",
       "position": {
-        "lat": 26.23,
-        "lon": 50.58,
-        "label": "Bahrain / Gulf region (representative)"
+        "lat": 26.2,
+        "lon": 51,
+        "label": "Gulf waters off Bahrain (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1072,9 +1072,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Portland; Sea Breeze 26-2 mine warfare exercise",
       "position": {
-        "lat": 50.57,
-        "lon": -2.44,
-        "label": "Portland"
+        "lat": 50.585,
+        "lon": -2.445,
+        "label": "Portland Harbour (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1180,8 +1180,8 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "River Foyle, Londonderry; public visit observed 25–28 June 2026",
       "position": {
-        "lat": 55,
-        "lon": -7.32,
+        "lat": 55.00985,
+        "lon": -7.301207,
         "label": "River Foyle, Londonderry (representative)"
       },
       "unmappedReason": null,
@@ -1342,9 +1342,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "West coast of Scotland; summer deployment reported 30 July 2020",
       "position": {
-        "lat": 56.2,
-        "lon": -5.5,
-        "label": "West coast of Scotland (representative)"
+        "lat": 56.3,
+        "lon": -6.5,
+        "label": "Sea of the Hebrides / west of Scotland (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1396,9 +1396,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020",
       "position": {
-        "lat": 58.98,
-        "lon": -2.96,
-        "label": "Kirkwall / east Scotland route (representative)"
+        "lat": 59,
+        "lon": -2.5,
+        "label": "Waters east of Orkney (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1477,9 +1477,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020",
       "position": {
-        "lat": 58.98,
-        "lon": -2.96,
-        "label": "Kirkwall / east Scotland route (representative)"
+        "lat": 59,
+        "lon": -2.5,
+        "label": "Waters east of Orkney (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1532,7 +1532,7 @@
       "lastReportedLocation": "Off Innellan, Firth of Clyde; directly photographed and published 26 June 2025",
       "position": {
         "lat": 55.89,
-        "lon": -4.95,
+        "lon": -4.9,
         "label": "Firth of Clyde off Innellan (representative)"
       },
       "unmappedReason": null,
@@ -1558,8 +1558,8 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Maryport Marina; public visit observed 27–28 June 2026",
       "position": {
-        "lat": 54.714,
-        "lon": -3.501,
+        "lat": 54.71412,
+        "lon": -3.50765,
         "label": "Maryport Marina (representative)"
       },
       "unmappedReason": null,
@@ -1585,9 +1585,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "British Gibraltar Territorial Waters; last official public location reported 18 May 2022",
       "position": {
-        "lat": 36.14,
-        "lon": -5.35,
-        "label": "Gibraltar (representative)"
+        "lat": 36.1485,
+        "lon": -5.3652,
+        "label": "Gibraltar Harbour (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1612,9 +1612,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Gibraltar; returned after Tangier / Ksar Sghir exercise reported 30 July 2026",
       "position": {
-        "lat": 36.14,
-        "lon": -5.35,
-        "label": "Gibraltar (representative)"
+        "lat": 36.1485,
+        "lon": -5.3652,
+        "label": "Gibraltar Harbour (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1639,9 +1639,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "At sea from Falmouth; departed after life-extension refit on 12 June 2026",
       "position": {
-        "lat": 50.15,
-        "lon": -5.07,
-        "label": "Falmouth approaches (representative)"
+        "lat": 50,
+        "lon": -5,
+        "label": "English Channel off Falmouth (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1666,9 +1666,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "River Tees; sailed after docking and maintenance period reported 14 January 2026",
       "position": {
-        "lat": 54.6,
-        "lon": -1.18,
-        "label": "River Tees (representative)"
+        "lat": 54.7,
+        "lon": -1,
+        "label": "Tees approaches / North Sea (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1747,9 +1747,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Portland Port; public visit reported 30 July 2026",
       "position": {
-        "lat": 50.568,
-        "lon": -2.45,
-        "label": "Portland Port (representative)"
+        "lat": 50.585,
+        "lon": -2.445,
+        "label": "Portland Harbour (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1828,9 +1828,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "Portland Port; reported berthed nearby on 30 July 2026",
       "position": {
-        "lat": 50.568,
-        "lon": -2.45,
-        "label": "Portland Port (representative)"
+        "lat": 50.585,
+        "lon": -2.445,
+        "label": "Portland Harbour (representative)"
       },
       "unmappedReason": null,
       "source": {
@@ -1909,9 +1909,9 @@
       "locationClassification": "approximate",
       "lastReportedLocation": "North Sea and Western Approaches; monitoring task throughout April 2026",
       "position": {
-        "lat": 52,
-        "lon": 0,
-        "label": "North Sea / Western Approaches (representative)"
+        "lat": 55,
+        "lon": 2,
+        "label": "North Sea (representative)"
       },
       "unmappedReason": null,
       "source": {
