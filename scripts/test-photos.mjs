@@ -13,7 +13,11 @@ assert.ok(!filenames.includes("duncan.png"), "The historical HMS Duncan image mu
 assert.ok(!filenames.includes("vigilant.png"), "The corrupt HMS Vigilant image must not be shipped.");
 assert.doesNotMatch(html, /figcaption|detailPhotoCredit|dataDisclaimer/);
 assert.doesNotMatch(html, /detailDescription|Marker shows the last publicly reported/);
-assert.match(html, /id="detailMeta"[^>]*><\/dl>\s*<figure id="detailPhoto"/);
+assert.match(
+  html,
+  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailMeta"/,
+  "The vessel photograph must appear directly below the vessel name and before the metadata.",
+);
 assert.doesNotMatch(detailPanel, /photoCredit|photoCaption|Marker shows the last publicly reported/);
 assert.doesNotMatch(detailPanel, /Evidence checked date|Evidence classification|createSourceEntry/);
 assert.doesNotMatch(detailPanel, /vessel\.evidenceCheckedDate|vessel\.evidenceClassification|vessel\.source/);
