@@ -13,6 +13,13 @@ assert.match(page, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
 
 assert.equal(validateFleet(dataset).vessels.length, 71);
+assert.equal(
+  dataset.vessels.filter(
+    (vessel) => ["mapped", "approximate", "withheld"].includes(vessel.locationClassification),
+  ).length,
+  71,
+);
+assert.equal(dataset.vessels.filter((vessel) => vessel.locationClassification === "unknown").length, 0);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
 assert.equal(formatEvidenceDate("2026-07-20"), "20 July 2026");
 assert.equal(formatEvidenceDate(null), "Unknown");
@@ -36,7 +43,11 @@ assert.equal(victory.locationEvidenceDate, "2026-07-31");
 assert.equal(victory.evidenceClassification, "direct-report");
 
 const unknownWithCoordinates = structuredClone(dataset);
-const unknown = unknownWithCoordinates.vessels.find((vessel) => vessel.locationClassification === "unknown");
+const unknown = unknownWithCoordinates.vessels.find((vessel) => vessel.locationClassification === "approximate");
+unknown.locationClassification = "unknown";
+unknown.evidenceClassification = "insufficient";
+unknown.locationEvidenceDate = null;
+unknown.unmappedReason = "Synthetic unknown record for validation.";
 unknown.position = { lat: 0, lon: 0, label: "Invalid inferred point" };
 assert.throws(() => validateFleet(unknownWithCoordinates), /must not contain coordinates/i);
 

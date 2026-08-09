@@ -20,7 +20,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
 - Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
 - Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
-- Unknown vessels remain available through search and the vessel list without being plotted. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
+- Vessels without a current public fix use their last dated, vessel-specific public location, even when historical. The evidence date on the vessel card shows the age of that observation. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
@@ -30,7 +30,8 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 - Coordinates exist only as explicit fields in the curated dataset.
 - The browser performs no geocoding, course extrapolation or positional inference.
 - Approximate markers are labelled as representative ports or operational areas.
-- Unknown vessels remain in the roster but are not plotted. Any withheld SSBN marker is deliberately symbolic and is not evidence of a vessel's position.
+- A plotted historical location is never presented as a live fix. Its marker uses only the precision supported by the cited report, and the vessel card shows the observation or publication date.
+- Unknown vessels remain in the roster but are not plotted only when no dated, vessel-specific public location can be established. Any withheld SSBN marker is deliberately symbolic and is not evidence of a vessel's position.
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred or displayed.
 
@@ -47,7 +48,7 @@ The vessel card displays the location evidence date. Checked dates, evidence cla
 supporting sources remain in the underlying provenance data for validation and audit rather than
 being presented on the card.
 
-Mapped and approximate records require a named-vessel source that directly supports the displayed location, a valid location evidence date, and either `direct-report` or `direct-tracker` evidence. Generic fleet, class, capability, and home-port pages are not sufficient current-location evidence on their own.
+Mapped and approximate records require a named-vessel source that directly supports the displayed location, a valid location evidence date, and either `direct-report` or `direct-tracker` evidence. Generic fleet, class, capability, and home-port pages are not sufficient location evidence on their own. Evidence age does not by itself remove a last-known marker, but historical records must be worded and positioned so they cannot be mistaken for a current fix.
 
 Records that do not meet that threshold use `unknown`, contain no coordinates, and explain the downgrade. Withheld submarine positions use `withheld`, contain no coordinates, and never infer patrol areas. The interface displays an unknown evidence date as “Unknown”; maintainers must not substitute the check date or dataset date.
 
@@ -137,7 +138,7 @@ Fleet data is stored in `data/royal-navy/vessels.json`. Any update should:
 3. record the source observation or publication date separately from the date the source was checked;
 4. classify both location precision and evidence quality;
 5. use only a source that directly identifies the vessel and supports the displayed location for mapped or approximate records;
-6. downgrade unsupported locations to `unknown`, remove coordinates and explain why;
+6. retain the latest dated public location irrespective of age, label historical observations clearly, and use `unknown` only when no vessel-specific location can be supported;
 7. omit coordinates where a submarine position is withheld; and
 8. pass `npm run validate:data` and `npm test`.
 
@@ -148,4 +149,6 @@ review correctly leaves a vessel unknown. Validate the log with `npm run validat
 Pull-request CI compares the file with the base commit and rejects deleted, reordered or modified
 existing records; corrections must be appended as new superseding decisions.
 
-Automated collection, third-party tracking feeds, scheduled refreshes and public deployment are outside the current version.
+The owner-reviewed weekly refresh procedure is documented in
+[`docs/weekly-fleet-refresh.md`](docs/weekly-fleet-refresh.md). Automated collection, third-party
+tracking feeds and public deployment remain outside the current version.
