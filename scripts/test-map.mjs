@@ -62,6 +62,18 @@ if (tideforce.source.id === "TIDEFORCE_UK_WATERS_2026") {
   );
 }
 
+const chiddingfold = dataset.vessels.find((vessel) => vessel.id === "hms-chiddingfold");
+assert.equal(chiddingfold.locationEvidenceDate, "2025-04-05");
+assert.equal(
+  chiddingfold.lastReportedLocation,
+  "HMNB Portsmouth; historical arrival reported 5 April 2025",
+);
+assert.deepEqual(chiddingfold.position, {
+  lat: 50.8,
+  lon: -1.11,
+  label: "HMNB Portsmouth (representative)",
+});
+
 const plotted = plottedVessels(dataset.vessels)[0];
 assert.match(markerClassName(plotted, plotted.id), /is-selected/);
 assert.doesNotMatch(markerClassName(plotted, "another-id"), /is-selected/);

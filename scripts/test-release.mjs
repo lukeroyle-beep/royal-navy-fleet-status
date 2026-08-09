@@ -82,6 +82,8 @@ assert.doesNotMatch(
 assert.doesNotMatch(appSource, /URLSearchParams|pushState|replaceState/);
 assert.match(appSource, /insightsMatchDataset/);
 assert.match(appSource, /selectedClass = ""/);
+assert.match(appSource, /label: "Vessel class availability"/);
+assert.doesNotMatch(appSource, /Public-status snapshot/);
 assert.match(styles, /\.topbar\s*\{[^}]*right:\s*28px;[^}]*left:\s*auto;/s);
 assert.match(styles, /\.topbar\s*\{[^}]*flex-direction:\s*column;[^}]*align-items:\s*flex-end;/s);
 assert.match(styles, /h1\s*\{[^}]*font-size:\s*clamp\(1rem,\s*1\.35vw,\s*1\.35rem\);/s);

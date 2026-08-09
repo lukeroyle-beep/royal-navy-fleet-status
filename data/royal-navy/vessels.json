@@ -1043,20 +1043,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Unknown",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Bahrain / Gulf region; operational 40th anniversary reported 8 November 2024",
+      "lastReportedLocation": "HMNB Portsmouth; historical arrival reported 5 April 2025",
       "position": {
-        "lat": 26.2,
-        "lon": 51,
-        "label": "Gulf waters off Bahrain (representative)"
+        "lat": 50.8,
+        "lon": -1.11,
+        "label": "HMNB Portsmouth (representative)"
       },
       "unmappedReason": null,
       "source": {
-        "id": "CHIDDINGFOLD_GULF_2024",
-        "label": "Royal Navy: HMS Chiddingfold marks 40th birthday in Bahrain",
-        "url": "https://www.royalnavy.mod.uk/news/2024/november/08/20241108-snapshot-of-life-aboard-wartime-destroyer-rediscovered-by-royal-navy-warships-crew"
+        "id": "SEAWAVES_CHIDDINGFOLD_PORTSMOUTH_2025",
+        "label": "SeaWaves: HMS Chiddingfold arrival at Portsmouth",
+        "url": "https://seawaves.com/wp-content/uploads/2025/07/2025-Navcall-5.pdf"
       },
       "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-11-08",
+      "locationEvidenceDate": "2025-04-05",
       "evidenceClassification": "direct-report"
     },
     {
