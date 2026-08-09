@@ -23,6 +23,9 @@ jobs:
       - run: npm ci
       - if: github.event_name == 'pull_request'
         run: npm run validate:decisions -- --base-ref "${{ github.event.pull_request.base.sha }}"
+      - if: github.event_name == 'pull_request'
+        run: npm run validate:history -- --base-ref "${{ github.event.pull_request.base.sha }}"
+      - run: npm run validate:changes
       - run: npm run build
       - run: npm run build:pages
       - run: npm audit --audit-level=high

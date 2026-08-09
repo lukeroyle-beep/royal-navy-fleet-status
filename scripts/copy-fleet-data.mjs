@@ -3,9 +3,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const source = path.join(root, "data", "royal-navy", "vessels.json");
-const destination = path.join(root, "dist", "data", "royal-navy", "vessels.json");
+const files = ["vessels.json", "publication-changes.json", "status-history.jsonl"];
+const destinationDirectory = path.join(root, "dist", "data", "royal-navy");
 
-fs.mkdirSync(path.dirname(destination), { recursive: true });
-fs.copyFileSync(source, destination);
-console.log("Copied fleet data into the production build.");
+fs.mkdirSync(destinationDirectory, { recursive: true });
+for (const file of files) {
+  fs.copyFileSync(
+    path.join(root, "data", "royal-navy", file),
+    path.join(destinationDirectory, file),
+  );
+}
+console.log(`Copied ${files.length} fleet data files into the production build.`);

@@ -1,6 +1,7 @@
 const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
 const EVIDENCE_CLASSIFICATIONS = new Set(["direct-report", "direct-tracker", "insufficient", "withheld-policy"]);
 const MAPPABLE_EVIDENCE = new Set(["direct-report", "direct-tracker"]);
+const OPERATIONAL_STATUSES = new Set(["Available", "Deployed", "In re-fit", "Unknown", "Museum ship", "Decommissioned"]);
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 export class ScenarioLoader {
@@ -24,6 +25,9 @@ export function validateFleet(raw) {
   if (!raw.vessels.length) {
     throw new Error("Fleet data contains no vessel records.");
   }
+  if (!isIsoDate(raw.metadata.asOfDate)) {
+    throw new Error("Fleet data has an invalid dataset date.");
+  }
 
   const ids = new Set();
   for (const [index, vessel] of raw.vessels.entries()) {
@@ -38,6 +42,9 @@ export function validateFleet(raw) {
     if (!CLASSIFICATIONS.has(vessel.locationClassification)) {
       throw new Error(`${vessel.name} has an invalid location classification.`);
     }
+    if (!OPERATIONAL_STATUSES.has(vessel.status)) {
+      throw new Error(`${vessel.name} has an invalid operational status.`);
+    }
     if (!EVIDENCE_CLASSIFICATIONS.has(vessel.evidenceClassification)) {
       throw new Error(`${vessel.name} has an invalid evidence classification.`);
     }
@@ -46,6 +53,12 @@ export function validateFleet(raw) {
     }
     if (vessel.locationEvidenceDate !== null && !isIsoDate(vessel.locationEvidenceDate)) {
       throw new Error(`${vessel.name} has an invalid location evidence date.`);
+    }
+    if (vessel.evidenceCheckedDate > raw.metadata.asOfDate) {
+      throw new Error(`${vessel.name} has an evidence checked date after the dataset date.`);
+    }
+    if (vessel.locationEvidenceDate > raw.metadata.asOfDate) {
+      throw new Error(`${vessel.name} has a location evidence date after the dataset date.`);
     }
 
     const mapped = vessel.locationClassification === "mapped" || vessel.locationClassification === "approximate";

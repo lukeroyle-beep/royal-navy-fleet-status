@@ -4,6 +4,7 @@ const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
 const allowedClassifications = new Set(["mapped", "approximate", "unknown", "withheld"]);
 const allowedEvidenceClassifications = new Set(["direct-report", "direct-tracker", "insufficient", "withheld-policy"]);
+const allowedStatuses = new Set(["Available", "Deployed", "In re-fit", "Unknown", "Museum ship", "Decommissioned"]);
 const mappableEvidence = new Set(["direct-report", "direct-tracker"]);
 const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 const requiredFields = [
@@ -19,7 +20,7 @@ const requiredFields = [
   "evidenceClassification",
 ];
 
-if (!dataset.metadata?.asOfDate || !Array.isArray(dataset.vessels)) {
+if (!isIsoDate(dataset.metadata?.asOfDate) || !Array.isArray(dataset.vessels)) {
   throw new Error("Dataset must contain metadata.asOfDate and vessels.");
 }
 if (dataset.vessels.length !== 71) {
@@ -38,6 +39,9 @@ for (const vessel of dataset.vessels) {
   if (!allowedClassifications.has(vessel.locationClassification)) {
     throw new Error(`${vessel.name} has invalid location classification.`);
   }
+  if (!allowedStatuses.has(vessel.status)) {
+    throw new Error(`${vessel.name} has invalid operational status.`);
+  }
   if (!allowedEvidenceClassifications.has(vessel.evidenceClassification)) {
     throw new Error(`${vessel.name} has invalid evidence classification.`);
   }
@@ -46,6 +50,12 @@ for (const vessel of dataset.vessels) {
   }
   if (vessel.locationEvidenceDate !== null && !isIsoDate(vessel.locationEvidenceDate)) {
     throw new Error(`${vessel.name} has an invalid location evidence date.`);
+  }
+  if (vessel.evidenceCheckedDate > dataset.metadata.asOfDate) {
+    throw new Error(`${vessel.name} has an evidence checked date after the dataset date.`);
+  }
+  if (vessel.locationEvidenceDate > dataset.metadata.asOfDate) {
+    throw new Error(`${vessel.name} has a location evidence date after the dataset date.`);
   }
 
   const shouldMap = vessel.locationClassification === "mapped" || vessel.locationClassification === "approximate";

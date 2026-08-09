@@ -47,6 +47,8 @@ const report = fs.readFileSync(
 );
 
 assert.match(packageJson.scripts["build:pages"], /--base=\/royal-navy-fleet-status\//);
+assert.match(packageJson.scripts.build, /validate:history/);
+assert.match(packageJson.scripts.build, /validate:changes/);
 assert.match(packageJson.scripts["preview:private"], /private-preview\.mjs/);
 assert.match(viteConfig, /allowedHosts:\s*privatePreviewHost \? \[privatePreviewHost\] : \[\]/);
 assert.match(workflow, /npm run build:pages/);
@@ -63,6 +65,10 @@ assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
 assert.match(indexHtml, /id="activeCount"/);
 assert.match(indexHtml, /id="activePercentage"/);
+assert.match(indexHtml, /id="changesToggle"/);
+assert.match(indexHtml, /aria-controls="changesPanel"/);
+assert.match(indexHtml, /id="classRibbon"/);
+assert.match(indexHtml, /id="changesPanel"[^>]*hidden/);
 assert.match(indexHtml, /class="title-card"[\s\S]*id="activeCount"[\s\S]*<\/div>\s*<div class="as-of">/);
 assert.doesNotMatch(indexHtml, /Royal Navy and RFA OSINT Fleet Map/);
 assert.doesNotMatch(indexHtml, /id="mapSubtitle"/);
@@ -73,6 +79,9 @@ assert.doesNotMatch(
   /mapSubtitle|elements\.subtitle|elements\.title/,
   "Application initialisation must not overwrite the static fleet title.",
 );
+assert.doesNotMatch(appSource, /URLSearchParams|pushState|replaceState/);
+assert.match(appSource, /insightsMatchDataset/);
+assert.match(appSource, /selectedClass = ""/);
 assert.match(styles, /\.topbar\s*\{[^}]*right:\s*28px;[^}]*left:\s*auto;/s);
 assert.match(styles, /\.topbar\s*\{[^}]*flex-direction:\s*column;[^}]*align-items:\s*flex-end;/s);
 assert.match(styles, /h1\s*\{[^}]*font-size:\s*clamp\(1rem,\s*1\.35vw,\s*1\.35rem\);/s);

@@ -9,8 +9,10 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - A 71-vessel Royal Navy and RFA roster
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
+- A compact class ribbon with class-level active counts and public-status percentages
+- A release-to-release change summary that stays collapsed until requested
 - Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
-- Vessel details with status, recorded location and location evidence date
+- Vessel details with status, recorded location, evidence freshness and availability-history coverage
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
 - Responsive desktop and mobile layouts
@@ -139,8 +141,9 @@ Fleet data is stored in `data/royal-navy/vessels.json`. Any update should:
 4. classify both location precision and evidence quality;
 5. use only a source that directly identifies the vessel and supports the displayed location for mapped or approximate records;
 6. retain the latest dated public location irrespective of age, label historical observations clearly, and use `unknown` only when no vessel-specific location can be supported;
-7. omit coordinates where a submarine position is withheld; and
-8. pass `npm run validate:data` and `npm test`.
+7. omit coordinates where a submarine position is withheld;
+8. regenerate the publication change summary and append the dated status snapshot; and
+9. pass the complete data, history, test and build checks.
 
 Location review decisions are recorded append-only in
 `data/royal-navy/location-decisions.jsonl`. Each JSON Lines record preserves the vessel,
@@ -149,6 +152,15 @@ review correctly leaves a vessel unknown. Validate the log with `npm run validat
 Pull-request CI compares the file with the base commit and rejects deleted, reordered or modified
 existing records; corrections must be appended as new superseding decisions.
 
+`data/royal-navy/publication-changes.json` describes the differences between the current proposed
+release and its production base. Regenerate it with
+`npm run generate:changes -- --base-ref <production-ref>`. Weekly fleet statuses are stored
+append-only in `data/royal-navy/status-history.jsonl`; append the current dataset date with
+`npm run snapshot:status` and validate it with
+`npm run validate:history -- --base-ref <production-ref>`. The interface does not present a rolling
+12-month availability figure until at least 52 weekly observations span approximately one year, and
+unknown observations reduce coverage instead of being guessed.
+
 The owner-reviewed weekly refresh procedure is documented in
 [`docs/weekly-fleet-refresh.md`](docs/weekly-fleet-refresh.md). Automated collection, third-party
-tracking feeds and public deployment remain outside the current version.
+tracking feeds and unattended publication remain outside the current version.
