@@ -66,6 +66,22 @@ const invalidEvidenceDate = structuredClone(dataset);
 invalidEvidenceDate.vessels.find((vessel) => vessel.locationEvidenceDate).locationEvidenceDate = "2026-02-30";
 assert.throws(() => validateFleet(invalidEvidenceDate), /invalid location evidence date/i);
 
+const futureEvidenceDate = structuredClone(dataset);
+futureEvidenceDate.vessels.find((vessel) => vessel.locationEvidenceDate).locationEvidenceDate = "2026-08-10";
+assert.throws(() => validateFleet(futureEvidenceDate), /location evidence date after the dataset date/i);
+
+const futureCheckedDate = structuredClone(dataset);
+futureCheckedDate.vessels[0].evidenceCheckedDate = "2026-08-10";
+assert.throws(() => validateFleet(futureCheckedDate), /evidence checked date after the dataset date/i);
+
+const invalidDatasetDate = structuredClone(dataset);
+invalidDatasetDate.metadata.asOfDate = "2026-02-30";
+assert.throws(() => validateFleet(invalidDatasetDate), /invalid dataset date/i);
+
+const invalidOperationalStatus = structuredClone(dataset);
+invalidOperationalStatus.vessels[0].status = "Ready-ish";
+assert.throws(() => validateFleet(invalidOperationalStatus), /invalid operational status/i);
+
 const missingSourceLabel = structuredClone(dataset);
 missingSourceLabel.vessels[0].source.label = "";
 assert.throws(() => validateFleet(missingSourceLabel), /no valid supporting source/i);

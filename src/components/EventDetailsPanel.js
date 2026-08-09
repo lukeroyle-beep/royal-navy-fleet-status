@@ -1,4 +1,9 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
+import {
+  getEvidenceFreshness,
+  getVesselAvailability,
+  getVesselChange,
+} from "../utils/insights.js";
 
 export class EventDetailsPanel {
   constructor({ kind, title, meta, photo, photoImage }) {
@@ -20,10 +25,21 @@ export class EventDetailsPanel {
     this.#hidePhoto();
   }
 
-  renderVessel(vessel) {
+  renderVessel(
+    vessel,
+    { asOfDate, history = [], changes = null, insightsAvailable = false } = {},
+  ) {
     const token = ++this.renderToken;
     this.kind.textContent = vessel.service;
     this.title.textContent = vessel.name;
+
+    const availability = insightsAvailable
+      ? getVesselAvailability(history, vessel, asOfDate)
+      : {
+          availabilityLabel: "History unavailable",
+          coverageLabel: "Status history unavailable",
+        };
+    const releaseChange = getVesselChange(changes, vessel.id);
 
     const entries = [
       ["Pennant", vessel.pennantNumber || "Not recorded"],
@@ -33,7 +49,11 @@ export class EventDetailsPanel {
       ["Status", vessel.status],
       ["Location", vessel.lastReportedLocation],
       ["Location evidence date", formatEvidenceDate(vessel.locationEvidenceDate)],
+      ["Evidence freshness", getEvidenceFreshness(vessel.locationEvidenceDate, asOfDate)],
+      ["Observed availability", availability.availabilityLabel],
+      ["Status coverage", availability.coverageLabel],
     ];
+    if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
     this.#hidePhoto();
     this.photoImage.alt = `Photograph of ${vessel.name}`;
@@ -77,4 +97,9 @@ export function formatEvidenceDate(value) {
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+export function formatReleaseChange(change) {
+  const details = change.items.map((item) => `${item.label}: ${item.before} → ${item.after}`);
+  return `Updated this release · ${details.join("; ")}`;
 }

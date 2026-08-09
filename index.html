@@ -31,6 +31,17 @@
           <div class="as-of">
             <span>Dataset as of</span>
             <strong id="asOfDate">Loading</strong>
+            <button
+              id="changesToggle"
+              class="changes-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="changesPanel"
+              hidden
+            >
+              <span>What’s changed</span>
+              <strong id="changesCount"></strong>
+            </button>
           </div>
         </header>
         <div class="map-tools">
@@ -48,9 +59,41 @@
 
       <aside class="side-panel" aria-label="Fleet search and vessel details">
         <section class="summary" aria-label="Fleet summary">
-          <div><span>Fleet records</span><strong id="totalCount">0</strong></div>
-          <div><span>Mapped records</span><strong id="mappedCount">0</strong></div>
-          <div><span>Shown by filters</span><strong id="filteredCount">0</strong></div>
+          <div>
+            <span id="summaryPrimaryLabel">Fleet records</span>
+            <strong id="totalCount">0</strong>
+            <small id="summaryPrimaryNote" hidden></small>
+          </div>
+          <div>
+            <span id="summarySecondaryLabel">Mapped records</span>
+            <strong id="mappedCount">0</strong>
+            <small id="summarySecondaryNote" hidden></small>
+          </div>
+          <div>
+            <span id="summaryTertiaryLabel">Shown by filters</span>
+            <strong id="filteredCount">0</strong>
+            <small id="summaryTertiaryNote" hidden></small>
+          </div>
+        </section>
+
+        <section class="class-selector" aria-labelledby="classSelectorTitle">
+          <div class="section-heading">
+            <h2 id="classSelectorTitle">Vessel class</h2>
+            <span id="classSelectionStatus">All classes</span>
+          </div>
+          <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
+        </section>
+
+        <section id="changesPanel" class="changes-panel" aria-labelledby="changesTitle" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Latest publication</p>
+              <h2 id="changesTitle">What’s changed</h2>
+            </div>
+            <button id="changesClose" class="panel-close" type="button" aria-label="Close What’s changed">Close</button>
+          </div>
+          <p id="changesSummary" class="changes-summary"></p>
+          <div id="changesList" class="changes-list"></div>
         </section>
 
         <section class="filters" aria-label="Fleet filters">
@@ -87,7 +130,7 @@
 
         <section class="detail-card" id="detailCard" aria-live="polite">
           <p class="eyebrow" id="detailKind">Fleet record</p>
-          <h2 id="detailTitle">Select a vessel</h2>
+          <h2 id="detailTitle" tabindex="-1">Select a vessel</h2>
           <dl id="detailMeta" class="detail-meta"></dl>
           <figure id="detailPhoto" class="detail-photo" hidden>
             <img id="detailPhotoImage" alt="" />

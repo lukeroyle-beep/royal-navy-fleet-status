@@ -30,6 +30,14 @@ assert.ok(
   fs.existsSync(path.join(distRoot, "data/royal-navy/vessels.json")),
   "Pages artifact must contain the fleet dataset.",
 );
+assert.ok(
+  fs.existsSync(path.join(distRoot, "data/royal-navy/publication-changes.json")),
+  "Pages artifact must contain the publication change summary.",
+);
+assert.ok(
+  fs.existsSync(path.join(distRoot, "data/royal-navy/status-history.jsonl")),
+  "Pages artifact must contain the append-only status history.",
+);
 assert.doesNotMatch(html, /(?:src|href)="\/assets\//, "Pages resources must not use root asset paths.");
 
 console.log("GitHub Pages build checks passed.");

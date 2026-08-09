@@ -1,0 +1,1802 @@
+{
+  "schemaVersion": 1,
+  "previousAsOfDate": "2026-07-31",
+  "currentAsOfDate": "2026-08-09",
+  "previousMappedCount": 39,
+  "currentMappedCount": 71,
+  "counts": {
+    "status": 1,
+    "location": 46,
+    "mapping": 32,
+    "marker": 3,
+    "evidence": 46
+  },
+  "changes": [
+    {
+      "vesselId": "hms-daring",
+      "vesselName": "HMS Daring",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Portsmouth; regeneration ahead of return to fleet later in 2026",
+          "after": "HMNB Portsmouth; final trials and regeneration reported 31 July 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-07-31"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Type 45 availability update",
+          "after": "Guernsey Press: HMS Daring to return to active fleet"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-dauntless",
+      "vesselName": "HMS Dauntless",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters; departed Plymouth on 20th July 2026 after Portsmouth-Plymouth work-up",
+          "after": "English Channel; last official public operational area reported 20 February 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Direct tracker report",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-20",
+          "after": "2026-02-20"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "HMS Dauntless public AIS-derived report",
+          "after": "Royal Navy: HMS Dauntless completes workout with French carrier group"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-diamond",
+      "vesselName": "HMS Diamond",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Portsmouth; PIP and Sea Viper conversion period",
+          "after": "HMNB Portsmouth; last official public return reported 6 July 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-07-06"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Type 45 availability update",
+          "after": "Royal Navy: HMS Diamond returns to Portsmouth"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-defender",
+      "vesselName": "HMS Defender",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Portsmouth; PIP and Sea Ceptor upgrade ongoing",
+          "after": "HMNB Portsmouth; directly photographed undergoing refit on 1 April 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-04-01"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Type 45 availability update",
+          "after": "Shipspotting: HMS Defender in Portsmouth during refit"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-iron-duke",
+      "vesselName": "HMS Iron Duke",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport; preparing to leave service",
+          "after": "HMNB Portsmouth; last official public return reported 20 December 2024; preparing to leave service"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-13",
+          "after": "2024-12-20"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy fleet retirement announcement",
+          "after": "Royal Navy: HMS Iron Duke completes autumn deployment"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-richmond",
+      "vesselName": "HMS Richmond",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport; preparing to leave service",
+          "after": "HMNB Devonport; last official public return reported 28 March 2024; preparing to leave service"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-13",
+          "after": "2024-03-28"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy fleet retirement announcement",
+          "after": "Royal Navy: HMS Richmond returns home to Plymouth"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-somerset",
+      "vesselName": "HMS Somerset",
+      "categories": [
+        "status",
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "status",
+          "label": "Status",
+          "before": "Deployed",
+          "after": "Available"
+        },
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "North Atlantic / off Iceland; with HMS Prince of Wales carrier strike group",
+          "after": "HMNB Devonport / Plymouth; returned from North Atlantic deployment on 7 August 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-20",
+          "after": "2026-08-07"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy carrier strike group Arctic deployment",
+          "after": "Royal Navy: UK monitoring operations and HMS Somerset homecoming"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-sutherland",
+      "vesselName": "HMS Sutherland",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Loch Long / HMNB Clyde area; public July 2026 ship-spotting report after Stavanger visit",
+          "after": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-06-15"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy frigate availability update",
+          "after": "Royal Navy: shadow-fleet tanker interdiction"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-kent",
+      "vesselName": "HMS Kent",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport / major refit finishing in 2026",
+          "after": "Devonport dry dock; deep maintenance package reported 9 July 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-07-09"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy frigate availability update",
+          "after": "Babcock: HMS Kent enters Devonport dry dock"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-portland",
+      "vesselName": "HMS Portland",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport / docking and support period",
+          "after": "HMNB Devonport; last official public return reported 20 December 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-12-20"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy frigate availability update",
+          "after": "Royal Navy: HMS Portland completes autumn deployment"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-st-albans",
+      "vesselName": "HMS St Albans",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport; AIS-derived location reported by Maritime Optima",
+          "after": "English Channel and North Sea; Operation Ceto handover reported 9 April 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Direct tracker report",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-23",
+          "after": "2026-04-09"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "HMS St Albans public AIS-derived report",
+          "after": "Royal Navy: monitoring operations in UK waters"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-tyne",
+      "vesselName": "HMS Tyne",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters / south of Plymouth; monitoring RFN Neustrashimy reported 21st July 2026",
+          "after": "UK waters south of Plymouth; monitoring operation observed 20 July 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-21",
+          "after": "2026-07-20"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy monitoring off Plymouth",
+          "after": "Royal Navy: UK monitoring operations"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-severn",
+      "vesselName": "HMS Severn",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters / Channel and Western Approaches; Russian-watch tasking reported June 2026",
+          "after": "North Sea to Dover Strait and waters off Ushant; patrol route observed 23–26 July 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-06-25",
+          "after": "2026-07-26"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Russian warship monitoring",
+          "after": "Royal Navy: UK monitoring operations"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-mersey",
+      "vesselName": "HMS Mersey",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters / Channel; Russian-watch tasking reported June-July 2026",
+          "after": "UK waters / Dover approaches; handover with HMS Severn observed 23–26 July 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-06-25",
+          "after": "2026-07-26"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Russian warship monitoring",
+          "after": "Royal Navy: UK monitoring operations"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-medway",
+      "vesselName": "HMS Medway",
+      "categories": [
+        "marker"
+      ],
+      "items": [
+        {
+          "kind": "marker",
+          "label": "Marker",
+          "before": "Falkland Islands",
+          "after": "Falkland Islands / South Atlantic (representative)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-trent",
+      "vesselName": "HMS Trent",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Tampa, Gulf of Mexico; Caribbean hurricane-season deployment",
+          "after": "Tampa, Florida; logistics and maintenance stop reported 25 June 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Direct tracker report",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-23",
+          "after": "2026-06-25"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "HMS Trent public AIS-derived report",
+          "after": "Royal Navy: HMS Trent in Tampa"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-tamar",
+      "vesselName": "HMS Tamar",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Indo-Pacific; South Pacific / Australia-Indonesia patrol cycle, Singapore logistics hub",
+          "after": "Suva Port, Fiji; reception aboard reported 28 April 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-03-06",
+          "after": "2026-04-27"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "HMS Tamar South Pacific mission",
+          "after": "Fiji Broadcasting Corporation: reception aboard HMS Tamar at Suva Port"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-spey",
+      "vesselName": "HMS Spey",
+      "categories": [
+        "marker"
+      ],
+      "items": [
+        {
+          "kind": "marker",
+          "label": "Marker",
+          "before": "South East Asia / Far East",
+          "after": "South China Sea / South East Asia (representative)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-ledbury",
+      "vesselName": "HMS Ledbury",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters / English Channel; Smyrtos boarding and Russian-watch tasking reported June 2026",
+          "after": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-06-15"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Royal Navy: shadow-fleet tanker interdiction"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-cattistock",
+      "vesselName": "HMS Cattistock",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Clyde area; public July 2026 ship-spotting report",
+          "after": "Poole Quay; public visit observed 4 May 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-05-04"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy HMNB Clyde",
+          "after": "Royal Navy: Freedom of Poole for HMS Cattistock"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-brocklesby",
+      "vesselName": "HMS Brocklesby",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Portsmouth; exact current tasking not publicly updated",
+          "after": "Portsmouth; departed for sea trials on 26 March 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-03-26"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Forces News: HMS Brocklesby leaves Portsmouth"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-middleton",
+      "vesselName": "HMS Middleton",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Falmouth; dry dock/refit after return from Gulf",
+          "after": "UK east coast–Scotland–Isle of Man patrol circuit; deployment reported 2 June 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-06-02"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "The Maritime Executive: HMS Middleton back on patrol"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-chiddingfold",
+      "vesselName": "HMS Chiddingfold",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Portsmouth; preparing to leave service",
+          "after": "Bahrain / Gulf region; operational 40th anniversary reported 8 November 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-11-08"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Royal Navy: HMS Chiddingfold marks 40th birthday in Bahrain"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-hurworth",
+      "vesselName": "HMS Hurworth",
+      "categories": [
+        "marker"
+      ],
+      "items": [
+        {
+          "kind": "marker",
+          "label": "Marker",
+          "before": "Portland",
+          "after": "Portland Harbour (representative)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-bangor",
+      "vesselName": "HMS Bangor",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Rosyth / Firth of Forth; post-refit trials reported July 2026",
+          "after": "HMNB Clyde (Faslane); last official public return reported 31 August 2018"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2018-08-31"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Royal Navy: HMS Bangor returns to HMNB Clyde"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-archer",
+      "vesselName": "HMS Archer",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Edinburgh; Coastal Forces Squadron home operating area",
+          "after": "Baltic Sea; BALTOPS activity reported 19 June 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-06-19"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: Coastal Forces Squadron at BALTOPS"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-biter",
+      "vesselName": "HMS Biter",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Liverpool; Coastal Forces Squadron home operating area",
+          "after": "River Foyle, Londonderry; public visit observed 25–28 June 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-06-28"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "News Letter: HMS Biter in Londonderry"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-pursuer",
+      "vesselName": "HMS Pursuer",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Glasgow; Coastal Forces Squadron home operating area",
+          "after": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-08-21"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: Coastal Forces Squadron Baltic mission"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-blazer",
+      "vesselName": "HMS Blazer",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Portsmouth; Coastal Forces Squadron home operating area",
+          "after": "North Sea off Zeebrugge; exercise activity reported 25 September 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-09-25"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: patrol boats in North Sea exercise"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-dasher",
+      "vesselName": "HMS Dasher",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Portsmouth; Coastal Forces Squadron home operating area",
+          "after": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-08-21"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: Coastal Forces Squadron Baltic mission"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-charger",
+      "vesselName": "HMS Charger",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Liverpool; Coastal Forces Squadron home operating area",
+          "after": "West coast of Scotland; summer deployment reported 30 July 2020"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2020-07-30"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: patrol craft summer deployment"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-ranger",
+      "vesselName": "HMS Ranger",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Portsmouth; Coastal Forces Squadron home operating area",
+          "after": "Weymouth Bay; helicopter training reported 18 March 2021"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2021-03-18"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: patrol boats exercise with Wildcats"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-trumpeter",
+      "vesselName": "HMS Trumpeter",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Ipswich; Coastal Forces Squadron home operating area",
+          "after": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2020-07-30"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: patrol craft summer deployment"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-express",
+      "vesselName": "HMS Express",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Cardiff; Coastal Forces Squadron home operating area",
+          "after": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-08-21"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: Coastal Forces Squadron Baltic mission"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-example",
+      "vesselName": "HMS Example",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Gateshead; Coastal Forces Squadron home operating area",
+          "after": "Baltic Sea; BALTOPS activity reported 19 June 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-06-19"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: Coastal Forces Squadron at BALTOPS"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-explorer",
+      "vesselName": "HMS Explorer",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Hull; Coastal Forces Squadron home operating area",
+          "after": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2020-07-30"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: patrol craft summer deployment"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-exploit",
+      "vesselName": "HMS Exploit",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Portsmouth; Coastal Forces Squadron home operating area",
+          "after": "North Sea off Zeebrugge; exercise activity reported 25 September 2024"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2024-09-25"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Royal Navy: patrol boats in North Sea exercise"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-tracker",
+      "vesselName": "HMS Tracker",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Firth of Clyde / HMNB Clyde; high-value shipping escort role",
+          "after": "Off Innellan, Firth of Clyde; directly photographed and published 26 June 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-06-26"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "Michael Leek Photography: HMS Tracker off Innellan"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-raider",
+      "vesselName": "HMS Raider",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Firth of Clyde / HMNB Clyde; high-value shipping escort role",
+          "after": "Maryport Marina; public visit observed 27–28 June 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-06-28"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy Archer class",
+          "after": "News and Star: HMS Raider at Maryport Marina"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-cutlass",
+      "vesselName": "HMS Cutlass",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Gibraltar; Gibraltar Squadron",
+          "after": "British Gibraltar Territorial Waters; last official public location reported 18 May 2022"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2022-05-18"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Royal Navy: Cutlass and Dagger take over Gibraltar duties"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-dagger",
+      "vesselName": "HMS Dagger",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Gibraltar; Gibraltar Squadron",
+          "after": "Gibraltar; returned after Tangier / Ksar Sghir exercise reported 30 July 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-07-30"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Your Gibraltar TV: RNGS Exercise Hercules Vanguard"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-scott",
+      "vesselName": "HMS Scott",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport; AIS-derived location reported after life-extension refit",
+          "after": "At sea from Falmouth; departed after life-extension refit on 12 June 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Direct tracker report",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-23",
+          "after": "2026-06-12"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "HMS Scott public AIS-derived report",
+          "after": "Navy Lookout: HMS Scott returns to sea"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-protector",
+      "vesselName": "HMS Protector",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Devonport / seasonal ice patrol tasking not publicly updated",
+          "after": "River Tees; sailed after docking and maintenance period reported 14 January 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-01-14"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "UK Docks: HMS Protector sails from the Tees"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-magpie",
+      "vesselName": "HMS Magpie",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Devonport; coastal survey tasking",
+          "after": "Irish Sea; sea trials reported 24 April 2018"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2018-04-24"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy official ships page",
+          "after": "Royal Navy: HMS Magpie on sea trials"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-mounts-bay",
+      "vesselName": "RFA Mounts Bay",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "At sea from Falmouth; sea trials and FOST after refit",
+          "after": "Portland Port; public visit reported 30 July 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-07",
+          "after": "2026-07-30"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "RFA Mounts Bay sea trials",
+          "after": "Dorset Echo: aboard RFA Mounts Bay at Portland Port"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-proteus",
+      "vesselName": "RFA Proteus",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Inner Seas off the west coast of Scotland; AIS-derived position reported 20th July 2026",
+          "after": "Lyme Bay, English Channel; ScanFish trials reported 18 June 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Direct tracker report",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-20",
+          "after": "2026-06-18"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "RFA Proteus public AIS-derived report",
+          "after": "Royal Navy: RFA Proteus ScanFish trials"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-tidespring",
+      "vesselName": "RFA Tidespring",
+      "categories": [
+        "location",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "North Atlantic / off Iceland; replenishment support to HMS Duncan and carrier strike group",
+          "after": "Portland Port; reported berthed nearby on 30 July 2026"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "2026-07-20",
+          "after": "2026-07-30"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "Royal Navy carrier strike group Arctic deployment",
+          "after": "Dorset Echo: RFA ships at Portland Port"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-tidesurge",
+      "vesselName": "RFA Tidesurge",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters / RFA crewed fleet; exact current tasking not publicly updated",
+          "after": "North Sea–Dover Strait–English Channel route; monitoring operation reported 11 December 2025"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2025-12-11"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "RFA workforce recovery and ships to sea",
+          "after": "Royal Navy: Russian submarine tracking operation"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-tideforce",
+      "vesselName": "RFA Tideforce",
+      "categories": [
+        "location",
+        "mapping",
+        "evidence"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters; Russian-vessel monitoring reported April-May 2026",
+          "after": "North Sea and Western Approaches; monitoring task throughout April 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Unknown",
+          "after": "Approximate"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence quality",
+          "before": "Insufficient",
+          "after": "Direct public report"
+        },
+        {
+          "kind": "evidence",
+          "label": "Evidence date",
+          "before": "Undated",
+          "after": "2026-05-06"
+        },
+        {
+          "kind": "evidence",
+          "label": "Source",
+          "before": "RFA workforce recovery and ships to sea",
+          "after": "Royal Navy: RFA Tideforce monitors Russian warship"
+        }
+      ]
+    }
+  ]
+}
