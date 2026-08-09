@@ -257,7 +257,7 @@ function renderSummary(filteredCount) {
     note: formatChangeSince(summary.activeDelta),
   });
   setSummaryCell(elements.tertiaryLabel, elements.tertiaryValue, elements.tertiaryNote, {
-    label: "Public-status snapshot",
+    label: "Vessel class availability",
     value: summary.activePercentage === null ? "—" : `${summary.activePercentage.toFixed(0)}%`,
     note: classSnapshotNote(summary),
   });
