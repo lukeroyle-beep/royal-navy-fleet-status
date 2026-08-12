@@ -67,11 +67,11 @@ invalidEvidenceDate.vessels.find((vessel) => vessel.locationEvidenceDate).locati
 assert.throws(() => validateFleet(invalidEvidenceDate), /invalid location evidence date/i);
 
 const futureEvidenceDate = structuredClone(dataset);
-futureEvidenceDate.vessels.find((vessel) => vessel.locationEvidenceDate).locationEvidenceDate = "2026-08-10";
+futureEvidenceDate.vessels.find((vessel) => vessel.locationEvidenceDate).locationEvidenceDate = "2026-08-13";
 assert.throws(() => validateFleet(futureEvidenceDate), /location evidence date after the dataset date/i);
 
 const futureCheckedDate = structuredClone(dataset);
-futureCheckedDate.vessels[0].evidenceCheckedDate = "2026-08-10";
+futureCheckedDate.vessels[0].evidenceCheckedDate = "2026-08-13";
 assert.throws(() => validateFleet(futureCheckedDate), /evidence checked date after the dataset date/i);
 
 const invalidDatasetDate = structuredClone(dataset);

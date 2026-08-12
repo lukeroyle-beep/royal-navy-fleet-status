@@ -44,12 +44,21 @@ assert.equal(
 );
 
 const middleton = dataset.vessels.find((vessel) => vessel.id === "hms-middleton");
-if (middleton.source.id === "MIDDLETON_UK_PATROL_2026") {
-  assert.ok(
-    middleton.position.lon >= 0 && middleton.position.lon <= 4,
-    "HMS Middleton's representative UK east-coast patrol marker must remain in the North Sea.",
-  );
-}
+assert.equal(middleton.status, "In re-fit");
+assert.equal(middleton.locationClassification, "approximate");
+assert.equal(middleton.source.id, "MIDDLETON_FALMOUTH_REFIT_2026");
+assert.equal(middleton.locationEvidenceDate, "2026-06-26");
+assert.deepEqual(middleton.position, {
+  lat: 50.1537,
+  lon: -5.0563,
+  label: "Balaena Falmouth yard (representative)",
+});
+assert.notEqual(middleton.source.id, "MIDDLETON_UK_PATROL_2026");
+assert.notDeepEqual(middleton.position, {
+  lat: 55,
+  lon: 1,
+  label: "North Sea leg of UK coastal patrol circuit (representative)",
+});
 
 const tideforce = dataset.vessels.find((vessel) => vessel.id === "rfa-tideforce");
 if (tideforce.source.id === "TIDEFORCE_UK_WATERS_2026") {
