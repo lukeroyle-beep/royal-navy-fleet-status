@@ -1,7 +1,6 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
 import {
   getEvidenceFreshness,
-  getVesselAvailability,
   getVesselChange,
 } from "../utils/insights.js";
 
@@ -33,12 +32,6 @@ export class EventDetailsPanel {
     this.kind.textContent = vessel.service;
     this.title.textContent = vessel.name;
 
-    const availability = insightsAvailable
-      ? getVesselAvailability(history, vessel, asOfDate)
-      : {
-          availabilityLabel: "History unavailable",
-          coverageLabel: "Status history unavailable",
-        };
     const releaseChange = getVesselChange(changes, vessel.id);
 
     const entries = [
@@ -50,8 +43,6 @@ export class EventDetailsPanel {
       ["Location", vessel.lastReportedLocation],
       ["Location evidence date", formatEvidenceDate(vessel.locationEvidenceDate)],
       ["Evidence freshness", getEvidenceFreshness(vessel.locationEvidenceDate, asOfDate)],
-      ["Observed availability", availability.availabilityLabel],
-      ["Status coverage", availability.coverageLabel],
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
