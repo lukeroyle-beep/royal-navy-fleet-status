@@ -168,9 +168,9 @@ export class FleetMap {
     return L.divIcon({
       className: markerClassName(vessel, this.selectedId),
       html: '<span aria-hidden="true"></span>',
-      iconAnchor: [14, 14],
-      iconSize: [28, 28],
-      tooltipAnchor: [0, -10],
+      iconAnchor: [22, 22],
+      iconSize: [44, 44],
+      tooltipAnchor: [0, -16],
     });
   }
 
@@ -205,7 +205,7 @@ function formatClassification(value) {
   return {
     mapped: "mapped public",
     approximate: "approximate",
-    withheld: "classified symbolic",
+    withheld: "withheld symbolic",
   }[value] || value;
 }
 

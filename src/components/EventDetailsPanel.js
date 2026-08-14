@@ -5,7 +5,8 @@ import {
 } from "../utils/insights.js";
 
 export class EventDetailsPanel {
-  constructor({ kind, title, meta, photo, photoImage }) {
+  constructor({ container, kind, title, meta, photo, photoImage }) {
+    this.container = container;
     this.kind = kind;
     this.title = title;
     this.meta = meta;
@@ -22,6 +23,7 @@ export class EventDetailsPanel {
     this.title.textContent = "Select a vessel";
     this.meta.replaceChildren();
     this.#hidePhoto();
+    this.container.hidden = true;
   }
 
   renderVessel(
@@ -31,6 +33,7 @@ export class EventDetailsPanel {
     const token = ++this.renderToken;
     this.kind.textContent = vessel.service;
     this.title.textContent = vessel.name;
+    this.container.hidden = false;
 
     const releaseChange = getVesselChange(changes, vessel.id);
 
@@ -40,12 +43,19 @@ export class EventDetailsPanel {
       ["Type", vessel.vesselType],
       ["Commission date", vessel.commissionedDate || "Not recorded"],
       ["Status", vessel.status],
+      ["Location classification", formatLocationClassification(vessel.locationClassification)],
       ["Location", vessel.lastReportedLocation],
       ["Location evidence date", formatEvidenceDate(vessel.locationEvidenceDate)],
       ["Evidence freshness", getEvidenceFreshness(vessel.locationEvidenceDate, asOfDate)],
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
-    this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
+    const detailEntries = entries.map(([term, value]) => createEntry(term, value));
+    if (vessel.source?.url) {
+      detailEntries.push(
+        createSourceEntry("Supporting source", vessel.source.label || "Open source", vessel.source.url),
+      );
+    }
+    this.meta.replaceChildren(...detailEntries);
     this.#hidePhoto();
     this.photoImage.alt = `Photograph of ${vessel.name}`;
     this.photoImage.dataset.vesselId = vessel.id;
@@ -80,6 +90,21 @@ function createEntry(term, value) {
   return wrapper;
 }
 
+function createSourceEntry(term, label, url) {
+  const wrapper = document.createElement("div");
+  const dt = document.createElement("dt");
+  const dd = document.createElement("dd");
+  const link = document.createElement("a");
+  dt.textContent = term;
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = label;
+  dd.append(link);
+  wrapper.append(dt, dd);
+  return wrapper;
+}
+
 export function formatEvidenceDate(value) {
   if (!value) return "Unknown";
   return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
@@ -88,6 +113,15 @@ export function formatEvidenceDate(value) {
     year: "numeric",
     timeZone: "UTC",
   });
+}
+
+export function formatLocationClassification(value) {
+  return {
+    mapped: "Mapped public location",
+    approximate: "Approximate port or area",
+    unknown: "Unknown public location",
+    withheld: "Withheld · symbolic marker",
+  }[value] || value;
 }
 
 export function formatReleaseChange(change) {

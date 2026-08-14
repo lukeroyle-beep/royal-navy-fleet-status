@@ -124,6 +124,8 @@ assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(mapComponent, /spiderfyOnMaxZoom:\s*true/);
 assert.match(mapComponent, /zoomToBoundsOnClick:\s*true/);
 assert.match(mapComponent, /minZoom:\s*0/);
+assert.match(mapComponent, /iconSize:\s*\[44,\s*44\]/);
+assert.match(mapComponent, /withheld:\s*"withheld symbolic"/);
 assert.match(mapComponent, /this\.tiles\.on\("loading"/);
 assert.match(mapComponent, /tileerror/);
 assert.match(mapComponent, /this\.tiles\.on\("load"/);
