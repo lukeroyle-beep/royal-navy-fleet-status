@@ -100,6 +100,7 @@ assert.match(
   /Supporting source[\s\S]*noopener noreferrer/,
 );
 assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.map-reset\s*\{[^}]*min-height:\s*44px;/s);
+assert.match(styles, /#resetFilters\s*\{[^}]*min-height:\s*44px;/s);
 assert.doesNotMatch(appSource, /hasPlottablePosition|label: "Mapped records"/);
 assert.match(styles, /\.command-header\s*\{[^}]*display:\s*flex;/s);
 assert.match(styles, /\.command-workspace\s*\{[^}]*grid-template-columns:/s);
