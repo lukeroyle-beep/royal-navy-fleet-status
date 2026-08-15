@@ -21,11 +21,10 @@ assert.match(
 assert.doesNotMatch(detailPanel, /photoCredit|photoCaption|Marker shows the last publicly reported/);
 assert.doesNotMatch(detailPanel, /Evidence checked date|Evidence classification/);
 assert.doesNotMatch(detailPanel, /vessel\.evidenceCheckedDate|vessel\.evidenceClassification/);
-assert.match(detailPanel, /createSourceEntry\("Supporting source", vessel\.source\.label/);
-assert.match(detailPanel, /link\.rel = "noopener noreferrer"/);
+assert.doesNotMatch(detailPanel, /Supporting source|createSourceEntry|vessel\.source/);
 assert.doesNotMatch(detailPanel, /Observed availability|Status coverage/);
 assert.doesNotMatch(detailPanel, /getVesselAvailability|availability\.availabilityLabel|availability\.coverageLabel/);
-assert.match(detailPanel, /\["Location evidence date", formatEvidenceDate\(vessel\.locationEvidenceDate\)\]/);
+assert.doesNotMatch(detailPanel, /Location evidence date|Evidence freshness|formatEvidenceDate/);
 assert.match(photoService, /HMS_Astute_Arrives_at_Faslane_for_the_First_Time/);
 assert.match(photoService, /200407-hms-audacious-back-in-faslane/);
 assert.doesNotMatch(photoService, /Audacious_Under_Construction/);

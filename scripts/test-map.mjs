@@ -47,14 +47,11 @@ assert.equal(
 const middleton = dataset.vessels.find((vessel) => vessel.id === "hms-middleton");
 assert.equal(middleton.status, "In re-fit");
 assert.equal(middleton.locationClassification, "approximate");
-assert.equal(middleton.source.id, "MIDDLETON_FALMOUTH_REFIT_2026");
-assert.equal(middleton.locationEvidenceDate, "2026-06-26");
 assert.deepEqual(middleton.position, {
   lat: 50.1537,
   lon: -5.0563,
   label: "Balaena Falmouth yard (representative)",
 });
-assert.notEqual(middleton.source.id, "MIDDLETON_UK_PATROL_2026");
 assert.notDeepEqual(middleton.position, {
   lat: 55,
   lon: 1,
@@ -62,7 +59,7 @@ assert.notDeepEqual(middleton.position, {
 });
 
 const tideforce = dataset.vessels.find((vessel) => vessel.id === "rfa-tideforce");
-if (tideforce.source.id === "TIDEFORCE_UK_WATERS_2026") {
+if (/North Sea/i.test(tideforce.lastReportedLocation)) {
   assert.ok(
     tideforce.position.lat >= 53 &&
       tideforce.position.lat <= 59 &&
@@ -73,11 +70,11 @@ if (tideforce.source.id === "TIDEFORCE_UK_WATERS_2026") {
 }
 
 const chiddingfold = dataset.vessels.find((vessel) => vessel.id === "hms-chiddingfold");
-assert.equal(chiddingfold.locationEvidenceDate, "2025-04-05");
 assert.equal(
   chiddingfold.lastReportedLocation,
   "HMNB Portsmouth; historical arrival reported 5 April 2025",
 );
+assert.equal(dataset.vessels.every((vessel) => !Object.hasOwn(vessel, "source")), true);
 assert.deepEqual(chiddingfold.position, {
   lat: 50.8,
   lon: -1.11,

@@ -1,8 +1,5 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
-import {
-  getEvidenceFreshness,
-  getVesselChange,
-} from "../utils/insights.js";
+import { getVesselChange } from "../utils/insights.js";
 
 export class EventDetailsPanel {
   constructor({ container, kind, title, meta, photo, photoImage }) {
@@ -45,17 +42,9 @@ export class EventDetailsPanel {
       ["Status", vessel.status],
       ["Location classification", formatLocationClassification(vessel.locationClassification)],
       ["Location", vessel.lastReportedLocation],
-      ["Location evidence date", formatEvidenceDate(vessel.locationEvidenceDate)],
-      ["Evidence freshness", getEvidenceFreshness(vessel.locationEvidenceDate, asOfDate)],
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
-    const detailEntries = entries.map(([term, value]) => createEntry(term, value));
-    if (vessel.source?.url) {
-      detailEntries.push(
-        createSourceEntry("Supporting source", vessel.source.label || "Open source", vessel.source.url),
-      );
-    }
-    this.meta.replaceChildren(...detailEntries);
+    this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
     this.#hidePhoto();
     this.photoImage.alt = `Photograph of ${vessel.name}`;
     this.photoImage.dataset.vesselId = vessel.id;
@@ -88,31 +77,6 @@ function createEntry(term, value) {
   dd.textContent = value;
   wrapper.append(dt, dd);
   return wrapper;
-}
-
-function createSourceEntry(term, label, url) {
-  const wrapper = document.createElement("div");
-  const dt = document.createElement("dt");
-  const dd = document.createElement("dd");
-  const link = document.createElement("a");
-  dt.textContent = term;
-  link.href = url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.textContent = label;
-  dd.append(link);
-  wrapper.append(dt, dd);
-  return wrapper;
-}
-
-export function formatEvidenceDate(value) {
-  if (!value) return "Unknown";
-  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
 }
 
 export function formatLocationClassification(value) {

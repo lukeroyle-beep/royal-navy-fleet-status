@@ -97,7 +97,11 @@ assert.match(appSource, /getFleetStatusSummary/);
 assert.match(appSource, /withheld:\s*"Withheld"/);
 assert.match(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
-  /Supporting source[\s\S]*noopener noreferrer/,
+  /\["Location", vessel\.lastReportedLocation\]/,
+);
+assert.doesNotMatch(
+  fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
+  /Supporting source|vessel\.source|Location evidence date|Evidence freshness/,
 );
 assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.map-reset\s*\{[^}]*min-height:\s*44px;/s);
 assert.match(styles, /#resetFilters\s*\{[^}]*min-height:\s*44px;/s);

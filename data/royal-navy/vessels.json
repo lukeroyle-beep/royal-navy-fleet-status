@@ -22,15 +22,7 @@
         "lon": -1.1095,
         "label": "HMS Victory, Portsmouth Historic Dockyard"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PHD_VICTORY_CURRENT_2026",
-        "label": "Portsmouth Historic Dockyard: HMS Victory and the Big Repair",
-        "url": "https://historicdockyard.co.uk/attractions/hms-victory/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-07-31",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-vanguard",
@@ -49,15 +41,7 @@
         "lon": -4.82,
         "label": "HMNB Clyde (Faslane)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "VANGUARD_RETURN_CLYDE_2026",
-        "label": "HMS Vanguard return to HMNB Clyde; Royal Navy unit and base reference",
-        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/ballistic-submarines/hms-vanguard"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-12",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-victorious",
@@ -76,15 +60,7 @@
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "VICTORIOUS_DMP_2025",
-        "label": "HMS Victorious Devonport maintenance report",
-        "url": "https://www.royalnavy.mod.uk/news/2025/may/23/20250523-victorious-milestone-as-submarine-enters-devonport"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2025-05-23",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-vigilant",
@@ -103,15 +79,7 @@
         "lon": -4.82,
         "label": "HMNB Clyde (Faslane)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "VIGILANT_FASLANE_2025",
-        "label": "Royal Navy: Vigilant crew hosts affiliates in Faslane",
-        "url": "https://www.royalnavy.mod.uk/news/2025/october/10/20251010-vigilant-crew-hosts-affiliates-in-faslane-as-thank-you-for-support"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2025-10-10",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-vengeance",
@@ -131,15 +99,7 @@
         "lon": -35,
         "label": "On patrol - classified"
       },
-      "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position.",
-      "source": {
-        "id": "HMNB_CLYDE_OFFICIAL",
-        "label": "Royal Navy HMNB Clyde",
-        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": null,
-      "evidenceClassification": "withheld-policy"
+      "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position."
     },
     {
       "id": "hms-astute",
@@ -158,15 +118,7 @@
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SSN_STATUS_2026",
-        "label": "Royal Navy attack submarine fleet update",
-        "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-ambush",
@@ -185,15 +137,7 @@
         "lon": -4.82,
         "label": "HMNB Clyde"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SSN_STATUS_2026",
-        "label": "Royal Navy attack submarine fleet update",
-        "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-artful",
@@ -212,15 +156,7 @@
         "lon": -4.82,
         "label": "HMNB Clyde"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SSN_STATUS_2026",
-        "label": "Royal Navy attack submarine fleet update",
-        "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-audacious",
@@ -239,15 +175,7 @@
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SSN_STATUS_2026",
-        "label": "Royal Navy attack submarine fleet update",
-        "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-anson",
@@ -266,15 +194,7 @@
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SSN_STATUS_2026",
-        "label": "Royal Navy attack submarine fleet update",
-        "url": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-agamemnon",
@@ -293,15 +213,7 @@
         "lon": -3.23,
         "label": "Barrow-in-Furness"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "AGAMEMNON_DELIVERY_2026",
-        "label": "UK Parliament HMS Agamemnon timeline",
-        "url": "https://questions-statements.parliament.uk/written-questions/detail/2026-06-16/10515"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-16",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-queen-elizabeth",
@@ -320,15 +232,7 @@
         "lon": -1.1,
         "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "QE_ARF_2026",
-        "label": "Royal Navy takes charge of NATO naval reaction force",
-        "url": "https://www.royalnavy.mod.uk/news/2026/july/07/20260707-royal-navy-takes-charge-of-nato-naval-reaction-force"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-07-07",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-prince-of-wales",
@@ -347,15 +251,7 @@
         "lon": -1.1,
         "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PWLS_RETURN_PORTSMOUTH_2026",
-        "label": "Royal Navy: HMS Prince of Wales returned to Portsmouth",
-        "url": "https://www.royalnavy.mod.uk/news/2026/july/25/20260725-pwls-crew"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-07-24",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-daring",
@@ -374,15 +270,7 @@
         "lon": -1.11,
         "label": "HMNB Portsmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DARING_PORTSMOUTH_2026",
-        "label": "Guernsey Press: HMS Daring to return to active fleet",
-        "url": "https://guernseypress.com/news/2026/07/31/hms-daring-to-return-to-the-active-fleet-this-year-says-mp"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-31",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-dauntless",
@@ -401,15 +289,7 @@
         "lon": -1.5,
         "label": "English Channel (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DAUNTLESS_ORION_2026",
-        "label": "Royal Navy: HMS Dauntless completes workout with French carrier group",
-        "url": "https://www.royalnavy.mod.uk/news/2026/february/20/20260220-hms-dauntless-completes-tough-workout-with-the-french-carrier-group"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-02-20",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-diamond",
@@ -428,15 +308,7 @@
         "lon": -1.11,
         "label": "HMNB Portsmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DIAMOND_PORTSMOUTH_2024",
-        "label": "Royal Navy: HMS Diamond returns to Portsmouth",
-        "url": "https://www.royalnavy.mod.uk/news/2024/july/06/240706-hms-diamond-returns-home-from-historic-mission-in-the-red-sea-and-gulf-of-aden"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-07-06",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-dragon",
@@ -455,15 +327,7 @@
         "lon": 38,
         "label": "Red Sea / Middle East"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DRAGON_LYME_BAY_MIDEAST_2026",
-        "label": "RFA Lyme Bay Middle East deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-23",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-defender",
@@ -482,15 +346,7 @@
         "lon": -1.11,
         "label": "HMNB Portsmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DEFENDER_PORTSMOUTH_2026",
-        "label": "Shipspotting: HMS Defender in Portsmouth during refit",
-        "url": "https://www.shipspotting.com/photos/3958118"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-04-01",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-duncan",
@@ -509,15 +365,7 @@
         "lon": -1.1,
         "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CSG_RETURN_PORTSMOUTH_2026",
-        "label": "HMS Prince of Wales and HMS Duncan return to Portsmouth",
-        "url": "https://www.v2radio.co.uk/news/west-sussex/hms-prince-of-wales-and-hms-duncan-return-to-portsmouth-after-arctic-mission/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-07-24",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-iron-duke",
@@ -536,15 +384,7 @@
         "lon": -1.11,
         "label": "HMNB Portsmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "IRON_DUKE_PORTSMOUTH_2024",
-        "label": "Royal Navy: HMS Iron Duke completes autumn deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2024/december/20/20241220-hms-portland-and-iron-duke-complete-autumn-deployments"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-12-20",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-richmond",
@@ -563,15 +403,7 @@
         "lon": -4.19,
         "label": "HMNB Devonport (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "RICHMOND_DEVONPORT_2024",
-        "label": "Royal Navy: HMS Richmond returns home to Plymouth",
-        "url": "https://www.royalnavy.mod.uk/news/2024/march/28/20240328-battle-proven-hms-richmond-returns-home-to-plymouth-from-red-sea-mission"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-03-28",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-somerset",
@@ -590,15 +422,7 @@
         "lon": -4.19,
         "label": "HMNB Devonport (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SOMERSET_DEVONPORT_2026",
-        "label": "Royal Navy: UK monitoring operations and HMS Somerset homecoming",
-        "url": "https://www.royalnavy.mod.uk/news/2026/august/08/20260807-uk-armed-forces-step-up-monitoring-of-increased-russian-activity-in-uk-waters"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-08-07",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-sutherland",
@@ -617,15 +441,7 @@
         "lon": -2.6,
         "label": "English Channel off Portland (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SUTHERLAND_CHANNEL_2026",
-        "label": "Royal Navy: shadow-fleet tanker interdiction",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/15/20260615-royal-navy-leads-boarding-operation-on-shadow-fleet-tanker"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-15",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-kent",
@@ -644,15 +460,7 @@
         "lon": -4.19,
         "label": "Devonport dry dock (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "KENT_DEVONPORT_2024",
-        "label": "Babcock: HMS Kent enters Devonport dry dock",
-        "url": "https://www.linkedin.com/posts/babcock-international-group_hms-kent-has-arrived-in-dry-dock-at-our-devonport-activity-7216365791896596480-cKO-"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-07-09",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-portland",
@@ -671,15 +479,7 @@
         "lon": -4.19,
         "label": "HMNB Devonport (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PORTLAND_DEVONPORT_2024",
-        "label": "Royal Navy: HMS Portland completes autumn deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2024/december/20/20241220-hms-portland-and-iron-duke-complete-autumn-deployments"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-12-20",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-st-albans",
@@ -698,15 +498,7 @@
         "lon": 1.5,
         "label": "English Channel / North Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "ST_ALBANS_CETO_2026",
-        "label": "Royal Navy: monitoring operations in UK waters",
-        "url": "https://www.royalnavy.mod.uk/news/2026/april/09/20260409-royal-navy-monitors-russian-warships-and-submarine-in-uk-waters"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-04-09",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-tyne",
@@ -725,15 +517,7 @@
         "lon": -4.5,
         "label": "UK waters south of Plymouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "UK_MONITORING_AUG_2026",
-        "label": "Royal Navy: UK monitoring operations",
-        "url": "https://www.royalnavy.mod.uk/news/2026/august/08/20260807-uk-armed-forces-step-up-monitoring-of-increased-russian-activity-in-uk-waters"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-20",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-severn",
@@ -752,15 +536,7 @@
         "lon": 1.3,
         "label": "North Sea–Dover–Ushant route (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "UK_MONITORING_AUG_2026",
-        "label": "Royal Navy: UK monitoring operations",
-        "url": "https://www.royalnavy.mod.uk/news/2026/august/08/20260807-uk-armed-forces-step-up-monitoring-of-increased-russian-activity-in-uk-waters"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-mersey",
@@ -779,15 +555,7 @@
         "lon": 1.8,
         "label": "North Sea off the Dover approaches (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "UK_MONITORING_AUG_2026",
-        "label": "Royal Navy: UK monitoring operations",
-        "url": "https://www.royalnavy.mod.uk/news/2026/august/08/20260807-uk-armed-forces-step-up-monitoring-of-increased-russian-activity-in-uk-waters"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-forth",
@@ -806,15 +574,7 @@
         "lon": -1.1,
         "label": "Portsmouth"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "RN_FALKLANDS_SWAP_2026",
-        "label": "Royal Navy Falklands guard ship handover",
-        "url": "https://www.royalnavy.mod.uk/news/2026/january/19/20260119-its-goodbye-from-forth-hello-from-medway-as-patrol-ships-swap-places-in-falklands"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-01-19",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-medway",
@@ -833,15 +593,7 @@
         "lon": -57.5,
         "label": "Falkland Islands / South Atlantic (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "MEDWAY_FALKLANDS_2026",
-        "label": "HMS Medway Falklands mission",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/08/20260608-hms-medway-completes-midwinter-mercy-dash-to-worlds-remotest-island"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-08",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-trent",
@@ -860,15 +612,7 @@
         "lon": -82.445,
         "label": "Port Tampa Bay (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "TRENT_TAMPA_2026",
-        "label": "Royal Navy: HMS Trent in Tampa",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/25/20260625-trent-in-tampa"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-tamar",
@@ -887,15 +631,7 @@
         "lon": 178.415,
         "label": "Suva Harbour, Fiji (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "TAMAR_SUVA_2026",
-        "label": "Fiji Broadcasting Corporation: reception aboard HMS Tamar at Suva Port",
-        "url": "https://www.fbcnews.com.fj/news/uk-fiji-strengthens-ties-at-hms-tamar-reception/"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-04-27",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-spey",
@@ -914,15 +650,7 @@
         "lon": 110,
         "label": "South China Sea / South East Asia (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SPEY_SE_ASIA_2026",
-        "label": "HMS Spey South East Asia deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2026/may/18/20260518-hms-spey-back-in-south-east-asia"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-05-18",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-ledbury",
@@ -941,15 +669,7 @@
         "lon": -2.6,
         "label": "English Channel off Portland (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "LEDBURY_CHANNEL_2026",
-        "label": "Royal Navy: shadow-fleet tanker interdiction",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/15/20260615-royal-navy-leads-boarding-operation-on-shadow-fleet-tanker"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-15",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-cattistock",
@@ -968,15 +688,7 @@
         "lon": -1.986,
         "label": "Poole Quay (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CATTISTOCK_POOLE_2024",
-        "label": "Royal Navy: Freedom of Poole for HMS Cattistock",
-        "url": "https://www.royalnavy.mod.uk/news/2024/may/10/20240510-freedom-of-poole-for-hms-cattistock"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-05-04",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-brocklesby",
@@ -995,15 +707,7 @@
         "lon": -1.11,
         "label": "Portsmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "BROCKLESBY_PORTSMOUTH_2026",
-        "label": "Forces News: HMS Brocklesby leaves Portsmouth",
-        "url": "https://www.forcesnews.com/services/navy/minehunter-hms-brocklesby-leaves-portsmouth-sea-trials-after-three-year-refit"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-03-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-middleton",
@@ -1022,15 +726,7 @@
         "lon": -5.0563,
         "label": "Balaena Falmouth yard (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "MIDDLETON_FALMOUTH_REFIT_2026",
-        "label": "Forces News: HMS Middleton enters Falmouth dry dock",
-        "url": "https://www.forcesnews.com/services/navy/hms-middleton-goes-dry-dock-falmouth-refit-after-uk-wide-tour"
-      },
-      "evidenceCheckedDate": "2026-08-12",
-      "locationEvidenceDate": "2026-06-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-chiddingfold",
@@ -1049,15 +745,7 @@
         "lon": -1.11,
         "label": "HMNB Portsmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SEAWAVES_CHIDDINGFOLD_PORTSMOUTH_2025",
-        "label": "SeaWaves: HMS Chiddingfold arrival at Portsmouth",
-        "url": "https://seawaves.com/wp-content/uploads/2025/07/2025-Navcall-5.pdf"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-04-05",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-hurworth",
@@ -1076,15 +764,7 @@
         "lon": -2.445,
         "label": "Portland Harbour (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SEA_BREEZE_2026",
-        "label": "Sea Breeze 2026 mine-warfare exercise",
-        "url": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-07-15",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-bangor",
@@ -1103,15 +783,7 @@
         "lon": -4.82,
         "label": "HMNB Clyde (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "BANGOR_CLYDE_2018",
-        "label": "Royal Navy: HMS Bangor returns to HMNB Clyde",
-        "url": "https://www.royalnavy.mod.uk/news/2018/august/31/180831-bangor-returns-after-3-year-deployment"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2018-08-31",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-stirling-castle",
@@ -1130,15 +802,7 @@
         "lon": -2.42,
         "label": "Weymouth Bay"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SEA_BREEZE_2026",
-        "label": "Sea Breeze 2026 mine-warfare exercise",
-        "url": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-07-15",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-archer",
@@ -1157,15 +821,7 @@
         "lon": 16,
         "label": "Baltic Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_BALTIC_JUNE_2025",
-        "label": "Royal Navy: Coastal Forces Squadron at BALTOPS",
-        "url": "https://www.royalnavy.mod.uk/news/2025/june/19/20250619-royal-navy-rescue-swedish-submarine"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-06-19",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-biter",
@@ -1184,15 +840,7 @@
         "lon": -7.301207,
         "label": "River Foyle, Londonderry (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "BITER_FOYLE_2026",
-        "label": "News Letter: HMS Biter in Londonderry",
-        "url": "https://www.newsletter.co.uk/news/defence/around-2000-people-boarded-royal-navy-boat-docked-in-londonderry-during-festival-despite-republican-protests-8777672"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-28",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-smiter",
@@ -1211,15 +859,7 @@
         "lon": 18.7,
         "label": "Baltic Sea / Poland"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PUNCHER_SMITER_BALTOPS_2026",
-        "label": "HMS Puncher and HMS Smiter at Baltops 26",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-pursuer",
@@ -1238,15 +878,7 @@
         "lon": 18,
         "label": "Baltic Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_BALTIC_AUG_2025",
-        "label": "Royal Navy: Coastal Forces Squadron Baltic mission",
-        "url": "https://www.royalnavy.mod.uk/news/2025/august/21/20250821-back-to-the-baltic-for-royal-navys-patrol-ships"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-08-21",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-blazer",
@@ -1265,15 +897,7 @@
         "lon": 3.2,
         "label": "North Sea off Zeebrugge (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "BLAZER_EXPLOIT_FLANDERS_2024",
-        "label": "Royal Navy: patrol boats in North Sea exercise",
-        "url": "https://www.royalnavy.mod.uk/news/2024/september/25/20240925-no-waffle-all-action-for-rn-patrol-boats-in-north-sea-exercise"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-09-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-dasher",
@@ -1292,15 +916,7 @@
         "lon": 18,
         "label": "Baltic Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_BALTIC_AUG_2025",
-        "label": "Royal Navy: Coastal Forces Squadron Baltic mission",
-        "url": "https://www.royalnavy.mod.uk/news/2025/august/21/20250821-back-to-the-baltic-for-royal-navys-patrol-ships"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-08-21",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-puncher",
@@ -1319,15 +935,7 @@
         "lon": 18.7,
         "label": "Baltic Sea / Poland"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PUNCHER_SMITER_BALTOPS_2026",
-        "label": "HMS Puncher and HMS Smiter at Baltops 26",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-charger",
@@ -1346,15 +954,7 @@
         "lon": -6.5,
         "label": "Sea of the Hebrides / west of Scotland (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_SCOTLAND_2020",
-        "label": "Royal Navy: patrol craft summer deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2020/july/30/200730-p2000-summer-deployment"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2020-07-30",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-ranger",
@@ -1373,15 +973,7 @@
         "lon": -2.42,
         "label": "Weymouth Bay (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "RANGER_WEYMOUTH_2021",
-        "label": "Royal Navy: patrol boats exercise with Wildcats",
-        "url": "https://www.royalnavy.mod.uk/news/2021/march/18/20210318-p2000s"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2021-03-18",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-trumpeter",
@@ -1400,15 +992,7 @@
         "lon": -2.5,
         "label": "Waters east of Orkney (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_SCOTLAND_2020",
-        "label": "Royal Navy: patrol craft summer deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2020/july/30/200730-p2000-summer-deployment"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2020-07-30",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-express",
@@ -1427,15 +1011,7 @@
         "lon": 18,
         "label": "Baltic Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_BALTIC_AUG_2025",
-        "label": "Royal Navy: Coastal Forces Squadron Baltic mission",
-        "url": "https://www.royalnavy.mod.uk/news/2025/august/21/20250821-back-to-the-baltic-for-royal-navys-patrol-ships"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-08-21",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-example",
@@ -1454,15 +1030,7 @@
         "lon": 16,
         "label": "Baltic Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_BALTIC_JUNE_2025",
-        "label": "Royal Navy: Coastal Forces Squadron at BALTOPS",
-        "url": "https://www.royalnavy.mod.uk/news/2025/june/19/20250619-royal-navy-rescue-swedish-submarine"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-06-19",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-explorer",
@@ -1481,15 +1049,7 @@
         "lon": -2.5,
         "label": "Waters east of Orkney (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CFS_SCOTLAND_2020",
-        "label": "Royal Navy: patrol craft summer deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2020/july/30/200730-p2000-summer-deployment"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2020-07-30",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-exploit",
@@ -1508,15 +1068,7 @@
         "lon": 3.2,
         "label": "North Sea off Zeebrugge (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "BLAZER_EXPLOIT_FLANDERS_2024",
-        "label": "Royal Navy: patrol boats in North Sea exercise",
-        "url": "https://www.royalnavy.mod.uk/news/2024/september/25/20240925-no-waffle-all-action-for-rn-patrol-boats-in-north-sea-exercise"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2024-09-25",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-tracker",
@@ -1535,15 +1087,7 @@
         "lon": -4.9,
         "label": "Firth of Clyde off Innellan (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "TRACKER_CLYDE_2025",
-        "label": "Michael Leek Photography: HMS Tracker off Innellan",
-        "url": "https://www.flickr.com/photos/113339808@N08/54615946396"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-06-26",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-raider",
@@ -1562,15 +1106,7 @@
         "lon": -3.50765,
         "label": "Maryport Marina (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "RAIDER_MARYPORT_2026",
-        "label": "News and Star: HMS Raider at Maryport Marina",
-        "url": "https://www.newsandstar.co.uk/news/26243675.royal-navy-patrol-ship-hms-raider-wows-visitors-maryport-marina/"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-28",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-cutlass",
@@ -1589,15 +1125,7 @@
         "lon": -5.3652,
         "label": "Gibraltar Harbour (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "CUTLASS_GIBRALTAR_2022",
-        "label": "Royal Navy: Cutlass and Dagger take over Gibraltar duties",
-        "url": "https://www.royalnavy.mod.uk/news/2022/may/18/20220518-hms-dasher-and-pursuer-complete-gib-mission-as-cutlass-and-dagger-take-over"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2022-05-18",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-dagger",
@@ -1616,15 +1144,7 @@
         "lon": -5.3652,
         "label": "Gibraltar Harbour (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DAGGER_GIBRALTAR_2026",
-        "label": "Your Gibraltar TV: RNGS Exercise Hercules Vanguard",
-        "url": "https://www.yourgibraltartv.com/daily/rngs-exercise-hercules-vanguard"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-30",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-scott",
@@ -1643,15 +1163,7 @@
         "lon": -5,
         "label": "English Channel off Falmouth (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "SCOTT_FALMOUTH_2026",
-        "label": "Navy Lookout: HMS Scott returns to sea",
-        "url": "https://www.navylookout.com/hms-scott-finally-goes-back-to-sea-on-completion-of-life-extension-refit/"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-12",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-protector",
@@ -1670,15 +1182,7 @@
         "lon": -1,
         "label": "Tees approaches / North Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PROTECTOR_TEES_2026",
-        "label": "UK Docks: HMS Protector sails from the Tees",
-        "url": "https://www.ukdocks.com/new-blog/2026/1/14/uk-docks-teesside-team-praised-by-hms-protectors-captain-weaver"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-01-14",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "hms-magpie",
@@ -1697,15 +1201,7 @@
         "lon": -5,
         "label": "Irish Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "MAGPIE_IRISH_SEA_2018",
-        "label": "Royal Navy: HMS Magpie on sea trials",
-        "url": "https://www.royalnavy.mod.uk/news/2018/april/24/180424-new-survey-ship-hms-magpie-on-sea-trials"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2018-04-24",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-lyme-bay",
@@ -1724,15 +1220,7 @@
         "lon": 38,
         "label": "Red Sea / Middle East"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "DRAGON_LYME_BAY_MIDEAST_2026",
-        "label": "RFA Lyme Bay Middle East deployment",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-06-23",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-mounts-bay",
@@ -1751,15 +1239,7 @@
         "lon": -2.445,
         "label": "Portland Harbour (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "MOUNTS_BAY_PORTLAND_2026",
-        "label": "Dorset Echo: aboard RFA Mounts Bay at Portland Port",
-        "url": "https://www.dorsetecho.co.uk/news/26417955.got-go-inside-rfa-mounts-bay-portland-port/"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-30",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-cardigan-bay",
@@ -1778,15 +1258,7 @@
         "lon": -5.05,
         "label": "Falmouth"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "RFA_STATUS_2026",
-        "label": "RFA workforce recovery and ships to sea",
-        "url": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-05-21",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-proteus",
@@ -1805,15 +1277,7 @@
         "lon": -2.7,
         "label": "Lyme Bay (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "PROTEUS_LYME_BAY_2026",
-        "label": "Royal Navy: RFA Proteus ScanFish trials",
-        "url": "https://www.royalnavy.mod.uk/news/2026/june/18/20260618-navy-survey-team-tests-new-underwater-sensor"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-06-18",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-tidespring",
@@ -1832,15 +1296,7 @@
         "lon": -2.445,
         "label": "Portland Harbour (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "TIDESPRING_PORTLAND_2026",
-        "label": "Dorset Echo: RFA ships at Portland Port",
-        "url": "https://www.dorsetecho.co.uk/news/26417955.got-go-inside-rfa-mounts-bay-portland-port/"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-07-30",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-tiderace",
@@ -1859,15 +1315,7 @@
         "lon": -3,
         "label": "Birkenhead"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "RFA_STATUS_2026",
-        "label": "RFA workforce recovery and ships to sea",
-        "url": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/"
-      },
-      "evidenceCheckedDate": "2026-07-31",
-      "locationEvidenceDate": "2026-05-21",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-tidesurge",
@@ -1886,15 +1334,7 @@
         "lon": 1.4,
         "label": "North Sea–Dover–Channel route (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "TIDESURGE_CHANNEL_2025",
-        "label": "Royal Navy: Russian submarine tracking operation",
-        "url": "https://www.royalnavy.mod.uk/news/2025/december/11/20251112-royal-navy-tracks-russian-submarine-during-three-day-operation"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2025-12-11",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     },
     {
       "id": "rfa-tideforce",
@@ -1913,15 +1353,7 @@
         "lon": 2,
         "label": "North Sea (representative)"
       },
-      "unmappedReason": null,
-      "source": {
-        "id": "TIDEFORCE_UK_WATERS_2026",
-        "label": "Royal Navy: RFA Tideforce monitors Russian warship",
-        "url": "https://www.royalnavy.mod.uk/news/2026/may/06/20260506-royal-navy-keep-uk-waters-safe-from-russian-warship"
-      },
-      "evidenceCheckedDate": "2026-08-09",
-      "locationEvidenceDate": "2026-05-06",
-      "evidenceClassification": "direct-report"
+      "unmappedReason": null
     }
   ]
 }
