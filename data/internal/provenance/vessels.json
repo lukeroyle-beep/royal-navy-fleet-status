@@ -3,8 +3,7 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-07-23",
-    "disclaimer": "This is a curated OSINT snapshot, not a live tracking service. Markers may represent ports or broad operational areas. Unknown and withheld positions are not inferred."
+    "asOfDate": "2026-08-12"
   },
   "vessels": [
     {

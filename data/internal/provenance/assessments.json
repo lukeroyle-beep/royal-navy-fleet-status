@@ -2488,79 +2488,2707 @@
       "assessor": "system:migration",
       "methodVersion": "provenance-v1.0.0",
       "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VICTORY_2026_08_15_2",
+      "vesselId": "hms-victory",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Museum ship",
+        "locationClassification": "mapped",
+        "lastReportedLocation": "Portsmouth Historic Dockyard",
+        "position": {
+          "lat": 50.801468,
+          "lon": -1.1095,
+          "label": "HMS Victory, Portsmouth Historic Dockyard"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VICTORY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_VICTORY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VANGUARD_2026_08_15_2",
+      "vesselId": "hms-vanguard",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); returned 12 June 2026",
+        "position": {
+          "lat": 56.07,
+          "lon": -4.82,
+          "label": "HMNB Clyde (Faslane)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VANGUARD_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_VANGUARD_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VICTORIOUS_2026_08_15_2",
+      "vesselId": "hms-victorious",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base, 9 Dock; Deep Maintenance Period",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VICTORIOUS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_VICTORIOUS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VIGILANT_2026_08_15_2",
+      "vesselId": "hms-vigilant",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); last directly reported 10 October 2025",
+        "position": {
+          "lat": 56.07,
+          "lon": -4.82,
+          "label": "HMNB Clyde (Faslane)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VIGILANT_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_VIGILANT_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VENGEANCE_2026_08_15_2",
+      "vesselId": "hms-vengeance",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "withheld",
+        "lastReportedLocation": "On patrol - classified",
+        "position": null,
+        "symbolicPosition": {
+          "lat": 45,
+          "lon": -35,
+          "label": "On patrol - classified"
+        },
+        "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VENGEANCE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_VENGEANCE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ASTUTE_2026_08_15_2",
+      "vesselId": "hms-astute",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base; Mid Life Re-Validation Period",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ASTUTE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_ASTUTE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_AMBUSH_2026_08_15_2",
+      "vesselId": "hms-ambush",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); public report says very low readiness",
+        "position": {
+          "lat": 56.07,
+          "lon": -4.82,
+          "label": "HMNB Clyde"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_AMBUSH_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_AMBUSH_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ARTFUL_2026_08_15_2",
+      "vesselId": "hms-artful",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); public report says alongside as of May 2026",
+        "position": {
+          "lat": 56.07,
+          "lon": -4.82,
+          "label": "HMNB Clyde"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ARTFUL_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_ARTFUL_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_AUDACIOUS_2026_08_15_2",
+      "vesselId": "hms-audacious",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base; public report says scheduled to leave 15 Dock on 25th June 2026",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_AUDACIOUS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_AUDACIOUS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ANSON_2026_08_15_2",
+      "vesselId": "hms-anson",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base; arrived 27th May 2026 for maintenance",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ANSON_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_ANSON_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_AGAMEMNON_2026_08_15_2",
+      "vesselId": "hms-agamemnon",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "BAE Systems, Barrow-in-Furness; final commissioning before sea trials",
+        "position": {
+          "lat": 54.11,
+          "lon": -3.23,
+          "label": "Barrow-in-Furness"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_AGAMEMNON_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_AGAMEMNON_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_QUEEN_ELIZABETH_2026_08_15_2",
+      "vesselId": "hms-queen-elizabeth",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; NATO ARF(M) high-readiness afloat command platform",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "HMNB Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_QUEEN_ELIZABETH_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_QUEEN_ELIZABETH_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PRINCE_OF_WALES_2026_08_15_2",
+      "vesselId": "hms-prince-of-wales",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "HMNB Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PRINCE_OF_WALES_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_PRINCE_OF_WALES_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DARING_2026_08_15_2",
+      "vesselId": "hms-daring",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; final trials and regeneration reported 31 July 2026",
+        "position": {
+          "lat": 50.8,
+          "lon": -1.11,
+          "label": "HMNB Portsmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DARING_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DARING_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DAUNTLESS_2026_08_15_2",
+      "vesselId": "hms-dauntless",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "English Channel; last official public operational area reported 20 February 2026",
+        "position": {
+          "lat": 50.3,
+          "lon": -1.5,
+          "label": "English Channel (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DAUNTLESS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DAUNTLESS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DIAMOND_2026_08_15_2",
+      "vesselId": "hms-diamond",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; last official public return reported 6 July 2024",
+        "position": {
+          "lat": 50.8,
+          "lon": -1.11,
+          "label": "HMNB Portsmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DIAMOND_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DIAMOND_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DRAGON_2026_08_15_2",
+      "vesselId": "hms-dragon",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Red Sea / Middle East region; escorting RFA Lyme Bay mine-countermeasures task group",
+        "position": {
+          "lat": 20,
+          "lon": 38,
+          "label": "Red Sea / Middle East"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DRAGON_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DRAGON_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DEFENDER_2026_08_15_2",
+      "vesselId": "hms-defender",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; directly photographed undergoing refit on 1 April 2026",
+        "position": {
+          "lat": 50.8,
+          "lon": -1.11,
+          "label": "HMNB Portsmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DEFENDER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DEFENDER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DUNCAN_2026_08_15_2",
+      "vesselId": "hms-duncan",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "HMNB Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DUNCAN_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DUNCAN_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_IRON_DUKE_2026_08_15_2",
+      "vesselId": "hms-iron-duke",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; last official public return reported 20 December 2024; preparing to leave service",
+        "position": {
+          "lat": 50.8,
+          "lon": -1.11,
+          "label": "HMNB Portsmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_IRON_DUKE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_IRON_DUKE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RICHMOND_2026_08_15_2",
+      "vesselId": "hms-richmond",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Devonport; last official public return reported 28 March 2024; preparing to leave service",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.19,
+          "label": "HMNB Devonport (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_RICHMOND_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_RICHMOND_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SOMERSET_2026_08_15_2",
+      "vesselId": "hms-somerset",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Devonport / Plymouth; returned from North Atlantic deployment on 7 August 2026",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.19,
+          "label": "HMNB Devonport (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SOMERSET_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_SOMERSET_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SUTHERLAND_2026_08_15_2",
+      "vesselId": "hms-sutherland",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026",
+        "position": {
+          "lat": 50.5,
+          "lon": -2.6,
+          "label": "English Channel off Portland (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SUTHERLAND_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_SUTHERLAND_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_KENT_2026_08_15_2",
+      "vesselId": "hms-kent",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport dry dock; deep maintenance package reported 9 July 2024",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.19,
+          "label": "Devonport dry dock (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_KENT_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_KENT_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PORTLAND_2026_08_15_2",
+      "vesselId": "hms-portland",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Devonport; last official public return reported 20 December 2024",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.19,
+          "label": "HMNB Devonport (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PORTLAND_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_PORTLAND_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ST_ALBANS_2026_08_15_2",
+      "vesselId": "hms-st-albans",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "English Channel and North Sea; Operation Ceto handover reported 9 April 2026",
+        "position": {
+          "lat": 51.5,
+          "lon": 1.5,
+          "label": "English Channel / North Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ST_ALBANS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_ST_ALBANS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TYNE_2026_08_15_2",
+      "vesselId": "hms-tyne",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters south of Plymouth; monitoring operation observed 20 July 2026",
+        "position": {
+          "lat": 50,
+          "lon": -4.5,
+          "label": "UK waters south of Plymouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TYNE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_TYNE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SEVERN_2026_08_15_2",
+      "vesselId": "hms-severn",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Sea to Dover Strait and waters off Ushant; patrol route observed 23–26 July 2026",
+        "position": {
+          "lat": 51,
+          "lon": 1.3,
+          "label": "North Sea–Dover–Ushant route (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SEVERN_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_SEVERN_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MERSEY_2026_08_15_2",
+      "vesselId": "hms-mersey",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters / Dover approaches; handover with HMS Severn observed 23–26 July 2026",
+        "position": {
+          "lat": 51.2,
+          "lon": 1.8,
+          "label": "North Sea off the Dover approaches (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MERSEY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_MERSEY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_FORTH_2026_08_15_2",
+      "vesselId": "hms-forth",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portsmouth / UK waters after Falklands handover",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_FORTH_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_FORTH_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MEDWAY_2026_08_15_2",
+      "vesselId": "hms-medway",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Falkland Islands / South Atlantic; Falklands guard ship",
+        "position": {
+          "lat": -51.7,
+          "lon": -57.5,
+          "label": "Falkland Islands / South Atlantic (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MEDWAY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_MEDWAY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRENT_2026_08_15_2",
+      "vesselId": "hms-trent",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Tampa, Florida; logistics and maintenance stop reported 25 June 2026",
+        "position": {
+          "lat": 27.938,
+          "lon": -82.445,
+          "label": "Port Tampa Bay (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRENT_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_TRENT_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TAMAR_2026_08_15_2",
+      "vesselId": "hms-tamar",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Suva Port, Fiji; reception aboard reported 28 April 2026",
+        "position": {
+          "lat": -18.14,
+          "lon": 178.415,
+          "label": "Suva Harbour, Fiji (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TAMAR_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_TAMAR_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SPEY_2026_08_15_2",
+      "vesselId": "hms-spey",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Indo-Pacific; South East Asia / Far East patrols after Singapore overhaul",
+        "position": {
+          "lat": 4,
+          "lon": 110,
+          "label": "South China Sea / South East Asia (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SPEY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_SPEY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_LEDBURY_2026_08_15_2",
+      "vesselId": "hms-ledbury",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026",
+        "position": {
+          "lat": 50.5,
+          "lon": -2.6,
+          "label": "English Channel off Portland (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_LEDBURY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_LEDBURY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CATTISTOCK_2026_08_15_2",
+      "vesselId": "hms-cattistock",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Poole Quay; public visit observed 4 May 2024",
+        "position": {
+          "lat": 50.712,
+          "lon": -1.986,
+          "label": "Poole Quay (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CATTISTOCK_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_CATTISTOCK_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BROCKLESBY_2026_08_15_2",
+      "vesselId": "hms-brocklesby",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portsmouth; departed for sea trials on 26 March 2026",
+        "position": {
+          "lat": 50.8,
+          "lon": -1.11,
+          "label": "Portsmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BROCKLESBY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_BROCKLESBY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MIDDLETON_2026_08_15_2",
+      "vesselId": "hms-middleton",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Falmouth, Cornwall; entered dry dock for Re-Certification Docking, reported by Forces News as Balaena Falmouth on 26 June 2026",
+        "position": {
+          "lat": 50.1537,
+          "lon": -5.0563,
+          "label": "Balaena Falmouth yard (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MIDDLETON_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_MIDDLETON_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_2",
+      "vesselId": "hms-chiddingfold",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; historical arrival reported 5 April 2025",
+        "position": {
+          "lat": 50.8,
+          "lon": -1.11,
+          "label": "HMNB Portsmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CHIDDINGFOLD_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_HURWORTH_2026_08_15_2",
+      "vesselId": "hms-hurworth",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portland; Sea Breeze 26-2 mine warfare exercise",
+        "position": {
+          "lat": 50.585,
+          "lon": -2.445,
+          "label": "Portland Harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_HURWORTH_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_HURWORTH_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BANGOR_2026_08_15_2",
+      "vesselId": "hms-bangor",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); last official public return reported 31 August 2018",
+        "position": {
+          "lat": 55.99,
+          "lon": -4.82,
+          "label": "HMNB Clyde (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BANGOR_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_BANGOR_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_2",
+      "vesselId": "hms-stirling-castle",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portland / Weymouth Bay; Sea Breeze 26-2 mine-countermeasures training",
+        "position": {
+          "lat": 50.58,
+          "lon": -2.42,
+          "label": "Weymouth Bay"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_STIRLING_CASTLE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ARCHER_2026_08_15_2",
+      "vesselId": "hms-archer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea; BALTOPS activity reported 19 June 2025",
+        "position": {
+          "lat": 56,
+          "lon": 16,
+          "label": "Baltic Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ARCHER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_ARCHER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BITER_2026_08_15_2",
+      "vesselId": "hms-biter",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "River Foyle, Londonderry; public visit observed 25–28 June 2026",
+        "position": {
+          "lat": 55.00985,
+          "lon": -7.301207,
+          "label": "River Foyle, Londonderry (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BITER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_BITER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SMITER_2026_08_15_2",
+      "vesselId": "hms-smiter",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
+        "position": {
+          "lat": 54.5,
+          "lon": 18.7,
+          "label": "Baltic Sea / Poland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SMITER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_SMITER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PURSUER_2026_08_15_2",
+      "vesselId": "hms-pursuer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
+        "position": {
+          "lat": 57,
+          "lon": 18,
+          "label": "Baltic Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PURSUER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_PURSUER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BLAZER_2026_08_15_2",
+      "vesselId": "hms-blazer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Sea off Zeebrugge; exercise activity reported 25 September 2024",
+        "position": {
+          "lat": 51.35,
+          "lon": 3.2,
+          "label": "North Sea off Zeebrugge (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BLAZER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_BLAZER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DASHER_2026_08_15_2",
+      "vesselId": "hms-dasher",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
+        "position": {
+          "lat": 57,
+          "lon": 18,
+          "label": "Baltic Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DASHER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DASHER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PUNCHER_2026_08_15_2",
+      "vesselId": "hms-puncher",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
+        "position": {
+          "lat": 54.5,
+          "lon": 18.7,
+          "label": "Baltic Sea / Poland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PUNCHER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_PUNCHER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CHARGER_2026_08_15_2",
+      "vesselId": "hms-charger",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "West coast of Scotland; summer deployment reported 30 July 2020",
+        "position": {
+          "lat": 56.3,
+          "lon": -6.5,
+          "label": "Sea of the Hebrides / west of Scotland (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CHARGER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_CHARGER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RANGER_2026_08_15_2",
+      "vesselId": "hms-ranger",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Weymouth Bay; helicopter training reported 18 March 2021",
+        "position": {
+          "lat": 50.58,
+          "lon": -2.42,
+          "label": "Weymouth Bay (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_RANGER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_RANGER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRUMPETER_2026_08_15_2",
+      "vesselId": "hms-trumpeter",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020",
+        "position": {
+          "lat": 59,
+          "lon": -2.5,
+          "label": "Waters east of Orkney (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRUMPETER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_TRUMPETER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXPRESS_2026_08_15_2",
+      "vesselId": "hms-express",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
+        "position": {
+          "lat": 57,
+          "lon": 18,
+          "label": "Baltic Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXPRESS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_EXPRESS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXAMPLE_2026_08_15_2",
+      "vesselId": "hms-example",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea; BALTOPS activity reported 19 June 2025",
+        "position": {
+          "lat": 56,
+          "lon": 16,
+          "label": "Baltic Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXAMPLE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_EXAMPLE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXPLORER_2026_08_15_2",
+      "vesselId": "hms-explorer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020",
+        "position": {
+          "lat": 59,
+          "lon": -2.5,
+          "label": "Waters east of Orkney (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXPLORER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_EXPLORER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXPLOIT_2026_08_15_2",
+      "vesselId": "hms-exploit",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Sea off Zeebrugge; exercise activity reported 25 September 2024",
+        "position": {
+          "lat": 51.35,
+          "lon": 3.2,
+          "label": "North Sea off Zeebrugge (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXPLOIT_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_EXPLOIT_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRACKER_2026_08_15_2",
+      "vesselId": "hms-tracker",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Off Innellan, Firth of Clyde; directly photographed and published 26 June 2025",
+        "position": {
+          "lat": 55.89,
+          "lon": -4.9,
+          "label": "Firth of Clyde off Innellan (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRACKER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_TRACKER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RAIDER_2026_08_15_2",
+      "vesselId": "hms-raider",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Maryport Marina; public visit observed 27–28 June 2026",
+        "position": {
+          "lat": 54.71412,
+          "lon": -3.50765,
+          "label": "Maryport Marina (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_RAIDER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_RAIDER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CUTLASS_2026_08_15_2",
+      "vesselId": "hms-cutlass",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "British Gibraltar Territorial Waters; last official public location reported 18 May 2022",
+        "position": {
+          "lat": 36.1485,
+          "lon": -5.3652,
+          "label": "Gibraltar Harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CUTLASS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_CUTLASS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DAGGER_2026_08_15_2",
+      "vesselId": "hms-dagger",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Gibraltar; returned after Tangier / Ksar Sghir exercise reported 30 July 2026",
+        "position": {
+          "lat": 36.1485,
+          "lon": -5.3652,
+          "label": "Gibraltar Harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DAGGER_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_DAGGER_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SCOTT_2026_08_15_2",
+      "vesselId": "hms-scott",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "At sea from Falmouth; departed after life-extension refit on 12 June 2026",
+        "position": {
+          "lat": 50,
+          "lon": -5,
+          "label": "English Channel off Falmouth (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SCOTT_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_SCOTT_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PROTECTOR_2026_08_15_2",
+      "vesselId": "hms-protector",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "River Tees; sailed after docking and maintenance period reported 14 January 2026",
+        "position": {
+          "lat": 54.7,
+          "lon": -1,
+          "label": "Tees approaches / North Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PROTECTOR_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_PROTECTOR_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MAGPIE_2026_08_15_2",
+      "vesselId": "hms-magpie",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Irish Sea; sea trials reported 24 April 2018",
+        "position": {
+          "lat": 53,
+          "lon": -5,
+          "label": "Irish Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MAGPIE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_HMS_MAGPIE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_LYME_BAY_2026_08_15_2",
+      "vesselId": "rfa-lyme-bay",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Red Sea / Middle East region; mine-countermeasures mothership for potential Strait of Hormuz mission",
+        "position": {
+          "lat": 20,
+          "lon": 38,
+          "label": "Red Sea / Middle East"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_LYME_BAY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_LYME_BAY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_2",
+      "vesselId": "rfa-mounts-bay",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portland Port; public visit reported 30 July 2026",
+        "position": {
+          "lat": 50.585,
+          "lon": -2.445,
+          "label": "Portland Harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_MOUNTS_BAY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_2",
+      "vesselId": "rfa-cardigan-bay",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Falmouth; refit",
+        "position": {
+          "lat": 50.15,
+          "lon": -5.05,
+          "label": "Falmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_CARDIGAN_BAY_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_PROTEUS_2026_08_15_2",
+      "vesselId": "rfa-proteus",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Lyme Bay, English Channel; ScanFish trials reported 18 June 2026",
+        "position": {
+          "lat": 50.5,
+          "lon": -2.7,
+          "label": "Lyme Bay (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_PROTEUS_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_PROTEUS_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDESPRING_2026_08_15_2",
+      "vesselId": "rfa-tidespring",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portland Port; reported berthed nearby on 30 July 2026",
+        "position": {
+          "lat": 50.585,
+          "lon": -2.445,
+          "label": "Portland Harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDESPRING_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_TIDESPRING_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDERACE_2026_08_15_2",
+      "vesselId": "rfa-tiderace",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Birkenhead / planned reactivation later in 2026",
+        "position": {
+          "lat": 53.4,
+          "lon": -3,
+          "label": "Birkenhead"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDERACE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_TIDERACE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDESURGE_2026_08_15_2",
+      "vesselId": "rfa-tidesurge",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Sea–Dover Strait–English Channel route; monitoring operation reported 11 December 2025",
+        "position": {
+          "lat": 51,
+          "lon": 1.4,
+          "label": "North Sea–Dover–Channel route (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDESURGE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_TIDESURGE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDEFORCE_2026_08_15_2",
+      "vesselId": "rfa-tideforce",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Sea and Western Approaches; monitoring task throughout April 2026",
+        "position": {
+          "lat": 55,
+          "lon": 2,
+          "label": "North Sea (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDEFORCE_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "The current-main record preserves dated vessel-specific evidence rules.",
+        "Its legacy evidence date does not establish a bounded observation interval in the provenance model."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "No bounded observation interval was manufactured during integration."
+      },
+      "rationale": "Preserves the current-main public state while moving detailed evidence and source metadata behind the generated public projection.",
+      "assessor": "system:current-main-integration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": "ASSESS_RFA_TIDEFORCE_2026_08_15_1"
     }
   ],
   "currentAssessmentIds": {
-    "hms-victory": "ASSESS_HMS_VICTORY_2026_08_15_1",
-    "hms-vanguard": "ASSESS_HMS_VANGUARD_2026_08_15_1",
-    "hms-victorious": "ASSESS_HMS_VICTORIOUS_2026_08_15_1",
-    "hms-vigilant": "ASSESS_HMS_VIGILANT_2026_08_15_1",
-    "hms-vengeance": "ASSESS_HMS_VENGEANCE_2026_08_15_1",
-    "hms-astute": "ASSESS_HMS_ASTUTE_2026_08_15_1",
-    "hms-ambush": "ASSESS_HMS_AMBUSH_2026_08_15_1",
-    "hms-artful": "ASSESS_HMS_ARTFUL_2026_08_15_1",
-    "hms-audacious": "ASSESS_HMS_AUDACIOUS_2026_08_15_1",
-    "hms-anson": "ASSESS_HMS_ANSON_2026_08_15_1",
-    "hms-agamemnon": "ASSESS_HMS_AGAMEMNON_2026_08_15_1",
-    "hms-queen-elizabeth": "ASSESS_HMS_QUEEN_ELIZABETH_2026_08_15_1",
-    "hms-prince-of-wales": "ASSESS_HMS_PRINCE_OF_WALES_2026_08_15_1",
-    "hms-daring": "ASSESS_HMS_DARING_2026_08_15_1",
-    "hms-dauntless": "ASSESS_HMS_DAUNTLESS_2026_08_15_1",
-    "hms-diamond": "ASSESS_HMS_DIAMOND_2026_08_15_1",
-    "hms-dragon": "ASSESS_HMS_DRAGON_2026_08_15_1",
-    "hms-defender": "ASSESS_HMS_DEFENDER_2026_08_15_1",
-    "hms-duncan": "ASSESS_HMS_DUNCAN_2026_08_15_1",
-    "hms-iron-duke": "ASSESS_HMS_IRON_DUKE_2026_08_15_1",
-    "hms-richmond": "ASSESS_HMS_RICHMOND_2026_08_15_1",
-    "hms-somerset": "ASSESS_HMS_SOMERSET_2026_08_15_1",
-    "hms-sutherland": "ASSESS_HMS_SUTHERLAND_2026_08_15_1",
-    "hms-kent": "ASSESS_HMS_KENT_2026_08_15_1",
-    "hms-portland": "ASSESS_HMS_PORTLAND_2026_08_15_1",
-    "hms-st-albans": "ASSESS_HMS_ST_ALBANS_2026_08_15_1",
-    "hms-tyne": "ASSESS_HMS_TYNE_2026_08_15_1",
-    "hms-severn": "ASSESS_HMS_SEVERN_2026_08_15_1",
-    "hms-mersey": "ASSESS_HMS_MERSEY_2026_08_15_1",
-    "hms-forth": "ASSESS_HMS_FORTH_2026_08_15_1",
-    "hms-medway": "ASSESS_HMS_MEDWAY_2026_08_15_1",
-    "hms-trent": "ASSESS_HMS_TRENT_2026_08_15_1",
-    "hms-tamar": "ASSESS_HMS_TAMAR_2026_08_15_1",
-    "hms-spey": "ASSESS_HMS_SPEY_2026_08_15_1",
-    "hms-ledbury": "ASSESS_HMS_LEDBURY_2026_08_15_1",
-    "hms-cattistock": "ASSESS_HMS_CATTISTOCK_2026_08_15_1",
-    "hms-brocklesby": "ASSESS_HMS_BROCKLESBY_2026_08_15_1",
-    "hms-middleton": "ASSESS_HMS_MIDDLETON_2026_08_15_1",
-    "hms-chiddingfold": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_1",
-    "hms-hurworth": "ASSESS_HMS_HURWORTH_2026_08_15_1",
-    "hms-bangor": "ASSESS_HMS_BANGOR_2026_08_15_1",
-    "hms-stirling-castle": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_1",
-    "hms-archer": "ASSESS_HMS_ARCHER_2026_08_15_1",
-    "hms-biter": "ASSESS_HMS_BITER_2026_08_15_1",
-    "hms-smiter": "ASSESS_HMS_SMITER_2026_08_15_1",
-    "hms-pursuer": "ASSESS_HMS_PURSUER_2026_08_15_1",
-    "hms-blazer": "ASSESS_HMS_BLAZER_2026_08_15_1",
-    "hms-dasher": "ASSESS_HMS_DASHER_2026_08_15_1",
-    "hms-puncher": "ASSESS_HMS_PUNCHER_2026_08_15_1",
-    "hms-charger": "ASSESS_HMS_CHARGER_2026_08_15_1",
-    "hms-ranger": "ASSESS_HMS_RANGER_2026_08_15_1",
-    "hms-trumpeter": "ASSESS_HMS_TRUMPETER_2026_08_15_1",
-    "hms-express": "ASSESS_HMS_EXPRESS_2026_08_15_1",
-    "hms-example": "ASSESS_HMS_EXAMPLE_2026_08_15_1",
-    "hms-explorer": "ASSESS_HMS_EXPLORER_2026_08_15_1",
-    "hms-exploit": "ASSESS_HMS_EXPLOIT_2026_08_15_1",
-    "hms-tracker": "ASSESS_HMS_TRACKER_2026_08_15_1",
-    "hms-raider": "ASSESS_HMS_RAIDER_2026_08_15_1",
-    "hms-cutlass": "ASSESS_HMS_CUTLASS_2026_08_15_1",
-    "hms-dagger": "ASSESS_HMS_DAGGER_2026_08_15_1",
-    "hms-scott": "ASSESS_HMS_SCOTT_2026_08_15_1",
-    "hms-protector": "ASSESS_HMS_PROTECTOR_2026_08_15_1",
-    "hms-magpie": "ASSESS_HMS_MAGPIE_2026_08_15_1",
-    "rfa-lyme-bay": "ASSESS_RFA_LYME_BAY_2026_08_15_1",
-    "rfa-mounts-bay": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_1",
-    "rfa-cardigan-bay": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_1",
-    "rfa-proteus": "ASSESS_RFA_PROTEUS_2026_08_15_1",
-    "rfa-tidespring": "ASSESS_RFA_TIDESPRING_2026_08_15_1",
-    "rfa-tiderace": "ASSESS_RFA_TIDERACE_2026_08_15_1",
-    "rfa-tidesurge": "ASSESS_RFA_TIDESURGE_2026_08_15_1",
-    "rfa-tideforce": "ASSESS_RFA_TIDEFORCE_2026_08_15_1"
+    "hms-victory": "ASSESS_HMS_VICTORY_2026_08_15_2",
+    "hms-vanguard": "ASSESS_HMS_VANGUARD_2026_08_15_2",
+    "hms-victorious": "ASSESS_HMS_VICTORIOUS_2026_08_15_2",
+    "hms-vigilant": "ASSESS_HMS_VIGILANT_2026_08_15_2",
+    "hms-vengeance": "ASSESS_HMS_VENGEANCE_2026_08_15_2",
+    "hms-astute": "ASSESS_HMS_ASTUTE_2026_08_15_2",
+    "hms-ambush": "ASSESS_HMS_AMBUSH_2026_08_15_2",
+    "hms-artful": "ASSESS_HMS_ARTFUL_2026_08_15_2",
+    "hms-audacious": "ASSESS_HMS_AUDACIOUS_2026_08_15_2",
+    "hms-anson": "ASSESS_HMS_ANSON_2026_08_15_2",
+    "hms-agamemnon": "ASSESS_HMS_AGAMEMNON_2026_08_15_2",
+    "hms-queen-elizabeth": "ASSESS_HMS_QUEEN_ELIZABETH_2026_08_15_2",
+    "hms-prince-of-wales": "ASSESS_HMS_PRINCE_OF_WALES_2026_08_15_2",
+    "hms-daring": "ASSESS_HMS_DARING_2026_08_15_2",
+    "hms-dauntless": "ASSESS_HMS_DAUNTLESS_2026_08_15_2",
+    "hms-diamond": "ASSESS_HMS_DIAMOND_2026_08_15_2",
+    "hms-dragon": "ASSESS_HMS_DRAGON_2026_08_15_2",
+    "hms-defender": "ASSESS_HMS_DEFENDER_2026_08_15_2",
+    "hms-duncan": "ASSESS_HMS_DUNCAN_2026_08_15_2",
+    "hms-iron-duke": "ASSESS_HMS_IRON_DUKE_2026_08_15_2",
+    "hms-richmond": "ASSESS_HMS_RICHMOND_2026_08_15_2",
+    "hms-somerset": "ASSESS_HMS_SOMERSET_2026_08_15_2",
+    "hms-sutherland": "ASSESS_HMS_SUTHERLAND_2026_08_15_2",
+    "hms-kent": "ASSESS_HMS_KENT_2026_08_15_2",
+    "hms-portland": "ASSESS_HMS_PORTLAND_2026_08_15_2",
+    "hms-st-albans": "ASSESS_HMS_ST_ALBANS_2026_08_15_2",
+    "hms-tyne": "ASSESS_HMS_TYNE_2026_08_15_2",
+    "hms-severn": "ASSESS_HMS_SEVERN_2026_08_15_2",
+    "hms-mersey": "ASSESS_HMS_MERSEY_2026_08_15_2",
+    "hms-forth": "ASSESS_HMS_FORTH_2026_08_15_2",
+    "hms-medway": "ASSESS_HMS_MEDWAY_2026_08_15_2",
+    "hms-trent": "ASSESS_HMS_TRENT_2026_08_15_2",
+    "hms-tamar": "ASSESS_HMS_TAMAR_2026_08_15_2",
+    "hms-spey": "ASSESS_HMS_SPEY_2026_08_15_2",
+    "hms-ledbury": "ASSESS_HMS_LEDBURY_2026_08_15_2",
+    "hms-cattistock": "ASSESS_HMS_CATTISTOCK_2026_08_15_2",
+    "hms-brocklesby": "ASSESS_HMS_BROCKLESBY_2026_08_15_2",
+    "hms-middleton": "ASSESS_HMS_MIDDLETON_2026_08_15_2",
+    "hms-chiddingfold": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_2",
+    "hms-hurworth": "ASSESS_HMS_HURWORTH_2026_08_15_2",
+    "hms-bangor": "ASSESS_HMS_BANGOR_2026_08_15_2",
+    "hms-stirling-castle": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_2",
+    "hms-archer": "ASSESS_HMS_ARCHER_2026_08_15_2",
+    "hms-biter": "ASSESS_HMS_BITER_2026_08_15_2",
+    "hms-smiter": "ASSESS_HMS_SMITER_2026_08_15_2",
+    "hms-pursuer": "ASSESS_HMS_PURSUER_2026_08_15_2",
+    "hms-blazer": "ASSESS_HMS_BLAZER_2026_08_15_2",
+    "hms-dasher": "ASSESS_HMS_DASHER_2026_08_15_2",
+    "hms-puncher": "ASSESS_HMS_PUNCHER_2026_08_15_2",
+    "hms-charger": "ASSESS_HMS_CHARGER_2026_08_15_2",
+    "hms-ranger": "ASSESS_HMS_RANGER_2026_08_15_2",
+    "hms-trumpeter": "ASSESS_HMS_TRUMPETER_2026_08_15_2",
+    "hms-express": "ASSESS_HMS_EXPRESS_2026_08_15_2",
+    "hms-example": "ASSESS_HMS_EXAMPLE_2026_08_15_2",
+    "hms-explorer": "ASSESS_HMS_EXPLORER_2026_08_15_2",
+    "hms-exploit": "ASSESS_HMS_EXPLOIT_2026_08_15_2",
+    "hms-tracker": "ASSESS_HMS_TRACKER_2026_08_15_2",
+    "hms-raider": "ASSESS_HMS_RAIDER_2026_08_15_2",
+    "hms-cutlass": "ASSESS_HMS_CUTLASS_2026_08_15_2",
+    "hms-dagger": "ASSESS_HMS_DAGGER_2026_08_15_2",
+    "hms-scott": "ASSESS_HMS_SCOTT_2026_08_15_2",
+    "hms-protector": "ASSESS_HMS_PROTECTOR_2026_08_15_2",
+    "hms-magpie": "ASSESS_HMS_MAGPIE_2026_08_15_2",
+    "rfa-lyme-bay": "ASSESS_RFA_LYME_BAY_2026_08_15_2",
+    "rfa-mounts-bay": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_2",
+    "rfa-cardigan-bay": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_2",
+    "rfa-proteus": "ASSESS_RFA_PROTEUS_2026_08_15_2",
+    "rfa-tidespring": "ASSESS_RFA_TIDESPRING_2026_08_15_2",
+    "rfa-tiderace": "ASSESS_RFA_TIDERACE_2026_08_15_2",
+    "rfa-tidesurge": "ASSESS_RFA_TIDESURGE_2026_08_15_2",
+    "rfa-tideforce": "ASSESS_RFA_TIDEFORCE_2026_08_15_2"
   }
 }

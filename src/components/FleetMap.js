@@ -5,7 +5,9 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 
 import {
   clusterSizeClass,
+  getMapPosition,
   hasPlottablePosition,
+  mapFitPadding,
   markerClassName,
   plottedVessels,
 } from "../utils/map.js";
@@ -30,6 +32,7 @@ export class FleetMap {
       zoom: DEFAULT_VIEW.zoom,
       minZoom: 0,
       maxZoom: 19,
+      zoomSnap: 0.1,
       worldCopyJump: true,
       zoomControl: false,
       keyboard: true,
@@ -137,12 +140,13 @@ export class FleetMap {
     this.map.fitBounds(bounds, {
       animate: !this.reducedMotion,
       maxZoom: markers.length === 1 ? 7 : 8,
-      padding: [34, 34],
+      padding: mapFitPadding(this.container.clientWidth),
     });
   }
 
   #createMarker(vessel) {
-    const marker = L.marker([vessel.position.lat, vessel.position.lon], {
+    const position = getMapPosition(vessel);
+    const marker = L.marker([position.lat, position.lon], {
       alt: `${vessel.name}, ${formatClassification(vessel.locationClassification)} location`,
       icon: this.#createMarkerIcon(vessel),
       keyboard: true,
@@ -151,7 +155,7 @@ export class FleetMap {
       vessel,
     });
     marker.bindTooltip(
-      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(vessel.position.label)}</span>`,
+      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)}</span>`,
       {
         className: "fleet-tooltip",
         direction: "top",
@@ -166,9 +170,9 @@ export class FleetMap {
     return L.divIcon({
       className: markerClassName(vessel, this.selectedId),
       html: '<span aria-hidden="true"></span>',
-      iconAnchor: [14, 14],
-      iconSize: [28, 28],
-      tooltipAnchor: [0, -10],
+      iconAnchor: [22, 22],
+      iconSize: [44, 44],
+      tooltipAnchor: [0, -16],
     });
   }
 
@@ -200,7 +204,11 @@ export class FleetMap {
 }
 
 function formatClassification(value) {
-  return value === "mapped" ? "mapped public" : "approximate";
+  return {
+    mapped: "mapped public",
+    approximate: "approximate",
+    withheld: "withheld symbolic",
+  }[value] || value;
 }
 
 function escapeHtml(value) {

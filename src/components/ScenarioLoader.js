@@ -1,4 +1,6 @@
 const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
+const OPERATIONAL_STATUSES = new Set(["Available", "Deployed", "In re-fit", "Unknown", "Museum ship", "Decommissioned"]);
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const FORBIDDEN_PUBLIC_FIELDS = new Set([
   "source",
   "sourceId",
@@ -33,6 +35,9 @@ export function validateFleet(raw) {
   if (!raw.vessels.length) {
     throw new Error("Fleet data contains no vessel records.");
   }
+  if (!isIsoDate(raw.metadata.asOfDate)) {
+    throw new Error("Fleet data has an invalid dataset date.");
+  }
 
   const ids = new Set();
   for (const [index, vessel] of raw.vessels.entries()) {
@@ -52,6 +57,9 @@ export function validateFleet(raw) {
     if (!CLASSIFICATIONS.has(vessel.locationClassification)) {
       throw new Error(`${vessel.name} has an invalid location classification.`);
     }
+    if (!OPERATIONAL_STATUSES.has(vessel.status)) {
+      throw new Error(`${vessel.name} has an invalid operational status.`);
+    }
     const mapped = vessel.locationClassification === "mapped" || vessel.locationClassification === "approximate";
     if (mapped) {
       if (!vessel.position || !Number.isFinite(vessel.position.lat) || !Number.isFinite(vessel.position.lon)) {
@@ -63,8 +71,31 @@ export function validateFleet(raw) {
     } else if (vessel.position !== null) {
       throw new Error(`${vessel.name} must not contain coordinates when ${vessel.locationClassification}.`);
     }
+
+    if (vessel.symbolicPosition !== undefined) {
+      const symbolic = vessel.symbolicPosition;
+      if (
+        vessel.vesselType !== "SSBN" ||
+        vessel.locationClassification !== "withheld" ||
+        vessel.status !== "Deployed" ||
+        vessel.position !== null ||
+        vessel.lastReportedLocation !== "On patrol - classified" ||
+        !symbolic ||
+        !Number.isFinite(symbolic.lat) ||
+        !Number.isFinite(symbolic.lon) ||
+        Math.abs(symbolic.lat) > 90 ||
+        Math.abs(symbolic.lon) > 180 ||
+        symbolic.label !== "On patrol - classified"
+      ) {
+        throw new Error(`${vessel.name} has an invalid classified symbolic marker.`);
+      }
+    }
+
     if ((vessel.locationClassification === "unknown" || vessel.locationClassification === "withheld") && !vessel.unmappedReason) {
       throw new Error(`${vessel.name} requires an unmapped reason.`);
+    }
+    if (vessel.status === "Deployed" && vessel.locationClassification === "withheld" && !vessel.symbolicPosition) {
+      throw new Error(`${vessel.name} requires a classified symbolic marker when deployed.`);
     }
     if ((vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") && /patrol/i.test(vessel.lastReportedLocation) && vessel.position) {
       throw new Error(`${vessel.name} cannot expose a submarine patrol position.`);
@@ -72,4 +103,10 @@ export function validateFleet(raw) {
   }
 
   return raw;
+}
+
+function isIsoDate(value) {
+  if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
+  const date = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }

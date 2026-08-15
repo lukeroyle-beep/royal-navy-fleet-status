@@ -6,11 +6,13 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 
 ## What is included
 
-- A 71-vessel Royal Navy and RFA roster derived from the supplied status workbook
+- A 71-vessel Royal Navy and RFA roster
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
+- A compact class ribbon with class-level active counts and public-status percentages
+- A release-to-release change summary that stays collapsed until requested
 - Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
-- Clean vessel cards with status and recorded location; detailed provenance stays outside the client projection
+- Clean vessel details with status and recorded location; detailed provenance remains outside the client projection
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
 - Responsive desktop and mobile layouts
@@ -20,7 +22,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
 - Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
 - Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
-- Unknown and withheld vessels remain available through search and the vessel list without being plotted.
+- Vessels without a current public fix use their last dated, vessel-specific public location, even when historical. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
@@ -30,21 +32,31 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 - Coordinates exist only as explicit fields in the curated dataset.
 - The browser performs no geocoding, course extrapolation or positional inference.
 - Approximate markers are labelled as representative ports or operational areas.
-- Unknown and withheld vessels remain in the roster but are not plotted.
+- A plotted historical location is never presented as a live fix. Its marker uses only the precision supported by the reviewed evidence.
+- Unknown vessels remain in the roster but are not plotted only when no dated, vessel-specific public location can be established. Any withheld SSBN marker is deliberately symbolic and is not evidence of a vessel's position.
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred or displayed.
 
-The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision labels and disclaimer shown in the interface.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed location classification and the project's internal evidence review.
 
 ## Evidence and assessment model
 
-The repository now separates canonical vessel identities, a central source registry, append-only evidence and versioned assessments under `data/internal/provenance/`. These files are non-client operational records, not confidential storage: the repository may be public, so they contain no credentials, private API data or secrets.
+Canonical vessel identities, the central source registry, append-only evidence and versioned
+assessments live under `data/internal/provenance/`. “Internal” means excluded from the browser
+bundle, not secret storage; the repository may be public and these records contain no credentials.
 
-`data/royal-navy/vessels.json` is generated from the current assessments. It contains only fields needed by the public card, list and map. Source URLs, account handles, evidence timestamps, content hashes, origin clusters, conflicts, analyst notes and assessment reasoning are not copied into the browser bundle.
+`data/royal-navy/vessels.json` is generated from the current assessment index and contains only the
+fields required by the public map, filters, release insights and vessel card. Source URLs, evidence
+timestamps, account handles, content hashes, origin clusters, analyst notes, confidence reasoning
+and assessment history are not copied into the public vessel projection.
 
-Evidence records distinguish retrieval, publication and bounded observation times. Publication time is never silently reused as observation time. Corroboration counts distinct upstream `originId` values rather than links or reposts. Confidence is categorical (`high`, `moderate`, `low`, `unknown`) and incorporates directness, source tier, time, freshness, independence and unresolved conflict.
+The standing dated, vessel-specific evidence rules remain enforced by the append-only location
+decision log and the internal provenance validators. Publication, retrieval and bounded observation
+times are distinct; publication time is never silently promoted into observation time. Independent
+corroboration counts origin clusters, not links or reposts.
 
-The migrated legacy records retain their public “last reported” state, but their old combined date field was not promoted into a fabricated observation time. Their internal assessments therefore remain historical/unknown-confidence until explicit or bounded observations are entered and reviewed.
+See [`docs/osint-provenance.md`](docs/osint-provenance.md) for the full model, collection boundary,
+confidence/freshness rules and known limitations.
 
 ## Run locally
 
@@ -119,23 +131,45 @@ separate human-approved change.
 ```bash
 npm run generate:public
 npm run validate:data
+npm run validate:decisions
+npm run validate:history
+npm run validate:changes
+npm test
 npm run build
 ```
 
-Validation rejects malformed registry/evidence/assessment records, unknown cross-record references, duplicate identifiers, invalid temporal ranges, missing assessment history, stale public projections, provenance leakage, invalid coordinates, unmapped records without reasons and submarine patrol records containing coordinates. The production build also scans the generated client files for internal provenance tokens and source/account URLs.
+The checks validate the source/evidence/assessment graph, prove the public projection is current,
+enforce the dated decision/history/publication contracts, reject invalid coordinates and unsafe
+submarine positions, and scan built assets for internal provenance or source exposure.
 
 ## Data maintenance
 
-Do not edit `data/royal-navy/vessels.json` as the system of record. The maintenance flow is:
+Do not edit `data/royal-navy/vessels.json` as the system of record. Resolve the vessel and source
+against the internal registries, validate and append reviewed evidence, create a new assessment
+revision, then run `npm run generate:public`. Use `npm run sweep:sources` to materialise the enabled
+manual/API review queue; it performs no network collection and keeps MarineVesselTraffic mandatory
+but discovery-only.
 
-1. resolve a source reference to a canonical vessel identifier (ID, pennant or another strong identifier);
-2. add or update the central source registry only after officiality, terms and collection mode are reviewed;
-3. generate the current lawful/manual source queue with `npm run sweep:sources`;
-4. validate a manual evidence record with `node scripts/ingest-evidence.mjs <file> --dry-run`;
-5. append it without `--dry-run` after review;
-6. create a new assessment revision referencing selected, excluded and conflicting evidence rather than overwriting old evidence;
-7. run `npm run generate:public`, `npm run validate:data`, the full test suite and the production build.
+After generating the public projection, regenerate the publication summary, append the status
+snapshot and run every validation/test/build gate. Mapped and approximate decisions still require
+dated, vessel-specific evidence; generic home-port or class pages remain insufficient.
 
-X accounts are registry inputs only until an individual canonical post is collected. X collection is manual unless an authorised API, credentials and current terms review are available; browser scraping is not implemented. Commercial AIS providers are disabled pending a suitable API licence, and missing AIS has no negative meaning. MarineVesselTraffic is retained as a mandatory discovery source only and cannot establish a location without dated independent evidence.
+Location review decisions are recorded append-only in
+`data/royal-navy/location-decisions.jsonl`. Each JSON Lines record preserves the vessel,
+source, evidence/check dates, classification decision, freshness policy and rationale even when a
+review correctly leaves a vessel unknown. Validate the log with `npm run validate:decisions`.
+Pull-request CI compares the file with the base commit and rejects deleted, reordered or modified
+existing records; corrections must be appended as new superseding decisions.
 
-See [`docs/osint-provenance.md`](docs/osint-provenance.md) for the architecture, source catalogue policy, confidence rules, collection flow and known limitations.
+`data/royal-navy/publication-changes.json` describes the differences between the current proposed
+release and its production base. Regenerate it with
+`npm run generate:changes -- --base-ref <production-ref>`. Weekly fleet statuses are stored
+append-only in `data/royal-navy/status-history.jsonl`; append the current dataset date with
+`npm run snapshot:status` and validate it with
+`npm run validate:history -- --base-ref <production-ref>`. The interface does not present a rolling
+12-month availability figure until at least 52 weekly observations span approximately one year, and
+unknown observations reduce coverage instead of being guessed.
+
+The owner-reviewed weekly refresh procedure is documented in
+[`docs/weekly-fleet-refresh.md`](docs/weekly-fleet-refresh.md). X scraping, unlicensed commercial
+tracking collection and unattended publication remain outside the current version.

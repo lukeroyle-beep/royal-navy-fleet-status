@@ -14,11 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      - if: github.event_name == 'pull_request'
+        run: npm run validate:decisions -- --base-ref "${{ github.event.pull_request.base.sha }}"
+      - if: github.event_name == 'pull_request'
+        run: npm run validate:history -- --base-ref "${{ github.event.pull_request.base.sha }}"
+      - run: npm run validate:changes
       - run: npm run build
       - run: npm run build:pages
       - run: npm audit --audit-level=high

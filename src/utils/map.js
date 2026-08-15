@@ -1,9 +1,16 @@
 export function hasPlottablePosition(vessel) {
+  return Boolean(getMapPosition(vessel));
+}
+
+export function getMapPosition(vessel) {
+  const position = vessel?.position || vessel?.symbolicPosition;
   return Boolean(
-    vessel?.position &&
-      Number.isFinite(vessel.position.lat) &&
-      Number.isFinite(vessel.position.lon),
-  );
+    position &&
+      Number.isFinite(position.lat) &&
+      Number.isFinite(position.lon),
+  )
+    ? position
+    : null;
 }
 
 export function plottedVessels(vessels) {
@@ -20,6 +27,10 @@ export function clusterSizeClass(count) {
   if (count >= 20) return "fleet-cluster--large";
   if (count >= 10) return "fleet-cluster--medium";
   return "fleet-cluster--small";
+}
+
+export function mapFitPadding(width) {
+  return width <= 620 ? [24, 24] : [34, 34];
 }
 
 export function shouldStackLayout(width, height) {

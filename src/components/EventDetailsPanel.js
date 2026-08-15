@@ -1,15 +1,14 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
+import { getVesselChange } from "../utils/insights.js";
 
 export class EventDetailsPanel {
-  constructor({ kind, title, description, meta, photo, photoImage, photoCredit }) {
+  constructor({ container, kind, title, meta, photo, photoImage }) {
+    this.container = container;
     this.kind = kind;
     this.title = title;
-    this.description = description;
     this.meta = meta;
     this.photo = photo;
     this.photoImage = photoImage;
-    this.photoCredit = photoCredit;
-    this.photoCaption = photoCredit.closest("figcaption");
     this.photoService = new VesselPhotoService();
     this.renderToken = 0;
     this.photoImage.addEventListener("error", () => this.#hidePhoto());
@@ -19,43 +18,42 @@ export class EventDetailsPanel {
     this.renderToken += 1;
     this.kind.textContent = "Fleet record";
     this.title.textContent = "Select a vessel";
-    this.description.textContent = `${dataset.vessels.length} Royal Navy and Royal Fleet Auxiliary records are available.`;
     this.meta.replaceChildren();
     this.#hidePhoto();
+    this.container.hidden = true;
   }
 
-  renderVessel(vessel) {
+  renderVessel(
+    vessel,
+    { asOfDate, history = [], changes = null, insightsAvailable = false } = {},
+  ) {
     const token = ++this.renderToken;
     this.kind.textContent = vessel.service;
     this.title.textContent = vessel.name;
-    this.description.textContent =
-      vessel.locationClassification === "unknown" || vessel.locationClassification === "withheld"
-        ? vessel.unmappedReason
-        : "Marker shows the last publicly reported port or representative operational area recorded in this dataset.";
+    this.container.hidden = false;
+
+    const releaseChange = getVesselChange(changes, vessel.id);
 
     const entries = [
       ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Class", vessel.vesselClass],
       ["Type", vessel.vesselType],
+      ["Commission date", vessel.commissionedDate || "Not recorded"],
       ["Status", vessel.status],
+      ["Location classification", formatLocationClassification(vessel.locationClassification)],
       ["Location", vessel.lastReportedLocation],
     ];
+    if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
     this.#hidePhoto();
     this.photoImage.alt = `Photograph of ${vessel.name}`;
+    this.photoImage.dataset.vesselId = vessel.id;
 
     this.photoService
       .find(vessel)
       .then((result) => {
         if (token !== this.renderToken || !result) return;
         this.photoImage.src = result.imageUrl;
-        this.photoCredit.textContent = result.creditLabel || "";
-        if (result.pageUrl && result.creditLabel) {
-          this.photoCredit.href = result.pageUrl;
-        } else {
-          this.photoCredit.removeAttribute("href");
-        }
-        if (this.photoCaption) this.photoCaption.hidden = !result.creditLabel;
         this.photo.hidden = false;
       })
       .catch(() => {
@@ -66,10 +64,8 @@ export class EventDetailsPanel {
   #hidePhoto() {
     this.photo.hidden = true;
     this.photoImage.removeAttribute("src");
+    delete this.photoImage.dataset.vesselId;
     this.photoImage.alt = "";
-    this.photoCredit.removeAttribute("href");
-    this.photoCredit.textContent = "";
-    if (this.photoCaption) this.photoCaption.hidden = true;
   }
 }
 
@@ -81,4 +77,18 @@ function createEntry(term, value) {
   dd.textContent = value;
   wrapper.append(dt, dd);
   return wrapper;
+}
+
+export function formatLocationClassification(value) {
+  return {
+    mapped: "Mapped public location",
+    approximate: "Approximate port or area",
+    unknown: "Unknown public location",
+    withheld: "Withheld · symbolic marker",
+  }[value] || value;
+}
+
+export function formatReleaseChange(change) {
+  const details = change.items.map((item) => `${item.label}: ${item.before} → ${item.after}`);
+  return `Updated this release · ${details.join("; ")}`;
 }

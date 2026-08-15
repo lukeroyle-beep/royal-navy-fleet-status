@@ -12,89 +12,149 @@
   </head>
   <body>
     <main id="app">
-      <section class="map-stage" aria-label="Interactive fleet map">
-        <div id="fleetMap" role="region" aria-label="Map of evidenced vessel locations"></div>
-        <header class="topbar">
+      <header class="command-header">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">RN</span>
           <div>
             <h1 id="mapTitle">Royal Navy Fleet Status</h1>
+            <p class="subtitle">Last publicly evidenced locations · not live tracking</p>
           </div>
+        </div>
+        <div class="release-meta">
           <div class="as-of">
-            <span>Dataset as of</span>
+            <span>Dataset</span>
             <strong id="asOfDate">Loading</strong>
           </div>
-        </header>
-        <div class="map-tools">
-          <div class="legend" aria-label="Location marker legend">
-            <span><i class="legend-dot mapped"></i>Mapped public location</span>
-            <span><i class="legend-dot approximate"></i>Approximate port or area</span>
+          <button
+            id="changesToggle"
+            class="changes-trigger"
+            type="button"
+            aria-expanded="false"
+            aria-controls="changesPanel"
+            hidden
+          >
+            <span>What changed</span>
+            <strong id="changesCount"></strong>
+          </button>
+        </div>
+      </header>
+
+      <section class="command-workspace">
+        <section class="map-stage" aria-label="Interactive fleet map">
+          <div id="fleetMap" role="region" aria-label="Map of evidenced vessel locations"></div>
+          <div class="map-tools">
+            <div class="legend" aria-label="Location marker legend">
+              <span><i class="legend-dot mapped"></i>Mapped public location</span>
+              <span><i class="legend-dot approximate"></i>Approximate port or area</span>
+              <span><i class="legend-dot classified"></i>Withheld symbolic marker</span>
+            </div>
+            <button id="resetMap" class="map-reset" type="button">Reset map view</button>
           </div>
-          <button id="resetMap" class="map-reset" type="button">Show all plotted vessels</button>
-        </div>
-        <div id="mapNotice" class="map-notice" role="status" hidden>
-          Basemap tiles are unavailable. Vessel search and details remain available.
-        </div>
+          <div id="mapNotice" class="map-notice" role="status" hidden>
+            Basemap tiles are unavailable. Vessel search and vessel details remain available.
+          </div>
+        </section>
+
+        <aside class="side-panel" aria-label="Fleet search and vessel details">
+          <section class="fleet-summary" aria-labelledby="fleetOverviewTitle">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Public-status snapshot</p>
+                <h2 id="fleetOverviewTitle">Fleet overview</h2>
+              </div>
+            </div>
+            <div class="status-metrics">
+              <div><strong id="totalCount">0</strong><span>Vessels</span></div>
+              <div><strong id="deployedCount">0</strong><span>Deployed</span></div>
+              <div><strong id="refitCount">0</strong><span>In re-fit</span></div>
+              <div><strong id="unknownCount">0</strong><span>Status unknown</span></div>
+            </div>
+            <p class="status-note">Published status labels describe the evidence snapshot, not operational readiness.</p>
+          </section>
+
+          <section class="search-controls" aria-label="Search and filter fleet">
+            <label class="search-field">
+              <span>Find a vessel</span>
+              <input id="searchInput" type="search" autocomplete="off" placeholder="Name or pennant number" />
+            </label>
+
+            <details id="filterDisclosure" class="filter-disclosure">
+              <summary>
+                <span>Filters</span>
+                <strong id="filterSelectionStatus">All vessels</strong>
+              </summary>
+              <div class="filter-body">
+                <section class="class-selector" aria-labelledby="classSelectorTitle">
+                  <div class="section-heading">
+                    <h2 id="classSelectorTitle">Vessel class</h2>
+                    <span id="classSelectionStatus">All classes</span>
+                  </div>
+                  <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
+                </section>
+
+                <div class="filter-grid">
+                  <label>
+                    Service
+                    <select id="serviceFilter"><option value="">All services</option></select>
+                  </label>
+                  <label>
+                    Status
+                    <select id="statusFilter"><option value="">All statuses</option></select>
+                  </label>
+                  <label>
+                    Vessel type
+                    <select id="typeFilter"><option value="">All vessel types</option></select>
+                  </label>
+                  <label>
+                    Location classification
+                    <select id="locationFilter">
+                      <option value="">All classifications</option>
+                      <option value="mapped">Mapped</option>
+                      <option value="approximate">Approximate</option>
+                      <option value="unknown">Unknown</option>
+                      <option value="withheld">Withheld</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            </details>
+
+            <div class="result-summary">
+              <span id="filterResultStatus" role="status" aria-live="polite"><strong id="filteredCount">0</strong> vessels shown</span>
+              <button id="resetFilters" type="button" hidden>Clear filters</button>
+            </div>
+          </section>
+
+          <section id="changesPanel" class="changes-panel" aria-labelledby="changesTitle" hidden>
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Latest publication</p>
+                <h2 id="changesTitle">What changed</h2>
+              </div>
+              <button id="changesClose" class="panel-close" type="button" aria-label="Close What changed">Close</button>
+            </div>
+            <p id="changesSummary" class="changes-summary"></p>
+            <div id="changesList" class="changes-list"></div>
+          </section>
+
+          <section class="detail-card" id="detailCard" aria-live="polite" hidden>
+            <p class="eyebrow" id="detailKind">Fleet record</p>
+            <h2 id="detailTitle" tabindex="-1">Select a vessel</h2>
+            <figure id="detailPhoto" class="detail-photo" hidden>
+              <img id="detailPhotoImage" alt="" />
+            </figure>
+            <dl id="detailMeta" class="detail-meta"></dl>
+          </section>
+
+          <section class="results" aria-label="Filtered vessel results">
+            <div class="results-heading">
+              <h2>Fleet list</h2>
+              <span id="resultsStatus" role="status"></span>
+            </div>
+            <ul id="vesselList"></ul>
+          </section>
+        </aside>
       </section>
-
-      <aside class="side-panel" aria-label="Fleet search and vessel details">
-        <section class="summary" aria-label="Fleet summary">
-          <div><span>Fleet records</span><strong id="totalCount">0</strong></div>
-          <div><span>Mapped records</span><strong id="mappedCount">0</strong></div>
-          <div><span>Shown by filters</span><strong id="filteredCount">0</strong></div>
-        </section>
-
-        <section class="filters" aria-label="Fleet filters">
-          <label>
-            Search vessel or pennant
-            <input id="searchInput" type="search" autocomplete="off" placeholder="e.g. HMS Duncan or D37" />
-          </label>
-          <div class="filter-grid">
-            <label>
-              Service
-              <select id="serviceFilter"><option value="">All services</option></select>
-            </label>
-            <label>
-              Status
-              <select id="statusFilter"><option value="">All statuses</option></select>
-            </label>
-            <label>
-              Vessel type
-              <select id="typeFilter"><option value="">All vessel types</option></select>
-            </label>
-            <label>
-              Location
-              <select id="locationFilter">
-                <option value="">All classifications</option>
-                <option value="mapped">Mapped</option>
-                <option value="approximate">Approximate</option>
-                <option value="unknown">Unknown</option>
-                <option value="withheld">Withheld</option>
-              </select>
-            </label>
-          </div>
-          <button id="resetFilters" type="button">Reset filters</button>
-        </section>
-
-        <section class="detail-card" id="detailCard" aria-live="polite">
-          <p class="eyebrow" id="detailKind">Fleet record</p>
-          <h2 id="detailTitle">Select a vessel</h2>
-          <figure id="detailPhoto" class="detail-photo" hidden>
-            <img id="detailPhotoImage" alt="" />
-            <figcaption hidden><a id="detailPhotoCredit" target="_blank" rel="noreferrer"></a></figcaption>
-          </figure>
-          <p id="detailDescription">Choose a marker or a vessel from the results list.</p>
-          <dl id="detailMeta" class="detail-meta"></dl>
-        </section>
-
-        <section class="results" aria-label="Filtered vessel results">
-          <div class="results-heading">
-            <h2>Vessels</h2>
-            <span id="resultsStatus" role="status"></span>
-          </div>
-          <ul id="vesselList"></ul>
-        </section>
-
-        <p id="dataDisclaimer" class="disclaimer"></p>
-      </aside>
     </main>
 
     <div id="loadError" class="load-error" role="alert" hidden>
