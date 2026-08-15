@@ -7,6 +7,7 @@ import {
   clusterSizeClass,
   getMapPosition,
   hasPlottablePosition,
+  mapFitPadding,
   markerClassName,
   plottedVessels,
 } from "../utils/map.js";
@@ -31,6 +32,7 @@ export class FleetMap {
       zoom: DEFAULT_VIEW.zoom,
       minZoom: 0,
       maxZoom: 19,
+      zoomSnap: 0.1,
       worldCopyJump: true,
       zoomControl: false,
       keyboard: true,
@@ -138,7 +140,7 @@ export class FleetMap {
     this.map.fitBounds(bounds, {
       animate: !this.reducedMotion,
       maxZoom: markers.length === 1 ? 7 : 8,
-      padding: [34, 34],
+      padding: mapFitPadding(this.container.clientWidth),
     });
   }
 
