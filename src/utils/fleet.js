@@ -6,3 +6,13 @@ export function getActiveFleetSummary(vessels) {
 
   return { total, percentage };
 }
+
+export function getFleetStatusSummary(vessels) {
+  const count = (status) => vessels.filter((vessel) => vessel.status === status).length;
+  return {
+    total: vessels.length,
+    deployed: count("Deployed"),
+    inRefit: count("In re-fit"),
+    unknown: count("Unknown"),
+  };
+}

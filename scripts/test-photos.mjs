@@ -19,8 +19,10 @@ assert.match(
   "The vessel photograph must appear directly below the vessel name and before the metadata.",
 );
 assert.doesNotMatch(detailPanel, /photoCredit|photoCaption|Marker shows the last publicly reported/);
-assert.doesNotMatch(detailPanel, /Evidence checked date|Evidence classification|createSourceEntry/);
-assert.doesNotMatch(detailPanel, /vessel\.evidenceCheckedDate|vessel\.evidenceClassification|vessel\.source/);
+assert.doesNotMatch(detailPanel, /Evidence checked date|Evidence classification/);
+assert.doesNotMatch(detailPanel, /vessel\.evidenceCheckedDate|vessel\.evidenceClassification/);
+assert.match(detailPanel, /createSourceEntry\("Supporting source", vessel\.source\.label/);
+assert.match(detailPanel, /link\.rel = "noopener noreferrer"/);
 assert.doesNotMatch(detailPanel, /Observed availability|Status coverage/);
 assert.doesNotMatch(detailPanel, /getVesselAvailability|availability\.availabilityLabel|availability\.coverageLabel/);
 assert.match(detailPanel, /\["Location evidence date", formatEvidenceDate\(vessel\.locationEvidenceDate\)\]/);

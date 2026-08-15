@@ -5,13 +5,8 @@ import {
 } from "./components/FleetInsightsLoader.js";
 import { FleetMap } from "./components/FleetMap.js";
 import { ScenarioLoader } from "./components/ScenarioLoader.js";
-import { getActiveFleetSummary } from "./utils/fleet.js";
-import {
-  formatSignedDelta,
-  getClassSnapshotSummary,
-  shortClassName,
-} from "./utils/insights.js";
-import { hasPlottablePosition } from "./utils/map.js";
+import { getFleetStatusSummary } from "./utils/fleet.js";
+import { shortClassName } from "./utils/insights.js";
 import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
@@ -36,17 +31,12 @@ const elements = {
   changesClose: document.querySelector("#changesClose"),
   changesSummary: document.querySelector("#changesSummary"),
   changesList: document.querySelector("#changesList"),
-  activeCount: document.querySelector("#activeCount"),
-  activePercentage: document.querySelector("#activePercentage"),
-  primaryLabel: document.querySelector("#summaryPrimaryLabel"),
-  primaryValue: document.querySelector("#totalCount"),
-  primaryNote: document.querySelector("#summaryPrimaryNote"),
-  secondaryLabel: document.querySelector("#summarySecondaryLabel"),
-  secondaryValue: document.querySelector("#mappedCount"),
-  secondaryNote: document.querySelector("#summarySecondaryNote"),
-  tertiaryLabel: document.querySelector("#summaryTertiaryLabel"),
-  tertiaryValue: document.querySelector("#filteredCount"),
-  tertiaryNote: document.querySelector("#summaryTertiaryNote"),
+  totalCount: document.querySelector("#totalCount"),
+  deployedCount: document.querySelector("#deployedCount"),
+  refitCount: document.querySelector("#refitCount"),
+  unknownCount: document.querySelector("#unknownCount"),
+  filteredCount: document.querySelector("#filteredCount"),
+  filterSelectionStatus: document.querySelector("#filterSelectionStatus"),
   classRibbon: document.querySelector("#classRibbon"),
   classSelectionStatus: document.querySelector("#classSelectionStatus"),
   search: document.querySelector("#searchInput"),
@@ -64,6 +54,7 @@ const elements = {
 };
 
 const details = new EventDetailsPanel({
+  container: document.querySelector("#detailCard"),
   kind: document.querySelector("#detailKind"),
   title: document.querySelector("#detailTitle"),
   meta: document.querySelector("#detailMeta"),
@@ -107,10 +98,8 @@ async function initialize() {
 }
 
 function bindDataset() {
-  const activeFleet = getActiveFleetSummary(dataset.vessels);
   elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
-  elements.activeCount.textContent = activeFleet.total.toString();
-  elements.activePercentage.textContent = `${activeFleet.percentage.toFixed(1)}%`;
+  renderFleetOverview();
   fillSelect(elements.service, uniqueValues("service"));
   fillSelect(elements.status, uniqueValues("status"));
   fillSelect(elements.type, uniqueValues("vesselType"));
@@ -137,6 +126,14 @@ function bindDataset() {
 
 function uniqueValues(field) {
   return [...new Set(dataset.vessels.map((vessel) => vessel[field]))].sort((a, b) => a.localeCompare(b));
+}
+
+function renderFleetOverview() {
+  const summary = getFleetStatusSummary(dataset.vessels);
+  elements.totalCount.textContent = summary.total.toString();
+  elements.deployedCount.textContent = summary.deployed.toString();
+  elements.refitCount.textContent = summary.inRefit.toString();
+  elements.unknownCount.textContent = summary.unknown.toString();
 }
 
 function fillSelect(select, values) {
@@ -205,7 +202,7 @@ function applyFilters() {
     );
   });
 
-  renderSummary(filtered.length);
+  renderFilterSummary(filtered.length);
   elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
   renderList(filtered);
   fleetMap.setVisibleVessels(filtered);
@@ -216,82 +213,23 @@ function applyFilters() {
   }
 }
 
-function renderSummary(filteredCount) {
-  if (!selectedClass) {
-    const mappedCount = dataset.vessels.filter(hasPlottablePosition).length;
-    const mappedDelta = insights.changes
-      ? mappedCount - insights.changes.previousMappedCount
-      : null;
-    setSummaryCell(elements.primaryLabel, elements.primaryValue, elements.primaryNote, {
-      label: "Fleet records",
-      value: dataset.vessels.length,
-      note: insights.changes ? `${insights.changes.changes.length} updated this release` : "",
-    });
-    setSummaryCell(elements.secondaryLabel, elements.secondaryValue, elements.secondaryNote, {
-      label: "Mapped records",
-      value: mappedCount,
-      note: formatChangeSince(mappedDelta),
-    });
-    setSummaryCell(elements.tertiaryLabel, elements.tertiaryValue, elements.tertiaryNote, {
-      label: "Shown by filters",
-      value: filteredCount,
-      note: "",
-    });
-    return;
-  }
-
-  const summary = getClassSnapshotSummary(
-    dataset.vessels,
-    selectedClass,
-    insights.history,
-    dataset.metadata.asOfDate,
-  );
-  setSummaryCell(elements.primaryLabel, elements.primaryValue, elements.primaryNote, {
-    label: "Class vessels",
-    value: summary.vesselCount,
-    note: filteredCount === summary.vesselCount ? "" : `${filteredCount} shown by filters`,
-  });
-  setSummaryCell(elements.secondaryLabel, elements.secondaryValue, elements.secondaryNote, {
-    label: "Active now",
-    value: summary.active,
-    note: formatChangeSince(summary.activeDelta),
-  });
-  setSummaryCell(elements.tertiaryLabel, elements.tertiaryValue, elements.tertiaryNote, {
-    label: "Vessel class availability",
-    value: summary.activePercentage === null ? "—" : `${summary.activePercentage.toFixed(0)}%`,
-    note: classSnapshotNote(summary),
-  });
-}
-
-function setSummaryCell(labelElement, valueElement, noteElement, { label, value, note }) {
-  labelElement.textContent = label;
-  valueElement.textContent = value.toString();
-  noteElement.textContent = note;
-  noteElement.hidden = !note;
-}
-
-function classSnapshotNote(summary) {
-  const parts = [];
-  const delta = formatSignedDelta(summary.percentageDelta, "pp");
-  if (delta) parts.push(`${delta} since ${previousPublicationDate()}`);
-  if (summary.unknown) parts.push(`${summary.unknown} unknown`);
-  if (!insights.available) {
-    parts.push("History unavailable");
-  } else if (!summary.rolling.mature) {
-    parts.push(`History ${summary.rolling.observationCount}/52`);
-  } else if (summary.rolling.coveragePercentage < 100) {
-    parts.push(`${summary.rolling.coveragePercentage.toFixed(0)}% coverage`);
-  }
-  return parts.join(" · ");
-}
-
-function formatChangeSince(value) {
-  const delta = formatSignedDelta(value);
-  return delta ? `${delta} since ${previousPublicationDate()}` : "";
-}
-
-function previousPublicationDate() {
-  return insights.changes ? formatShortDate(insights.changes.previousAsOfDate) : "previous release";
+function renderFilterSummary(filteredCount) {
+  const filterLabels = [
+    selectedClass ? shortClassName(selectedClass) : "",
+    elements.service.value,
+    elements.status.value,
+    elements.type.value,
+    elements.location.value ? formatClassification(elements.location.value) : "",
+  ].filter(Boolean);
+  const hasSearch = Boolean(elements.search.value.trim());
+  const activeFilterCount = filterLabels.length + Number(hasSearch);
+  const hasFilters = activeFilterCount > 0;
+  elements.filteredCount.textContent = filteredCount.toString();
+  elements.filterSelectionStatus.textContent =
+    activeFilterCount > 1
+      ? `${activeFilterCount} active`
+      : filterLabels[0] || (hasSearch ? "Search active" : "All vessels");
+  elements.reset.hidden = !hasFilters;
 }
 
 function renderPublicationChanges() {
@@ -427,6 +365,6 @@ function formatClassification(value) {
     mapped: "Mapped",
     approximate: "Approximate",
     unknown: "Unknown",
-    withheld: "Classified",
+    withheld: "Withheld",
   }[value];
 }

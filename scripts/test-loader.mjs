@@ -2,8 +2,11 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
-import { formatEvidenceDate } from "../src/components/EventDetailsPanel.js";
-import { getActiveFleetSummary } from "../src/utils/fleet.js";
+import {
+  formatEvidenceDate,
+  formatLocationClassification,
+} from "../src/components/EventDetailsPanel.js";
+import { getActiveFleetSummary, getFleetStatusSummary } from "../src/utils/fleet.js";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
@@ -23,10 +26,18 @@ assert.equal(dataset.vessels.filter((vessel) => vessel.locationClassification ==
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
 assert.equal(formatEvidenceDate("2026-07-20"), "20 July 2026");
 assert.equal(formatEvidenceDate(null), "Unknown");
+assert.equal(formatLocationClassification("approximate"), "Approximate port or area");
+assert.equal(formatLocationClassification("withheld"), "Withheld · symbolic marker");
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
 assert.equal(activeFleet.total, 51);
 assert.equal(activeFleet.percentage.toFixed(1), "71.8");
+assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
+  total: 71,
+  deployed: 16,
+  inRefit: 12,
+  unknown: 7,
+});
 
 const directEvidence = dataset.vessels.find((vessel) => vessel.locationClassification === "approximate");
 assert.match(directEvidence.locationEvidenceDate, /^\d{4}-\d{2}-\d{2}$/);

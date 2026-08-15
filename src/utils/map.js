@@ -29,6 +29,10 @@ export function clusterSizeClass(count) {
   return "fleet-cluster--small";
 }
 
+export function mapFitPadding(width) {
+  return width <= 620 ? [24, 24] : [34, 34];
+}
+
 export function shouldStackLayout(width, height) {
   return width <= 700 || (width <= 1100 && height > width);
 }
