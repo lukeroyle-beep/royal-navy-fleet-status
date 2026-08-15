@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
+    "generate:public": "node scripts/generate-public-projection.mjs",
+    "sweep:sources": "node scripts/prepare-osint-sweep.mjs",
     "validate:data": "node scripts/validate-fleet-data.mjs",
-    "test": "node scripts/test-loader.mjs && node scripts/test-map.mjs && node scripts/test-photos.mjs && node scripts/test-release.mjs",
-    "build": "npm run validate:data && npm test && vite build && node scripts/copy-fleet-data.mjs",
-    "build:pages": "npm run validate:data && npm test && vite build --base=/royal-navy-fleet-status/ && node scripts/copy-fleet-data.mjs && node scripts/test-pages-build.mjs",
+    "test": "node scripts/test-loader.mjs && node scripts/test-provenance.mjs && node scripts/test-map.mjs && node scripts/test-photos.mjs && node scripts/test-release.mjs",
+    "build": "npm run generate:public && npm run validate:data && npm test && vite build && node scripts/copy-fleet-data.mjs && node scripts/check-client-exposure.mjs",
+    "build:pages": "npm run generate:public && npm run validate:data && npm test && vite build --base=/royal-navy-fleet-status/ && node scripts/copy-fleet-data.mjs && node scripts/test-pages-build.mjs && node scripts/check-client-exposure.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "preview:private": "node scripts/private-preview.mjs"
   },

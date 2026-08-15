@@ -366,15 +366,6 @@ h1 {
   font-size: 0.86rem;
 }
 
-.source-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: 8px;
-  color: #8edcf7;
-  font-size: 0.84rem;
-}
-
 .results {
   min-height: 260px;
 }

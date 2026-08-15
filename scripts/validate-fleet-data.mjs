@@ -1,11 +1,19 @@
 import fs from "node:fs";
 
-const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
-const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
+import { validateFleet } from "../src/components/ScenarioLoader.js";
+import { createPublicProjection } from "./lib/public-projection.mjs";
+import {
+  validateAssessmentLog,
+  validateEvidenceLog,
+  validateSourceRegistry,
+} from "./lib/provenance.mjs";
+
+const dataset = readJson("../data/royal-navy/vessels.json");
+const entities = readJson("../data/internal/provenance/vessels.json");
+const registry = readJson("../data/internal/provenance/sources.json");
+const evidence = readJson("../data/internal/provenance/evidence.json");
+const assessments = readJson("../data/internal/provenance/assessments.json");
 const allowedClassifications = new Set(["mapped", "approximate", "unknown", "withheld"]);
-const allowedEvidenceClassifications = new Set(["direct-report", "direct-tracker", "insufficient", "withheld-policy"]);
-const mappableEvidence = new Set(["direct-report", "direct-tracker"]);
-const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 const requiredFields = [
   "id",
   "name",
@@ -15,8 +23,6 @@ const requiredFields = [
   "status",
   "locationClassification",
   "lastReportedLocation",
-  "evidenceCheckedDate",
-  "evidenceClassification",
 ];
 
 if (!dataset.metadata?.asOfDate || !Array.isArray(dataset.vessels)) {
@@ -38,16 +44,6 @@ for (const vessel of dataset.vessels) {
   if (!allowedClassifications.has(vessel.locationClassification)) {
     throw new Error(`${vessel.name} has invalid location classification.`);
   }
-  if (!allowedEvidenceClassifications.has(vessel.evidenceClassification)) {
-    throw new Error(`${vessel.name} has invalid evidence classification.`);
-  }
-  if (!isIsoDate(vessel.evidenceCheckedDate)) {
-    throw new Error(`${vessel.name} has an invalid evidence checked date.`);
-  }
-  if (vessel.locationEvidenceDate !== null && !isIsoDate(vessel.locationEvidenceDate)) {
-    throw new Error(`${vessel.name} has an invalid location evidence date.`);
-  }
-
   const shouldMap = vessel.locationClassification === "mapped" || vessel.locationClassification === "approximate";
   if (shouldMap) {
     if (!Number.isFinite(vessel.position?.lat) || !Number.isFinite(vessel.position?.lon)) {
@@ -56,32 +52,35 @@ for (const vessel of dataset.vessels) {
     if (Math.abs(vessel.position.lat) > 90 || Math.abs(vessel.position.lon) > 180) {
       throw new Error(`${vessel.name} coordinates are outside valid ranges.`);
     }
-    if (!mappableEvidence.has(vessel.evidenceClassification) || !isIsoDate(vessel.locationEvidenceDate)) {
-      throw new Error(`${vessel.name} is mapped without sufficient dated location evidence.`);
-    }
   } else {
     if (vessel.position !== null) throw new Error(`${vessel.name} must not have coordinates.`);
     if (!vessel.unmappedReason) throw new Error(`${vessel.name} requires an unmapped reason.`);
   }
 
-  if (!vessel.source?.label?.trim() || !vessel.source?.url?.startsWith("https://")) {
-    throw new Error(`${vessel.name} requires an HTTPS supporting source.`);
-  }
-  if (vessel.locationClassification === "unknown" && vessel.evidenceClassification !== "insufficient") {
-    throw new Error(`${vessel.name} must classify unknown location evidence as insufficient.`);
-  }
-  if (vessel.locationClassification === "withheld" && vessel.evidenceClassification !== "withheld-policy") {
-    throw new Error(`${vessel.name} must use the withheld evidence policy.`);
-  }
   if ((vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") && /patrol/i.test(vessel.lastReportedLocation) && vessel.position) {
     throw new Error(`${vessel.name} exposes a submarine patrol position.`);
   }
 }
 
-console.log(`Validated ${dataset.vessels.length} unique fleet records.`);
+validateFleet(dataset);
+const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
+validateSourceRegistry(registry, vesselIds);
+validateEvidenceLog(evidence, registry.sources.map((source) => source.sourceId), vesselIds);
+validateAssessmentLog(assessments, evidence.evidence, vesselIds);
 
-function isIsoDate(value) {
-  if (typeof value !== "string" || !isoDate.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
+const expectedProjection = createPublicProjection(entities, assessments);
+if (JSON.stringify(dataset) !== JSON.stringify(expectedProjection)) {
+  throw new Error("Public fleet data is not the current generated projection.");
+}
+if (/https?:\/\//.test(JSON.stringify(dataset.vessels))) {
+  throw new Error("Public fleet records contain a source URL.");
+}
+
+console.log(
+  `Validated ${dataset.vessels.length} public records, ${registry.sources.length} sources, ` +
+    `${evidence.evidence.length} evidence items and ${assessments.assessments.length} assessments.`,
+);
+
+function readJson(relativePath) {
+  return JSON.parse(fs.readFileSync(new URL(relativePath, import.meta.url), "utf8"));
 }

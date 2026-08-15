@@ -1,0 +1,2566 @@
+{
+  "schemaVersion": "1.0.0",
+  "methodVersion": "provenance-v1.0.0",
+  "assessments": [
+    {
+      "assessmentId": "ASSESS_HMS_VICTORY_2026_08_15_1",
+      "vesselId": "hms-victory",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Museum ship",
+        "locationClassification": "mapped",
+        "lastReportedLocation": "Portsmouth Historic Dockyard",
+        "position": {
+          "lat": 50.801468,
+          "lon": -1.1095,
+          "label": "HMS Victory, Portsmouth Historic Dockyard"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VICTORY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VANGUARD_2026_08_15_1",
+      "vesselId": "hms-vanguard",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "withheld",
+        "lastReportedLocation": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+        "position": null,
+        "unmappedReason": "Deterrent patrol location is withheld; no position is inferred."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VANGUARD_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VICTORIOUS_2026_08_15_1",
+      "vesselId": "hms-victorious",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base, 9 Dock; Deep Maintenance Period",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VICTORIOUS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VIGILANT_2026_08_15_1",
+      "vesselId": "hms-vigilant",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "withheld",
+        "lastReportedLocation": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+        "position": null,
+        "unmappedReason": "Deterrent patrol location is withheld; no position is inferred."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VIGILANT_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_VENGEANCE_2026_08_15_1",
+      "vesselId": "hms-vengeance",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "withheld",
+        "lastReportedLocation": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+        "position": null,
+        "unmappedReason": "Deterrent patrol location is withheld; no position is inferred."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_VENGEANCE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ASTUTE_2026_08_15_1",
+      "vesselId": "hms-astute",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base; Mid Life Re-Validation Period",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ASTUTE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_AMBUSH_2026_08_15_1",
+      "vesselId": "hms-ambush",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); public report says very low readiness",
+        "position": {
+          "lat": 56.07,
+          "lon": -4.82,
+          "label": "HMNB Clyde"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_AMBUSH_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ARTFUL_2026_08_15_1",
+      "vesselId": "hms-artful",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Clyde (Faslane); public report says alongside as of May 2026",
+        "position": {
+          "lat": 56.07,
+          "lon": -4.82,
+          "label": "HMNB Clyde"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ARTFUL_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_AUDACIOUS_2026_08_15_1",
+      "vesselId": "hms-audacious",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base; public report says scheduled to leave 15 Dock on 25th June 2026",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_AUDACIOUS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ANSON_2026_08_15_1",
+      "vesselId": "hms-anson",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport Naval Base; arrived 27th May 2026 for maintenance",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport Naval Base"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ANSON_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_AGAMEMNON_2026_08_15_1",
+      "vesselId": "hms-agamemnon",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "BAE Systems, Barrow-in-Furness; final commissioning before sea trials",
+        "position": {
+          "lat": 54.11,
+          "lon": -3.23,
+          "label": "Barrow-in-Furness"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_AGAMEMNON_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_QUEEN_ELIZABETH_2026_08_15_1",
+      "vesselId": "hms-queen-elizabeth",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Portsmouth; NATO ARF(M) high-readiness afloat command platform",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "HMNB Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_QUEEN_ELIZABETH_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PRINCE_OF_WALES_2026_08_15_1",
+      "vesselId": "hms-prince-of-wales",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Atlantic / off Iceland; Operation FIRECREST / Neptune Strike 26-3",
+        "position": {
+          "lat": 64.2,
+          "lon": -18.3,
+          "label": "North Atlantic / off Iceland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PRINCE_OF_WALES_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DARING_2026_08_15_1",
+      "vesselId": "hms-daring",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "HMNB Portsmouth; regeneration ahead of return to fleet later in 2026",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DARING_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DAUNTLESS_2026_08_15_1",
+      "vesselId": "hms-dauntless",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters; departed Plymouth on 20th July 2026 after Portsmouth-Plymouth work-up",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DAUNTLESS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DIAMOND_2026_08_15_1",
+      "vesselId": "hms-diamond",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "HMNB Portsmouth; PIP and Sea Viper conversion period",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DIAMOND_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DRAGON_2026_08_15_1",
+      "vesselId": "hms-dragon",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Red Sea / Middle East region; escorting RFA Lyme Bay mine-countermeasures task group",
+        "position": {
+          "lat": 20,
+          "lon": 38,
+          "label": "Red Sea / Middle East"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DRAGON_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DEFENDER_2026_08_15_1",
+      "vesselId": "hms-defender",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "HMNB Portsmouth; PIP and Sea Ceptor upgrade ongoing",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DEFENDER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DUNCAN_2026_08_15_1",
+      "vesselId": "hms-duncan",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Atlantic / off Iceland; Operation FIRECREST / Neptune Strike 26-3",
+        "position": {
+          "lat": 64.2,
+          "lon": -18.3,
+          "label": "North Atlantic / off Iceland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DUNCAN_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_IRON_DUKE_2026_08_15_1",
+      "vesselId": "hms-iron-duke",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport; preparing to leave service",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_IRON_DUKE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RICHMOND_2026_08_15_1",
+      "vesselId": "hms-richmond",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport; preparing to leave service",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_RICHMOND_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SOMERSET_2026_08_15_1",
+      "vesselId": "hms-somerset",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Atlantic / off Iceland; with HMS Prince of Wales carrier strike group",
+        "position": {
+          "lat": 64.2,
+          "lon": -18.3,
+          "label": "North Atlantic / off Iceland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SOMERSET_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SUTHERLAND_2026_08_15_1",
+      "vesselId": "hms-sutherland",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Loch Long / HMNB Clyde area; public July 2026 ship-spotting report after Stavanger visit",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SUTHERLAND_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_KENT_2026_08_15_1",
+      "vesselId": "hms-kent",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Devonport / major refit finishing in 2026",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_KENT_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PORTLAND_2026_08_15_1",
+      "vesselId": "hms-portland",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Devonport / docking and support period",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PORTLAND_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ST_ALBANS_2026_08_15_1",
+      "vesselId": "hms-st-albans",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport; AIS-derived location reported by Maritime Optima",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ST_ALBANS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TYNE_2026_08_15_1",
+      "vesselId": "hms-tyne",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters / south of Plymouth; monitoring RFN Neustrashimy reported 21st July 2026",
+        "position": {
+          "lat": 49.8,
+          "lon": -4.5,
+          "label": "south of Plymouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TYNE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SEVERN_2026_08_15_1",
+      "vesselId": "hms-severn",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters / Channel and Western Approaches; Russian-watch tasking reported June 2026",
+        "position": {
+          "lat": 49.8,
+          "lon": -6,
+          "label": "Channel and Western Approaches"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SEVERN_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MERSEY_2026_08_15_1",
+      "vesselId": "hms-mersey",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters / Channel; Russian-watch tasking reported June-July 2026",
+        "position": {
+          "lat": 50.2,
+          "lon": -2.5,
+          "label": "UK waters / Channel"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MERSEY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_FORTH_2026_08_15_1",
+      "vesselId": "hms-forth",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portsmouth / UK waters after Falklands handover",
+        "position": {
+          "lat": 50.81,
+          "lon": -1.1,
+          "label": "Portsmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_FORTH_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MEDWAY_2026_08_15_1",
+      "vesselId": "hms-medway",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Falkland Islands / South Atlantic; Falklands guard ship",
+        "position": {
+          "lat": -51.7,
+          "lon": -57.85,
+          "label": "Falkland Islands"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MEDWAY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRENT_2026_08_15_1",
+      "vesselId": "hms-trent",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Tampa, Gulf of Mexico; Caribbean hurricane-season deployment",
+        "position": {
+          "lat": 27.95,
+          "lon": -82.46,
+          "label": "Tampa, Gulf of Mexico"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRENT_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TAMAR_2026_08_15_1",
+      "vesselId": "hms-tamar",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Indo-Pacific; South Pacific / Australia-Indonesia patrol cycle, Singapore logistics hub",
+        "position": {
+          "lat": -10,
+          "lon": 130,
+          "label": "South Pacific / Australia-Indonesia"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TAMAR_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SPEY_2026_08_15_1",
+      "vesselId": "hms-spey",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Indo-Pacific; South East Asia / Far East patrols after Singapore overhaul",
+        "position": {
+          "lat": 4,
+          "lon": 108,
+          "label": "South East Asia / Far East"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SPEY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_LEDBURY_2026_08_15_1",
+      "vesselId": "hms-ledbury",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "UK waters / English Channel; Smyrtos boarding and Russian-watch tasking reported June 2026",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_LEDBURY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CATTISTOCK_2026_08_15_1",
+      "vesselId": "hms-cattistock",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Clyde area; public July 2026 ship-spotting report",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CATTISTOCK_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BROCKLESBY_2026_08_15_1",
+      "vesselId": "hms-brocklesby",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "HMNB Portsmouth; exact current tasking not publicly updated",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BROCKLESBY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MIDDLETON_2026_08_15_1",
+      "vesselId": "hms-middleton",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Falmouth; dry dock/refit after return from Gulf",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MIDDLETON_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_1",
+      "vesselId": "hms-chiddingfold",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Portsmouth; preparing to leave service",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CHIDDINGFOLD_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_HURWORTH_2026_08_15_1",
+      "vesselId": "hms-hurworth",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portland; Sea Breeze 26-2 mine warfare exercise",
+        "position": {
+          "lat": 50.57,
+          "lon": -2.44,
+          "label": "Portland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_HURWORTH_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BANGOR_2026_08_15_1",
+      "vesselId": "hms-bangor",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Rosyth / Firth of Forth; post-refit trials reported July 2026",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BANGOR_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_1",
+      "vesselId": "hms-stirling-castle",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portland / Weymouth Bay; Sea Breeze 26-2 mine-countermeasures training",
+        "position": {
+          "lat": 50.58,
+          "lon": -2.42,
+          "label": "Weymouth Bay"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_STIRLING_CASTLE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ARCHER_2026_08_15_1",
+      "vesselId": "hms-archer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Edinburgh; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_ARCHER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BITER_2026_08_15_1",
+      "vesselId": "hms-biter",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Liverpool; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BITER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SMITER_2026_08_15_1",
+      "vesselId": "hms-smiter",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
+        "position": {
+          "lat": 54.5,
+          "lon": 18.7,
+          "label": "Baltic Sea / Poland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SMITER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PURSUER_2026_08_15_1",
+      "vesselId": "hms-pursuer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Glasgow; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PURSUER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BLAZER_2026_08_15_1",
+      "vesselId": "hms-blazer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Portsmouth; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_BLAZER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DASHER_2026_08_15_1",
+      "vesselId": "hms-dasher",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Portsmouth; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DASHER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PUNCHER_2026_08_15_1",
+      "vesselId": "hms-puncher",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
+        "position": {
+          "lat": 54.5,
+          "lon": 18.7,
+          "label": "Baltic Sea / Poland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PUNCHER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CHARGER_2026_08_15_1",
+      "vesselId": "hms-charger",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Liverpool; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CHARGER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RANGER_2026_08_15_1",
+      "vesselId": "hms-ranger",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Portsmouth; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_RANGER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRUMPETER_2026_08_15_1",
+      "vesselId": "hms-trumpeter",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Ipswich; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRUMPETER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXPRESS_2026_08_15_1",
+      "vesselId": "hms-express",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Cardiff; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXPRESS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXAMPLE_2026_08_15_1",
+      "vesselId": "hms-example",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Gateshead; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXAMPLE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXPLORER_2026_08_15_1",
+      "vesselId": "hms-explorer",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Hull; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXPLORER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_EXPLOIT_2026_08_15_1",
+      "vesselId": "hms-exploit",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Portsmouth; Coastal Forces Squadron home operating area",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_EXPLOIT_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRACKER_2026_08_15_1",
+      "vesselId": "hms-tracker",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Firth of Clyde / HMNB Clyde; high-value shipping escort role",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRACKER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RAIDER_2026_08_15_1",
+      "vesselId": "hms-raider",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Firth of Clyde / HMNB Clyde; high-value shipping escort role",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_RAIDER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CUTLASS_2026_08_15_1",
+      "vesselId": "hms-cutlass",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Gibraltar; Gibraltar Squadron",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_CUTLASS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DAGGER_2026_08_15_1",
+      "vesselId": "hms-dagger",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Gibraltar; Gibraltar Squadron",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_DAGGER_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SCOTT_2026_08_15_1",
+      "vesselId": "hms-scott",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Devonport; AIS-derived location reported after life-extension refit",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.18,
+          "label": "Devonport"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SCOTT_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_PROTECTOR_2026_08_15_1",
+      "vesselId": "hms-protector",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "HMNB Devonport / seasonal ice patrol tasking not publicly updated",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_PROTECTOR_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MAGPIE_2026_08_15_1",
+      "vesselId": "hms-magpie",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "Devonport; coastal survey tasking",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_MAGPIE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_LYME_BAY_2026_08_15_1",
+      "vesselId": "rfa-lyme-bay",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Red Sea / Middle East region; mine-countermeasures mothership for potential Strait of Hormuz mission",
+        "position": {
+          "lat": 20,
+          "lon": 38,
+          "label": "Red Sea / Middle East"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_LYME_BAY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_1",
+      "vesselId": "rfa-mounts-bay",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "At sea from Falmouth; sea trials and FOST after refit",
+        "position": {
+          "lat": 50.15,
+          "lon": -5.05,
+          "label": "Falmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_MOUNTS_BAY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_1",
+      "vesselId": "rfa-cardigan-bay",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Falmouth; refit",
+        "position": {
+          "lat": 50.15,
+          "lon": -5.05,
+          "label": "Falmouth"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_CARDIGAN_BAY_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_PROTEUS_2026_08_15_1",
+      "vesselId": "rfa-proteus",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Inner Seas off the west coast of Scotland; AIS-derived position reported 20th July 2026",
+        "position": {
+          "lat": 56.3,
+          "lon": -5.6,
+          "label": "Inner Seas off the west coast of Scotland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_PROTEUS_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDESPRING_2026_08_15_1",
+      "vesselId": "rfa-tidespring",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "North Atlantic / off Iceland; replenishment support to HMS Duncan and carrier strike group",
+        "position": {
+          "lat": 64.2,
+          "lon": -18.3,
+          "label": "North Atlantic / off Iceland"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDESPRING_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDERACE_2026_08_15_1",
+      "vesselId": "rfa-tiderace",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Birkenhead / planned reactivation later in 2026",
+        "position": {
+          "lat": 53.4,
+          "lon": -3,
+          "label": "Birkenhead"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDERACE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDESURGE_2026_08_15_1",
+      "vesselId": "rfa-tidesurge",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "UK waters / RFA crewed fleet; exact current tasking not publicly updated",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDESURGE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDEFORCE_2026_08_15_1",
+      "vesselId": "rfa-tideforce",
+      "assessedAt": "2026-08-15T00:00:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "unknown",
+        "lastReportedLocation": "UK waters; Russian-vessel monitoring reported April-May 2026",
+        "position": null,
+        "unmappedReason": "The cited source does not directly provide a dated, vessel-specific current location, so this record is not plotted."
+      },
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDEFORCE_LEGACY_1"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Legacy evidence does not distinguish publication time from observation time.",
+        "The public state is retained as the last reported assessment, not asserted as a current position."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "Unknown observation time cannot support a current-location conclusion."
+      },
+      "rationale": "Migrated without changing the public last-reported state. Reassessment requires evidence with explicit or bounded observation time.",
+      "assessor": "system:migration",
+      "methodVersion": "provenance-v1.0.0",
+      "previousAssessmentId": null
+    }
+  ],
+  "currentAssessmentIds": {
+    "hms-victory": "ASSESS_HMS_VICTORY_2026_08_15_1",
+    "hms-vanguard": "ASSESS_HMS_VANGUARD_2026_08_15_1",
+    "hms-victorious": "ASSESS_HMS_VICTORIOUS_2026_08_15_1",
+    "hms-vigilant": "ASSESS_HMS_VIGILANT_2026_08_15_1",
+    "hms-vengeance": "ASSESS_HMS_VENGEANCE_2026_08_15_1",
+    "hms-astute": "ASSESS_HMS_ASTUTE_2026_08_15_1",
+    "hms-ambush": "ASSESS_HMS_AMBUSH_2026_08_15_1",
+    "hms-artful": "ASSESS_HMS_ARTFUL_2026_08_15_1",
+    "hms-audacious": "ASSESS_HMS_AUDACIOUS_2026_08_15_1",
+    "hms-anson": "ASSESS_HMS_ANSON_2026_08_15_1",
+    "hms-agamemnon": "ASSESS_HMS_AGAMEMNON_2026_08_15_1",
+    "hms-queen-elizabeth": "ASSESS_HMS_QUEEN_ELIZABETH_2026_08_15_1",
+    "hms-prince-of-wales": "ASSESS_HMS_PRINCE_OF_WALES_2026_08_15_1",
+    "hms-daring": "ASSESS_HMS_DARING_2026_08_15_1",
+    "hms-dauntless": "ASSESS_HMS_DAUNTLESS_2026_08_15_1",
+    "hms-diamond": "ASSESS_HMS_DIAMOND_2026_08_15_1",
+    "hms-dragon": "ASSESS_HMS_DRAGON_2026_08_15_1",
+    "hms-defender": "ASSESS_HMS_DEFENDER_2026_08_15_1",
+    "hms-duncan": "ASSESS_HMS_DUNCAN_2026_08_15_1",
+    "hms-iron-duke": "ASSESS_HMS_IRON_DUKE_2026_08_15_1",
+    "hms-richmond": "ASSESS_HMS_RICHMOND_2026_08_15_1",
+    "hms-somerset": "ASSESS_HMS_SOMERSET_2026_08_15_1",
+    "hms-sutherland": "ASSESS_HMS_SUTHERLAND_2026_08_15_1",
+    "hms-kent": "ASSESS_HMS_KENT_2026_08_15_1",
+    "hms-portland": "ASSESS_HMS_PORTLAND_2026_08_15_1",
+    "hms-st-albans": "ASSESS_HMS_ST_ALBANS_2026_08_15_1",
+    "hms-tyne": "ASSESS_HMS_TYNE_2026_08_15_1",
+    "hms-severn": "ASSESS_HMS_SEVERN_2026_08_15_1",
+    "hms-mersey": "ASSESS_HMS_MERSEY_2026_08_15_1",
+    "hms-forth": "ASSESS_HMS_FORTH_2026_08_15_1",
+    "hms-medway": "ASSESS_HMS_MEDWAY_2026_08_15_1",
+    "hms-trent": "ASSESS_HMS_TRENT_2026_08_15_1",
+    "hms-tamar": "ASSESS_HMS_TAMAR_2026_08_15_1",
+    "hms-spey": "ASSESS_HMS_SPEY_2026_08_15_1",
+    "hms-ledbury": "ASSESS_HMS_LEDBURY_2026_08_15_1",
+    "hms-cattistock": "ASSESS_HMS_CATTISTOCK_2026_08_15_1",
+    "hms-brocklesby": "ASSESS_HMS_BROCKLESBY_2026_08_15_1",
+    "hms-middleton": "ASSESS_HMS_MIDDLETON_2026_08_15_1",
+    "hms-chiddingfold": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_1",
+    "hms-hurworth": "ASSESS_HMS_HURWORTH_2026_08_15_1",
+    "hms-bangor": "ASSESS_HMS_BANGOR_2026_08_15_1",
+    "hms-stirling-castle": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_1",
+    "hms-archer": "ASSESS_HMS_ARCHER_2026_08_15_1",
+    "hms-biter": "ASSESS_HMS_BITER_2026_08_15_1",
+    "hms-smiter": "ASSESS_HMS_SMITER_2026_08_15_1",
+    "hms-pursuer": "ASSESS_HMS_PURSUER_2026_08_15_1",
+    "hms-blazer": "ASSESS_HMS_BLAZER_2026_08_15_1",
+    "hms-dasher": "ASSESS_HMS_DASHER_2026_08_15_1",
+    "hms-puncher": "ASSESS_HMS_PUNCHER_2026_08_15_1",
+    "hms-charger": "ASSESS_HMS_CHARGER_2026_08_15_1",
+    "hms-ranger": "ASSESS_HMS_RANGER_2026_08_15_1",
+    "hms-trumpeter": "ASSESS_HMS_TRUMPETER_2026_08_15_1",
+    "hms-express": "ASSESS_HMS_EXPRESS_2026_08_15_1",
+    "hms-example": "ASSESS_HMS_EXAMPLE_2026_08_15_1",
+    "hms-explorer": "ASSESS_HMS_EXPLORER_2026_08_15_1",
+    "hms-exploit": "ASSESS_HMS_EXPLOIT_2026_08_15_1",
+    "hms-tracker": "ASSESS_HMS_TRACKER_2026_08_15_1",
+    "hms-raider": "ASSESS_HMS_RAIDER_2026_08_15_1",
+    "hms-cutlass": "ASSESS_HMS_CUTLASS_2026_08_15_1",
+    "hms-dagger": "ASSESS_HMS_DAGGER_2026_08_15_1",
+    "hms-scott": "ASSESS_HMS_SCOTT_2026_08_15_1",
+    "hms-protector": "ASSESS_HMS_PROTECTOR_2026_08_15_1",
+    "hms-magpie": "ASSESS_HMS_MAGPIE_2026_08_15_1",
+    "rfa-lyme-bay": "ASSESS_RFA_LYME_BAY_2026_08_15_1",
+    "rfa-mounts-bay": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_1",
+    "rfa-cardigan-bay": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_1",
+    "rfa-proteus": "ASSESS_RFA_PROTEUS_2026_08_15_1",
+    "rfa-tidespring": "ASSESS_RFA_TIDESPRING_2026_08_15_1",
+    "rfa-tiderace": "ASSESS_RFA_TIDERACE_2026_08_15_1",
+    "rfa-tidesurge": "ASSESS_RFA_TIDESURGE_2026_08_15_1",
+    "rfa-tideforce": "ASSESS_RFA_TIDEFORCE_2026_08_15_1"
+  }
+}

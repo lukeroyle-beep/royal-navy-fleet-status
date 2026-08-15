@@ -1,0 +1,2042 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewedAt": "2026-08-15T00:00:00Z",
+  "policy": {
+    "corroborationUnit": "originId",
+    "aisAbsenceMeaning": "neutral",
+    "socialAutomation": "Authorised API only; no scraping or browser automation.",
+    "publicRepositoryNotice": "Non-client data, not confidential storage. No secrets or non-public API data are permitted."
+  },
+  "sources": [
+    {
+      "sourceId": "RN_VICTORY_PORTSMOUTH_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/may/22/20260522-coins-found-under-hms-victory-mast",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy: HMS Victory conservation at Portsmouth Historic Dockyard"
+    },
+    {
+      "sourceId": "HMNB_CLYDE_OFFICIAL",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy HMNB Clyde"
+    },
+    {
+      "sourceId": "VICTORIOUS_DMP_2025",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2025/may/23/20250523-victorious-milestone-as-submarine-enters-devonport",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Victorious Devonport maintenance report"
+    },
+    {
+      "sourceId": "SSN_STATUS_2026",
+      "category": "specialist-media",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy attack submarine fleet update"
+    },
+    {
+      "sourceId": "AGAMEMNON_DELIVERY_2026",
+      "category": "official-uk-government",
+      "publisher": "UK Parliament",
+      "canonicalUrl": "https://questions-statements.parliament.uk/written-questions/detail/2026-06-16/10515",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "UK Parliament HMS Agamemnon timeline"
+    },
+    {
+      "sourceId": "QE_ARF_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/july/07/20260707-royal-navy-takes-charge-of-nato-naval-reaction-force",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy takes charge of NATO naval reaction force"
+    },
+    {
+      "sourceId": "CSG_NEPTUNE_2026",
+      "category": "specialist-media",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy carrier strike group Arctic deployment"
+    },
+    {
+      "sourceId": "TYPE45_STATUS_2026",
+      "category": "specialist-media",
+      "publisher": "UK Defence Journal",
+      "canonicalUrl": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Type 45 availability update"
+    },
+    {
+      "sourceId": "HMS_DAUNTLESS_AIS_2026",
+      "category": "licensed-ais",
+      "publisher": "myshiptracking.com",
+      "canonicalUrl": "https://www.myshiptracking.com/vessels/hms-dauntless-mmsi-234586000-imo-",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "No automation without an authorised provider API and licence.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Dauntless public AIS-derived report"
+    },
+    {
+      "sourceId": "DRAGON_LYME_BAY_MIDEAST_2026",
+      "category": "official-rfa",
+      "publisher": "Royal Fleet Auxiliary / Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "RFA Lyme Bay Middle East deployment"
+    },
+    {
+      "sourceId": "FLEET_RETIREMENT_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy fleet retirement announcement"
+    },
+    {
+      "sourceId": "FRIGATE_STATUS_2026",
+      "category": "specialist-media",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy frigate availability update"
+    },
+    {
+      "sourceId": "ST_ALBANS_AIS_2026",
+      "category": "licensed-ais",
+      "publisher": "maritimeoptima.com",
+      "canonicalUrl": "https://maritimeoptima.com/public/vessels/pages/imo%3A8949721/mmsi%3A232002833/WARSHIP.html",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "No automation without an authorised provider API and licence.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS St Albans public AIS-derived report"
+    },
+    {
+      "sourceId": "RUSSIAN_LIVE_FIRE_JULY_2026",
+      "category": "local-or-national-media",
+      "publisher": "Forces News",
+      "canonicalUrl": "https://www.forcesnews.com/services/navy/royal-navy-monitor-russian-warship-conducting-live-fire-exercise-plymouth-coast",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy monitoring off Plymouth"
+    },
+    {
+      "sourceId": "RUSSIAN_WATCH_JUNE_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/26/20260625-fre-round-up",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy Russian warship monitoring"
+    },
+    {
+      "sourceId": "RN_FALKLANDS_SWAP_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/january/19/20260119-its-goodbye-from-forth-hello-from-medway-as-patrol-ships-swap-places-in-falklands",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy Falklands guard ship handover"
+    },
+    {
+      "sourceId": "MEDWAY_FALKLANDS_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/08/20260608-hms-medway-completes-midwinter-mercy-dash-to-worlds-remotest-island",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Medway Falklands mission"
+    },
+    {
+      "sourceId": "TRENT_AIS_2026",
+      "category": "licensed-ais",
+      "publisher": "myshiptracking.com",
+      "canonicalUrl": "https://www.myshiptracking.com/vessels/hms-trent-mmsi-232005754-imo-0",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "No automation without an authorised provider API and licence.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Trent public AIS-derived report"
+    },
+    {
+      "sourceId": "TAMAR_PACIFIC_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/march/06/20260306-hms-tamar-ready-for-south-pacific-mission-after-passing-thorough-assessment-in-australia",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Tamar South Pacific mission"
+    },
+    {
+      "sourceId": "SPEY_SE_ASIA_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/may/18/20260518-hms-spey-back-in-south-east-asia",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Spey South East Asia deployment"
+    },
+    {
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy official ships page"
+    },
+    {
+      "sourceId": "SEA_BREEZE_2026",
+      "category": "specialist-media",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Sea Breeze 2026 mine-warfare exercise"
+    },
+    {
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "Royal Navy Archer class"
+    },
+    {
+      "sourceId": "PUNCHER_SMITER_BALTOPS_2026",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Puncher and HMS Smiter at Baltops 26"
+    },
+    {
+      "sourceId": "SCOTT_DEVONPORT_AIS_2026",
+      "category": "licensed-ais",
+      "publisher": "maritimeoptima.com",
+      "canonicalUrl": "https://maritimeoptima.com/public/vessels/pages/imo%3A9127289/mmsi%3A233844000/HMS_SCOTT.html",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "No automation without an authorised provider API and licence.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "HMS Scott public AIS-derived report"
+    },
+    {
+      "sourceId": "MOUNTS_BAY_SEA_TRIALS_2026",
+      "category": "local-or-national-media",
+      "publisher": "Forces News",
+      "canonicalUrl": "https://www.forcesnews.com/services/navy/boost-royal-navy-rfa-mounts-bay-returns-sea-after-year-long-refit-complete",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "RFA Mounts Bay sea trials"
+    },
+    {
+      "sourceId": "RFA_STATUS_2026",
+      "category": "specialist-media",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Manual review; use feeds or APIs only where offered and permitted.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "RFA workforce recovery and ships to sea"
+    },
+    {
+      "sourceId": "RFA_PROTEUS_AIS_2026",
+      "category": "licensed-ais",
+      "publisher": "myshiptracking.com",
+      "canonicalUrl": "https://www.myshiptracking.com/vessels/rfa-proteus-mmsi-232047056-imo-0",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "No automation without an authorised provider API and licence.",
+        "retention": "Retain canonical URL, retrieval time, content hash and only permitted excerpts."
+      },
+      "notes": "RFA Proteus public AIS-derived report"
+    },
+    {
+      "sourceId": "X_HMS_QUEEN_ELIZABETH",
+      "category": "official-vessel-social",
+      "publisher": "@HMSQnlz",
+      "accountHandle": "@HMSQnlz",
+      "vesselId": "hms-queen-elizabeth",
+      "canonicalUrl": "https://x.com/HMSQnlz",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/aircraft-carriers/hms-queen-elizabeth",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSQnlz; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_DIAMOND",
+      "category": "official-vessel-social",
+      "publisher": "@hmsdiamond",
+      "accountHandle": "@hmsdiamond",
+      "vesselId": "hms-diamond",
+      "canonicalUrl": "https://x.com/hmsdiamond",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-diamond",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@hmsdiamond; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_DRAGON",
+      "category": "official-vessel-social",
+      "publisher": "@HMSDragon",
+      "accountHandle": "@HMSDragon",
+      "vesselId": "hms-dragon",
+      "canonicalUrl": "https://x.com/HMSDragon",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-dragon",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSDragon; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_DUNCAN",
+      "category": "official-vessel-social",
+      "publisher": "@HMSDuncan",
+      "accountHandle": "@HMSDuncan",
+      "vesselId": "hms-duncan",
+      "canonicalUrl": "https://x.com/HMSDuncan",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-duncan",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSDuncan; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_IRON_DUKE",
+      "category": "official-vessel-social",
+      "publisher": "@HMSIronDuke",
+      "accountHandle": "@HMSIronDuke",
+      "vesselId": "hms-iron-duke",
+      "canonicalUrl": "https://x.com/HMSIronDuke",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-iron-duke",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "legacy",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSIronDuke; verified/legacy—disable on decommission"
+    },
+    {
+      "sourceId": "X_HMS_RICHMOND",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Richmond",
+      "accountHandle": "@HMS_Richmond",
+      "vesselId": "hms-richmond",
+      "canonicalUrl": "https://x.com/HMS_Richmond",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-richmond",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "legacy",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMS_Richmond; verified/legacy—disable on decommission"
+    },
+    {
+      "sourceId": "X_HMS_SOMERSET",
+      "category": "official-vessel-social",
+      "publisher": "@HMSSomerset",
+      "accountHandle": "@HMSSomerset",
+      "vesselId": "hms-somerset",
+      "canonicalUrl": "https://x.com/HMSSomerset",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-somerset",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSSomerset; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_PORTLAND",
+      "category": "official-vessel-social",
+      "publisher": "@HMSPortland",
+      "accountHandle": "@HMSPortland",
+      "vesselId": "hms-portland",
+      "canonicalUrl": "https://x.com/HMSPortland",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-portland",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSPortland; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_LEDBURY",
+      "category": "official-vessel-social",
+      "publisher": "@HMSLedbury",
+      "accountHandle": "@HMSLedbury",
+      "vesselId": "hms-ledbury",
+      "canonicalUrl": "https://x.com/HMSLedbury",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-ledbury",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSLedbury; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_CATTISTOCK",
+      "category": "official-vessel-social",
+      "publisher": "@HMSCattistock",
+      "accountHandle": "@HMSCattistock",
+      "vesselId": "hms-cattistock",
+      "canonicalUrl": "https://x.com/HMSCattistock",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-cattistock",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSCattistock; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_MIDDLETON",
+      "category": "official-vessel-social",
+      "publisher": "@HMSMiddleton",
+      "accountHandle": "@HMSMiddleton",
+      "vesselId": "hms-middleton",
+      "canonicalUrl": "https://x.com/HMSMiddleton",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-middleton",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "registry-only",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSMiddleton; official registry only—unrecovered post is not evidence"
+    },
+    {
+      "sourceId": "X_HMS_CHIDDINGFOLD",
+      "category": "official-vessel-social",
+      "publisher": "@HMSChiddingfold",
+      "accountHandle": "@HMSChiddingfold",
+      "vesselId": "hms-chiddingfold",
+      "canonicalUrl": "https://x.com/HMSChiddingfold",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-chiddingfold",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "legacy",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSChiddingfold; verified/legacy—disable on decommission"
+    },
+    {
+      "sourceId": "X_HMS_STIRLING_CASTLE",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Str_Castle",
+      "accountHandle": "@HMS_Str_Castle",
+      "vesselId": "hms-stirling-castle",
+      "canonicalUrl": "https://x.com/HMS_Str_Castle",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-stirling-castle",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMS_Str_Castle; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_ARCHER",
+      "category": "official-vessel-social",
+      "publisher": "@HMSArcher",
+      "accountHandle": "@HMSArcher",
+      "vesselId": "hms-archer",
+      "canonicalUrl": "https://x.com/HMSArcher",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-archer",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSArcher; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_SMITER",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Smiter",
+      "accountHandle": "@HMS_Smiter",
+      "vesselId": "hms-smiter",
+      "canonicalUrl": "https://x.com/HMS_Smiter",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-smiter",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMS_Smiter; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_BLAZER",
+      "category": "official-vessel-social",
+      "publisher": "@hms_blazer",
+      "accountHandle": "@hms_blazer",
+      "vesselId": "hms-blazer",
+      "canonicalUrl": "https://x.com/hms_blazer",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-blazer",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@hms_blazer; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_DASHER",
+      "category": "official-vessel-social",
+      "publisher": "@HmsDasher",
+      "accountHandle": "@HmsDasher",
+      "vesselId": "hms-dasher",
+      "canonicalUrl": "https://x.com/HmsDasher",
+      "officiality": {
+        "verifiedByUrl": "https://spa.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-dasher",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "provisional",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HmsDasher; provisional/disabled pending canonical production-page verification"
+    },
+    {
+      "sourceId": "X_HMS_PUNCHER",
+      "category": "official-vessel-social",
+      "publisher": "@HMSPuncher",
+      "accountHandle": "@HMSPuncher",
+      "vesselId": "hms-puncher",
+      "canonicalUrl": "https://x.com/HMSPuncher",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-puncher",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSPuncher; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_EXAMPLE",
+      "category": "official-vessel-social",
+      "publisher": "@HMSExample",
+      "accountHandle": "@HMSExample",
+      "vesselId": "hms-example",
+      "canonicalUrl": "https://x.com/HMSExample",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-example",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSExample; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_EXPLOIT",
+      "category": "official-vessel-social",
+      "publisher": "@HMSExploit",
+      "accountHandle": "@HMSExploit",
+      "vesselId": "hms-exploit",
+      "canonicalUrl": "https://x.com/HMSExploit",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-exploit",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSExploit; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_RAIDER",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Raider",
+      "accountHandle": "@HMS_Raider",
+      "vesselId": "hms-raider",
+      "canonicalUrl": "https://x.com/HMS_Raider",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-raider",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMS_Raider; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_MAGPIE",
+      "category": "official-vessel-social",
+      "publisher": "@hms_magpie",
+      "accountHandle": "@hms_magpie",
+      "vesselId": "hms-magpie",
+      "canonicalUrl": "https://x.com/hms_magpie",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-magpie",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@hms_magpie; verified/enabled"
+    },
+    {
+      "sourceId": "X_RFA_LYME_BAY",
+      "category": "official-vessel-social",
+      "publisher": "@RFALymeBay",
+      "accountHandle": "@RFALymeBay",
+      "vesselId": "rfa-lyme-bay",
+      "canonicalUrl": "https://x.com/RFALymeBay",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-lyme-bay",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@RFALymeBay; verified/enabled"
+    },
+    {
+      "sourceId": "X_RFA_CARDIGAN_BAY",
+      "category": "official-vessel-social",
+      "publisher": "@RFACardiganBay",
+      "accountHandle": "@RFACardiganBay",
+      "vesselId": "rfa-cardigan-bay",
+      "canonicalUrl": "https://x.com/RFACardiganBay",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-cardigan-bay",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@RFACardiganBay; verified/enabled"
+    },
+    {
+      "sourceId": "X_RFA_PROTEUS",
+      "category": "official-vessel-social",
+      "publisher": "@RFAProteus",
+      "accountHandle": "@RFAProteus",
+      "vesselId": "rfa-proteus",
+      "canonicalUrl": "https://x.com/RFAProteus",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-proteus",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@RFAProteus; verified/enabled"
+    },
+    {
+      "sourceId": "X_RFA_TIDESPRING",
+      "category": "official-vessel-social",
+      "publisher": "@RFATidespring",
+      "accountHandle": "@RFATidespring",
+      "vesselId": "rfa-tidespring",
+      "canonicalUrl": "https://x.com/RFATidespring",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tidespring",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@RFATidespring; verified/enabled"
+    },
+    {
+      "sourceId": "X_RFA_TIDESURGE",
+      "category": "official-vessel-social",
+      "publisher": "@RFATidesurge",
+      "accountHandle": "@RFATidesurge",
+      "vesselId": "rfa-tidesurge",
+      "canonicalUrl": "https://x.com/RFATidesurge",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tidesurge",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@RFATidesurge; verified/enabled"
+    },
+    {
+      "sourceId": "X_RFA_TIDEFORCE",
+      "category": "official-vessel-social",
+      "publisher": "@RFATideforce",
+      "accountHandle": "@RFATideforce",
+      "vesselId": "rfa-tideforce",
+      "canonicalUrl": "https://x.com/RFATideforce",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tideforce",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@RFATideforce; verified/enabled"
+    },
+    {
+      "sourceId": "MOD_GOV_UK",
+      "category": "official-uk-government",
+      "publisher": "Ministry of Defence",
+      "canonicalUrl": "https://www.gov.uk/government/organisations/ministry-of-defence",
+      "reliabilityTier": "A",
+      "collectionMode": "feed",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Official releases; check whether a statement is independently observed or copied."
+    },
+    {
+      "sourceId": "NATO_NEWS",
+      "category": "official-allied-or-nato",
+      "publisher": "NATO",
+      "canonicalUrl": "https://www.nato.int/cps/en/natohq/news.htm",
+      "reliabilityTier": "A",
+      "collectionMode": "feed",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Official allied and exercise reporting; record upstream origin."
+    },
+    {
+      "sourceId": "PORTSMOUTH_HARBOUR_AUTHORITY",
+      "category": "port-harbour-dockyard",
+      "publisher": "King's Harbour Master Portsmouth",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/khm/portsmouth",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Port and navigation notices; planned movements are not observations."
+    },
+    {
+      "sourceId": "BABCOCK_MARINE_NEWS",
+      "category": "defence-contractor",
+      "publisher": "Babcock International",
+      "canonicalUrl": "https://www.babcockinternational.com/news/",
+      "reliabilityTier": "B",
+      "collectionMode": "feed",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Build and refit evidence; retain event interval and contractor context."
+    },
+    {
+      "sourceId": "MARINETRAFFIC_API",
+      "category": "licensed-ais",
+      "publisher": "MarineTraffic",
+      "canonicalUrl": "https://servicedocs.marinetraffic.com/",
+      "reliabilityTier": "B",
+      "collectionMode": "api",
+      "status": "disabled",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Licence and credentials required; AIS gaps are neutral."
+    },
+    {
+      "sourceId": "VESSELFINDER_API",
+      "category": "licensed-ais",
+      "publisher": "VesselFinder",
+      "canonicalUrl": "https://www.vesselfinder.com/terms",
+      "reliabilityTier": "B",
+      "collectionMode": "api",
+      "status": "disabled",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "No automated extraction outside an authorised API and licence."
+    },
+    {
+      "sourceId": "MARINEVESSELTRAFFIC_NATO_DISCOVERY",
+      "category": "aggregator-discovery",
+      "publisher": "MarineVesselTraffic",
+      "canonicalUrl": "https://www.marinevesseltraffic.com/NATO-navy-ships",
+      "reliabilityTier": "D",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Mandatory discovery review only; never promote without dated independent evidence."
+    },
+    {
+      "sourceId": "X_ROYAL_NAVY",
+      "category": "official-organisation-social",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://x.com/RoyalNavy",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Official organisation account; reposts share the underlying origin.",
+      "officiality": {
+        "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "MOD official social-media register"
+      }
+    },
+    {
+      "sourceId": "X_DEFENCEHQ",
+      "category": "official-organisation-social",
+      "publisher": "Ministry of Defence",
+      "canonicalUrl": "https://x.com/DefenceHQ",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Verified by the MOD official social-media register.",
+      "officiality": {
+        "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "MOD official social-media register"
+      }
+    },
+    {
+      "sourceId": "X_DEFENCEHQPRESS",
+      "category": "official-organisation-social",
+      "publisher": "Ministry of Defence Press Office",
+      "canonicalUrl": "https://x.com/DefenceHQPress",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-15T00:00:00Z"
+      },
+      "notes": "Verified by the MOD official social-media register.",
+      "officiality": {
+        "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
+        "verifiedAt": "2026-08-15T00:00:00Z",
+        "method": "MOD official social-media register"
+      }
+    }
+  ],
+  "officialSocialCoverage": [
+    {
+      "vesselId": "hms-victory",
+      "pennantNumber": null,
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-vanguard",
+      "pennantNumber": "S28",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-victorious",
+      "pennantNumber": "S29",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-vigilant",
+      "pennantNumber": "S30",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-vengeance",
+      "pennantNumber": "S31",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-astute",
+      "pennantNumber": "S119",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-ambush",
+      "pennantNumber": "S120",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-artful",
+      "pennantNumber": "S121",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-audacious",
+      "pennantNumber": "S122",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-anson",
+      "pennantNumber": "S123",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-agamemnon",
+      "pennantNumber": "S124",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-queen-elizabeth",
+      "pennantNumber": "R08",
+      "accountHandle": "@HMSQnlz",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/aircraft-carriers/hms-queen-elizabeth",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSQnlz; verified/enabled"
+    },
+    {
+      "vesselId": "hms-prince-of-wales",
+      "pennantNumber": "R09",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-daring",
+      "pennantNumber": "D32",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-dauntless",
+      "pennantNumber": "D33",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-diamond",
+      "pennantNumber": "D34",
+      "accountHandle": "@hmsdiamond",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-diamond",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@hmsdiamond; verified/enabled"
+    },
+    {
+      "vesselId": "hms-dragon",
+      "pennantNumber": "D35",
+      "accountHandle": "@HMSDragon",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-dragon",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSDragon; verified/enabled"
+    },
+    {
+      "vesselId": "hms-defender",
+      "pennantNumber": "D36",
+      "accountHandle": null,
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-defender",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Not yet independently verified; disabled"
+    },
+    {
+      "vesselId": "hms-duncan",
+      "pennantNumber": "D37",
+      "accountHandle": "@HMSDuncan",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-duncan",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSDuncan; verified/enabled"
+    },
+    {
+      "vesselId": "hms-iron-duke",
+      "pennantNumber": "F234",
+      "accountHandle": "@HMSIronDuke",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-iron-duke",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "legacy",
+      "searchResult": "legacy",
+      "enabled": false,
+      "notes": "@HMSIronDuke; verified/legacy—disable on decommission"
+    },
+    {
+      "vesselId": "hms-richmond",
+      "pennantNumber": "F239",
+      "accountHandle": "@HMS_Richmond",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-richmond",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "legacy",
+      "searchResult": "legacy",
+      "enabled": false,
+      "notes": "@HMS_Richmond; verified/legacy—disable on decommission"
+    },
+    {
+      "vesselId": "hms-somerset",
+      "pennantNumber": "F82",
+      "accountHandle": "@HMSSomerset",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-somerset",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSSomerset; verified/enabled"
+    },
+    {
+      "vesselId": "hms-sutherland",
+      "pennantNumber": "F81",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-kent",
+      "pennantNumber": "F78",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-portland",
+      "pennantNumber": "F79",
+      "accountHandle": "@HMSPortland",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-portland",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSPortland; verified/enabled"
+    },
+    {
+      "vesselId": "hms-st-albans",
+      "pennantNumber": "F83",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-tyne",
+      "pennantNumber": "P281",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-severn",
+      "pennantNumber": "P282",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-mersey",
+      "pennantNumber": "P283",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-forth",
+      "pennantNumber": "P222",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-medway",
+      "pennantNumber": "P223",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-trent",
+      "pennantNumber": "P224",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-tamar",
+      "pennantNumber": "P233",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-spey",
+      "pennantNumber": "P234",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-ledbury",
+      "pennantNumber": "M30",
+      "accountHandle": "@HMSLedbury",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-ledbury",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSLedbury; verified/enabled"
+    },
+    {
+      "vesselId": "hms-cattistock",
+      "pennantNumber": "M31",
+      "accountHandle": "@HMSCattistock",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-cattistock",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSCattistock; verified/enabled"
+    },
+    {
+      "vesselId": "hms-brocklesby",
+      "pennantNumber": "M33",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-middleton",
+      "pennantNumber": "M34",
+      "accountHandle": "@HMSMiddleton",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-middleton",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "registry-only",
+      "searchResult": "registry-only",
+      "enabled": false,
+      "notes": "@HMSMiddleton; official registry only—unrecovered post is not evidence"
+    },
+    {
+      "vesselId": "hms-chiddingfold",
+      "pennantNumber": "M37",
+      "accountHandle": "@HMSChiddingfold",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-chiddingfold",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "legacy",
+      "searchResult": "legacy",
+      "enabled": false,
+      "notes": "@HMSChiddingfold; verified/legacy—disable on decommission"
+    },
+    {
+      "vesselId": "hms-hurworth",
+      "pennantNumber": "M39",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-bangor",
+      "pennantNumber": "M109",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-stirling-castle",
+      "pennantNumber": "M01",
+      "accountHandle": "@HMS_Str_Castle",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-stirling-castle",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMS_Str_Castle; verified/enabled"
+    },
+    {
+      "vesselId": "hms-archer",
+      "pennantNumber": "P264",
+      "accountHandle": "@HMSArcher",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-archer",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSArcher; verified/enabled"
+    },
+    {
+      "vesselId": "hms-biter",
+      "pennantNumber": "P270",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-smiter",
+      "pennantNumber": "P272",
+      "accountHandle": "@HMS_Smiter",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-smiter",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMS_Smiter; verified/enabled"
+    },
+    {
+      "vesselId": "hms-pursuer",
+      "pennantNumber": "P273",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-blazer",
+      "pennantNumber": "P279",
+      "accountHandle": "@hms_blazer",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-blazer",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@hms_blazer; verified/enabled"
+    },
+    {
+      "vesselId": "hms-dasher",
+      "pennantNumber": "P280",
+      "accountHandle": "@HmsDasher",
+      "verifiedByUrl": "https://spa.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-dasher",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "provisional",
+      "searchResult": "provisional",
+      "enabled": false,
+      "notes": "@HmsDasher; provisional/disabled pending canonical production-page verification"
+    },
+    {
+      "vesselId": "hms-puncher",
+      "pennantNumber": "P291",
+      "accountHandle": "@HMSPuncher",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-puncher",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSPuncher; verified/enabled"
+    },
+    {
+      "vesselId": "hms-charger",
+      "pennantNumber": "P292",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-ranger",
+      "pennantNumber": "P293",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "hms-trumpeter",
+      "pennantNumber": "P294",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-express",
+      "pennantNumber": "P163",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-example",
+      "pennantNumber": "P165",
+      "accountHandle": "@HMSExample",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-example",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSExample; verified/enabled"
+    },
+    {
+      "vesselId": "hms-explorer",
+      "pennantNumber": "P164",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-exploit",
+      "pennantNumber": "P167",
+      "accountHandle": "@HMSExploit",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-exploit",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSExploit; verified/enabled"
+    },
+    {
+      "vesselId": "hms-tracker",
+      "pennantNumber": "P274",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-raider",
+      "pennantNumber": "P275",
+      "accountHandle": "@HMS_Raider",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-raider",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMS_Raider; verified/enabled"
+    },
+    {
+      "vesselId": "hms-cutlass",
+      "pennantNumber": "P295",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-dagger",
+      "pennantNumber": "P296",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-scott",
+      "pennantNumber": "H131",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-protector",
+      "pennantNumber": "A173",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "unresolved",
+      "enabled": false,
+      "notes": "Disabled"
+    },
+    {
+      "vesselId": "hms-magpie",
+      "pennantNumber": "H130",
+      "accountHandle": "@hms_magpie",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-magpie",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@hms_magpie; verified/enabled"
+    },
+    {
+      "vesselId": "rfa-lyme-bay",
+      "pennantNumber": "L3007",
+      "accountHandle": "@RFALymeBay",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-lyme-bay",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@RFALymeBay; verified/enabled"
+    },
+    {
+      "vesselId": "rfa-mounts-bay",
+      "pennantNumber": "L3008",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "rfa-cardigan-bay",
+      "pennantNumber": "L3009",
+      "accountHandle": "@RFACardiganBay",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-cardigan-bay",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@RFACardiganBay; verified/enabled"
+    },
+    {
+      "vesselId": "rfa-proteus",
+      "pennantNumber": "K60",
+      "accountHandle": "@RFAProteus",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-proteus",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@RFAProteus; verified/enabled"
+    },
+    {
+      "vesselId": "rfa-tidespring",
+      "pennantNumber": "A136",
+      "accountHandle": "@RFATidespring",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tidespring",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@RFATidespring; verified/enabled"
+    },
+    {
+      "vesselId": "rfa-tiderace",
+      "pennantNumber": "A137",
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "disabled",
+      "searchResult": "no-direct-link",
+      "enabled": false,
+      "notes": "None; disabled"
+    },
+    {
+      "vesselId": "rfa-tidesurge",
+      "pennantNumber": "A138",
+      "accountHandle": "@RFATidesurge",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tidesurge",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@RFATidesurge; verified/enabled"
+    },
+    {
+      "vesselId": "rfa-tideforce",
+      "pennantNumber": "A139",
+      "accountHandle": "@RFATideforce",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tideforce",
+      "searchedAt": "2026-08-15T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@RFATideforce; verified/enabled"
+    }
+  ]
+}

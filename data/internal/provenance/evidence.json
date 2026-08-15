@@ -1,0 +1,2776 @@
+{
+  "schemaVersion": "1.0.0",
+  "evidence": [
+    {
+      "evidenceId": "EVID_HMS_VICTORY_LEGACY_1",
+      "vesselId": "hms-victory",
+      "sourceId": "RN_VICTORY_PORTSMOUTH_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/may/22/20260522-coins-found-under-hms-victory-mast",
+      "retrievedAt": "2026-07-31T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-05-22T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth Historic Dockyard",
+          "classification": "mapped",
+          "position": {
+            "lat": 50.801468,
+            "lon": -1.1095,
+            "label": "HMS Victory, Portsmouth Historic Dockyard"
+          }
+        },
+        "status": "Museum ship"
+      },
+      "claimContext": "static-location",
+      "geographicPrecision": "mapped",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_VICTORY_PORTSMOUTH_2026_2026-05-22",
+      "contentHash": "7a161e8049fadeddce1bf6f01c0c172bb7e76c3e90ca50d8cb1cc556afa3035d",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy: HMS Victory conservation at Portsmouth Historic Dockyard",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_VANGUARD_LEGACY_1",
+      "vesselId": "hms-vanguard",
+      "sourceId": "HMNB_CLYDE_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+          "classification": "withheld",
+          "position": null
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "withheld",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_HMNB_CLYDE_OFFICIAL_UNDATED",
+      "contentHash": "6b99cab8f00d247d635339b854178b3f018991784c9ae46efbe7d778400ccc58",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy HMNB Clyde",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_VICTORIOUS_LEGACY_1",
+      "vesselId": "hms-victorious",
+      "sourceId": "VICTORIOUS_DMP_2025",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2025/may/23/20250523-victorious-milestone-as-submarine-enters-devonport",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2025-05-23T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport Naval Base, 9 Dock; Deep Maintenance Period",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport Naval Base"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_VICTORIOUS_DMP_2025_2025-05-23",
+      "contentHash": "cefb7a7400c89ac7320521d3114e017992990ae197e2d3c1bb695c67987dd7ae",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Victorious Devonport maintenance report",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_VIGILANT_LEGACY_1",
+      "vesselId": "hms-vigilant",
+      "sourceId": "HMNB_CLYDE_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+          "classification": "withheld",
+          "position": null
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "withheld",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_HMNB_CLYDE_OFFICIAL_UNDATED",
+      "contentHash": "3263eaa25fdf59a1a0bf68fc35bff0fc450ad41416c9032c590d0924bc0109f9",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy HMNB Clyde",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_VENGEANCE_LEGACY_1",
+      "vesselId": "hms-vengeance",
+      "sourceId": "HMNB_CLYDE_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Clyde (Faslane); deterrent patrol location not publicly disclosed",
+          "classification": "withheld",
+          "position": null
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "withheld",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_HMNB_CLYDE_OFFICIAL_UNDATED",
+      "contentHash": "924fc3f8a21a74926c1f23dc0efbb318b96160149ea455e2e24a7ffa98481feb",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy HMNB Clyde",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_ASTUTE_LEGACY_1",
+      "vesselId": "hms-astute",
+      "sourceId": "SSN_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport Naval Base; Mid Life Re-Validation Period",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport Naval Base"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SSN_STATUS_2026_2026-06-25",
+      "contentHash": "f939452524fc828e096612d4e25428f00684efbf0a8f403d14fa872a79a4b10c",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy attack submarine fleet update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_AMBUSH_LEGACY_1",
+      "vesselId": "hms-ambush",
+      "sourceId": "SSN_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Clyde (Faslane); public report says very low readiness",
+          "classification": "approximate",
+          "position": {
+            "lat": 56.07,
+            "lon": -4.82,
+            "label": "HMNB Clyde"
+          }
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SSN_STATUS_2026_2026-06-25",
+      "contentHash": "f8dc7fe00c0bd048192b95f21b8b8bf43d1230cc713a398f5f77173c0d770b6b",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy attack submarine fleet update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_ARTFUL_LEGACY_1",
+      "vesselId": "hms-artful",
+      "sourceId": "SSN_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Clyde (Faslane); public report says alongside as of May 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 56.07,
+            "lon": -4.82,
+            "label": "HMNB Clyde"
+          }
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SSN_STATUS_2026_2026-06-25",
+      "contentHash": "5527436f073b436f318249aa01f7c13afee0f77d52dfc0ff8bc96da8761f4cab",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy attack submarine fleet update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_AUDACIOUS_LEGACY_1",
+      "vesselId": "hms-audacious",
+      "sourceId": "SSN_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport Naval Base; public report says scheduled to leave 15 Dock on 25th June 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport Naval Base"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SSN_STATUS_2026_2026-06-25",
+      "contentHash": "2e97380ca3f302aaacec82bc74211ee20af23d50ebf92a53f6fd150466f252bb",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy attack submarine fleet update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_ANSON_LEGACY_1",
+      "vesselId": "hms-anson",
+      "sourceId": "SSN_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport Naval Base; arrived 27th May 2026 for maintenance",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport Naval Base"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SSN_STATUS_2026_2026-06-25",
+      "contentHash": "6b37fb401586ce5c5d84de153c3223fd38c9a98c80487a28368343c74eea1c15",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy attack submarine fleet update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_AGAMEMNON_LEGACY_1",
+      "vesselId": "hms-agamemnon",
+      "sourceId": "AGAMEMNON_DELIVERY_2026",
+      "canonicalUrl": "https://questions-statements.parliament.uk/written-questions/detail/2026-06-16/10515",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-16T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "BAE Systems, Barrow-in-Furness; final commissioning before sea trials",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.11,
+            "lon": -3.23,
+            "label": "Barrow-in-Furness"
+          }
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_AGAMEMNON_DELIVERY_2026_2026-06-16",
+      "contentHash": "3b6538ef8a97750d2f8ec3978a13cd9e2216f2c2155a3e48a5ffe7c01dd99f6c",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "UK Parliament HMS Agamemnon timeline",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_QUEEN_ELIZABETH_LEGACY_1",
+      "vesselId": "hms-queen-elizabeth",
+      "sourceId": "QE_ARF_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/july/07/20260707-royal-navy-takes-charge-of-nato-naval-reaction-force",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-07T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Portsmouth; NATO ARF(M) high-readiness afloat command platform",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.81,
+            "lon": -1.1,
+            "label": "HMNB Portsmouth"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_QE_ARF_2026_2026-07-07",
+      "contentHash": "2a63079fccf2cdc0b52607dcdbb81e7dcb63a8089362f3b0daf68edea3efa8a5",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy takes charge of NATO naval reaction force",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_PRINCE_OF_WALES_LEGACY_1",
+      "vesselId": "hms-prince-of-wales",
+      "sourceId": "CSG_NEPTUNE_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-20T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "North Atlantic / off Iceland; Operation FIRECREST / Neptune Strike 26-3",
+          "classification": "approximate",
+          "position": {
+            "lat": 64.2,
+            "lon": -18.3,
+            "label": "North Atlantic / off Iceland"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_CSG_NEPTUNE_2026_2026-07-20",
+      "contentHash": "a931a7bdfdfba754d42587bd641bba8d6c52931b5ed5a1767fe57694b7f00923",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy carrier strike group Arctic deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DARING_LEGACY_1",
+      "vesselId": "hms-daring",
+      "sourceId": "TYPE45_STATUS_2026",
+      "canonicalUrl": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Portsmouth; regeneration ahead of return to fleet later in 2026",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_TYPE45_STATUS_2026_UNDATED",
+      "contentHash": "6da53a12f6b265c90f53602f3d385666236cb40048f55660e3ecb73aafdf32ee",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Type 45 availability update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DAUNTLESS_LEGACY_1",
+      "vesselId": "hms-dauntless",
+      "sourceId": "HMS_DAUNTLESS_AIS_2026",
+      "canonicalUrl": "https://www.myshiptracking.com/vessels/hms-dauntless-mmsi-234586000-imo-",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-20T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters; departed Plymouth on 20th July 2026 after Portsmouth-Plymouth work-up",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.81,
+            "lon": -1.1,
+            "label": "Portsmouth"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_HMS_DAUNTLESS_AIS_2026_2026-07-20",
+      "contentHash": "1ebe11c71b4f23a2f2032702c5847e8c22dcb96e48377d5af8b3a0bea3e803c9",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Dauntless public AIS-derived report",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DIAMOND_LEGACY_1",
+      "vesselId": "hms-diamond",
+      "sourceId": "TYPE45_STATUS_2026",
+      "canonicalUrl": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Portsmouth; PIP and Sea Viper conversion period",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_TYPE45_STATUS_2026_UNDATED",
+      "contentHash": "c619b0b6cc1b8ca200b29782fddc5fe60e5b9cb8ecc7c72a9cda6556bb38278c",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Type 45 availability update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DRAGON_LEGACY_1",
+      "vesselId": "hms-dragon",
+      "sourceId": "DRAGON_LYME_BAY_MIDEAST_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-23T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Red Sea / Middle East region; escorting RFA Lyme Bay mine-countermeasures task group",
+          "classification": "approximate",
+          "position": {
+            "lat": 20,
+            "lon": 38,
+            "label": "Red Sea / Middle East"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_DRAGON_LYME_BAY_MIDEAST_2026_2026-06-23",
+      "contentHash": "5be65db7bb73037ae0da87485a5dbe207bbd46c0f5471f6cfa5cb410e6f60889",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA Lyme Bay Middle East deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DEFENDER_LEGACY_1",
+      "vesselId": "hms-defender",
+      "sourceId": "TYPE45_STATUS_2026",
+      "canonicalUrl": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Portsmouth; PIP and Sea Ceptor upgrade ongoing",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_TYPE45_STATUS_2026_UNDATED",
+      "contentHash": "d6ee7886e4313fbf5cf1efb510a6a26c411b41edd94d752977c68d1d4e9b0f4f",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Type 45 availability update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DUNCAN_LEGACY_1",
+      "vesselId": "hms-duncan",
+      "sourceId": "CSG_NEPTUNE_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-20T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "North Atlantic / off Iceland; Operation FIRECREST / Neptune Strike 26-3",
+          "classification": "approximate",
+          "position": {
+            "lat": 64.2,
+            "lon": -18.3,
+            "label": "North Atlantic / off Iceland"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_CSG_NEPTUNE_2026_2026-07-20",
+      "contentHash": "fe0c5027ecb1d3e891f13a54b2c1db404d846117bcf1258fdf12c379aef4206a",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy carrier strike group Arctic deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_IRON_DUKE_LEGACY_1",
+      "vesselId": "hms-iron-duke",
+      "sourceId": "FLEET_RETIREMENT_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-13T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport; preparing to leave service",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport"
+          }
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_FLEET_RETIREMENT_2026_2026-07-13",
+      "contentHash": "9c3ad04e61fb28cde54345acaabc2f1dc2c67b5a6689fe87fbb0bc99ddf04d71",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy fleet retirement announcement",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_RICHMOND_LEGACY_1",
+      "vesselId": "hms-richmond",
+      "sourceId": "FLEET_RETIREMENT_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-13T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport; preparing to leave service",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport"
+          }
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_FLEET_RETIREMENT_2026_2026-07-13",
+      "contentHash": "7c40be8bc0f0cf8d8923847b70b170235895744f34a1b684253efe6f98937834",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy fleet retirement announcement",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SOMERSET_LEGACY_1",
+      "vesselId": "hms-somerset",
+      "sourceId": "CSG_NEPTUNE_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-20T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "North Atlantic / off Iceland; with HMS Prince of Wales carrier strike group",
+          "classification": "approximate",
+          "position": {
+            "lat": 64.2,
+            "lon": -18.3,
+            "label": "North Atlantic / off Iceland"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_CSG_NEPTUNE_2026_2026-07-20",
+      "contentHash": "ed055e05b55e0532b7b584838ec8cffcf71a382c4eeb96fae4bb1ab529bc9841",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy carrier strike group Arctic deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SUTHERLAND_LEGACY_1",
+      "vesselId": "hms-sutherland",
+      "sourceId": "FRIGATE_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Loch Long / HMNB Clyde area; public July 2026 ship-spotting report after Stavanger visit",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_FRIGATE_STATUS_2026_UNDATED",
+      "contentHash": "f58dea34ba3c102e98688f0b86bac740c65d9bfb8997ec05628638ce9c5f8a10",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy frigate availability update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_KENT_LEGACY_1",
+      "vesselId": "hms-kent",
+      "sourceId": "FRIGATE_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport / major refit finishing in 2026",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_FRIGATE_STATUS_2026_UNDATED",
+      "contentHash": "2c908a9127688d22e4dcb882b4c3a3100283916040ef98e8ce47d2264fdb34cc",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy frigate availability update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_PORTLAND_LEGACY_1",
+      "vesselId": "hms-portland",
+      "sourceId": "FRIGATE_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport / docking and support period",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_FRIGATE_STATUS_2026_UNDATED",
+      "contentHash": "a08bc52883b18f03b1276af85880b9f769bf2f04eafaceb6b2c00ece6356b5df",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy frigate availability update",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_ST_ALBANS_LEGACY_1",
+      "vesselId": "hms-st-albans",
+      "sourceId": "ST_ALBANS_AIS_2026",
+      "canonicalUrl": "https://maritimeoptima.com/public/vessels/pages/imo%3A8949721/mmsi%3A232002833/WARSHIP.html",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-23T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport; AIS-derived location reported by Maritime Optima",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_ST_ALBANS_AIS_2026_2026-07-23",
+      "contentHash": "7a5ad9db53ba84b22eacf7891027ae69cd36621201ec042360855e11f2dd9196",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS St Albans public AIS-derived report",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TYNE_LEGACY_1",
+      "vesselId": "hms-tyne",
+      "sourceId": "RUSSIAN_LIVE_FIRE_JULY_2026",
+      "canonicalUrl": "https://www.forcesnews.com/services/navy/royal-navy-monitor-russian-warship-conducting-live-fire-exercise-plymouth-coast",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-21T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters / south of Plymouth; monitoring RFN Neustrashimy reported 21st July 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 49.8,
+            "lon": -4.5,
+            "label": "south of Plymouth"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_RUSSIAN_LIVE_FIRE_JULY_2026_2026-07-21",
+      "contentHash": "8b5c7f816c7a3769ef3817fca051e41a28a05f1129f075c1fb6e77c5da053eca",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy monitoring off Plymouth",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SEVERN_LEGACY_1",
+      "vesselId": "hms-severn",
+      "sourceId": "RUSSIAN_WATCH_JUNE_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/26/20260625-fre-round-up",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters / Channel and Western Approaches; Russian-watch tasking reported June 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 49.8,
+            "lon": -6,
+            "label": "Channel and Western Approaches"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RUSSIAN_WATCH_JUNE_2026_2026-06-25",
+      "contentHash": "8ad035b63ed35900b727a1a412456aba2cf48a1328eb3e2a3900a263ea51a114",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Russian warship monitoring",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_MERSEY_LEGACY_1",
+      "vesselId": "hms-mersey",
+      "sourceId": "RUSSIAN_WATCH_JUNE_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/26/20260625-fre-round-up",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-25T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters / Channel; Russian-watch tasking reported June-July 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.2,
+            "lon": -2.5,
+            "label": "UK waters / Channel"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RUSSIAN_WATCH_JUNE_2026_2026-06-25",
+      "contentHash": "21851cb9feed49722e0a9335ac567607d1849218d5272f15eaba732879d76388",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Russian warship monitoring",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_FORTH_LEGACY_1",
+      "vesselId": "hms-forth",
+      "sourceId": "RN_FALKLANDS_SWAP_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/january/19/20260119-its-goodbye-from-forth-hello-from-medway-as-patrol-ships-swap-places-in-falklands",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-01-19T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth / UK waters after Falklands handover",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.81,
+            "lon": -1.1,
+            "label": "Portsmouth"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_FALKLANDS_SWAP_2026_2026-01-19",
+      "contentHash": "7841021c482f230be7a0efcadbf94e1791fbe6339c1ad9c06c38cedeccea59f7",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Falklands guard ship handover",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_MEDWAY_LEGACY_1",
+      "vesselId": "hms-medway",
+      "sourceId": "MEDWAY_FALKLANDS_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/08/20260608-hms-medway-completes-midwinter-mercy-dash-to-worlds-remotest-island",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-08T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Falkland Islands / South Atlantic; Falklands guard ship",
+          "classification": "approximate",
+          "position": {
+            "lat": -51.7,
+            "lon": -57.85,
+            "label": "Falkland Islands"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_MEDWAY_FALKLANDS_2026_2026-06-08",
+      "contentHash": "04fdf5ef51b6cdb6c3882fc975347ffac5f451fece2c3f5eca3d2cc93b2bfbd0",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Medway Falklands mission",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TRENT_LEGACY_1",
+      "vesselId": "hms-trent",
+      "sourceId": "TRENT_AIS_2026",
+      "canonicalUrl": "https://www.myshiptracking.com/vessels/hms-trent-mmsi-232005754-imo-0",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-23T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Tampa, Gulf of Mexico; Caribbean hurricane-season deployment",
+          "classification": "approximate",
+          "position": {
+            "lat": 27.95,
+            "lon": -82.46,
+            "label": "Tampa, Gulf of Mexico"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_TRENT_AIS_2026_2026-07-23",
+      "contentHash": "a55ebba7d142af46257a8266039d3c76fd8003e6845594ca0e25c55fdd4d8af6",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Trent public AIS-derived report",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TAMAR_LEGACY_1",
+      "vesselId": "hms-tamar",
+      "sourceId": "TAMAR_PACIFIC_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/march/06/20260306-hms-tamar-ready-for-south-pacific-mission-after-passing-thorough-assessment-in-australia",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-03-06T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Indo-Pacific; South Pacific / Australia-Indonesia patrol cycle, Singapore logistics hub",
+          "classification": "approximate",
+          "position": {
+            "lat": -10,
+            "lon": 130,
+            "label": "South Pacific / Australia-Indonesia"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_TAMAR_PACIFIC_2026_2026-03-06",
+      "contentHash": "6841775c2bc90a1fcd35049d5a0bcdcd37c73ab4a47d94bb0d2d52a55c8f0e75",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Tamar South Pacific mission",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SPEY_LEGACY_1",
+      "vesselId": "hms-spey",
+      "sourceId": "SPEY_SE_ASIA_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/may/18/20260518-hms-spey-back-in-south-east-asia",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-05-18T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Indo-Pacific; South East Asia / Far East patrols after Singapore overhaul",
+          "classification": "approximate",
+          "position": {
+            "lat": 4,
+            "lon": 108,
+            "label": "South East Asia / Far East"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_SPEY_SE_ASIA_2026_2026-05-18",
+      "contentHash": "4bbbb296ce85562401774b1def43d292a8b8ac61bd0ba31a4c60b1fb356dac73",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Spey South East Asia deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_LEDBURY_LEGACY_1",
+      "vesselId": "hms-ledbury",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters / English Channel; Smyrtos boarding and Russian-watch tasking reported June 2026",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "a3cd238f5dc444f84c673fc7b28d6e658c8bc2414110770e62dfd12ad698f82b",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_CATTISTOCK_LEGACY_1",
+      "vesselId": "hms-cattistock",
+      "sourceId": "HMNB_CLYDE_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Clyde area; public July 2026 ship-spotting report",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_HMNB_CLYDE_OFFICIAL_UNDATED",
+      "contentHash": "8ba47b0e2442add6b0dee8abda87692d7972a8a4e0a10aa53f468ed4c8773baa",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy HMNB Clyde",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_BROCKLESBY_LEGACY_1",
+      "vesselId": "hms-brocklesby",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Portsmouth; exact current tasking not publicly updated",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "d01eed611c0606581083e7191d45ae529605a991ff6a8869d065751afa2b86c3",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_MIDDLETON_LEGACY_1",
+      "vesselId": "hms-middleton",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Falmouth; dry dock/refit after return from Gulf",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "7b5f659211a9d5434091b84a114cc3cd8d03b2ec4369a3e4c81f1f6134a4ab07",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_CHIDDINGFOLD_LEGACY_1",
+      "vesselId": "hms-chiddingfold",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth; preparing to leave service",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Unknown"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "858e0d1534c4b784c1bf397a020a8fb79cde9203cb2dff56e576ccd38fd7c7a6",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_HURWORTH_LEGACY_1",
+      "vesselId": "hms-hurworth",
+      "sourceId": "SEA_BREEZE_2026",
+      "canonicalUrl": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-15T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portland; Sea Breeze 26-2 mine warfare exercise",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.57,
+            "lon": -2.44,
+            "label": "Portland"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SEA_BREEZE_2026_2026-07-15",
+      "contentHash": "65e16a4752bcfc93486a9841b99311557b9c6a1fa6ed0a868395c323d217681b",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Sea Breeze 2026 mine-warfare exercise",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_BANGOR_LEGACY_1",
+      "vesselId": "hms-bangor",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Rosyth / Firth of Forth; post-refit trials reported July 2026",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "18bfe28be0a23e8dedd35d16be020aa539e8b6e8a5988b89be5dcf6f330d4628",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_STIRLING_CASTLE_LEGACY_1",
+      "vesselId": "hms-stirling-castle",
+      "sourceId": "SEA_BREEZE_2026",
+      "canonicalUrl": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-15T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portland / Weymouth Bay; Sea Breeze 26-2 mine-countermeasures training",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.58,
+            "lon": -2.42,
+            "label": "Weymouth Bay"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SEA_BREEZE_2026_2026-07-15",
+      "contentHash": "0ad25a1d00c3f7704ca4f72e79c93c7718f59adbb8df55c83e806e8c027f72b8",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Sea Breeze 2026 mine-warfare exercise",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_ARCHER_LEGACY_1",
+      "vesselId": "hms-archer",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Edinburgh; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "492dccff93993a5cd3c7ca71a2219910cd2fec65e366cf7bf96aeccd84505c50",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_BITER_LEGACY_1",
+      "vesselId": "hms-biter",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Liverpool; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "85a432e0afdd1739f71ee73184fe6d740b38bec1fb6b13f19919c6aa33b7b709",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SMITER_LEGACY_1",
+      "vesselId": "hms-smiter",
+      "sourceId": "PUNCHER_SMITER_BALTOPS_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-26T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.5,
+            "lon": 18.7,
+            "label": "Baltic Sea / Poland"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_PUNCHER_SMITER_BALTOPS_2026_2026-06-26",
+      "contentHash": "a6985ad0d887938417a4157d6c00758038fe8f7b9dba612fccff720b1cb5c340",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Puncher and HMS Smiter at Baltops 26",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_PURSUER_LEGACY_1",
+      "vesselId": "hms-pursuer",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Glasgow; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "d0f3764d4706655cda02882d974a43d0e98829e487e978f6b47d2fa24dd04dad",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_BLAZER_LEGACY_1",
+      "vesselId": "hms-blazer",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "963dad258b98564747b1f3e988309510bbb36479de5d4f78e7a925a45ca1d21b",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DASHER_LEGACY_1",
+      "vesselId": "hms-dasher",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "da09838de673b15eda31dd41a2211fdc65b6ded1724574c67b77ed1e9d4cbc29",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_PUNCHER_LEGACY_1",
+      "vesselId": "hms-puncher",
+      "sourceId": "PUNCHER_SMITER_BALTOPS_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-26T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.5,
+            "lon": 18.7,
+            "label": "Baltic Sea / Poland"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_PUNCHER_SMITER_BALTOPS_2026_2026-06-26",
+      "contentHash": "d9149a7563a83bea7fcea4acf896adb6fdda000ed09c1011b79d50832af29d92",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Puncher and HMS Smiter at Baltops 26",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_CHARGER_LEGACY_1",
+      "vesselId": "hms-charger",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Liverpool; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "89839592d6b84ee50a3ac0ecbdeeed70b88057b4797b98814cd3e80343d78f5d",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_RANGER_LEGACY_1",
+      "vesselId": "hms-ranger",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "45737fd294d8080e7d87571440b4559167177de0bf8921176703da5e0478ee2f",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TRUMPETER_LEGACY_1",
+      "vesselId": "hms-trumpeter",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Ipswich; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "ed7f538fe4cb8c7c0d9f72af9e1d112118f40276f3bd22ff5376e3a6e7962436",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_EXPRESS_LEGACY_1",
+      "vesselId": "hms-express",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Cardiff; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "9597094e2e52d67f94ac0510ae9c69a098b188ed9b1387e7815168f20cba5264",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_EXAMPLE_LEGACY_1",
+      "vesselId": "hms-example",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Gateshead; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "ab9ff324a08395e6f9fbd1618af04a2aa8fe23b42e35ba811bf0715a3aeb94d2",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_EXPLORER_LEGACY_1",
+      "vesselId": "hms-explorer",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Hull; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "013b87c445a619aaba13308dbb4d543d663a682a2f71c68593fe05098c1a273b",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_EXPLOIT_LEGACY_1",
+      "vesselId": "hms-exploit",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth; Coastal Forces Squadron home operating area",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "396983b96884c3e5a2376eb92525e28a4150d91f96128b85b3a844f1db5761bb",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TRACKER_LEGACY_1",
+      "vesselId": "hms-tracker",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Firth of Clyde / HMNB Clyde; high-value shipping escort role",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "135e9fed7721088dfe1a515cee73017814509bf05e0d12024c405c69c5fceea1",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_RAIDER_LEGACY_1",
+      "vesselId": "hms-raider",
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Firth of Clyde / HMNB Clyde; high-value shipping escort role",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ARCHER_CLASS_OFFICIAL_UNDATED",
+      "contentHash": "93a85a9f910d8c4a989796202ef82bc7fa7bf92a2217efcc2b1200bf49608057",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy Archer class",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_CUTLASS_LEGACY_1",
+      "vesselId": "hms-cutlass",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Gibraltar; Gibraltar Squadron",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "eefd2c1a16c365b638f3d480436cce2e8adbca748c9c585d1776c150d15ca47c",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DAGGER_LEGACY_1",
+      "vesselId": "hms-dagger",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Gibraltar; Gibraltar Squadron",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "723704ceb047eb15aa8a1be4f94a73dbf7218882aa123fc003a6986611f6579d",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SCOTT_LEGACY_1",
+      "vesselId": "hms-scott",
+      "sourceId": "SCOTT_DEVONPORT_AIS_2026",
+      "canonicalUrl": "https://maritimeoptima.com/public/vessels/pages/imo%3A9127289/mmsi%3A233844000/HMS_SCOTT.html",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-23T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport; AIS-derived location reported after life-extension refit",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.38,
+            "lon": -4.18,
+            "label": "Devonport"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_SCOTT_DEVONPORT_AIS_2026_2026-07-23",
+      "contentHash": "df3e2f8ec5ed5eb157a760baa107ca6f1b8f3b4674cbb899587dbddefcbbc430",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "HMS Scott public AIS-derived report",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_PROTECTOR_LEGACY_1",
+      "vesselId": "hms-protector",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Devonport / seasonal ice patrol tasking not publicly updated",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "116eccb5ad0c025fd43c47acecd24d2fef202c1e79125e6103630659bcbd1cd6",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_MAGPIE_LEGACY_1",
+      "vesselId": "hms-magpie",
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Devonport; coastal survey tasking",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "primary",
+      "originId": "ORIGIN_RN_OFFICIAL_SHIPS_UNDATED",
+      "contentHash": "d24ec6b32fc0d5ae82c2a0adf92318230ad0a51c5cecf6721e80e8d5c7fd3118",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy official ships page",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_LYME_BAY_LEGACY_1",
+      "vesselId": "rfa-lyme-bay",
+      "sourceId": "DRAGON_LYME_BAY_MIDEAST_2026",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-06-23T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Red Sea / Middle East region; mine-countermeasures mothership for potential Strait of Hormuz mission",
+          "classification": "approximate",
+          "position": {
+            "lat": 20,
+            "lon": 38,
+            "label": "Red Sea / Middle East"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_DRAGON_LYME_BAY_MIDEAST_2026_2026-06-23",
+      "contentHash": "be06ac4a18faa90ab4fa9cee5acfb820622acffdd6eab375cf2577387d784357",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA Lyme Bay Middle East deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_MOUNTS_BAY_LEGACY_1",
+      "vesselId": "rfa-mounts-bay",
+      "sourceId": "MOUNTS_BAY_SEA_TRIALS_2026",
+      "canonicalUrl": "https://www.forcesnews.com/services/navy/boost-royal-navy-rfa-mounts-bay-returns-sea-after-year-long-refit-complete",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-07T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "At sea from Falmouth; sea trials and FOST after refit",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.15,
+            "lon": -5.05,
+            "label": "Falmouth"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_MOUNTS_BAY_SEA_TRIALS_2026_2026-07-07",
+      "contentHash": "b925c69b029f1eefce667dcdeb448bce3c83b5bd1e982310afbe3c21bcda9432",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA Mounts Bay sea trials",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_CARDIGAN_BAY_LEGACY_1",
+      "vesselId": "rfa-cardigan-bay",
+      "sourceId": "RFA_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-05-21T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Falmouth; refit",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.15,
+            "lon": -5.05,
+            "label": "Falmouth"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_RFA_STATUS_2026_2026-05-21",
+      "contentHash": "a95e6b44d1d30cfccb6d90dde947ee23a6232bacd0e5814efad7276bd0285d69",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA workforce recovery and ships to sea",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_PROTEUS_LEGACY_1",
+      "vesselId": "rfa-proteus",
+      "sourceId": "RFA_PROTEUS_AIS_2026",
+      "canonicalUrl": "https://www.myshiptracking.com/vessels/rfa-proteus-mmsi-232047056-imo-0",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-20T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Inner Seas off the west coast of Scotland; AIS-derived position reported 20th July 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 56.3,
+            "lon": -5.6,
+            "label": "Inner Seas off the west coast of Scotland"
+          }
+        },
+        "status": "Available"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_RFA_PROTEUS_AIS_2026_2026-07-20",
+      "contentHash": "f1ccfdd45a47363edaeb71c142828fe470acde1f2a5b964966a4ba123365ae59",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA Proteus public AIS-derived report",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDESPRING_LEGACY_1",
+      "vesselId": "rfa-tidespring",
+      "sourceId": "CSG_NEPTUNE_2026",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-07-20T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "North Atlantic / off Iceland; replenishment support to HMS Duncan and carrier strike group",
+          "classification": "approximate",
+          "position": {
+            "lat": 64.2,
+            "lon": -18.3,
+            "label": "North Atlantic / off Iceland"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_CSG_NEPTUNE_2026_2026-07-20",
+      "contentHash": "9b2daffb7b78b1ef4b123cd3a8ee722bd61902b8ebbb7649094a2d78c2a2ef01",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "Royal Navy carrier strike group Arctic deployment",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDERACE_LEGACY_1",
+      "vesselId": "rfa-tiderace",
+      "sourceId": "RFA_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": "2026-05-21T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "Birkenhead / planned reactivation later in 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 53.4,
+            "lon": -3,
+            "label": "Birkenhead"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_RFA_STATUS_2026_2026-05-21",
+      "contentHash": "c55dd6bde8fbd4ca9ef52ce581abcdb8ad4a1f437b1361ee08002cce4a485600",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA workforce recovery and ships to sea",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDESURGE_LEGACY_1",
+      "vesselId": "rfa-tidesurge",
+      "sourceId": "RFA_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters / RFA crewed fleet; exact current tasking not publicly updated",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Available"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_RFA_STATUS_2026_UNDATED",
+      "contentHash": "72311a12d4e8bb976b4b7da16a508251bbb5228f58b9c32d98ae413cea16a7dc",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA workforce recovery and ships to sea",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDEFORCE_LEGACY_1",
+      "vesselId": "rfa-tideforce",
+      "sourceId": "RFA_STATUS_2026",
+      "canonicalUrl": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/",
+      "retrievedAt": "2026-07-23T00:00:00Z",
+      "retrievalPrecision": "day",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "legacy-conflated"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters; Russian-vessel monitoring reported April-May 2026",
+          "classification": "unknown",
+          "position": null
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "unknown",
+      "geographicPrecision": "unknown",
+      "directness": "indirect",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_RFA_STATUS_2026_UNDATED",
+      "contentHash": "8c2359b756a44ff242cac6b75d73aa41133190833d56377858d6e6b940f4040e",
+      "collectionMethod": "legacy-manual-migration",
+      "summary": "RFA workforce recovery and ships to sea",
+      "archiveUrl": null,
+      "analystNotes": "Migrated from the legacy combined record. Its locationEvidenceDate did not distinguish publication from observation, so no current observation interval was manufactured.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    }
+  ]
+}

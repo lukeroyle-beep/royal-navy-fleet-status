@@ -10,7 +10,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
 - Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
-- Vessel details with status, recorded location, evidence date, checked date, evidence classification and supporting source
+- Clean vessel cards with status and recorded location; detailed provenance stays outside the client projection
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
 - Responsive desktop and mobile layouts
@@ -21,7 +21,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
 - Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
 - Unknown and withheld vessels remain available through search and the vessel list without being plotted.
-- If basemap tiles are unavailable, vessel search, evidence details and supporting links continue to work.
+- If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
 
@@ -34,18 +34,17 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred or displayed.
 
-The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision and evidence labels shown in the interface.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to the precision labels and disclaimer shown in the interface.
 
-## Evidence model
+## Evidence and assessment model
 
-Every vessel record separates two dates:
+The repository now separates canonical vessel identities, a central source registry, append-only evidence and versioned assessments under `data/internal/provenance/`. These files are non-client operational records, not confidential storage: the repository may be public, so they contain no credentials, private API data or secrets.
 
-- `locationEvidenceDate` is the publication or observation date that supports the displayed location. It is `null` when no defensible date is available.
-- `evidenceCheckedDate` is the date a maintainer last checked the cited source.
+`data/royal-navy/vessels.json` is generated from the current assessments. It contains only fields needed by the public card, list and map. Source URLs, account handles, evidence timestamps, content hashes, origin clusters, conflicts, analyst notes and assessment reasoning are not copied into the browser bundle.
 
-Mapped and approximate records require a named-vessel source that directly supports the displayed location, a valid location evidence date, and either `direct-report` or `direct-tracker` evidence. Generic fleet, class, capability, and home-port pages are not sufficient current-location evidence on their own.
+Evidence records distinguish retrieval, publication and bounded observation times. Publication time is never silently reused as observation time. Corroboration counts distinct upstream `originId` values rather than links or reposts. Confidence is categorical (`high`, `moderate`, `low`, `unknown`) and incorporates directness, source tier, time, freshness, independence and unresolved conflict.
 
-Records that do not meet that threshold use `unknown`, contain no coordinates, and explain the downgrade. Withheld submarine positions use `withheld`, contain no coordinates, and never infer patrol areas. The interface displays an unknown evidence date as “Unknown”; maintainers must not substitute the check date or dataset date.
+The migrated legacy records retain their public “last reported” state, but their old combined date field was not promoted into a fabricated observation time. Their internal assessments therefore remain historical/unknown-confidence until explicit or bounded observations are entered and reviewed.
 
 ## Run locally
 
@@ -118,23 +117,25 @@ separate human-approved change.
 ## Validate and build
 
 ```bash
+npm run generate:public
 npm run validate:data
 npm run build
 ```
 
-The validation rejects duplicate vessel identifiers, invalid location or evidence classifications, missing source labels or HTTPS links, missing or invalid evidence dates, insufficient mapped evidence, invalid coordinates, unmapped records without reasons and submarine patrol records containing coordinates.
+Validation rejects malformed registry/evidence/assessment records, unknown cross-record references, duplicate identifiers, invalid temporal ranges, missing assessment history, stale public projections, provenance leakage, invalid coordinates, unmapped records without reasons and submarine patrol records containing coordinates. The production build also scans the generated client files for internal provenance tokens and source/account URLs.
 
 ## Data maintenance
 
-Fleet data is stored in `data/royal-navy/vessels.json`. Any update should:
+Do not edit `data/royal-navy/vessels.json` as the system of record. The maintenance flow is:
 
-1. retain all roster records;
-2. include a public supporting source;
-3. record the source observation or publication date separately from the date the source was checked;
-4. classify both location precision and evidence quality;
-5. use only a source that directly identifies the vessel and supports the displayed location for mapped or approximate records;
-6. downgrade unsupported locations to `unknown`, remove coordinates and explain why;
-7. omit coordinates where a submarine position is withheld; and
-8. pass `npm run validate:data` and `npm test`.
+1. resolve a source reference to a canonical vessel identifier (ID, pennant or another strong identifier);
+2. add or update the central source registry only after officiality, terms and collection mode are reviewed;
+3. generate the current lawful/manual source queue with `npm run sweep:sources`;
+4. validate a manual evidence record with `node scripts/ingest-evidence.mjs <file> --dry-run`;
+5. append it without `--dry-run` after review;
+6. create a new assessment revision referencing selected, excluded and conflicting evidence rather than overwriting old evidence;
+7. run `npm run generate:public`, `npm run validate:data`, the full test suite and the production build.
 
-Automated collection, third-party tracking feeds, scheduled refreshes and public deployment are outside the current version.
+X accounts are registry inputs only until an individual canonical post is collected. X collection is manual unless an authorised API, credentials and current terms review are available; browser scraping is not implemented. Commercial AIS providers are disabled pending a suitable API licence, and missing AIS has no negative meaning. MarineVesselTraffic is retained as a mandatory discovery source only and cannot establish a location without dated independent evidence.
+
+See [`docs/osint-provenance.md`](docs/osint-provenance.md) for the architecture, source catalogue policy, confidence rules, collection flow and known limitations.
