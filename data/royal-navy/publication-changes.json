@@ -1,44 +1,15 @@
 {
   "schemaVersion": 1,
-  "previousAsOfDate": "2026-08-09",
-  "currentAsOfDate": "2026-08-12",
+  "previousAsOfDate": "2026-08-12",
+  "currentAsOfDate": "2026-08-23",
   "previousMappedCount": 71,
   "currentMappedCount": 71,
   "counts": {
     "status": 0,
-    "location": 1,
+    "location": 0,
     "mapping": 0,
     "marker": 0,
-    "evidence": 1
+    "evidence": 0
   },
-  "changes": [
-    {
-      "vesselId": "hms-middleton",
-      "vesselName": "HMS Middleton",
-      "categories": [
-        "location",
-        "evidence"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "UK east coast–Scotland–Isle of Man patrol circuit; deployment reported 2 June 2026",
-          "after": "Falmouth, Cornwall; entered dry dock for Re-Certification Docking, reported by Forces News as Balaena Falmouth on 26 June 2026"
-        },
-        {
-          "kind": "evidence",
-          "label": "Evidence date",
-          "before": "2026-06-02",
-          "after": "2026-06-26"
-        },
-        {
-          "kind": "evidence",
-          "label": "Source",
-          "before": "The Maritime Executive: HMS Middleton back on patrol",
-          "after": "Forces News: HMS Middleton enters Falmouth dry dock"
-        }
-      ]
-    }
-  ]
+  "changes": []
 }
