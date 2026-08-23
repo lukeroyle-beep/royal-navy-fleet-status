@@ -47,7 +47,7 @@ for (const forbidden of [
 }
 for (const source of registry.sources) {
   assert.ok(
-    !text.includes(source.canonicalUrl),
+    !includesExactUrl(text, source.canonicalUrl),
     `Production client exposes registry URL for ${source.sourceId}.`,
   );
   if (source.accountHandle) {
@@ -59,6 +59,20 @@ for (const source of registry.sources) {
 }
 assert.ok(!files.some((file) => file.includes(`${path.sep}internal${path.sep}`)), "Production client contains an internal data directory.");
 console.log(`Client exposure scan passed across ${files.length} built files.`);
+
+function includesExactUrl(value, url) {
+  // Registry index URLs can legitimately prefix a public article or photo-credit URL.
+  // Treat only a terminated URL token as exposure, not a longer URL on the same site.
+  let offset = value.indexOf(url);
+  while (offset !== -1) {
+    const nextCharacter = value[offset + url.length];
+    if (!nextCharacter || !/[A-Za-z0-9\-._~:/?#\[\]@!$&'()*+,;=%]/.test(nextCharacter)) {
+      return true;
+    }
+    offset = value.indexOf(url, offset + url.length);
+  }
+  return false;
+}
 
 function walk(directory) {
   return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
