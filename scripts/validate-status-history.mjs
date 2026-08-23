@@ -1,6 +1,9 @@
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
+import { parsePhysicalStatusHistory } from "../src/utils/insights.js";
+import { readReleaseMetadata, releaseRevision } from "../src/utils/release.js";
+
 const historyPath = new URL("../data/royal-navy/status-history.jsonl", import.meta.url);
 const fleetPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const fleet = JSON.parse(fs.readFileSync(fleetPath, "utf8"));
@@ -14,13 +17,11 @@ const allowedStatuses = new Set([
 ]);
 const currentText = fs.readFileSync(historyPath, "utf8");
 const lines = parseLines(currentText);
-const snapshots = lines.map((line, index) => parseSnapshot(line, index));
+const snapshots = parsePhysicalStatusHistory(currentText);
 const fleetIds = new Set(fleet.vessels.map((vessel) => vessel.id));
+const fleetRelease = readReleaseMetadata(fleet.metadata);
 
-for (const [index, snapshot] of snapshots.entries()) {
-  if (index > 0 && snapshots[index - 1].snapshotDate >= snapshot.snapshotDate) {
-    throw new Error("Status snapshot dates must be unique and ascending.");
-  }
+for (const snapshot of snapshots) {
   const ids = Object.keys(snapshot.statuses);
   if (!ids.length || ids.some((id) => !id.trim())) {
     throw new Error(`Status snapshot ${snapshot.snapshotDate} has an invalid fleet roster.`);
@@ -33,8 +34,13 @@ for (const [index, snapshot] of snapshots.entries()) {
 }
 
 const latest = snapshots.at(-1);
-if (!latest || latest.snapshotDate !== fleet.metadata.asOfDate) {
-  throw new Error("The latest status snapshot must match metadata.asOfDate.");
+if (
+  !latest ||
+  latest.snapshotDate !== fleetRelease.asOfDate ||
+  releaseRevision(latest) !== fleetRelease.releaseRevision ||
+  (latest.releasedAt ?? null) !== fleetRelease.releasedAt
+) {
+  throw new Error("The latest status snapshot must match the fleet release identity.");
 }
 const latestIds = Object.keys(latest.statuses);
 if (latestIds.length !== fleetIds.size || latestIds.some((id) => !fleetIds.has(id))) {
@@ -68,35 +74,10 @@ if (baseRefIndex !== -1) {
 
 console.log(`Validated ${snapshots.length} append-only status snapshots.`);
 
-function parseSnapshot(line, index) {
-  let snapshot;
-  try {
-    snapshot = JSON.parse(line);
-  } catch {
-    throw new Error(`Status history line ${index + 1} is not valid JSON.`);
-  }
-  if (
-    snapshot.schemaVersion !== 1 ||
-    !isIsoDate(snapshot.snapshotDate) ||
-    !snapshot.statuses ||
-    typeof snapshot.statuses !== "object" ||
-    Array.isArray(snapshot.statuses)
-  ) {
-    throw new Error(`Status history line ${index + 1} is invalid.`);
-  }
-  return snapshot;
-}
-
 function parseLines(text) {
   const trimmed = text.trimEnd();
   if (!trimmed) return [];
   const parsed = trimmed.split("\n");
   if (parsed.some((line) => !line.trim())) throw new Error("Status history contains a blank line.");
   return parsed;
-}
-
-function isIsoDate(value) {
-  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }

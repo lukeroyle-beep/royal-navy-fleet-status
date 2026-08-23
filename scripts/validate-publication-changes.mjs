@@ -1,19 +1,23 @@
 import fs from "node:fs";
 
+import { validatePublicationChanges } from "../src/utils/insights.js";
+import { readReleaseMetadata } from "../src/utils/release.js";
+
 const changesPath = new URL("../data/royal-navy/publication-changes.json", import.meta.url);
 const fleetPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const changes = JSON.parse(fs.readFileSync(changesPath, "utf8"));
 const fleet = JSON.parse(fs.readFileSync(fleetPath, "utf8"));
+const normalizedChanges = validatePublicationChanges(changes);
+const fleetRelease = readReleaseMetadata(fleet.metadata);
 const fleetIds = new Set(fleet.vessels.map((vessel) => vessel.id));
 const categories = ["status", "location", "mapping", "marker", "evidence"];
 
 if (
-  changes.schemaVersion !== 1 ||
-  changes.currentAsOfDate !== fleet.metadata.asOfDate ||
-  !isIsoDate(changes.previousAsOfDate) ||
-  !isIsoDate(changes.currentAsOfDate) ||
-  changes.previousAsOfDate >= changes.currentAsOfDate ||
-  !Array.isArray(changes.changes)
+  changes.currentAsOfDate !== fleetRelease.asOfDate ||
+  (normalizedChanges.currentReleaseRevision ?? 1) !== fleetRelease.releaseRevision ||
+  (!fleetRelease.legacy &&
+    (changes.schemaVersion !== 2 || changes.currentReleasedAt !== fleetRelease.releasedAt)) ||
+  (fleetRelease.legacy && changes.schemaVersion !== 1)
 ) {
   throw new Error("Publication changes metadata is invalid.");
 }
@@ -66,10 +70,4 @@ console.log(`Validated ${changes.changes.length} publication changes.`);
 
 function hasMapPosition(vessel) {
   return Boolean(vessel.position || vessel.symbolicPosition);
-}
-
-function isIsoDate(value) {
-  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }

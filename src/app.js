@@ -7,6 +7,10 @@ import { FleetMap } from "./components/FleetMap.js";
 import { ScenarioLoader } from "./components/ScenarioLoader.js";
 import { getFleetStatusSummary } from "./utils/fleet.js";
 import { shortClassName } from "./utils/insights.js";
+import {
+  formatDatasetReleaseLabel,
+  formatPublicationChangeLabels,
+} from "./utils/release.js";
 import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
@@ -84,7 +88,7 @@ async function initialize() {
         changesUrl: CHANGES_URL,
         historyUrl: HISTORY_URL,
       }).load();
-      if (!insightsMatchDataset(loadedInsights, dataset.metadata.asOfDate)) {
+      if (!insightsMatchDataset(loadedInsights, dataset.metadata)) {
         throw new Error("Fleet insight files belong to a different dataset release.");
       }
       insights = { ...loadedInsights, available: true };
@@ -98,7 +102,7 @@ async function initialize() {
 }
 
 function bindDataset() {
-  elements.asOfDate.textContent = formatDate(dataset.metadata.asOfDate);
+  elements.asOfDate.textContent = formatDatasetReleaseLabel(dataset.metadata);
   renderFleetOverview();
   fillSelect(elements.service, uniqueValues("service"));
   fillSelect(elements.status, uniqueValues("status"));
@@ -235,9 +239,10 @@ function renderFilterSummary(filteredCount) {
 function renderPublicationChanges() {
   const publication = insights.changes;
   if (!publication?.changes?.length) return;
+  const labels = formatPublicationChangeLabels(publication);
   elements.changesToggle.hidden = false;
-  elements.changesCount.textContent = `${formatShortDate(publication.previousAsOfDate)} · ${publication.changes.length} vessels`;
-  elements.changesSummary.textContent = `${publication.changes.length} vessels changed between ${formatDate(publication.previousAsOfDate)} and ${formatDate(publication.currentAsOfDate)}.`;
+  elements.changesCount.textContent = labels.count;
+  elements.changesSummary.textContent = labels.summary;
   elements.changesList.replaceChildren(createChangeList(publication.changes));
 }
 
@@ -341,23 +346,6 @@ function resetFilters({ focus = false } = {}) {
 function showError(error) {
   elements.error.hidden = false;
   elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
-}
-
-function formatDate(value) {
-  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  });
-}
-
-function formatShortDate(value) {
-  return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    timeZone: "UTC",
-  });
 }
 
 function formatClassification(value) {

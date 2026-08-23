@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "reviewedAt": "2026-08-23T11:00:00Z",
+  "reviewedAt": "2026-08-23T20:47:26Z",
   "policy": {
     "corroborationUnit": "originId",
     "aisAbsenceMeaning": "neutral",
@@ -1764,6 +1764,29 @@
       "notes": "@HMSSomerset; verified/enabled"
     },
     {
+      "sourceId": "X_HMS_SPEY",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Spey",
+      "accountHandle": "@HMS_Spey",
+      "vesselId": "hms-spey",
+      "canonicalUrl": "https://x.com/HMS_Spey",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-spey",
+        "verifiedAt": "2026-08-23T20:47:26Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMS_Spey; verified/enabled"
+    },
+    {
       "sourceId": "X_HMS_STIRLING_CASTLE",
       "category": "official-vessel-social",
       "publisher": "@HMS_Str_Castle",
@@ -1785,6 +1808,29 @@
         "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
       },
       "notes": "@HMS_Str_Castle; verified/enabled"
+    },
+    {
+      "sourceId": "X_HMS_TRENT",
+      "category": "official-vessel-social",
+      "publisher": "@HMSTrent",
+      "accountHandle": "@HMSTrent",
+      "vesselId": "hms-trent",
+      "canonicalUrl": "https://x.com/HMSTrent",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-trent",
+        "verifiedAt": "2026-08-23T20:47:26Z",
+        "method": "Royal Navy unit page direct link"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Authorised X API only; manual evidence entry otherwise.",
+        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+      },
+      "notes": "@HMSTrent; verified/enabled"
     },
     {
       "sourceId": "X_RFA_CARDIGAN_BAY",
@@ -1942,6 +1988,137 @@
         "verifiedAt": "2026-08-15T00:00:00Z",
         "method": "MOD official social-media register"
       }
+    },
+    {
+      "sourceId": "BANGOR_MARINA_SOCIAL",
+      "category": "port-harbour-dockyard",
+      "publisher": "Bangor Marina",
+      "canonicalUrl": "https://www.facebook.com/bangormarina/",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Manual review only; no Facebook scraping or browser automation.",
+        "retention": "Retain canonical post URL, date, origin attribution, content hash and only the minimum excerpt needed."
+      },
+      "notes": "Institutional marina observations; event pages and future intentions are not treated as completed movements."
+    },
+    {
+      "sourceId": "FORCES_NEWS_NAVY_INDEX",
+      "category": "local-or-national-media",
+      "publisher": "Forces News",
+      "canonicalUrl": "https://www.forcesnews.com/services/navy",
+      "reliabilityTier": "B",
+      "collectionMode": "feed",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "One read-only request to the public Navy index for discovery; article promotion remains manual.",
+        "retention": "Retain candidate links and hashes; retain only minimum excerpts for promoted evidence."
+      },
+      "notes": "Recurring Navy discovery index."
+    },
+    {
+      "sourceId": "NAVY_LOOKOUT_INDEX",
+      "category": "specialist-media",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://www.navylookout.com/",
+      "reliabilityTier": "C",
+      "collectionMode": "feed",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "One read-only request to the public site or feed for discovery; item promotion remains manual.",
+        "retention": "Retain candidate links and hashes; retain only minimum excerpts for promoted evidence."
+      },
+      "notes": "Recurring specialist discovery source; credited origins must be preserved."
+    },
+    {
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "category": "recognised-osint",
+      "publisher": "Navy Lookout",
+      "canonicalUrl": "https://x.com/NavyLookout",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Authorised platform API only; manual search-index and post review otherwise.",
+        "retention": "Retain direct post URL, platform timestamp, content hash, minimum excerpt and the credited original observer."
+      },
+      "notes": "Manual X and Instagram review; reposts do not create independent origins."
+    },
+    {
+      "sourceId": "PORTSMOUTH_HARBOUR_PHOTOGRAPHY",
+      "category": "verified-visual",
+      "publisher": "Portsmouth Harbour Photography",
+      "canonicalUrl": "https://www.facebook.com/PortsmouthHarbourPhotography/",
+      "reliabilityTier": "C",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Manual review only; no Facebook scraping or browser automation.",
+        "retention": "Retain canonical post URL, observation date, content hash and only the minimum excerpt needed."
+      },
+      "notes": "Dated vessel-specific harbour photography; no berth or continuing presence is inferred."
+    },
+    {
+      "sourceId": "ROYAL_NAVY_NEWS_INDEX",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news",
+      "reliabilityTier": "A",
+      "collectionMode": "feed",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "One read-only request to the public news index for discovery; item promotion remains manual.",
+        "retention": "Retain candidate links and hashes; retain only minimum excerpts for promoted evidence."
+      },
+      "notes": "Recurring official Royal Navy news discovery index."
+    },
+    {
+      "sourceId": "ROYAL_NAVY_UNIT_PAGES",
+      "category": "official-royal-navy",
+      "publisher": "Royal Navy",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/organisation/surface-fleet",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "monitoring": {
+        "recurring": true
+      },
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Manual review of public unit pages; no dynamic-site bypass or unpublished endpoint collection.",
+        "retention": "Retain canonical unit URL, retrieval time, content hash and only minimum status wording."
+      },
+      "notes": "Official unit pages used to verify account identity and explicit current lifecycle wording."
+    },
+    {
+      "sourceId": "SEA_CADETS_NORTHERN_IRELAND",
+      "category": "local-or-national-media",
+      "publisher": "Sea Cadets Northern Ireland",
+      "canonicalUrl": "https://www.facebook.com/SeaCadetsNorthern/",
+      "reliabilityTier": "B",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "automation": "Manual review only; no Facebook scraping or browser automation.",
+        "retention": "Retain canonical post URL, date, origin attribution, content hash and only the minimum excerpt needed."
+      },
+      "notes": "Institutional event corroboration for cadet training visits."
     }
   ],
   "officialSocialCoverage": [
@@ -2289,13 +2466,13 @@
     {
       "vesselId": "hms-trent",
       "pennantNumber": "P224",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSTrent",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-trent",
+      "searchedAt": "2026-08-23T20:47:26Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMSTrent; verified/enabled"
     },
     {
       "vesselId": "hms-tamar",
@@ -2311,13 +2488,13 @@
     {
       "vesselId": "hms-spey",
       "pennantNumber": "P234",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMS_Spey",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-spey",
+      "searchedAt": "2026-08-23T20:47:26Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified",
+      "enabled": true,
+      "notes": "@HMS_Spey; verified/enabled"
     },
     {
       "vesselId": "hms-ledbury",

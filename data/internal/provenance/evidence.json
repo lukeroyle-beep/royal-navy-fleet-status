@@ -5683,6 +5683,989 @@
       "historicalOnly": true,
       "correctionOf": null,
       "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DUNCAN_X_OFFICIAL_2026_08_23",
+      "vesselId": "hms-duncan",
+      "sourceId": "X_HMS_DUNCAN",
+      "canonicalUrl": "https://x.com/HMSDuncan/status/2091579620168528120",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-23T17:33:35.775Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-23T17:33:35.775Z",
+        "to": "2026-08-23T17:33:35.775Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Copenhagen, Denmark; official arrival reported 23 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 55.704,
+            "lon": 12.596,
+            "label": "Copenhagen harbour (representative city/port location)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_HMS_DUNCAN_OFFICIAL_2026_08_23",
+      "contentHash": "acf1a8ff754db67116677311126ddad92ed7a2d393f7b308d163b3e625a87467",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "HMS Duncan's official account reported arrival in Copenhagen.",
+      "archiveUrl": null,
+      "analystNotes": "The indexed official post says the ship had arrived. Publication time is used only as a contemporaneous observation proxy; the marker is a representative harbour location, not an exact berth or live position.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DUNCAN_NAVY_LOOKOUT_2026_08_23",
+      "vesselId": "hms-duncan",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2091593538593038774",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-23T18:28:54.186Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-23T18:28:54.186Z",
+        "to": "2026-08-23T18:28:54.186Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Copenhagen, Denmark; official arrival reported 23 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 55.704,
+            "lon": 12.596,
+            "label": "Copenhagen harbour (representative city/port location)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_NAVY_LOOKOUT_DUNCAN_2026_08_23",
+      "contentHash": "2ca08c59726833395ac19b4483d5effa6e2391874a04a27495a3ad91464852a3",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout independently reported HMS Duncan's Copenhagen arrival.",
+      "archiveUrl": null,
+      "analystNotes": "Publication time is a contemporaneous-claim proxy, not an asserted image-capture time. This corroborates the official unit account without increasing geographic precision.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DUNCAN_FORCES_NEWS_2026_08_20",
+      "vesselId": "hms-duncan",
+      "sourceId": "FORCES_NEWS_NAVY_INDEX",
+      "canonicalUrl": "https://www.forcesnews.com/services/navy/hms-duncan-slips-away-cover-darkness-resume-second-phase-her-deployment",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-20T15:22:00Z",
+      "publicationPrecision": "minute",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Northern European waters; Operation FIRECREST phase two",
+          "classification": "approximate",
+          "position": null
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "status",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_FORCES_NEWS_DUNCAN_DEPARTURE_2026_08_20",
+      "contentHash": "4efff8a4eb329890c57135ccd69641d708cf47792256c67acf59499ef5458e72",
+      "collectionMethod": "manual-public-index-review",
+      "summary": "Forces News reported Duncan leaving Portsmouth for phase two of Operation FIRECREST.",
+      "archiveUrl": null,
+      "analystNotes": "The article gives a departure time but the captured text does not expose an unambiguous event date, so no observation interval was manufactured. It supports deployment context, not the Copenhagen marker.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TRENT_RN_CARIBBEAN_2026_08_21",
+      "vesselId": "hms-trent",
+      "sourceId": "ROYAL_NAVY_NEWS_INDEX",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/news/2026/august/21/20260821-royal-navy-patrol-ship-launches-drone-in-milestone-flight",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-21T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-21T00:00:00Z",
+        "to": "2026-08-21T23:59:59Z",
+        "precision": "publication-day",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Caribbean region; hurricane-season patrol reported 21 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 15,
+            "lon": -70,
+            "label": "Caribbean Sea (representative regional location)"
+          }
+        },
+        "status": "Deployed"
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ROYAL_NAVY_TRENT_CARIBBEAN_2026_08_21",
+      "contentHash": "33b5b2ce6cd37493dc529473efebf213263c8391c84bd2eb6c61c8284ec6e090",
+      "collectionMethod": "manual-public-index-review",
+      "summary": "The Royal Navy reported HMS Trent currently patrolling the Caribbean during hurricane season.",
+      "archiveUrl": null,
+      "analystNotes": "The article is dated only to the day. Its present-tense statement is bounded to the publication day as an inferred proxy. The regional marker does not assert the ship's exact position.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SPEY_NAVY_LOOKOUT_2026_08_22",
+      "vesselId": "hms-spey",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2091086459784572997",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-22T08:53:57.177Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-22T08:53:57.177Z",
+        "to": "2026-08-22T08:53:57.177Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Singapore; maintenance period nearing completion, reported 22 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 1.285,
+            "lon": 103.835,
+            "label": "Singapore port area (representative)"
+          }
+        }
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_DOCKS_UK_SPEY_2026_08_22",
+      "contentHash": "3489ab715abbf50f2c5e5b4b931fe78feeef2aba3979d32294e22dad31d7c948",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS Spey nearing completion of maintenance in Singapore.",
+      "archiveUrl": null,
+      "analystNotes": "The post credits @docks_uk, retained as the origin. Publication time is a contemporaneous-claim proxy; no exact yard or berth is asserted.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TAMAR_NAVY_LOOKOUT_2026_08_20",
+      "vesselId": "hms-tamar",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090328995636121819",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-20T06:44:03.651Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-20T06:44:03.651Z",
+        "to": "2026-08-20T06:44:03.651Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Ream Naval Base, Cambodia; arrival reported 20 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 10.504,
+            "lon": 103.611,
+            "label": "Ream Naval Base area (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_UK_IN_CAMBODIA_TAMAR_2026_08_20",
+      "contentHash": "0fe92b7ed3f6e657b64678d27dc7193bbe267f6f158effbe2264c87a0741aa34",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS Tamar arriving at Ream Naval Base for a defence-diplomacy visit.",
+      "archiveUrl": null,
+      "analystNotes": "The distribution post attributes the underlying report to UK in Cambodia. Publication time is a contemporaneous-claim proxy, and the coordinate is representative rather than an exact berth.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SCOTT_NAVY_LOOKOUT_2026_08_19",
+      "vesselId": "hms-scott",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090030517445894493",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T10:58:00.905Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-19T05:00:00Z",
+        "to": "2026-08-19T10:58:00.905Z",
+        "precision": "part-of-day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Gibraltar; arrival reported 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 36.142,
+            "lon": -5.355,
+            "label": "Gibraltar harbour (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_GIBDAN_DFERRO_SCOTT_TIDESPRING_2026_08_19",
+      "contentHash": "3f317e4136d634b2365978555b74671983d70e5a5543c08bc42e3f403b0cd9ea",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS Scott arriving in Gibraltar.",
+      "archiveUrl": null,
+      "analystNotes": "The post says the arrival occurred that morning and credits @Gibdan1 and @dferro10. The time interval is deliberately broad and the marker is not an exact berth.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDESPRING_NAVY_LOOKOUT_2026_08_19",
+      "vesselId": "rfa-tidespring",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090030517445894493",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T10:58:00.905Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-19T10:58:00.905Z",
+        "to": "2026-08-19T10:58:00.905Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Gibraltar; reported alongside 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 36.142,
+            "lon": -5.355,
+            "label": "Gibraltar harbour (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_GIBDAN_DFERRO_SCOTT_TIDESPRING_2026_08_19",
+      "contentHash": "3f317e4136d634b2365978555b74671983d70e5a5543c08bc42e3f403b0cd9ea",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported RFA Tidespring alongside in Gibraltar.",
+      "archiveUrl": null,
+      "analystNotes": "The same post identifies Tidespring alongside and credits named visual contributors. Publication time is a contemporaneous-claim proxy; no exact berth is asserted.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SUTHERLAND_NAVY_LOOKOUT_2026_08_19",
+      "vesselId": "hms-sutherland",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090037498424557662",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T11:25:45.300Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-19T11:25:45.300Z",
+        "to": "2026-08-19T11:25:45.300Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "HMNB Devonport; support period reported 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.383,
+            "lon": -4.184,
+            "label": "HMNB Devonport (representative)"
+          }
+        },
+        "status": "In re-fit"
+      },
+      "claimContext": "maintenance",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_NAVY_LOOKOUT_SUTHERLAND_2026_08_19",
+      "contentHash": "317022c0847e27826631bb9bb4f43171a105e23aa145cf9d8cfa3c9f66f0419a",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS Sutherland in a support period at Devonport.",
+      "archiveUrl": null,
+      "analystNotes": "The indexed wording is current-state reporting. Publication time is used as a contemporaneous proxy. The public status label 'In re-fit' represents the reported support period and does not assert readiness or an exact berth.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_ST_ALBANS_NAVY_LOOKOUT_2026_08_18",
+      "vesselId": "hms-st-albans",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2089727984450015686",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-18T14:55:51.418Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-18T14:55:51.418Z",
+        "to": "2026-08-18T14:55:51.418Z",
+        "precision": "publication-proximate",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 56.049,
+            "lon": -4.832,
+            "label": "Glen Mallan jetty area, Loch Long (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_WOLFIE250_ST_ALBANS_2026_08_18",
+      "contentHash": "dfd5d741b2822441aea4cd398d6d18c82198b73e22af9a15bc9def3e1e408944",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS St Albans alongside at Glen Mallan Ammunition Jetty.",
+      "archiveUrl": null,
+      "analystNotes": "The post credits @wolfie250. Publication time is a contemporaneous-claim proxy. A jetty call does not by itself establish deployment or readiness.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_TYNE_PORTSMOUTH_VISUAL_2026_08_21",
+      "vesselId": "hms-tyne",
+      "sourceId": "PORTSMOUTH_HARBOUR_PHOTOGRAPHY",
+      "canonicalUrl": "https://www.facebook.com/PortsmouthHarbourPhotography/posts/hms-tyne-victoria-of-wight-entering-portsmouth-harbour-uk21-august-2026portsmout/1049479361277358/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-21T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-21T00:00:00Z",
+        "to": "2026-08-21T23:59:59Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth Harbour; entering observed 21 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.806,
+            "lon": -1.106,
+            "label": "Portsmouth Harbour (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_PORTSMOUTH_HARBOUR_PHOTOGRAPHY_TYNE_2026_08_21",
+      "contentHash": "973f7c7b5900b6e96c812a76f47971602b150a9ffe6cc4b15cdb187b86349c87",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Dated harbour photography reported HMS Tyne entering Portsmouth.",
+      "archiveUrl": null,
+      "analystNotes": "The observation date is explicit but no clock time was recovered. A later KHM schedule was reviewed as intent only and is not used as evidence that a movement occurred.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_HURWORTH_PORTSMOUTH_VISUAL_2026_08_12",
+      "vesselId": "hms-hurworth",
+      "sourceId": "PORTSMOUTH_HARBOUR_PHOTOGRAPHY",
+      "canonicalUrl": "https://www.facebook.com/PortsmouthHarbourPhotography/videos/hms-hurworth-m39-hunt-class-mine-countermeasures-vessel-departing-portsmouth-har/2087374638831873/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-12T17:57:00Z",
+      "publicationPrecision": "minute",
+      "observation": {
+        "from": "2026-08-12T00:00:00Z",
+        "to": "2026-08-12T23:59:59Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Portsmouth Harbour; departing observed 12 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.766,
+            "lon": -1.063,
+            "label": "Portsmouth approaches (representative outbound location)"
+          }
+        }
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_PORTSMOUTH_HARBOUR_PHOTOGRAPHY_HURWORTH_2026_08_12",
+      "contentHash": "c998189bed9f57c50829fee598e4555344c54be7adf2969a5611df607d0fc5cf",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Dated harbour photography reported HMS Hurworth departing Portsmouth during the eclipse.",
+      "archiveUrl": null,
+      "analystNotes": "The visual and caption identify HMS Hurworth departing Portsmouth on 12 August. The observation is retained at day precision; the coordinate is a representative outbound point, not a live fix.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_MERSEY_NAVY_LOOKOUT_2026_08_15",
+      "vesselId": "hms-mersey",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://www.instagram.com/reel/DcD_512pGXN/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-15T13:29:51Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-15T05:00:00Z",
+        "to": "2026-08-15T13:29:51Z",
+        "precision": "part-of-day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.766,
+            "lon": -1.063,
+            "label": "Portsmouth approaches (representative outbound location)"
+          }
+        }
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_NAVY_LOOKOUT_MERSEY_SEVERN_2026_08_15",
+      "contentHash": "af8febcc1f4d10e630ebe673053fc6327b8dd85c02f9132bf781f1857d65f5fd",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS Mersey outbound from Portsmouth.",
+      "archiveUrl": null,
+      "analystNotes": "The source says the departure occurred that morning. The marker is a last-observed approach point, not a current fix; the source's mission speculation is not promoted.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_SEVERN_NAVY_LOOKOUT_2026_08_15",
+      "vesselId": "hms-severn",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://www.instagram.com/reel/DcD_512pGXN/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-15T13:29:51Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-14T23:00:00Z",
+        "to": "2026-08-15T13:29:51Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "UK east-coast waters; last confirmed outbound from Harwich on 15 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 51.946,
+            "lon": 1.292,
+            "label": "Harwich approaches (representative outbound location)"
+          }
+        }
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_NAVY_LOOKOUT_MERSEY_SEVERN_2026_08_15",
+      "contentHash": "af8febcc1f4d10e630ebe673053fc6327b8dd85c02f9132bf781f1857d65f5fd",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported HMS Severn outbound from Harwich.",
+      "archiveUrl": null,
+      "analystNotes": "The source explicitly says Severn sailed from Harwich that day. The mission described as likely is excluded; the marker is not a current fix.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_PROTEUS_NAVY_LOOKOUT_2026_08_21",
+      "vesselId": "rfa-proteus",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090747161709367299",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-21T10:25:42.212Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-21T05:00:00Z",
+        "to": "2026-08-21T10:25:42.212Z",
+        "precision": "part-of-day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Plymouth Sound; reported operating under dynamic positioning on 21 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.342,
+            "lon": -4.146,
+            "label": "Plymouth Sound (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_RFA_NOSTALGIA_PROTEUS_2026_08_21",
+      "contentHash": "39bba0ac36415544fbb3559f384329a785811b303eb73c90242e0bd3c44758f2",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported RFA Proteus in Plymouth Sound.",
+      "archiveUrl": null,
+      "analystNotes": "The post explicitly says the observation occurred that morning and credits RfaNostalgia, retained as the origin. The marker represents Plymouth Sound, not a live fix.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDEFORCE_INBOUND_2026_08_20",
+      "vesselId": "rfa-tideforce",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090393197893587420",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-20T10:59:10.662Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-20T05:00:00Z",
+        "to": "2026-08-20T10:59:10.662Z",
+        "precision": "part-of-day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Plymouth Sound; inbound to Devonport on 20 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.342,
+            "lon": -4.146,
+            "label": "Plymouth Sound (representative inbound location)"
+          }
+        }
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_ROCKHOPPAS_TIDEFORCE_2026_08_20",
+      "contentHash": "5383a75a41ad632923f91c7141549793b6bb6738b75dea1d368d60dbece0f007",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported RFA Tideforce inbound to Devonport.",
+      "archiveUrl": null,
+      "analystNotes": "The post credits @Rockhoppas. This transition is retained but superseded for current assessment by the later outbound report.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_TIDEFORCE_OUTBOUND_2026_08_21",
+      "vesselId": "rfa-tideforce",
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "canonicalUrl": "https://x.com/NavyLookout/status/2090776284871692786",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-21T12:21:25.715Z",
+      "publicationPrecision": "instant",
+      "observation": {
+        "from": "2026-08-20T23:00:00Z",
+        "to": "2026-08-21T12:21:25.715Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Plymouth Sound; last confirmed outbound from Devonport on 21 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 50.342,
+            "lon": -4.146,
+            "label": "Plymouth Sound (representative outbound location)"
+          }
+        }
+      },
+      "claimContext": "underway",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary-or-unknown",
+      "originId": "ORIGIN_NAVY_LOOKOUT_TIDEFORCE_2026_08_21",
+      "contentHash": "1e8c1fd154aa354ad816e90347ddb9f3292a62db8363400fa2baf3aeb09a6054",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Navy Lookout reported RFA Tideforce outbound from Devonport.",
+      "archiveUrl": null,
+      "analystNotes": "The report is the latest transition in the reviewed window. The coordinate marks Plymouth Sound and does not imply the vessel remained there after departure.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_DRAGON_MOMBASA_2026_08_12",
+      "vesselId": "hms-dragon",
+      "sourceId": "NAVY_LOOKOUT_INDEX",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-ships-take-respite-in-kenya-after-months-in-middle-east/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-12T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-12T00:00:00Z",
+        "to": "2026-08-12T23:59:59Z",
+        "precision": "publication-day",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": -4.069,
+            "lon": 39.64,
+            "label": "Port of Mombasa (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_MOD_DRAGON_LYME_BAY_MOMBASA_2026_08_12",
+      "contentHash": "c1c75921eaf242227187776a0f9c3ea57ce69dba3e519883a45fdb6eaaf830bb",
+      "collectionMethod": "manual-public-index-review",
+      "summary": "Navy Lookout reported HMS Dragon in Mombasa for maintenance, resupply and crew rest.",
+      "archiveUrl": null,
+      "analystNotes": "The article attributes the stop to the Ministry of Defence and describes the ships as alongside. Publication day is used as an inferred observation range. This missed cutoff-day report is historical but is the latest dated public location found.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_RFA_LYME_BAY_MOMBASA_2026_08_12",
+      "vesselId": "rfa-lyme-bay",
+      "sourceId": "NAVY_LOOKOUT_INDEX",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-ships-take-respite-in-kenya-after-months-in-middle-east/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-12T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-12T00:00:00Z",
+        "to": "2026-08-12T23:59:59Z",
+        "precision": "publication-day",
+        "basis": "inferred"
+      },
+      "claim": {
+        "location": {
+          "name": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": -4.069,
+            "lon": 39.64,
+            "label": "Port of Mombasa (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_MOD_DRAGON_LYME_BAY_MOMBASA_2026_08_12",
+      "contentHash": "c1c75921eaf242227187776a0f9c3ea57ce69dba3e519883a45fdb6eaaf830bb",
+      "collectionMethod": "manual-public-index-review",
+      "summary": "Navy Lookout reported RFA Lyme Bay in Mombasa for maintenance, resupply and crew rest.",
+      "archiveUrl": null,
+      "analystNotes": "The article attributes the stop to the Ministry of Defence and describes the ships as alongside. Publication day is used as an inferred observation range. This missed cutoff-day report is historical but is the latest dated public location found.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_RICHMOND_DECOMMISSIONED_2026_08_19",
+      "vesselId": "hms-richmond",
+      "sourceId": "NAVY_LOOKOUT_INDEX",
+      "canonicalUrl": "https://www.navylookout.com/royal-navy-and-us-navy-prepare-to-sink-retired-frigate-in-atlantic-thunder-live-fire-exercise/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-19T00:00:00Z",
+        "to": "2026-08-19T23:59:59Z",
+        "precision": "publication-day",
+        "basis": "inferred"
+      },
+      "claim": {
+        "status": "Decommissioned"
+      },
+      "claimContext": "status",
+      "geographicPrecision": "unknown",
+      "directness": "direct",
+      "primaryness": "secondary",
+      "originId": "ORIGIN_NAVY_LOOKOUT_RICHMOND_STATUS_2026_08_19",
+      "contentHash": "c1be9282319bd70b4965225301afb9c76d0956edb5b723ac4570f13d3aa94572",
+      "collectionMethod": "manual-public-index-review",
+      "summary": "Navy Lookout reported HMS Richmond had been decommissioned.",
+      "archiveUrl": null,
+      "analystNotes": "The article explicitly says Richmond has now been decommissioned. The location remains the previous last-known Devonport report; no new berth or movement is inferred.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_RICHMOND_RN_UNIT_PAGE_2026_08_23",
+      "vesselId": "hms-richmond",
+      "sourceId": "ROYAL_NAVY_UNIT_PAGES",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-richmond",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": null,
+      "publicationPrecision": "unknown",
+      "observation": {
+        "from": null,
+        "to": null,
+        "precision": "unknown",
+        "basis": "unknown"
+      },
+      "claim": {
+        "status": "In decommissioning"
+      },
+      "claimContext": "status",
+      "geographicPrecision": "unknown",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_ROYAL_NAVY_RICHMOND_UNIT_PAGE_2026_08_23",
+      "contentHash": "7ed45ee0cfea9621dc7119aae6d8aa0d615500016b1b69968a217404425723f1",
+      "collectionMethod": "manual-unit-page-review",
+      "summary": "The Royal Navy unit page describes HMS Richmond as in the process of decommissioning.",
+      "archiveUrl": null,
+      "analystNotes": "The official page corroborates the lifecycle transition but exposes no publication or completion date. It is not used to manufacture a location or exact decommissioning time.",
+      "historicalOnly": true,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_BITER_BANGOR_MARINA_2026_08_19",
+      "vesselId": "hms-biter",
+      "sourceId": "BANGOR_MARINA_SOCIAL",
+      "canonicalUrl": "https://www.facebook.com/bangormarina/posts/a-very-warm-welcome-to-the-officers-and-cadets-of-ts-royalist-joining-us-here-at/1455058416646939/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-19T00:00:00Z",
+        "to": "2026-08-19T23:59:59Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.669,
+            "lon": -5.667,
+            "label": "Bangor Marina, Northern Ireland (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_SEA_CADETS_BANGOR_VISIT_2026_08_19",
+      "contentHash": "cc82c1481e0203a302541ad421ea7c1550ed12a533b2447d724f0c2a3191a051",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Bangor Marina reported HMS Biter visiting Bangor for Sea Cadet training.",
+      "archiveUrl": null,
+      "analystNotes": "The post states that the vessels were visiting Bangor that day. The date is retained at day precision; the marker represents the marina, not an exact berth.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_BITER_SEA_CADETS_NI_2026_08_19",
+      "vesselId": "hms-biter",
+      "sourceId": "SEA_CADETS_NORTHERN_IRELAND",
+      "canonicalUrl": "https://www.facebook.com/SeaCadetsNorthern/posts/today-sea-cadets-units-from-across-northern-ireland-were-invited-to-spend-an-aft/1968789153192567/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-19T00:00:00Z",
+        "to": "2026-08-19T23:59:59Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.669,
+            "lon": -5.667,
+            "label": "Bangor Marina, Northern Ireland (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_SEA_CADETS_BANGOR_VISIT_2026_08_19",
+      "contentHash": "c9e32e20ed131e042d00e6ae09dbdcf48a83f0d23b5d15ac3af972a9d40ec22a",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Sea Cadets Northern Ireland reported training at sea from HMS Biter during the Bangor visit.",
+      "archiveUrl": null,
+      "analystNotes": "This institution-level corroboration describes the same event and therefore retains the same originId rather than being counted as an independent observation.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_CHARGER_BANGOR_MARINA_2026_08_19",
+      "vesselId": "hms-charger",
+      "sourceId": "BANGOR_MARINA_SOCIAL",
+      "canonicalUrl": "https://www.facebook.com/bangormarina/posts/a-very-warm-welcome-to-the-officers-and-cadets-of-ts-royalist-joining-us-here-at/1455058416646939/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-19T00:00:00Z",
+        "to": "2026-08-19T23:59:59Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.669,
+            "lon": -5.667,
+            "label": "Bangor Marina, Northern Ireland (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_SEA_CADETS_BANGOR_VISIT_2026_08_19",
+      "contentHash": "cc82c1481e0203a302541ad421ea7c1550ed12a533b2447d724f0c2a3191a051",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Bangor Marina reported HMS Charger visiting Bangor for Sea Cadet training.",
+      "archiveUrl": null,
+      "analystNotes": "The post states that the vessels were visiting Bangor that day. The date is retained at day precision; the marker represents the marina, not an exact berth.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    },
+    {
+      "evidenceId": "EVID_HMS_CHARGER_SEA_CADETS_NI_2026_08_19",
+      "vesselId": "hms-charger",
+      "sourceId": "SEA_CADETS_NORTHERN_IRELAND",
+      "canonicalUrl": "https://www.facebook.com/SeaCadetsNorthern/posts/today-sea-cadets-units-from-across-northern-ireland-were-invited-to-spend-an-aft/1968789153192567/",
+      "retrievedAt": "2026-08-23T20:47:26Z",
+      "retrievalPrecision": "instant",
+      "publishedAt": "2026-08-19T00:00:00Z",
+      "publicationPrecision": "day",
+      "observation": {
+        "from": "2026-08-19T00:00:00Z",
+        "to": "2026-08-19T23:59:59Z",
+        "precision": "day",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
+          "classification": "approximate",
+          "position": {
+            "lat": 54.669,
+            "lon": -5.667,
+            "label": "Bangor Marina, Northern Ireland (representative)"
+          }
+        }
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "approximate",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "ORIGIN_SEA_CADETS_BANGOR_VISIT_2026_08_19",
+      "contentHash": "c9e32e20ed131e042d00e6ae09dbdcf48a83f0d23b5d15ac3af972a9d40ec22a",
+      "collectionMethod": "manual-search-index-review",
+      "summary": "Sea Cadets Northern Ireland reported training at sea from HMS Charger during the Bangor visit.",
+      "archiveUrl": null,
+      "analystNotes": "This institution-level corroboration describes the same event and therefore retains the same originId rather than being counted as an independent observation.",
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
     }
   ]
 }

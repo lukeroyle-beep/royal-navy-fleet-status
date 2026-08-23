@@ -21,10 +21,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - if: github.event_name == 'pull_request'
-        run: npm run validate:decisions -- --base-ref "${{ github.event.pull_request.base.sha }}"
-      - if: github.event_name == 'pull_request'
-        run: npm run validate:history -- --base-ref "${{ github.event.pull_request.base.sha }}"
+      - name: Validate append-only ledgers
+        env:
+          BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          npm run validate:decisions -- --base-ref "$BASE_REF"
+          npm run validate:history -- --base-ref "$BASE_REF"
+          npm run validate:sweeps -- --base-ref "$BASE_REF"
       - run: npm run validate:changes
       - run: npm run build
       - run: npm run build:pages

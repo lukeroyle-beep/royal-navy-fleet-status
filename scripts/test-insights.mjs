@@ -2,6 +2,12 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import { insightsMatchDataset } from "../src/components/FleetInsightsLoader.js";
+import {
+  formatDatasetReleaseLabel,
+  formatPublicationChangeLabels,
+} from "../src/utils/release.js";
+import { publicationReleaseFields } from "./lib/publication-release.mjs";
+import { buildStatusSnapshot } from "./lib/status-snapshot.mjs";
 
 import {
   formatSignedDelta,
@@ -9,6 +15,7 @@ import {
   getEvidenceFreshness,
   getVesselAvailability,
   getVesselChange,
+  parsePhysicalStatusHistory,
   parseStatusHistory,
   shortClassName,
   validatePublicationChanges,
@@ -27,7 +34,7 @@ const changes = validatePublicationChanges(
 );
 
 assert.equal(
-  insightsMatchDataset({ changes, history }, fleet.metadata.asOfDate),
+  insightsMatchDataset({ changes, history }, fleet.metadata),
   true,
 );
 assert.equal(
@@ -37,7 +44,7 @@ assert.equal(
 assert.equal(
   insightsMatchDataset(
     { changes, history: history.slice(0, -1) },
-    fleet.metadata.asOfDate,
+    fleet.metadata,
   ),
   false,
 );
@@ -47,8 +54,45 @@ assert.ok(history[0].snapshotDate < history.at(-1).snapshotDate);
 assert.equal(history.at(-1).snapshotDate, fleet.metadata.asOfDate);
 assert.equal(Object.keys(history.at(-1).statuses).length, fleet.vessels.length);
 
-assert.ok(changes.previousAsOfDate < changes.currentAsOfDate);
+assert.equal(changes.previousAsOfDate, changes.currentAsOfDate);
 assert.equal(changes.currentAsOfDate, fleet.metadata.asOfDate);
+assert.equal(changes.previousReleaseRevision ?? 1, 1);
+assert.equal(changes.currentReleaseRevision ?? 1, 2);
+assert.equal(changes.changes.length, 18);
+assert.equal(changes.counts.status, 2);
+assert.equal(changes.counts.location, 18);
+assert.equal(changes.changes.some((change) => change.vesselId === "hms-richmond"), false);
+assert.equal(changes.changes.some((change) => change.vesselId === "hms-hurworth"), true);
+assert.equal(
+  formatDatasetReleaseLabel(fleet.metadata),
+  "23 August 2026 · correction r2",
+);
+assert.deepEqual(formatPublicationChangeLabels(changes), {
+  count: `23 Aug · correction r2 · ${changes.changes.length} vessels`,
+  summary:
+    `${changes.changes.length} vessels changed in the 23 August 2026 correction ` +
+    "from r1 to r2.",
+});
+assert.equal(formatDatasetReleaseLabel({ asOfDate: "2026-08-23" }), "23 August 2026");
+assert.equal(
+  formatDatasetReleaseLabel({
+    asOfDate: "2026-08-30",
+    releaseRevision: 1,
+    releasedAt: "2026-08-30T08:00:00Z",
+  }),
+  "30 August 2026",
+);
+assert.deepEqual(
+  formatPublicationChangeLabels({
+    previousAsOfDate: "2026-08-12",
+    currentAsOfDate: "2026-08-23",
+    changes: [{}, {}],
+  }),
+  {
+    count: "12 Aug · 2 vessels",
+    summary: "2 vessels changed between 12 August 2026 and 23 August 2026.",
+  },
+);
 assert.equal(
   changes.currentMappedCount,
   fleet.vessels.filter((vessel) => vessel.position || vessel.symbolicPosition).length,
@@ -164,6 +208,184 @@ assert.equal(
   false,
 );
 
+const correctedHistoryText = [
+  {
+    schemaVersion: 1,
+    snapshotDate: "2026-08-16",
+    statuses: { x: "Available" },
+  },
+  {
+    schemaVersion: 1,
+    snapshotDate: "2026-08-23",
+    statuses: { x: "Available" },
+  },
+  {
+    schemaVersion: 2,
+    snapshotDate: "2026-08-23",
+    releaseRevision: 2,
+    releasedAt: "2026-08-23T20:15:00+01:00",
+    correctionReason: "Late official arrival report incorporated.",
+    statuses: { x: "Deployed" },
+  },
+].map(JSON.stringify).join("\n");
+const physicalCorrectedHistory = parsePhysicalStatusHistory(correctedHistoryText);
+const correctedHistory = parseStatusHistory(correctedHistoryText);
+assert.equal(physicalCorrectedHistory.length, 3);
+assert.equal(correctedHistory.length, 2);
+assert.equal(correctedHistory.at(-1).releaseRevision, 2);
+assert.equal(correctedHistory.at(-1).statuses.x, "Deployed");
+assert.equal(
+  getClassSnapshotSummary(
+    [{ id: "x", vesselClass: "Test class", status: "Deployed" }],
+    "Test class",
+    correctedHistory,
+    "2026-08-23",
+  ).rolling.observationCount,
+  2,
+);
+
+const correctedChanges = validatePublicationChanges({
+  schemaVersion: 2,
+  previousAsOfDate: "2026-08-23",
+  currentAsOfDate: "2026-08-23",
+  previousReleaseRevision: 1,
+  currentReleaseRevision: 2,
+  previousReleasedAt: null,
+  currentReleasedAt: "2026-08-23T20:15:00+01:00",
+  counts: {},
+  changes: [],
+});
+const correctedMetadata = {
+  asOfDate: "2026-08-23",
+  releaseRevision: 2,
+  releasedAt: "2026-08-23T20:15:00+01:00",
+};
+assert.deepEqual(
+  publicationReleaseFields({ asOfDate: "2026-08-23" }, correctedMetadata),
+  {
+    schemaVersion: 2,
+    previousAsOfDate: "2026-08-23",
+    currentAsOfDate: "2026-08-23",
+    previousReleaseRevision: 1,
+    currentReleaseRevision: 2,
+    previousReleasedAt: null,
+    currentReleasedAt: "2026-08-23T20:15:00+01:00",
+  },
+);
+assert.throws(
+  () => publicationReleaseFields(correctedMetadata, correctedMetadata),
+  /must follow the base release identity/,
+);
+assert.throws(
+  () =>
+    publicationReleaseFields(
+      correctedMetadata,
+      {
+        asOfDate: "2026-08-30",
+        releaseRevision: 2,
+        releasedAt: "2026-08-30T08:00:00Z",
+      },
+    ),
+  /new dataset date.*releaseRevision 1/i,
+);
+assert.equal(
+  insightsMatchDataset({ changes: correctedChanges, history: correctedHistory }, correctedMetadata),
+  true,
+);
+assert.equal(
+  insightsMatchDataset(
+    { changes: correctedChanges, history: correctedHistory },
+    { ...correctedMetadata, releaseRevision: 1 },
+  ),
+  false,
+);
+
+const correctionFleet = {
+  metadata: correctedMetadata,
+  vessels: [{ id: "x", name: "Test vessel", status: "Deployed" }],
+};
+assert.throws(
+  () => buildStatusSnapshot({ fleet: correctionFleet, snapshots: physicalCorrectedHistory.slice(0, -1) }),
+  /--correction.*--reason/,
+);
+assert.throws(
+  () =>
+    buildStatusSnapshot({
+      fleet: correctionFleet,
+      snapshots: physicalCorrectedHistory.slice(0, -1),
+      correction: true,
+    }),
+  /--reason/,
+);
+assert.deepEqual(
+  buildStatusSnapshot({
+    fleet: correctionFleet,
+    snapshots: physicalCorrectedHistory.slice(0, -1),
+    correction: true,
+    reason: "  Late official arrival report incorporated.  ",
+  }),
+  {
+    schemaVersion: 2,
+    snapshotDate: "2026-08-23",
+    releaseRevision: 2,
+    releasedAt: "2026-08-23T20:15:00+01:00",
+    correctionReason: "Late official arrival report incorporated.",
+    statuses: { x: "Deployed" },
+  },
+);
+assert.throws(
+  () =>
+    buildStatusSnapshot({
+      fleet: { ...correctionFleet, metadata: { ...correctedMetadata, releaseRevision: 3 } },
+      snapshots: physicalCorrectedHistory.slice(0, -1),
+      correction: true,
+      reason: "Skipped revision",
+    }),
+  /increment.*exactly one/,
+);
+assert.equal(
+  buildStatusSnapshot({
+    fleet: {
+      metadata: {
+        asOfDate: "2026-08-30",
+        releaseRevision: 1,
+        releasedAt: "2026-08-30T08:00:00Z",
+      },
+      vessels: correctionFleet.vessels,
+    },
+    snapshots: physicalCorrectedHistory,
+  }).schemaVersion,
+  2,
+);
+assert.throws(
+  () =>
+    buildStatusSnapshot({
+      fleet: {
+        metadata: {
+          asOfDate: "2026-08-30",
+          releaseRevision: 1,
+          releasedAt: "2026-08-30T08:00:00Z",
+        },
+        vessels: correctionFleet.vessels,
+      },
+      snapshots: physicalCorrectedHistory,
+      correction: true,
+      reason: "Not a same-day correction",
+    }),
+  /only valid for the latest snapshot date/,
+);
+assert.throws(
+  () =>
+    buildStatusSnapshot({
+      fleet: {
+        metadata: { asOfDate: "2026-08-30" },
+        vessels: correctionFleet.vessels,
+      },
+      snapshots: physicalCorrectedHistory,
+    }),
+  /cannot return to the legacy format/,
+);
+
 assert.throws(() => parseStatusHistory("not json"), /not valid JSON/);
 assert.throws(
   () =>
@@ -175,10 +397,19 @@ assert.throws(
 assert.throws(
   () =>
     parseStatusHistory(
+      '{"schemaVersion":2,"snapshotDate":"2026-08-23","releaseRevision":1,' +
+        '"releasedAt":"2026-08-23T08:00:00Z","statuses":{"x":"Available"}}\n' +
+        '{"schemaVersion":1,"snapshotDate":"2026-08-30","statuses":{"x":"Available"}}',
+    ),
+  /cannot return to the legacy schema/,
+);
+assert.throws(
+  () =>
+    parseStatusHistory(
       '{"schemaVersion":1,"snapshotDate":"2026-08-09","statuses":{"x":"Available"}}\n' +
         '{"schemaVersion":1,"snapshotDate":"2026-08-02","statuses":{"x":"Available"}}',
     ),
-  /ordered by unique date/,
+  /ordered by date and release revision/,
 );
 assert.throws(
   () =>
@@ -187,6 +418,41 @@ assert.throws(
     ),
   /invalid status/,
 );
+assert.throws(
+  () =>
+    parseStatusHistory(
+      '{"schemaVersion":1,"snapshotDate":"2026-08-23","statuses":{"x":"Available"}}\n' +
+        '{"schemaVersion":2,"snapshotDate":"2026-08-23","releaseRevision":2,' +
+        '"releasedAt":"2026-08-23T20:15:00Z","statuses":{"x":"Deployed"}}',
+    ),
+  /v2 correction with a reason/,
+);
+assert.throws(
+  () =>
+    parseStatusHistory(
+      '{"schemaVersion":2,"snapshotDate":"2026-08-23","releaseRevision":1,' +
+        '"releasedAt":"2026-08-23","statuses":{"x":"Available"}}',
+    ),
+  /invalid/,
+);
 assert.throws(() => validatePublicationChanges({ schemaVersion: 1 }), /invalid/);
+assert.throws(
+  () =>
+    validatePublicationChanges({
+      ...correctedChanges,
+      currentReleaseRevision: 1,
+    }),
+  /release identities are invalid/,
+);
+assert.throws(
+  () =>
+    validatePublicationChanges({
+      ...correctedChanges,
+      previousReleaseRevision: 2,
+      currentReleaseRevision: 3,
+      previousReleasedAt: null,
+    }),
+  /release identities are invalid/,
+);
 
 console.log("Fleet insights tests passed.");

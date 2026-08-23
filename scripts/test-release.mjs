@@ -92,6 +92,8 @@ assert.doesNotMatch(
 );
 assert.doesNotMatch(appSource, /URLSearchParams|pushState|replaceState/);
 assert.match(appSource, /insightsMatchDataset/);
+assert.match(appSource, /formatDatasetReleaseLabel\(dataset\.metadata\)/);
+assert.match(appSource, /formatPublicationChangeLabels\(publication\)/);
 assert.match(appSource, /selectedClass = ""/);
 assert.match(appSource, /getFleetStatusSummary/);
 assert.match(appSource, /withheld:\s*"Withheld"/);

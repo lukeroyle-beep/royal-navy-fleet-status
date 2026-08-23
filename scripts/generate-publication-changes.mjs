@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
+import { publicationReleaseFields } from "./lib/publication-release.mjs";
+
 const currentPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const outputPath = new URL("../data/royal-navy/publication-changes.json", import.meta.url);
 const baseRef = readArgument("--base-ref");
@@ -12,13 +14,7 @@ const previous = JSON.parse(
     encoding: "utf8",
   }),
 );
-if (
-  !isIsoDate(previous.metadata?.asOfDate) ||
-  !isIsoDate(current.metadata?.asOfDate) ||
-  previous.metadata.asOfDate >= current.metadata.asOfDate
-) {
-  throw new Error("The base and current fleet datasets must have valid ascending publication dates.");
-}
+const releaseFields = publicationReleaseFields(previous.metadata, current.metadata);
 const previousById = new Map(previous.vessels.map((vessel) => [vessel.id, vessel]));
 const counts = { status: 0, location: 0, mapping: 0, marker: 0, evidence: 0 };
 const changes = [];
@@ -108,9 +104,7 @@ for (const vessel of previous.vessels) {
 }
 
 const result = {
-  schemaVersion: 1,
-  previousAsOfDate: previous.metadata.asOfDate,
-  currentAsOfDate: current.metadata.asOfDate,
+  ...releaseFields,
   previousMappedCount: previous.vessels.filter(hasMapPosition).length,
   currentMappedCount: current.vessels.filter(hasMapPosition).length,
   counts,
@@ -149,10 +143,4 @@ function formatEvidenceClassification(value) {
 function readArgument(name) {
   const index = process.argv.indexOf(name);
   return index === -1 ? null : process.argv[index + 1];
-}
-
-function isIsoDate(value) {
-  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }
