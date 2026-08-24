@@ -247,12 +247,13 @@ export function assessEvidenceSet({ vesselId, evidence, sources, assessedAt, pre
     const freshness = freshnessState(item, assessedAt);
     if (
       !source?.enabled ||
-      reliability(source) < RELIABILITY_RANK.B ||
+      reliability(source) < RELIABILITY_RANK.C ||
       source.category === "aggregator-discovery" ||
-      freshness === "historical" ||
+      !item.observation?.to ||
+      Date.parse(item.observation.from) > Date.parse(assessedAt) ||
       item.directness !== "direct"
     ) {
-      rejected.push({ evidenceId: item.evidenceId, reason: rejectionReason(item, source, freshness) });
+      rejected.push({ evidenceId: item.evidenceId, reason: rejectionReason(item, source, freshness, assessedAt) });
       continue;
     }
     eligible.push({ item, source, freshness, time: Date.parse(item.observation.to) });
@@ -267,7 +268,8 @@ export function assessEvidenceSet({ vesselId, evidence, sources, assessedAt, pre
       conflictingEvidenceIds: [],
       conflictState: "none",
       confidenceLevel: "unknown",
-      freshness: { state: "historical", rationale: "No current direct evidence with a known observation time." },
+      freshness: { state: "historical", rationale: "No eligible direct evidence with a known, non-future observation time." },
+      statusPromotionEligible: false,
       previousAssessmentId,
     };
   }
@@ -292,10 +294,19 @@ export function assessEvidenceSet({ vesselId, evidence, sources, assessedAt, pre
 
   const independent = new Set(selected.map(({ item }) => item.originId));
   const bestTier = Math.max(...selected.map(({ source }) => reliability(source)));
-  const selectedFreshness = selected.some(({ freshness }) => freshness === "current") ? "current" : "aging";
+  const worstTier = Math.min(...selected.map(({ source }) => reliability(source)));
+  const selectedFreshness = selected.some(({ freshness }) => freshness === "current")
+    ? "current"
+    : selected.some(({ freshness }) => freshness === "aging")
+      ? "aging"
+      : "historical";
   let confidenceLevel = "low";
   if (conflicting.length) confidenceLevel = "unknown";
-  else if (selectedFreshness === "current" && independent.size >= 2 && bestTier >= RELIABILITY_RANK.B) confidenceLevel = "high";
+  else if (
+    selectedFreshness === "current" &&
+    independent.size >= 2 &&
+    worstTier >= RELIABILITY_RANK.B
+  ) confidenceLevel = "high";
   else if (selectedFreshness === "current" && bestTier >= RELIABILITY_RANK.B) confidenceLevel = "moderate";
 
   return {
@@ -313,6 +324,7 @@ export function assessEvidenceSet({ vesselId, evidence, sources, assessedAt, pre
     },
     chosenClaim: chosen.item.claim,
     independentOriginCount: independent.size,
+    statusPromotionEligible: !conflicting.length && selectedFreshness !== "historical",
     previousAssessmentId,
   };
 }
@@ -354,15 +366,17 @@ export function reconstructAssessmentHistory(currentAssessmentId, assessments) {
   return history;
 }
 
-function rejectionReason(item, source, freshness) {
+function rejectionReason(item, source, freshness, assessedAt) {
   if (!source) return "unknown-source";
   if (!source.enabled) return "disabled-source";
-  if (reliability(source) < RELIABILITY_RANK.B || source.category === "aggregator-discovery") {
+  if (reliability(source) < RELIABILITY_RANK.C || source.category === "aggregator-discovery") {
     return "discovery-or-low-reliability-source";
   }
   if (item.directness !== "direct") return "indirect-evidence";
   if (!item.observation?.to) return "unknown-observation-time";
-  if (freshness === "historical") return "expired-or-historical";
+  if (freshness === "historical" && Date.parse(item.observation.from) > Date.parse(assessedAt)) {
+    return "future-observation";
+  }
   return "not-current";
 }
 

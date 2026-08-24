@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "methodVersion": "provenance-v1.0.0",
+  "methodVersion": "provenance-v1.1.0",
   "assessments": [
     {
       "assessmentId": "ASSESS_HMS_VICTORY_2026_08_15_1",
@@ -5116,6 +5116,871 @@
       "assessor": "system:current-main-integration",
       "methodVersion": "provenance-v1.0.0",
       "previousAssessmentId": "ASSESS_RFA_TIDEFORCE_2026_08_15_1"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DRAGON_2026_08_23_3",
+      "vesselId": "hms-dragon",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
+        "position": {
+          "lat": -4.069,
+          "lon": 39.64,
+          "label": "Port of Mombasa (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the Mombasa report supports location only and does not independently establish operational status.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_DRAGON_MOMBASA_2026_08_12"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_DRAGON_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_DRAGON_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is historical."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated public location but is outside its claim-context aging window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording historical freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_DRAGON_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_DUNCAN_2026_08_23_3",
+      "vesselId": "hms-duncan",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Copenhagen, Denmark; official arrival reported 23 August 2026",
+        "position": {
+          "lat": 55.704,
+          "lon": 12.596,
+          "label": "Copenhagen harbour (representative city/port location)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is analytically inferred from the current official Copenhagen port visit; the 20 August Forces News item is retained as time-unknown deployment context only and is not used to date or locate the vessel.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_DUNCAN_X_OFFICIAL_2026_08_23",
+        "EVID_HMS_DUNCAN_NAVY_LOOKOUT_2026_08_23"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_DUNCAN_MAIN_2026_08_12",
+        "EVID_HMS_DUNCAN_FORCES_NEWS_2026_08_20"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_DUNCAN_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        },
+        {
+          "evidenceId": "EVID_HMS_DUNCAN_FORCES_NEWS_2026_08_20",
+          "reason": "unknown-observation-time-status-context-only"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "moderate",
+      "confidenceReasons": [
+        "2 selected evidence items represent 2 independent origin clusters.",
+        "Selected source tiers: A, C; freshness is current.",
+        "The official Tier A self-report and independent Tier C corroboration support moderate confidence; Tier C prevents a high rating."
+      ],
+      "freshness": {
+        "state": "current",
+        "validThrough": null,
+        "rationale": "The selected observation remains within its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording current freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_DUNCAN_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_RICHMOND_2026_08_23_3",
+      "vesselId": "hms-richmond",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Unknown",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Devonport; last official public return reported 28 March 2024; preparing to leave service",
+        "position": {
+          "lat": 50.38,
+          "lon": -4.19,
+          "label": "HMNB Devonport (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Unknown is carried forward because the Tier C report of completed decommissioning conflicts with the current official Royal Navy wording that Richmond is still in the process of decommissioning.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_RICHMOND_MAIN_2026_08_12"
+      ],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [
+        "EVID_HMS_RICHMOND_DECOMMISSIONED_2026_08_19",
+        "EVID_HMS_RICHMOND_RN_UNIT_PAGE_2026_08_23"
+      ],
+      "conflictState": "unresolved",
+      "confidenceLevel": "unknown",
+      "confidenceReasons": [
+        "Navy Lookout reports completed decommissioning, while the current official Royal Navy unit page says the ship remains in the process of decommissioning.",
+        "The official page has no dated observation, so the conflict cannot be resolved chronologically without stronger completion evidence."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "The prior public state and dated Devonport location are retained while materially incompatible lifecycle claims remain unresolved."
+      },
+      "rationale": "Retains the previous public state and last-known Devonport location because the newer lifecycle sources conflict and neither establishes a new location.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_RICHMOND_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SUTHERLAND_2026_08_23_3",
+      "vesselId": "hms-sutherland",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "In re-fit",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "HMNB Devonport; support period reported 19 August 2026",
+        "position": {
+          "lat": 50.383,
+          "lon": -4.184,
+          "label": "HMNB Devonport (representative)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_SUTHERLAND_NAVY_LOOKOUT_2026_08_19"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_SUTHERLAND_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_SUTHERLAND_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is current."
+      ],
+      "freshness": {
+        "state": "current",
+        "validThrough": null,
+        "rationale": "The selected observation remains within its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording current freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_SUTHERLAND_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_ST_ALBANS_2026_08_23_3",
+      "vesselId": "hms-st-albans",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
+        "position": {
+          "lat": 56.049,
+          "lon": -4.832,
+          "label": "Glen Mallan jetty area, Loch Long (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Available is carried forward from the previous assessment; the jetty observation supports location only and does not establish readiness or deployment status.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_ST_ALBANS_NAVY_LOOKOUT_2026_08_18"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_ST_ALBANS_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_ST_ALBANS_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_ST_ALBANS_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TYNE_2026_08_23_3",
+      "vesselId": "hms-tyne",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portsmouth Harbour; entering observed 21 August 2026",
+        "position": {
+          "lat": 50.806,
+          "lon": -1.106,
+          "label": "Portsmouth Harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the harbour visual supports movement and location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_TYNE_PORTSMOUTH_VISUAL_2026_08_21"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_TYNE_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_TYNE_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is current."
+      ],
+      "freshness": {
+        "state": "current",
+        "validThrough": null,
+        "rationale": "The selected observation remains within its claim-context current window."
+      },
+      "rationale": "Promotes the newest observed harbour movement and does not treat a later movement schedule as an observation.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_TYNE_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SEVERN_2026_08_23_3",
+      "vesselId": "hms-severn",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK east-coast waters; last confirmed outbound from Harwich on 15 August 2026",
+        "position": {
+          "lat": 51.946,
+          "lon": 1.292,
+          "label": "Harwich approaches (representative outbound location)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the outbound report supports movement and last-observed location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_SEVERN_NAVY_LOOKOUT_2026_08_15"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_SEVERN_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_SEVERN_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is historical."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated public location but is outside its claim-context aging window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording historical freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_SEVERN_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_MERSEY_2026_08_23_3",
+      "vesselId": "hms-mersey",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026",
+        "position": {
+          "lat": 50.766,
+          "lon": -1.063,
+          "label": "Portsmouth approaches (representative outbound location)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the outbound report supports movement and last-observed location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_MERSEY_NAVY_LOOKOUT_2026_08_15"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_MERSEY_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_MERSEY_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is historical."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated public location but is outside its claim-context aging window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording historical freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_MERSEY_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TRENT_2026_08_23_3",
+      "vesselId": "hms-trent",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Caribbean region; hurricane-season patrol reported 21 August 2026",
+        "position": {
+          "lat": 15,
+          "lon": -70,
+          "label": "Caribbean Sea (representative regional location)"
+        },
+        "unmappedReason": null
+      },
+      "selectedEvidenceIds": [
+        "EVID_HMS_TRENT_RN_CARIBBEAN_2026_08_21"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_TRENT_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_TRENT_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: A; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_TRENT_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_TAMAR_2026_08_23_3",
+      "vesselId": "hms-tamar",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Ream Naval Base, Cambodia; arrival reported 20 August 2026",
+        "position": {
+          "lat": 10.504,
+          "lon": 103.611,
+          "label": "Ream Naval Base area (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the Ream arrival report supports location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_TAMAR_NAVY_LOOKOUT_2026_08_20"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_TAMAR_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_TAMAR_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_TAMAR_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SPEY_2026_08_23_3",
+      "vesselId": "hms-spey",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Singapore; maintenance period nearing completion, reported 22 August 2026",
+        "position": {
+          "lat": 1.285,
+          "lon": 103.835,
+          "label": "Singapore port area (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the Singapore maintenance report supports location and maintenance context only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_SPEY_NAVY_LOOKOUT_2026_08_22"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_SPEY_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_SPEY_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is current."
+      ],
+      "freshness": {
+        "state": "current",
+        "validThrough": null,
+        "rationale": "The selected observation remains within its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording current freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_SPEY_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_BITER_2026_08_23_3",
+      "vesselId": "hms-biter",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
+        "position": {
+          "lat": 54.669,
+          "lon": -5.667,
+          "label": "Bangor Marina, Northern Ireland (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Available is carried forward from the previous assessment; the Bangor training-visit reports support location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_BITER_BANGOR_MARINA_2026_08_19",
+        "EVID_HMS_BITER_SEA_CADETS_NI_2026_08_19"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_BITER_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_BITER_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "2 selected evidence items represent 1 independent origin cluster.",
+        "Selected source tiers: B, B; freshness is aging.",
+        "Both publications trace to the same Sea Cadets event and are not double-counted."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_BITER_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_CHARGER_2026_08_23_3",
+      "vesselId": "hms-charger",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
+        "position": {
+          "lat": 54.669,
+          "lon": -5.667,
+          "label": "Bangor Marina, Northern Ireland (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Available is carried forward from the previous assessment; the Bangor training-visit reports support location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_CHARGER_BANGOR_MARINA_2026_08_19",
+        "EVID_HMS_CHARGER_SEA_CADETS_NI_2026_08_19"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_CHARGER_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_CHARGER_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "2 selected evidence items represent 1 independent origin cluster.",
+        "Selected source tiers: B, B; freshness is aging.",
+        "Both publications trace to the same Sea Cadets event and are not double-counted."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_CHARGER_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_SCOTT_2026_08_23_3",
+      "vesselId": "hms-scott",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Gibraltar; arrival reported 19 August 2026",
+        "position": {
+          "lat": 36.142,
+          "lon": -5.355,
+          "label": "Gibraltar harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Available is carried forward from the previous assessment; the Gibraltar arrival report supports location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_SCOTT_NAVY_LOOKOUT_2026_08_19"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_SCOTT_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_SCOTT_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_SCOTT_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_LYME_BAY_2026_08_23_3",
+      "vesselId": "rfa-lyme-bay",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
+        "position": {
+          "lat": -4.069,
+          "lon": 39.64,
+          "label": "Port of Mombasa (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the Mombasa report supports location only and does not independently establish operational status.",
+      "selectedEvidenceIds": [
+        "EVID_RFA_LYME_BAY_MOMBASA_2026_08_12"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_RFA_LYME_BAY_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_RFA_LYME_BAY_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is historical."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated public location but is outside its claim-context aging window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording historical freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_RFA_LYME_BAY_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_PROTEUS_2026_08_23_3",
+      "vesselId": "rfa-proteus",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Plymouth Sound; reported operating under dynamic positioning on 21 August 2026",
+        "position": {
+          "lat": 50.342,
+          "lon": -4.146,
+          "label": "Plymouth Sound (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Available is carried forward from the previous assessment; the Plymouth Sound observation supports location and manoeuvring context only.",
+      "selectedEvidenceIds": [
+        "EVID_RFA_PROTEUS_NAVY_LOOKOUT_2026_08_21"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_RFA_PROTEUS_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_RFA_PROTEUS_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_RFA_PROTEUS_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDESPRING_2026_08_23_3",
+      "vesselId": "rfa-tidespring",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Gibraltar; reported alongside 19 August 2026",
+        "position": {
+          "lat": 36.142,
+          "lon": -5.355,
+          "label": "Gibraltar harbour (representative)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the Gibraltar alongside report supports location only.",
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDESPRING_NAVY_LOOKOUT_2026_08_19"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_RFA_TIDESPRING_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_RFA_TIDESPRING_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the newest bounded vessel-specific report found in the 23 August sweep while recording aging freshness.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_RFA_TIDESPRING_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_RFA_TIDEFORCE_2026_08_23_3",
+      "vesselId": "rfa-tideforce",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Plymouth Sound; last confirmed outbound from Devonport on 21 August 2026",
+        "position": {
+          "lat": 50.342,
+          "lon": -4.146,
+          "label": "Plymouth Sound (representative outbound location)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the outbound report supports movement and last-observed location only.",
+      "selectedEvidenceIds": [
+        "EVID_RFA_TIDEFORCE_OUTBOUND_2026_08_21"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_RFA_TIDEFORCE_MAIN_2026_08_12",
+        "EVID_RFA_TIDEFORCE_INBOUND_2026_08_20"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_RFA_TIDEFORCE_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        },
+        {
+          "evidenceId": "EVID_RFA_TIDEFORCE_INBOUND_2026_08_20",
+          "reason": "older-transition"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represent 1 independent origin cluster.",
+        "Selected source tier: C; freshness is aging."
+      ],
+      "freshness": {
+        "state": "aging",
+        "validThrough": null,
+        "rationale": "The selected observation is the newest dated report but is outside its claim-context current window."
+      },
+      "rationale": "Promotes the latest observed outbound transition and supersedes the prior day's inbound movement.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_RFA_TIDEFORCE_2026_08_15_2"
+    },
+    {
+      "assessmentId": "ASSESS_HMS_HURWORTH_2026_08_23_3",
+      "vesselId": "hms-hurworth",
+      "assessedAt": "2026-08-23T21:16:00Z",
+      "assessedState": {
+        "status": "Deployed",
+        "locationClassification": "approximate",
+        "lastReportedLocation": "Portsmouth Harbour; departing observed 12 August 2026",
+        "position": {
+          "lat": 50.766,
+          "lon": -1.063,
+          "label": "Portsmouth approaches (representative outbound location)"
+        },
+        "unmappedReason": null
+      },
+      "statusRationale": "Deployed is carried forward from the previous assessment; the departure visual supports movement and last-observed location only.",
+      "selectedEvidenceIds": [
+        "EVID_HMS_HURWORTH_PORTSMOUTH_VISUAL_2026_08_12"
+      ],
+      "excludedEvidenceIds": [
+        "EVID_HMS_HURWORTH_MAIN_2026_08_12"
+      ],
+      "exclusionReasons": [
+        {
+          "evidenceId": "EVID_HMS_HURWORTH_MAIN_2026_08_12",
+          "reason": "superseded-by-newer-bounded-observation"
+        }
+      ],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "low",
+      "confidenceReasons": [
+        "1 selected evidence item represents 1 independent origin cluster.",
+        "Selected source tier: C; freshness is historical."
+      ],
+      "freshness": {
+        "state": "historical",
+        "validThrough": null,
+        "rationale": "The selected departure observation is the newest dated public location but is outside its underway claim-context aging window."
+      },
+      "rationale": "Promotes the missed cutoff-day Portsmouth departure at representative outbound precision while making clear that it is a historical last-observed location, not a current fix.",
+      "assessor": "system:osint-sweep-2026-08-23",
+      "methodVersion": "provenance-v1.1.0",
+      "previousAssessmentId": "ASSESS_HMS_HURWORTH_2026_08_15_2"
     }
   ],
   "currentAssessmentIds": {
@@ -5135,40 +6000,40 @@
     "hms-daring": "ASSESS_HMS_DARING_2026_08_15_2",
     "hms-dauntless": "ASSESS_HMS_DAUNTLESS_2026_08_15_2",
     "hms-diamond": "ASSESS_HMS_DIAMOND_2026_08_15_2",
-    "hms-dragon": "ASSESS_HMS_DRAGON_2026_08_15_2",
+    "hms-dragon": "ASSESS_HMS_DRAGON_2026_08_23_3",
     "hms-defender": "ASSESS_HMS_DEFENDER_2026_08_15_2",
-    "hms-duncan": "ASSESS_HMS_DUNCAN_2026_08_15_2",
+    "hms-duncan": "ASSESS_HMS_DUNCAN_2026_08_23_3",
     "hms-iron-duke": "ASSESS_HMS_IRON_DUKE_2026_08_15_2",
-    "hms-richmond": "ASSESS_HMS_RICHMOND_2026_08_15_2",
+    "hms-richmond": "ASSESS_HMS_RICHMOND_2026_08_23_3",
     "hms-somerset": "ASSESS_HMS_SOMERSET_2026_08_15_2",
-    "hms-sutherland": "ASSESS_HMS_SUTHERLAND_2026_08_15_2",
+    "hms-sutherland": "ASSESS_HMS_SUTHERLAND_2026_08_23_3",
     "hms-kent": "ASSESS_HMS_KENT_2026_08_15_2",
     "hms-portland": "ASSESS_HMS_PORTLAND_2026_08_15_2",
-    "hms-st-albans": "ASSESS_HMS_ST_ALBANS_2026_08_15_2",
-    "hms-tyne": "ASSESS_HMS_TYNE_2026_08_15_2",
-    "hms-severn": "ASSESS_HMS_SEVERN_2026_08_15_2",
-    "hms-mersey": "ASSESS_HMS_MERSEY_2026_08_15_2",
+    "hms-st-albans": "ASSESS_HMS_ST_ALBANS_2026_08_23_3",
+    "hms-tyne": "ASSESS_HMS_TYNE_2026_08_23_3",
+    "hms-severn": "ASSESS_HMS_SEVERN_2026_08_23_3",
+    "hms-mersey": "ASSESS_HMS_MERSEY_2026_08_23_3",
     "hms-forth": "ASSESS_HMS_FORTH_2026_08_15_2",
     "hms-medway": "ASSESS_HMS_MEDWAY_2026_08_15_2",
-    "hms-trent": "ASSESS_HMS_TRENT_2026_08_15_2",
-    "hms-tamar": "ASSESS_HMS_TAMAR_2026_08_15_2",
-    "hms-spey": "ASSESS_HMS_SPEY_2026_08_15_2",
+    "hms-trent": "ASSESS_HMS_TRENT_2026_08_23_3",
+    "hms-tamar": "ASSESS_HMS_TAMAR_2026_08_23_3",
+    "hms-spey": "ASSESS_HMS_SPEY_2026_08_23_3",
     "hms-ledbury": "ASSESS_HMS_LEDBURY_2026_08_15_2",
     "hms-cattistock": "ASSESS_HMS_CATTISTOCK_2026_08_15_2",
     "hms-brocklesby": "ASSESS_HMS_BROCKLESBY_2026_08_15_2",
     "hms-middleton": "ASSESS_HMS_MIDDLETON_2026_08_15_2",
     "hms-chiddingfold": "ASSESS_HMS_CHIDDINGFOLD_2026_08_15_2",
-    "hms-hurworth": "ASSESS_HMS_HURWORTH_2026_08_15_2",
+    "hms-hurworth": "ASSESS_HMS_HURWORTH_2026_08_23_3",
     "hms-bangor": "ASSESS_HMS_BANGOR_2026_08_15_2",
     "hms-stirling-castle": "ASSESS_HMS_STIRLING_CASTLE_2026_08_15_2",
     "hms-archer": "ASSESS_HMS_ARCHER_2026_08_15_2",
-    "hms-biter": "ASSESS_HMS_BITER_2026_08_15_2",
+    "hms-biter": "ASSESS_HMS_BITER_2026_08_23_3",
     "hms-smiter": "ASSESS_HMS_SMITER_2026_08_15_2",
     "hms-pursuer": "ASSESS_HMS_PURSUER_2026_08_15_2",
     "hms-blazer": "ASSESS_HMS_BLAZER_2026_08_15_2",
     "hms-dasher": "ASSESS_HMS_DASHER_2026_08_15_2",
     "hms-puncher": "ASSESS_HMS_PUNCHER_2026_08_15_2",
-    "hms-charger": "ASSESS_HMS_CHARGER_2026_08_15_2",
+    "hms-charger": "ASSESS_HMS_CHARGER_2026_08_23_3",
     "hms-ranger": "ASSESS_HMS_RANGER_2026_08_15_2",
     "hms-trumpeter": "ASSESS_HMS_TRUMPETER_2026_08_15_2",
     "hms-express": "ASSESS_HMS_EXPRESS_2026_08_15_2",
@@ -5179,16 +6044,16 @@
     "hms-raider": "ASSESS_HMS_RAIDER_2026_08_15_2",
     "hms-cutlass": "ASSESS_HMS_CUTLASS_2026_08_15_2",
     "hms-dagger": "ASSESS_HMS_DAGGER_2026_08_15_2",
-    "hms-scott": "ASSESS_HMS_SCOTT_2026_08_15_2",
+    "hms-scott": "ASSESS_HMS_SCOTT_2026_08_23_3",
     "hms-protector": "ASSESS_HMS_PROTECTOR_2026_08_15_2",
     "hms-magpie": "ASSESS_HMS_MAGPIE_2026_08_15_2",
-    "rfa-lyme-bay": "ASSESS_RFA_LYME_BAY_2026_08_15_2",
+    "rfa-lyme-bay": "ASSESS_RFA_LYME_BAY_2026_08_23_3",
     "rfa-mounts-bay": "ASSESS_RFA_MOUNTS_BAY_2026_08_15_2",
     "rfa-cardigan-bay": "ASSESS_RFA_CARDIGAN_BAY_2026_08_15_2",
-    "rfa-proteus": "ASSESS_RFA_PROTEUS_2026_08_15_2",
-    "rfa-tidespring": "ASSESS_RFA_TIDESPRING_2026_08_15_2",
+    "rfa-proteus": "ASSESS_RFA_PROTEUS_2026_08_23_3",
+    "rfa-tidespring": "ASSESS_RFA_TIDESPRING_2026_08_23_3",
     "rfa-tiderace": "ASSESS_RFA_TIDERACE_2026_08_15_2",
     "rfa-tidesurge": "ASSESS_RFA_TIDESURGE_2026_08_15_2",
-    "rfa-tideforce": "ASSESS_RFA_TIDEFORCE_2026_08_15_2"
+    "rfa-tideforce": "ASSESS_RFA_TIDEFORCE_2026_08_23_3"
   }
 }

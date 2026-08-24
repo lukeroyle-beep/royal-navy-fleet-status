@@ -2,7 +2,9 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-08-23"
+    "asOfDate": "2026-08-23",
+    "releaseRevision": 2,
+    "releasedAt": "2026-08-23T21:18:13Z"
   },
   "vessels": [
     {
@@ -321,11 +323,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Red Sea / Middle East region; escorting RFA Lyme Bay mine-countermeasures task group",
+      "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
       "position": {
-        "lat": 20,
-        "lon": 38,
-        "label": "Red Sea / Middle East"
+        "lat": -4.069,
+        "lon": 39.64,
+        "label": "Port of Mombasa (representative)"
       },
       "unmappedReason": null
     },
@@ -357,13 +359,13 @@
       "pennantNumber": "D37",
       "commissionedDate": "26th September 2013",
       "homePort": "HMNB Portsmouth",
-      "status": "Available",
+      "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
+      "lastReportedLocation": "Copenhagen, Denmark; official arrival reported 23 August 2026",
       "position": {
-        "lat": 50.81,
-        "lon": -1.1,
-        "label": "HMNB Portsmouth"
+        "lat": 55.704,
+        "lon": 12.596,
+        "label": "Copenhagen harbour (representative city/port location)"
       },
       "unmappedReason": null
     },
@@ -433,13 +435,13 @@
       "pennantNumber": "F81",
       "commissionedDate": "1997",
       "homePort": "HMNB Devonport",
-      "status": "Available",
+      "status": "In re-fit",
       "locationClassification": "approximate",
-      "lastReportedLocation": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026",
+      "lastReportedLocation": "HMNB Devonport; support period reported 19 August 2026",
       "position": {
-        "lat": 50.5,
-        "lon": -2.6,
-        "label": "English Channel off Portland (representative)"
+        "lat": 50.383,
+        "lon": -4.184,
+        "label": "HMNB Devonport (representative)"
       },
       "unmappedReason": null
     },
@@ -492,11 +494,11 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "English Channel and North Sea; Operation Ceto handover reported 9 April 2026",
+      "lastReportedLocation": "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
       "position": {
-        "lat": 51.5,
-        "lon": 1.5,
-        "label": "English Channel / North Sea (representative)"
+        "lat": 56.049,
+        "lon": -4.832,
+        "label": "Glen Mallan jetty area, Loch Long (representative)"
       },
       "unmappedReason": null
     },
@@ -511,11 +513,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "UK waters south of Plymouth; monitoring operation observed 20 July 2026",
+      "lastReportedLocation": "Portsmouth Harbour; entering observed 21 August 2026",
       "position": {
-        "lat": 50,
-        "lon": -4.5,
-        "label": "UK waters south of Plymouth (representative)"
+        "lat": 50.806,
+        "lon": -1.106,
+        "label": "Portsmouth Harbour (representative)"
       },
       "unmappedReason": null
     },
@@ -530,11 +532,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "North Sea to Dover Strait and waters off Ushant; patrol route observed 23–26 July 2026",
+      "lastReportedLocation": "UK east-coast waters; last confirmed outbound from Harwich on 15 August 2026",
       "position": {
-        "lat": 51,
-        "lon": 1.3,
-        "label": "North Sea–Dover–Ushant route (representative)"
+        "lat": 51.946,
+        "lon": 1.292,
+        "label": "Harwich approaches (representative outbound location)"
       },
       "unmappedReason": null
     },
@@ -549,11 +551,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "UK waters / Dover approaches; handover with HMS Severn observed 23–26 July 2026",
+      "lastReportedLocation": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026",
       "position": {
-        "lat": 51.2,
-        "lon": 1.8,
-        "label": "North Sea off the Dover approaches (representative)"
+        "lat": 50.766,
+        "lon": -1.063,
+        "label": "Portsmouth approaches (representative outbound location)"
       },
       "unmappedReason": null
     },
@@ -606,11 +608,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Tampa, Florida; logistics and maintenance stop reported 25 June 2026",
+      "lastReportedLocation": "Caribbean region; hurricane-season patrol reported 21 August 2026",
       "position": {
-        "lat": 27.938,
-        "lon": -82.445,
-        "label": "Port Tampa Bay (representative)"
+        "lat": 15,
+        "lon": -70,
+        "label": "Caribbean Sea (representative regional location)"
       },
       "unmappedReason": null
     },
@@ -625,11 +627,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Suva Port, Fiji; reception aboard reported 28 April 2026",
+      "lastReportedLocation": "Ream Naval Base, Cambodia; arrival reported 20 August 2026",
       "position": {
-        "lat": -18.14,
-        "lon": 178.415,
-        "label": "Suva Harbour, Fiji (representative)"
+        "lat": 10.504,
+        "lon": 103.611,
+        "label": "Ream Naval Base area (representative)"
       },
       "unmappedReason": null
     },
@@ -644,11 +646,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Indo-Pacific; South East Asia / Far East patrols after Singapore overhaul",
+      "lastReportedLocation": "Singapore; maintenance period nearing completion, reported 22 August 2026",
       "position": {
-        "lat": 4,
-        "lon": 110,
-        "label": "South China Sea / South East Asia (representative)"
+        "lat": 1.285,
+        "lon": 103.835,
+        "label": "Singapore port area (representative)"
       },
       "unmappedReason": null
     },
@@ -758,11 +760,11 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Portland; Sea Breeze 26-2 mine warfare exercise",
+      "lastReportedLocation": "Portsmouth Harbour; departing observed 12 August 2026",
       "position": {
-        "lat": 50.585,
-        "lon": -2.445,
-        "label": "Portland Harbour (representative)"
+        "lat": 50.766,
+        "lon": -1.063,
+        "label": "Portsmouth approaches (representative outbound location)"
       },
       "unmappedReason": null
     },
@@ -834,11 +836,11 @@
       "homePort": "Liverpool",
       "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "River Foyle, Londonderry; public visit observed 25–28 June 2026",
+      "lastReportedLocation": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
       "position": {
-        "lat": 55.00985,
-        "lon": -7.301207,
-        "label": "River Foyle, Londonderry (representative)"
+        "lat": 54.669,
+        "lon": -5.667,
+        "label": "Bangor Marina, Northern Ireland (representative)"
       },
       "unmappedReason": null
     },
@@ -948,11 +950,11 @@
       "homePort": "Liverpool",
       "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "West coast of Scotland; summer deployment reported 30 July 2020",
+      "lastReportedLocation": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
       "position": {
-        "lat": 56.3,
-        "lon": -6.5,
-        "label": "Sea of the Hebrides / west of Scotland (representative)"
+        "lat": 54.669,
+        "lon": -5.667,
+        "label": "Bangor Marina, Northern Ireland (representative)"
       },
       "unmappedReason": null
     },
@@ -1157,11 +1159,11 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "At sea from Falmouth; departed after life-extension refit on 12 June 2026",
+      "lastReportedLocation": "Gibraltar; arrival reported 19 August 2026",
       "position": {
-        "lat": 50,
-        "lon": -5,
-        "label": "English Channel off Falmouth (representative)"
+        "lat": 36.142,
+        "lon": -5.355,
+        "label": "Gibraltar harbour (representative)"
       },
       "unmappedReason": null
     },
@@ -1214,11 +1216,11 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Red Sea / Middle East region; mine-countermeasures mothership for potential Strait of Hormuz mission",
+      "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
       "position": {
-        "lat": 20,
-        "lon": 38,
-        "label": "Red Sea / Middle East"
+        "lat": -4.069,
+        "lon": 39.64,
+        "label": "Port of Mombasa (representative)"
       },
       "unmappedReason": null
     },
@@ -1271,11 +1273,11 @@
       "homePort": "No fixed home base.",
       "status": "Available",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Lyme Bay, English Channel; ScanFish trials reported 18 June 2026",
+      "lastReportedLocation": "Plymouth Sound; reported operating under dynamic positioning on 21 August 2026",
       "position": {
-        "lat": 50.5,
-        "lon": -2.7,
-        "label": "Lyme Bay (representative)"
+        "lat": 50.342,
+        "lon": -4.146,
+        "label": "Plymouth Sound (representative)"
       },
       "unmappedReason": null
     },
@@ -1290,11 +1292,11 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Portland Port; reported berthed nearby on 30 July 2026",
+      "lastReportedLocation": "Gibraltar; reported alongside 19 August 2026",
       "position": {
-        "lat": 50.585,
-        "lon": -2.445,
-        "label": "Portland Harbour (representative)"
+        "lat": 36.142,
+        "lon": -5.355,
+        "label": "Gibraltar harbour (representative)"
       },
       "unmappedReason": null
     },
@@ -1347,11 +1349,11 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "lastReportedLocation": "North Sea and Western Approaches; monitoring task throughout April 2026",
+      "lastReportedLocation": "Plymouth Sound; last confirmed outbound from Devonport on 21 August 2026",
       "position": {
-        "lat": 55,
-        "lon": 2,
-        "label": "North Sea (representative)"
+        "lat": 50.342,
+        "lon": -4.146,
+        "label": "Plymouth Sound (representative outbound location)"
       },
       "unmappedReason": null
     }

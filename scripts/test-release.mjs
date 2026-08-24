@@ -33,6 +33,14 @@ const workflow = fs.readFileSync(
   new URL("../.github/workflows/ci.yml", import.meta.url),
   "utf8",
 );
+const discoveryWorkflow = fs.readFileSync(
+  new URL("../.github/workflows/osint-public-discovery.yml", import.meta.url),
+  "utf8",
+);
+const discoveryCollector = fs.readFileSync(
+  new URL("./collect-public-indexes.mjs", import.meta.url),
+  "utf8",
+);
 const viteConfig = fs.readFileSync(new URL("../vite.config.js", import.meta.url), "utf8");
 const indexHtml = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const appSource = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
@@ -56,6 +64,8 @@ assert.match(workflow, /actions\/upload-artifact@v4/);
 assert.match(workflow, /retention-days:\s*7/);
 assert.match(workflow, /permissions:\s*\n\s*contents:\s*read/);
 assert.doesNotMatch(workflow, /pages:\s*write|id-token:\s*write|actions\/deploy-pages/);
+assert.match(discoveryCollector, /process\.exitCode\s*=\s*1/);
+assert.match(discoveryWorkflow, /Upload discovery ledger\s*\n\s*if:\s*always\(\)/);
 assert.match(checklist, /\| iPad \| Safari \|/);
 assert.match(checklist, /Portrait/);
 assert.match(checklist, /Landscape/);
@@ -92,6 +102,8 @@ assert.doesNotMatch(
 );
 assert.doesNotMatch(appSource, /URLSearchParams|pushState|replaceState/);
 assert.match(appSource, /insightsMatchDataset/);
+assert.match(appSource, /formatDatasetReleaseLabel\(dataset\.metadata\)/);
+assert.match(appSource, /formatPublicationChangeLabels\(publication\)/);
 assert.match(appSource, /selectedClass = ""/);
 assert.match(appSource, /getFleetStatusSummary/);
 assert.match(appSource, /withheld:\s*"Withheld"/);

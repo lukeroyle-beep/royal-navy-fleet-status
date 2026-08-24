@@ -1,0 +1,1299 @@
+{
+  "schemaVersion": "2.0.0",
+  "runId": "SWEEP_20260823T204726Z_R2_aa0b96d9",
+  "coverageDate": "2026-08-23",
+  "releaseTarget": {
+    "asOfDate": "2026-08-23",
+    "releaseRevision": 2
+  },
+  "startedAt": "2026-08-23T20:47:26Z",
+  "completedAt": "2026-08-23T21:15:00Z",
+  "window": {
+    "from": "2026-08-12T00:00:00Z",
+    "to": "2026-08-23T20:47:26Z"
+  },
+  "sourceRegistryHash": "aa0b96d97171237fdc191431d4da4ba6969461fc38904ae6e41afe5e8493e5d7",
+  "rosterHash": "0db3ae8ec44624aecfe1a9b0e1673c1f8f71f77e79367093198ea312e3b6d970",
+  "collectionPolicy": {
+    "readOnly": true,
+    "automaticBoundary": "Configured public publisher indexes only",
+    "prohibitedAutomaticTargets": [
+      "X account pages",
+      "manual sources",
+      "commercial APIs"
+    ],
+    "promotion": "Discovery only; no evidence ingestion, assessment or publication",
+    "reviewLimitations": "Direct X requests returned HTTP 403 and direct Facebook fetch was unavailable. This corrective run used approved search-index and manual public-page review; no automated platform collection was represented as successful."
+  },
+  "discoveryChecks": [
+    {
+      "targetId": "ROYAL_NAVY_NEWS_INDEX",
+      "sourceId": "ROYAL_NAVY_NEWS_INDEX",
+      "url": "https://www.royalnavy.mod.uk/news",
+      "contentKind": "html",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [
+        {
+          "url": "https://www.royalnavy.mod.uk/news/2026/august/21/20260821-royal-navy-patrol-ship-launches-drone-in-milestone-flight",
+          "contentHash": "ac20ac0bf544add60055ff782d14b354ba3df19f35f2b2d552813c6ca8be38e8"
+        }
+      ],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed; the listed candidates were normalised and reviewed before assessment.",
+      "blocker": null
+    },
+    {
+      "targetId": "GOVUK_MOD_ATOM",
+      "sourceId": "MOD_GOV_UK",
+      "url": "https://www.gov.uk/government/organisations/ministry-of-defence.atom",
+      "contentKind": "feed",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed with no promotable candidate. No successful automated index GET is claimed for this same-day corrective run.",
+      "blocker": null
+    },
+    {
+      "targetId": "NATO_NEWS_INDEX",
+      "sourceId": "NATO_NEWS",
+      "url": "https://www.nato.int/cps/en/natohq/news.htm",
+      "contentKind": "html",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed with no promotable candidate. No successful automated index GET is claimed for this same-day corrective run.",
+      "blocker": null
+    },
+    {
+      "targetId": "BABCOCK_NEWS_INDEX",
+      "sourceId": "BABCOCK_MARINE_NEWS",
+      "url": "https://www.babcockinternational.com/news/",
+      "contentKind": "html",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed with no promotable candidate. No successful automated index GET is claimed for this same-day corrective run.",
+      "blocker": null
+    },
+    {
+      "targetId": "NAVY_LOOKOUT_FEED",
+      "sourceId": "NAVY_LOOKOUT_INDEX",
+      "url": "https://www.navylookout.com/feed/",
+      "contentKind": "feed",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [
+        {
+          "url": "https://www.navylookout.com/royal-navy-ships-take-respite-in-kenya-after-months-in-middle-east/",
+          "contentHash": "73f45f09b002dc129cc03d56be786e6c253d722d0382a938e3a4dbd7db480d47"
+        },
+        {
+          "url": "https://www.navylookout.com/royal-navy-and-us-navy-prepare-to-sink-retired-frigate-in-atlantic-thunder-live-fire-exercise/",
+          "contentHash": "2321f1e07566263d8a93462767a1638b496e5b232a346db16da33b9a59edf725"
+        }
+      ],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed; the listed candidates were normalised and reviewed before assessment.",
+      "blocker": null
+    },
+    {
+      "targetId": "FORCES_NEWS_NAVY_INDEX",
+      "sourceId": "FORCES_NEWS_NAVY_INDEX",
+      "url": "https://www.forcesnews.com/services/navy",
+      "contentKind": "html",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [
+        {
+          "url": "https://www.forcesnews.com/services/navy/hms-duncan-slips-away-cover-darkness-resume-second-phase-her-deployment",
+          "contentHash": "3eca710c55e41a00f74e3525052db5e02c3610ec8cc698b77428ad28fc778e0c"
+        }
+      ],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed; the listed candidates were normalised and reviewed before assessment.",
+      "blocker": null
+    },
+    {
+      "targetId": "UK_DEFENCE_JOURNAL_FEED",
+      "sourceId": null,
+      "url": "https://ukdefencejournal.org.uk/feed/",
+      "contentKind": "feed",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "httpStatus": null,
+      "candidates": [],
+      "collectionMethod": "manual-search-index-review",
+      "notes": "Search-index and manual publisher-page review completed with no promotable candidate. No successful automated index GET is claimed for this same-day corrective run.",
+      "blocker": null
+    }
+  ],
+  "sourceChecks": [
+    {
+      "sourceId": "MARINEVESSELTRAFFIC_NATO_DISCOVERY",
+      "vesselId": null,
+      "category": "aggregator-discovery",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://www.marinevesseltraffic.com/NATO-navy-ships",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Manual search-index and discovery-page review completed. Aggregator material remained discovery-only and was not treated as location evidence.",
+      "blocker": null
+    },
+    {
+      "sourceId": "PORTSMOUTH_HARBOUR_AUTHORITY",
+      "vesselId": null,
+      "category": "port-harbour-dockyard",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/khm/portsmouth",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Published Portsmouth shipping movements were reviewed manually. No schedule was promoted without dated vessel-specific evidence.",
+      "blocker": null
+    },
+    {
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "vesselId": null,
+      "category": "official-royal-navy",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/equipment/ships",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Royal Navy unit pages and the official ship index were reviewed manually for lifecycle and account changes; page identity alone was not treated as location evidence.",
+      "blocker": null
+    },
+    {
+      "sourceId": "ROYAL_NAVY_UNIT_PAGES",
+      "vesselId": null,
+      "category": "official-royal-navy",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://www.royalnavy.mod.uk/organisation/surface-fleet",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Required recurring source reviewed manually through approved search-index or public-page results; no unavailable platform fetch is represented as successful.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_DEFENCEHQ",
+      "vesselId": null,
+      "category": "official-organisation-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/DefenceHQ",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_DEFENCEHQPRESS",
+      "vesselId": null,
+      "category": "official-organisation-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/DefenceHQPress",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_ARCHER",
+      "vesselId": "hms-archer",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSArcher",
+      "accountHandle": "@HMSArcher",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_BLAZER",
+      "vesselId": "hms-blazer",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/hms_blazer",
+      "accountHandle": "@hms_blazer",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_CATTISTOCK",
+      "vesselId": "hms-cattistock",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSCattistock",
+      "accountHandle": "@HMSCattistock",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_DIAMOND",
+      "vesselId": "hms-diamond",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/hmsdiamond",
+      "accountHandle": "@hmsdiamond",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_DRAGON",
+      "vesselId": "hms-dragon",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSDragon",
+      "accountHandle": "@HMSDragon",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_DUNCAN",
+      "vesselId": "hms-duncan",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSDuncan",
+      "accountHandle": "@HMSDuncan",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_EXAMPLE",
+      "vesselId": "hms-example",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSExample",
+      "accountHandle": "@HMSExample",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_EXPLOIT",
+      "vesselId": "hms-exploit",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSExploit",
+      "accountHandle": "@HMSExploit",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_LEDBURY",
+      "vesselId": "hms-ledbury",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSLedbury",
+      "accountHandle": "@HMSLedbury",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_MAGPIE",
+      "vesselId": "hms-magpie",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/hms_magpie",
+      "accountHandle": "@hms_magpie",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_PORTLAND",
+      "vesselId": "hms-portland",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSPortland",
+      "accountHandle": "@HMSPortland",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_PUNCHER",
+      "vesselId": "hms-puncher",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSPuncher",
+      "accountHandle": "@HMSPuncher",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_QUEEN_ELIZABETH",
+      "vesselId": "hms-queen-elizabeth",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSQnlz",
+      "accountHandle": "@HMSQnlz",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_RAIDER",
+      "vesselId": "hms-raider",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMS_Raider",
+      "accountHandle": "@HMS_Raider",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_SMITER",
+      "vesselId": "hms-smiter",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMS_Smiter",
+      "accountHandle": "@HMS_Smiter",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_SOMERSET",
+      "vesselId": "hms-somerset",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSSomerset",
+      "accountHandle": "@HMSSomerset",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_SPEY",
+      "vesselId": "hms-spey",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMS_Spey",
+      "accountHandle": "@HMS_Spey",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_STIRLING_CASTLE",
+      "vesselId": "hms-stirling-castle",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMS_Str_Castle",
+      "accountHandle": "@HMS_Str_Castle",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_HMS_TRENT",
+      "vesselId": "hms-trent",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/HMSTrent",
+      "accountHandle": "@HMSTrent",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_RFA_CARDIGAN_BAY",
+      "vesselId": "rfa-cardigan-bay",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RFACardiganBay",
+      "accountHandle": "@RFACardiganBay",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_RFA_LYME_BAY",
+      "vesselId": "rfa-lyme-bay",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RFALymeBay",
+      "accountHandle": "@RFALymeBay",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_RFA_PROTEUS",
+      "vesselId": "rfa-proteus",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RFAProteus",
+      "accountHandle": "@RFAProteus",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_RFA_TIDEFORCE",
+      "vesselId": "rfa-tideforce",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RFATideforce",
+      "accountHandle": "@RFATideforce",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_RFA_TIDESPRING",
+      "vesselId": "rfa-tidespring",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RFATidespring",
+      "accountHandle": "@RFATidespring",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_RFA_TIDESURGE",
+      "vesselId": "rfa-tidesurge",
+      "category": "official-vessel-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RFATidesurge",
+      "accountHandle": "@RFATidesurge",
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    },
+    {
+      "sourceId": "X_ROYAL_NAVY",
+      "vesselId": null,
+      "category": "official-organisation-social",
+      "collectionMode": "manual",
+      "canonicalUrl": "https://x.com/RoyalNavy",
+      "accountHandle": null,
+      "required": true,
+      "state": "complete",
+      "checkedAt": "2026-08-23T21:12:00Z",
+      "outcome": "manual-review-complete",
+      "notes": "Official account reviewed through approved search-index and public-page results. Direct X fetch returned HTTP 403 where attempted; no automated X collection is claimed.",
+      "blocker": null
+    }
+  ],
+  "vesselOutcomes": [
+    {
+      "vesselId": "hms-agamemnon",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-ambush",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-anson",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-archer",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-artful",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-astute",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-audacious",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-bangor",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-biter",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_BITER_BANGOR_MARINA_2026_08_19",
+        "EVID_HMS_BITER_SEA_CADETS_NI_2026_08_19"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-blazer",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-brocklesby",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An intra-Portsmouth berth lead was reviewed; it did not justify a material public location revision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-cattistock",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "A future movement intention was reviewed and rejected because it was not an observed movement.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-charger",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_CHARGER_BANGOR_MARINA_2026_08_19",
+        "EVID_HMS_CHARGER_SEA_CADETS_NI_2026_08_19"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-chiddingfold",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-cutlass",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-dagger",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-daring",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-dasher",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-dauntless",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-defender",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-diamond",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-dragon",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_DRAGON_MOMBASA_2026_08_12"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-duncan",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_DUNCAN_X_OFFICIAL_2026_08_23",
+        "EVID_HMS_DUNCAN_NAVY_LOOKOUT_2026_08_23"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-example",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-exploit",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-explorer",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-express",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-forth",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-hurworth",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_HURWORTH_PORTSMOUTH_VISUAL_2026_08_12"
+      ],
+      "notes": "A dated direct harbour visual supports a low-confidence historical update to the last publicly reported location; the Portsmouth-approaches marker is representative.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-iron-duke",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-kent",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-ledbury",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-magpie",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-medway",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-mersey",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_MERSEY_NAVY_LOOKOUT_2026_08_15"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-middleton",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-portland",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-prince-of-wales",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-protector",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-puncher",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-pursuer",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-queen-elizabeth",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-raider",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-ranger",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unknown-retained",
+      "evidenceIds": [],
+      "notes": "A 19 August local multi-vessel post explicitly described HMS Ranger arriving and berthing, but the single lower-tier day-only visual lacked independent corroboration or direct media verification, so no update was promoted.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-richmond",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unknown-retained",
+      "evidenceIds": [
+        "EVID_HMS_RICHMOND_DECOMMISSIONED_2026_08_19",
+        "EVID_HMS_RICHMOND_RN_UNIT_PAGE_2026_08_23"
+      ],
+      "notes": "Lifecycle sources conflict between decommissioned and in-process wording. The prior public state and 28 March 2024 Devonport location are retained pending authoritative resolution.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-scott",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_SCOTT_NAVY_LOOKOUT_2026_08_19"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-severn",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_SEVERN_NAVY_LOOKOUT_2026_08_15"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-smiter",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-somerset",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-spey",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_SPEY_NAVY_LOOKOUT_2026_08_22"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-st-albans",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_ST_ALBANS_NAVY_LOOKOUT_2026_08_18"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-stirling-castle",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-sutherland",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_SUTHERLAND_NAVY_LOOKOUT_2026_08_19"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-tamar",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_TAMAR_NAVY_LOOKOUT_2026_08_20"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-tracker",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-trent",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_TRENT_RN_CARIBBEAN_2026_08_21"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-trumpeter",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "An undated or weak visual lead was reviewed but could not support a bounded vessel-specific update.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-tyne",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_HMS_TYNE_PORTSMOUTH_VISUAL_2026_08_21"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-vanguard",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-vengeance",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-victorious",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-victory",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "hms-vigilant",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "withheld-policy",
+      "evidenceIds": [],
+      "notes": "No live submarine patrol position was sought, inferred or promoted; only the policy-safe public state was retained.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-cardigan-bay",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-lyme-bay",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_RFA_LYME_BAY_MOMBASA_2026_08_12"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-mounts-bay",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Full roster review completed; no newer dateable vessel-specific report met the promotion rules.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-proteus",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_RFA_PROTEUS_NAVY_LOOKOUT_2026_08_21"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-tideforce",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_RFA_TIDEFORCE_OUTBOUND_2026_08_21"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-tiderace",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Historical or cross-vessel feed contamination was reviewed and rejected.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-tidespring",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "updated",
+      "evidenceIds": [
+        "EVID_RFA_TIDESPRING_NAVY_LOOKOUT_2026_08_19"
+      ],
+      "notes": "Newer bounded evidence was assessed and promoted at supported geographic precision.",
+      "blocker": null
+    },
+    {
+      "vesselId": "rfa-tidesurge",
+      "state": "complete",
+      "reviewedAt": "2026-08-23T21:12:00Z",
+      "outcome": "unchanged",
+      "evidenceIds": [],
+      "notes": "Historical or cross-vessel feed contamination was reviewed and rejected.",
+      "blocker": null
+    }
+  ],
+  "coverage": {
+    "pass": true,
+    "reasons": [],
+    "requiredDiscoveryChecks": 7,
+    "completedDiscoveryChecks": 7,
+    "requiredSourceChecks": 32,
+    "completedSourceChecks": 32,
+    "requiredVesselOutcomes": 71,
+    "completedVesselOutcomes": 71,
+    "blockerCount": 0
+  },
+  "complete": true
+}

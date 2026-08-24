@@ -26,14 +26,24 @@ assert.equal(formatLocationClassification("approximate"), "Approximate port or a
 assert.equal(formatLocationClassification("withheld"), "Withheld · symbolic marker");
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
-assert.equal(activeFleet.total, 51);
-assert.equal(activeFleet.percentage.toFixed(1), "71.8");
+assert.equal(activeFleet.total, 50);
+assert.equal(activeFleet.percentage.toFixed(1), "70.4");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
   total: 71,
-  deployed: 16,
-  inRefit: 12,
+  deployed: 17,
+  inRefit: 13,
   unknown: 7,
 });
+
+const duncan = dataset.vessels.find((vessel) => vessel.id === "hms-duncan");
+assert.equal(duncan.status, "Deployed");
+assert.match(duncan.lastReportedLocation, /Copenhagen, Denmark/);
+const richmond = dataset.vessels.find((vessel) => vessel.id === "hms-richmond");
+assert.equal(richmond.status, "Unknown");
+assert.match(richmond.lastReportedLocation, /last official public return reported 28 March 2024/);
+const hurworth = dataset.vessels.find((vessel) => vessel.id === "hms-hurworth");
+assert.equal(hurworth.status, "Deployed");
+assert.match(hurworth.lastReportedLocation, /departing observed 12 August 2026/);
 
 const victory = dataset.vessels.find((vessel) => vessel.id === "hms-victory");
 assert.equal(victory.locationClassification, "mapped");
@@ -62,6 +72,24 @@ assert.throws(() => validateFleet(accidentallyExposedSource), /exposes internal 
 const invalidDatasetDate = structuredClone(dataset);
 invalidDatasetDate.metadata.asOfDate = "2026-02-30";
 assert.throws(() => validateFleet(invalidDatasetDate), /invalid dataset date/i);
+
+const revisionedDataset = structuredClone(dataset);
+revisionedDataset.metadata.releaseRevision = 2;
+revisionedDataset.metadata.releasedAt = "2026-08-23T20:15:00+01:00";
+assert.equal(validateFleet(revisionedDataset).metadata.releaseRevision, 2);
+
+const invalidReleaseRevision = structuredClone(revisionedDataset);
+invalidReleaseRevision.metadata.releaseRevision = 0;
+assert.throws(() => validateFleet(invalidReleaseRevision), /positive releaseRevision/i);
+
+const invalidReleasedAt = structuredClone(revisionedDataset);
+invalidReleasedAt.metadata.releasedAt = "2026-08-23";
+assert.throws(() => validateFleet(invalidReleasedAt), /ISO releasedAt instant/i);
+
+const incompleteReleaseMetadata = structuredClone(dataset);
+incompleteReleaseMetadata.metadata.releaseRevision = 2;
+delete incompleteReleaseMetadata.metadata.releasedAt;
+assert.throws(() => validateFleet(incompleteReleaseMetadata), /releaseRevision.*releasedAt/i);
 
 const invalidOperationalStatus = structuredClone(dataset);
 invalidOperationalStatus.vessels[0].status = "Ready-ish";

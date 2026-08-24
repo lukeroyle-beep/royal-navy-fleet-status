@@ -147,8 +147,22 @@ submarine positions, and scan built assets for internal provenance or source exp
 Do not edit `data/royal-navy/vessels.json` as the system of record. Resolve the vessel and source
 against the internal registries, validate and append reviewed evidence, create a new assessment
 revision, then run `npm run generate:public`. Use `npm run sweep:sources` to materialise the enabled
-manual/API review queue; it performs no network collection and keeps MarineVesselTraffic mandatory
-but discovery-only.
+review queue. Use `npm run sweep:collect -- --output=<run.json>` for one read-only pass over the
+allowlisted public publisher indexes. The collector records links and hashes only: it never requests
+X timelines, manual sources or commercial APIs, and it never ingests evidence or publishes a fleet
+change. A blocked required index makes the collection command fail after writing its auditable
+ledger. Royal Navy News is reviewed manually because its publisher edge blocks the collector;
+Westward Shipping News RSS is its Tier C, discovery-only automatic replacement.
+
+From 24 August 2026, advancing the canonical `metadata.asOfDate` requires a finalised sweep run in
+`data/internal/provenance/sweep-runs/`. The run must contain an explicit outcome for all 71 vessels,
+every required recurring manual source and every required public index. A typed collection or review
+blocker is retained in the ledger but leaves the run incomplete, so the release gate fails closed.
+Historical one-off evidence URLs do not become recurring sweep targets merely because their source
+records remain enabled. Finalisation derives vessel outcomes from the captured baseline and staged
+candidate assessments, seals the exact public/provenance closure and cannot be repeated. Pull-request
+CI authenticates a new baseline against the base commit and re-derives the stored outcome,
+assessment and evidence bindings.
 
 After generating the public projection, regenerate the publication summary, append the status
 snapshot and run every validation/test/build gate. Mapped and approximate decisions still require
@@ -169,6 +183,10 @@ append-only in `data/royal-navy/status-history.jsonl`; append the current datase
 `npm run validate:history -- --base-ref <production-ref>`. The interface does not present a rolling
 12-month availability figure until at least 52 weekly observations span approximately one year, and
 unknown observations reduce coverage instead of being guessed.
+
+If late evidence requires a same-day correction, follow
+[`docs/release-revisions.md`](docs/release-revisions.md): increment the release revision, record a
+later release instant and append a reasoned correction instead of rewriting history.
 
 The owner-reviewed weekly refresh procedure is documented in
 [`docs/weekly-fleet-refresh.md`](docs/weekly-fleet-refresh.md). X scraping, unlicensed commercial

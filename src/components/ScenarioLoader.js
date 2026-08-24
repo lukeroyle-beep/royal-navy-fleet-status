@@ -1,6 +1,7 @@
+import { readReleaseMetadata } from "../utils/release.js";
+
 const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
 const OPERATIONAL_STATUSES = new Set(["Available", "Deployed", "In re-fit", "Unknown", "Museum ship", "Decommissioned"]);
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const FORBIDDEN_PUBLIC_FIELDS = new Set([
   "source",
   "sourceId",
@@ -35,8 +36,10 @@ export function validateFleet(raw) {
   if (!raw.vessels.length) {
     throw new Error("Fleet data contains no vessel records.");
   }
-  if (!isIsoDate(raw.metadata.asOfDate)) {
-    throw new Error("Fleet data has an invalid dataset date.");
+  try {
+    readReleaseMetadata(raw.metadata);
+  } catch (error) {
+    throw new Error(`Fleet data has invalid release metadata: ${error.message}`);
   }
 
   const ids = new Set();
@@ -103,10 +106,4 @@ export function validateFleet(raw) {
   }
 
   return raw;
-}
-
-function isIsoDate(value) {
-  if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
 }

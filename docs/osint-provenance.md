@@ -1,6 +1,6 @@
 # OSINT provenance architecture
 
-Research cut-off: 2026-08-15.
+Research cut-off: 2026-08-24.
 
 ## Current-state assessment
 
@@ -29,26 +29,40 @@ The implementation deliberately avoids a database or heavyweight PROV/RDF layer.
 ## Deterministic assessment rules
 
 - Corroboration counts unique `originId` values. Articles, screenshots and reposts derived from one source do not increase independence.
-- Current location evidence requires a known observation interval. A publication timestamp alone is historical.
-- Transient, port-visit, underway, maintenance and static-location claims use different freshness windows. Expired evidence remains in history and cannot establish a current fix.
+- Current location evidence requires a known observation interval. A publication timestamp alone cannot establish an observation time.
+- Transient, port-visit, underway, maintenance and static-location claims use different freshness windows. Historical direct evidence may support the last publicly reported location at low confidence, but it cannot establish a current fix or promote a current operational status.
 - Newer credible observations can supersede older transitions; overlapping incompatible observations are retained as conflicts and reduce confidence to `unknown` until resolved.
-- `high` requires current direct evidence from at least two independent origin clusters and a Tier A/B source base. One strong current direct source is `moderate`; aging or weaker usable evidence is `low`; expired, time-unknown or unresolved contradictory evidence is `unknown`.
+- `high` requires current direct evidence from at least two independent origin clusters and an entirely Tier A/B source base. One strong current direct source is `moderate`; aging, historical or Tier C direct evidence is `low`; time-unknown or unresolved contradictory evidence is `unknown`.
 - Schedules, retrospectives and explicitly historical items cannot become current merely because they were recently published.
 - Source authority cannot erase age, lack of geographic precision or unresolved conflict.
 
 ## Source universe and lawful collection
 
-The registry contains the 28 evidence sources already used by the tracker plus these implemented collection classes:
+The registry contains 120 governed source records, a 71-vessel official-social coverage matrix and these implemented collection classes:
 
 - official MOD/GOV.UK and NATO releases;
 - Royal Navy, DefenceHQ and DefenceHQPress organisation accounts;
-- 28 vessel-account records found in the roster-wide official-page review: 23 enabled, three legacy, one registry-only and one provisional/disabled;
+- 71 vessel-account coverage records from the roster-wide official-page review: 25 enabled, three legacy, one registry-only, one provisional and 41 disabled;
 - official harbour/dockyard and defence-contractor news;
 - licensed MarineTraffic and VesselFinder API entries, disabled until credentials/licence approval;
 - MarineVesselTraffic NATO Navy Ships as a manual discovery-only source;
 - official imagery, credible media and AIS-derived legacy sources classified by tier and collection mode.
 
 No X scraping, commercial-page scraping, media downloading, satellite automation, webcam automation or automatic archive submission is implemented. X requires an authorised API for automation. Commercial AIS terms and public-output licences require procurement review. Visual material needs copyright, geolocation and chronolocation review. A manual evidence-ingestion command provides a maintainable lawful alternative and fails closed on unknown source/vessel IDs, malformed URLs, hashes or timestamps.
+
+The scheduled public-index collector makes one read-only `GET` request to each explicitly allowlisted
+publisher index or feed. It uses a bounded timeout and response size, accepts only expected document
+types, rejects cross-host redirects and stores only canonical links and hashes. An empty parse, HTTP
+failure, rate limit or content-type change becomes a typed blocker. The collector does not follow the
+article links and cannot promote a discovery into evidence. A required automatic blocker produces a
+non-zero job result after the ledger is written, while the workflow still uploads that ledger with an
+`always()` artifact step.
+
+Royal Navy News is a mandatory recurring manual review. Its public index and advertised sitemaps
+returned Cloudflare HTTP 403 during the 24 August review, so the implementation records the blocker
+and does not attempt a bypass. Westward Shipping News RSS is the replacement automatic target. It is
+Tier C and discovery-only: a candidate still needs origin, temporal and corroboration review before
+it can become evidence.
 
 Official account identity never constitutes vessel-location evidence. HMS Middleton is therefore registry-only because its official account was identified but the individual post URL and original timestamp were not recovered. Disabled and unresolved handles are not guessed from naming conventions.
 
@@ -60,16 +74,43 @@ The practical sweep is:
 
 Collection and assessment stay outside page requests. The page fetches one generated static JSON file and makes no source/API calls, so broader discovery does not add page latency or uncontrolled external requests.
 
-`npm run sweep:sources` materialises the current enabled collection queue from the registry. It includes all 23 enabled official vessel accounts, marks manual review, and forces discovery-only treatment for aggregators. It performs no network collection itself. `scripts/ingest-evidence.mjs` then validates reviewed evidence against the canonical vessel and source registries before an append.
+`npm run sweep:sources` materialises the recurring manual-source queue and approved discovery targets.
+`npm run sweep:collect -- --output=<run.json>` creates a versioned sweep run and collects only the
+allowlisted public publisher indexes. The scheduled GitHub workflow uploads this incomplete run as an
+artifact; it has read-only repository permission and cannot commit, ingest or publish. Buzz or an
+analyst must separately record every required recurring manual-source check and all 71 vessel
+outcomes. Newly governed sources and normalised evidence are added before an `updated` outcome is
+finalised. Candidate assessment revisions and the target release date/revision must exist before
+finalisation so the run can derive and bind every vessel outcome to the exact reviewed state.
+`npm run sweep:finalise -- <run.json>` succeeds only when the required interval and checks are complete.
+The finalised file is then retained under `data/internal/provenance/sweep-runs/` as an append-only ledger.
+
+The release gate applies to dataset dates from 24 August 2026. It requires the sweep roster and source
+hashes to match the proposed release, the exact required target sets to be present, no pending or
+blocked checks, all 71 vessel outcomes, and an explicit finalisation timestamp. Gate-effective runs
+capture self-contained registry, discovery-target, roster, public-projection and current-assessment
+baselines. CI authenticates a newly added baseline against the pull request base commit and keeps
+previously committed runs append-only. The authenticated prior release date also sets the latest
+permitted sweep-window lower bound, preventing a caller from omitting part of the period under
+review.
+
+Finalisation derives `updated`, `unchanged`, `unknown-retained` or `withheld-policy` from the captured
+and candidate projections, requires a new assessment ID for a changed state, binds the exact selected
+evidence set and rejects in-place assessment edits. It seals the current projection, assessment,
+referenced-evidence, supporting-source and projection-method closure. CI recomputes that seal and all
+outcome bindings, including that selected evidence was retrieved no later than its assessment,
+vessel review and finalisation. It then evaluates only the latest finalised sweep eligible at the
+release instant. A valid typed
+blocker preserves the failure for audit but cannot authorise an `asOfDate` advance.
 
 ## Known limitations and deferred work
 
-- The 71 migrated evidence records retain legacy source material, but their former date field did not prove whether it represented publication or observation. They are explicitly historical and unknown-confidence until reassessed; no time was manufactured to make the map appear fresher.
+- Unreassessed migrated evidence retains legacy source material, but its former date field did not prove whether it represented publication or observation. It remains explicitly historical and unknown-confidence; no time is manufactured to make the map appear fresher.
 - The repository is public-capable. “Internal” means excluded from the client bundle, not secret. A future private datastore is required for licensed or genuinely non-public material.
 - The manual ingestion command appends evidence but intentionally does not publish a new conclusion. An analyst must create and validate an assessment revision.
-- X/API, AIS, port-feed and archive schedulers are deferred until credentials, terms, rate limits, retention and operating ownership are approved.
+- X/API, AIS, port-feed and archive schedulers are deferred until credentials, terms, rate limits, retention and operating ownership are approved. Public publisher index discovery is scheduled, but evidence review and publication remain manual and owner-reviewed.
 - Perceptual image deduplication, satellite automation, route inference, geofencing and impossible-speed checks are deferred until evidence has reliable capture times and coordinates.
-- Thirty-four roster entries had no direct X link in the documented official-site search and nine remain unresolved; each registry review must repeat exact unit-page verification before enabling an account.
+- Forty-one official-social coverage rows remain disabled; each registry review must repeat exact unit-page verification before enabling an account.
 
 ## Research references
 

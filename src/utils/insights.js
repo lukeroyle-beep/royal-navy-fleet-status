@@ -1,3 +1,11 @@
+import {
+  compareReleaseIdentity,
+  isIsoDate,
+  isIsoInstant,
+  isPositiveInteger,
+  releaseRevision,
+} from "./release.js";
+
 const ACTIVE_STATUSES = new Set(["Available", "Deployed"]);
 const EXCLUDED_AVAILABILITY_STATUSES = new Set(["Museum ship", "Decommissioned"]);
 const ALLOWED_STATUSES = new Set([
@@ -8,12 +16,15 @@ const ALLOWED_STATUSES = new Set([
   "Museum ship",
   "Decommissioned",
 ]);
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const YEAR_MS = 365 * 24 * 60 * 60 * 1000;
 const EXPECTED_WEEKLY_OBSERVATIONS = 52;
 const MIN_MATURITY_SPAN_MS = 350 * 24 * 60 * 60 * 1000;
 
 export function parseStatusHistory(text) {
+  return collapseStatusHistory(parsePhysicalStatusHistory(text));
+}
+
+export function parsePhysicalStatusHistory(text) {
   if (typeof text !== "string" || !text.trim()) return [];
   const snapshots = text
     .trim()
@@ -25,13 +36,7 @@ export function parseStatusHistory(text) {
       } catch {
         throw new Error(`Status history line ${index + 1} is not valid JSON.`);
       }
-      if (
-        snapshot.schemaVersion !== 1 ||
-        !isIsoDate(snapshot.snapshotDate) ||
-        !snapshot.statuses ||
-        typeof snapshot.statuses !== "object" ||
-        Array.isArray(snapshot.statuses)
-      ) {
+      if (!isValidSnapshotShape(snapshot)) {
         throw new Error(`Status history line ${index + 1} is invalid.`);
       }
       for (const [vesselId, status] of Object.entries(snapshot.statuses)) {
@@ -42,24 +47,80 @@ export function parseStatusHistory(text) {
       return snapshot;
     });
 
+  if (releaseRevision(snapshots[0]) !== 1 || snapshots[0].correctionReason !== undefined) {
+    throw new Error("Status history must begin with release revision 1.");
+  }
   for (let index = 1; index < snapshots.length; index += 1) {
-    if (snapshots[index - 1].snapshotDate >= snapshots[index].snapshotDate) {
-      throw new Error("Status history snapshots must be ordered by unique date.");
+    const previous = snapshots[index - 1];
+    const current = snapshots[index];
+    if (previous.schemaVersion === 2 && current.schemaVersion === 1) {
+      throw new Error("Status history cannot return to the legacy schema after revisioning is adopted.");
+    }
+    if (compareReleaseIdentity(previous, current) >= 0) {
+      throw new Error("Status history snapshots must be ordered by date and release revision.");
+    }
+    if (previous.snapshotDate === current.snapshotDate) {
+      if (current.schemaVersion !== 2 || !current.correctionReason?.trim()) {
+        throw new Error("A same-day status snapshot must be a v2 correction with a reason.");
+      }
+    } else if (releaseRevision(current) !== 1 || current.correctionReason !== undefined) {
+      throw new Error("A new status snapshot date must start at release revision 1.");
+    }
+    if (
+      previous.releasedAt &&
+      current.releasedAt &&
+      new Date(previous.releasedAt).valueOf() >= new Date(current.releasedAt).valueOf()
+    ) {
+      throw new Error("Status snapshot releasedAt instants must be ascending.");
     }
   }
   return snapshots;
 }
 
+export function collapseStatusHistory(snapshots) {
+  const collapsed = [];
+  for (const snapshot of snapshots) {
+    if (collapsed.at(-1)?.snapshotDate === snapshot.snapshotDate) {
+      collapsed[collapsed.length - 1] = snapshot;
+    } else {
+      collapsed.push(snapshot);
+    }
+  }
+  return collapsed;
+}
+
 export function validatePublicationChanges(raw) {
   if (
     !raw ||
-    raw.schemaVersion !== 1 ||
+    ![1, 2].includes(raw.schemaVersion) ||
     !isIsoDate(raw.previousAsOfDate) ||
     !isIsoDate(raw.currentAsOfDate) ||
     !raw.counts ||
     !Array.isArray(raw.changes)
   ) {
     throw new Error("Publication changes are invalid.");
+  }
+  if (raw.schemaVersion === 1) {
+    if (raw.previousAsOfDate >= raw.currentAsOfDate) {
+      throw new Error("Legacy publication changes must use ascending dataset dates.");
+    }
+    return raw;
+  }
+  if (
+    !isPositiveInteger(raw.previousReleaseRevision) ||
+    !isPositiveInteger(raw.currentReleaseRevision) ||
+    (raw.previousReleasedAt !== null && !isIsoInstant(raw.previousReleasedAt)) ||
+    (raw.previousReleasedAt === null && raw.previousReleaseRevision !== 1) ||
+    !isIsoInstant(raw.currentReleasedAt) ||
+    (raw.previousAsOfDate !== raw.currentAsOfDate && raw.currentReleaseRevision !== 1) ||
+    (raw.previousReleasedAt !== null &&
+      new Date(raw.previousReleasedAt).valueOf() >= new Date(raw.currentReleasedAt).valueOf()) ||
+    compareReleaseIdentity(
+      { asOfDate: raw.previousAsOfDate, releaseRevision: raw.previousReleaseRevision },
+      { asOfDate: raw.currentAsOfDate, releaseRevision: raw.currentReleaseRevision },
+    ) >= 0
+  ) {
+    throw new Error("Publication change release identities are invalid.");
   }
   return raw;
 }
@@ -204,8 +265,28 @@ function dateValue(value) {
   return new Date(`${value}T00:00:00Z`).valueOf();
 }
 
-function isIsoDate(value) {
-  if (typeof value !== "string" || !ISO_DATE.test(value)) return false;
-  const date = new Date(`${value}T00:00:00Z`);
-  return !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value;
+function isValidSnapshotShape(snapshot) {
+  if (
+    !snapshot ||
+    ![1, 2].includes(snapshot.schemaVersion) ||
+    !isIsoDate(snapshot.snapshotDate) ||
+    !snapshot.statuses ||
+    typeof snapshot.statuses !== "object" ||
+    Array.isArray(snapshot.statuses)
+  ) {
+    return false;
+  }
+  if (snapshot.schemaVersion === 1) {
+    return (
+      snapshot.releaseRevision === undefined &&
+      snapshot.releasedAt === undefined &&
+      snapshot.correctionReason === undefined
+    );
+  }
+  return (
+    isPositiveInteger(snapshot.releaseRevision) &&
+    isIsoInstant(snapshot.releasedAt) &&
+    (snapshot.correctionReason === undefined ||
+      (typeof snapshot.correctionReason === "string" && Boolean(snapshot.correctionReason.trim())))
+  );
 }

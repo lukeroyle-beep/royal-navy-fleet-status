@@ -1,4 +1,5 @@
 import { parseStatusHistory, validatePublicationChanges } from "../utils/insights.js";
+import { readReleaseMetadata, releaseRevision } from "../utils/release.js";
 
 export class FleetInsightsLoader {
   constructor({ changesUrl, historyUrl }) {
@@ -21,11 +22,23 @@ export class FleetInsightsLoader {
   }
 }
 
-export function insightsMatchDataset(insights, asOfDate) {
-  if (!insights || typeof asOfDate !== "string") return false;
+export function insightsMatchDataset(insights, metadata) {
+  if (!insights) return false;
+  let release;
+  try {
+    release = readReleaseMetadata(
+      typeof metadata === "string" ? { asOfDate: metadata } : metadata,
+    );
+  } catch {
+    return false;
+  }
   const latestSnapshot = insights.history?.at(-1);
   return (
-    insights.changes?.currentAsOfDate === asOfDate &&
-    latestSnapshot?.snapshotDate === asOfDate
+    insights.changes?.currentAsOfDate === release.asOfDate &&
+    (insights.changes?.currentReleaseRevision ?? 1) === release.releaseRevision &&
+    (insights.changes?.currentReleasedAt ?? null) === release.releasedAt &&
+    latestSnapshot?.snapshotDate === release.asOfDate &&
+    releaseRevision(latestSnapshot) === release.releaseRevision &&
+    (latestSnapshot?.releasedAt ?? null) === release.releasedAt
   );
 }

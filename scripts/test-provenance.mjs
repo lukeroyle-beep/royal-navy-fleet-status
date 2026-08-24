@@ -26,7 +26,14 @@ assert.equal(
 );
 assert.equal(validateAssessmentLog(assessmentLog, evidenceLog.evidence, vesselIds), assessmentLog);
 assert.equal(registry.officialSocialCoverage.length, 71);
-assert.equal(registry.officialSocialCoverage.filter((entry) => entry.enabled).length, 23);
+const enabledOfficialAccounts = registry.sources.filter(
+  (source) => source.enabled && source.category === "official-vessel-social",
+);
+assert.equal(
+  registry.officialSocialCoverage.filter((entry) => entry.enabled).length,
+  enabledOfficialAccounts.length,
+  "Official social coverage and enabled account sources must remain in sync.",
+);
 assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "legacy").length, 3);
 assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "registry-only").length, 1);
 assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "provisional").length, 1);
@@ -37,13 +44,19 @@ assert.equal(
 const sweep = createSweepQueue(registry, "2026-08-15T12:00:00Z");
 assert.equal(
   sweep.sources.filter((source) => source.category === "official-vessel-social").length,
-  23,
+  enabledOfficialAccounts.length,
   "Every enabled official vessel account must enter the sweep queue.",
 );
 assert.equal(
   sweep.sources.find((source) => source.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY").promotionPolicy,
   "discovery-only",
 );
+assert.equal(
+  sweep.sources.some((source) => source.sourceId === "AGAMEMNON_DELIVERY_2026"),
+  false,
+  "Historical one-off evidence pages must not re-enter the recurring source queue.",
+);
+assert.equal(sweep.discoveryTargets.length, 7);
 
 const middleton = registry.officialSocialCoverage.find((entry) => entry.vesselId === "hms-middleton");
 assert.equal(middleton.accountHandle, "@HMSMiddleton");
@@ -72,6 +85,7 @@ const sources = [
   source("official-a", "A"),
   source("official-b", "B"),
   source("media-c", "C"),
+  source("discovery-c", "C", "aggregator-discovery"),
 ];
 const duplicateOrigin = [
   item("one", "official-a", "Portsmouth", "origin-one", "2026-08-15T08:00:00Z"),
@@ -124,8 +138,17 @@ assert.equal(freshnessState(recentPublicationWithoutObservation, "2026-08-15T12:
 
 const scheduled = item("scheduled", "official-a", "Oslo", "origin-scheduled", "2026-08-20T08:00:00Z");
 assert.equal(freshnessState(scheduled, "2026-08-15T12:00:00Z"), "historical");
+result = assessEvidenceSet({
+  vesselId: "test-vessel",
+  evidence: [scheduled],
+  sources,
+  assessedAt: "2026-08-15T12:00:00Z",
+});
+assert.equal(result.confidenceLevel, "unknown");
+assert.ok(result.excludedEvidenceIds.includes("scheduled"));
+assert.equal(result.exclusionReasons[0].reason, "future-observation");
 
-const discoveryOnly = item("discovery", "media-c", "Portsmouth", "origin-discovery", "2026-08-15T08:00:00Z");
+const discoveryOnly = item("discovery", "discovery-c", "Portsmouth", "origin-discovery", "2026-08-15T08:00:00Z");
 result = assessEvidenceSet({
   vesselId: "test-vessel",
   evidence: [discoveryOnly],
@@ -135,6 +158,16 @@ result = assessEvidenceSet({
 assert.equal(result.confidenceLevel, "unknown");
 assert.ok(result.excludedEvidenceIds.includes("discovery"));
 
+const directTierC = item("direct-tier-c", "media-c", "Portsmouth", "origin-media", "2026-08-15T08:00:00Z");
+result = assessEvidenceSet({
+  vesselId: "test-vessel",
+  evidence: [directTierC],
+  sources,
+  assessedAt: "2026-08-15T12:00:00Z",
+});
+assert.equal(result.chosenClaim.location.name, "Portsmouth");
+assert.equal(result.confidenceLevel, "low", "Tier C direct evidence may locate a vessel but cannot raise confidence.");
+
 const expired = item("expired", "official-a", "Portsmouth", "origin-expired", "2026-07-01T08:00:00Z");
 result = assessEvidenceSet({
   vesselId: "test-vessel",
@@ -142,8 +175,10 @@ result = assessEvidenceSet({
   sources,
   assessedAt: "2026-08-15T12:00:00Z",
 });
-assert.equal(result.confidenceLevel, "unknown");
-assert.ok(result.excludedEvidenceIds.includes("expired"));
+assert.equal(result.chosenClaim.location.name, "Portsmouth");
+assert.equal(result.confidenceLevel, "low");
+assert.equal(result.freshness.state, "historical");
+assert.equal(result.statusPromotionEligible, false);
 
 const history = [
   { assessmentId: "a1", previousAssessmentId: null },
@@ -153,8 +188,8 @@ assert.deepEqual(reconstructAssessmentHistory("a2", history).map((entry) => entr
 
 console.log("Provenance model tests passed.");
 
-function source(sourceId, reliabilityTier) {
-  return { sourceId, reliabilityTier, enabled: true };
+function source(sourceId, reliabilityTier, category = "official-royal-navy") {
+  return { sourceId, reliabilityTier, category, enabled: true };
 }
 
 function item(evidenceId, sourceId, location, originId, observedAt) {
