@@ -56,22 +56,23 @@ assert.equal(Object.keys(history.at(-1).statuses).length, fleet.vessels.length);
 
 assert.equal(changes.previousAsOfDate, changes.currentAsOfDate);
 assert.equal(changes.currentAsOfDate, fleet.metadata.asOfDate);
-assert.equal(changes.previousReleaseRevision ?? 1, 1);
-assert.equal(changes.currentReleaseRevision ?? 1, 2);
-assert.equal(changes.changes.length, 18);
-assert.equal(changes.counts.status, 2);
-assert.equal(changes.counts.location, 18);
-assert.equal(changes.changes.some((change) => change.vesselId === "hms-richmond"), false);
-assert.equal(changes.changes.some((change) => change.vesselId === "hms-hurworth"), true);
+assert.equal(changes.previousReleaseRevision ?? 1, 3);
+assert.equal(changes.currentReleaseRevision ?? 1, 4);
+assert.equal(changes.changes.length, 2);
+assert.equal(changes.counts.status, 0);
+assert.equal(changes.counts.location, 0);
+assert.equal(changes.counts.mapping, 2);
+assert.equal(changes.changes.some((change) => change.vesselId === "hms-iron-duke"), true);
+assert.equal(changes.changes.some((change) => change.vesselId === "hms-chiddingfold"), true);
+assert.equal(changes.changes.some((change) => change.vesselId === "hms-hurworth"), false);
 assert.equal(
   formatDatasetReleaseLabel(fleet.metadata),
-  "23 August 2026 · correction r2",
+  "23 August 2026",
 );
 assert.deepEqual(formatPublicationChangeLabels(changes), {
-  count: `23 Aug · correction r2 · ${changes.changes.length} vessels`,
+  count: "23 Aug · 2 vessels",
   summary:
-    `${changes.changes.length} vessels changed in the 23 August 2026 correction ` +
-    "from r1 to r2.",
+    "2 vessels changed in the 23 August 2026 correction from r3 to r4.",
 });
 assert.equal(formatDatasetReleaseLabel({ asOfDate: "2026-08-23" }), "23 August 2026");
 assert.equal(

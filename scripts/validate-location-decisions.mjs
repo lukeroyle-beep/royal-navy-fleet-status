@@ -2,7 +2,7 @@ import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
 const logPath = new URL("../data/royal-navy/location-decisions.jsonl", import.meta.url);
-const fleetPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
+const entitiesPath = new URL("../data/internal/provenance/vessels.json", import.meta.url);
 const allowedDecisions = new Set(["promote", "retain-unknown", "downgrade", "withhold"]);
 const allowedLocationClassifications = new Set(["mapped", "approximate", "unknown", "withheld"]);
 const allowedEvidenceClassifications = new Set(["direct-report", "direct-tracker", "insufficient", "withheld-policy"]);
@@ -11,8 +11,10 @@ const isoDate = /^\d{4}-\d{2}-\d{2}$/;
 
 const currentText = fs.readFileSync(logPath, "utf8");
 const lines = parseLines(currentText);
-const fleet = JSON.parse(fs.readFileSync(fleetPath, "utf8"));
-const vesselIds = new Set(fleet.vessels.map((vessel) => vessel.id));
+const entities = JSON.parse(fs.readFileSync(entitiesPath, "utf8"));
+const vesselIds = new Set(
+  [...entities.vessels, ...(entities.retiredVessels || [])].map((vessel) => vessel.vesselId),
+);
 const decisionIds = new Set();
 
 for (const [index, line] of lines.entries()) {

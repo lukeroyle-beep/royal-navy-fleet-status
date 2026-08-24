@@ -76,6 +76,9 @@ assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
 assert.match(indexHtml, /class="command-header"/);
 assert.match(indexHtml, /class="command-workspace"/);
 assert.match(indexHtml, /id="totalCount"/);
+assert.match(indexHtml, /Overall fleet availability/);
+assert.match(indexHtml, /id="fleetAvailabilityPercentage"/);
+assert.match(indexHtml, /id="fleetAvailabilityFormula"/);
 assert.match(indexHtml, /id="deployedCount"/);
 assert.match(indexHtml, /id="refitCount"/);
 assert.match(indexHtml, /id="unknownCount"/);
@@ -86,6 +89,7 @@ assert.doesNotMatch(indexHtml, /Location confidence/);
 assert.match(indexHtml, /id="changesToggle"/);
 assert.match(indexHtml, /aria-controls="changesPanel"/);
 assert.match(indexHtml, /id="classRibbon"/);
+assert.match(indexHtml, /id="classAvailabilityPanel"[^>]*aria-live="polite"[^>]*hidden/);
 assert.match(indexHtml, /id="changesPanel"[^>]*hidden/);
 assert.match(indexHtml, /id="detailCard"[^>]*aria-live="polite"[^>]*hidden/);
 assert.match(indexHtml, /Public-status snapshot/);
@@ -106,6 +110,9 @@ assert.match(appSource, /formatDatasetReleaseLabel\(dataset\.metadata\)/);
 assert.match(appSource, /formatPublicationChangeLabels\(publication\)/);
 assert.match(appSource, /selectedClass = ""/);
 assert.match(appSource, /getFleetStatusSummary/);
+assert.match(appSource, /getAvailabilitySummary/);
+assert.match(appSource, /active means deployed or available/);
+assert.match(appSource, /aria-controls", "classAvailabilityPanel"/);
 assert.match(appSource, /withheld:\s*"Withheld"/);
 assert.match(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),

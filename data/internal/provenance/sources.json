@@ -2351,28 +2351,6 @@
       "notes": "@HMSDuncan; verified/enabled"
     },
     {
-      "vesselId": "hms-iron-duke",
-      "pennantNumber": "F234",
-      "accountHandle": "@HMSIronDuke",
-      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-iron-duke",
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "legacy",
-      "searchResult": "legacy",
-      "enabled": false,
-      "notes": "@HMSIronDuke; verified/legacy—disable on decommission"
-    },
-    {
-      "vesselId": "hms-richmond",
-      "pennantNumber": "F239",
-      "accountHandle": "@HMS_Richmond",
-      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-richmond",
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "legacy",
-      "searchResult": "legacy",
-      "enabled": false,
-      "notes": "@HMS_Richmond; verified/legacy—disable on decommission"
-    },
-    {
       "vesselId": "hms-somerset",
       "pennantNumber": "F82",
       "accountHandle": "@HMSSomerset",
@@ -2558,17 +2536,6 @@
       "searchResult": "registry-only",
       "enabled": false,
       "notes": "@HMSMiddleton; official registry only—unrecovered post is not evidence"
-    },
-    {
-      "vesselId": "hms-chiddingfold",
-      "pennantNumber": "M37",
-      "accountHandle": "@HMSChiddingfold",
-      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-chiddingfold",
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "legacy",
-      "searchResult": "legacy",
-      "enabled": false,
-      "notes": "@HMSChiddingfold; verified/legacy—disable on decommission"
     },
     {
       "vesselId": "hms-hurworth",

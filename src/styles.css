@@ -217,6 +217,7 @@ h1 {
 }
 
 .legend,
+.shore-layer-toggle,
 .map-reset,
 .map-notice {
   border: 1px solid var(--line-strong);
@@ -267,7 +268,15 @@ h1 {
   background: #23112f;
 }
 
-.map-reset {
+.legend-dot.shore {
+  border-radius: 2px;
+  color: #55d8ff;
+  background: #0c4058;
+  transform: rotate(45deg);
+}
+
+.map-reset,
+.shore-layer-toggle {
   min-height: 44px;
   padding: 8px 13px;
   border-radius: 9px;
@@ -275,9 +284,22 @@ h1 {
   pointer-events: auto;
 }
 
-.map-reset:hover {
+.map-reset:hover,
+.shore-layer-toggle:hover,
+.shore-layer-toggle.is-selected {
   border-color: rgba(37, 213, 181, 0.66);
   background: #142b38;
+}
+
+.shore-layer-toggle strong {
+  display: inline-grid;
+  min-width: 24px;
+  height: 24px;
+  margin-left: 5px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(85, 216, 255, 0.16);
+  color: #9be9ff;
 }
 
 .map-notice {
@@ -346,6 +368,44 @@ h1 {
   gap: 10px;
 }
 
+.fleet-availability {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(37, 205, 183, 0.55);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(37, 205, 183, 0.14), rgba(37, 205, 183, 0.04));
+}
+
+.fleet-availability span,
+.fleet-availability strong {
+  display: block;
+}
+
+.fleet-availability span {
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fleet-availability p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.fleet-availability strong {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
 .status-metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -386,6 +446,80 @@ h1 {
   color: var(--muted);
   font-size: 0.7rem;
   line-height: 1.4;
+}
+
+.shore-controls {
+  display: grid;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(85, 216, 255, 0.35);
+  border-radius: 10px;
+  background: rgba(85, 216, 255, 0.055);
+}
+
+.shore-scope-note,
+.shore-result-summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.shore-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 8px;
+}
+
+.shore-filter-grid label {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.shore-filter-grid input,
+.shore-filter-grid select {
+  width: 100%;
+  min-height: 44px;
+}
+
+.shore-establishment-list {
+  display: grid;
+  max-height: 330px;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.shore-establishment-list button {
+  display: grid;
+  width: 100%;
+  min-height: 44px;
+  gap: 3px;
+  padding: 8px 9px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  text-align: left;
+}
+
+.shore-establishment-list button:hover,
+.shore-establishment-list button.is-selected {
+  border-color: rgba(85, 216, 255, 0.7);
+  background: rgba(85, 216, 255, 0.1);
+}
+
+.shore-establishment-list span {
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.shore-establishment-list small {
+  color: var(--muted);
+  font-size: 0.64rem;
 }
 
 .search-controls,
@@ -496,6 +630,151 @@ h1 {
   border-color: rgba(37, 213, 181, 0.72);
   background: rgba(37, 213, 181, 0.11);
   color: #ffffff;
+}
+
+.class-availability {
+  display: grid;
+  gap: 11px;
+  padding: 13px;
+  border: 1px solid rgba(37, 213, 181, 0.35);
+  border-radius: 10px;
+  background: rgba(37, 213, 181, 0.055);
+}
+
+.class-availability-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.class-availability-heading h3,
+.class-availability-vessels h4 {
+  margin: 0;
+}
+
+.class-availability-heading h3 {
+  font-size: 0.92rem;
+}
+
+.class-availability-score {
+  min-width: 78px;
+  text-align: right;
+}
+
+.class-availability-score strong,
+.class-availability-score span {
+  display: block;
+}
+
+.class-availability-score strong {
+  color: var(--accent);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.class-availability-score span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.class-availability-formula {
+  margin: 0;
+  color: #d2dfe3;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.class-availability-breakdown {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.class-availability-breakdown div {
+  min-width: 0;
+  padding: 8px 5px;
+  text-align: center;
+}
+
+.class-availability-breakdown div + div {
+  border-left: 1px solid var(--line);
+}
+
+.class-availability-breakdown dt,
+.class-availability-breakdown dd {
+  margin: 0;
+}
+
+.class-availability-breakdown dt {
+  min-height: 2.4em;
+  color: var(--muted);
+  font-size: 0.59rem;
+  line-height: 1.2;
+}
+
+.class-availability-breakdown dd {
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.class-availability-vessels {
+  display: grid;
+  gap: 6px;
+}
+
+.class-availability-vessels h4 {
+  color: var(--muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.class-availability-vessels ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.class-availability-vessels button {
+  display: grid;
+  width: 100%;
+  min-height: 44px;
+  gap: 2px;
+  padding: 7px 8px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  text-align: left;
+}
+
+.class-availability-vessels button:hover {
+  border-color: rgba(37, 213, 181, 0.72);
+  background: rgba(37, 213, 181, 0.1);
+}
+
+.class-availability-vessels button span {
+  overflow: hidden;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.class-availability-vessels button small {
+  color: var(--muted);
+  font-size: 0.62rem;
 }
 
 .filter-grid {
@@ -796,6 +1075,54 @@ h1 {
     0 5px 18px rgba(0, 0, 0, 0.6);
 }
 
+.detail-photo-credit {
+  margin: 6px 2px 0;
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.35;
+}
+
+.detail-photo-credit a {
+  color: #9fe8ff;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.shore-marker {
+  display: grid;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 !important;
+  place-items: center;
+  border: 0;
+  background: transparent;
+}
+
+.shore-marker span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 2px solid #dff8ff;
+  border-radius: 4px;
+  background: #0c4058;
+  box-shadow:
+    0 0 0 3px rgba(7, 16, 24, 0.8),
+    0 5px 14px rgba(0, 0, 0, 0.48);
+  transform: rotate(45deg);
+}
+
+.shore-marker.is-selected span {
+  width: 28px;
+  height: 28px;
+  border-color: #ffffff;
+  background: #0d6f89;
+  box-shadow:
+    0 0 0 4px rgba(85, 216, 255, 0.38),
+    0 0 0 7px rgba(7, 16, 24, 0.78),
+    0 6px 18px rgba(0, 0, 0, 0.55);
+}
+
 .fleet-cluster {
   display: grid;
   place-items: center;
@@ -816,6 +1143,20 @@ h1 {
 
 .fleet-cluster--large {
   background: #754227;
+}
+
+.shore-cluster {
+  display: grid;
+  place-items: center;
+  border: 2px solid #dff8ff;
+  border-radius: 8px;
+  background: #0c4058;
+  color: #ffffff;
+  box-shadow:
+    0 0 0 5px rgba(85, 216, 255, 0.22),
+    0 5px 18px rgba(0, 0, 0, 0.42);
+  font-size: 0.82rem;
+  font-weight: 800;
 }
 
 .fleet-tooltip {
@@ -990,6 +1331,12 @@ a:focus-visible {
     font-size: 0.7rem;
   }
 
+  .shore-layer-toggle {
+    min-height: 44px;
+    padding: 7px 10px;
+    font-size: 0.7rem;
+  }
+
   .map-notice {
     top: 12px;
     left: 12px;
@@ -1017,6 +1364,26 @@ a:focus-visible {
   }
 
   .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shore-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .class-availability-breakdown {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .class-availability-breakdown div:nth-child(3n + 1) {
+    border-left: 0;
+  }
+
+  .class-availability-breakdown div:nth-child(n + 4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .class-availability-vessels ul {
     grid-template-columns: 1fr;
   }
 

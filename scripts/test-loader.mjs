@@ -3,7 +3,11 @@ import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
 import { formatLocationClassification } from "../src/components/EventDetailsPanel.js";
-import { getActiveFleetSummary, getFleetStatusSummary } from "../src/utils/fleet.js";
+import {
+  getActiveFleetSummary,
+  getAvailabilitySummary,
+  getFleetStatusSummary,
+} from "../src/utils/fleet.js";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
@@ -13,12 +17,12 @@ const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "u
 
 assert.match(page, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
-assert.equal(validateFleet(dataset).vessels.length, 71);
+assert.equal(validateFleet(dataset).vessels.length, 68);
 assert.equal(
   dataset.vessels.filter(
     (vessel) => ["mapped", "approximate", "withheld"].includes(vessel.locationClassification),
   ).length,
-  71,
+  68,
 );
 assert.equal(dataset.vessels.filter((vessel) => vessel.locationClassification === "unknown").length, 0);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
@@ -27,20 +31,51 @@ assert.equal(formatLocationClassification("withheld"), "Withheld · symbolic mar
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
 assert.equal(activeFleet.total, 50);
-assert.equal(activeFleet.percentage.toFixed(1), "70.4");
+assert.equal(activeFleet.percentage.toFixed(1), "73.5");
+const fleetAvailability = getAvailabilitySummary(dataset.vessels);
+assert.equal(fleetAvailability.active, 50);
+assert.equal(fleetAvailability.total, 68);
+assert.equal(fleetAvailability.percentage.toFixed(1), "73.5");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
-  total: 71,
+  total: 68,
   deployed: 17,
   inRefit: 13,
-  unknown: 7,
+  unknown: 4,
+});
+
+const type23Availability = getAvailabilitySummary(
+  dataset.vessels.filter((vessel) => vessel.vesselClass === "Type 23 / Duke class"),
+);
+assert.deepEqual(type23Availability, {
+  active: 2,
+  total: 5,
+  percentage: (2 / 5) * 100,
+  byStatus: {
+    Available: 2,
+    "In re-fit": 3,
+  },
+});
+
+const huntAvailability = getAvailabilitySummary(
+  dataset.vessels.filter((vessel) => vessel.vesselClass === "Hunt class"),
+);
+assert.deepEqual(huntAvailability, {
+  active: 4,
+  total: 5,
+  percentage: (4 / 5) * 100,
+  byStatus: {
+    Available: 3,
+    "In re-fit": 1,
+    Deployed: 1,
+  },
 });
 
 const duncan = dataset.vessels.find((vessel) => vessel.id === "hms-duncan");
 assert.equal(duncan.status, "Deployed");
 assert.match(duncan.lastReportedLocation, /Copenhagen, Denmark/);
-const richmond = dataset.vessels.find((vessel) => vessel.id === "hms-richmond");
-assert.equal(richmond.status, "Unknown");
-assert.match(richmond.lastReportedLocation, /last official public return reported 28 March 2024/);
+for (const retiredId of ["hms-richmond", "hms-iron-duke", "hms-chiddingfold"]) {
+  assert.equal(dataset.vessels.some((vessel) => vessel.id === retiredId), false);
+}
 const hurworth = dataset.vessels.find((vessel) => vessel.id === "hms-hurworth");
 assert.equal(hurworth.status, "Deployed");
 assert.match(hurworth.lastReportedLocation, /departing observed 12 August 2026/);

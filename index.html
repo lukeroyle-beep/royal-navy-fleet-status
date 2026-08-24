@@ -47,7 +47,11 @@
               <span><i class="legend-dot mapped"></i>Mapped public location</span>
               <span><i class="legend-dot approximate"></i>Approximate port or area</span>
               <span><i class="legend-dot classified"></i>Withheld symbolic marker</span>
+              <span><i class="legend-dot shore"></i>Shore establishment</span>
             </div>
+            <button id="shoreLayerToggle" class="shore-layer-toggle" type="button" aria-pressed="false" aria-controls="shoreControls">
+              Shore establishments <strong id="shoreLayerCount">0</strong>
+            </button>
             <button id="resetMap" class="map-reset" type="button">Reset map view</button>
           </div>
           <div id="mapNotice" class="map-notice" role="status" hidden>
@@ -63,6 +67,13 @@
                 <h2 id="fleetOverviewTitle">Fleet overview</h2>
               </div>
             </div>
+            <div class="fleet-availability" aria-label="Overall fleet availability">
+              <div>
+                <span>Overall fleet availability</span>
+                <p id="fleetAvailabilityFormula">0 active of 0 total vessels</p>
+              </div>
+              <strong id="fleetAvailabilityPercentage">0%</strong>
+            </div>
             <div class="status-metrics">
               <div><strong id="totalCount">0</strong><span>Vessels</span></div>
               <div><strong id="deployedCount">0</strong><span>Deployed</span></div>
@@ -70,6 +81,31 @@
               <div><strong id="unknownCount">0</strong><span>Status unknown</span></div>
             </div>
             <p class="status-note">Published status labels describe the evidence snapshot, not operational readiness.</p>
+          </section>
+
+          <section id="shoreControls" class="shore-controls" aria-labelledby="shoreControlsTitle" hidden>
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Separate map layer</p>
+                <h2 id="shoreControlsTitle">UK shore establishments</h2>
+              </div>
+              <button id="shoreLayerClose" class="panel-close" type="button">Hide layer</button>
+            </div>
+            <p class="shore-scope-note">Public establishment-level locations only. Fleet totals and availability are unchanged.</p>
+            <div class="shore-filter-grid">
+              <label>
+                Find an establishment
+                <input id="shoreSearchInput" type="search" autocomplete="off" placeholder="Name, role or broad location" />
+              </label>
+              <label>
+                Establishment type
+                <select id="shoreTypeFilter"><option value="">All types</option></select>
+              </label>
+            </div>
+            <div class="shore-result-summary" role="status" aria-live="polite">
+              <strong id="shoreFilteredCount">0</strong> of <span id="shoreTotalCount">0</span> establishments shown
+            </div>
+            <ul id="shoreEstablishmentList" class="shore-establishment-list"></ul>
           </section>
 
           <section class="search-controls" aria-label="Search and filter fleet">
@@ -90,6 +126,30 @@
                     <span id="classSelectionStatus">All classes</span>
                   </div>
                   <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
+                  <section
+                    id="classAvailabilityPanel"
+                    class="class-availability"
+                    aria-labelledby="classAvailabilityTitle"
+                    aria-live="polite"
+                    hidden
+                  >
+                    <div class="class-availability-heading">
+                      <div>
+                        <p class="eyebrow">Selected class</p>
+                        <h3 id="classAvailabilityTitle"></h3>
+                      </div>
+                      <div class="class-availability-score">
+                        <strong id="classAvailabilityPercentage"></strong>
+                        <span>availability</span>
+                      </div>
+                    </div>
+                    <p id="classAvailabilityFormula" class="class-availability-formula"></p>
+                    <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>
+                    <div class="class-availability-vessels">
+                      <h4>Vessels in class</h4>
+                      <ul id="classAvailabilityVessels"></ul>
+                    </div>
+                  </section>
                 </section>
 
                 <div class="filter-grid">
@@ -142,6 +202,7 @@
             <h2 id="detailTitle" tabindex="-1">Select a vessel</h2>
             <figure id="detailPhoto" class="detail-photo" hidden>
               <img id="detailPhotoImage" alt="" />
+              <figcaption id="detailPhotoCredit" class="detail-photo-credit" hidden></figcaption>
             </figure>
             <dl id="detailMeta" class="detail-meta"></dl>
           </section>

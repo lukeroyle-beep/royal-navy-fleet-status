@@ -2,301 +2,47 @@
   "schemaVersion": 2,
   "previousAsOfDate": "2026-08-23",
   "currentAsOfDate": "2026-08-23",
-  "previousReleaseRevision": 1,
-  "currentReleaseRevision": 2,
-  "previousReleasedAt": null,
-  "currentReleasedAt": "2026-08-23T21:18:13Z",
-  "previousMappedCount": 71,
-  "currentMappedCount": 71,
+  "previousReleaseRevision": 3,
+  "currentReleaseRevision": 4,
+  "previousReleasedAt": "2026-08-24T18:58:10Z",
+  "currentReleasedAt": "2026-08-24T19:27:15Z",
+  "previousMappedCount": 70,
+  "currentMappedCount": 68,
   "counts": {
-    "status": 2,
-    "location": 18,
-    "mapping": 0,
+    "status": 0,
+    "location": 0,
+    "mapping": 2,
     "marker": 0,
     "evidence": 0
   },
   "changes": [
     {
-      "vesselId": "hms-dragon",
-      "vesselName": "HMS Dragon",
+      "vesselId": "hms-iron-duke",
+      "vesselName": "HMS Iron Duke",
       "categories": [
-        "location"
+        "mapping"
       ],
       "items": [
         {
-          "kind": "location",
-          "label": "Location",
-          "before": "Red Sea / Middle East region; escorting RFA Lyme Bay mine-countermeasures task group",
-          "after": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026"
+          "kind": "mapping",
+          "label": "Fleet record",
+          "before": "Listed",
+          "after": "Removed"
         }
       ]
     },
     {
-      "vesselId": "hms-duncan",
-      "vesselName": "HMS Duncan",
+      "vesselId": "hms-chiddingfold",
+      "vesselName": "HMS Chiddingfold",
       "categories": [
-        "status",
-        "location"
+        "mapping"
       ],
       "items": [
         {
-          "kind": "status",
-          "label": "Status",
-          "before": "Available",
-          "after": "Deployed"
-        },
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
-          "after": "Copenhagen, Denmark; official arrival reported 23 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-sutherland",
-      "vesselName": "HMS Sutherland",
-      "categories": [
-        "status",
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "status",
-          "label": "Status",
-          "before": "Available",
-          "after": "In re-fit"
-        },
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026",
-          "after": "HMNB Devonport; support period reported 19 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-st-albans",
-      "vesselName": "HMS St Albans",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "English Channel and North Sea; Operation Ceto handover reported 9 April 2026",
-          "after": "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-tyne",
-      "vesselName": "HMS Tyne",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "UK waters south of Plymouth; monitoring operation observed 20 July 2026",
-          "after": "Portsmouth Harbour; entering observed 21 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-severn",
-      "vesselName": "HMS Severn",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "North Sea to Dover Strait and waters off Ushant; patrol route observed 23–26 July 2026",
-          "after": "UK east-coast waters; last confirmed outbound from Harwich on 15 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-mersey",
-      "vesselName": "HMS Mersey",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "UK waters / Dover approaches; handover with HMS Severn observed 23–26 July 2026",
-          "after": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-trent",
-      "vesselName": "HMS Trent",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Tampa, Florida; logistics and maintenance stop reported 25 June 2026",
-          "after": "Caribbean region; hurricane-season patrol reported 21 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-tamar",
-      "vesselName": "HMS Tamar",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Suva Port, Fiji; reception aboard reported 28 April 2026",
-          "after": "Ream Naval Base, Cambodia; arrival reported 20 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-spey",
-      "vesselName": "HMS Spey",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Indo-Pacific; South East Asia / Far East patrols after Singapore overhaul",
-          "after": "Singapore; maintenance period nearing completion, reported 22 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-hurworth",
-      "vesselName": "HMS Hurworth",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Portland; Sea Breeze 26-2 mine warfare exercise",
-          "after": "Portsmouth Harbour; departing observed 12 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-biter",
-      "vesselName": "HMS Biter",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "River Foyle, Londonderry; public visit observed 25–28 June 2026",
-          "after": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-charger",
-      "vesselName": "HMS Charger",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "West coast of Scotland; summer deployment reported 30 July 2020",
-          "after": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-scott",
-      "vesselName": "HMS Scott",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "At sea from Falmouth; departed after life-extension refit on 12 June 2026",
-          "after": "Gibraltar; arrival reported 19 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-lyme-bay",
-      "vesselName": "RFA Lyme Bay",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Red Sea / Middle East region; mine-countermeasures mothership for potential Strait of Hormuz mission",
-          "after": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-proteus",
-      "vesselName": "RFA Proteus",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Lyme Bay, English Channel; ScanFish trials reported 18 June 2026",
-          "after": "Plymouth Sound; reported operating under dynamic positioning on 21 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-tidespring",
-      "vesselName": "RFA Tidespring",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Portland Port; reported berthed nearby on 30 July 2026",
-          "after": "Gibraltar; reported alongside 19 August 2026"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-tideforce",
-      "vesselName": "RFA Tideforce",
-      "categories": [
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "North Sea and Western Approaches; monitoring task throughout April 2026",
-          "after": "Plymouth Sound; last confirmed outbound from Devonport on 21 August 2026"
+          "kind": "mapping",
+          "label": "Fleet record",
+          "before": "Listed",
+          "after": "Removed"
         }
       ]
     }

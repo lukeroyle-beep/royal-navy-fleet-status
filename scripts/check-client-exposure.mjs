@@ -11,6 +11,9 @@ const text = files
   .map((file) => fs.readFileSync(file, "utf8"))
   .join("\n");
 const publicFleet = JSON.parse(fs.readFileSync(path.join(dist, "data/royal-navy/vessels.json"), "utf8"));
+const publicShore = JSON.parse(
+  fs.readFileSync(path.join(dist, "data/royal-navy/shore-establishments.json"), "utf8"),
+);
 const registry = JSON.parse(
   fs.readFileSync(path.join(root, "data/internal/provenance/sources.json"), "utf8"),
 );
@@ -30,6 +33,29 @@ for (const vessel of publicFleet.vessels) {
   for (const field of forbiddenPublicFields) {
     assert.ok(!Object.hasOwn(vessel, field), `Public fleet record exposes ${field}.`);
   }
+}
+assert.equal(publicFleet.vessels.length, 68, "Production fleet roster has the wrong denominator.");
+for (const [vesselId, photoName] of [
+  ["hms-richmond", "richmond.jpg"],
+  ["hms-iron-duke", "iron_duke.jpg"],
+  ["hms-chiddingfold", "chiddingfold.jpg"],
+]) {
+  assert.ok(
+    !publicFleet.vessels.some((vessel) => vessel.id === vesselId),
+    `Retired ${vesselId} remains in the production fleet dataset.`,
+  );
+  assert.ok(
+    !files.some((file) => file.endsWith(`${path.sep}photos${path.sep}${photoName}`)),
+    `Retired ${vesselId} photo remains in the production client.`,
+  );
+}
+assert.equal(publicShore.establishments.length, 40, "Production shore roster is incomplete.");
+for (const establishment of publicShore.establishments) {
+  for (const field of ["address", "postcode", "telephone", "email", "analystNotes", "internalNotes"]) {
+    assert.ok(!Object.hasOwn(establishment, field), `Public shore record exposes ${field}.`);
+  }
+  assert.ok(establishment.image.startsWith("./shore/"));
+  assert.ok(establishment.source.url.startsWith("https://"));
 }
 
 for (const forbidden of [

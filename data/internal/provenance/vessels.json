@@ -4,8 +4,8 @@
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-08-23",
-    "releaseRevision": 2,
-    "releasedAt": "2026-08-23T21:18:13Z"
+    "releaseRevision": 4,
+    "releasedAt": "2026-08-24T19:27:15Z"
   },
   "vessels": [
     {
@@ -313,38 +313,6 @@
       "callsign": null
     },
     {
-      "vesselId": "hms-iron-duke",
-      "name": "HMS Iron Duke",
-      "aliases": [
-        "Iron Duke"
-      ],
-      "service": "Royal Navy",
-      "vesselClass": "Type 23 / Duke class",
-      "vesselType": "Frigate",
-      "pennantNumber": "F234",
-      "commissionedDate": "1993",
-      "homePort": "HMNB Devonport",
-      "imo": null,
-      "mmsi": null,
-      "callsign": null
-    },
-    {
-      "vesselId": "hms-richmond",
-      "name": "HMS Richmond",
-      "aliases": [
-        "Richmond"
-      ],
-      "service": "Royal Navy",
-      "vesselClass": "Type 23 / Duke class",
-      "vesselType": "Frigate",
-      "pennantNumber": "F239",
-      "commissionedDate": "1995",
-      "homePort": "HMNB Devonport",
-      "imo": null,
-      "mmsi": null,
-      "callsign": null
-    },
-    {
       "vesselId": "hms-somerset",
       "name": "HMS Somerset",
       "aliases": [
@@ -610,22 +578,6 @@
       "vesselClass": "Hunt class",
       "vesselType": "Mine hunter",
       "pennantNumber": "M34",
-      "commissionedDate": "1984",
-      "homePort": "HMNB Portsmouth",
-      "imo": null,
-      "mmsi": null,
-      "callsign": null
-    },
-    {
-      "vesselId": "hms-chiddingfold",
-      "name": "HMS Chiddingfold",
-      "aliases": [
-        "Chiddingfold"
-      ],
-      "service": "Royal Navy",
-      "vesselClass": "Hunt class",
-      "vesselType": "Mine hunter",
-      "pennantNumber": "M37",
       "commissionedDate": "1984",
       "homePort": "HMNB Portsmouth",
       "imo": null,
@@ -1143,6 +1095,74 @@
       "imo": null,
       "mmsi": null,
       "callsign": null
+    }
+  ],
+  "retiredVessels": [
+    {
+      "vesselId": "hms-richmond",
+      "name": "HMS Richmond",
+      "aliases": [
+        "Richmond"
+      ],
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F239",
+      "commissionedDate": "1995",
+      "homePort": "HMNB Devonport",
+      "imo": null,
+      "mmsi": null,
+      "callsign": null,
+      "retirementEvidenceDate": "2026-07-13",
+      "retirementSource": {
+        "label": "Royal Navy: Honouring Service, Preparing for the Future",
+        "url": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future"
+      },
+      "retirementBasis": "Royal Navy retirement announcement; no separate decommissioning-ceremony date is stated."
+    },
+    {
+      "vesselId": "hms-iron-duke",
+      "name": "HMS Iron Duke",
+      "aliases": [
+        "Iron Duke"
+      ],
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F234",
+      "commissionedDate": "1993",
+      "homePort": "HMNB Devonport",
+      "imo": null,
+      "mmsi": null,
+      "callsign": null,
+      "retirementEvidenceDate": "2026-07-13",
+      "retirementSource": {
+        "label": "Royal Navy: Honouring Service, Preparing for the Future",
+        "url": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future"
+      },
+      "retirementBasis": "Royal Navy retirement announcement; no separate decommissioning-ceremony date is stated."
+    },
+    {
+      "vesselId": "hms-chiddingfold",
+      "name": "HMS Chiddingfold",
+      "aliases": [
+        "Chiddingfold"
+      ],
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M37",
+      "commissionedDate": "1984",
+      "homePort": "HMNB Portsmouth",
+      "imo": null,
+      "mmsi": null,
+      "callsign": null,
+      "retirementEvidenceDate": "2026-07-13",
+      "retirementSource": {
+        "label": "Royal Navy: Honouring Service, Preparing for the Future",
+        "url": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future"
+      },
+      "retirementBasis": "Royal Navy retirement announcement; no separate decommissioning-ceremony date is stated."
     }
   ]
 }

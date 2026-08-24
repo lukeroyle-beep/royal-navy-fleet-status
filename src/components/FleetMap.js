@@ -18,13 +18,18 @@ const DEFAULT_VIEW = {
 };
 
 export class FleetMap {
-  constructor({ container, notice, onSelect }) {
+  constructor({ container, notice, onSelect, onSelectEstablishment }) {
     this.container = container;
     this.notice = notice;
     this.onSelect = onSelect;
+    this.onSelectEstablishment = onSelectEstablishment;
     this.markers = new Map();
+    this.shoreMarkers = new Map();
     this.visibleVessels = [];
+    this.visibleShoreEstablishments = [];
+    this.shoreVisible = false;
     this.selectedId = null;
+    this.selectedShoreId = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     this.map = L.map(container, {
@@ -77,6 +82,19 @@ export class FleetMap {
     });
     this.map.addLayer(this.clusterGroup);
 
+    this.shoreClusterGroup = L.markerClusterGroup({
+      animate: !this.reducedMotion,
+      animateAddingMarkers: false,
+      chunkedLoading: false,
+      maxClusterRadius: 44,
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      spiderfyDistanceMultiplier: 1.65,
+      zoomToBoundsOnClick: true,
+      iconCreateFunction: (cluster) => this.#createShoreClusterIcon(cluster),
+    });
+    this.map.addLayer(this.shoreClusterGroup);
+
     this.resizeObserver = new ResizeObserver(() => this.map.invalidateSize({ pan: false }));
     this.resizeObserver.observe(container);
     window.addEventListener("orientationchange", () => {
@@ -105,9 +123,43 @@ export class FleetMap {
     if (fit) this.resetView();
   }
 
+  setShoreEstablishments(establishments) {
+    this.shoreMarkers.clear();
+    for (const establishment of establishments) {
+      this.shoreMarkers.set(establishment.id, this.#createShoreMarker(establishment));
+    }
+    this.setVisibleShoreEstablishments(establishments, { fit: false });
+  }
+
+  setVisibleShoreEstablishments(establishments, { fit = true } = {}) {
+    this.visibleShoreEstablishments = establishments;
+    this.shoreClusterGroup.clearLayers();
+    if (this.shoreVisible) {
+      this.shoreClusterGroup.addLayers(
+        establishments.map((establishment) => this.shoreMarkers.get(establishment.id)).filter(Boolean),
+      );
+      if (fit) this.resetView();
+    }
+  }
+
+  setShoreVisible(visible, { fit = true } = {}) {
+    this.shoreVisible = visible;
+    this.shoreClusterGroup.clearLayers();
+    if (visible) {
+      this.shoreClusterGroup.addLayers(
+        this.visibleShoreEstablishments
+          .map((establishment) => this.shoreMarkers.get(establishment.id))
+          .filter(Boolean),
+      );
+    }
+    if (fit) this.resetView();
+  }
+
   selectVessel(vessel, { focus = false } = {}) {
     this.selectedId = vessel.id;
+    this.selectedShoreId = null;
     this.#refreshMarkerIcons();
+    this.#refreshShoreMarkerIcons();
 
     if (!focus || !hasPlottablePosition(vessel)) return;
     const marker = this.markers.get(vessel.id);
@@ -119,15 +171,34 @@ export class FleetMap {
     });
   }
 
+  selectShoreEstablishment(establishment, { focus = true } = {}) {
+    this.selectedId = null;
+    this.selectedShoreId = establishment.id;
+    this.#refreshMarkerIcons();
+    this.#refreshShoreMarkerIcons();
+
+    if (!focus || !this.shoreVisible) return;
+    const marker = this.shoreMarkers.get(establishment.id);
+    if (!marker || !this.shoreClusterGroup.hasLayer(marker)) return;
+    this.shoreClusterGroup.zoomToShowLayer(marker, () => {
+      this.map.panTo(marker.getLatLng(), { animate: !this.reducedMotion });
+      marker.openTooltip();
+    });
+  }
+
   clearSelection() {
     this.selectedId = null;
+    this.selectedShoreId = null;
     this.#refreshMarkerIcons();
+    this.#refreshShoreMarkerIcons();
   }
 
   resetView() {
-    const markers = this.visibleVessels
-      .map((vessel) => this.markers.get(vessel.id))
-      .filter(Boolean);
+    const markers = this.shoreVisible
+      ? this.visibleShoreEstablishments
+          .map((establishment) => this.shoreMarkers.get(establishment.id))
+          .filter(Boolean)
+      : this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean);
 
     if (!markers.length) {
       this.map.setView(DEFAULT_VIEW.centre, DEFAULT_VIEW.zoom, {
@@ -166,9 +237,41 @@ export class FleetMap {
     return marker;
   }
 
+  #createShoreMarker(establishment) {
+    const marker = L.marker([establishment.position.lat, establishment.position.lon], {
+      alt: `${establishment.name}, ${establishment.type}`,
+      icon: this.#createShoreMarkerIcon(establishment),
+      keyboard: true,
+      riseOnHover: true,
+      title: establishment.name,
+      establishment,
+    });
+    marker.bindTooltip(
+      `<strong>${escapeHtml(establishment.name)}</strong><span>${escapeHtml(establishment.type)} · ${escapeHtml(establishment.position.label)}</span>`,
+      {
+        className: "fleet-tooltip shore-tooltip",
+        direction: "top",
+        offset: [0, -12],
+      },
+    );
+    marker.on("click", () => this.onSelectEstablishment(establishment));
+    return marker;
+  }
+
   #createMarkerIcon(vessel) {
     return L.divIcon({
       className: markerClassName(vessel, this.selectedId),
+      html: '<span aria-hidden="true"></span>',
+      iconAnchor: [22, 22],
+      iconSize: [44, 44],
+      tooltipAnchor: [0, -16],
+    });
+  }
+
+  #createShoreMarkerIcon(establishment) {
+    const selectedClass = establishment.id === this.selectedShoreId ? " is-selected" : "";
+    return L.divIcon({
+      className: `shore-marker${selectedClass}`,
       html: '<span aria-hidden="true"></span>',
       iconAnchor: [22, 22],
       iconSize: [44, 44],
@@ -185,10 +288,28 @@ export class FleetMap {
     });
   }
 
+  #createShoreClusterIcon(cluster) {
+    const count = cluster.getChildCount();
+    return L.divIcon({
+      className: "shore-cluster",
+      html: `<span aria-hidden="true">${count}</span><span class="sr-only">${count} shore establishments</span>`,
+      iconSize: [44, 44],
+    });
+  }
+
   #refreshMarkerIcons() {
     for (const [id, marker] of this.markers) {
       const vessel = marker.options.vessel || this.visibleVessels.find((item) => item.id === id);
       if (vessel) marker.setIcon(this.#createMarkerIcon(vessel));
+    }
+  }
+
+  #refreshShoreMarkerIcons() {
+    for (const [id, marker] of this.shoreMarkers) {
+      const establishment =
+        marker.options.establishment ||
+        this.visibleShoreEstablishments.find((candidate) => candidate.id === id);
+      if (establishment) marker.setIcon(this.#createShoreMarkerIcon(establishment));
     }
   }
 

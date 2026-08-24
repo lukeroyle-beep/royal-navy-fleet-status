@@ -7,18 +7,23 @@ const detailPanel = fs.readFileSync(new URL("../src/components/EventDetailsPanel
 const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const filenames = fs.readdirSync(photoDirectory).filter((filename) => /\.(?:jpe?g|png)$/i.test(filename));
 
-assert.equal(filenames.length, 71, "Every fleet record must have one curated local photograph.");
+assert.equal(filenames.length, 68, "Every current fleet record must have one curated local photograph.");
+for (const retiredPhoto of ["richmond.jpg", "iron_duke.jpg", "chiddingfold.jpg"]) {
+  assert.ok(!filenames.includes(retiredPhoto), `${retiredPhoto} must not ship as a live fleet photo.`);
+}
 assert.doesNotMatch(photoService, /Photograph supplied locally/);
 assert.ok(!filenames.includes("duncan.png"), "The historical HMS Duncan image must not be shipped.");
 assert.ok(!filenames.includes("vigilant.png"), "The corrupt HMS Vigilant image must not be shipped.");
-assert.doesNotMatch(html, /figcaption|detailPhotoCredit|dataDisclaimer/);
+assert.match(html, /figcaption id="detailPhotoCredit"/);
+assert.doesNotMatch(html, /dataDisclaimer/);
 assert.doesNotMatch(html, /detailDescription|Marker shows the last publicly reported/);
 assert.match(
   html,
   /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailMeta"/,
   "The vessel photograph must appear directly below the vessel name and before the metadata.",
 );
-assert.doesNotMatch(detailPanel, /photoCredit|photoCaption|Marker shows the last publicly reported/);
+assert.doesNotMatch(detailPanel, /photoCaption|Marker shows the last publicly reported/);
+assert.match(detailPanel, /this\.photoCredit\.hidden = false/);
 assert.doesNotMatch(detailPanel, /Evidence checked date|Evidence classification/);
 assert.doesNotMatch(detailPanel, /vessel\.evidenceCheckedDate|vessel\.evidenceClassification/);
 assert.doesNotMatch(detailPanel, /Supporting source|createSourceEntry|vessel\.source/);

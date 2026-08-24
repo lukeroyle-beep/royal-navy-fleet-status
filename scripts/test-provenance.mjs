@@ -18,14 +18,28 @@ const registry = read("../data/internal/provenance/sources.json");
 const evidenceLog = read("../data/internal/provenance/evidence.json");
 const assessmentLog = read("../data/internal/provenance/assessments.json");
 const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
+const knownVesselIds = [
+  ...vesselIds,
+  ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
+];
 
-assert.equal(validateSourceRegistry(registry, vesselIds), registry);
+assert.equal(validateSourceRegistry(registry, knownVesselIds, vesselIds), registry);
 assert.equal(
-  validateEvidenceLog(evidenceLog, registry.sources.map((source) => source.sourceId), vesselIds),
+  validateEvidenceLog(evidenceLog, registry.sources.map((source) => source.sourceId), knownVesselIds),
   evidenceLog,
 );
-assert.equal(validateAssessmentLog(assessmentLog, evidenceLog.evidence, vesselIds), assessmentLog);
-assert.equal(registry.officialSocialCoverage.length, 71);
+assert.equal(
+  validateAssessmentLog(assessmentLog, evidenceLog.evidence, knownVesselIds, vesselIds),
+  assessmentLog,
+);
+assert.equal(registry.officialSocialCoverage.length, 68);
+for (const retiredId of ["hms-richmond", "hms-iron-duke", "hms-chiddingfold"]) {
+  const retired = entities.retiredVessels.find((vessel) => vessel.vesselId === retiredId);
+  assert.equal(Boolean(retired), true);
+  assert.equal(retired.retirementEvidenceDate, "2026-07-13");
+  assert.match(retired.retirementSource.url, /royalnavy\.mod\.uk\/news\/2026\/july\/13/);
+  assert.match(retired.retirementBasis, /no separate decommissioning-ceremony date/i);
+}
 const enabledOfficialAccounts = registry.sources.filter(
   (source) => source.enabled && source.category === "official-vessel-social",
 );
@@ -34,7 +48,7 @@ assert.equal(
   enabledOfficialAccounts.length,
   "Official social coverage and enabled account sources must remain in sync.",
 );
-assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "legacy").length, 3);
+assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "legacy").length, 0);
 assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "registry-only").length, 1);
 assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "provisional").length, 1);
 assert.equal(
@@ -68,11 +82,16 @@ assert.equal(dasher.registryStatus, "provisional");
 
 const malformedRegistry = structuredClone(registry);
 malformedRegistry.sources.find((source) => source.enabled).canonicalUrl = "javascript:alert(1)";
-assert.throws(() => validateSourceRegistry(malformedRegistry, vesselIds), /HTTPS URL/i);
+assert.throws(() => validateSourceRegistry(malformedRegistry, knownVesselIds, vesselIds), /HTTPS URL/i);
 const malformedEvidence = structuredClone(evidenceLog);
 malformedEvidence.evidence[0].sourceId = "UNKNOWN_SOURCE";
 assert.throws(
-  () => validateEvidenceLog(malformedEvidence, registry.sources.map((source) => source.sourceId), vesselIds),
+  () =>
+    validateEvidenceLog(
+      malformedEvidence,
+      registry.sources.map((source) => source.sourceId),
+      knownVesselIds,
+    ),
   /unknown source/i,
 );
 

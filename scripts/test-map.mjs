@@ -3,6 +3,7 @@ import fs from "node:fs";
 
 import {
   clusterSizeClass,
+  getMapPosition,
   hasPlottablePosition,
   mapFitPadding,
   markerClassName,
@@ -69,17 +70,30 @@ if (/North Sea/i.test(tideforce.lastReportedLocation)) {
   );
 }
 
-const chiddingfold = dataset.vessels.find((vessel) => vessel.id === "hms-chiddingfold");
-assert.equal(
-  chiddingfold.lastReportedLocation,
-  "HMNB Portsmouth; historical arrival reported 5 April 2025",
-);
-assert.equal(dataset.vessels.every((vessel) => !Object.hasOwn(vessel, "source")), true);
-assert.deepEqual(chiddingfold.position, {
-  lat: 50.8,
-  lon: -1.11,
-  label: "HMNB Portsmouth (representative)",
+const scott = dataset.vessels.find((vessel) => vessel.id === "hms-scott");
+const tidespring = dataset.vessels.find((vessel) => vessel.id === "rfa-tidespring");
+assert.deepEqual(getMapPosition(scott), {
+  lat: 36.1442,
+  lon: -5.3665,
+  label: "Gibraltar harbour (representative)",
 });
+assert.deepEqual(getMapPosition(tidespring), {
+  lat: 36.149,
+  lon: -5.382,
+  label: "Gibraltar harbour (representative)",
+});
+assert.notDeepEqual(getMapPosition(scott), getMapPosition(tidespring));
+for (const vessel of [scott, tidespring]) {
+  const position = getMapPosition(vessel);
+  assert.ok(position.lat >= 36.14 && position.lat <= 36.152);
+}
+assert.ok(getMapPosition(scott).lon >= -5.369 && getMapPosition(scott).lon <= -5.36);
+assert.ok(getMapPosition(tidespring).lon >= -5.385 && getMapPosition(tidespring).lon <= -5.379);
+
+assert.equal(dataset.vessels.every((vessel) => !Object.hasOwn(vessel, "source")), true);
+for (const retiredId of ["hms-richmond", "hms-iron-duke", "hms-chiddingfold"]) {
+  assert.equal(dataset.vessels.some((vessel) => vessel.id === retiredId), false);
+}
 
 const plotted = plottedVessels(dataset.vessels)[0];
 assert.match(markerClassName(plotted, plotted.id), /is-selected/);

@@ -16,9 +16,13 @@ const assessments = readJson("../data/internal/provenance/assessments.json");
 
 validateFleet(dataset);
 const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
-validateSourceRegistry(registry, vesselIds);
-validateEvidenceLog(evidence, registry.sources.map((source) => source.sourceId), vesselIds);
-validateAssessmentLog(assessments, evidence.evidence, vesselIds);
+const knownVesselIds = [
+  ...vesselIds,
+  ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
+];
+validateSourceRegistry(registry, knownVesselIds, vesselIds);
+validateEvidenceLog(evidence, registry.sources.map((source) => source.sourceId), knownVesselIds);
+validateAssessmentLog(assessments, evidence.evidence, knownVesselIds, vesselIds);
 
 const expectedProjection = createPublicProjection(entities, assessments);
 if (JSON.stringify(dataset) !== JSON.stringify(expectedProjection)) {

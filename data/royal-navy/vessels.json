@@ -3,8 +3,8 @@
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-08-23",
-    "releaseRevision": 2,
-    "releasedAt": "2026-08-23T21:18:13Z"
+    "releaseRevision": 4,
+    "releasedAt": "2026-08-24T19:27:15Z"
   },
   "vessels": [
     {
@@ -370,44 +370,6 @@
       "unmappedReason": null
     },
     {
-      "id": "hms-iron-duke",
-      "name": "HMS Iron Duke",
-      "service": "Royal Navy",
-      "vesselClass": "Type 23 / Duke class",
-      "vesselType": "Frigate",
-      "pennantNumber": "F234",
-      "commissionedDate": "1993",
-      "homePort": "HMNB Devonport",
-      "status": "Unknown",
-      "locationClassification": "approximate",
-      "lastReportedLocation": "HMNB Portsmouth; last official public return reported 20 December 2024; preparing to leave service",
-      "position": {
-        "lat": 50.8,
-        "lon": -1.11,
-        "label": "HMNB Portsmouth (representative)"
-      },
-      "unmappedReason": null
-    },
-    {
-      "id": "hms-richmond",
-      "name": "HMS Richmond",
-      "service": "Royal Navy",
-      "vesselClass": "Type 23 / Duke class",
-      "vesselType": "Frigate",
-      "pennantNumber": "F239",
-      "commissionedDate": "1995",
-      "homePort": "HMNB Devonport",
-      "status": "Unknown",
-      "locationClassification": "approximate",
-      "lastReportedLocation": "HMNB Devonport; last official public return reported 28 March 2024; preparing to leave service",
-      "position": {
-        "lat": 50.38,
-        "lon": -4.19,
-        "label": "HMNB Devonport (representative)"
-      },
-      "unmappedReason": null
-    },
-    {
       "id": "hms-somerset",
       "name": "HMS Somerset",
       "service": "Royal Navy",
@@ -727,25 +689,6 @@
         "lat": 50.1537,
         "lon": -5.0563,
         "label": "Balaena Falmouth yard (representative)"
-      },
-      "unmappedReason": null
-    },
-    {
-      "id": "hms-chiddingfold",
-      "name": "HMS Chiddingfold",
-      "service": "Royal Navy",
-      "vesselClass": "Hunt class",
-      "vesselType": "Mine hunter",
-      "pennantNumber": "M37",
-      "commissionedDate": "1984",
-      "homePort": "HMNB Portsmouth",
-      "status": "Unknown",
-      "locationClassification": "approximate",
-      "lastReportedLocation": "HMNB Portsmouth; historical arrival reported 5 April 2025",
-      "position": {
-        "lat": 50.8,
-        "lon": -1.11,
-        "label": "HMNB Portsmouth (representative)"
       },
       "unmappedReason": null
     },

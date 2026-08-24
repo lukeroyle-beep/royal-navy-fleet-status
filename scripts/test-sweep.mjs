@@ -73,7 +73,7 @@ const run = createSweepRun({
   windowStart: "2026-08-17T00:00:00Z",
 });
 
-assert.equal(run.vesselOutcomes.length, 71, "Every canonical vessel requires an explicit outcome.");
+assert.equal(run.vesselOutcomes.length, 68, "Every current vessel requires an explicit outcome.");
 assert.deepEqual(run.releaseTarget, { asOfDate: "2026-08-24", releaseRevision: 1 });
 assert.deepEqual(
   run.coverageInputs.rosterIds,

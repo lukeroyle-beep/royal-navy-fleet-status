@@ -50,10 +50,7 @@ export function compareReleaseIdentity(left, right) {
 
 export function formatDatasetReleaseLabel(metadata) {
   const release = readReleaseMetadata(metadata);
-  const date = formatDate(release.asOfDate);
-  return release.releaseRevision > 1
-    ? `${date} · correction r${release.releaseRevision}`
-    : date;
+  return formatDate(release.asOfDate);
 }
 
 export function formatPublicationChangeLabels(publication) {
@@ -62,20 +59,21 @@ export function formatPublicationChangeLabels(publication) {
   const currentDate = publication?.currentAsOfDate;
   const previousRevision = publication?.previousReleaseRevision ?? 1;
   const currentRevision = publication?.currentReleaseRevision ?? 1;
+  const vesselLabel = changeCount === 1 ? "vessel" : "vessels";
 
   if (previousDate === currentDate && currentRevision > previousRevision) {
     return {
-      count: `${formatDate(currentDate, { short: true })} · correction r${currentRevision} · ${changeCount} vessels`,
+      count: `${formatDate(currentDate, { short: true })} · ${changeCount} ${vesselLabel}`,
       summary:
-        `${changeCount} vessels changed in the ${formatDate(currentDate)} correction ` +
+        `${changeCount} ${vesselLabel} changed in the ${formatDate(currentDate)} correction ` +
         `from r${previousRevision} to r${currentRevision}.`,
     };
   }
 
   return {
-    count: `${formatDate(previousDate, { short: true })} · ${changeCount} vessels`,
+    count: `${formatDate(previousDate, { short: true })} · ${changeCount} ${vesselLabel}`,
     summary:
-      `${changeCount} vessels changed between ${formatDate(previousDate)} and ` +
+      `${changeCount} ${vesselLabel} changed between ${formatDate(previousDate)} and ` +
       `${formatDate(currentDate)}.`,
   };
 }

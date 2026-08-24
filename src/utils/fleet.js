@@ -1,5 +1,7 @@
 const ACTIVE_STATUSES = new Set(["Available", "Deployed"]);
 
+export const AVAILABILITY_STATUS_ORDER = ["Deployed", "Available", "In re-fit", "Unknown"];
+
 export function getActiveFleetSummary(vessels) {
   const total = vessels.filter((vessel) => ACTIVE_STATUSES.has(vessel.status)).length;
   const percentage = vessels.length === 0 ? 0 : (total / vessels.length) * 100;
@@ -14,5 +16,21 @@ export function getFleetStatusSummary(vessels) {
     deployed: count("Deployed"),
     inRefit: count("In re-fit"),
     unknown: count("Unknown"),
+  };
+}
+
+export function getAvailabilitySummary(vessels) {
+  const byStatus = vessels.reduce((counts, vessel) => {
+    counts[vessel.status] = (counts[vessel.status] ?? 0) + 1;
+    return counts;
+  }, {});
+  const active = vessels.filter((vessel) => ACTIVE_STATUSES.has(vessel.status)).length;
+  const total = vessels.length;
+
+  return {
+    active,
+    total,
+    percentage: total === 0 ? 0 : (active / total) * 100,
+    byStatus,
   };
 }

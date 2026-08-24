@@ -43,7 +43,7 @@ export function sha256(value) {
   return crypto.createHash("sha256").update(value).digest("hex");
 }
 
-export function validateSourceRegistry(registry, vesselIds = []) {
+export function validateSourceRegistry(registry, vesselIds = [], currentVesselIds = vesselIds) {
   if (!registry || registry.schemaVersion !== "1.0.0" || !Array.isArray(registry.sources)) {
     throw new Error("Source registry must use schemaVersion 1.0.0 and contain sources.");
   }
@@ -89,8 +89,8 @@ export function validateSourceRegistry(registry, vesselIds = []) {
       throw new Error(`Duplicate official social coverage for ${entry.vesselId}.`);
     }
     coverageIds.add(entry.vesselId);
-    if (vesselIds.length && !vesselIds.includes(entry.vesselId)) {
-      throw new Error(`Official social coverage references unknown vessel ${entry.vesselId}.`);
+    if (currentVesselIds.length && !currentVesselIds.includes(entry.vesselId)) {
+      throw new Error(`Official social coverage references non-current vessel ${entry.vesselId}.`);
     }
     if (entry.enabled) {
       requireNonEmpty(entry.accountHandle, `${entry.vesselId} accountHandle`);
@@ -103,8 +103,10 @@ export function validateSourceRegistry(registry, vesselIds = []) {
       }
     }
   }
-  if (vesselIds.length && coverageIds.size !== vesselIds.length) {
-    throw new Error(`Expected ${vesselIds.length} official social coverage rows, found ${coverageIds.size}.`);
+  if (currentVesselIds.length && coverageIds.size !== currentVesselIds.length) {
+    throw new Error(
+      `Expected ${currentVesselIds.length} official social coverage rows, found ${coverageIds.size}.`,
+    );
   }
   return registry;
 }
@@ -167,7 +169,12 @@ export function validateEvidenceLog(log, sourceIds = [], vesselIds = []) {
   return log;
 }
 
-export function validateAssessmentLog(log, evidenceItems = [], vesselIds = []) {
+export function validateAssessmentLog(
+  log,
+  evidenceItems = [],
+  vesselIds = [],
+  currentVesselIds = vesselIds,
+) {
   if (!log || log.schemaVersion !== "1.0.0" || !Array.isArray(log.assessments)) {
     throw new Error("Assessment log must use schemaVersion 1.0.0 and contain assessments.");
   }
@@ -211,10 +218,15 @@ export function validateAssessmentLog(log, evidenceItems = [], vesselIds = []) {
 
   const current = log.currentAssessmentIds;
   if (!current || typeof current !== "object") throw new Error("Assessment log has no current index.");
-  for (const vesselId of vesselIds) {
+  for (const vesselId of currentVesselIds) {
     const assessment = assessmentById.get(current[vesselId]);
     if (!assessment || assessment.vesselId !== vesselId) {
       throw new Error(`No current assessment for ${vesselId}.`);
+    }
+  }
+  for (const vesselId of Object.keys(current)) {
+    if (currentVesselIds.length && !currentVesselIds.includes(vesselId)) {
+      throw new Error(`Current assessment index references non-current vessel ${vesselId}.`);
     }
   }
   return log;

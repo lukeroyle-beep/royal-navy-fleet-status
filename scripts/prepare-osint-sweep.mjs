@@ -8,7 +8,12 @@ const asOf = asOfArgument ? asOfArgument.slice("--as-of=".length) : new Date().t
 const entities = read("../data/internal/provenance/vessels.json");
 const registry = read("../data/internal/provenance/sources.json");
 
-validateSourceRegistry(registry, entities.vessels.map((vessel) => vessel.vesselId));
+const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
+const knownVesselIds = [
+  ...vesselIds,
+  ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
+];
+validateSourceRegistry(registry, knownVesselIds, vesselIds);
 console.log(JSON.stringify(createSweepQueue(registry, asOf), null, 2));
 
 function read(relativePath) {

@@ -1,0 +1,1049 @@
+{
+  "metadata": {
+    "asOfDate": "2026-08-24",
+    "scope": "Current, publicly documented UK Royal Navy and Naval Service bases, major training establishments, commissioned support establishments, air stations, Royal Marines bases, and principal commissioned Royal Naval Reserve units.",
+    "coordinatePolicy": "Representative public locality points only; no entrances, buildings, restricted areas, or operational infrastructure."
+  },
+  "establishments": [
+    {
+      "id": "hmnb-clyde",
+      "name": "HMNB Clyde",
+      "type": "Naval base",
+      "role": "Home of the UK Submarine Service and the Royal Navy's principal presence in Scotland.",
+      "location": "Faslane, Argyll and Bute, Scotland",
+      "description": "One of the Royal Navy's three main naval bases, publicly identified as its main Scottish base.",
+      "position": {
+        "lat": 56.066,
+        "lon": -4.817,
+        "label": "Faslane area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hmnb-clyde.webp",
+      "imageAlt": "HM Naval Base Clyde beside the Gare Loch at Faslane",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "David Dixon",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMNB_Clyde,_Gare_Loch_-_geograph.org.uk_-_2922345.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hmnb-devonport",
+      "name": "HMNB Devonport",
+      "type": "Naval base",
+      "role": "Major naval base supporting surface ships, submarines, maintenance, and training.",
+      "location": "Plymouth, Devon, England",
+      "description": "The Royal Navy describes Devonport as the largest naval base in Western Europe.",
+      "position": {
+        "lat": 50.383,
+        "lon": -4.183,
+        "label": "Devonport area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hmnb-devonport.webp",
+      "imageAlt": "HM Naval Base Devonport on the Plymouth waterfront",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Lewis Clarke",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Plymouth_,_HMNB_Plymouth_-_geograph.org.uk_-_6426506.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hmnb-portsmouth",
+      "name": "HMNB Portsmouth",
+      "type": "Naval base",
+      "role": "Major fleet base and home port for much of the surface fleet.",
+      "location": "Portsmouth, Hampshire, England",
+      "description": "One of the Royal Navy's three main naval bases and a long-standing centre of fleet support.",
+      "position": {
+        "lat": 50.804,
+        "lon": -1.108,
+        "label": "Portsmouth Naval Base area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hmnb-portsmouth.webp",
+      "imageAlt": "HM Naval Base Portsmouth and its waterfront facilities",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "N Chadwick",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMNB_Portsmouth_-_geograph.org.uk_-_6774906.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "brnc-dartmouth",
+      "name": "Britannia Royal Naval College",
+      "type": "Training establishment",
+      "role": "Initial officer training for the Royal Navy.",
+      "location": "Dartmouth, Devon, England",
+      "description": "BRNC Dartmouth is the Royal Navy's principal initial training establishment for officers.",
+      "position": {
+        "lat": 50.348,
+        "lon": -3.578,
+        "label": "Dartmouth area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/brnc-dartmouth.webp",
+      "imageAlt": "Britannia Royal Naval College overlooking Dartmouth",
+      "imageFocalPoint": "50% 48%",
+      "imageCredit": {
+        "label": "Herbythyme",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Royal_Naval_college-3_alt.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    },
+    {
+      "id": "ctcrm-lympstone",
+      "name": "CTCRM Lympstone",
+      "type": "Training establishment",
+      "role": "Principal training centre for the Royal Marines.",
+      "location": "Lympstone, Devon, England",
+      "description": "The Commando Training Centre delivers initial and specialist Royal Marines training.",
+      "position": {
+        "lat": 50.661,
+        "lon": -3.44,
+        "label": "Lympstone area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/ctcrm-lympstone.webp",
+      "imageAlt": "Commando Training Centre Royal Marines Lympstone across the Exe estuary mudflats",
+      "imageFocalPoint": "50% 48%",
+      "imageCredit": {
+        "label": "David Smith",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lympstone_Commando_Training_Centre_across_the_mudflats_-_geograph.org.uk_-_4294566.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-collingwood",
+      "name": "HMS Collingwood",
+      "type": "Training establishment",
+      "role": "Headquarters of the Maritime Warfare School and surface-stream training.",
+      "location": "Fareham, Hampshire, England",
+      "description": "A major Royal Navy training establishment focused on warfare and technical skills.",
+      "position": {
+        "lat": 50.845,
+        "lon": -1.188,
+        "label": "Fareham area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hms-collingwood.webp",
+      "imageAlt": "Public entrance to HMS Collingwood in Fareham",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "JThomas",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Entrance_to_HMS_Collingwood_-_geograph.org.uk_-_7308371.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-excellent",
+      "name": "HMS Excellent",
+      "type": "Training establishment",
+      "role": "Naval training establishment and home of Navy Command headquarters functions.",
+      "location": "Whale Island, Portsmouth, England",
+      "description": "A commissioned Portsmouth establishment supporting training and Navy Command activity.",
+      "position": {
+        "lat": 50.8167,
+        "lon": -1.0969,
+        "label": "Whale Island locality (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hms-excellent.webp",
+      "imageAlt": "HMS Excellent on Whale Island in Portsmouth Harbour",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Tim Sheerman-Chase",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Whale_Island,_HMS_Excellent.jpg",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+      }
+    },
+    {
+      "id": "hms-raleigh",
+      "name": "HMS Raleigh",
+      "type": "Training establishment",
+      "role": "Initial naval training for Royal Navy ratings.",
+      "location": "Torpoint, Cornwall, England",
+      "description": "The Royal Navy's entry training establishment for ratings, with further specialist schools on site.",
+      "position": {
+        "lat": 50.379,
+        "lon": -4.231,
+        "label": "Torpoint area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Raleigh",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hms-raleigh"
+      },
+      "image": "./shore/photos/hms-raleigh.webp",
+      "imageAlt": "HMS Raleigh viewed from the west at Torpoint",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Tony Atkin",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Raleigh_from_the_West_-_geograph.org.uk_-_373877.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-sultan",
+      "name": "HMS Sultan",
+      "type": "Training establishment",
+      "role": "Marine and air engineering, survival, and technical training.",
+      "location": "Gosport, Hampshire, England",
+      "description": "Home to the Defence School of Marine Engineering and Royal Naval air-engineering training.",
+      "position": {
+        "lat": 50.793,
+        "lon": -1.152,
+        "label": "Gosport area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hms-sultan.webp",
+      "imageAlt": "The signed Caledonian Gate at HMS Sultan in Gosport",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Alex McGregor",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Sultan_Caledonian_Gate_(geograph_3875349).jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-temeraire",
+      "name": "HMS Temeraire",
+      "type": "Training establishment",
+      "role": "Royal Navy physical development and physical training school.",
+      "location": "Portsmouth, Hampshire, England",
+      "description": "The Portsmouth establishment houses the Royal Navy School of Physical Training.",
+      "position": {
+        "lat": 50.795,
+        "lon": -1.083,
+        "label": "Portsmouth city area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hms-temeraire.webp",
+      "imageAlt": "HMS Temeraire physical training establishment in Portsmouth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Basher Eyre",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Temeraire_-_geograph.org.uk_-_757244.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "institute-naval-medicine",
+      "name": "Institute of Naval Medicine",
+      "type": "Medical establishment",
+      "role": "Naval medical training, research, and occupational health expertise.",
+      "location": "Alverstoke, Gosport, Hampshire, England",
+      "description": "The Royal Navy's specialist centre for maritime medicine and medical training.",
+      "position": {
+        "lat": 50.806,
+        "lon": -1.171,
+        "label": "Alverstoke area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/institute-naval-medicine.webp",
+      "imageAlt": "The commanding officer in the Whitehouse building foyer at the Institute of Naval Medicine",
+      "imageFocalPoint": "50% 32%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Surgeon_Captain_Elizabeth_Crowson.jpg",
+        "license": "OGL 3",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3"
+      }
+    },
+    {
+      "id": "rnas-culdrose",
+      "name": "RNAS Culdrose",
+      "type": "Air station",
+      "role": "Fleet Air Arm base supporting maritime aviation and Merlin operations.",
+      "location": "Helston, Cornwall, England",
+      "description": "A principal Royal Naval Air Station and major home of the Fleet Air Arm.",
+      "position": {
+        "lat": 50.086,
+        "lon": -5.256,
+        "label": "Culdrose area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rnas-culdrose.webp",
+      "imageAlt": "Royal Naval Air Station Culdrose in Cornwall",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "David Dixon",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:RNAS_Culdrose_(HMS_Seahawk).jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "rnas-yeovilton",
+      "name": "RNAS Yeovilton",
+      "type": "Air station",
+      "role": "Fleet Air Arm and Commando Helicopter Force operating base.",
+      "location": "Yeovilton, Somerset, England",
+      "description": "A principal Royal Naval Air Station supporting front-line and training aviation units.",
+      "position": {
+        "lat": 51.005,
+        "lon": -2.644,
+        "label": "Yeovilton area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rnas-yeovilton.webp",
+      "imageAlt": "Control tower and airfield at RNAS Yeovilton",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "SkymasterUK",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:RNAS_Yeovilton_Control_Tower_2017.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    },
+    {
+      "id": "rm-bickleigh",
+      "name": "RM Bickleigh",
+      "type": "Royal Marines base",
+      "role": "Home of 42 Commando Royal Marines.",
+      "location": "Bickleigh, Devon, England",
+      "description": "A current Royal Marines base publicly listed by the Royal Navy.",
+      "position": {
+        "lat": 50.44,
+        "lon": -4.107,
+        "label": "Bickleigh area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rm-bickleigh.webp",
+      "imageAlt": "New Royal Marines receive their green berets on the parade ground at Bickleigh Barracks",
+      "imageFocalPoint": "50% 45%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://www.royalnavy.mod.uk/news/2024/july/05/20240705-new-marines-receive-green-berets-from-first-sea-lord-after-he-joined-them-on-commando-test",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "rm-chivenor",
+      "name": "RM Chivenor",
+      "type": "Royal Marines base",
+      "role": "North Devon base for Commando Force supporting units.",
+      "location": "Chivenor, Devon, England",
+      "description": "A current Royal Marines base publicly listed by the Royal Navy.",
+      "position": {
+        "lat": 51.087,
+        "lon": -4.151,
+        "label": "Chivenor area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rm-chivenor.webp",
+      "imageAlt": "Royal Marines Barracks Chivenor in North Devon",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Lewis Clarke",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Heanton_Punchardon_,_Royal_Marines_Barracks_Chivenor_-_geograph.org.uk_-_6519506.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "rm-condor",
+      "name": "RM Condor",
+      "type": "Royal Marines base",
+      "role": "Home of 45 Commando Royal Marines and supporting units.",
+      "location": "Arbroath, Angus, Scotland",
+      "description": "A current Royal Marines base serving the UK Commando Force in Scotland.",
+      "position": {
+        "lat": 56.58,
+        "lon": -2.62,
+        "label": "Arbroath area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rm-condor.webp",
+      "imageAlt": "Public entrance to RM Condor near Arbroath",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Mike Pennington",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Entrance_to_RM_Condor,_near_Arbroath_-_geograph.org.uk_-_3720230.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "rm-norton-manor",
+      "name": "RM Norton Manor",
+      "type": "Royal Marines base",
+      "role": "Home of 40 Commando Royal Marines.",
+      "location": "Norton Fitzwarren, Somerset, England",
+      "description": "A current Royal Marines base near Taunton, occupied by 40 Commando since 1983.",
+      "position": {
+        "lat": 51.057,
+        "lon": -3.167,
+        "label": "Norton Fitzwarren area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rm-norton-manor.webp",
+      "imageAlt": "Public entrance to Norton Manor Camp, home of 40 Commando",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Barbara Cook",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Norton_Manor_Camp_-_geograph.org.uk_-_79879.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "rm-stonehouse",
+      "name": "RM Stonehouse",
+      "type": "Royal Marines base",
+      "role": "Headquarters of the UK Commando Force and 30 Commando IX Group.",
+      "location": "Plymouth, Devon, England",
+      "description": "Stonehouse Barracks is the publicly identified headquarters base for the UK Commando Force.",
+      "position": {
+        "lat": 50.37,
+        "lon": -4.16,
+        "label": "Stonehouse area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rm-stonehouse.webp",
+      "imageAlt": "Historic Royal Marine Barracks at Stonehouse in Plymouth",
+      "imageFocalPoint": "50% 48%",
+      "imageCredit": {
+        "label": "Derek Harper",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Royal_Marine_Barracks,_Stonehouse_(geograph_2331918).jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "rm-tamar",
+      "name": "RM Tamar",
+      "type": "Royal Marines base",
+      "role": "Royal Marines operational preparation and support base.",
+      "location": "Devonport, Plymouth, England",
+      "description": "A current Royal Marines base within the publicly identified Devonport area.",
+      "position": {
+        "lat": 50.408,
+        "lon": -4.188,
+        "label": "Devonport area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Bases and Stations",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/rm-tamar.webp",
+      "imageAlt": "Royal Marines on parade during the official opening of RM Tamar at Devonport",
+      "imageFocalPoint": "50% 48%",
+      "imageCredit": {
+        "label": "Ministry of Defence",
+        "sourceUrl": "https://www.gov.uk/government/news/prince-harry-opens-new-navy-training-facility",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "hms-caledonia",
+      "name": "HMS Caledonia",
+      "type": "Support establishment",
+      "role": "Naval support activity for the Royal Navy presence at Rosyth.",
+      "location": "Rosyth, Fife, Scotland",
+      "description": "Recommissioned in 2023 to support Navy Command, regional headquarters, shipbuilding, and local units.",
+      "position": {
+        "lat": 56.045,
+        "lon": -3.431,
+        "label": "Rosyth area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Rosyth site recommissioned as HMS Caledonia",
+        "url": "https://www.royalnavy.mod.uk/news/2023/march/31/230331-caledonia"
+      },
+      "image": "./shore/photos/hms-caledonia.webp",
+      "imageAlt": "HMS Caledonia support establishment at Rosyth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Ian S",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Caledonia,_Rosyth_-_geograph.org.uk_-_4239328.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-drake",
+      "name": "HMS Drake",
+      "type": "Support establishment",
+      "role": "Commissioned shore establishment supporting HMNB Devonport.",
+      "location": "Devonport, Plymouth, England",
+      "description": "The commissioned shore name associated with personnel and support functions at Devonport.",
+      "position": {
+        "lat": 50.383,
+        "lon": -4.183,
+        "label": "Devonport area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMNB Devonport",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations"
+      },
+      "image": "./shore/photos/hms-drake.webp",
+      "imageAlt": "Aerial view of HMS Drake at Devonport in Plymouth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "LA(Phot) Caroline Davies",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aerial_Image_of_HMS_Drake,_Devonport,_Plymouth_MOD_45158438.jpg",
+        "license": "OGL v1.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/1/"
+      }
+    },
+    {
+      "id": "hms-nelson",
+      "name": "HMS Nelson",
+      "type": "Support establishment",
+      "role": "Commissioned shore establishment supporting HMNB Portsmouth.",
+      "location": "Portsmouth, Hampshire, England",
+      "description": "The commissioned shore name for personnel and support functions associated with Portsmouth Naval Base.",
+      "position": {
+        "lat": 50.804,
+        "lon": -1.098,
+        "label": "Portsmouth area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Sports facilities at HMS Nelson",
+        "url": "https://www.royalnavy.mod.uk/navy-sport/sports-facilities"
+      },
+      "image": "./shore/photos/hms-nelson.webp",
+      "imageAlt": "HMS Nelson shore establishment in Portsea, Portsmouth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Jaggery",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Nelson,_Portsea,_Portsmouth_-_geograph.org.uk_-_3760502.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-neptune",
+      "name": "HMS Neptune",
+      "type": "Support establishment",
+      "role": "Commissioned shore establishment supporting HMNB Clyde.",
+      "location": "Faslane, Argyll and Bute, Scotland",
+      "description": "The commissioned shore name associated with personnel and support functions at the Clyde base.",
+      "position": {
+        "lat": 56.066,
+        "lon": -4.817,
+        "label": "Faslane area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Sports facilities at HMS Neptune",
+        "url": "https://www.royalnavy.mod.uk/navy-sport/sports-facilities"
+      },
+      "image": "./shore/photos/hms-neptune.webp",
+      "imageAlt": "Faslane naval base, the commissioned shore establishment HMS Neptune",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Ron Strutt",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Faslane_naval_base_-_geograph.org.uk_-_52237.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-calliope",
+      "name": "HMS Calliope",
+      "type": "Royal Naval Reserve unit",
+      "role": "Principal Royal Naval Reserve unit for North East England.",
+      "location": "Gateshead, Tyne and Wear, England",
+      "description": "A commissioned shore unit training reservists from across the North East.",
+      "position": {
+        "lat": 54.968,
+        "lon": -1.6,
+        "label": "Gateshead Quays area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Calliope",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/calliope"
+      },
+      "image": "./shore/photos/hms-calliope.webp",
+      "imageAlt": "HMS Calliope beside the River Tyne at Gateshead",
+      "imageFocalPoint": "48% 50%",
+      "imageCredit": {
+        "label": "David Dixon",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Calliope_and_Sage_Gateshead_-_geograph.org.uk_-_4881520.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-cambria",
+      "name": "HMS Cambria",
+      "type": "Royal Naval Reserve unit",
+      "role": "Principal Royal Naval Reserve unit for Wales.",
+      "location": "Cardiff Bay, Wales",
+      "description": "The Royal Navy identifies HMS Cambria as the only Royal Naval Reserve unit in Wales.",
+      "position": {
+        "lat": 51.448,
+        "lon": -3.164,
+        "label": "Cardiff Bay area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Cambria",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/cambria"
+      },
+      "image": "./shore/photos/hms-cambria.webp",
+      "imageAlt": "Formal handover of the new HMS Cambria facility in Cardiff Bay",
+      "imageFocalPoint": "50% 45%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://www.royalnavy.mod.uk/news/2020/july/31/200731-cardiff-welcomes-welsh-maritime-reservists-at-hms-cambria",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "hms-dalriada",
+      "name": "HMS Dalriada",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve unit for western Scotland.",
+      "location": "Govan, Glasgow, Scotland",
+      "description": "A commissioned shore unit recruiting and training reservists across western Scotland.",
+      "position": {
+        "lat": 55.856,
+        "lon": -4.307,
+        "label": "Govan area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Dalriada",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/dalriada"
+      },
+      "image": "./shore/photos/hms-dalriada.webp",
+      "imageAlt": "HMS Dalriada ship's company at its Govan unit in Glasgow",
+      "imageFocalPoint": "50% 45%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://www.royalnavy.mod.uk/news/2016/december/14/161214-christmas-cheer-in-glasgow",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "hms-eaglet",
+      "name": "HMS Eaglet",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve unit for Liverpool and Merseyside.",
+      "location": "Liverpool, Merseyside, England",
+      "description": "A commissioned shore unit continuing the Royal Navy's reserve presence on Merseyside.",
+      "position": {
+        "lat": 53.393,
+        "lon": -2.989,
+        "label": "Liverpool docklands area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Eaglet",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/eaglet"
+      },
+      "image": "./shore/photos/hms-eaglet.webp",
+      "imageAlt": "HMS Eaglet Royal Naval Reserve centre in Liverpool",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Rodhullandemu",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Eaglet_2018.jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    },
+    {
+      "id": "hms-ferret",
+      "name": "HMS Ferret",
+      "type": "Royal Naval Reserve unit",
+      "role": "Specialist Royal Naval Reserve intelligence unit.",
+      "location": "Chicksands, Bedfordshire, England",
+      "description": "A commissioned specialist reserve unit publicly listed in current naval personnel documentation.",
+      "position": {
+        "lat": 52.04,
+        "lon": -0.36,
+        "label": "Chicksands area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: Naval Personnel Management (November 2024)",
+        "url": "https://cd.royalnavy.mod.uk/-/media/rnweb/footer-pages-documents-and-images/brd3_2.pdf?rev=8a51fc6b327d476f844b50da2e2c5986"
+      },
+      "image": "./shore/photos/hms-ferret.webp",
+      "imageAlt": "Public entrance to MOD Chicksands, home of HMS Ferret",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Bikeboy",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Entrance_to_Chicksands_MOD_base_-_geograph.org.uk_-_3800783.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-flying-fox",
+      "name": "HMS Flying Fox",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve unit for Bristol and the West of England.",
+      "location": "Bristol, England",
+      "description": "A commissioned shore unit sharing its site with the Naval Regional Headquarters for the region.",
+      "position": {
+        "lat": 51.44,
+        "lon": -2.62,
+        "label": "Bristol area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Flying Fox",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/flying-fox"
+      },
+      "image": "./shore/photos/hms-flying-fox.webp",
+      "imageAlt": "HMS Flying Fox Royal Naval Reserve centre on Winterstoke Road in Bristol",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Eirian Evans",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Flying_Fox,_Winterstoke_Road_-_geograph.org.uk_-_7431719.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-forward",
+      "name": "HMS Forward",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve hub for the West Midlands.",
+      "location": "Birmingham, West Midlands, England",
+      "description": "A modern commissioned reserve training establishment serving the West Midlands.",
+      "position": {
+        "lat": 52.47,
+        "lon": -1.868,
+        "label": "Birmingham area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Forward",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/forward"
+      },
+      "image": "./shore/photos/hms-forward.webp",
+      "imageAlt": "HMS Forward Royal Naval Reserve centre in Birmingham",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Tony Hisgett from Birmingham, UK",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Forward_(8579645345).jpg",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0"
+      }
+    },
+    {
+      "id": "hms-hibernia",
+      "name": "HMS Hibernia",
+      "type": "Royal Naval Reserve unit",
+      "role": "Principal Royal Naval Reserve unit for Northern Ireland.",
+      "location": "Lisburn, Northern Ireland",
+      "description": "The Royal Navy identifies HMS Hibernia as Northern Ireland's Royal Naval Reserve unit.",
+      "position": {
+        "lat": 54.526,
+        "lon": -6.03,
+        "label": "Lisburn area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Hibernia",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/hibernia"
+      },
+      "image": "./shore/photos/hms-hibernia.webp",
+      "imageAlt": "Thiepval Barracks in Lisburn, home of HMS Hibernia",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Dean Molyneaux",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Thiepval_Barracks,_Lisburn_-_geograph.org.uk_-_1590410.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "hms-king-alfred",
+      "name": "HMS King Alfred",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve unit for Portsmouth and the Solent.",
+      "location": "HMNB Portsmouth, Hampshire, England",
+      "description": "A large commissioned reserve unit located within Portsmouth Naval Base.",
+      "position": {
+        "lat": 50.805,
+        "lon": -1.1,
+        "label": "Portsmouth Naval Base area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS King Alfred",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/king-alfred"
+      },
+      "image": "./shore/photos/hms-king-alfred.webp",
+      "imageAlt": "HMS King Alfred building beside the Lion Gate at Portsmouth Historic Dockyard",
+      "imageFocalPoint": "50% 48%",
+      "imageCredit": {
+        "label": "Hassocks5489",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_King_Alfred_(Building_Number_1.40)_and_The_Lion_Gate,_Portsmouth_Historic_Dockyard_(NHLE_Code_1272303)_(August_2022)_(1).JPG",
+        "license": "CC0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/deed.en"
+      }
+    },
+    {
+      "id": "hms-president",
+      "name": "HMS President",
+      "type": "Royal Naval Reserve unit",
+      "role": "Largest Royal Naval Reserve unit and the service's permanent London presence.",
+      "location": "Wapping, London, England",
+      "description": "The principal commissioned Royal Naval Reserve shore unit for Greater London.",
+      "position": {
+        "lat": 51.508,
+        "lon": -0.068,
+        "label": "St Katharine Docks area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS President",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/president"
+      },
+      "image": "./shore/photos/hms-president.webp",
+      "imageAlt": "HMS President Royal Naval Reserve shore establishment in Wapping, London",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Hammersfan",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_President_(shore_establishment).jpg",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0"
+      }
+    },
+    {
+      "id": "hms-scotia",
+      "name": "HMS Scotia",
+      "type": "Royal Naval Reserve unit",
+      "role": "Principal Royal Naval Reserve unit for eastern Scotland.",
+      "location": "Rosyth, Fife, Scotland",
+      "description": "A commissioned reserve unit located within HMS Caledonia and serving eastern Scotland.",
+      "position": {
+        "lat": 56.045,
+        "lon": -3.431,
+        "label": "Rosyth area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Scotia",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/scotia"
+      },
+      "image": "./shore/photos/hms-scotia.webp",
+      "imageAlt": "HMS Scotia sign and training-establishment building at Rosyth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "Ministry of Defence",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HMS_Scotia_Sign.jpg",
+        "license": "OGL v1.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/1/"
+      }
+    },
+    {
+      "id": "hms-sherwood",
+      "name": "HMS Sherwood",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve training centre for the East Midlands.",
+      "location": "Chilwell, Nottinghamshire, England",
+      "description": "A commissioned shore unit drawing reservists from across the East Midlands.",
+      "position": {
+        "lat": 52.908,
+        "lon": -1.243,
+        "label": "Chilwell area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Sherwood",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/sherwood"
+      },
+      "image": "./shore/photos/hms-sherwood.webp",
+      "imageAlt": "HMS Sherwood ceremonial divisions at Foresters House in Chilwell",
+      "imageFocalPoint": "50% 43%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://www.royalnavy.mod.uk/news/2017/july/13/170713-awarding-reserve-service-in-nottingham",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "hms-vivid",
+      "name": "HMS Vivid",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve unit for Devon and the South West.",
+      "location": "HMNB Devonport, Plymouth, England",
+      "description": "A commissioned reserve unit based within Devonport Naval Base.",
+      "position": {
+        "lat": 50.383,
+        "lon": -4.183,
+        "label": "Devonport area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: URNU Devon at HMS Vivid",
+        "url": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/urnu/urnu-devon"
+      },
+      "image": "./shore/photos/hms-vivid.webp",
+      "imageAlt": "HMS Vivid reservists on parade beside the unit sign in Plymouth",
+      "imageFocalPoint": "50% 20%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/vivid",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "hms-wildfire",
+      "name": "HMS Wildfire",
+      "type": "Royal Naval Reserve unit",
+      "role": "Royal Naval Reserve unit associated with Northwood.",
+      "location": "Northwood, Greater London, England",
+      "description": "A commissioned reserve unit within the publicly identified Northwood headquarters site.",
+      "position": {
+        "lat": 51.62,
+        "lon": -0.415,
+        "label": "Northwood area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Wildfire",
+        "url": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/royal-naval-reserve/wildfire"
+      },
+      "image": "./shore/photos/hms-wildfire.webp",
+      "imageAlt": "HMS Wildfire personnel at their Northwood anniversary gathering",
+      "imageFocalPoint": "50% 42%",
+      "imageCredit": {
+        "label": "AB Brendan Carr, HMS Wildfire",
+        "sourceUrl": "https://www.royalnavy.mod.uk/news/2025/may/28/20250528-reservist-unit-celebrates-silver-jubilee",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "hms-pegasus",
+      "name": "HMS Pegasus",
+      "type": "Royal Naval Reserve unit",
+      "role": "Headquarters of the Royal Naval Reserve Air Branch.",
+      "location": "RNAS Yeovilton, Somerset, England",
+      "description": "The commissioned reserve air branch unit, with Yeovilton as its headquarters and Culdrose as a focal point.",
+      "position": {
+        "lat": 51.005,
+        "lon": -2.644,
+        "label": "Yeovilton area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Pegasus at 45",
+        "url": "https://www.royalnavy.mod.uk/news/2025/april/08/20250408-air-branch-reservists-celebrate-45-years-of-commitment-as-hms-pegasus-marks-birthday"
+      },
+      "image": "./shore/photos/hms-pegasus.webp",
+      "imageAlt": "HMS Pegasus commissioning ceremony at RNAS Yeovilton",
+      "imageFocalPoint": "50% 43%",
+      "imageCredit": {
+        "label": "Royal Navy",
+        "sourceUrl": "https://www.royalnavy.mod.uk/news/2022/october/14/20221014-hms-pegasus-commissioning",
+        "license": "Open Government Licence v3.0",
+        "licenseUrl": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+    {
+      "id": "devonport-royal-dockyard",
+      "name": "Devonport Royal Dockyard",
+      "type": "Dockyard",
+      "role": "Integral naval-base dockyard for warship and submarine maintenance, modernisation, and refit.",
+      "location": "Devonport, Plymouth, England",
+      "description": "The working dockyard within the Devonport naval support site, publicly identified by MOD as a centre for in-service submarine and surface-fleet support.",
+      "position": {
+        "lat": 50.389,
+        "lon": -4.185,
+        "label": "Devonport dockyard area (representative)"
+      },
+      "source": {
+        "label": "MOD: Defence Nuclear Enterprise annual update",
+        "url": "https://www.gov.uk/government/publications/defence-nuclear-enterprise-2025-annual-update-to-parliament/defence-nuclear-enterprise-2025-annual-update-to-parliament"
+      },
+      "image": "./shore/photos/devonport-royal-dockyard.webp",
+      "imageAlt": "Working docks at Devonport Royal Dockyard in Plymouth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "N Chadwick",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Devonport_Docks_-_geograph.org.uk_-_5186559.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    },
+    {
+      "id": "rosyth-royal-dockyard",
+      "name": "Rosyth Royal Dockyard",
+      "type": "Dockyard",
+      "role": "Commercially operated Royal Navy dockyard supporting carrier maintenance, frigate construction, and submarine dismantling.",
+      "location": "Rosyth, Fife, Scotland",
+      "description": "An active Royal Navy dockyard operated by Babcock and publicly identified by the Royal Navy and MOD for fleet construction, maintenance, and refit work.",
+      "position": {
+        "lat": 56.022,
+        "lon": -3.455,
+        "label": "Rosyth dockyard area (representative)"
+      },
+      "source": {
+        "label": "Royal Navy: HMS Queen Elizabeth docking at Rosyth Royal Dockyard",
+        "url": "https://www.royalnavy.mod.uk/news/2026/may/08/20260508-a-thrilling-welcome-home-for-hms-queen-elizabeth"
+      },
+      "image": "./shore/photos/rosyth-royal-dockyard.webp",
+      "imageAlt": "Rosyth Royal Dockyard on the Firth of Forth",
+      "imageFocalPoint": "50% 50%",
+      "imageCredit": {
+        "label": "frank smith",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Rosyth_Royal_Dockyard_-_geograph.org.uk_-_3442905.jpg",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0"
+      }
+    }
+  ]
+}

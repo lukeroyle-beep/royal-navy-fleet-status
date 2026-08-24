@@ -15,12 +15,16 @@ const existing = readJson(evidenceUrl);
 const incoming = JSON.parse(fs.readFileSync(inputPath, "utf8"));
 const items = Array.isArray(incoming) ? incoming : [incoming];
 const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
+const knownVesselIds = [
+  ...vesselIds,
+  ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
+];
 
-validateSourceRegistry(registry, vesselIds);
+validateSourceRegistry(registry, knownVesselIds, vesselIds);
 validateEvidenceLog(
   { ...existing, evidence: [...existing.evidence, ...items] },
   registry.sources.map((source) => source.sourceId),
-  vesselIds,
+  knownVesselIds,
 );
 
 if (!dryRun) {

@@ -18,7 +18,12 @@ const windowStart =
     ? sweepWindowStartFromMetadata(entities.metadata)
     : windowStartArgument;
 
-validateSourceRegistry(registry, entities.vessels.map((vessel) => vessel.vesselId));
+const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
+const knownVesselIds = [
+  ...vesselIds,
+  ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
+];
+validateSourceRegistry(registry, knownVesselIds, vesselIds);
 const run = createSweepRun({
   registry,
   entities,

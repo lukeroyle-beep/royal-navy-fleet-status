@@ -1,9 +1,18 @@
+const DISPLAY_POSITION_OVERRIDES = {
+  "hms-scott": { lat: 36.1442, lon: -5.3665 },
+  "rfa-tidespring": { lat: 36.149, lon: -5.382 },
+};
+
 export function hasPlottablePosition(vessel) {
   return Boolean(getMapPosition(vessel));
 }
 
 export function getMapPosition(vessel) {
   const position = vessel?.position || vessel?.symbolicPosition;
+  const displayOverride = DISPLAY_POSITION_OVERRIDES[vessel?.id];
+  if (displayOverride && position) {
+    return { ...position, ...displayOverride };
+  }
   return Boolean(
     position &&
       Number.isFinite(position.lat) &&
