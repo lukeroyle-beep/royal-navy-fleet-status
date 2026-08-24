@@ -12,13 +12,21 @@ const releaseRevision = releaseRevisionArgument === null ? 1 : Number(releaseRev
 const outputPath = readEqualsArgument("--output=");
 const entities = readJson("../data/internal/provenance/vessels.json");
 const registry = readJson("../data/internal/provenance/sources.json");
+const assessments = readJson("../data/internal/provenance/assessments.json");
 const windowStart =
   windowStartArgument === null
     ? sweepWindowStartFromMetadata(entities.metadata)
     : windowStartArgument;
 
 validateSourceRegistry(registry, entities.vessels.map((vessel) => vessel.vesselId));
-const run = createSweepRun({ registry, entities, startedAt, windowStart, releaseRevision });
+const run = createSweepRun({
+  registry,
+  entities,
+  assessmentLog: assessments,
+  startedAt,
+  windowStart,
+  releaseRevision,
+});
 await collectPublicIndexes(run, { registry, entities, checkedAt: new Date().toISOString() });
 const output = `${JSON.stringify(run, null, 2)}\n`;
 
@@ -33,6 +41,9 @@ if (outputPath) {
   );
 } else {
   process.stdout.write(output);
+}
+if (run.discoveryChecks.some((check) => check.required && check.state !== "complete")) {
+  process.exitCode = 1;
 }
 
 function readJson(relativePath) {

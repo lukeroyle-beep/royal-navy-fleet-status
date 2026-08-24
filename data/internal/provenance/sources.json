@@ -2075,15 +2075,34 @@
       "publisher": "Royal Navy",
       "canonicalUrl": "https://www.royalnavy.mod.uk/news",
       "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "manual-only",
+      "enabled": true,
+      "monitoring": {
+        "recurring": true
+      },
+      "terms": {
+        "reviewedAt": "2026-08-24T05:09:56Z",
+        "automation": "Manual public-index and search review only; automated requests are blocked by the publisher edge and must not be bypassed.",
+        "retention": "Retain candidate links and hashes; retain only minimum excerpts for promoted evidence."
+      },
+      "notes": "Mandatory recurring official-news review. Direct collector requests returned Cloudflare HTTP 403 on 24 August 2026."
+    },
+    {
+      "sourceId": "WESTWARD_SHIPPING_NEWS_FEED",
+      "category": "specialist-media",
+      "publisher": "Westward Shipping News",
+      "canonicalUrl": "https://westwardshippingnews.com/feed/",
+      "reliabilityTier": "C",
       "collectionMode": "feed",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "One read-only request to the public news index for discovery; item promotion remains manual.",
+        "reviewedAt": "2026-08-24T05:20:00Z",
+        "automation": "One read-only request to the public RSS feed for discovery; article or visual promotion remains manual.",
         "retention": "Retain candidate links and hashes; retain only minimum excerpts for promoted evidence."
       },
-      "notes": "Recurring official Royal Navy news discovery index."
+      "notes": "Local Plymouth shipping publisher used for discovery only; credited originals and independent corroboration must be preserved."
     },
     {
       "sourceId": "ROYAL_NAVY_UNIT_PAGES",

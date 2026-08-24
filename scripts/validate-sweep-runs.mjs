@@ -4,8 +4,9 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 import {
-  evaluateSweepCoverage,
+  evaluateStoredSweepCoverage,
   validateReleaseSweepGate,
+  validateSweepBaselineAgainstState,
   validateSweepRunShape,
 } from "./lib/sweep.mjs";
 import { readReleaseMetadata } from "../src/utils/release.js";
@@ -15,6 +16,7 @@ const runDirectory = path.join(root, "data/internal/provenance/sweep-runs");
 const entities = readJson(path.join(root, "data/internal/provenance/vessels.json"));
 const registry = readJson(path.join(root, "data/internal/provenance/sources.json"));
 const evidence = readJson(path.join(root, "data/internal/provenance/evidence.json"));
+const assessments = readJson(path.join(root, "data/internal/provenance/assessments.json"));
 const release = readReleaseMetadata(entities.metadata);
 const files = fs.existsSync(runDirectory)
   ? fs.readdirSync(runDirectory).filter((name) => name.endsWith(".json")).sort()
@@ -22,11 +24,7 @@ const files = fs.existsSync(runDirectory)
 const runs = files.map((name) => {
   const run = readJson(path.join(runDirectory, name));
   validateSweepRunShape(run);
-  const coverage = evaluateSweepCoverage(run, {
-    registry,
-    entities,
-    evidenceItems: evidence.evidence,
-  });
+  const coverage = evaluateStoredSweepCoverage(run, { evidenceItems: evidence.evidence });
   if (!run.complete || !run.completedAt || !coverage.pass) {
     throw new Error(
       `Stored sweep ${run.runId} is not a complete coverage record: ` +
@@ -40,7 +38,22 @@ const runs = files.map((name) => {
 });
 
 assertUnique(runs.map((run) => run.runId));
-validateAppendOnlyHistory(readArgument("--base-ref"), files);
+const baseRef = readArgument("--base-ref");
+const newFiles = validateAppendOnlyHistory(baseRef, files);
+if (baseRef && newFiles.length) {
+  const baseEntities = readJsonAtRef(baseRef, "data/internal/provenance/vessels.json");
+  const baseAssessments = readJsonAtRef(baseRef, "data/internal/provenance/assessments.json");
+  const runByFile = new Map(files.map((name, index) => [name, runs[index]]));
+  for (const name of newFiles) {
+    const run = runByFile.get(name);
+    if (run.coverageDate >= "2026-08-24") {
+      validateSweepBaselineAgainstState(run, {
+        entities: baseEntities,
+        assessmentLog: baseAssessments,
+      });
+    }
+  }
+}
 
 const gate = validateReleaseSweepGate({
   runs,
@@ -49,6 +62,7 @@ const gate = validateReleaseSweepGate({
   releasedAt: release.releasedAt,
   registry,
   entities,
+  assessmentLog: assessments,
   evidenceItems: evidence.evidence,
 });
 if (!gate.pass) {
@@ -61,7 +75,7 @@ console.log(
 );
 
 function validateAppendOnlyHistory(baseRef, currentFiles) {
-  if (!baseRef) return;
+  if (!baseRef) return [];
   execFileSync("git", ["cat-file", "-e", `${baseRef}^{commit}`], {
     cwd: root,
     stdio: "ignore",
@@ -76,6 +90,7 @@ function validateAppendOnlyHistory(baseRef, currentFiles) {
     .split("\n")
     .filter((name) => name.endsWith(".json"));
   const current = new Set(currentFiles.map((name) => `${prefix}${name}`));
+  const previous = new Set(listing);
   for (const name of listing) {
     if (!current.has(name)) throw new Error(`Sweep history is append-only; ${name} was removed.`);
     const before = execFileSync("git", ["show", `${baseRef}:${name}`], {
@@ -85,6 +100,16 @@ function validateAppendOnlyHistory(baseRef, currentFiles) {
     const after = fs.readFileSync(path.join(root, name), "utf8");
     if (before !== after) throw new Error(`Sweep history is append-only; ${name} was modified.`);
   }
+  return currentFiles.filter((name) => !previous.has(`${prefix}${name}`));
+}
+
+function readJsonAtRef(ref, name) {
+  return JSON.parse(
+    execFileSync("git", ["show", `${ref}:${name}`], {
+      cwd: root,
+      encoding: "utf8",
+    }),
+  );
 }
 
 function readArgument(name) {

@@ -1,5 +1,10 @@
 import crypto from "node:crypto";
 
+import {
+  PUBLIC_PROJECTION_METHOD_VERSION,
+  createPublicProjection,
+} from "./public-projection.mjs";
+
 export const SWEEP_RUN_SCHEMA_VERSION = "2.0.0";
 export const COVERAGE_GATE_EFFECTIVE_DATE = "2026-08-24";
 
@@ -11,12 +16,13 @@ const RECURRING_MANUAL_SOURCE_IDS = new Set([
 
 export const PUBLIC_INDEX_TARGETS = Object.freeze([
   target({
-    targetId: "ROYAL_NAVY_NEWS_INDEX",
-    sourceId: "ROYAL_NAVY_NEWS_INDEX",
-    url: "https://www.royalnavy.mod.uk/news",
-    contentKind: "html",
-    allowedHost: "www.royalnavy.mod.uk",
-    pathPattern: "^/news/",
+    targetId: "WESTWARD_SHIPPING_NEWS_FEED",
+    sourceId: "WESTWARD_SHIPPING_NEWS_FEED",
+    url: "https://westwardshippingnews.com/feed/",
+    contentKind: "feed",
+    allowedHost: "westwardshippingnews.com",
+    pathPattern: "^/[^/]+/?$",
+    termsReviewedAt: "2026-08-24",
   }),
   target({
     targetId: "GOVUK_MOD_ATOM",
@@ -149,6 +155,7 @@ export function sweepWindowStartFromMetadata(metadata) {
 export function createSweepRun({
   registry,
   entities,
+  assessmentLog = null,
   startedAt,
   windowStart,
   releaseRevision = 1,
@@ -175,14 +182,50 @@ export function createSweepRun({
   const rosterIds = entities.vessels.map((vessel) => vessel.vesselId).sort();
   const registryHash = coverageSourceHash(registry, discoveryTargets);
   const rosterHash = sha256(stableJson(rosterIds));
+  const coverageDate = startedAt.slice(0, 10);
+  if (coverageDate >= COVERAGE_GATE_EFFECTIVE_DATE && !assessmentLog) {
+    throw new Error("Gate-effective sweep creation requires the current assessment baseline.");
+  }
+  const baselineProjectionVessels = assessmentLog
+    ? createPublicProjection(entities, assessmentLog).vessels
+    : null;
+  const baselineAssessments = assessmentLog
+    ? currentAssessmentsForRoster(assessmentLog, rosterIds)
+    : null;
+  const baselineAssessmentIds = baselineAssessments
+    ? Object.fromEntries(
+        baselineAssessments.map((assessment) => [assessment.vesselId, assessment.assessmentId]),
+      )
+    : null;
+  const baselineReleaseMetadata = assessmentLog
+    ? releaseIdentityFromMetadata(entities.metadata)
+    : null;
+  if (
+    baselineReleaseMetadata &&
+    Date.parse(windowStart) > Date.parse(`${baselineReleaseMetadata.asOfDate}T00:00:00Z`)
+  ) {
+    throw new Error("Sweep window does not cover the authenticated prior release date.");
+  }
+  const baselineStateHash =
+    baselineProjectionVessels &&
+    baselineAssessmentIds &&
+    baselineAssessments &&
+    baselineReleaseMetadata
+    ? sha256(stableJson({
+        baselineAssessmentIds,
+        baselineAssessments,
+        baselineProjectionVessels,
+        baselineReleaseMetadata,
+      }))
+    : null;
   const runId = `SWEEP_${startedAt.replace(/[-:.]/g, "")}_R${releaseRevision}_${registryHash.slice(0, 8)}`;
 
   const run = {
     schemaVersion: SWEEP_RUN_SCHEMA_VERSION,
     runId,
-    coverageDate: startedAt.slice(0, 10),
+    coverageDate,
     releaseTarget: {
-      asOfDate: startedAt.slice(0, 10),
+      asOfDate: coverageDate,
       releaseRevision,
     },
     startedAt,
@@ -190,6 +233,18 @@ export function createSweepRun({
     window: { from: windowStart, to: startedAt },
     sourceRegistryHash: registryHash,
     rosterHash,
+    baselineStateHash,
+    releaseContentHash: null,
+    coverageInputs: {
+      recurringSources: structuredClone(requiredSources),
+      officialSocialCoverage: structuredClone(registry.officialSocialCoverage),
+      discoveryTargets: structuredClone(discoveryTargets),
+      rosterIds: structuredClone(rosterIds),
+      baselineAssessmentIds,
+      baselineAssessments,
+      baselineProjectionVessels: structuredClone(baselineProjectionVessels),
+      baselineReleaseMetadata,
+    },
     collectionPolicy: {
       readOnly: true,
       automaticBoundary: "Configured public publisher indexes only",
@@ -231,6 +286,7 @@ export function createSweepRun({
       reviewedAt: null,
       outcome: null,
       evidenceIds: [],
+      assessmentId: null,
       notes: null,
       blocker: null,
     })),
@@ -292,6 +348,28 @@ export function validateSweepRunShape(run) {
   ) {
     throw new Error("Sweep run has invalid registry or roster hashes.");
   }
+  if (
+    run.baselineStateHash !== null &&
+    run.baselineStateHash !== undefined &&
+    !/^[a-f0-9]{64}$/.test(run.baselineStateHash || "")
+  ) {
+    throw new Error("Sweep run has an invalid baseline state hash.");
+  }
+  if (
+    run.releaseContentHash !== null &&
+    run.releaseContentHash !== undefined &&
+    !/^[a-f0-9]{64}$/.test(run.releaseContentHash || "")
+  ) {
+    throw new Error("Sweep run has an invalid release content hash.");
+  }
+  if (
+    run.coverageDate >= COVERAGE_GATE_EFFECTIVE_DATE &&
+    run.complete &&
+    !/^[a-f0-9]{64}$/.test(run.releaseContentHash || "")
+  ) {
+    throw new Error("Completed sweep run is not bound to its release content.");
+  }
+  validateCapturedCoverageInputs(run);
   const expectedRunId =
     `SWEEP_${run.startedAt.replace(/[-:.]/g, "")}_R${run.releaseTarget.releaseRevision}_` +
     run.sourceRegistryHash.slice(0, 8);
@@ -315,6 +393,16 @@ export function validateSweepRunShape(run) {
     if (entry.outcome === "updated" && !entry.evidenceIds.length) {
       throw new Error(`${entry.vesselId} is updated without evidenceIds.`);
     }
+    if (entry.assessmentId !== null && entry.assessmentId !== undefined) {
+      requireNonEmpty(entry.assessmentId, `${entry.vesselId} outcome assessmentId`);
+    }
+    if (
+      run.complete &&
+      run.coverageDate >= COVERAGE_GATE_EFFECTIVE_DATE &&
+      (typeof entry.assessmentId !== "string" || !entry.assessmentId.trim())
+    ) {
+      throw new Error(`${entry.vesselId} outcome is not bound to an assessment.`);
+    }
     if (entry.state === "complete" && (typeof entry.notes !== "string" || !entry.notes.trim())) {
       throw new Error(`${entry.vesselId} has no review notes.`);
     }
@@ -328,6 +416,70 @@ export function validateSweepRunShape(run) {
 export function evaluateSweepCoverage(
   run,
   { registry, entities, discoveryTargets = PUBLIC_INDEX_TARGETS, evidenceItems = null },
+) {
+  return evaluateSweepCoverageAgainstInputs(run, {
+    registry,
+    entities,
+    discoveryTargets,
+    evidenceItems,
+    enforceInputHashes: true,
+  });
+}
+
+export function evaluateStoredSweepCoverage(run, { evidenceItems = null } = {}) {
+  validateSweepRunShape(run);
+  if (run.coverageInputs) {
+    return evaluateSweepCoverageAgainstInputs(run, {
+      registry: {
+        sources: run.coverageInputs.recurringSources,
+        officialSocialCoverage: run.coverageInputs.officialSocialCoverage,
+      },
+      entities: {
+        vessels: run.coverageInputs.rosterIds.map((vesselId) => ({ vesselId })),
+      },
+      discoveryTargets: run.coverageInputs.discoveryTargets,
+      evidenceItems,
+      enforceInputHashes: true,
+    });
+  }
+
+  const legacySources = run.sourceChecks.map((check) => ({
+    sourceId: check.sourceId,
+    vesselId: check.vesselId,
+    category: check.category,
+    collectionMode: check.collectionMode,
+    canonicalUrl: check.canonicalUrl,
+    accountHandle: check.accountHandle,
+    enabled: true,
+    monitoring: { recurring: true },
+  }));
+  const legacyTargets = run.discoveryChecks.map((check) => ({
+    targetId: check.targetId,
+    sourceId: check.sourceId,
+    url: check.url,
+    contentKind: check.contentKind,
+    allowedHost: new URL(check.url).hostname,
+    pathPattern: "^/",
+    required: true,
+  }));
+  return evaluateSweepCoverageAgainstInputs(run, {
+    registry: { sources: legacySources, officialSocialCoverage: null },
+    entities: { vessels: run.vesselOutcomes.map(({ vesselId }) => ({ vesselId })) },
+    discoveryTargets: legacyTargets,
+    evidenceItems,
+    enforceInputHashes: false,
+  });
+}
+
+function evaluateSweepCoverageAgainstInputs(
+  run,
+  {
+    registry,
+    entities,
+    discoveryTargets,
+    evidenceItems,
+    enforceInputHashes,
+  },
 ) {
   validateSweepRunShape(run);
   const reasons = [];
@@ -398,11 +550,15 @@ export function evaluateSweepCoverage(
     "discovery checks",
     reasons,
   );
-  if (run.sourceRegistryHash !== coverageSourceHash(registry, discoveryTargets)) {
-    reasons.push("recurring source or discovery-target coverage changed after the run started");
-  }
-  if (run.rosterHash !== sha256(stableJson(expectedVessels))) {
-    reasons.push("vessel roster changed after the run started");
+  if (enforceInputHashes) {
+    if (run.sourceRegistryHash !== coverageSourceHash(registry, discoveryTargets)) {
+      reasons.push("recurring source or discovery-target coverage changed after the run started");
+    }
+    if (run.rosterHash !== sha256(stableJson(expectedVessels))) {
+      reasons.push("vessel roster changed after the run started");
+    }
+  } else if (run.rosterHash !== sha256(stableJson(expectedVessels))) {
+    reasons.push("captured vessel outcomes do not match the stored roster hash");
   }
 
   const allChecks = [...run.discoveryChecks, ...run.sourceChecks];
@@ -455,6 +611,7 @@ export function validateReleaseSweepGate({
   releasedAt = null,
   registry,
   entities,
+  assessmentLog = null,
   evidenceItems = null,
 }) {
   requireIsoDate(datasetDate, "Fleet dataset date");
@@ -465,13 +622,32 @@ export function validateReleaseSweepGate({
   if (datasetDate < COVERAGE_GATE_EFFECTIVE_DATE) {
     return { required: false, pass: true, runId: null, reasons: [] };
   }
+  if (!assessmentLog) {
+    throw new Error("Fleet release coverage requires the current assessment log.");
+  }
+  const entityReleaseRevision = Number.isInteger(entities?.metadata?.releaseRevision)
+    ? entities.metadata.releaseRevision
+    : 1;
+  if (
+    entities?.metadata?.asOfDate !== datasetDate ||
+    entityReleaseRevision !== releaseRevision ||
+    (releasedAt !== null && entities.metadata?.releasedAt !== releasedAt)
+  ) {
+    throw new Error("Fleet release identity does not match the canonical dataset metadata.");
+  }
+  const releaseContentHash = computeReleaseContentHash({
+    entities,
+    registry,
+    assessmentLog,
+    evidenceItems,
+  });
   const candidates = runs
     .filter(
       (run) =>
         run.releaseTarget?.asOfDate === datasetDate &&
         run.releaseTarget?.releaseRevision === releaseRevision,
     )
-    .sort((left, right) => right.startedAt.localeCompare(left.startedAt));
+    .sort((left, right) => Date.parse(right.startedAt) - Date.parse(left.startedAt));
   if (!candidates.length) {
     return {
       required: true,
@@ -480,17 +656,44 @@ export function validateReleaseSweepGate({
       reasons: [`no sweep run covers ${datasetDate} r${releaseRevision}`],
     };
   }
-  const run = candidates[0];
-  const coverage = evaluateSweepCoverage(run, { registry, entities, evidenceItems });
-  const completedBeforeRelease =
-    !releasedAt || (run.completedAt && Date.parse(run.completedAt) <= Date.parse(releasedAt));
-  if (coverage.pass && run.complete && run.completedAt && completedBeforeRelease) {
-    return { required: true, pass: true, runId: run.runId, reasons: [] };
+  const releaseInstant = releasedAt ? Date.parse(releasedAt) : null;
+  const eligible = candidates.filter(
+    (run) =>
+      run.complete &&
+      run.completedAt &&
+      (releaseInstant === null || Date.parse(run.completedAt) <= releaseInstant),
+  );
+  if (!eligible.length) {
+    return {
+      required: true,
+      pass: false,
+      runId: null,
+      reasons: [
+        `no finalised sweep run for ${datasetDate} r${releaseRevision} was eligible at release`,
+      ],
+    };
   }
+
+  const run = eligible[0];
+  const coverage = evaluateSweepCoverage(run, { registry, entities, evidenceItems });
   const failures = [...coverage.reasons];
-  if (!run.complete) failures.push(`${run.runId} is not finalised`);
-  if (run.completedAt && !completedBeforeRelease) {
-    failures.push(`${run.runId} completed after the fleet release instant`);
+  if (!run.complete || !run.completedAt) failures.push(`${run.runId} is not finalised`);
+  if (run.releaseContentHash !== releaseContentHash) {
+    failures.push(`${run.runId} does not match the current release content`);
+  }
+  try {
+    validateVesselOutcomeBindings(run, {
+      entities,
+      assessmentLog,
+      evidenceItems,
+      completedAt: run.completedAt,
+      requireStoredBindings: true,
+    });
+  } catch (error) {
+    failures.push(`${run.runId} has invalid outcome bindings: ${error.message}`);
+  }
+  if (!failures.length) {
+    return { required: true, pass: true, runId: run.runId, reasons: [] };
   }
   return {
     required: true,
@@ -500,25 +703,243 @@ export function validateReleaseSweepGate({
   };
 }
 
-export function finaliseSweepRun(run, { registry, entities, evidenceItems = null, completedAt }) {
+export function finaliseSweepRun(
+  run,
+  { registry, entities, assessmentLog = null, evidenceItems = null, completedAt },
+) {
   requireTimestamp(completedAt, "Sweep completion");
   validateSweepRunShape(run);
+  if (run.complete || run.completedAt || run.releaseContentHash) {
+    throw new Error(`${run.runId} is already finalised and cannot be rebound.`);
+  }
   if (Date.parse(completedAt) < Date.parse(run.startedAt)) {
     throw new Error("Sweep completion precedes its start.");
   }
   validateRunEventTimestamps(run, completedAt);
   const coverage = evaluateSweepCoverage(run, { registry, entities, evidenceItems });
+  let releaseContentHash = null;
+  let outcomeBindings = null;
+  if (coverage.pass && run.coverageDate >= COVERAGE_GATE_EFFECTIVE_DATE) {
+    if (!assessmentLog) {
+      throw new Error("Gate-effective sweep finalisation requires the current assessment log.");
+    }
+    const entityReleaseRevision = Number.isInteger(entities.metadata?.releaseRevision)
+      ? entities.metadata.releaseRevision
+      : 1;
+    if (
+      entities.metadata?.asOfDate !== run.releaseTarget.asOfDate ||
+      entityReleaseRevision !== run.releaseTarget.releaseRevision
+    ) {
+      throw new Error("Canonical release identity does not match the sweep release target.");
+    }
+    outcomeBindings = validateVesselOutcomeBindings(run, {
+      entities,
+      assessmentLog,
+      evidenceItems,
+      completedAt,
+    });
+    releaseContentHash = computeReleaseContentHash({
+      entities,
+      registry,
+      assessmentLog,
+      evidenceItems,
+    });
+  }
   run.coverage = coverage;
   run.complete = coverage.pass;
   run.completedAt = coverage.pass ? completedAt : null;
+  run.releaseContentHash = coverage.pass ? releaseContentHash : null;
+  if (outcomeBindings) {
+    for (const outcome of run.vesselOutcomes) {
+      outcome.assessmentId = outcomeBindings.get(outcome.vesselId);
+    }
+  }
   return run;
+}
+
+export function computeReleaseContentHash({ entities, registry, assessmentLog, evidenceItems }) {
+  if (
+    !entities?.metadata ||
+    !Array.isArray(entities.vessels) ||
+    !Array.isArray(registry?.sources) ||
+    !Array.isArray(registry?.officialSocialCoverage) ||
+    !Array.isArray(assessmentLog?.assessments) ||
+    !assessmentLog?.currentAssessmentIds ||
+    !Array.isArray(evidenceItems)
+  ) {
+    throw new Error("Release content hash requires canonical entities, sources, evidence and assessments.");
+  }
+  const projection = createPublicProjection(entities, assessmentLog);
+  const currentAssessments = currentAssessmentsForRoster(
+    assessmentLog,
+    entities.vessels.map((vessel) => vessel.vesselId),
+  );
+  const evidenceIds = [...new Set(currentAssessments.flatMap(assessmentEvidenceIds))].sort();
+  const evidenceById = new Map(evidenceItems.map((item) => [item.evidenceId, item]));
+  const currentEvidence = evidenceIds.map((evidenceId) => {
+    const item = evidenceById.get(evidenceId);
+    if (!item) throw new Error(`Release content is missing evidence ${evidenceId}.`);
+    return item;
+  });
+  const sourceIds = [...new Set(currentEvidence.map((item) => item.sourceId))].sort();
+  const sourceById = new Map(registry.sources.map((source) => [source.sourceId, source]));
+  const currentSources = sourceIds.map((sourceId) => {
+    const source = sourceById.get(sourceId);
+    if (!source) throw new Error(`Release content is missing source ${sourceId}.`);
+    return source;
+  });
+  return sha256(stableJson({
+    schemaVersion: "1.0.0",
+    projectionMethodVersion: PUBLIC_PROJECTION_METHOD_VERSION,
+    publicVessels: projection.vessels,
+    currentAssessments,
+    currentEvidence,
+    currentSources,
+  }));
+}
+
+export function validateSweepBaselineAgainstState(run, { entities, assessmentLog }) {
+  validateSweepRunShape(run);
+  if (!run.coverageInputs) return run;
+  const rosterIds = entities.vessels.map((vessel) => vessel.vesselId).sort();
+  const assessments = currentAssessmentsForRoster(assessmentLog, rosterIds);
+  const assessmentIds = Object.fromEntries(
+    assessments.map((assessment) => [assessment.vesselId, assessment.assessmentId]),
+  );
+  const projectionVessels = createPublicProjection(entities, assessmentLog).vessels;
+  const releaseMetadata = releaseIdentityFromMetadata(entities.metadata);
+  if (
+    stableJson(run.coverageInputs.baselineAssessmentIds) !== stableJson(assessmentIds) ||
+    stableJson(run.coverageInputs.baselineAssessments) !== stableJson(assessments) ||
+    stableJson(run.coverageInputs.baselineProjectionVessels) !== stableJson(projectionVessels) ||
+    stableJson(run.coverageInputs.baselineReleaseMetadata) !== stableJson(releaseMetadata)
+  ) {
+    throw new Error(`${run.runId} baseline does not match the authenticated pre-change state.`);
+  }
+  return run;
+}
+
+function validateVesselOutcomeBindings(
+  run,
+  { entities, assessmentLog, evidenceItems, completedAt, requireStoredBindings = false },
+) {
+  if (!completedAt) throw new Error("Outcome binding requires a sweep completion timestamp.");
+  if (!Array.isArray(evidenceItems)) {
+    throw new Error("Outcome binding requires the governed evidence ledger.");
+  }
+  const currentProjection = createPublicProjection(entities, assessmentLog);
+  const baselineById = new Map(
+    run.coverageInputs.baselineProjectionVessels.map((vessel) => [vessel.id, vessel]),
+  );
+  const currentById = new Map(currentProjection.vessels.map((vessel) => [vessel.id, vessel]));
+  const assessmentById = new Map(
+    assessmentLog.assessments.map((assessment) => [assessment.assessmentId, assessment]),
+  );
+  const baselineAssessmentByVessel = new Map(
+    run.coverageInputs.baselineAssessments.map((assessment) => [assessment.vesselId, assessment]),
+  );
+  const evidenceById = new Map(evidenceItems.map((item) => [item.evidenceId, item]));
+  const bindings = new Map();
+
+  for (const outcome of run.vesselOutcomes) {
+    const baseline = baselineById.get(outcome.vesselId);
+    const current = currentById.get(outcome.vesselId);
+    const currentAssessmentId = assessmentLog.currentAssessmentIds[outcome.vesselId];
+    const currentAssessment = assessmentById.get(currentAssessmentId);
+    const baselineAssessment = baselineAssessmentByVessel.get(outcome.vesselId);
+    if (
+      !baseline ||
+      !current ||
+      !baselineAssessment ||
+      !currentAssessment ||
+      currentAssessment.vesselId !== outcome.vesselId
+    ) {
+      throw new Error(`${outcome.vesselId} cannot be bound to the reviewed release state.`);
+    }
+    const changed = stableJson(baseline) !== stableJson(current);
+    const expectedOutcome = changed
+      ? "updated"
+      : current.locationClassification === "unknown"
+        ? "unknown-retained"
+        : current.locationClassification === "withheld"
+          ? "withheld-policy"
+          : "unchanged";
+    if (outcome.outcome !== expectedOutcome) {
+      throw new Error(
+        `${outcome.vesselId} outcome ${outcome.outcome} does not match derived ${expectedOutcome}.`,
+      );
+    }
+
+    const baselineAssessmentId = run.coverageInputs.baselineAssessmentIds[outcome.vesselId];
+    const assessmentChanged = currentAssessmentId !== baselineAssessmentId;
+    if (!assessmentChanged && stableJson(currentAssessment) !== stableJson(baselineAssessment)) {
+      throw new Error(`${outcome.vesselId} assessment was modified in place without a new ID.`);
+    }
+    if (changed && !assessmentChanged) {
+      throw new Error(`${outcome.vesselId} changed state is not supported by a new assessment ID.`);
+    }
+    if (assessmentChanged) {
+      const assessedAt = Date.parse(currentAssessment.assessedAt);
+      if (
+        !Number.isFinite(assessedAt) ||
+        assessedAt < Date.parse(run.startedAt) ||
+        assessedAt > Date.parse(completedAt) ||
+        assessedAt > Date.parse(outcome.reviewedAt)
+      ) {
+        throw new Error(
+          `${outcome.vesselId} current assessment is outside the reviewed sweep interval.`,
+        );
+      }
+    }
+
+    const referencedEvidence = new Set(assessmentEvidenceIds(currentAssessment));
+    if (outcome.evidenceIds.some((evidenceId) => !referencedEvidence.has(evidenceId))) {
+      throw new Error(`${outcome.vesselId} outcome evidence is not referenced by its assessment.`);
+    }
+    const expectedEvidenceIds = assessmentChanged
+      ? [...new Set(currentAssessment.selectedEvidenceIds || [])].sort()
+      : [];
+    if (stableJson([...outcome.evidenceIds].sort()) !== stableJson(expectedEvidenceIds)) {
+      throw new Error(`${outcome.vesselId} outcome evidence does not match its assessment revision.`);
+    }
+    if (assessmentChanged) {
+      const assessedAt = Date.parse(currentAssessment.assessedAt);
+      const reviewedAt = Date.parse(outcome.reviewedAt);
+      const finalisedAt = Date.parse(completedAt);
+      for (const evidenceId of expectedEvidenceIds) {
+        const item = evidenceById.get(evidenceId);
+        const retrievedAt = Date.parse(item?.retrievedAt);
+        if (!item || item.vesselId !== outcome.vesselId || !Number.isFinite(retrievedAt)) {
+          throw new Error(`${outcome.vesselId} selected evidence ${evidenceId} is invalid.`);
+        }
+        if (retrievedAt > assessedAt || retrievedAt > reviewedAt || retrievedAt > finalisedAt) {
+          throw new Error(
+            `${outcome.vesselId} selected evidence ${evidenceId} postdates its assessment or review.`,
+          );
+        }
+      }
+    }
+    if (requireStoredBindings && outcome.assessmentId !== currentAssessmentId) {
+      throw new Error(`${outcome.vesselId} stored assessment binding is stale or forged.`);
+    }
+    bindings.set(outcome.vesselId, currentAssessmentId);
+  }
+  return bindings;
+}
+
+function assessmentEvidenceIds(assessment) {
+  return [
+    ...(assessment.selectedEvidenceIds || []),
+    ...(assessment.excludedEvidenceIds || []),
+    ...(assessment.conflictingEvidenceIds || []),
+  ];
 }
 
 function target(values) {
   return Object.freeze({
     ...values,
     required: true,
-    termsReviewedAt: "2026-08-23",
+    termsReviewedAt: values.termsReviewedAt || "2026-08-23",
     lawfulUse: "One read-only weekly GET of a public publisher index; retain links and hashes only.",
   });
 }
@@ -653,6 +1074,156 @@ function validateRunEventTimestamps(run, upperBound) {
       }
     }
   }
+}
+
+function validateCapturedCoverageInputs(run) {
+  const inputs = run.coverageInputs;
+  if (!inputs) {
+    if (run.coverageDate >= COVERAGE_GATE_EFFECTIVE_DATE) {
+      throw new Error("Sweep run must capture the registry, discovery targets and roster inputs.");
+    }
+    return;
+  }
+  if (
+    !Array.isArray(inputs.recurringSources) ||
+    !Array.isArray(inputs.officialSocialCoverage) ||
+    !Array.isArray(inputs.discoveryTargets) ||
+    !Array.isArray(inputs.rosterIds) ||
+    !inputs.baselineAssessmentIds ||
+    typeof inputs.baselineAssessmentIds !== "object" ||
+    !Array.isArray(inputs.baselineAssessments) ||
+    !Array.isArray(inputs.baselineProjectionVessels) ||
+    !inputs.baselineReleaseMetadata ||
+    typeof inputs.baselineReleaseMetadata !== "object" ||
+    !inputs.recurringSources.length ||
+    !inputs.discoveryTargets.length ||
+    !inputs.rosterIds.length ||
+    !inputs.baselineAssessments.length ||
+    !inputs.baselineProjectionVessels.length
+  ) {
+    throw new Error("Sweep run has invalid captured coverage inputs.");
+  }
+  const baselineRelease = releaseIdentityFromMetadata(inputs.baselineReleaseMetadata);
+  if (
+    stableJson(baselineRelease) !== stableJson(inputs.baselineReleaseMetadata) ||
+    baselineRelease.asOfDate > run.coverageDate ||
+    Date.parse(run.window.from) > Date.parse(`${baselineRelease.asOfDate}T00:00:00Z`)
+  ) {
+    throw new Error("Sweep run does not cover its authenticated prior release date.");
+  }
+  if (
+    inputs.recurringSources.some((source) => typeof source?.sourceId !== "string") ||
+    inputs.discoveryTargets.some((target) => typeof target?.targetId !== "string") ||
+    inputs.rosterIds.some((vesselId) => typeof vesselId !== "string" || !vesselId.trim()) ||
+    inputs.baselineAssessments.some(
+      (assessment) =>
+        typeof assessment?.assessmentId !== "string" ||
+        !assessment.assessmentId.trim() ||
+        typeof assessment?.vesselId !== "string" ||
+        !assessment.vesselId.trim(),
+    ) ||
+    inputs.baselineProjectionVessels.some(
+      (vessel) => typeof vessel?.id !== "string" || !vessel.id.trim(),
+    )
+  ) {
+    throw new Error("Sweep run has malformed captured coverage inputs.");
+  }
+  assertUnique(inputs.recurringSources.map((source) => source.sourceId), "captured source");
+  assertUnique(inputs.discoveryTargets.map((target) => target.targetId), "captured target");
+  assertUnique(inputs.rosterIds, "captured vessel");
+  assertUnique(
+    inputs.baselineAssessments.map((assessment) => assessment.assessmentId),
+    "baseline assessment",
+  );
+  assertUnique(
+    inputs.baselineAssessments.map((assessment) => assessment.vesselId),
+    "baseline assessment vessel",
+  );
+  assertUnique(inputs.baselineProjectionVessels.map((vessel) => vessel.id), "baseline vessel");
+
+  const capturedRegistry = {
+    sources: inputs.recurringSources,
+    officialSocialCoverage: inputs.officialSocialCoverage,
+  };
+  if (run.sourceRegistryHash !== coverageSourceHash(capturedRegistry, inputs.discoveryTargets)) {
+    throw new Error("Sweep run captured inputs do not match its registry hash.");
+  }
+  if (run.rosterHash !== sha256(stableJson([...inputs.rosterIds].sort()))) {
+    throw new Error("Sweep run captured roster does not match its roster hash.");
+  }
+  if (
+    run.baselineStateHash !== sha256(stableJson({
+      baselineAssessmentIds: inputs.baselineAssessmentIds,
+      baselineAssessments: inputs.baselineAssessments,
+      baselineProjectionVessels: inputs.baselineProjectionVessels,
+      baselineReleaseMetadata: inputs.baselineReleaseMetadata,
+    }))
+  ) {
+    throw new Error("Sweep run captured baseline does not match its state hash.");
+  }
+  const baselineIds = inputs.baselineProjectionVessels.map((vessel) => vessel.id).sort();
+  if (JSON.stringify(baselineIds) !== JSON.stringify([...inputs.rosterIds].sort())) {
+    throw new Error("Sweep run captured baseline does not match its roster.");
+  }
+  if (
+    JSON.stringify(Object.keys(inputs.baselineAssessmentIds).sort()) !==
+    JSON.stringify([...inputs.rosterIds].sort())
+  ) {
+    throw new Error("Sweep run captured assessment baseline does not match its roster.");
+  }
+  const baselineAssessmentVessels = inputs.baselineAssessments
+    .map((assessment) => assessment.vesselId)
+    .sort();
+  if (JSON.stringify(baselineAssessmentVessels) !== JSON.stringify([...inputs.rosterIds].sort())) {
+    throw new Error("Sweep run captured assessment bodies do not match its roster.");
+  }
+  for (const assessment of inputs.baselineAssessments) {
+    if (inputs.baselineAssessmentIds[assessment.vesselId] !== assessment.assessmentId) {
+      throw new Error("Sweep run captured assessment IDs do not match their bodies.");
+    }
+  }
+}
+
+function currentAssessmentsForRoster(assessmentLog, rosterIds) {
+  if (
+    !Array.isArray(assessmentLog?.assessments) ||
+    !assessmentLog?.currentAssessmentIds ||
+    typeof assessmentLog.currentAssessmentIds !== "object"
+  ) {
+    throw new Error("Current assessment log is malformed.");
+  }
+  assertUnique(
+    assessmentLog.assessments.map((assessment) => assessment.assessmentId),
+    "assessment",
+  );
+  const assessmentById = new Map(
+    assessmentLog.assessments.map((assessment) => [assessment.assessmentId, assessment]),
+  );
+  return [...rosterIds]
+    .sort()
+    .map((vesselId) => {
+      const assessmentId = assessmentLog.currentAssessmentIds[vesselId];
+      const assessment = assessmentById.get(assessmentId);
+      if (!assessment || assessment.vesselId !== vesselId) {
+        throw new Error(`Release content has no current assessment for ${vesselId}.`);
+      }
+      return structuredClone(assessment);
+    });
+}
+
+function releaseIdentityFromMetadata(metadata) {
+  requireIsoDate(metadata?.asOfDate, "Baseline release date");
+  const releaseRevision = Number.isInteger(metadata.releaseRevision)
+    ? metadata.releaseRevision
+    : 1;
+  if (releaseRevision < 1) throw new Error("Baseline release revision must be positive.");
+  const releasedAt = metadata.releasedAt || null;
+  if (releasedAt !== null) requireTimestamp(releasedAt, "Baseline release instant");
+  return {
+    asOfDate: metadata.asOfDate,
+    releaseRevision,
+    releasedAt,
+  };
 }
 
 function requireRunEventTimestamp(value, label, startedAt, completedAt) {

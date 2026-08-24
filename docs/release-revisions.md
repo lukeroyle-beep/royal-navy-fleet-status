@@ -16,18 +16,22 @@ those releases as revision 1 (`r1`). Revision-aware releases provide both fields
 new dataset date starts at r1. A correction on the same date increments the previous revision by
 exactly one and uses a later `releasedAt` instant.
 
-Collect and finalise a sweep for the exact correction revision before stamping the release:
+Collect a sweep for the exact correction revision, review evidence and create the correction
+assessments. Stage the same date with the incremented canonical release revision before finalising:
 
 ```bash
 npm run sweep:collect -- --release-revision=2 --output=osint-sweep-run.json
+# review sources, append evidence/assessments, set metadata.releaseRevision to 2
 npm run sweep:finalise -- osint-sweep-run.json
 ```
 
 The release gate does not allow a same-day correction to reuse the earlier revision's sweep. The
-sweep completion must also be no later than the correction's `releasedAt` instant.
+sweep completion must also be no later than the correction's `releasedAt` instant. Finalisation
+binds the correction run to the staged public projection and provenance closure; it cannot be
+re-run to bind different content.
 
-After updating the canonical and generated fleet metadata, append a same-day status correction
-with an explicit audit reason:
+After finalisation, stamp a later canonical `releasedAt`, generate the public projection and append a
+same-day status correction with an explicit audit reason:
 
 ```bash
 npm run snapshot:status -- --correction --reason "Late official report incorporated"

@@ -16,9 +16,16 @@ const completedAt = completedAtArgument
 const entities = readJson(new URL("../data/internal/provenance/vessels.json", import.meta.url));
 const registry = readJson(new URL("../data/internal/provenance/sources.json", import.meta.url));
 const evidence = readJson(new URL("../data/internal/provenance/evidence.json", import.meta.url));
+const assessments = readJson(new URL("../data/internal/provenance/assessments.json", import.meta.url));
 const run = readJson(inputPath);
 
-finaliseSweepRun(run, { registry, entities, evidenceItems: evidence.evidence, completedAt });
+finaliseSweepRun(run, {
+  registry,
+  entities,
+  assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
+  completedAt,
+});
 fs.writeFileSync(inputPath, `${JSON.stringify(run, null, 2)}\n`);
 if (!run.complete) {
   throw new Error(`Sweep remains incomplete: ${run.coverage.reasons.join("; ")}`);

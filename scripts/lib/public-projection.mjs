@@ -1,3 +1,5 @@
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.0.0";
+
 export function createPublicProjection(entities, assessmentLog) {
   if (!entities?.metadata || !Array.isArray(entities.vessels)) {
     throw new Error("Canonical vessel data is malformed.");
