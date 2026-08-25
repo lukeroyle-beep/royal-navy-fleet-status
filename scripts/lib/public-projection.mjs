@@ -30,7 +30,7 @@ export function createPublicProjection(entities, assessmentLog) {
 export function projectPublicVessel(entity, assessment) {
   const assessedState = assessment.assessedState;
   const locationState = deriveLocationState(assessedState, assessment.freshness?.state);
-  const locationPrecision = deriveLocationPrecision(assessedState);
+  const locationPrecision = deriveLocationPrecision(assessedState, entity.vesselType);
   const publicLocationLabel = createPublicLocationLabel(
     assessedState,
     locationState,
@@ -71,11 +71,20 @@ function deriveLocationState(assessedState, freshnessState) {
   return freshnessState === "current" ? "unconfirmed" : "no_recent_information";
 }
 
-function deriveLocationPrecision(assessedState) {
-  if (assessedState.locationPrecision) return assessedState.locationPrecision;
+function deriveLocationPrecision(assessedState, vesselType) {
   if (!["mapped", "approximate"].includes(assessedState.locationClassification)) return "none";
   const reportedPlace = String(assessedState.lastReportedLocation || "").split(";")[0];
   const locationDescription = `${assessedState.position?.label || ""} ${reportedPlace}`;
+  const requestedPrecision = assessedState.locationPrecision;
+  if (
+    SUBMARINE_TYPES.has(vesselType) &&
+    (requestedPrecision === "region" ||
+      /\bpatrol\b/i.test(locationDescription) ||
+      REGIONAL_LOCATION_PATTERN.test(locationDescription))
+  ) {
+    return "none";
+  }
+  if (requestedPrecision) return requestedPrecision;
   if (CITY_LEVEL_LOCATION_PATTERN.test(locationDescription)) return "city";
   if (REGIONAL_LOCATION_PATTERN.test(locationDescription)) return "region";
   return "port";

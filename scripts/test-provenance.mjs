@@ -12,7 +12,7 @@ import {
   validateSourceRegistry,
 } from "./lib/provenance.mjs";
 import { createSweepQueue } from "./lib/sweep.mjs";
-import { createPublicProjection } from "./lib/public-projection.mjs";
+import { createPublicProjection, projectPublicVessel } from "./lib/public-projection.mjs";
 
 const entities = read("../data/internal/provenance/vessels.json");
 const registry = read("../data/internal/provenance/sources.json");
@@ -49,6 +49,32 @@ const projectedVengeance = publicProjection.vessels.find((vessel) => vessel.id =
 assert.equal(projectedVengeance.locationPrecision, "none");
 assert.equal(projectedVengeance.position, null);
 assert.equal(projectedVengeance.uncertaintyArea, null);
+const vengeanceEntity = entities.vessels.find((vessel) => vessel.vesselId === "hms-vengeance");
+const vengeanceAssessment = assessmentLog.assessments.find(
+  (assessment) =>
+    assessment.assessmentId === assessmentLog.currentAssessmentIds[vengeanceEntity.vesselId],
+);
+for (const { report, requestedPrecision } of [
+  { report: "North Atlantic", requestedPrecision: undefined },
+  { report: "Norwegian Sea", requestedPrecision: "region" },
+  { report: "Caribbean region", requestedPrecision: "port" },
+]) {
+  const patrolAssessment = structuredClone(vengeanceAssessment);
+  patrolAssessment.assessedState.locationClassification = "approximate";
+  patrolAssessment.assessedState.locationState = "last_reported";
+  if (requestedPrecision) {
+    patrolAssessment.assessedState.locationPrecision = requestedPrecision;
+  } else {
+    delete patrolAssessment.assessedState.locationPrecision;
+  }
+  patrolAssessment.assessedState.lastReportedLocation = report;
+  patrolAssessment.assessedState.publicLocationLabel = report;
+  patrolAssessment.assessedState.position = { lat: 45, lon: -30, label: report };
+  const projectedPatrol = projectPublicVessel(vengeanceEntity, patrolAssessment);
+  assert.equal(projectedPatrol.locationPrecision, "none", `${report} exposed patrol precision.`);
+  assert.equal(projectedPatrol.position, null, `${report} exposed a patrol point.`);
+  assert.equal(projectedPatrol.uncertaintyArea, null, `${report} exposed a patrol region.`);
+}
 const projectedVictorious = publicProjection.vessels.find((vessel) => vessel.id === "hms-victorious");
 assert.doesNotMatch(projectedVictorious.lastReportedLocation, /\b\d+\s*(?:dock|berth)\b/i);
 const projectedMedway = publicProjection.vessels.find((vessel) => vessel.id === "hms-medway");

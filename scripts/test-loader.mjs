@@ -177,11 +177,14 @@ const submarine = submarinePatrol.vessels.find((vessel) => vessel.vesselType ===
 submarine.locationClassification = "approximate";
 submarine.locationState = "last_reported";
 submarine.locationPrecision = "city";
-submarine.publicLocationLabel = "Invalid patrol position";
-submarine.lastReportedLocation = "Deterrent patrol";
-submarine.position = { lat: 0, lon: 0, label: "Invalid patrol position" };
+submarine.publicLocationLabel = "North Atlantic";
+submarine.lastReportedLocation = "North Atlantic";
+submarine.position = { lat: 0, lon: 0, label: "North Atlantic" };
 submarine.uncertaintyArea = null;
-assert.throws(() => validateFleet(submarinePatrol), /cannot expose submarine patrol geometry/i);
+assert.throws(
+  () => validateFleet(submarinePatrol),
+  /cannot expose submarine patrol or regional geometry/i,
+);
 
 const vanguard = dataset.vessels.find((vessel) => vessel.id === "hms-vanguard");
 assert.equal(vanguard.lastReportedLocation, "HMNB Clyde (Faslane); returned 12 June 2026");

@@ -9,6 +9,8 @@ const LOCATION_STATES = new Set([
   "withheld",
 ]);
 const LOCATION_PRECISIONS = new Set(["port", "city", "region", "none"]);
+const SUBMARINE_PATROL_REGION_PATTERN =
+  /\b(?:patrol|approaches?|atlantic|bay|channel|firth|islands?|ocean|off|region|sea|sound|territorial waters|waters|route)\b/i;
 const OPERATIONAL_STATUSES = new Set(["Available", "Deployed", "In re-fit", "Unknown", "Museum ship", "Decommissioned"]);
 const FORBIDDEN_PUBLIC_FIELDS = new Set([
   "source",
@@ -129,8 +131,14 @@ export function validateFleet(raw) {
     if (vessel.locationPrecision === "region" && vessel.locationClassification !== "approximate") {
       throw new Error(`${vessel.name} must classify regional geometry as approximate.`);
     }
-    if ((vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") && /patrol/i.test(vessel.lastReportedLocation) && vessel.locationPrecision !== "none") {
-      throw new Error(`${vessel.name} cannot expose submarine patrol geometry.`);
+    if (
+      (vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") &&
+      SUBMARINE_PATROL_REGION_PATTERN.test(
+        `${vessel.lastReportedLocation.split(";")[0]} ${vessel.publicLocationLabel}`,
+      ) &&
+      vessel.locationPrecision !== "none"
+    ) {
+      throw new Error(`${vessel.name} cannot expose submarine patrol or regional geometry.`);
     }
     if (
       (vessel.vesselType === "SSBN" || vessel.vesselType === "SSN") &&
