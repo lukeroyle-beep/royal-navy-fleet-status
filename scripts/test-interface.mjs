@@ -72,6 +72,7 @@ assert.match(html, /id="resetFilters"[^>]*hidden/);
 assert.match(app, /formatVesselResultSummary/);
 assert.match(app, /surfaceController\.open\("detail"/);
 assert.match(app, /fleetMap\.selectVessel\(vessel, \{ focus: focusMap \}\)/);
+assert.match(app, /if \(initial\) \{\s*fleetMap\.completeStartupView\(state\.map\);/);
 assert.match(surfaces, /event\.key === "Escape"/);
 assert.match(surfaces, /if \(this\.isCompact\(\)\) next\.clear\(\)/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);

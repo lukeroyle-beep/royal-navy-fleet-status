@@ -12,6 +12,7 @@ import {
   plottedVessels,
   shouldStackLayout,
 } from "../src/utils/map.js";
+import { MapStartupViewGate } from "../src/utils/mapStartup.js";
 import { projectPublicVessel } from "./lib/public-projection.mjs";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
@@ -213,6 +214,9 @@ assert.match(mapComponent, /zoomSnap:\s*0\.1/);
 assert.match(mapComponent, /padding:\s*mapFitPadding\(this\.container\.clientWidth\)/);
 assert.match(mapComponent, /getView\(\)/);
 assert.match(mapComponent, /setView\(\{ centre, zoom \}/);
+assert.match(mapComponent, /completeStartupView\(view\)/);
+assert.match(mapComponent, /this\.map\.stop\(\)/);
+assert.match(mapComponent, /if \(this\.startupViewGate\.ready\) this\.onViewChange/);
 assert.match(mapComponent, /this\.map\.on\("moveend"/);
 assert.match(mapComponent, /iconSize:\s*\[44,\s*44\]/);
 assert.match(mapComponent, /L\.circle/);
@@ -230,6 +234,29 @@ assert.match(mapComponent, /this\.tiles\.on\("load"/);
 assert.match(mapComponent, /#hideTileNotice/);
 assert.match(mapComponent, /https:\/\/tile\.openstreetmap\.org/);
 assert.match(mapComponent, /OpenStreetMap/);
+
+const startupGate = new MapStartupViewGate();
+const startupEvents = [];
+assert.equal(startupGate.ready, false);
+assert.equal(
+  startupGate.runAutomaticFit(() => startupEvents.push("premature-auto-fit")),
+  false,
+);
+startupGate.complete(() => {
+  assert.equal(startupGate.ready, false, "Startup move events must remain suppressed while applying.");
+  startupEvents.push("restored-view:-51.7,-57.5,5");
+});
+assert.deepEqual(startupEvents, ["restored-view:-51.7,-57.5,5"]);
+assert.equal(startupGate.ready, true);
+assert.equal(
+  startupGate.runAutomaticFit(() => startupEvents.push("later-user-auto-fit")),
+  true,
+);
+assert.deepEqual(startupEvents, [
+  "restored-view:-51.7,-57.5,5",
+  "later-user-auto-fit",
+]);
+assert.throws(() => startupGate.complete(() => {}), /already been completed/i);
 
 console.log("Fleet map tests passed.");
 

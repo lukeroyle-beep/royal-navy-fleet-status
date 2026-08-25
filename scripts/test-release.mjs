@@ -73,6 +73,8 @@ assert.match(checklist, /Portrait/);
 assert.match(checklist, /Landscape/);
 assert.match(report, /Observed defect/);
 assert.match(report, /Screenshot or notes/);
+assert.match(report, /Decision: Blocked/);
+assert.match(report, /physical iPad, iPhone and desktop devices/);
 assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
 assert.match(indexHtml, /class="command-header"/);

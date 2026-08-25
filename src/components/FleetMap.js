@@ -12,6 +12,7 @@ import {
   markerClassName,
   plottedVessels,
 } from "../utils/map.js";
+import { MapStartupViewGate } from "../utils/mapStartup.js";
 
 const DEFAULT_VIEW = {
   centre: [28, 0],
@@ -35,6 +36,7 @@ export class FleetMap {
     this.uncertaintyAreasVisible = true;
     this.shoreVisible = false;
     this.clusteringEnabled = true;
+    this.startupViewGate = new MapStartupViewGate();
     this.selectedId = null;
     this.selectedShoreId = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -112,7 +114,9 @@ export class FleetMap {
     window.addEventListener("orientationchange", () => {
       window.setTimeout(() => this.map.invalidateSize({ pan: false }), 100);
     });
-    this.map.on("moveend", () => this.onViewChange(this.getView()));
+    this.map.on("moveend", () => {
+      if (this.startupViewGate.ready) this.onViewChange(this.getView());
+    });
   }
 
   getView() {
@@ -124,7 +128,19 @@ export class FleetMap {
   }
 
   setView({ centre, zoom }, { animate = false } = {}) {
+    this.map.stop();
     this.map.setView(centre, zoom, { animate: animate && !this.reducedMotion });
+  }
+
+  completeStartupView(view) {
+    this.startupViewGate.complete(() => {
+      this.map.stop();
+      if (view) {
+        this.map.setView(view.centre, view.zoom, { animate: false });
+      } else {
+        this.#resetView({ animate: false });
+      }
+    });
   }
 
   setVessels(vessels) {
@@ -257,6 +273,10 @@ export class FleetMap {
   }
 
   resetView() {
+    this.startupViewGate.runAutomaticFit(() => this.#resetView());
+  }
+
+  #resetView({ animate = !this.reducedMotion } = {}) {
     const layers = [
       ...(this.fleetVisible
         ? this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean)
@@ -277,14 +297,14 @@ export class FleetMap {
 
     if (!layers.length) {
       this.map.setView(DEFAULT_VIEW.centre, DEFAULT_VIEW.zoom, {
-        animate: !this.reducedMotion,
+        animate,
       });
       return;
     }
 
     const bounds = L.featureGroup(layers).getBounds();
     this.map.fitBounds(bounds, {
-      animate: !this.reducedMotion,
+      animate,
       maxZoom: layers.length === 1 ? 7 : 8,
       padding: mapFitPadding(this.container.clientWidth),
     });

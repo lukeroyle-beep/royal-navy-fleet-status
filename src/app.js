@@ -722,7 +722,9 @@ function applyPublicState(state, { initial = false } = {}) {
   if (selectedVessel) {
     selectVessel(selectedVessel, { source: "restore", focusMap: false, sync: false });
   }
-  if (state.map) {
+  if (initial) {
+    fleetMap.completeStartupView(state.map);
+  } else if (state.map) {
     fleetMap.setView(state.map);
   } else {
     fleetMap.resetView();
