@@ -14,6 +14,9 @@ const publicFleet = JSON.parse(fs.readFileSync(path.join(dist, "data/royal-navy/
 const publicShore = JSON.parse(
   fs.readFileSync(path.join(dist, "data/royal-navy/shore-establishments.json"), "utf8"),
 );
+const publicHistoryCatalog = JSON.parse(
+  fs.readFileSync(path.join(dist, "data/royal-navy/status-history-catalog.json"), "utf8"),
+);
 const registry = JSON.parse(
   fs.readFileSync(path.join(root, "data/internal/provenance/sources.json"), "utf8"),
 );
@@ -36,6 +39,29 @@ for (const vessel of publicFleet.vessels) {
   for (const field of forbiddenPublicFields) {
     assert.ok(!Object.hasOwn(vessel, field), `Public fleet record exposes ${field}.`);
   }
+}
+const allowedHistoryIdentityFields = new Set([
+  "id",
+  "name",
+  "service",
+  "vesselClass",
+  "vesselType",
+  "pennantNumber",
+  "commissionedDate",
+  "homePort",
+]);
+for (const vessel of publicHistoryCatalog.vessels) {
+  assert.ok(
+    Object.keys(vessel).every((field) => allowedHistoryIdentityFields.has(field)),
+    `Public history identity ${vessel.id} exposes a non-allow-listed field.`,
+  );
+  for (const field of forbiddenPublicFields) {
+    assert.ok(!Object.hasOwn(vessel, field), `Public history identity exposes ${field}.`);
+  }
+  assert.ok(
+    !JSON.stringify(vessel).includes("https://"),
+    `Public history identity ${vessel.id} exposes a URL.`,
+  );
 }
 assert.equal(publicFleet.vessels.length, 68, "Production fleet roster has the wrong denominator.");
 for (const [vesselId, photoName] of [

@@ -1,0 +1,715 @@
+{
+  "schemaVersion": 1,
+  "vessels": [
+    {
+      "id": "hms-victory",
+      "name": "HMS Victory",
+      "service": "Royal Navy",
+      "vesselClass": "First-rate",
+      "vesselType": "Ship of the line",
+      "pennantNumber": null,
+      "commissionedDate": "1778",
+      "homePort": "Portsmouth"
+    },
+    {
+      "id": "hms-vanguard",
+      "name": "HMS Vanguard",
+      "service": "Royal Navy",
+      "vesselClass": "Vanguard class",
+      "vesselType": "SSBN",
+      "pennantNumber": "S28",
+      "commissionedDate": "1993",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-victorious",
+      "name": "HMS Victorious",
+      "service": "Royal Navy",
+      "vesselClass": "Vanguard class",
+      "vesselType": "SSBN",
+      "pennantNumber": "S29",
+      "commissionedDate": "1995",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-vigilant",
+      "name": "HMS Vigilant",
+      "service": "Royal Navy",
+      "vesselClass": "Vanguard class",
+      "vesselType": "SSBN",
+      "pennantNumber": "S30",
+      "commissionedDate": "1996",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-vengeance",
+      "name": "HMS Vengeance",
+      "service": "Royal Navy",
+      "vesselClass": "Vanguard class",
+      "vesselType": "SSBN",
+      "pennantNumber": "S31",
+      "commissionedDate": "1999",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-astute",
+      "name": "HMS Astute",
+      "service": "Royal Navy",
+      "vesselClass": "Astute class",
+      "vesselType": "SSN",
+      "pennantNumber": "S119",
+      "commissionedDate": "2010",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-ambush",
+      "name": "HMS Ambush",
+      "service": "Royal Navy",
+      "vesselClass": "Astute class",
+      "vesselType": "SSN",
+      "pennantNumber": "S120",
+      "commissionedDate": "2013",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-artful",
+      "name": "HMS Artful",
+      "service": "Royal Navy",
+      "vesselClass": "Astute class",
+      "vesselType": "SSN",
+      "pennantNumber": "S121",
+      "commissionedDate": "2016",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-audacious",
+      "name": "HMS Audacious",
+      "service": "Royal Navy",
+      "vesselClass": "Astute class",
+      "vesselType": "SSN",
+      "pennantNumber": "S122",
+      "commissionedDate": "2021",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-anson",
+      "name": "HMS Anson",
+      "service": "Royal Navy",
+      "vesselClass": "Astute class",
+      "vesselType": "SSN",
+      "pennantNumber": "S123",
+      "commissionedDate": "2022",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-agamemnon",
+      "name": "HMS Agamemnon",
+      "service": "Royal Navy",
+      "vesselClass": "Astute class",
+      "vesselType": "SSN",
+      "pennantNumber": "S124",
+      "commissionedDate": "2025",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-queen-elizabeth",
+      "name": "HMS Queen Elizabeth",
+      "service": "Royal Navy",
+      "vesselClass": "Queen Elizabeth class",
+      "vesselType": "Aircraft carrier",
+      "pennantNumber": "R08",
+      "commissionedDate": "7th December 2017",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-prince-of-wales",
+      "name": "HMS Prince of Wales",
+      "service": "Royal Navy",
+      "vesselClass": "Queen Elizabeth class",
+      "vesselType": "Aircraft carrier",
+      "pennantNumber": "R09",
+      "commissionedDate": "10th December 2019",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-daring",
+      "name": "HMS Daring",
+      "service": "Royal Navy",
+      "vesselClass": "Type 45 / Daring class",
+      "vesselType": "Destroyer",
+      "pennantNumber": "D32",
+      "commissionedDate": "23rd July 2009",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-dauntless",
+      "name": "HMS Dauntless",
+      "service": "Royal Navy",
+      "vesselClass": "Type 45 / Daring class",
+      "vesselType": "Destroyer",
+      "pennantNumber": "D33",
+      "commissionedDate": "3rd June 2010",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-diamond",
+      "name": "HMS Diamond",
+      "service": "Royal Navy",
+      "vesselClass": "Type 45 / Daring class",
+      "vesselType": "Destroyer",
+      "pennantNumber": "D34",
+      "commissionedDate": "6th May 2011",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-dragon",
+      "name": "HMS Dragon",
+      "service": "Royal Navy",
+      "vesselClass": "Type 45 / Daring class",
+      "vesselType": "Destroyer",
+      "pennantNumber": "D35",
+      "commissionedDate": "20th April 2012",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-defender",
+      "name": "HMS Defender",
+      "service": "Royal Navy",
+      "vesselClass": "Type 45 / Daring class",
+      "vesselType": "Destroyer",
+      "pennantNumber": "D36",
+      "commissionedDate": "21st March 2013",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-duncan",
+      "name": "HMS Duncan",
+      "service": "Royal Navy",
+      "vesselClass": "Type 45 / Daring class",
+      "vesselType": "Destroyer",
+      "pennantNumber": "D37",
+      "commissionedDate": "26th September 2013",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-iron-duke",
+      "name": "HMS Iron Duke",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F234",
+      "commissionedDate": "1993",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-richmond",
+      "name": "HMS Richmond",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F239",
+      "commissionedDate": "1995",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-somerset",
+      "name": "HMS Somerset",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F82",
+      "commissionedDate": "1996",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-sutherland",
+      "name": "HMS Sutherland",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F81",
+      "commissionedDate": "1997",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-kent",
+      "name": "HMS Kent",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F78",
+      "commissionedDate": "2000",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-portland",
+      "name": "HMS Portland",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F79",
+      "commissionedDate": "2001",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-st-albans",
+      "name": "HMS St Albans",
+      "service": "Royal Navy",
+      "vesselClass": "Type 23 / Duke class",
+      "vesselType": "Frigate",
+      "pennantNumber": "F83",
+      "commissionedDate": "2002",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-tyne",
+      "name": "HMS Tyne",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P281",
+      "commissionedDate": "2003",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-severn",
+      "name": "HMS Severn",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P282",
+      "commissionedDate": "2003; recommissioned 2021",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-mersey",
+      "name": "HMS Mersey",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P283",
+      "commissionedDate": "2003",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-forth",
+      "name": "HMS Forth",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P222",
+      "commissionedDate": "2018",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-medway",
+      "name": "HMS Medway",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P223",
+      "commissionedDate": "2019",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-trent",
+      "name": "HMS Trent",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P224",
+      "commissionedDate": "2020",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-tamar",
+      "name": "HMS Tamar",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P233",
+      "commissionedDate": "2020",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-spey",
+      "name": "HMS Spey",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P234",
+      "commissionedDate": "2021",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-ledbury",
+      "name": "HMS Ledbury",
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M30",
+      "commissionedDate": "1981",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-cattistock",
+      "name": "HMS Cattistock",
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M31",
+      "commissionedDate": "1982",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-brocklesby",
+      "name": "HMS Brocklesby",
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M33",
+      "commissionedDate": "1983",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-middleton",
+      "name": "HMS Middleton",
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M34",
+      "commissionedDate": "1984",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-chiddingfold",
+      "name": "HMS Chiddingfold",
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M37",
+      "commissionedDate": "1984",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-hurworth",
+      "name": "HMS Hurworth",
+      "service": "Royal Navy",
+      "vesselClass": "Hunt class",
+      "vesselType": "Mine hunter",
+      "pennantNumber": "M39",
+      "commissionedDate": "1985",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-bangor",
+      "name": "HMS Bangor",
+      "service": "Royal Navy",
+      "vesselClass": "Sandown class",
+      "vesselType": "Mine countermeasures",
+      "pennantNumber": "M109",
+      "commissionedDate": "2000",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-stirling-castle",
+      "name": "HMS Stirling Castle",
+      "service": "Royal Navy",
+      "vesselClass": "Specialist mine hunting mothership",
+      "vesselType": "Mine countermeasures",
+      "pennantNumber": "M01",
+      "commissionedDate": "2025",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-archer",
+      "name": "HMS Archer",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P264",
+      "commissionedDate": "1985",
+      "homePort": "Edinburgh"
+    },
+    {
+      "id": "hms-biter",
+      "name": "HMS Biter",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P270",
+      "commissionedDate": "1986",
+      "homePort": "Liverpool"
+    },
+    {
+      "id": "hms-smiter",
+      "name": "HMS Smiter",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P272",
+      "commissionedDate": "1988",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-pursuer",
+      "name": "HMS Pursuer",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P273",
+      "commissionedDate": "1988",
+      "homePort": "Glasgow"
+    },
+    {
+      "id": "hms-blazer",
+      "name": "HMS Blazer",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P279",
+      "commissionedDate": "1988",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-dasher",
+      "name": "HMS Dasher",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P280",
+      "commissionedDate": "1988",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-puncher",
+      "name": "HMS Puncher",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P291",
+      "commissionedDate": "1988",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-charger",
+      "name": "HMS Charger",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P292",
+      "commissionedDate": "1988",
+      "homePort": "Liverpool"
+    },
+    {
+      "id": "hms-ranger",
+      "name": "HMS Ranger",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P293",
+      "commissionedDate": "1988",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-trumpeter",
+      "name": "HMS Trumpeter",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P294",
+      "commissionedDate": "1988",
+      "homePort": "Ipswich"
+    },
+    {
+      "id": "hms-express",
+      "name": "HMS Express",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P163",
+      "commissionedDate": "1988",
+      "homePort": "Cardiff"
+    },
+    {
+      "id": "hms-example",
+      "name": "HMS Example",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P165",
+      "commissionedDate": "1985",
+      "homePort": "Gateshead"
+    },
+    {
+      "id": "hms-explorer",
+      "name": "HMS Explorer",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P164",
+      "commissionedDate": "1986",
+      "homePort": "Hull"
+    },
+    {
+      "id": "hms-exploit",
+      "name": "HMS Exploit",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P167",
+      "commissionedDate": "1988",
+      "homePort": "HMNB Portsmouth"
+    },
+    {
+      "id": "hms-tracker",
+      "name": "HMS Tracker",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P274",
+      "commissionedDate": "1998",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-raider",
+      "name": "HMS Raider",
+      "service": "Royal Navy",
+      "vesselClass": "Archer class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P275",
+      "commissionedDate": "1998",
+      "homePort": "HMNB Clyde"
+    },
+    {
+      "id": "hms-cutlass",
+      "name": "HMS Cutlass",
+      "service": "Royal Navy",
+      "vesselClass": "Cutlass class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P295",
+      "commissionedDate": "2022",
+      "homePort": "Gibraltar"
+    },
+    {
+      "id": "hms-dagger",
+      "name": "HMS Dagger",
+      "service": "Royal Navy",
+      "vesselClass": "Cutlass class",
+      "vesselType": "Patrol vessel",
+      "pennantNumber": "P296",
+      "commissionedDate": "2022",
+      "homePort": "Gibraltar"
+    },
+    {
+      "id": "hms-scott",
+      "name": "HMS Scott",
+      "service": "Royal Navy",
+      "vesselClass": "Ocean survey ship",
+      "vesselType": "Ocean survey",
+      "pennantNumber": "H131",
+      "commissionedDate": "1997",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-protector",
+      "name": "HMS Protector",
+      "service": "Royal Navy",
+      "vesselClass": "Ice patrol ship",
+      "vesselType": "Ice breaker",
+      "pennantNumber": "A173",
+      "commissionedDate": "2011",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "hms-magpie",
+      "name": "HMS Magpie",
+      "service": "Royal Navy",
+      "vesselClass": "Sea class 18 m variant",
+      "vesselType": "Ocean survey",
+      "pennantNumber": "H130",
+      "commissionedDate": "2018",
+      "homePort": "HMNB Devonport"
+    },
+    {
+      "id": "rfa-lyme-bay",
+      "name": "RFA Lyme Bay",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Bay class",
+      "vesselType": "RFA auxiliary - dock landing ship",
+      "pennantNumber": "L3007",
+      "commissionedDate": "2007",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-mounts-bay",
+      "name": "RFA Mounts Bay",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Bay class",
+      "vesselType": "RFA auxiliary - dock landing ship",
+      "pennantNumber": "L3008",
+      "commissionedDate": "2006",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-cardigan-bay",
+      "name": "RFA Cardigan Bay",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Bay class",
+      "vesselType": "RFA auxiliary - dock landing ship",
+      "pennantNumber": "L3009",
+      "commissionedDate": "2006",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-proteus",
+      "name": "RFA Proteus",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Multi-Role Ocean Surveillance Ship",
+      "vesselType": "Ocean survey",
+      "pennantNumber": "K60",
+      "commissionedDate": "2023",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-tidespring",
+      "name": "RFA Tidespring",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Tide class",
+      "vesselType": "RFA auxiliary - fleet tanker",
+      "pennantNumber": "A136",
+      "commissionedDate": "2017",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-tiderace",
+      "name": "RFA Tiderace",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Tide class",
+      "vesselType": "RFA auxiliary - fleet tanker",
+      "pennantNumber": "A137",
+      "commissionedDate": "2018",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-tidesurge",
+      "name": "RFA Tidesurge",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Tide class",
+      "vesselType": "RFA auxiliary - fleet tanker",
+      "pennantNumber": "A138",
+      "commissionedDate": "2019",
+      "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-tideforce",
+      "name": "RFA Tideforce",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Tide class",
+      "vesselType": "RFA auxiliary - fleet tanker",
+      "pennantNumber": "A139",
+      "commissionedDate": "2019",
+      "homePort": "No fixed home base."
+    }
+  ]
+}

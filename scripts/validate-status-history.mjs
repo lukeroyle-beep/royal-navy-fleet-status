@@ -1,11 +1,18 @@
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
-import { parsePhysicalStatusHistory } from "../src/utils/insights.js";
+import {
+  parsePhysicalStatusHistory,
+  validateStatusHistoryCatalog,
+} from "../src/utils/insights.js";
 import { readReleaseMetadata, releaseRevision } from "../src/utils/release.js";
 
 const historyPath = new URL("../data/royal-navy/status-history.jsonl", import.meta.url);
 const fleetPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
+const historyCatalogPath = new URL(
+  "../data/royal-navy/status-history-catalog.json",
+  import.meta.url,
+);
 const fleet = JSON.parse(fs.readFileSync(fleetPath, "utf8"));
 const allowedStatuses = new Set([
   "Available",
@@ -18,6 +25,10 @@ const allowedStatuses = new Set([
 const currentText = fs.readFileSync(historyPath, "utf8");
 const lines = parseLines(currentText);
 const snapshots = parsePhysicalStatusHistory(currentText);
+validateStatusHistoryCatalog(
+  JSON.parse(fs.readFileSync(historyCatalogPath, "utf8")),
+  snapshots,
+);
 const fleetIds = new Set(fleet.vessels.map((vessel) => vessel.id));
 const fleetRelease = readReleaseMetadata(fleet.metadata);
 

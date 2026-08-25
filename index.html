@@ -33,7 +33,7 @@
           </button>
           <button id="shareButton" class="toolbar-button" type="button">Share</button>
           <button id="changesToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="changesPanel" hidden>
-            Changes <span id="changesCount" class="control-badge"></span>
+            Compare <span id="changesCount" class="control-badge"></span>
           </button>
         </nav>
         <span id="shareStatus" class="sr-only" role="status" aria-live="polite"></span>
@@ -54,6 +54,11 @@
             <div><p class="eyebrow">Public fleet snapshot</p><h2 id="fleetDrawerTitle">Fleet</h2></div>
             <button class="surface-close" type="button" data-close-surface="fleet" aria-label="Close fleet drawer">Close</button>
           </header>
+          <section class="snapshot-controls" aria-labelledby="snapshotControlsTitle">
+            <label for="snapshotSelect"><span id="snapshotControlsTitle">Public snapshot</span></label>
+            <select id="snapshotSelect" aria-describedby="snapshotDescription"></select>
+            <p id="snapshotDescription" class="snapshot-description" role="status" aria-live="polite">Loading validated public snapshots.</p>
+          </section>
           <div class="result-summary">
             <span id="filterResultStatus" role="status" aria-live="polite">Showing 0 vessels</span>
             <button id="resetFilters" type="button" hidden>Clear all</button>
@@ -97,6 +102,12 @@
               <summary>Vessel details</summary>
               <dl id="detailMeta" class="detail-meta"></dl>
             </details>
+            <section id="vesselTimeline" class="vessel-timeline" aria-labelledby="vesselTimelineTitle" hidden>
+              <h3 id="vesselTimelineTitle">Public status timeline</h3>
+              <p id="vesselTimelineSummary" class="timeline-summary"></p>
+              <ol id="vesselTimelineList" aria-label="Discrete public status observations"></ol>
+              <p class="timeline-note">Discrete published snapshots only. Gaps do not imply movement or an unchanged status.</p>
+            </section>
           </article>
         </aside>
 
@@ -211,10 +222,15 @@
 
         <section id="changesPanel" class="surface popover changes-panel" data-surface="changes" aria-labelledby="changesTitle" hidden>
           <header class="surface-header">
-            <div><p class="eyebrow">Latest publication</p><h2 id="changesTitle">What changed</h2></div>
-            <button class="surface-close" type="button" data-close-surface="changes" aria-label="Close What changed">Close</button>
+            <div><p class="eyebrow">Public snapshot comparison</p><h2 id="changesTitle">Current and previous</h2></div>
+            <button class="surface-close" type="button" data-close-surface="changes" aria-label="Close snapshot comparison">Close</button>
           </header>
           <p id="changesSummary" class="changes-summary"></p>
+          <label class="switch-row changed-only-control">
+            <span><strong>Changed vessels only</strong><small id="changedOnlyHelp">Filter the current fleet list to records changed since the previous public snapshot.</small></span>
+            <input id="changedOnlyToggle" type="checkbox" aria-describedby="changedOnlyHelp changedOnlyStatus" />
+          </label>
+          <span id="changedOnlyStatus" class="sr-only" role="status" aria-live="polite"></span>
           <div id="changesList" class="changes-list"></div>
         </section>
       </section>

@@ -1,6 +1,6 @@
 import { readReviewedPublicLocation } from "./public-geography.mjs";
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.2.0";
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.0";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -26,6 +26,32 @@ export function createPublicProjection(entities, assessmentLog) {
       return projectPublicVessel(entity, assessment);
     }),
   };
+}
+
+export function createPublicStatusHistoryCatalog(entities, history) {
+  if (!entities || !Array.isArray(entities.vessels) || !Array.isArray(entities.retiredVessels)) {
+    throw new Error("Canonical vessel identity data is malformed.");
+  }
+  const identities = new Map(
+    [...entities.vessels, ...entities.retiredVessels].map((entity) => [entity.vesselId, entity]),
+  );
+  const historyIds = new Set(history.flatMap((snapshot) => Object.keys(snapshot.statuses)));
+  const vessels = [];
+  for (const vesselId of historyIds) {
+    const entity = identities.get(vesselId);
+    if (!entity) throw new Error(`No public identity is available for historical vessel ${vesselId}.`);
+    vessels.push({
+      id: entity.vesselId,
+      name: entity.name,
+      service: entity.service,
+      vesselClass: entity.vesselClass,
+      vesselType: entity.vesselType,
+      pennantNumber: entity.pennantNumber,
+      commissionedDate: entity.commissionedDate,
+      homePort: entity.homePort,
+    });
+  }
+  return { schemaVersion: 1, vessels };
 }
 
 export function projectPublicVessel(entity, assessment) {

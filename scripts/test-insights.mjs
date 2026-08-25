@@ -11,15 +11,22 @@ import { publicationReleaseFields } from "./lib/publication-release.mjs";
 import { buildStatusSnapshot } from "./lib/status-snapshot.mjs";
 
 import {
+  HISTORICAL_LOCATION_EMPTY_LABEL,
+  compareCurrentWithPreviousSnapshot,
+  createPublicSnapshotDataset,
   formatSignedDelta,
   getClassSnapshotSummary,
   getEvidenceFreshness,
   getVesselAvailability,
   getVesselChange,
+  getVesselPublicTimeline,
+  listPublicSnapshotDates,
   parsePhysicalStatusHistory,
   parseStatusHistory,
+  resolvePublicSnapshotDate,
   shortClassName,
   validatePublicationChanges,
+  validateStatusHistoryCatalog,
 } from "../src/utils/insights.js";
 
 const fleet = JSON.parse(
@@ -32,6 +39,15 @@ const changes = validatePublicationChanges(
   JSON.parse(
     fs.readFileSync(new URL("../data/royal-navy/publication-changes.json", import.meta.url), "utf8"),
   ),
+);
+const historyCatalog = validateStatusHistoryCatalog(
+  JSON.parse(
+    fs.readFileSync(
+      new URL("../data/royal-navy/status-history-catalog.json", import.meta.url),
+      "utf8",
+    ),
+  ),
+  history,
 );
 
 assert.equal(
@@ -54,6 +70,93 @@ assert.ok(history.length >= 2);
 assert.ok(history[0].snapshotDate < history.at(-1).snapshotDate);
 assert.equal(history.at(-1).snapshotDate, fleet.metadata.asOfDate);
 assert.equal(Object.keys(history.at(-1).statuses).length, fleet.vessels.length);
+assert.deepEqual(listPublicSnapshotDates(history), [
+  "2026-07-31",
+  "2026-08-09",
+  "2026-08-12",
+  "2026-08-23",
+]);
+assert.equal(resolvePublicSnapshotDate(history, "2026-08-12"), "2026-08-12");
+assert.equal(
+  resolvePublicSnapshotDate(history, "obsolete-snapshot", fleet.metadata.asOfDate),
+  fleet.metadata.asOfDate,
+);
+
+const historicalDataset = createPublicSnapshotDataset({
+  currentFleet: fleet,
+  history,
+  catalog: historyCatalog,
+  snapshotDate: "2026-08-12",
+});
+assert.equal(historicalDataset.metadata.asOfDate, "2026-08-12");
+assert.equal(historicalDataset.vessels.length, Object.keys(history[2].statuses).length);
+const historicalDuncan = historicalDataset.vessels.find((vessel) => vessel.id === "hms-duncan");
+assert.equal(historicalDuncan.status, "Available");
+assert.equal(historicalDuncan.publicLocationLabel, HISTORICAL_LOCATION_EMPTY_LABEL);
+assert.equal(historicalDuncan.lastReportedLocation, HISTORICAL_LOCATION_EMPTY_LABEL);
+assert.equal(historicalDuncan.locationState, "no_recent_information");
+assert.equal(historicalDuncan.locationPrecision, "none");
+assert.equal(historicalDuncan.position, null);
+assert.equal(historicalDuncan.uncertaintyArea, null);
+assert.equal(
+  historicalDataset.vessels.some((vessel) => vessel.id === "hms-richmond"),
+  true,
+  "The historical roster must retain records present at that effective date.",
+);
+assert.deepEqual(
+  createPublicSnapshotDataset({
+    currentFleet: fleet,
+    history,
+    catalog: historyCatalog,
+    snapshotDate: "invalid",
+  }),
+  fleet,
+  "An invalid snapshot must fail safely to the current public dataset.",
+);
+
+const snapshotComparison = compareCurrentWithPreviousSnapshot(
+  history,
+  historyCatalog,
+  fleet.metadata.asOfDate,
+);
+assert.equal(snapshotComparison.previousSnapshotDate, "2026-08-12");
+assert.equal(snapshotComparison.currentSnapshotDate, "2026-08-23");
+assert.equal(snapshotComparison.changes.length, 5);
+assert.deepEqual(snapshotComparison.changedCurrentVesselIds.sort(), [
+  "hms-duncan",
+  "hms-sutherland",
+]);
+assert.deepEqual(
+  snapshotComparison.changes
+    .filter((change) => !change.presentInCurrent)
+    .map((change) => change.vesselId)
+    .sort(),
+  ["hms-chiddingfold", "hms-iron-duke", "hms-richmond"],
+);
+assert.deepEqual(getVesselPublicTimeline(history, "hms-duncan"), [
+  { effectiveDate: "2026-07-31", status: "Available" },
+  { effectiveDate: "2026-08-09", status: "Available" },
+  { effectiveDate: "2026-08-12", status: "Available" },
+  { effectiveDate: "2026-08-23", status: "Deployed" },
+]);
+assert.deepEqual(
+  getVesselPublicTimeline(history, "hms-duncan", { upToDate: "2026-08-12" }).at(-1),
+  { effectiveDate: "2026-08-12", status: "Available" },
+);
+assert.deepEqual(getVesselPublicTimeline(history, "not-a-public-vessel"), []);
+assert.throws(
+  () =>
+    validateStatusHistoryCatalog(
+      {
+        ...historyCatalog,
+        vessels: historyCatalog.vessels.map((vessel, index) =>
+          index === 0 ? { ...vessel, sourceUrl: "https://invalid.test" } : vessel,
+        ),
+      },
+      history,
+    ),
+  /unexpected fields/,
+);
 
 assert.equal(changes.previousAsOfDate, changes.currentAsOfDate);
 assert.equal(changes.currentAsOfDate, fleet.metadata.asOfDate);
@@ -429,6 +532,24 @@ assert.throws(
         '"releasedAt":"2026-08-23T20:15:00Z","statuses":{"x":"Deployed"}}',
     ),
   /v2 correction with a reason/,
+);
+assert.throws(
+  () =>
+    parseStatusHistory(
+      '{"schemaVersion":1,"snapshotDate":"2026-08-23","statuses":{"x":"Available"}}\n' +
+        '{"schemaVersion":2,"snapshotDate":"2026-08-23","releaseRevision":3,' +
+        '"releasedAt":"2026-08-23T20:15:00Z","correctionReason":"Skipped revision",' +
+        '"statuses":{"x":"Deployed"}}',
+    ),
+  /advance by exactly one/,
+);
+assert.throws(
+  () =>
+    parseStatusHistory(
+      '{"schemaVersion":1,"snapshotDate":"2026-08-23","statuses":{"x":"Available"},' +
+        '"sourceUrl":"https://invalid.test"}',
+    ),
+  /invalid/,
 );
 assert.throws(
   () =>
