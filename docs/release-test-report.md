@@ -32,6 +32,9 @@
 | RT-13 | | | |
 | RT-14 | | | |
 | RT-15 | | | |
+| RT-16 | | | |
+| RT-17 | | | |
+| RT-18 | | | |
 
 ## Defects requiring action
 
@@ -46,5 +49,5 @@
 - Date and time:
 - Outstanding actions:
 
-Automated build success is supporting evidence only. It is not evidence that physical iPad testing
-has passed.
+Automated build success is supporting evidence only. It is not evidence that physical iPad or
+iPhone testing has passed.

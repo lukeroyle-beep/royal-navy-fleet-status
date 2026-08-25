@@ -25,6 +25,18 @@ import {
   formatPublicationChangeLabels,
 } from "./utils/release.js";
 import { countActiveFilters, formatVesselResultSummary } from "./utils/interface.js";
+import {
+  PORT_SHORE_FILTER,
+  PUBLIC_PRESETS,
+  createPublicStateCatalog,
+  createShareablePublicUrl,
+  parsePublicUrlState,
+  persistPublicState,
+  publicPresenceForVessel,
+  publicStateMatchesPreset,
+  readPersistedPublicState,
+  stateForPublicPreset,
+} from "./utils/publicState.js";
 import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
@@ -49,6 +61,8 @@ const elements = {
   layersToggle: document.querySelector("#layersToggle"),
   filterToggle: document.querySelector("#filterToggle"),
   filterBadge: document.querySelector("#filterBadge"),
+  shareButton: document.querySelector("#shareButton"),
+  shareStatus: document.querySelector("#shareStatus"),
   changesToggle: document.querySelector("#changesToggle"),
   changesCount: document.querySelector("#changesCount"),
   changesPanel: document.querySelector("#changesPanel"),
@@ -77,6 +91,7 @@ const elements = {
   status: document.querySelector("#statusFilter"),
   type: document.querySelector("#typeFilter"),
   location: document.querySelector("#locationFilter"),
+  presence: document.querySelector("#presenceFilter"),
   reset: document.querySelector("#resetFilters"),
   panelReset: document.querySelector("#panelResetFilters"),
   list: document.querySelector("#vesselList"),
@@ -100,6 +115,8 @@ const elements = {
   shoreFilteredCount: document.querySelector("#shoreFilteredCount"),
   shoreTotalCount: document.querySelector("#shoreTotalCount"),
   shoreList: document.querySelector("#shoreEstablishmentList"),
+  presetButtons: [...document.querySelectorAll("[data-public-preset]")],
+  presetStatus: document.querySelector("#presetStatus"),
 };
 
 const details = new EventDetailsPanel({
@@ -120,6 +137,10 @@ let insights = { changes: null, history: [], available: false };
 let selectedId = null;
 let selectedShoreId = null;
 let selectedClass = "";
+let publicStateCatalog;
+let publicStateReady = false;
+let applyingPublicState = false;
+const publicStorage = getPublicStorage();
 
 const fleetMap = new FleetMap({
   container: document.querySelector("#fleetMap"),
@@ -127,6 +148,7 @@ const fleetMap = new FleetMap({
   onSelect: (vessel) => selectVessel(vessel, { source: "map" }),
   onSelectEstablishment: (establishment) =>
     selectShoreEstablishment(establishment, { source: "map" }),
+  onViewChange: () => syncPublicState(),
 });
 
 const surfaceController = new SurfaceController({
@@ -191,30 +213,44 @@ function bindDataset() {
   elements.uncertaintyVesselPicker.hidden = uncertaintyCount === 0;
   elements.uncertaintyLayerCount.textContent = `${uncertaintyCount} ${uncertaintyCount === 1 ? "region" : "regions"}`;
   elements.shoreTotalCount.textContent = shoreDataset.establishments.length.toString();
+  appendSelectOption(elements.shoreType, PORT_SHORE_FILTER, "Ports and dockyards");
   fillSelect(elements.shoreType, shoreTypes(shoreDataset.establishments));
+  publicStateCatalog = createPublicStateCatalog({
+    vessels: dataset.vessels,
+    shoreEstablishments: shoreDataset.establishments,
+  });
 
   elements.search.addEventListener("input", () => {
     applyFilters();
     if (elements.search.value.trim()) surfaceController.open("fleet");
   });
-  for (const select of [elements.service, elements.status, elements.type, elements.location]) {
+  for (const select of [
+    elements.service,
+    elements.status,
+    elements.type,
+    elements.location,
+    elements.presence,
+  ]) {
     select.addEventListener("change", applyFilters);
   }
   elements.reset.addEventListener("click", () => resetFilters({ focus: true }));
   elements.panelReset.addEventListener("click", () => resetFilters({ focus: true }));
   elements.mapReset.addEventListener("click", () => fleetMap.resetView());
-  elements.fleetLayerToggle.addEventListener("change", () =>
-    fleetMap.setFleetVisible(elements.fleetLayerToggle.checked),
-  );
+  elements.fleetLayerToggle.addEventListener("change", () => {
+    fleetMap.setFleetVisible(elements.fleetLayerToggle.checked);
+    syncPublicState();
+  });
   elements.shoreLayerToggle.addEventListener("change", () =>
     toggleShoreLayer(elements.shoreLayerToggle.checked),
   );
-  elements.clusterLayerToggle.addEventListener("change", () =>
-    fleetMap.setClusteringEnabled(elements.clusterLayerToggle.checked),
-  );
-  elements.uncertaintyLayerToggle.addEventListener("change", () =>
-    fleetMap.setUncertaintyAreasVisible(elements.uncertaintyLayerToggle.checked),
-  );
+  elements.clusterLayerToggle.addEventListener("change", () => {
+    fleetMap.setClusteringEnabled(elements.clusterLayerToggle.checked);
+    syncPublicState();
+  });
+  elements.uncertaintyLayerToggle.addEventListener("change", () => {
+    fleetMap.setUncertaintyAreasVisible(elements.uncertaintyLayerToggle.checked);
+    syncPublicState();
+  });
   elements.uncertaintyVesselSelect.addEventListener("change", () => {
     const vessel = dataset.vessels.find(
       (candidate) => candidate.id === elements.uncertaintyVesselSelect.value,
@@ -223,17 +259,25 @@ function bindDataset() {
   });
   elements.shoreSearch.addEventListener("input", applyShoreFilters);
   elements.shoreType.addEventListener("change", applyShoreFilters);
-  applyFilters();
-  applyShoreFilters({ fit: false });
+  for (const button of elements.presetButtons) {
+    button.addEventListener("click", () => applyPublicPreset(button.dataset.publicPreset));
+  }
+  elements.shareButton.addEventListener("click", copyShareableView);
+
+  const initialState =
+    parsePublicUrlState(window.location.href, publicStateCatalog) ??
+    readPersistedPublicState(publicStorage, publicStateCatalog);
+  applyPublicState(initialState, { initial: true });
 }
 
-function toggleShoreLayer(open) {
+function toggleShoreLayer(open, { fit = true, sync = true } = {}) {
   elements.shoreControls.hidden = !open;
   elements.shoreLayerToggle.checked = open;
-  fleetMap.setShoreVisible(open, { fit: true });
+  fleetMap.setShoreVisible(open, { fit });
+  if (sync) syncPublicState();
 }
 
-function applyShoreFilters({ fit = true } = {}) {
+function applyShoreFilters({ fit = true, sync = true } = {}) {
   const filtered = filterShoreEstablishments(shoreDataset.establishments, {
     query: elements.shoreSearch.value,
     type: elements.shoreType.value,
@@ -247,6 +291,7 @@ function applyShoreFilters({ fit = true } = {}) {
     fleetMap.clearSelection();
     surfaceController.close("detail");
   }
+  if (sync) syncPublicState();
 }
 
 function createShoreListItem(establishment) {
@@ -265,7 +310,7 @@ function createShoreListItem(establishment) {
   return item;
 }
 
-function selectShoreEstablishment(establishment, { source = "list" } = {}) {
+function selectShoreEstablishment(establishment, { source = "list", sync = true } = {}) {
   selectedShoreId = establishment.id;
   selectedId = null;
   details.renderEstablishment(establishment);
@@ -277,6 +322,7 @@ function selectShoreEstablishment(establishment, { source = "list" } = {}) {
     button.classList.remove("is-selected");
   }
   surfaceController.open("detail", { focus: source === "list" });
+  if (sync) syncPublicState();
 }
 
 function uniqueValues(field) {
@@ -303,11 +349,15 @@ function renderFleetOverview() {
 
 function fillSelect(select, values) {
   for (const value of values) {
-    const option = document.createElement("option");
-    option.value = value;
-    option.textContent = value;
-    select.append(option);
+    appendSelectOption(select, value, value);
   }
+}
+
+function appendSelectOption(select, value, label) {
+  const option = document.createElement("option");
+  option.value = value;
+  option.textContent = label;
+  select.append(option);
 }
 
 function renderClassRibbon() {
@@ -436,7 +486,7 @@ function renderAvailabilityScore(container, percentageElement, percentage, acces
   container.setAttribute("aria-label", `${formattedPercentage} ${accessibleDescription}`);
 }
 
-function applyFilters() {
+function applyFilters({ fit = true, sync = true } = {}) {
   const query = elements.search.value.trim().toLocaleLowerCase("en-GB");
   const filtered = dataset.vessels.filter((vessel) => {
     const matchesQuery =
@@ -449,7 +499,8 @@ function applyFilters() {
       (!elements.service.value || vessel.service === elements.service.value) &&
       (!elements.status.value || vessel.status === elements.status.value) &&
       (!elements.type.value || vessel.vesselType === elements.type.value) &&
-      (!elements.location.value || vessel.locationState === elements.location.value)
+      (!elements.location.value || vessel.locationState === elements.location.value) &&
+      (!elements.presence.value || publicPresenceForVessel(vessel) === elements.presence.value)
     );
   });
 
@@ -457,7 +508,7 @@ function applyFilters() {
   elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
   renderList(filtered);
   renderUncertaintyVesselPicker(filtered);
-  fleetMap.setVisibleVessels(filtered);
+  fleetMap.setVisibleVessels(filtered, { fit });
   if (selectedId && !filtered.some((vessel) => vessel.id === selectedId)) {
     selectedId = null;
     details.renderDefault(dataset);
@@ -465,6 +516,8 @@ function applyFilters() {
     surfaceController.close("detail");
     elements.uncertaintyVesselSelect.value = "";
   }
+  if (sync) syncPublicState();
+  return filtered;
 }
 
 function renderUncertaintyVesselPicker(vessels) {
@@ -501,6 +554,7 @@ function renderFilterSummary(filteredCount) {
     elements.status.value,
     elements.type.value,
     elements.location.value ? formatLocationState(elements.location.value) : "",
+    elements.presence.value ? formatPresence(elements.presence.value) : "",
   ].filter(Boolean);
   const hasSearch = Boolean(elements.search.value.trim());
   const activeFilterCount = countActiveFilters({
@@ -510,6 +564,7 @@ function renderFilterSummary(filteredCount) {
     status: elements.status.value,
     type: elements.type.value,
     location: elements.location.value,
+    presence: elements.presence.value,
   });
   const hasFilters = activeFilterCount > 0;
   elements.filterResultStatus.textContent = formatVesselResultSummary(
@@ -598,7 +653,7 @@ function renderList(vessels) {
   );
 }
 
-function selectVessel(vessel, { source = "list" } = {}) {
+function selectVessel(vessel, { source = "list", focusMap = true, sync = true } = {}) {
   selectedId = vessel.id;
   selectedShoreId = null;
   details.renderVessel(vessel, {
@@ -607,7 +662,7 @@ function selectVessel(vessel, { source = "list" } = {}) {
     changes: insights.changes,
     insightsAvailable: insights.available,
   });
-  fleetMap.selectVessel(vessel, { focus: true });
+  fleetMap.selectVessel(vessel, { focus: focusMap });
   for (const button of elements.list.querySelectorAll("button")) {
     button.classList.toggle("is-selected", button.dataset.vesselId === vessel.id);
   }
@@ -619,6 +674,7 @@ function selectVessel(vessel, { source = "list" } = {}) {
   if (source === "changes") {
     document.querySelector("#detailTitle").focus({ preventScroll: true });
   }
+  if (sync) syncPublicState();
 }
 
 function resetFilters({ focus = false } = {}) {
@@ -627,13 +683,151 @@ function resetFilters({ focus = false } = {}) {
   elements.status.value = "";
   elements.type.value = "";
   elements.location.value = "";
+  elements.presence.value = "";
   selectedClass = "";
   updateClassRibbon();
   applyFilters();
   if (focus) elements.search.focus();
 }
 
+function applyPublicState(state, { initial = false } = {}) {
+  applyingPublicState = true;
+  selectedId = null;
+  selectedShoreId = null;
+  selectedClass = state.filters.vesselClass;
+  elements.search.value = state.filters.query;
+  elements.service.value = state.filters.service;
+  elements.status.value = state.filters.status;
+  elements.type.value = state.filters.type;
+  elements.location.value = state.filters.location;
+  elements.presence.value = state.filters.presence;
+  elements.shoreSearch.value = state.filters.shoreQuery;
+  elements.shoreType.value = state.filters.shoreType;
+  elements.fleetLayerToggle.checked = state.layers.fleet;
+  elements.clusterLayerToggle.checked = state.layers.clusters;
+  updateClassRibbon();
+
+  fleetMap.clearSelection();
+  fleetMap.setClusteringEnabled(state.layers.clusters, { fit: false });
+  fleetMap.setFleetVisible(state.layers.fleet, { fit: false });
+  toggleShoreLayer(state.layers.shore, { fit: false, sync: false });
+  const filteredVessels = applyFilters({ fit: false, sync: false });
+  applyShoreFilters({ fit: false, sync: false });
+  details.renderDefault(dataset);
+  surfaceController.close("detail");
+
+  const selectedVessel = filteredVessels.find((vessel) => vessel.id === state.selectedVessel);
+  if (selectedVessel) {
+    selectVessel(selectedVessel, { source: "restore", focusMap: false, sync: false });
+  }
+  if (state.map) {
+    fleetMap.setView(state.map);
+  } else {
+    fleetMap.resetView();
+  }
+
+  applyingPublicState = false;
+  if (initial) publicStateReady = true;
+  syncPublicState();
+}
+
+function applyPublicPreset(name) {
+  const state = stateForPublicPreset(name);
+  if (!state) return;
+  applyPublicState(state);
+  elements.presetStatus.textContent = `${PUBLIC_PRESETS[name].label} applied.`;
+}
+
+function currentPublicState() {
+  return {
+    filters: {
+      query: elements.search.value,
+      vesselClass: selectedClass,
+      service: elements.service.value,
+      status: elements.status.value,
+      type: elements.type.value,
+      location: elements.location.value,
+      presence: elements.presence.value,
+      shoreQuery: elements.shoreSearch.value,
+      shoreType: elements.shoreType.value,
+    },
+    layers: {
+      fleet: elements.fleetLayerToggle.checked,
+      shore: elements.shoreLayerToggle.checked,
+      clusters: elements.clusterLayerToggle.checked,
+    },
+    selectedVessel: selectedId,
+    map: fleetMap.getView(),
+  };
+}
+
+function syncPublicState() {
+  if (!publicStateReady || applyingPublicState) return;
+  const state = currentPublicState();
+  persistPublicState(publicStorage, state);
+  const shareableUrl = createShareablePublicUrl(window.location.href, state);
+  try {
+    window.history.replaceState(window.history.state, "", shareableUrl);
+  } catch {
+    // State persistence remains usable when a host prevents URL replacement.
+  }
+  for (const button of elements.presetButtons) {
+    const active = publicStateMatchesPreset(state, button.dataset.publicPreset);
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-pressed", active.toString());
+  }
+}
+
+async function copyShareableView() {
+  syncPublicState();
+  const url = createShareablePublicUrl(window.location.href, currentPublicState()).href;
+  let copied = false;
+  try {
+    await navigator.clipboard.writeText(url);
+    copied = true;
+  } catch {
+    copied = copyTextFallback(url);
+  }
+  elements.shareStatus.textContent = copied
+    ? "Shareable view link copied."
+    : "Copy was unavailable. Copy the address from the browser bar.";
+  window.setTimeout(() => {
+    elements.shareStatus.textContent = "";
+  }, 5000);
+}
+
+function copyTextFallback(value) {
+  const input = document.createElement("textarea");
+  input.value = value;
+  input.setAttribute("readonly", "");
+  input.className = "copy-helper";
+  document.body.append(input);
+  input.select();
+  let copied = false;
+  try {
+    copied = document.execCommand("copy");
+  } catch {
+    copied = false;
+  }
+  input.remove();
+  return copied;
+}
+
+function getPublicStorage() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
+
 function showError(error) {
   elements.error.hidden = false;
   elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
+}
+function formatPresence(value) {
+  return {
+    uk: "United Kingdom and nearby waters",
+    overseas: "Overseas reported locations",
+  }[value];
 }

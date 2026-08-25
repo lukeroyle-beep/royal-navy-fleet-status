@@ -34,6 +34,7 @@ address printed by Tailscale Serve. Press `Ctrl+C` in both windows when testing 
 | --- | --- | --- | --- |
 | iPad | Safari | Portrait | Yes |
 | iPad | Safari | Landscape | Yes |
+| iPhone | Safari | Portrait | Yes |
 | Desktop or laptop | Current Chrome, Edge or Safari | 1280 × 720 or larger | Yes |
 | Desktop or laptop | Current Chrome, Edge or Safari | 200% browser zoom | Yes |
 
@@ -49,18 +50,21 @@ Mark each result as Pass, Fail or Blocked and record evidence in the report.
 | RT-4 | Select a separated marker. | The vessel details and matching list entry update. |
 | RT-5 | Select a cluster and then an overlapping marker. | The cluster zooms and identical locations can be selected individually. |
 | RT-6 | Search by vessel name and pennant number. | Counts, list entries and plotted markers update together. |
-| RT-7 | Exercise every filter and reset the filters. | Results remain synchronised and reset restores all records. |
+| RT-7 | Exercise every vessel filter and clear the filters. | Results, count and badge remain synchronised and Clear all restores all vessel records. |
 | RT-8 | Select a vessel from the list. | A plotted vessel is revealed on the map and its details are shown. |
 | RT-9 | Select unknown and withheld records. | Details appear without creating a marker or moving the map. |
-| RT-10 | Select **Show all plotted vessels**. | Every currently filtered plotted vessel fits in the viewport. |
-| RT-11 | Open a supporting source. | The HTTPS source opens in a new browser tab. |
+| RT-10 | Select **Reset view**. | Every currently filtered plotted vessel fits in the viewport. |
+| RT-11 | Apply each of the five public presets. | Each preset changes the existing filters and layers, identifies its active state and introduces no empty layer. |
 | RT-12 | Rotate the iPad between Portrait and Landscape. | Layout reflows without horizontal scrolling or hidden controls. |
 | RT-13 | Use touch targets around the map and filters. | Controls are usable without accidental adjacent activation. |
 | RT-14 | Repeat key navigation at 200% desktop browser zoom. | Content remains operable without horizontal page scrolling. |
-| RT-15 | Temporarily block or disconnect basemap tile requests. | A non-blocking notice appears and the vessel list and evidence remain usable. |
+| RT-15 | Set filters and layers, then reload. | Supported choices restore from the versioned local state without a console error. |
+| RT-16 | Select a vessel, pan and zoom, then use **Share** and open the copied address in a clean browser context. | The selected vessel, public filters, layers and bounded map view restore. |
+| RT-17 | Open malformed or obsolete state parameters. | The tracker falls back safely, ignores unknown values and does not expose them in the rewritten URL. |
+| RT-18 | Temporarily block or disconnect basemap tile requests. | A non-blocking notice appears and the vessel list and public details remain usable. |
 
 ## Release decision
 
 A release candidate passes private testing only when every required device has completed RT-1 to
-RT-15 with no unresolved material defect. Record incomplete physical-device testing as Blocked, not
+RT-18 with no unresolved material defect. Record incomplete physical-device testing as Blocked, not
 Pass.

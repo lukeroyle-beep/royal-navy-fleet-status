@@ -19,11 +19,12 @@ const DEFAULT_VIEW = {
 };
 
 export class FleetMap {
-  constructor({ container, notice, onSelect, onSelectEstablishment }) {
+  constructor({ container, notice, onSelect, onSelectEstablishment, onViewChange = () => {} }) {
     this.container = container;
     this.notice = notice;
     this.onSelect = onSelect;
     this.onSelectEstablishment = onSelectEstablishment;
+    this.onViewChange = onViewChange;
     this.markers = new Map();
     this.uncertaintyLayers = new Map();
     this.uncertaintyGroups = [];
@@ -111,6 +112,19 @@ export class FleetMap {
     window.addEventListener("orientationchange", () => {
       window.setTimeout(() => this.map.invalidateSize({ pan: false }), 100);
     });
+    this.map.on("moveend", () => this.onViewChange(this.getView()));
+  }
+
+  getView() {
+    const centre = this.map.getCenter();
+    return {
+      centre: [centre.lat, centre.lng],
+      zoom: this.map.getZoom(),
+    };
+  }
+
+  setView({ centre, zoom }, { animate = false } = {}) {
+    this.map.setView(centre, zoom, { animate: animate && !this.reducedMotion });
   }
 
   setVessels(vessels) {

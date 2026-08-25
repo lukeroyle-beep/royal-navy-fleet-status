@@ -553,6 +553,7 @@ h1 {
   border: 0;
 }
 .layer-group legend,
+.view-presets legend,
 .class-availability-vessels h4,
 .changes-list h3 {
   margin-bottom: 5px;
@@ -561,6 +562,43 @@ h1 {
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.view-presets {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.preset-grid button {
+  min-height: 44px;
+  padding: 7px 9px;
+  border-color: var(--line-strong);
+  background: var(--navy-800);
+  color: var(--text);
+  font-size: 0.69rem;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.preset-grid button:hover,
+.preset-grid button.is-active {
+  border-color: var(--accent);
+  background: rgba(88, 211, 235, 0.12);
+}
+
+.copy-helper {
+  position: fixed;
+  top: -1000px;
+  left: -1000px;
 }
 .switch-row {
   display: flex;
@@ -797,11 +835,12 @@ a:focus-visible {
   .freshness-item span { display: none; }
   .snapshot-item strong { font-size: 0.64rem; }
   .top-search { grid-column: 1 / -1; }
-  .top-actions { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .top-actions { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .toolbar-button { min-width: 0; padding: 6px 5px; font-size: 0.72rem; }
   .map-reset { right: 9px; bottom: 108px; padding: 6px 9px; font-size: 0.68rem; }
   .shore-filter-grid,
   .filter-grid { grid-template-columns: 1fr; }
+  .preset-grid { grid-template-columns: 1fr; }
   .class-availability-vessels ul { grid-template-columns: 1fr; }
 }
 

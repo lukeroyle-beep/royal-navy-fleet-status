@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { validateShoreEstablishments } from "../src/components/ShoreEstablishmentLoader.js";
 import { getAvailabilitySummary } from "../src/utils/fleet.js";
 import { filterShoreEstablishments, shoreTypes } from "../src/utils/shore.js";
+import { PORT_SHORE_FILTER } from "../src/utils/publicState.js";
 
 const fleet = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"));
 const shore = validateShoreEstablishments(
@@ -30,6 +31,7 @@ for (const id of [
 assert.equal(filterShoreEstablishments(shore.establishments, { query: "Collingwood" }).length, 1);
 assert.equal(filterShoreEstablishments(shore.establishments, { type: "Naval base" }).length, 3);
 assert.equal(filterShoreEstablishments(shore.establishments, { type: "Dockyard" }).length, 2);
+assert.equal(filterShoreEstablishments(shore.establishments, { type: PORT_SHORE_FILTER }).length, 5);
 assert.ok(filterShoreEstablishments(shore.establishments, { query: "Portsmouth" }).length >= 4);
 assert.ok(shoreTypes(shore.establishments).includes("Training establishment"));
 

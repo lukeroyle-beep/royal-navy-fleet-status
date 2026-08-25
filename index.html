@@ -31,10 +31,12 @@
           <button id="filterToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="filterPanel">
             Filters <span id="filterBadge" class="control-badge" aria-label="0 active filters" hidden>0</span>
           </button>
+          <button id="shareButton" class="toolbar-button" type="button">Share</button>
           <button id="changesToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="changesPanel" hidden>
             Changes <span id="changesCount" class="control-badge"></span>
           </button>
         </nav>
+        <span id="shareStatus" class="sr-only" role="status" aria-live="polite"></span>
       </header>
 
       <section class="command-workspace">
@@ -160,6 +162,17 @@
             <div><p class="eyebrow">Fleet view</p><h2 id="filtersTitle">Filters</h2></div>
             <button class="surface-close" type="button" data-close-surface="filters" aria-label="Close filters">Close</button>
           </header>
+          <fieldset class="view-presets">
+            <legend>View presets</legend>
+            <div class="preset-grid">
+              <button type="button" data-public-preset="overview" aria-pressed="false">Fleet overview</button>
+              <button type="button" data-public-preset="deployed" aria-pressed="false">Deployed vessels</button>
+              <button type="button" data-public-preset="ukPorts" aria-pressed="false">United Kingdom ports</button>
+              <button type="button" data-public-preset="maintenance" aria-pressed="false">Maintenance and refit</button>
+              <button type="button" data-public-preset="overseas" aria-pressed="false">Overseas presence</button>
+            </div>
+            <span id="presetStatus" class="sr-only" role="status" aria-live="polite"></span>
+          </fieldset>
           <section class="class-selector" aria-labelledby="classSelectorTitle">
             <div class="section-heading"><h3 id="classSelectorTitle">Vessel class</h3><span id="classSelectionStatus">All classes</span></div>
             <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
@@ -182,6 +195,11 @@
             <label>Public location status
               <select id="locationFilter">
                 <option value="">All public location states</option><option value="confirmed">Confirmed public location</option><option value="last_reported">Last publicly reported location</option><option value="unconfirmed">Location unconfirmed</option><option value="no_recent_information">No recent public information</option><option value="withheld">Location not published</option>
+              </select>
+            </label>
+            <label>Geographic scope
+              <select id="presenceFilter">
+                <option value="">All reported locations</option><option value="uk">United Kingdom and nearby waters</option><option value="overseas">Overseas reported locations</option>
               </select>
             </label>
           </div>
