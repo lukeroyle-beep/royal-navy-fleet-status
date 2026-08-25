@@ -20,6 +20,7 @@ import {
   publicPresenceForVessel,
   publicStateMatchesPreset,
   readPersistedPublicState,
+  resolvePublicSelection,
   stateForPublicPreset,
 } from "../src/utils/publicState.js";
 
@@ -73,6 +74,8 @@ assert.match(app, /formatVesselResultSummary/);
 assert.match(app, /surfaceController\.open\("detail"/);
 assert.match(app, /fleetMap\.selectVessel\(vessel, \{ focus: focusMap \}\)/);
 assert.match(app, /if \(initial\) \{\s*fleetMap\.completeStartupView\(state\.map\);/);
+assert.match(app, /resolvePublicSelection\(publicStateCatalog, state\)/);
+assert.doesNotMatch(app, /filteredVessels\.find\(\(vessel\) => vessel\.id === state\.selectedVessel\)/);
 assert.match(surfaces, /event\.key === "Escape"/);
 assert.match(surfaces, /if \(this\.isCompact\(\)\) next\.clear\(\)/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
@@ -110,6 +113,7 @@ assert.deepEqual(storedState.layers, {
   uncertainty: false,
 });
 assert.equal(storedState.selectedVessel, null, "Selection must not persist locally.");
+assert.equal(storedState.selectedShoreEstablishment, null, "Shore selection must not persist locally.");
 assert.equal(storedState.map, null, "Map position must not persist locally.");
 assert.deepEqual(parsePersistedPublicState("not-json", stateCatalog), createDefaultPublicState());
 assert.deepEqual(
@@ -140,6 +144,66 @@ assert.deepEqual(migratedStoredState.layers, {
 });
 
 const selectedVessel = fleet.vessels.find((vessel) => vessel.status === "Deployed");
+const pointVessel = fleet.vessels.find((vessel) => vessel.position);
+const regionalVessel = fleet.vessels.find((vessel) => vessel.uncertaintyArea);
+const listOnlyVessel = fleet.vessels.find(
+  (vessel) => !vessel.position && !vessel.uncertaintyArea,
+);
+for (const publicVessel of [pointVessel, regionalVessel, listOnlyVessel]) {
+  assert.ok(publicVessel, "Selection fixtures must cover every public geometry state.");
+  const selectionUrl = createShareablePublicUrl(
+    "https://example.test/tracker",
+    { selectedVessel: publicVessel.id },
+    stateCatalog,
+  );
+  assert.equal(selectionUrl.searchParams.get("vessel"), publicVessel.id);
+  const restoredSelection = parsePublicUrlState(selectionUrl, stateCatalog).selectedVessel;
+  assert.equal(restoredSelection, publicVessel.id);
+  assert.equal(
+    resolvePublicSelection(stateCatalog, { selectedVessel: restoredSelection }).vessel,
+    publicVessel,
+  );
+}
+assert.equal(listOnlyVessel.locationPrecision, "none");
+assert.equal(
+  resolvePublicSelection(stateCatalog, { selectedVessel: "hms-iron-duke" }).vessel,
+  null,
+);
+assert.equal(
+  parsePublicUrlState(
+    "https://example.test/tracker?view=2&layers=fleet&vessel=hms-iron-duke",
+    stateCatalog,
+  ).selectedVessel,
+  null,
+  "Removed vessel IDs must not be restored.",
+);
+const shoreEstablishment = shore.establishments[0];
+const shoreSelectionUrl = createShareablePublicUrl(
+  "https://example.test/tracker",
+  { selectedShoreEstablishment: shoreEstablishment.id },
+  stateCatalog,
+);
+assert.equal(shoreSelectionUrl.searchParams.get("shore"), shoreEstablishment.id);
+const restoredShoreState = parsePublicUrlState(shoreSelectionUrl, stateCatalog);
+assert.equal(restoredShoreState.selectedShoreEstablishment, shoreEstablishment.id);
+assert.equal(
+  resolvePublicSelection(stateCatalog, restoredShoreState).shoreEstablishment,
+  shoreEstablishment,
+);
+assert.equal(
+  parsePublicUrlState(
+    "https://example.test/tracker?view=2&layers=shore&shore=removed-shore-record",
+    stateCatalog,
+  ).selectedShoreEstablishment,
+  null,
+  "Removed shore IDs must not be restored.",
+);
+const ambiguousSelectionState = parsePublicUrlState(
+  `https://example.test/tracker?view=2&layers=fleet,shore&vessel=${pointVessel.id}&shore=${shoreEstablishment.id}`,
+  stateCatalog,
+);
+assert.equal(ambiguousSelectionState.selectedVessel, null);
+assert.equal(ambiguousSelectionState.selectedShoreEstablishment, null);
 const urlState = parsePublicUrlState(
   `https://example.test/tracker?view=2&status=Deployed&locationState=last_reported&presence=overseas&layers=fleet,clusters,uncertainty&vessel=${selectedVessel.id}&lat=100&lon=-220&zoom=40&sourceUrl=https://invalid.test`,
   stateCatalog,

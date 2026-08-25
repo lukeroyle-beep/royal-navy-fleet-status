@@ -13,6 +13,7 @@ import {
   shouldStackLayout,
 } from "../src/utils/map.js";
 import { MapStartupViewGate } from "../src/utils/mapStartup.js";
+import { MapViewChangeGate } from "../src/utils/mapViewChange.js";
 import { projectPublicVessel } from "./lib/public-projection.mjs";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
@@ -216,8 +217,13 @@ assert.match(mapComponent, /getView\(\)/);
 assert.match(mapComponent, /setView\(\{ centre, zoom \}/);
 assert.match(mapComponent, /completeStartupView\(view\)/);
 assert.match(mapComponent, /this\.map\.stop\(\)/);
-assert.match(mapComponent, /if \(this\.startupViewGate\.ready\) this\.onViewChange/);
+assert.match(mapComponent, /this\.viewChangeGate\.recordExternalViewChange\(view\)/);
 assert.match(mapComponent, /this\.map\.on\("moveend"/);
+assert.match(mapComponent, /ResizeObserver\(\(\) => this\.#preserveViewThroughResize\(\)\)/);
+assert.match(
+  mapComponent,
+  /invalidateSize\(\{ animate: false, debounceMoveend: false, pan: false \}\)/,
+);
 assert.match(mapComponent, /iconSize:\s*\[44,\s*44\]/);
 assert.match(mapComponent, /L\.circle/);
 assert.match(mapComponent, /Approximate region, not a live position/);
@@ -257,6 +263,36 @@ assert.deepEqual(startupEvents, [
   "later-user-auto-fit",
 ]);
 assert.throws(() => startupGate.complete(() => {}), /already been completed/i);
+
+const viewChangeGate = new MapViewChangeGate();
+const restoredView = { centre: [-51.7, -57.5], zoom: 5 };
+viewChangeGate.setAuthoritativeView(restoredView);
+const resizeNotifications = [];
+viewChangeGate.runInternalViewChange((authoritativeView) => {
+  assert.deepEqual(authoritativeView, restoredView);
+  assert.equal(
+    viewChangeGate.recordExternalViewChange({ centre: [5.06, 12.26], zoom: 1.3 }),
+    false,
+    "Resize-induced move events must not replace the authoritative shared view.",
+  );
+  resizeNotifications.push("internal-resize-suppressed");
+});
+assert.deepEqual(viewChangeGate.authoritativeView, restoredView);
+assert.deepEqual(resizeNotifications, ["internal-resize-suppressed"]);
+
+for (const [source, view] of [
+  ["keyboard", { centre: [-51.7, -57.5], zoom: 6 }],
+  ["mouse", { centre: [-50.5, -56.2], zoom: 6 }],
+  ["touch", { centre: [-49.8, -55.4], zoom: 6 }],
+  ["programmatic-user-action", { centre: [28, 0], zoom: 2 }],
+]) {
+  assert.equal(
+    viewChangeGate.recordExternalViewChange(view),
+    true,
+    `${source} view changes must continue to publish.`,
+  );
+  assert.deepEqual(viewChangeGate.authoritativeView, view);
+}
 
 console.log("Fleet map tests passed.");
 

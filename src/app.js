@@ -35,6 +35,7 @@ import {
   publicPresenceForVessel,
   publicStateMatchesPreset,
   readPersistedPublicState,
+  resolvePublicSelection,
   stateForPublicPreset,
 } from "./utils/publicState.js";
 import "./styles.css";
@@ -310,11 +311,14 @@ function createShoreListItem(establishment) {
   return item;
 }
 
-function selectShoreEstablishment(establishment, { source = "list", sync = true } = {}) {
+function selectShoreEstablishment(
+  establishment,
+  { source = "list", focusMap = true, sync = true } = {},
+) {
   selectedShoreId = establishment.id;
   selectedId = null;
   details.renderEstablishment(establishment);
-  fleetMap.selectShoreEstablishment(establishment, { focus: true });
+  fleetMap.selectShoreEstablishment(establishment, { focus: focusMap });
   for (const button of elements.shoreList.querySelectorAll("button")) {
     button.classList.toggle("is-selected", button.dataset.establishmentId === establishment.id);
   }
@@ -713,14 +717,20 @@ function applyPublicState(state, { initial = false } = {}) {
   fleetMap.setUncertaintyAreasVisible(state.layers.uncertainty, { fit: false });
   fleetMap.setFleetVisible(state.layers.fleet, { fit: false });
   toggleShoreLayer(state.layers.shore, { fit: false, sync: false });
-  const filteredVessels = applyFilters({ fit: false, sync: false });
+  applyFilters({ fit: false, sync: false });
   applyShoreFilters({ fit: false, sync: false });
   details.renderDefault(dataset);
   surfaceController.close("detail");
 
-  const selectedVessel = filteredVessels.find((vessel) => vessel.id === state.selectedVessel);
-  if (selectedVessel) {
-    selectVessel(selectedVessel, { source: "restore", focusMap: false, sync: false });
+  const selection = resolvePublicSelection(publicStateCatalog, state);
+  if (selection.vessel) {
+    selectVessel(selection.vessel, { source: "restore", focusMap: false, sync: false });
+  } else if (selection.shoreEstablishment) {
+    selectShoreEstablishment(selection.shoreEstablishment, {
+      source: "restore",
+      focusMap: false,
+      sync: false,
+    });
   }
   if (initial) {
     fleetMap.completeStartupView(state.map);
@@ -762,6 +772,7 @@ function currentPublicState() {
       uncertainty: elements.uncertaintyLayerToggle.checked,
     },
     selectedVessel: selectedId,
+    selectedShoreEstablishment: selectedShoreId,
     map: fleetMap.getView(),
   };
 }

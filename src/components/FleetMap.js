@@ -13,6 +13,7 @@ import {
   plottedVessels,
 } from "../utils/map.js";
 import { MapStartupViewGate } from "../utils/mapStartup.js";
+import { MapViewChangeGate } from "../utils/mapViewChange.js";
 
 const DEFAULT_VIEW = {
   centre: [28, 0],
@@ -37,6 +38,7 @@ export class FleetMap {
     this.shoreVisible = false;
     this.clusteringEnabled = true;
     this.startupViewGate = new MapStartupViewGate();
+    this.viewChangeGate = new MapViewChangeGate();
     this.selectedId = null;
     this.selectedShoreId = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -109,13 +111,19 @@ export class FleetMap {
     this.unclusteredShoreGroup = L.layerGroup().addTo(this.map);
     this.shoreSelectionGroup = L.layerGroup().addTo(this.map);
 
-    this.resizeObserver = new ResizeObserver(() => this.map.invalidateSize({ pan: false }));
+    this.resizeObserver = new ResizeObserver(() => this.#preserveViewThroughResize());
     this.resizeObserver.observe(container);
     window.addEventListener("orientationchange", () => {
-      window.setTimeout(() => this.map.invalidateSize({ pan: false }), 100);
+      window.setTimeout(() => this.#preserveViewThroughResize(), 100);
     });
     this.map.on("moveend", () => {
-      if (this.startupViewGate.ready) this.onViewChange(this.getView());
+      const view = this.getView();
+      if (
+        this.startupViewGate.ready &&
+        this.viewChangeGate.recordExternalViewChange(view)
+      ) {
+        this.onViewChange(view);
+      }
     });
   }
 
@@ -140,6 +148,16 @@ export class FleetMap {
       } else {
         this.#resetView({ animate: false });
       }
+    });
+    this.viewChangeGate.setAuthoritativeView(this.getView());
+  }
+
+  #preserveViewThroughResize() {
+    const preservedView = this.viewChangeGate.authoritativeView ?? this.getView();
+    this.viewChangeGate.runInternalViewChange(() => {
+      this.map.stop();
+      this.map.invalidateSize({ animate: false, debounceMoveend: false, pan: false });
+      this.map.setView(preservedView.centre, preservedView.zoom, { animate: false });
     });
   }
 
