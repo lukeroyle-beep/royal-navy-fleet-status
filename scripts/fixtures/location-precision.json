@@ -1,0 +1,105 @@
+{
+  "stateCases": [
+    {
+      "caseId": "confirmed-port",
+      "locationClassification": "mapped",
+      "locationState": "confirmed",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Portsmouth Harbour",
+      "lastReportedLocation": "Portsmouth Harbour",
+      "position": { "lat": 50.81, "lon": -1.1, "label": "Portsmouth Harbour" },
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "confirmed-city",
+      "locationClassification": "approximate",
+      "locationState": "confirmed",
+      "locationPrecision": "city",
+      "publicLocationLabel": "Copenhagen, Denmark",
+      "lastReportedLocation": "Copenhagen, Denmark",
+      "position": { "lat": 55.7, "lon": 12.6, "label": "Copenhagen, Denmark" },
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "last-reported-region",
+      "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Plymouth Sound",
+      "lastReportedLocation": "Plymouth Sound; last publicly reported outbound",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": { "lat": 50.34, "lon": -4.15 },
+        "radiusKm": 20,
+        "label": "Plymouth Sound",
+        "representation": "regional"
+      }
+    },
+    {
+      "caseId": "location-unconfirmed",
+      "locationClassification": "unknown",
+      "locationState": "unconfirmed",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location unconfirmed",
+      "lastReportedLocation": "Location unconfirmed",
+      "position": null,
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "no-recent-information",
+      "locationClassification": "unknown",
+      "locationState": "no_recent_information",
+      "locationPrecision": "none",
+      "publicLocationLabel": "No recent public information",
+      "lastReportedLocation": "No recent public information",
+      "position": null,
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "withheld-submarine",
+      "vesselType": "SSBN",
+      "status": "Deployed",
+      "locationClassification": "withheld",
+      "locationState": "withheld",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location not published",
+      "lastReportedLocation": "On patrol; location not published",
+      "position": null,
+      "uncertaintyArea": null
+    }
+  ],
+  "missedEvidenceRegressions": [
+    {
+      "caseId": "rfa-proteus-plymouth-sound",
+      "vesselName": "RFA Proteus",
+      "report": "Plymouth Sound",
+      "expectedState": "last_reported",
+      "expectedPrecision": "region",
+      "mustNotUsePoint": true
+    },
+    {
+      "caseId": "rfa-tideforce-departing-devonport",
+      "vesselName": "RFA Tideforce",
+      "report": "Departing Devonport through Plymouth Sound",
+      "expectedState": "last_reported",
+      "expectedPrecision": "region",
+      "mustNotUsePoint": true
+    },
+    {
+      "caseId": "hms-spey-maintenance-singapore",
+      "vesselName": "HMS Spey",
+      "report": "Maintenance in Singapore",
+      "expectedState": "confirmed",
+      "expectedPrecision": "city",
+      "mustNotClaimBerth": true
+    },
+    {
+      "caseId": "hms-duncan-copenhagen",
+      "vesselName": "HMS Duncan",
+      "report": "Copenhagen, Denmark",
+      "expectedState": "confirmed",
+      "expectedPrecision": "city",
+      "mustNotClaimBerth": true
+    }
+  ]
+}

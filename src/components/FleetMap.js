@@ -6,6 +6,7 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 import {
   clusterSizeClass,
   getMapPosition,
+  getUncertaintyArea,
   hasPlottablePosition,
   mapFitPadding,
   markerClassName,
@@ -24,10 +25,12 @@ export class FleetMap {
     this.onSelect = onSelect;
     this.onSelectEstablishment = onSelectEstablishment;
     this.markers = new Map();
+    this.uncertaintyLayers = new Map();
     this.shoreMarkers = new Map();
     this.visibleVessels = [];
     this.visibleShoreEstablishments = [];
     this.fleetVisible = true;
+    this.uncertaintyAreasVisible = true;
     this.shoreVisible = false;
     this.clusteringEnabled = true;
     this.selectedId = null;
@@ -85,6 +88,7 @@ export class FleetMap {
     this.map.addLayer(this.clusterGroup);
     this.unclusteredGroup = L.layerGroup().addTo(this.map);
     this.selectionGroup = L.layerGroup().addTo(this.map);
+    this.uncertaintyGroup = L.layerGroup().addTo(this.map);
 
     this.shoreClusterGroup = L.markerClusterGroup({
       animate: !this.reducedMotion,
@@ -113,10 +117,14 @@ export class FleetMap {
     this.unclusteredGroup.clearLayers();
     this.selectionGroup.clearLayers();
     this.markers.clear();
+    this.uncertaintyLayers.clear();
 
     for (const vessel of plottedVessels(vessels)) {
-      const marker = this.#createMarker(vessel);
-      this.markers.set(vessel.id, marker);
+      if (getMapPosition(vessel)) {
+        this.markers.set(vessel.id, this.#createMarker(vessel));
+      } else if (getUncertaintyArea(vessel)) {
+        this.uncertaintyLayers.set(vessel.id, this.#createUncertaintyArea(vessel));
+      }
     }
 
     this.setVisibleVessels(vessels, { fit: true });
@@ -138,6 +146,12 @@ export class FleetMap {
     this.clusteringEnabled = enabled;
     this.#syncFleetLayers();
     this.#syncShoreLayers();
+    if (fit) this.resetView();
+  }
+
+  setUncertaintyAreasVisible(visible, { fit = true } = {}) {
+    this.uncertaintyAreasVisible = visible;
+    this.#syncFleetLayers();
     if (fit) this.resetView();
   }
 
@@ -165,22 +179,35 @@ export class FleetMap {
     this.selectedId = vessel.id;
     this.selectedShoreId = null;
     this.#refreshMarkerIcons();
+    this.#refreshUncertaintyStyles();
     this.#refreshShoreMarkerIcons();
     this.#syncFleetLayers();
     this.#syncShoreLayers();
 
     if (!focus || !hasPlottablePosition(vessel)) return;
+    if (!this.fleetVisible) return;
     const marker = this.markers.get(vessel.id);
-    if (!marker || !this.fleetVisible) return;
-    const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
-    this.map.setView(marker.getLatLng(), contextualZoom, { animate: !this.reducedMotion });
-    marker.openTooltip();
+    if (marker) {
+      const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
+      this.map.setView(marker.getLatLng(), contextualZoom, { animate: !this.reducedMotion });
+      marker.openTooltip();
+      return;
+    }
+    const area = this.uncertaintyLayers.get(vessel.id);
+    if (!area || !this.uncertaintyAreasVisible) return;
+    this.map.fitBounds(area.getBounds(), {
+      animate: !this.reducedMotion,
+      maxZoom: 6,
+      padding: mapFitPadding(this.container.clientWidth),
+    });
+    area.openTooltip();
   }
 
   selectShoreEstablishment(establishment, { focus = true } = {}) {
     this.selectedId = null;
     this.selectedShoreId = establishment.id;
     this.#refreshMarkerIcons();
+    this.#refreshUncertaintyStyles();
     this.#refreshShoreMarkerIcons();
     this.#syncFleetLayers();
     this.#syncShoreLayers();
@@ -197,15 +224,21 @@ export class FleetMap {
     this.selectedId = null;
     this.selectedShoreId = null;
     this.#refreshMarkerIcons();
+    this.#refreshUncertaintyStyles();
     this.#refreshShoreMarkerIcons();
     this.#syncFleetLayers();
     this.#syncShoreLayers();
   }
 
   resetView() {
-    const markers = [
+    const layers = [
       ...(this.fleetVisible
         ? this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean)
+        : []),
+      ...(this.fleetVisible && this.uncertaintyAreasVisible
+        ? this.visibleVessels
+            .map((vessel) => this.uncertaintyLayers.get(vessel.id))
+            .filter(Boolean)
         : []),
       ...(this.shoreVisible
         ? this.visibleShoreEstablishments
@@ -214,17 +247,17 @@ export class FleetMap {
         : []),
     ];
 
-    if (!markers.length) {
+    if (!layers.length) {
       this.map.setView(DEFAULT_VIEW.centre, DEFAULT_VIEW.zoom, {
         animate: !this.reducedMotion,
       });
       return;
     }
 
-    const bounds = L.featureGroup(markers).getBounds();
+    const bounds = L.featureGroup(layers).getBounds();
     this.map.fitBounds(bounds, {
       animate: !this.reducedMotion,
-      maxZoom: markers.length === 1 ? 7 : 8,
+      maxZoom: layers.length === 1 ? 7 : 8,
       padding: mapFitPadding(this.container.clientWidth),
     });
   }
@@ -232,7 +265,7 @@ export class FleetMap {
   #createMarker(vessel) {
     const position = getMapPosition(vessel);
     const marker = L.marker([position.lat, position.lon], {
-      alt: `${vessel.name}, ${formatClassification(vessel.locationClassification)} location`,
+      alt: `${vessel.name}, ${formatLocationState(vessel.locationState)}, ${formatPrecision(vessel.locationPrecision)}`,
       icon: this.#createMarkerIcon(vessel),
       keyboard: true,
       riseOnHover: true,
@@ -240,7 +273,7 @@ export class FleetMap {
       vessel,
     });
     marker.bindTooltip(
-      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)}</span>`,
+      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)} · ${escapeHtml(formatLocationState(vessel.locationState))}</span>`,
       {
         className: "fleet-tooltip",
         direction: "top",
@@ -249,6 +282,38 @@ export class FleetMap {
     );
     marker.on("click", () => this.onSelect(vessel));
     return marker;
+  }
+
+  #createUncertaintyArea(vessel) {
+    const area = getUncertaintyArea(vessel);
+    const layer = L.circle([area.centre.lat, area.centre.lon], {
+      ...this.#uncertaintyStyle(vessel),
+      className: "fleet-uncertainty-area",
+      interactive: true,
+      radius: area.radiusKm * 1000,
+    });
+    layer.bindTooltip(
+      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(area.label)} · Approximate region, not a live position</span>`,
+      { className: "fleet-tooltip", direction: "top" },
+    );
+    const selectArea = () => this.onSelect(vessel);
+    layer.on("click", selectArea);
+    layer.on("add", () => {
+      const element = layer.getElement();
+      if (!element) return;
+      element.setAttribute("tabindex", "0");
+      element.setAttribute("role", "button");
+      element.setAttribute(
+        "aria-label",
+        `${vessel.name}, ${area.label}, approximate region, not a live position`,
+      );
+      element.onkeydown = (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        selectArea();
+      };
+    });
+    return layer;
   }
 
   #createShoreMarker(establishment) {
@@ -318,6 +383,25 @@ export class FleetMap {
     }
   }
 
+  #refreshUncertaintyStyles() {
+    for (const [id, layer] of this.uncertaintyLayers) {
+      const vessel = this.visibleVessels.find((candidate) => candidate.id === id);
+      if (vessel) layer.setStyle(this.#uncertaintyStyle(vessel));
+    }
+  }
+
+  #uncertaintyStyle(vessel) {
+    const selected = vessel.id === this.selectedId;
+    return {
+      color: selected ? "#ffffff" : "#f0bd5c",
+      dashArray: selected ? "7 5" : "5 6",
+      fillColor: "#f0bd5c",
+      fillOpacity: selected ? 0.2 : 0.1,
+      opacity: selected ? 1 : 0.82,
+      weight: selected ? 3 : 2,
+    };
+  }
+
   #refreshShoreMarkerIcons() {
     for (const [id, marker] of this.shoreMarkers) {
       const establishment =
@@ -331,6 +415,7 @@ export class FleetMap {
     this.clusterGroup.clearLayers();
     this.unclusteredGroup.clearLayers();
     this.selectionGroup.clearLayers();
+    this.uncertaintyGroup.clearLayers();
     if (!this.fleetVisible) return;
 
     const selectedMarker = this.selectedId ? this.markers.get(this.selectedId) : null;
@@ -341,6 +426,12 @@ export class FleetMap {
     for (const marker of markers) activeGroup.addLayer(marker);
     if (selectedMarker && this.visibleVessels.some((vessel) => vessel.id === this.selectedId)) {
       this.selectionGroup.addLayer(selectedMarker);
+    }
+    if (this.uncertaintyAreasVisible) {
+      for (const vessel of this.visibleVessels) {
+        const area = this.uncertaintyLayers.get(vessel.id);
+        if (area) this.uncertaintyGroup.addLayer(area);
+      }
     }
   }
 
@@ -375,11 +466,22 @@ export class FleetMap {
   }
 }
 
-function formatClassification(value) {
+function formatLocationState(value) {
   return {
-    mapped: "mapped public",
-    approximate: "approximate",
-    withheld: "withheld symbolic",
+    confirmed: "confirmed public location",
+    last_reported: "last publicly reported location",
+    unconfirmed: "location unconfirmed",
+    no_recent_information: "no recent public information",
+    withheld: "location not published",
+  }[value] || value;
+}
+
+function formatPrecision(value) {
+  return {
+    port: "port-level location",
+    city: "city-level location",
+    region: "approximate region",
+    none: "not mapped",
   }[value] || value;
 }
 

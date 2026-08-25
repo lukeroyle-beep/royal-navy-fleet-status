@@ -98,7 +98,7 @@ assert.deepEqual(
 );
 assert.equal(
   changes.currentMappedCount,
-  fleet.vessels.filter((vessel) => vessel.position || vessel.symbolicPosition).length,
+  fleet.vessels.filter((vessel) => vessel.position || vessel.uncertaintyArea).length,
 );
 for (const category of ["status", "location", "mapping", "marker", "evidence"]) {
   assert.equal(

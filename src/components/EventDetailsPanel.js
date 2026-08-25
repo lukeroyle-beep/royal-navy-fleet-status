@@ -41,13 +41,15 @@ export class EventDetailsPanel {
 
     const primaryEntries = [
       ["Status", vessel.status],
-      ["Location", vessel.lastReportedLocation],
-      ["Location information", formatLocationClassification(vessel.locationClassification)],
+      ["Location", vessel.publicLocationLabel],
+      ["Public location status", formatLocationState(vessel.locationState)],
+      ["Geographic precision", formatLocationPrecision(vessel.locationPrecision)],
       ["Class", vessel.vesselClass],
       ["Type", vessel.vesselType],
       ["Snapshot", formatSnapshotDate(asOfDate)],
     ];
     const entries = [
+      ["Last public report", vessel.lastReportedLocation],
       ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Commission date", vessel.commissionedDate || "Not recorded"],
     ];
@@ -126,12 +128,22 @@ function createEntry(term, value) {
   return wrapper;
 }
 
-export function formatLocationClassification(value) {
+export function formatLocationState(value) {
   return {
-    mapped: "Mapped public location",
-    approximate: "Approximate port or area",
-    unknown: "Unknown public location",
-    withheld: "Withheld · symbolic marker",
+    confirmed: "Confirmed public location",
+    last_reported: "Last publicly reported location",
+    unconfirmed: "Location unconfirmed",
+    no_recent_information: "No recent public information",
+    withheld: "Location not published",
+  }[value] || value;
+}
+
+export function formatLocationPrecision(value) {
+  return {
+    port: "Port-level location",
+    city: "City-level location",
+    region: "Approximate region",
+    none: "Not mapped",
   }[value] || value;
 }
 

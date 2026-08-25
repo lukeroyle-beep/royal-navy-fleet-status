@@ -8,23 +8,23 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 
 - A 68-vessel current Royal Navy and RFA roster
 - Search by vessel name or pennant number
-- Filters for service, vessel type, operational status and location classification
+- Filters for service, vessel type, operational status and neutral public location state
 - A map-first interface with a collapsible fleet drawer, selected-record drawer and compact top bar
 - A compact class ribbon with class-level active counts and public-status percentages inside Filters
 - A release-to-release change summary that stays collapsed until requested
-- Interactive OpenStreetMap basemap with optional clustering and UK shore-establishment layers
+- Interactive OpenStreetMap basemap with optional clustering, bounded uncertainty areas and UK shore-establishment layers
 - Progressive vessel details with status, supported public location and snapshot date; detailed provenance remains outside the client projection
-- Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
+- Clear confirmed, last-reported, unconfirmed, no-recent-information and withheld public location states, separated from port, city, region and list-only precision
 - Automated dataset validation and production-build checks
 - Responsive desktop drawers and touch-oriented iPad and phone bottom sheets
 
 ## Map controls
 
 - Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
-- Use **Layers** to show or hide fleet vessels and public UK shore establishments, or to switch marker clustering on and off.
+- Use **Layers** to show or hide fleet vessels, bounded uncertainty areas and public UK shore establishments, or to switch marker clustering on and off. The uncertainty control appears only when the public dataset contains regional records.
 - Select a plotted vessel from the map or fleet drawer to highlight it, keep regional context and open its public record. Use **Reset view** to restore the filtered overview.
-- Use **Filters** for class, service, operational status, vessel type and public location classification. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
-- Vessels without a current public fix use their last dated, vessel-specific public location, even when historical. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
+- Use **Filters** for class, service, operational status, vessel type and public location state. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
+- Vessels without a current public fix can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports use regional areas instead of representative points.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
@@ -33,11 +33,12 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 
 - Coordinates exist only as explicit fields in the curated dataset.
 - The browser performs no geocoding, course extrapolation or positional inference.
-- Approximate markers are labelled as representative ports or operational areas.
+- Port and city coordinates are rounded to public display precision and never claim an exact berth.
+- Region and exercise-area reports use a bounded, dashed regional representation that is explicitly labelled as not being a live position.
 - A plotted historical location is never presented as a live fix. Its marker uses only the precision supported by the reviewed evidence.
-- Unknown vessels remain in the roster but are not plotted only when no dated, vessel-specific public location can be established. Any withheld SSBN marker is deliberately symbolic and is not evidence of a vessel's position.
+- Unknown, unconfirmed and no-recent-information vessels remain searchable and listable without invented coordinates.
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
-- Undisclosed submarine patrol positions are never inferred or displayed.
+- Undisclosed submarine patrol positions are never inferred, represented symbolically or displayed.
 
 The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed location classification and the project's internal evidence review.
 
@@ -48,7 +49,9 @@ assessments live under `data/internal/provenance/`. “Internal” means exclude
 bundle, not secret storage; the repository may be public and these records contain no credentials.
 
 `data/royal-navy/vessels.json` is generated from the current assessment index and contains only the
-fields required by the public map, filters, release insights and vessel card. Source URLs, evidence
+fields required by the public map, filters, release insights and vessel card. The projection uses an
+explicit field allow-list and converts supported geography into rounded port/city points, bounded
+regional areas or list-only states. Source URLs, evidence
 timestamps, account handles, content hashes, origin clusters, analyst notes, confidence reasoning
 and assessment history are not copied into the public vessel projection.
 
@@ -59,6 +62,8 @@ corroboration counts origin clusters, not links or reposts.
 
 See [`docs/osint-provenance.md`](docs/osint-provenance.md) for the full model, collection boundary,
 confidence/freshness rules and known limitations.
+See [`docs/public-geographic-precision.md`](docs/public-geographic-precision.md) for the public state,
+geometry and submarine publication safeguards.
 
 ## Run locally
 
@@ -167,7 +172,7 @@ CI authenticates a new baseline against the base commit and re-derives the store
 assessment and evidence bindings.
 
 After generating the public projection, regenerate the publication summary, append the status
-snapshot and run every validation/test/build gate. Mapped and approximate decisions still require
+snapshot and run every validation/test/build gate. Point and regional publication decisions still require
 dated, vessel-specific evidence; generic home-port or class pages remain insufficient.
 
 Location review decisions are recorded append-only in

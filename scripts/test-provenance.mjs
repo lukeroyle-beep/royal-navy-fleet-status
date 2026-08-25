@@ -12,6 +12,7 @@ import {
   validateSourceRegistry,
 } from "./lib/provenance.mjs";
 import { createSweepQueue } from "./lib/sweep.mjs";
+import { createPublicProjection } from "./lib/public-projection.mjs";
 
 const entities = read("../data/internal/provenance/vessels.json");
 const registry = read("../data/internal/provenance/sources.json");
@@ -22,6 +23,34 @@ const knownVesselIds = [
   ...vesselIds,
   ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
 ];
+const publicProjection = createPublicProjection(entities, assessmentLog);
+const expectedPublicFields = [
+  "commissionedDate",
+  "homePort",
+  "id",
+  "lastReportedLocation",
+  "locationClassification",
+  "locationPrecision",
+  "locationState",
+  "name",
+  "pennantNumber",
+  "position",
+  "publicLocationLabel",
+  "service",
+  "status",
+  "uncertaintyArea",
+  "vesselClass",
+  "vesselType",
+].sort();
+for (const vessel of publicProjection.vessels) {
+  assert.deepEqual(Object.keys(vessel).sort(), expectedPublicFields, `${vessel.id} bypasses the public allow-list.`);
+}
+const projectedVengeance = publicProjection.vessels.find((vessel) => vessel.id === "hms-vengeance");
+assert.equal(projectedVengeance.locationPrecision, "none");
+assert.equal(projectedVengeance.position, null);
+assert.equal(projectedVengeance.uncertaintyArea, null);
+const projectedVictorious = publicProjection.vessels.find((vessel) => vessel.id === "hms-victorious");
+assert.doesNotMatch(projectedVictorious.lastReportedLocation, /\b\d+\s*(?:dock|berth)\b/i);
 
 assert.equal(validateSourceRegistry(registry, knownVesselIds, vesselIds), registry);
 assert.equal(

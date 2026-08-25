@@ -85,7 +85,7 @@ assert.match(indexHtml, /id="unknownCount"/);
 assert.match(indexHtml, /id="filterResultStatus"/);
 assert.match(indexHtml, /id="filterBadge"/);
 assert.match(indexHtml, /id="filterPanel"/);
-assert.match(indexHtml, /Location classification/);
+assert.match(indexHtml, /Public location status/);
 assert.doesNotMatch(indexHtml, /Location confidence/);
 assert.match(indexHtml, /id="changesToggle"/);
 assert.match(indexHtml, /aria-controls="changesPanel"/);
@@ -114,10 +114,10 @@ assert.match(appSource, /getFleetStatusSummary/);
 assert.match(appSource, /getAvailabilitySummary/);
 assert.match(appSource, /active means deployed or available/);
 assert.match(appSource, /aria-controls", "classAvailabilityPanel"/);
-assert.match(appSource, /withheld:\s*"Withheld"/);
+assert.match(appSource, /formatLocationState\(vessel\.locationState\)/);
 assert.match(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
-  /\["Location", vessel\.lastReportedLocation\]/,
+  /\["Location", vessel\.publicLocationLabel\]/,
 );
 assert.doesNotMatch(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),

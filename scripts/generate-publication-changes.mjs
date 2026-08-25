@@ -45,8 +45,8 @@ for (const vessel of current.vessels) {
     items,
     "mapping",
     "Map precision",
-    formatClassification(before.locationClassification),
-    formatClassification(vessel.locationClassification),
+    formatLocationPrecision(before.locationPrecision, before.locationClassification),
+    formatLocationPrecision(vessel.locationPrecision, vessel.locationClassification),
   );
   addChange(
     items,
@@ -58,13 +58,14 @@ for (const vessel of current.vessels) {
 
   if (
     before.lastReportedLocation === vessel.lastReportedLocation &&
-    JSON.stringify(before.position) !== JSON.stringify(vessel.position)
+    JSON.stringify(before.position || before.uncertaintyArea) !==
+      JSON.stringify(vessel.position || vessel.uncertaintyArea)
   ) {
     items.push({
       kind: "marker",
       label: "Marker",
-      before: before.position?.label || "Not plotted",
-      after: vessel.position?.label || "Not plotted",
+      before: before.position?.label || before.uncertaintyArea?.label || "Not plotted",
+      after: vessel.position?.label || vessel.uncertaintyArea?.label || "Not plotted",
     });
   }
 
@@ -119,7 +120,17 @@ function addChange(items, kind, label, before, after) {
 }
 
 function hasMapPosition(vessel) {
-  return Boolean(vessel.position || vessel.symbolicPosition);
+  return Boolean(vessel.position || vessel.uncertaintyArea);
+}
+
+function formatLocationPrecision(precision, legacyClassification) {
+  if (!precision) return formatClassification(legacyClassification);
+  return {
+    port: "Port level",
+    city: "City level",
+    region: "Approximate region",
+    none: "Not mapped",
+  }[precision] || precision;
 }
 
 function formatClassification(value) {

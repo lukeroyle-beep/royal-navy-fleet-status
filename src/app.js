@@ -1,4 +1,8 @@
-import { EventDetailsPanel } from "./components/EventDetailsPanel.js";
+import {
+  EventDetailsPanel,
+  formatLocationPrecision,
+  formatLocationState,
+} from "./components/EventDetailsPanel.js";
 import {
   FleetInsightsLoader,
   insightsMatchDataset,
@@ -81,6 +85,9 @@ const elements = {
   fleetLayerToggle: document.querySelector("#fleetLayerToggle"),
   shoreLayerToggle: document.querySelector("#shoreLayerToggle"),
   clusterLayerToggle: document.querySelector("#clusterLayerToggle"),
+  uncertaintyLayerRow: document.querySelector("#uncertaintyLayerRow"),
+  uncertaintyLayerToggle: document.querySelector("#uncertaintyLayerToggle"),
+  uncertaintyLayerCount: document.querySelector("#uncertaintyLayerCount"),
   shoreLayerCount: document.querySelector("#shoreLayerCount"),
   shoreControls: document.querySelector("#shoreControls"),
   shoreSearch: document.querySelector("#shoreSearchInput"),
@@ -174,6 +181,9 @@ function bindDataset() {
   fleetMap.setShoreEstablishments(shoreDataset.establishments);
   details.renderDefault(dataset);
   elements.shoreLayerCount.textContent = `${shoreDataset.establishments.length} public locations`;
+  const uncertaintyCount = dataset.vessels.filter((vessel) => vessel.uncertaintyArea).length;
+  elements.uncertaintyLayerRow.hidden = uncertaintyCount === 0;
+  elements.uncertaintyLayerCount.textContent = `${uncertaintyCount} ${uncertaintyCount === 1 ? "region" : "regions"}`;
   elements.shoreTotalCount.textContent = shoreDataset.establishments.length.toString();
   fillSelect(elements.shoreType, shoreTypes(shoreDataset.establishments));
 
@@ -195,6 +205,9 @@ function bindDataset() {
   );
   elements.clusterLayerToggle.addEventListener("change", () =>
     fleetMap.setClusteringEnabled(elements.clusterLayerToggle.checked),
+  );
+  elements.uncertaintyLayerToggle.addEventListener("change", () =>
+    fleetMap.setUncertaintyAreasVisible(elements.uncertaintyLayerToggle.checked),
   );
   elements.shoreSearch.addEventListener("input", applyShoreFilters);
   elements.shoreType.addEventListener("change", applyShoreFilters);
@@ -406,7 +419,7 @@ function applyFilters() {
       (!elements.service.value || vessel.service === elements.service.value) &&
       (!elements.status.value || vessel.status === elements.status.value) &&
       (!elements.type.value || vessel.vesselType === elements.type.value) &&
-      (!elements.location.value || vessel.locationClassification === elements.location.value)
+      (!elements.location.value || vessel.locationState === elements.location.value)
     );
   });
 
@@ -428,7 +441,7 @@ function renderFilterSummary(filteredCount) {
     elements.service.value,
     elements.status.value,
     elements.type.value,
-    elements.location.value ? formatClassification(elements.location.value) : "",
+    elements.location.value ? formatLocationState(elements.location.value) : "",
   ].filter(Boolean);
   const hasSearch = Boolean(elements.search.value.trim());
   const activeFilterCount = countActiveFilters({
@@ -517,7 +530,7 @@ function renderList(vessels) {
       button.className = vessel.id === selectedId ? "is-selected" : "";
       button.dataset.status = vessel.status;
       heading.textContent = vessel.name;
-      meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatClassification(vessel.locationClassification)}`;
+      meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatLocationState(vessel.locationState)} · ${formatLocationPrecision(vessel.locationPrecision)}`;
       button.append(heading, meta);
       button.addEventListener("click", () => selectVessel(vessel, { source: "list" }));
       item.append(button);
@@ -563,13 +576,4 @@ function resetFilters({ focus = false } = {}) {
 function showError(error) {
   elements.error.hidden = false;
   elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
-}
-
-function formatClassification(value) {
-  return {
-    mapped: "Mapped",
-    approximate: "Approximate",
-    unknown: "Unknown",
-    withheld: "Withheld",
-  }[value];
 }

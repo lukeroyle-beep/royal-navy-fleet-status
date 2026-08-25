@@ -69,5 +69,5 @@ if (changes.currentMappedCount !== fleet.vessels.filter(hasMapPosition).length) 
 console.log(`Validated ${changes.changes.length} publication changes.`);
 
 function hasMapPosition(vessel) {
-  return Boolean(vessel.position || vessel.symbolicPosition);
+  return Boolean(vessel.position || vessel.uncertaintyArea);
 }
