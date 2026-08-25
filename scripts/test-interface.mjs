@@ -7,7 +7,12 @@ import {
   countActiveFilters,
   formatVesselResultSummary,
   nextOpenSurfaces,
+  resolveSnapshotTransitionSelection,
 } from "../src/utils/interface.js";
+import {
+  createPublicSnapshotDataset,
+  parseStatusHistory,
+} from "../src/utils/insights.js";
 import {
   PORT_SHORE_FILTER,
   PUBLIC_STATE_VERSION,
@@ -39,6 +44,9 @@ const historyCatalog = JSON.parse(
     new URL("../data/royal-navy/status-history-catalog.json", import.meta.url),
     "utf8",
   ),
+);
+const statusHistory = parseStatusHistory(
+  fs.readFileSync(new URL("../data/royal-navy/status-history.jsonl", import.meta.url), "utf8"),
 );
 const snapshotDates = ["2026-07-31", "2026-08-09", "2026-08-12", "2026-08-23"];
 const stateCatalog = createPublicStateCatalog({
@@ -86,6 +94,8 @@ assert.match(html, /id="vesselTimeline"[^>]*aria-labelledby="vesselTimelineTitle
 assert.match(html, /Discrete published snapshots only/);
 assert.match(app, /createPublicSnapshotDataset/);
 assert.match(app, /compareCurrentWithPreviousSnapshot/);
+assert.match(app, /resolveSnapshotTransitionSelection/);
+assert.match(app, /selectShoreEstablishment\(retainedSelection\.shoreEstablishment/);
 assert.match(app, /!changedOnly \|\| snapshotComparison\.changedCurrentVesselIds\.includes/);
 assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
 assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
@@ -191,6 +201,25 @@ assert.deepEqual(migratedStoredState.layers, {
 });
 
 const selectedVessel = fleet.vessels.find((vessel) => vessel.status === "Deployed");
+const duncan = fleet.vessels.find((vessel) => vessel.id === "hms-duncan");
+const august12Fleet = createPublicSnapshotDataset({
+  currentFleet: fleet,
+  history: statusHistory,
+  catalog: historyCatalog,
+  snapshotDate: "2026-08-12",
+});
+const august12Duncan = august12Fleet.vessels.find((vessel) => vessel.id === duncan.id);
+assert.equal(duncan.status, "Deployed");
+assert.equal(august12Duncan.status, "Available");
+assert.deepEqual(
+  resolveSnapshotTransitionSelection({
+    visibleVessels: august12Fleet.vessels.filter((vessel) => vessel.status === "Deployed"),
+    shoreEstablishments: shore.establishments,
+    selectedVesselId: duncan.id,
+  }),
+  { vessel: null, shoreEstablishment: null },
+  "A vessel that stops matching active filters after a snapshot change must be cleared.",
+);
 const pointVessel = fleet.vessels.find((vessel) => vessel.position);
 const regionalVessel = fleet.vessels.find((vessel) => vessel.uncertaintyArea);
 const listOnlyVessel = fleet.vessels.find(
@@ -225,6 +254,15 @@ assert.equal(
   "Removed vessel IDs must not be restored.",
 );
 const shoreEstablishment = shore.establishments[0];
+assert.deepEqual(
+  resolveSnapshotTransitionSelection({
+    visibleVessels: august12Fleet.vessels,
+    shoreEstablishments: shore.establishments,
+    selectedShoreId: shoreEstablishment.id,
+  }),
+  { vessel: null, shoreEstablishment },
+  "A snapshot change must deliberately preserve a valid shore selection.",
+);
 const shoreSelectionUrl = createShareablePublicUrl(
   "https://example.test/tracker",
   { selectedShoreEstablishment: shoreEstablishment.id },
@@ -236,6 +274,23 @@ assert.equal(restoredShoreState.selectedShoreEstablishment, shoreEstablishment.i
 assert.equal(
   resolvePublicSelection(stateCatalog, restoredShoreState).shoreEstablishment,
   shoreEstablishment,
+);
+const historicalShoreSelectionUrl = createShareablePublicUrl(
+  "https://example.test/tracker",
+  {
+    selectedShoreEstablishment: shoreEstablishment.id,
+    snapshotDate: "2026-08-12",
+    layers: { fleet: true, shore: true, clusters: true, uncertainty: true },
+  },
+  historyStateCatalog,
+);
+assert.equal(historicalShoreSelectionUrl.searchParams.get("snapshot"), "2026-08-12");
+assert.equal(historicalShoreSelectionUrl.searchParams.get("shore"), shoreEstablishment.id);
+assert.equal(
+  parsePublicUrlState(historicalShoreSelectionUrl, historyStateCatalog)
+    .selectedShoreEstablishment,
+  shoreEstablishment.id,
+  "A preserved shore selection must remain restorable from the snapshot URL.",
 );
 assert.equal(
   parsePublicUrlState(
