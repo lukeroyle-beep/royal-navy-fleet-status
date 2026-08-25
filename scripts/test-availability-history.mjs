@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import {
   availabilityClasses,
@@ -187,6 +190,17 @@ const built = buildWeeklyAvailabilityObservation({
 });
 assert.equal(built.revision, 1);
 assert.deepEqual(built.observations.a, { vesselClass: "Alpha class", status: "Available" });
+assert.throws(
+  () =>
+    buildWeeklyAvailabilityObservation({
+      fleet: sampleFleet,
+      statusSnapshots: [sampleStatus],
+      availabilityRecords: [],
+      weekEnding: "2026-08-23",
+      recordedAt: "2026-08-23T17:59:59Z",
+    }),
+  /recordedAt must not be earlier than the reviewed source release/i,
+);
 assert.equal(
   buildWeeklyAvailabilityObservation({
     fleet: sampleFleet,
@@ -209,4 +223,36 @@ assert.equal(
 );
 assert.equal(latestSunday(new Date("2026-08-25T12:00:00Z")), "2026-08-23");
 
+const availabilityPath = new URL("../data/royal-navy/availability-history.jsonl", import.meta.url);
+const beforeInvalidAppend = fs.readFileSync(availabilityPath);
+const beforeInvalidAppendHash = sha256(beforeInvalidAppend);
+const invalidAppend = spawnSync(
+  process.execPath,
+  [
+    fileURLToPath(new URL("./append-weekly-availability.mjs", import.meta.url)),
+    "--week-ending",
+    "2026-08-23",
+    "--recorded-at",
+    "2026-08-24T19:00:00Z",
+    "--require-observation",
+  ],
+  { encoding: "utf8" },
+);
+assert.notEqual(invalidAppend.status, 0, "An early recordedAt append unexpectedly succeeded.");
+assert.match(
+  invalidAppend.stderr,
+  /recordedAt must not be earlier than the reviewed source release/i,
+);
+const afterInvalidAppend = fs.readFileSync(availabilityPath);
+assert.equal(
+  sha256(afterInvalidAppend),
+  beforeInvalidAppendHash,
+  "A rejected recordedAt append changed the ledger hash.",
+);
+assert.deepEqual(afterInvalidAppend, beforeInvalidAppend, "A rejected append changed ledger bytes.");
+
 console.log("Weekly availability history, correction, safety and derivation tests passed.");
+
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
+}

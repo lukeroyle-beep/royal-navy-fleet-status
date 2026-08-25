@@ -40,6 +40,9 @@ export function buildWeeklyAvailabilityObservation({
   ) {
     throw new Error("The weekly observation source must match the current reviewed public release.");
   }
+  if (new Date(recordedAt).valueOf() < new Date(sourceRelease.releasedAt).valueOf()) {
+    throw new Error("recordedAt must not be earlier than the reviewed source release.");
+  }
 
   const fleetIds = fleet.vessels.map((vessel) => vessel.id).sort();
   const statusIds = Object.keys(source.statuses).sort();
