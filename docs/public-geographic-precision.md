@@ -13,6 +13,8 @@ The generated vessel projection separates two concepts:
 
 Regional areas communicate geographic context only. They are not probability boundaries, routes, current positions or evidence that a vessel remains inside the area. The map labels them “Approximate region, not a live position”.
 
+When multiple visible vessels have exactly the same published regional geometry, the map renders one area for that geometry. Activating it opens a named, keyboard-operable vessel chooser. The Layers panel also provides a direct regional-vessel selector, so every visible record remains unambiguous even when several broad areas overlap on screen.
+
 ## Publication safeguards
 
 - The projection uses an explicit field allow-list. It never copies an assessment object wholesale.

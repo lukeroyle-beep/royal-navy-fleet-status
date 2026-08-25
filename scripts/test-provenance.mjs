@@ -51,6 +51,11 @@ assert.equal(projectedVengeance.position, null);
 assert.equal(projectedVengeance.uncertaintyArea, null);
 const projectedVictorious = publicProjection.vessels.find((vessel) => vessel.id === "hms-victorious");
 assert.doesNotMatch(projectedVictorious.lastReportedLocation, /\b\d+\s*(?:dock|berth)\b/i);
+const projectedMedway = publicProjection.vessels.find((vessel) => vessel.id === "hms-medway");
+assert.equal(projectedMedway.locationPrecision, "region");
+assert.equal(projectedMedway.position, null);
+assert.equal(projectedMedway.uncertaintyArea.radiusKm, 450);
+assert.equal(projectedMedway.publicLocationLabel, "Falkland Islands / South Atlantic");
 
 assert.equal(validateSourceRegistry(registry, knownVesselIds, vesselIds), registry);
 assert.equal(

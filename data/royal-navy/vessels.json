@@ -647,15 +647,19 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "port",
+      "locationPrecision": "region",
       "publicLocationLabel": "Falkland Islands / South Atlantic",
       "lastReportedLocation": "Falkland Islands / South Atlantic; Falklands guard ship",
-      "position": {
-        "lat": -51.7,
-        "lon": -57.5,
-        "label": "Falkland Islands / South Atlantic"
-      },
-      "uncertaintyArea": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": -51.7,
+          "lon": -57.5
+        },
+        "radiusKm": 450,
+        "label": "Falkland Islands / South Atlantic",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-trent",
@@ -787,19 +791,15 @@
       "status": "Available",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
+      "locationPrecision": "port",
       "publicLocationLabel": "Portsmouth",
       "lastReportedLocation": "Portsmouth; departed for sea trials on 26 March 2026",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 50.8,
-          "lon": -1.1
-        },
-        "radiusKm": 120,
-        "label": "Portsmouth",
-        "representation": "regional"
-      }
+      "position": {
+        "lat": 50.8,
+        "lon": -1.11,
+        "label": "Portsmouth"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-middleton",

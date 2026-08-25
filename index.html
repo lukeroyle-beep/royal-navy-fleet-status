@@ -56,11 +56,13 @@
             <span id="filterResultStatus" role="status" aria-live="polite">Showing 0 vessels</span>
             <button id="resetFilters" type="button" hidden>Clear all</button>
           </div>
-          <details class="fleet-summary-disclosure">
+          <details class="fleet-summary-disclosure" open>
             <summary>Fleet snapshot</summary>
             <div class="fleet-availability" aria-label="Overall fleet availability">
               <div><span>Published availability</span><p id="fleetAvailabilityFormula">0 active of 0 total vessels</p></div>
-              <strong id="fleetAvailabilityPercentage">0%</strong>
+              <div id="fleetAvailabilityScore" class="availability-score fleet-availability-score" data-availability-band="low" aria-label="0% published fleet availability">
+                <strong id="fleetAvailabilityPercentage">0%</strong>
+              </div>
             </div>
             <div class="status-metrics">
               <div><strong id="totalCount">0</strong><span>Vessels</span></div>
@@ -122,6 +124,13 @@
               <span><strong>Uncertainty areas</strong><small id="uncertaintyLayerCount">0 regions</small></span>
               <input id="uncertaintyLayerToggle" type="checkbox" checked />
             </label>
+            <label id="uncertaintyVesselPicker" class="region-vessel-picker" hidden>
+              <span>Choose a regional vessel</span>
+              <select id="uncertaintyVesselSelect" aria-describedby="uncertaintyVesselHelp">
+                <option value="">Select a visible regional record</option>
+              </select>
+              <small id="uncertaintyVesselHelp">Provides direct access when uncertainty areas overlap.</small>
+            </label>
           </fieldset>
           <details class="legend-disclosure">
             <summary>Location legend</summary>
@@ -157,7 +166,9 @@
             <section id="classAvailabilityPanel" class="class-availability" aria-labelledby="classAvailabilityTitle" aria-live="polite" hidden>
               <div class="class-availability-heading">
                 <div><p class="eyebrow">Selected class</p><h3 id="classAvailabilityTitle"></h3></div>
-                <div class="class-availability-score"><strong id="classAvailabilityPercentage"></strong><span>availability</span></div>
+                <div id="classAvailabilityScore" class="availability-score class-availability-score" data-availability-band="low" aria-label="0% selected class availability">
+                  <strong id="classAvailabilityPercentage"></strong>
+                </div>
               </div>
               <p id="classAvailabilityFormula" class="class-availability-formula"></p>
               <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>

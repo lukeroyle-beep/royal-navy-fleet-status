@@ -12,6 +12,7 @@ import {
   plottedVessels,
   shouldStackLayout,
 } from "../src/utils/map.js";
+import { projectPublicVessel } from "./lib/public-projection.mjs";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
@@ -88,28 +89,38 @@ assert.deepEqual(getMapPosition(tidespring), {
 assert.deepEqual(getMapPosition(scott), getMapPosition(tidespring));
 
 for (const regression of precisionFixtures.missedEvidenceRegressions) {
-  const template = precisionFixtures.stateCases.find((fixture) =>
-    regression.expectedPrecision === "region"
-      ? fixture.caseId === "last-reported-region"
-      : fixture.caseId === "confirmed-city",
-  );
-  const vessel = {
-    ...structuredClone(template),
-    id: regression.caseId,
-    name: regression.vesselName,
-    locationState: regression.expectedState,
-    locationPrecision: regression.expectedPrecision,
-  };
+  const vessel = projectPrecisionFixture(regression);
+  assert.equal(vessel.locationState, regression.expectedState);
+  assert.equal(vessel.locationPrecision, regression.expectedPrecision);
+  assert.equal(vessel.publicLocationLabel, regression.expectedLabel);
   assert.equal(hasPlottablePosition(vessel), true, `${regression.caseId} must remain visibly represented.`);
   if (regression.mustNotUsePoint) {
     assert.equal(getMapPosition(vessel), null, `${regression.caseId} must not use a fabricated point.`);
     assert.ok(getUncertaintyArea(vessel), `${regression.caseId} must use regional representation.`);
   }
+  if (regression.mustUsePoint) {
+    assert.ok(getMapPosition(vessel), `${regression.caseId} must retain its rounded point.`);
+    assert.equal(getUncertaintyArea(vessel), null);
+  }
   if (regression.mustNotClaimBerth) {
     assert.ok(getMapPosition(vessel), `${regression.caseId} must use its bounded city-level point.`);
     assert.doesNotMatch(vessel.publicLocationLabel, /berth|dock/i);
   }
+  if (regression.mustNotClaimPreviousCity) {
+    assert.doesNotMatch(vessel.publicLocationLabel, /Copenhagen/i);
+  }
 }
+
+const regionalGeometryGroups = new Map();
+for (const vessel of dataset.vessels.filter((candidate) => candidate.uncertaintyArea)) {
+  const area = vessel.uncertaintyArea;
+  const key = `${area.centre.lat}|${area.centre.lon}|${area.radiusKm}`;
+  regionalGeometryGroups.set(key, [...(regionalGeometryGroups.get(key) || []), vessel.id]);
+}
+assert.ok(
+  [...regionalGeometryGroups.values()].some((vesselIds) => vesselIds.length > 1),
+  "The current regression dataset must exercise co-located regional areas.",
+);
 
 const withheldFixture = precisionFixtures.stateCases.find((fixture) => fixture.caseId === "withheld-submarine");
 assert.equal(hasPlottablePosition(withheldFixture), false);
@@ -206,6 +217,9 @@ assert.match(mapComponent, /Approximate region, not a live position/);
 assert.match(mapComponent, /fitBounds\(area\.getBounds\(\)/);
 assert.match(mapComponent, /element\.setAttribute\("tabindex", "0"\)/);
 assert.match(mapComponent, /event\.key !== "Enter" && event\.key !== " "/);
+assert.match(mapComponent, /groupedUncertaintyAreas/);
+assert.match(mapComponent, /fleet-region-picker-content/);
+assert.match(mapComponent, /activate to choose a vessel/);
 assert.doesNotMatch(mapComponent, /symbolicPosition|withheld symbolic/);
 assert.match(mapComponent, /this\.tiles\.on\("loading"/);
 assert.match(mapComponent, /tileerror/);
@@ -219,4 +233,28 @@ console.log("Fleet map tests passed.");
 function mercatorY(latitude) {
   const sine = Math.sin((latitude * Math.PI) / 180);
   return 0.5 - Math.log((1 + sine) / (1 - sine)) / (4 * Math.PI);
+}
+
+function projectPrecisionFixture(fixture) {
+  return projectPublicVessel(
+    {
+      vesselId: fixture.vesselId,
+      name: fixture.vesselName,
+      service: fixture.vesselName.startsWith("RFA ") ? "Royal Fleet Auxiliary" : "Royal Navy",
+      vesselClass: "Regression fixture",
+      vesselType: fixture.vesselType,
+      pennantNumber: null,
+      commissionedDate: null,
+      homePort: null,
+    },
+    {
+      freshness: { state: fixture.freshnessState },
+      assessedState: {
+        status: fixture.status,
+        locationClassification: fixture.locationClassification,
+        lastReportedLocation: fixture.report,
+        position: structuredClone(fixture.position),
+      },
+    },
+  );
 }

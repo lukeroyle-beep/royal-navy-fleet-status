@@ -32,7 +32,11 @@ for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle", 
   assert.match(html, new RegExp(`id="${id}"[^>]*type="checkbox"`));
 }
 assert.match(html, /id="uncertaintyLayerRow"[^>]*hidden/);
+assert.match(html, /id="uncertaintyVesselPicker"[^>]*hidden/);
+assert.match(html, /id="uncertaintyVesselSelect"/);
 assert.match(app, /uncertaintyCount === 0/);
+assert.match(app, /renderUncertaintyVesselPicker\(filtered\)/);
+assert.match(app, /source: "region-picker"/);
 assert.match(app, /setUncertaintyAreasVisible/);
 assert.doesNotMatch(html, /Deployment regions|Evidence requiring review|Recent evidence events|Overseas support facilities/);
 assert.match(html, /id="filterBadge"[^>]*hidden/);

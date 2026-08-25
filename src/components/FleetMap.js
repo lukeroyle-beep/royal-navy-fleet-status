@@ -26,6 +26,7 @@ export class FleetMap {
     this.onSelectEstablishment = onSelectEstablishment;
     this.markers = new Map();
     this.uncertaintyLayers = new Map();
+    this.uncertaintyGroups = [];
     this.shoreMarkers = new Map();
     this.visibleVessels = [];
     this.visibleShoreEstablishments = [];
@@ -118,13 +119,24 @@ export class FleetMap {
     this.selectionGroup.clearLayers();
     this.markers.clear();
     this.uncertaintyLayers.clear();
+    this.uncertaintyGroups = [];
 
+    const groupedUncertaintyAreas = new Map();
     for (const vessel of plottedVessels(vessels)) {
       if (getMapPosition(vessel)) {
         this.markers.set(vessel.id, this.#createMarker(vessel));
       } else if (getUncertaintyArea(vessel)) {
-        this.uncertaintyLayers.set(vessel.id, this.#createUncertaintyArea(vessel));
+        const area = getUncertaintyArea(vessel);
+        const key = uncertaintyGeometryKey(area);
+        const group = groupedUncertaintyAreas.get(key) || [];
+        group.push(vessel);
+        groupedUncertaintyAreas.set(key, group);
       }
+    }
+    for (const groupedVessels of groupedUncertaintyAreas.values()) {
+      const layer = this.#createUncertaintyArea(groupedVessels);
+      this.uncertaintyGroups.push({ layer, vessels: groupedVessels });
+      for (const vessel of groupedVessels) this.uncertaintyLayers.set(vessel.id, layer);
     }
 
     this.setVisibleVessels(vessels, { fit: true });
@@ -236,9 +248,11 @@ export class FleetMap {
         ? this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean)
         : []),
       ...(this.fleetVisible && this.uncertaintyAreasVisible
-        ? this.visibleVessels
-            .map((vessel) => this.uncertaintyLayers.get(vessel.id))
-            .filter(Boolean)
+        ? [...new Set(
+            this.visibleVessels
+              .map((vessel) => this.uncertaintyLayers.get(vessel.id))
+              .filter(Boolean),
+          )]
         : []),
       ...(this.shoreVisible
         ? this.visibleShoreEstablishments
@@ -284,36 +298,99 @@ export class FleetMap {
     return marker;
   }
 
-  #createUncertaintyArea(vessel) {
-    const area = getUncertaintyArea(vessel);
+  #createUncertaintyArea(vessels) {
+    const area = getUncertaintyArea(vessels[0]);
     const layer = L.circle([area.centre.lat, area.centre.lon], {
-      ...this.#uncertaintyStyle(vessel),
+      ...this.#uncertaintyStyle(vessels),
       className: "fleet-uncertainty-area",
       interactive: true,
       radius: area.radiusKm * 1000,
     });
-    layer.bindTooltip(
-      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(area.label)} · Approximate region, not a live position</span>`,
-      { className: "fleet-tooltip", direction: "top" },
-    );
-    const selectArea = () => this.onSelect(vessel);
-    layer.on("click", selectArea);
+    layer.options.regionVessels = vessels;
+    const activateArea = () => {
+      const visibleVessels = layer.options.visibleRegionVessels || vessels;
+      if (visibleVessels.length === 1) {
+        this.onSelect(visibleVessels[0]);
+        return;
+      }
+      this.#openUncertaintyChooser(layer, visibleVessels);
+    };
+    layer.on("click", activateArea);
     layer.on("add", () => {
+      this.#configureUncertaintyElement(layer);
       const element = layer.getElement();
       if (!element) return;
-      element.setAttribute("tabindex", "0");
-      element.setAttribute("role", "button");
-      element.setAttribute(
-        "aria-label",
-        `${vessel.name}, ${area.label}, approximate region, not a live position`,
-      );
       element.onkeydown = (event) => {
         if (event.key !== "Enter" && event.key !== " ") return;
         event.preventDefault();
-        selectArea();
+        activateArea();
       };
     });
     return layer;
+  }
+
+  #configureUncertaintyLayer(layer, vessels) {
+    layer.options.visibleRegionVessels = vessels;
+    layer.unbindTooltip();
+    if (vessels.length === 1) {
+      const vessel = vessels[0];
+      const area = getUncertaintyArea(vessel);
+      layer.bindTooltip(
+        `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(area.label)} · Approximate region, not a live position</span>`,
+        { className: "fleet-tooltip", direction: "top" },
+      );
+    } else {
+      layer.bindTooltip(
+        `<strong>${vessels.length} vessels</strong><span>${escapeHtml(vessels.map((vessel) => vessel.name).join(", "))} · Activate to choose a vessel</span>`,
+        { className: "fleet-tooltip", direction: "top" },
+      );
+    }
+    this.#configureUncertaintyElement(layer);
+  }
+
+  #configureUncertaintyElement(layer) {
+    const element = layer.getElement();
+    if (!element) return;
+    const vessels = layer.options.visibleRegionVessels || layer.options.regionVessels;
+    element.setAttribute("tabindex", "0");
+    element.setAttribute("role", "button");
+    element.setAttribute(
+      "aria-label",
+      vessels.length === 1
+        ? `${vessels[0].name}, ${getUncertaintyArea(vessels[0]).label}, approximate region, not a live position`
+        : `${vessels.length} vessels, ${vessels.map((vessel) => vessel.name).join(", ")}, share this approximate regional area; activate to choose a vessel`,
+    );
+  }
+
+  #openUncertaintyChooser(layer, vessels) {
+    const content = document.createElement("section");
+    const heading = document.createElement("strong");
+    const note = document.createElement("p");
+    const choices = document.createElement("div");
+    content.className = "fleet-region-picker-content";
+    heading.textContent = `${vessels.length} vessels share this regional area`;
+    note.textContent = "Choose a vessel. The area is approximate and is not a live position.";
+    choices.setAttribute("role", "group");
+    choices.setAttribute("aria-label", "Vessels in this approximate regional area");
+    for (const vessel of vessels) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = `${vessel.name} · ${getUncertaintyArea(vessel).label}`;
+      button.addEventListener("click", () => {
+        layer.closePopup();
+        this.onSelect(vessel);
+      });
+      choices.append(button);
+    }
+    content.append(heading, note, choices);
+    layer.unbindPopup();
+    layer.bindPopup(content, {
+      className: "fleet-region-picker",
+      closeButton: true,
+      maxWidth: 340,
+    });
+    layer.openPopup();
+    window.setTimeout(() => choices.querySelector("button")?.focus(), 0);
   }
 
   #createShoreMarker(establishment) {
@@ -384,14 +461,13 @@ export class FleetMap {
   }
 
   #refreshUncertaintyStyles() {
-    for (const [id, layer] of this.uncertaintyLayers) {
-      const vessel = this.visibleVessels.find((candidate) => candidate.id === id);
-      if (vessel) layer.setStyle(this.#uncertaintyStyle(vessel));
+    for (const { layer, vessels } of this.uncertaintyGroups) {
+      layer.setStyle(this.#uncertaintyStyle(vessels));
     }
   }
 
-  #uncertaintyStyle(vessel) {
-    const selected = vessel.id === this.selectedId;
+  #uncertaintyStyle(vessels) {
+    const selected = vessels.some((vessel) => vessel.id === this.selectedId);
     return {
       color: selected ? "#ffffff" : "#f0bd5c",
       dashArray: selected ? "7 5" : "5 6",
@@ -428,9 +504,12 @@ export class FleetMap {
       this.selectionGroup.addLayer(selectedMarker);
     }
     if (this.uncertaintyAreasVisible) {
-      for (const vessel of this.visibleVessels) {
-        const area = this.uncertaintyLayers.get(vessel.id);
-        if (area) this.uncertaintyGroup.addLayer(area);
+      const visibleIds = new Set(this.visibleVessels.map((vessel) => vessel.id));
+      for (const { layer, vessels } of this.uncertaintyGroups) {
+        const visibleVessels = vessels.filter((vessel) => visibleIds.has(vessel.id));
+        if (!visibleVessels.length) continue;
+        this.#configureUncertaintyLayer(layer, visibleVessels);
+        this.uncertaintyGroup.addLayer(layer);
       }
     }
   }
@@ -492,4 +571,8 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function uncertaintyGeometryKey(area) {
+  return `${area.centre.lat}|${area.centre.lon}|${area.radiusKm}`;
 }

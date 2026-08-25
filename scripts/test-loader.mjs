@@ -8,6 +8,7 @@ import {
 } from "../src/components/EventDetailsPanel.js";
 import {
   getActiveFleetSummary,
+  getAvailabilityBand,
   getAvailabilitySummary,
   getFleetStatusSummary,
 } from "../src/utils/fleet.js";
@@ -49,6 +50,12 @@ const fleetAvailability = getAvailabilitySummary(dataset.vessels);
 assert.equal(fleetAvailability.active, 50);
 assert.equal(fleetAvailability.total, 68);
 assert.equal(fleetAvailability.percentage.toFixed(1), "73.5");
+assert.equal(getAvailabilityBand(0), "low");
+assert.equal(getAvailabilityBand(33), "low");
+assert.equal(getAvailabilityBand(34), "medium");
+assert.equal(getAvailabilityBand(66), "medium");
+assert.equal(getAvailabilityBand(67), "high");
+assert.equal(getAvailabilityBand(100), "high");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
   total: 68,
   deployed: 17,

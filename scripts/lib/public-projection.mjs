@@ -1,12 +1,9 @@
 export const PUBLIC_PROJECTION_METHOD_VERSION = "1.1.0";
 
-const CITY_LEVEL_LABELS = new Map([
-  ["hms-agamemnon", "Barrow-in-Furness"],
-  ["hms-duncan", "Copenhagen, Denmark"],
-  ["hms-spey", "Singapore"],
-]);
+const CITY_LEVEL_LOCATION_PATTERN =
+  /\b(?:Barrow-in-Furness|Copenhagen(?:,\s*Denmark)?|Singapore)\b/i;
 const REGIONAL_LOCATION_PATTERN =
-  /\b(?:approaches?|bay|channel|firth|ocean|off|region|sea|sound|territorial waters|waters)\b|\broute\b/i;
+  /\b(?:approaches?|atlantic|bay|channel|firth|islands?|ocean|off|region|sea|sound|territorial waters|waters)\b|\broute\b/i;
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 
 export function createPublicProjection(entities, assessmentLog) {
@@ -33,8 +30,12 @@ export function createPublicProjection(entities, assessmentLog) {
 export function projectPublicVessel(entity, assessment) {
   const assessedState = assessment.assessedState;
   const locationState = deriveLocationState(assessedState, assessment.freshness?.state);
-  const locationPrecision = deriveLocationPrecision(entity, assessedState);
-  const publicLocationLabel = createPublicLocationLabel(entity, assessedState, locationState);
+  const locationPrecision = deriveLocationPrecision(assessedState);
+  const publicLocationLabel = createPublicLocationLabel(
+    assessedState,
+    locationState,
+    locationPrecision,
+  );
   const geometry = createPublicGeometry(assessedState, locationPrecision, publicLocationLabel);
 
   return {
@@ -70,12 +71,13 @@ function deriveLocationState(assessedState, freshnessState) {
   return freshnessState === "current" ? "unconfirmed" : "no_recent_information";
 }
 
-function deriveLocationPrecision(entity, assessedState) {
+function deriveLocationPrecision(assessedState) {
   if (assessedState.locationPrecision) return assessedState.locationPrecision;
   if (!["mapped", "approximate"].includes(assessedState.locationClassification)) return "none";
-  if (CITY_LEVEL_LABELS.has(entity.vesselId)) return "city";
-  const description = `${assessedState.position?.label || ""} ${assessedState.lastReportedLocation || ""}`;
-  if (REGIONAL_LOCATION_PATTERN.test(description)) return "region";
+  const reportedPlace = String(assessedState.lastReportedLocation || "").split(";")[0];
+  const locationDescription = `${assessedState.position?.label || ""} ${reportedPlace}`;
+  if (CITY_LEVEL_LOCATION_PATTERN.test(locationDescription)) return "city";
+  if (REGIONAL_LOCATION_PATTERN.test(locationDescription)) return "region";
   return "port";
 }
 
@@ -110,13 +112,37 @@ function createPublicGeometry(assessedState, locationPrecision, publicLocationLa
   };
 }
 
-function createPublicLocationLabel(entity, assessedState, locationState) {
+function createPublicLocationLabel(assessedState, locationState, locationPrecision) {
   if (locationState === "withheld") return "Location not published";
   if (locationState === "unconfirmed") return "Location unconfirmed";
   if (locationState === "no_recent_information") return "No recent public information";
-  if (CITY_LEVEL_LABELS.has(entity.vesselId)) return CITY_LEVEL_LABELS.get(entity.vesselId);
+  if (typeof assessedState.publicLocationLabel === "string" && assessedState.publicLocationLabel.trim()) {
+    return assessedState.publicLocationLabel.trim();
+  }
+  if (locationPrecision === "city") return createCityLocationLabel(assessedState);
   const label = assessedState.position?.label || assessedState.lastReportedLocation;
-  return String(label || "Public location unavailable")
+  return cleanPublicLocationLabel(label);
+}
+
+function createCityLocationLabel(assessedState) {
+  const markerLabel = cleanPublicLocationLabel(assessedState.position?.label);
+  const reportPlace = String(assessedState.lastReportedLocation || "").split(";")[0].trim();
+  const genericMarker = /\b(?:harbour|port area)\b/i.test(markerLabel);
+  const cityName = markerLabel.replace(/\s+(?:harbour|port area)\b.*$/i, "").trim();
+  if (
+    genericMarker &&
+    cityName &&
+    reportPlace
+      .toLocaleLowerCase("en-GB")
+      .startsWith(cityName.toLocaleLowerCase("en-GB"))
+  ) {
+    return reportPlace;
+  }
+  return cityName || reportPlace || "Public location unavailable";
+}
+
+function cleanPublicLocationLabel(value) {
+  return String(value || "Public location unavailable")
     .replace(/\s*\((?:representative|representative [^)]+)\)\s*$/i, "")
     .trim();
 }
