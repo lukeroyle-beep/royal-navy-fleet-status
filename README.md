@@ -8,7 +8,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 
 - A 68-vessel current Royal Navy and RFA roster
 - Search by vessel name or pennant number
-- Filters for service, vessel type, operational status and neutral public location state
+- Filters for service, vessel type, operational status, neutral public location state and broad geographic scope
 - A map-first interface with a collapsible fleet drawer, selected-record drawer and compact top bar
 - A compact class ribbon with class-level active counts and public-status percentages inside Filters
 - A release-to-release change summary that stays collapsed until requested
@@ -17,17 +17,43 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Clear confirmed, last-reported, unconfirmed, no-recent-information and withheld public location states, separated from port, city, region and list-only precision
 - Automated dataset validation and production-build checks
 - Responsive desktop drawers and touch-oriented iPad and phone bottom sheets
+- Versioned local preferences, five public view presets and validated shareable map links
 
 ## Map controls
 
 - Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
 - Use **Layers** to show or hide fleet vessels, bounded uncertainty areas and public UK shore establishments, or to switch marker clustering on and off. The uncertainty control appears only when the public dataset contains regional records.
 - Select a plotted vessel from the map or fleet drawer to highlight it, keep regional context and open its public record. Use **Reset view** to restore the filtered overview.
-- Use **Filters** for class, service, operational status, vessel type and public location state. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
+- Use **Filters** for class, service, operational status, vessel type, public location state and broad geographic scope. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
+- Use a public preset to switch the existing filters and layers to Fleet overview, Deployed vessels, United Kingdom ports, Maintenance and refit or Overseas presence. Presets do not create a second dataset.
+- Use **Share** to copy the current public filters, layers, selected vessel and bounded map view. The same state is restored on desktop, iPad and phone layouts.
 - Vessels without a current public fix can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports use regional areas instead of representative points.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
+
+## Saved and shared views
+
+Supported public filters and layer choices are saved in browser local storage under a versioned
+schema. Invalid JSON, unknown schema versions and values no longer present in the current dataset
+fall back to documented defaults without preventing the tracker from loading.
+
+A URL carrying `view=2` is authoritative for that visit, so a shared view does not inherit the
+recipient's saved preferences. The URL allow-list covers only public filter values, supported layer
+names (including bounded uncertainty areas), a current public vessel identifier, latitude,
+longitude and zoom. Coordinates and zoom are strictly parsed and bounded to Leaflet's supported
+map range; empty or malformed numeric values are rejected. Unknown, overlong or obsolete values
+are discarded when the address is rewritten. Version 1 saved views and links retain compatible
+public filters and layers, while the superseded location-classification filter is safely cleared
+rather than reinterpreted as the newer public location-state field. Source records, evidence
+assessments, analyst metadata and collection status are not accepted by the state parser or written
+to local storage or the URL.
+
+The United Kingdom ports preset shows only the three naval bases and two dockyards already present
+in the public shore dataset. The geographic-scope filter classifies rounded port/city points and
+the published centre of broad regional areas with a documented broad box from 49°N to 61.5°N and
+12.5°W to 4°E. It performs no geocoding and excludes list-only records from both geographic-scope
+results.
 
 ## Location safeguards
 
@@ -40,7 +66,7 @@ The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyrig
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred, represented symbolically or displayed.
 
-The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed location classification and the project's internal evidence review.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed public location state, precision and the project's internal evidence review.
 
 ## Evidence and assessment model
 

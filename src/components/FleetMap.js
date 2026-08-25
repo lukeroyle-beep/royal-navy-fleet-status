@@ -12,6 +12,8 @@ import {
   markerClassName,
   plottedVessels,
 } from "../utils/map.js";
+import { MapStartupViewGate } from "../utils/mapStartup.js";
+import { MapViewChangeGate } from "../utils/mapViewChange.js";
 
 const DEFAULT_VIEW = {
   centre: [28, 0],
@@ -19,11 +21,12 @@ const DEFAULT_VIEW = {
 };
 
 export class FleetMap {
-  constructor({ container, notice, onSelect, onSelectEstablishment }) {
+  constructor({ container, notice, onSelect, onSelectEstablishment, onViewChange = () => {} }) {
     this.container = container;
     this.notice = notice;
     this.onSelect = onSelect;
     this.onSelectEstablishment = onSelectEstablishment;
+    this.onViewChange = onViewChange;
     this.markers = new Map();
     this.uncertaintyLayers = new Map();
     this.uncertaintyGroups = [];
@@ -34,6 +37,8 @@ export class FleetMap {
     this.uncertaintyAreasVisible = true;
     this.shoreVisible = false;
     this.clusteringEnabled = true;
+    this.startupViewGate = new MapStartupViewGate();
+    this.viewChangeGate = new MapViewChangeGate();
     this.selectedId = null;
     this.selectedShoreId = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -106,10 +111,60 @@ export class FleetMap {
     this.unclusteredShoreGroup = L.layerGroup().addTo(this.map);
     this.shoreSelectionGroup = L.layerGroup().addTo(this.map);
 
-    this.resizeObserver = new ResizeObserver(() => this.map.invalidateSize({ pan: false }));
+    this.resizeObserver = new ResizeObserver(() => this.#preserveViewThroughResize());
     this.resizeObserver.observe(container);
     window.addEventListener("orientationchange", () => {
-      window.setTimeout(() => this.map.invalidateSize({ pan: false }), 100);
+      window.setTimeout(() => this.#preserveViewThroughResize(), 100);
+    });
+    this.map.on("moveend", () => {
+      const view = this.getView();
+      if (
+        this.startupViewGate.ready &&
+        this.viewChangeGate.recordExternalViewChange(view)
+      ) {
+        this.onViewChange(view);
+      }
+    });
+  }
+
+  getView() {
+    const centre = this.map.getCenter();
+    return {
+      centre: [centre.lat, centre.lng],
+      zoom: this.map.getZoom(),
+    };
+  }
+
+  getPublicView() {
+    return this.viewChangeGate.authoritativeView ?? this.getView();
+  }
+
+  setView({ centre, zoom }, { animate = false } = {}) {
+    this.map.stop();
+    this.map.setView(centre, zoom, { animate: animate && !this.reducedMotion });
+  }
+
+  completeStartupView(view) {
+    this.startupViewGate.complete(() => {
+      this.map.stop();
+      if (view) {
+        this.map.setView(view.centre, view.zoom, { animate: false });
+      } else {
+        this.#resetView({ animate: false });
+      }
+    });
+    this.viewChangeGate.setAuthoritativeView(this.getView());
+  }
+
+  #preserveViewThroughResize() {
+    const preservedView = this.viewChangeGate.authoritativeView ?? this.getView();
+    this.viewChangeGate.runInternalViewChange(() => {
+      this.map.stop();
+      this.map.invalidateSize({ animate: false, debounceMoveend: false, pan: false });
+      this.map.setView(preservedView.centre, preservedView.zoom, {
+        animate: false,
+        reset: true,
+      });
     });
   }
 
@@ -243,6 +298,10 @@ export class FleetMap {
   }
 
   resetView() {
+    this.startupViewGate.runAutomaticFit(() => this.#resetView());
+  }
+
+  #resetView({ animate = !this.reducedMotion } = {}) {
     const layers = [
       ...(this.fleetVisible
         ? this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean)
@@ -263,14 +322,14 @@ export class FleetMap {
 
     if (!layers.length) {
       this.map.setView(DEFAULT_VIEW.centre, DEFAULT_VIEW.zoom, {
-        animate: !this.reducedMotion,
+        animate,
       });
       return;
     }
 
     const bounds = L.featureGroup(layers).getBounds();
     this.map.fitBounds(bounds, {
-      animate: !this.reducedMotion,
+      animate,
       maxZoom: layers.length === 1 ? 7 : 8,
       padding: mapFitPadding(this.container.clientWidth),
     });

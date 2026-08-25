@@ -44,6 +44,7 @@ const discoveryCollector = fs.readFileSync(
 const viteConfig = fs.readFileSync(new URL("../vite.config.js", import.meta.url), "utf8");
 const indexHtml = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const appSource = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
+const publicStateSource = fs.readFileSync(new URL("../src/utils/publicState.js", import.meta.url), "utf8");
 const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
 const checklist = fs.readFileSync(
   new URL("../docs/private-release-test.md", import.meta.url),
@@ -67,10 +68,13 @@ assert.doesNotMatch(workflow, /pages:\s*write|id-token:\s*write|actions\/deploy-
 assert.match(discoveryCollector, /process\.exitCode\s*=\s*1/);
 assert.match(discoveryWorkflow, /Upload discovery ledger\s*\n\s*if:\s*always\(\)/);
 assert.match(checklist, /\| iPad \| Safari \|/);
+assert.match(checklist, /\| iPhone \| Safari \|/);
 assert.match(checklist, /Portrait/);
 assert.match(checklist, /Landscape/);
 assert.match(report, /Observed defect/);
 assert.match(report, /Screenshot or notes/);
+assert.match(report, /Decision: Blocked/);
+assert.match(report, /physical iPad, iPhone and desktop devices/);
 assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
 assert.match(indexHtml, /class="command-header"/);
@@ -109,7 +113,11 @@ assert.doesNotMatch(
   /mapSubtitle|elements\.subtitle|elements\.title/,
   "Application initialisation must not overwrite the static fleet title.",
 );
-assert.doesNotMatch(appSource, /URLSearchParams|pushState|replaceState/);
+assert.match(appSource, /history\.replaceState/);
+assert.match(publicStateSource, /PUBLIC_STATE_VERSION = 2/);
+assert.match(publicStateSource, /LEGACY_PUBLIC_STATE_VERSION = 1/);
+assert.match(publicStateSource, /createShareablePublicUrl/);
+assert.doesNotMatch(publicStateSource, /evidenceGrade|confidenceScore|analystNotes|sourceUrl/);
 assert.match(appSource, /insightsMatchDataset/);
 assert.match(appSource, /formatDatasetReleaseLabel\(dataset\.metadata\)/);
 assert.match(appSource, /formatPublicationChangeLabels\(publication\)/);
