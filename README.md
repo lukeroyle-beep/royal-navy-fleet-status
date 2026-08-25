@@ -192,6 +192,12 @@ append-only in `data/royal-navy/status-history.jsonl`; append the current datase
 12-month availability figure until at least 52 weekly observations span approximately one year, and
 unknown observations reduce coverage instead of being guessed.
 
+Future fleet/class analytics use the separate, class-aware
+`data/royal-navy/availability-history.jsonl` ledger. Its proposed scheduled collector accepts only a
+reviewed public status release, opens a human-reviewed pull request containing that ledger alone and
+fails rather than treating stale status as a new weekly observation. Historic percentages remain
+unpublished. See [`docs/weekly-availability-history.md`](docs/weekly-availability-history.md).
+
 If late evidence requires a same-day correction, follow
 [`docs/release-revisions.md`](docs/release-revisions.md): increment the release revision, record a
 later release instant and append a reasoned correction instead of rewriting history.

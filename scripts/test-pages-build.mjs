@@ -38,6 +38,11 @@ assert.ok(
   fs.existsSync(path.join(distRoot, "data/royal-navy/status-history.jsonl")),
   "Pages artifact must contain the append-only status history.",
 );
+assert.equal(
+  fs.existsSync(path.join(distRoot, "data/royal-navy/availability-history.jsonl")),
+  false,
+  "Weekly availability history must remain outside the current public build.",
+);
 assert.doesNotMatch(html, /(?:src|href)="\/assets\//, "Pages resources must not use root asset paths.");
 
 console.log("GitHub Pages build checks passed.");

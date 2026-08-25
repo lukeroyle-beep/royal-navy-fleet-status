@@ -27,6 +27,7 @@ jobs:
         run: |
           npm run validate:decisions -- --base-ref "$BASE_REF"
           npm run validate:history -- --base-ref "$BASE_REF"
+          npm run validate:availability -- --base-ref "$BASE_REF"
           npm run validate:sweeps -- --base-ref "$BASE_REF"
       - run: npm run validate:changes
       - run: npm run build
