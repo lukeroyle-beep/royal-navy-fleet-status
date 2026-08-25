@@ -6,6 +6,7 @@ const result = inspectPushedWeeklyCandidate({
   openPullRequests: JSON.parse(fs.readFileSync(readArgument("--open-prs"), "utf8")),
   title: readArgument("--title"),
   canonicalBranch: readArgument("--canonical-branch"),
+  baseBranch: readArgument("--base-branch"),
   pushedSha: readArgument("--pushed-sha"),
 });
 process.stdout.write(JSON.stringify(result));

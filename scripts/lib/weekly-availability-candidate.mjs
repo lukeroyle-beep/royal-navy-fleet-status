@@ -69,9 +69,13 @@ export function inspectPushedWeeklyCandidate({
   openPullRequests,
   title,
   canonicalBranch,
+  baseBranch,
   pushedSha,
 }) {
   if (!Array.isArray(openPullRequests)) throw new Error("Open pull-request data must be an array.");
+  if (typeof baseBranch !== "string" || !baseBranch.trim()) {
+    throw new Error("The pushed candidate base branch is invalid.");
+  }
   if (!/^[a-f0-9]{40}$/.test(pushedSha || "")) {
     throw new Error("The validated pushed candidate SHA is invalid.");
   }
@@ -89,6 +93,7 @@ export function inspectPushedWeeklyCandidate({
     match.isCrossRepository !== false ||
     match.title !== title ||
     match.headRefName !== canonicalBranch ||
+    match.baseRefName !== baseBranch ||
     match.headRefOid !== pushedSha ||
     typeof match.url !== "string" ||
     !match.url

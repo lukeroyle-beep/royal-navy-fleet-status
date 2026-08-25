@@ -183,13 +183,14 @@ jobs:
           fi
 
           query_pushed_candidate() {
-            gh pr list --state open --base main --limit 100 \
-              --json number,title,url,headRefName,headRefOid,isCrossRepository \
+            gh pr list --state open --head "$canonical_branch" --limit 100 \
+              --json number,title,url,baseRefName,headRefName,headRefOid,isCrossRepository \
               > candidate/post-push-open-pull-requests.json
             node scripts/inspect-pushed-weekly-availability-pr.mjs \
               --open-prs candidate/post-push-open-pull-requests.json \
               --title "$title" \
               --canonical-branch "$canonical_branch" \
+              --base-branch main \
               --pushed-sha "$pushed_sha"
           }
 
@@ -214,30 +215,22 @@ jobs:
             echo "Opened the owner-reviewed candidate: ${confirmed_pr_url}" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
+
+          # A competing actor can open the exact PR after the first post-create query.
+          # Re-query once more before reporting failure. No failure path below rewinds
+          # or deletes the validated branch, so an even later interleaving remains safe.
+          final_candidate_state="$(query_pushed_candidate)"
+          if [[ "$(jq -r '.state' <<<"$final_candidate_state")" == "matching" ]]; then
+            concurrent_pr_url="$(jq -r '.url' <<<"$final_candidate_state")"
+            echo "Another actor opened the exact validated candidate: ${concurrent_pr_url}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
           if (( create_status == 0 )); then
             echo "Pull-request creation reported success but the exact validated open pull request was not found; leaving the leased branch unchanged for inspection." >&2
             exit 1
           fi
           if (( create_status != 0 )); then
-            cleanup_status=0
-            set +e
-            if [[ -n "$pushed_sha" && -n "$remote_sha_before" ]]; then
-              git push --force-with-lease="refs/heads/${branch}:${pushed_sha}" \
-                origin "${remote_sha_before}:refs/heads/${branch}"
-              cleanup_status=$?
-            elif [[ -n "$pushed_sha" ]]; then
-              git push --force-with-lease="refs/heads/${branch}:${pushed_sha}" \
-                origin ":refs/heads/${branch}"
-              cleanup_status=$?
-            fi
-            set -e
-            if (( cleanup_status != 0 )); then
-              echo "Automatic recovery also failed for ${branch}; inspect that exact branch before rerunning." >&2
-            elif [[ -n "$pushed_sha" ]]; then
-              echo "The branch version pushed by this run was restored or removed." >&2
-            else
-              echo "No branch state was changed by this run." >&2
-            fi
+            echo "The validated candidate remains on ${branch} at ${pushed_sha}; inspect that branch or rerun after resolving pull-request creation." >&2
             echo "GitHub refused pull-request creation. Enable Settings > Actions > General > Workflow permissions > Allow GitHub Actions to create and approve pull requests, then rerun this workflow." >&2
             exit "$create_status"
           fi

@@ -65,9 +65,15 @@ assert.match(workflow, /canonical_branch="automation\/weekly-availability-\$\{we
 assert.match(workflow, /select-weekly-availability-candidate\.mjs/);
 assert.match(workflow, /decide-weekly-availability-candidate\.mjs/);
 assert.match(workflow, /inspect-pushed-weekly-availability-pr\.mjs/);
+assert.match(
+  workflow,
+  /gh pr list --state open --head "\$canonical_branch" --limit 100/,
+  "Every post-push race query must authoritatively inspect all open PRs for the canonical head branch.",
+);
 assert.match(workflow, /--force-with-lease="refs\/heads\/\$\{branch\}:\$\{remote_sha_before\}"/);
-assert.match(workflow, /--force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"/);
-assert.match(workflow, /origin ":refs\/heads\/\$\{branch\}"/);
+assert.doesNotMatch(workflow, /--force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"/);
+assert.doesNotMatch(workflow, /origin ":refs\/heads\/\$\{branch\}"/);
+assert.doesNotMatch(workflow, /\$\{remote_sha_before\}:refs\/heads\/\$\{branch\}/);
 assert.match(workflow, /Allow GitHub Actions to create and approve pull requests/);
 assert.doesNotMatch(workflow, /git push[^\n]*\bmain\b/);
 assert.match(design, /fails and writes nothing/);
@@ -290,6 +296,7 @@ const exactPushedPullRequest = {
   title: candidateTitle,
   url: "https://example.test/pull/12",
   headRefName: canonicalCandidateBranch,
+  baseRefName: "main",
   headRefOid: pushedSha,
   isCrossRepository: false,
 };
@@ -298,6 +305,7 @@ assert.deepEqual(
     openPullRequests: [],
     title: candidateTitle,
     canonicalBranch: canonicalCandidateBranch,
+    baseBranch: "main",
     pushedSha,
   }),
   { state: "none", url: null },
@@ -308,6 +316,7 @@ assert.deepEqual(
     openPullRequests: [exactPushedPullRequest],
     title: candidateTitle,
     canonicalBranch: canonicalCandidateBranch,
+    baseBranch: "main",
     pushedSha,
   }),
   { state: "matching", url: exactPushedPullRequest.url },
@@ -316,6 +325,7 @@ assert.deepEqual(
 for (const mismatchedPullRequest of [
   { ...exactPushedPullRequest, title: `${candidateTitle} unexpected` },
   { ...exactPushedPullRequest, headRefName: `${canonicalCandidateBranch}-elsewhere` },
+  { ...exactPushedPullRequest, baseRefName: "release" },
   { ...exactPushedPullRequest, headRefOid: "b".repeat(40) },
   { ...exactPushedPullRequest, isCrossRepository: true },
 ]) {
@@ -325,6 +335,7 @@ for (const mismatchedPullRequest of [
         openPullRequests: [mismatchedPullRequest],
         title: candidateTitle,
         canonicalBranch: canonicalCandidateBranch,
+        baseBranch: "main",
         pushedSha,
       }),
     /mismatched or points elsewhere/i,
@@ -339,37 +350,89 @@ assert.throws(
       ],
       title: candidateTitle,
       canonicalBranch: canonicalCandidateBranch,
+      baseBranch: "main",
       pushedSha,
     }),
   /ambiguous open pull requests/i,
 );
 
+function simulatePostCreateInterleaving({ queryResults, createStatus }) {
+  let created = false;
+  for (let index = 0; index < queryResults.length; index += 1) {
+    if (index === 1) created = true;
+    const inspection = inspectPushedWeeklyCandidate({
+      openPullRequests: queryResults[index],
+      title: candidateTitle,
+      canonicalBranch: canonicalCandidateBranch,
+      baseBranch: "main",
+      pushedSha,
+    });
+    if (inspection.state === "matching") {
+      return { outcome: "matching", created, branchMutationAfterCreate: false };
+    }
+  }
+  return {
+    outcome: createStatus === 0 ? "unconfirmed" : "orphan",
+    created,
+    branchMutationAfterCreate: false,
+  };
+}
+
+assert.deepEqual(
+  simulatePostCreateInterleaving({
+    queryResults: [[exactPushedPullRequest]],
+    createStatus: 1,
+  }),
+  { outcome: "matching", created: false, branchMutationAfterCreate: false },
+  "A matching PR appearing before create must end the run without another mutation.",
+);
+assert.deepEqual(
+  simulatePostCreateInterleaving({
+    queryResults: [[], [], [exactPushedPullRequest]],
+    createStatus: 1,
+  }),
+  { outcome: "matching", created: true, branchMutationAfterCreate: false },
+  "A competing actor PR appearing only at the final post-create query must suppress cleanup.",
+);
+assert.deepEqual(
+  simulatePostCreateInterleaving({ queryResults: [[], [], []], createStatus: 1 }),
+  { outcome: "orphan", created: true, branchMutationAfterCreate: false },
+  "Creation failure with no PR must leave an actionable, non-destructive orphan.",
+);
+assert.throws(
+  () =>
+    simulatePostCreateInterleaving({
+      queryResults: [[], [{ ...exactPushedPullRequest, headRefOid: "b".repeat(40) }]],
+      createStatus: 1,
+    }),
+  /mismatched or points elsewhere/i,
+  "A mismatched competing PR must fail closed without reaching branch cleanup.",
+);
+
 const preCreateQueryIndex = workflow.indexOf('post_push_state="$(query_pushed_candidate)"');
 const createIndex = workflow.indexOf('pr_url="$(gh pr create');
 const postCreateQueryIndex = workflow.indexOf('post_create_state="$(query_pushed_candidate)"');
-const cleanupIndex = workflow.indexOf('if [[ -n "$pushed_sha" && -n "$remote_sha_before" ]]');
+const finalQueryIndex = workflow.indexOf('final_candidate_state="$(query_pushed_candidate)"');
+const failureIndex = workflow.indexOf('if (( create_status == 0 ));');
 assert.ok(
   preCreateQueryIndex > 0 && preCreateQueryIndex < createIndex,
   "The matching-PR race must be checked before attempting creation.",
 );
 assert.ok(
-  postCreateQueryIndex > createIndex && postCreateQueryIndex < cleanupIndex,
-  "A failed creation must be re-queried before any rollback.",
+  postCreateQueryIndex > createIndex && postCreateQueryIndex < finalQueryIndex,
+  "The first post-create query must follow the creation attempt.",
 );
 assert.match(
-  workflow.slice(postCreateQueryIndex, cleanupIndex),
-  /state' <<<"\$post_create_state"[\s\S]*create_status == 0[\s\S]*leaving the leased branch unchanged for inspection/,
-  "A creation result without an exact PR must fail closed before cleanup decisions.",
+  workflow.slice(postCreateQueryIndex, failureIndex),
+  /state' <<<"\$post_create_state"[\s\S]*final_candidate_state="\$\(query_pushed_candidate\)"[\s\S]*state' <<<"\$final_candidate_state"/,
+  "A competing actor PR appearing after the first post-create query must be accepted by a final query.",
 );
-assert.match(
-  workflow.slice(cleanupIndex),
-  /force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"[\s\S]*origin ":refs\/heads\/\$\{branch\}"/,
-  "Creation failure without a PR must delete only the exact SHA pushed by this run.",
-);
-assert.match(
-  workflow.slice(cleanupIndex),
-  /force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"[\s\S]*\$\{remote_sha_before\}:refs\/heads\/\$\{branch\}/,
-  "Restoring an orphan branch must use the exact pushed SHA lease.",
+assert.ok(finalQueryIndex > postCreateQueryIndex && finalQueryIndex < failureIndex);
+assert.match(workflow.slice(finalQueryIndex), /validated candidate remains on \$\{branch\} at \$\{pushed_sha\}/);
+assert.doesNotMatch(
+  workflow.slice(createIndex),
+  /git push/,
+  "No post-create failure path may delete, rewind, or otherwise mutate the validated branch.",
 );
 assert.match(
   workflow,

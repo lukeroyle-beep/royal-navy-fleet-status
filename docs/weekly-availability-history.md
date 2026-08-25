@@ -77,12 +77,11 @@ Actions to create pull requests. Pull requests created with the repository token
 downstream workflows automatically, so the candidate runs the complete local gate before opening and
 still requires owner review. Every third-party action in this workflow is pinned to an immutable commit.
 
-The candidate uses a stable per-week branch. It checks for the exact validated pull request both before
-and after attempting creation, so an interleaved successful creation is not rolled back. If branch
-creation succeeds but GitHub refuses pull-request creation and no matching pull request exists, the
-workflow removes a newly created branch or restores a pre-existing orphan to its prior commit using an
-exact lease. A concurrent branch change makes that cleanup fail safely rather than overwrite the newer
-state. A previously orphaned, unchanged branch is deliberately left untouched and can be recovered by
-rerunning after the repository permission is enabled. The required owner setting is
+The candidate uses a stable per-week branch. It checks for the exact validated pull request before
+creation and twice after attempting creation, so an interleaved successful creation is recognized.
+If GitHub refuses pull-request creation and no matching pull request is visible, the validated branch is
+deliberately left at its pushed commit for inspection. The failure path never deletes or rewinds the
+branch: this avoids corrupting a pull request opened by another actor immediately after the last query.
+The orphan can be recovered by rerunning after the repository permission is enabled. The required owner setting is
 **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull
 requests**. The workflow does not and cannot enable that setting itself.
