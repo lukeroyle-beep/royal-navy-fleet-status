@@ -30,7 +30,11 @@ import {
   formatPublicationFreshness,
   formatPublicationChangeLabels,
 } from "./utils/release.js";
-import { countActiveFilters, formatVesselResultSummary } from "./utils/interface.js";
+import {
+  countActiveFilters,
+  formatVesselResultSummary,
+  resolveSnapshotTransitionSelection,
+} from "./utils/interface.js";
 import {
   PORT_SHORE_FILTER,
   PUBLIC_PRESETS,
@@ -349,6 +353,7 @@ function applySnapshotDate(requestedDate, { sync = true } = {}) {
       )
     : currentDataset.metadata.asOfDate;
   const retainedVesselId = selectedId;
+  const retainedShoreId = selectedShoreId;
   selectedSnapshotDate = resolvedDate;
   dataset = insights.available
     ? createPublicSnapshotDataset({
@@ -379,12 +384,28 @@ function applySnapshotDate(requestedDate, { sync = true } = {}) {
   }`;
 
   selectedId = null;
+  selectedShoreId = null;
   fleetMap.clearSelection();
   fleetMap.setVessels(dataset.vessels);
-  applyFilters({ sync: false });
-  const retainedVessel = dataset.vessels.find((vessel) => vessel.id === retainedVesselId);
-  if (retainedVessel) {
-    selectVessel(retainedVessel, { source: "restore", focusMap: false, sync: false });
+  const visibleVessels = applyFilters({ sync: false });
+  const retainedSelection = resolveSnapshotTransitionSelection({
+    visibleVessels,
+    shoreEstablishments: shoreDataset.establishments,
+    selectedVesselId: retainedVesselId,
+    selectedShoreId: retainedShoreId,
+  });
+  if (retainedSelection.vessel) {
+    selectVessel(retainedSelection.vessel, {
+      source: "restore",
+      focusMap: false,
+      sync: false,
+    });
+  } else if (retainedSelection.shoreEstablishment) {
+    selectShoreEstablishment(retainedSelection.shoreEstablishment, {
+      source: "restore",
+      focusMap: false,
+      sync: false,
+    });
   } else {
     details.renderDefault(dataset);
     surfaceController.close("detail");

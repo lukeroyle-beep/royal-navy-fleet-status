@@ -32,3 +32,22 @@ export function nextOpenSurfaces(openSurfaces, requestedSurface, compact) {
   if (shouldOpen) next.add(requestedSurface);
   return next;
 }
+
+export function resolveSnapshotTransitionSelection({
+  visibleVessels = [],
+  shoreEstablishments = [],
+  selectedVesselId = null,
+  selectedShoreId = null,
+} = {}) {
+  if (selectedVesselId) {
+    return {
+      vessel: visibleVessels.find((vessel) => vessel.id === selectedVesselId) ?? null,
+      shoreEstablishment: null,
+    };
+  }
+  return {
+    vessel: null,
+    shoreEstablishment:
+      shoreEstablishments.find((establishment) => establishment.id === selectedShoreId) ?? null,
+  };
+}
