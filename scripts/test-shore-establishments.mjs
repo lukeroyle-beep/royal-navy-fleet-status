@@ -49,12 +49,13 @@ assert.equal(availability.active, 50);
 assert.equal(availability.total, 68);
 assert.equal(availability.percentage.toFixed(1), "73.5");
 
-assert.match(html, /id="shoreLayerToggle"[^>]*aria-pressed="false"/);
+assert.match(html, /id="shoreLayerToggle"[^>]*type="checkbox"[^>]*aria-controls="shoreControls"/);
 assert.match(html, /id="shoreControls"[^>]*hidden/);
 assert.match(html, /id="shoreSearchInput"/);
 assert.match(html, /id="shoreTypeFilter"/);
 assert.match(app, /filterShoreEstablishments/);
 assert.match(app, /fleetMap\.setShoreVisible/);
+assert.match(app, /fleetMap\.setClusteringEnabled/);
 assert.match(map, /shoreClusterGroup/);
 assert.match(map, /selectShoreEstablishment/);
 assert.match(details, /renderEstablishment/);

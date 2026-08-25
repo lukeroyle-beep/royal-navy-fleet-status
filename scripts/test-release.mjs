@@ -82,8 +82,9 @@ assert.match(indexHtml, /id="fleetAvailabilityFormula"/);
 assert.match(indexHtml, /id="deployedCount"/);
 assert.match(indexHtml, /id="refitCount"/);
 assert.match(indexHtml, /id="unknownCount"/);
-assert.match(indexHtml, /id="filteredCount"/);
-assert.match(indexHtml, /id="filterDisclosure"/);
+assert.match(indexHtml, /id="filterResultStatus"/);
+assert.match(indexHtml, /id="filterBadge"/);
+assert.match(indexHtml, /id="filterPanel"/);
 assert.match(indexHtml, /Location classification/);
 assert.doesNotMatch(indexHtml, /Location confidence/);
 assert.match(indexHtml, /id="changesToggle"/);
@@ -92,7 +93,7 @@ assert.match(indexHtml, /id="classRibbon"/);
 assert.match(indexHtml, /id="classAvailabilityPanel"[^>]*aria-live="polite"[^>]*hidden/);
 assert.match(indexHtml, /id="changesPanel"[^>]*hidden/);
 assert.match(indexHtml, /id="detailCard"[^>]*aria-live="polite"[^>]*hidden/);
-assert.match(indexHtml, /Public-status snapshot/);
+assert.match(indexHtml, /Public fleet snapshot/);
 assert.match(indexHtml, /not operational readiness/);
 assert.doesNotMatch(indexHtml, /id="activeCount"|id="activePercentage"|id="mappedCount"/);
 assert.doesNotMatch(indexHtml, /Royal Navy and RFA OSINT Fleet Map/);
@@ -122,15 +123,16 @@ assert.doesNotMatch(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
   /Supporting source|vessel\.source|Location evidence date|Evidence freshness/,
 );
-assert.match(styles, /@media \(max-width: 620px\)[\s\S]*\.map-reset\s*\{[^}]*min-height:\s*44px;/s);
-assert.match(styles, /#resetFilters\s*\{[^}]*min-height:\s*44px;/s);
+assert.match(styles, /button,[\s\S]*min-height:\s*44px;/s);
+assert.match(styles, /\.map-reset\s*\{[\s\S]*min-height:\s*44px;/s);
 assert.doesNotMatch(appSource, /hasPlottablePosition|label: "Mapped records"/);
-assert.match(styles, /\.command-header\s*\{[^}]*display:\s*flex;/s);
-assert.match(styles, /\.command-workspace\s*\{[^}]*grid-template-columns:/s);
-assert.match(styles, /\.map-stage\s*\{[^}]*overflow:\s*hidden;/s);
+assert.match(styles, /\.command-header\s*\{[^}]*display:\s*grid;/s);
+assert.match(styles, /\.command-workspace\s*\{[^}]*position:\s*relative;/s);
+assert.match(styles, /\.command-workspace\s*\{[^}]*overflow:\s*hidden;/s);
 assert.match(styles, /\.status-metrics\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
-assert.match(styles, /@media \(max-width: 1100px\) and \(orientation: portrait\), \(max-width: 700px\)/);
-assert.match(styles, /@media \(max-width: 620px\)/);
+assert.match(styles, /@media \(max-width: 1100px\) and \(orientation: portrait\)/);
+assert.match(styles, /\(pointer: coarse\) and \(max-width: 1400px\)/);
+assert.match(styles, /@media \(max-width: 760px\)/);
 assert.doesNotMatch(styles, /\.topbar\s*\{/);
 
 for (const file of [workflow, viteConfig, checklist, report]) {

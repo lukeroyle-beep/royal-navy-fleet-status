@@ -6,6 +6,7 @@ import {
 import { FleetMap } from "./components/FleetMap.js";
 import { ScenarioLoader } from "./components/ScenarioLoader.js";
 import { ShoreEstablishmentLoader } from "./components/ShoreEstablishmentLoader.js";
+import { SurfaceController } from "./components/SurfaceController.js";
 import {
   AVAILABILITY_STATUS_ORDER,
   getAvailabilitySummary,
@@ -15,8 +16,10 @@ import { shortClassName } from "./utils/insights.js";
 import { filterShoreEstablishments, shoreTypes } from "./utils/shore.js";
 import {
   formatDatasetReleaseLabel,
+  formatPublicationFreshness,
   formatPublicationChangeLabels,
 } from "./utils/release.js";
+import { countActiveFilters, formatVesselResultSummary } from "./utils/interface.js";
 import "./styles.css";
 
 const DATA_URL = "./data/royal-navy/vessels.json";
@@ -36,10 +39,14 @@ const CLASS_PRIORITY = [
 
 const elements = {
   asOfDate: document.querySelector("#asOfDate"),
+  publicationFreshness: document.querySelector("#publicationFreshness"),
+  fleetToggle: document.querySelector("#fleetToggle"),
+  layersToggle: document.querySelector("#layersToggle"),
+  filterToggle: document.querySelector("#filterToggle"),
+  filterBadge: document.querySelector("#filterBadge"),
   changesToggle: document.querySelector("#changesToggle"),
   changesCount: document.querySelector("#changesCount"),
   changesPanel: document.querySelector("#changesPanel"),
-  changesClose: document.querySelector("#changesClose"),
   changesSummary: document.querySelector("#changesSummary"),
   changesList: document.querySelector("#changesList"),
   totalCount: document.querySelector("#totalCount"),
@@ -48,7 +55,7 @@ const elements = {
   deployedCount: document.querySelector("#deployedCount"),
   refitCount: document.querySelector("#refitCount"),
   unknownCount: document.querySelector("#unknownCount"),
-  filteredCount: document.querySelector("#filteredCount"),
+  filterResultStatus: document.querySelector("#filterResultStatus"),
   filterSelectionStatus: document.querySelector("#filterSelectionStatus"),
   classRibbon: document.querySelector("#classRibbon"),
   classSelectionStatus: document.querySelector("#classSelectionStatus"),
@@ -64,16 +71,18 @@ const elements = {
   type: document.querySelector("#typeFilter"),
   location: document.querySelector("#locationFilter"),
   reset: document.querySelector("#resetFilters"),
+  panelReset: document.querySelector("#panelResetFilters"),
   list: document.querySelector("#vesselList"),
   resultsStatus: document.querySelector("#resultsStatus"),
   error: document.querySelector("#loadError"),
   errorMessage: document.querySelector("#loadErrorMessage"),
   mapNotice: document.querySelector("#mapNotice"),
   mapReset: document.querySelector("#resetMap"),
+  fleetLayerToggle: document.querySelector("#fleetLayerToggle"),
   shoreLayerToggle: document.querySelector("#shoreLayerToggle"),
+  clusterLayerToggle: document.querySelector("#clusterLayerToggle"),
   shoreLayerCount: document.querySelector("#shoreLayerCount"),
   shoreControls: document.querySelector("#shoreControls"),
-  shoreLayerClose: document.querySelector("#shoreLayerClose"),
   shoreSearch: document.querySelector("#shoreSearchInput"),
   shoreType: document.querySelector("#shoreTypeFilter"),
   shoreFilteredCount: document.querySelector("#shoreFilteredCount"),
@@ -85,7 +94,9 @@ const details = new EventDetailsPanel({
   container: document.querySelector("#detailCard"),
   kind: document.querySelector("#detailKind"),
   title: document.querySelector("#detailTitle"),
+  primaryMeta: document.querySelector("#detailPrimaryMeta"),
   meta: document.querySelector("#detailMeta"),
+  disclosure: document.querySelector("#detailDisclosure"),
   photo: document.querySelector("#detailPhoto"),
   photoImage: document.querySelector("#detailPhotoImage"),
   photoCredit: document.querySelector("#detailPhotoCredit"),
@@ -97,7 +108,6 @@ let insights = { changes: null, history: [], available: false };
 let selectedId = null;
 let selectedShoreId = null;
 let selectedClass = "";
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const fleetMap = new FleetMap({
   container: document.querySelector("#fleetMap"),
@@ -106,6 +116,24 @@ const fleetMap = new FleetMap({
   onSelectEstablishment: (establishment) =>
     selectShoreEstablishment(establishment, { source: "map" }),
 });
+
+const surfaceController = new SurfaceController({
+  surfaces: new Map([
+    ["fleet", document.querySelector("#fleetDrawer")],
+    ["detail", document.querySelector("#detailDrawer")],
+    ["layers", document.querySelector("#layersPanel")],
+    ["filters", document.querySelector("#filterPanel")],
+    ["changes", document.querySelector("#changesPanel")],
+  ]),
+  triggers: new Map([
+    ["fleet", elements.fleetToggle],
+    ["layers", elements.layersToggle],
+    ["filters", elements.filterToggle],
+    ["changes", elements.changesToggle],
+  ]),
+  backdrop: document.querySelector("#surfaceBackdrop"),
+});
+if (surfaceController.isCompact()) surfaceController.closeAll();
 
 initialize();
 
@@ -135,6 +163,7 @@ async function initialize() {
 
 function bindDataset() {
   elements.asOfDate.textContent = formatDatasetReleaseLabel(dataset.metadata);
+  elements.publicationFreshness.textContent = formatPublicationFreshness(dataset.metadata);
   renderFleetOverview();
   fillSelect(elements.service, uniqueValues("service"));
   fillSelect(elements.status, uniqueValues("status"));
@@ -144,44 +173,39 @@ function bindDataset() {
   fleetMap.setVessels(dataset.vessels);
   fleetMap.setShoreEstablishments(shoreDataset.establishments);
   details.renderDefault(dataset);
-  elements.shoreLayerCount.textContent = shoreDataset.establishments.length.toString();
+  elements.shoreLayerCount.textContent = `${shoreDataset.establishments.length} public locations`;
   elements.shoreTotalCount.textContent = shoreDataset.establishments.length.toString();
   fillSelect(elements.shoreType, shoreTypes(shoreDataset.establishments));
 
-  elements.search.addEventListener("input", applyFilters);
+  elements.search.addEventListener("input", () => {
+    applyFilters();
+    if (elements.search.value.trim()) surfaceController.open("fleet");
+  });
   for (const select of [elements.service, elements.status, elements.type, elements.location]) {
     select.addEventListener("change", applyFilters);
   }
   elements.reset.addEventListener("click", () => resetFilters({ focus: true }));
+  elements.panelReset.addEventListener("click", () => resetFilters({ focus: true }));
   elements.mapReset.addEventListener("click", () => fleetMap.resetView());
-  elements.shoreLayerToggle.addEventListener("click", () =>
-    toggleShoreLayer(elements.shoreControls.hidden),
+  elements.fleetLayerToggle.addEventListener("change", () =>
+    fleetMap.setFleetVisible(elements.fleetLayerToggle.checked),
   );
-  elements.shoreLayerClose.addEventListener("click", () => toggleShoreLayer(false));
+  elements.shoreLayerToggle.addEventListener("change", () =>
+    toggleShoreLayer(elements.shoreLayerToggle.checked),
+  );
+  elements.clusterLayerToggle.addEventListener("change", () =>
+    fleetMap.setClusteringEnabled(elements.clusterLayerToggle.checked),
+  );
   elements.shoreSearch.addEventListener("input", applyShoreFilters);
   elements.shoreType.addEventListener("change", applyShoreFilters);
-  elements.changesToggle.addEventListener("click", () => toggleChangesPanel(elements.changesPanel.hidden));
-  elements.changesClose.addEventListener("click", () => toggleChangesPanel(false, { restoreFocus: true }));
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !elements.changesPanel.hidden) {
-      toggleChangesPanel(false, { restoreFocus: true });
-    }
-  });
   applyFilters();
   applyShoreFilters({ fit: false });
 }
 
 function toggleShoreLayer(open) {
   elements.shoreControls.hidden = !open;
-  elements.shoreLayerToggle.setAttribute("aria-pressed", open.toString());
-  elements.shoreLayerToggle.classList.toggle("is-selected", open);
+  elements.shoreLayerToggle.checked = open;
   fleetMap.setShoreVisible(open, { fit: true });
-  if (open) {
-    elements.shoreControls.scrollIntoView({
-      behavior: reducedMotion ? "auto" : "smooth",
-      block: "nearest",
-    });
-  }
 }
 
 function applyShoreFilters({ fit = true } = {}) {
@@ -196,6 +220,7 @@ function applyShoreFilters({ fit = true } = {}) {
     selectedShoreId = null;
     details.renderDefault(dataset);
     fleetMap.clearSelection();
+    surfaceController.close("detail");
   }
 }
 
@@ -219,16 +244,14 @@ function selectShoreEstablishment(establishment, { source = "list" } = {}) {
   selectedShoreId = establishment.id;
   selectedId = null;
   details.renderEstablishment(establishment);
-  fleetMap.selectShoreEstablishment(establishment, { focus: source === "list" });
+  fleetMap.selectShoreEstablishment(establishment, { focus: true });
   for (const button of elements.shoreList.querySelectorAll("button")) {
     button.classList.toggle("is-selected", button.dataset.establishmentId === establishment.id);
   }
   for (const button of elements.list.querySelectorAll("button")) {
     button.classList.remove("is-selected");
   }
-  document
-    .querySelector("#detailCard")
-    .scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest" });
+  surfaceController.open("detail", { focus: source === "list" });
 }
 
 function uniqueValues(field) {
@@ -395,6 +418,7 @@ function applyFilters() {
     selectedId = null;
     details.renderDefault(dataset);
     fleetMap.clearSelection();
+    surfaceController.close("detail");
   }
 }
 
@@ -407,14 +431,32 @@ function renderFilterSummary(filteredCount) {
     elements.location.value ? formatClassification(elements.location.value) : "",
   ].filter(Boolean);
   const hasSearch = Boolean(elements.search.value.trim());
-  const activeFilterCount = filterLabels.length + Number(hasSearch);
+  const activeFilterCount = countActiveFilters({
+    query: elements.search.value,
+    vesselClass: selectedClass,
+    service: elements.service.value,
+    status: elements.status.value,
+    type: elements.type.value,
+    location: elements.location.value,
+  });
   const hasFilters = activeFilterCount > 0;
-  elements.filteredCount.textContent = filteredCount.toString();
+  elements.filterResultStatus.textContent = formatVesselResultSummary(
+    filteredCount,
+    dataset.vessels.length,
+    activeFilterCount,
+  );
   elements.filterSelectionStatus.textContent =
     activeFilterCount > 1
       ? `${activeFilterCount} active`
       : filterLabels[0] || (hasSearch ? "Search active" : "All vessels");
   elements.reset.hidden = !hasFilters;
+  elements.panelReset.hidden = !hasFilters;
+  elements.filterBadge.hidden = !hasFilters;
+  elements.filterBadge.textContent = activeFilterCount.toString();
+  elements.filterBadge.setAttribute(
+    "aria-label",
+    `${activeFilterCount} active ${activeFilterCount === 1 ? "filter" : "filters"}`,
+  );
 }
 
 function renderPublicationChanges() {
@@ -422,7 +464,11 @@ function renderPublicationChanges() {
   if (!publication?.changes?.length) return;
   const labels = formatPublicationChangeLabels(publication);
   elements.changesToggle.hidden = false;
-  elements.changesCount.textContent = labels.count;
+  elements.changesCount.textContent = publication.changes.length.toString();
+  elements.changesCount.setAttribute(
+    "aria-label",
+    `${publication.changes.length} changed ${publication.changes.length === 1 ? "vessel" : "vessels"}`,
+  );
   elements.changesSummary.textContent = labels.summary;
   elements.changesList.replaceChildren(createChangeList(publication.changes));
 }
@@ -455,21 +501,8 @@ function revealChangedVessel(vesselId) {
   const vessel = dataset.vessels.find((candidate) => candidate.id === vesselId);
   if (!vessel) return;
   resetFilters({ focus: false });
-  toggleChangesPanel(false);
+  surfaceController.close("changes");
   selectVessel(vessel, { source: "changes" });
-}
-
-function toggleChangesPanel(open, { restoreFocus = false } = {}) {
-  elements.changesPanel.hidden = !open;
-  elements.changesToggle.setAttribute("aria-expanded", open.toString());
-  if (open) {
-    elements.changesPanel.scrollIntoView({
-      behavior: reducedMotion ? "auto" : "smooth",
-      block: "nearest",
-    });
-  } else if (restoreFocus) {
-    elements.changesToggle.focus();
-  }
 }
 
 function renderList(vessels) {
@@ -482,6 +515,7 @@ function renderList(vessels) {
       button.type = "button";
       button.dataset.vesselId = vessel.id;
       button.className = vessel.id === selectedId ? "is-selected" : "";
+      button.dataset.status = vessel.status;
       heading.textContent = vessel.name;
       meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatClassification(vessel.locationClassification)}`;
       button.append(heading, meta);
@@ -501,16 +535,14 @@ function selectVessel(vessel, { source = "list" } = {}) {
     changes: insights.changes,
     insightsAvailable: insights.available,
   });
-  fleetMap.selectVessel(vessel, { focus: source === "list" || source === "changes" });
+  fleetMap.selectVessel(vessel, { focus: true });
   for (const button of elements.list.querySelectorAll("button")) {
     button.classList.toggle("is-selected", button.dataset.vesselId === vessel.id);
   }
   for (const button of elements.shoreList.querySelectorAll("button")) {
     button.classList.remove("is-selected");
   }
-  document
-    .querySelector("#detailCard")
-    .scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "nearest" });
+  surfaceController.open("detail", { focus: source === "changes" });
   if (source === "changes") {
     document.querySelector("#detailTitle").focus({ preventScroll: true });
   }
