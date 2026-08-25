@@ -15,6 +15,10 @@ import {
   buildWeeklyAvailabilityObservation,
   latestSunday,
 } from "./lib/availability-observation.mjs";
+import {
+  decideWeeklyAvailabilityCandidate,
+  selectOpenWeeklyCandidate,
+} from "./lib/weekly-availability-candidate.mjs";
 
 const storedText = fs.readFileSync(
   new URL("../data/royal-navy/availability-history.jsonl", import.meta.url),
@@ -51,10 +55,17 @@ assert.match(workflow, /persist-credentials: false/);
 assert.match(workflow, /permissions:\s+contents: read/s);
 assert.match(workflow, /contents: write/);
 assert.match(workflow, /pull-requests: write/);
-assert.match(workflow, /actions\/upload-artifact@v4/);
-assert.match(workflow, /actions\/download-artifact@v4/);
+const pinnedActions = [...workflow.matchAll(/uses: actions\/[a-z-]+@([0-9a-f]{40}) # v\d+/g)];
+assert.equal(pinnedActions.length, 5);
+assert.doesNotMatch(workflow, /uses: actions\/[a-z-]+@v\d+/);
 assert.match(workflow, /gh pr create/);
 assert.match(workflow, /changed_files.*availability-history\.jsonl/s);
+assert.match(workflow, /canonical_branch="automation\/weekly-availability-\$\{week_ending\}"/);
+assert.match(workflow, /select-weekly-availability-candidate\.mjs/);
+assert.match(workflow, /decide-weekly-availability-candidate\.mjs/);
+assert.match(workflow, /--force-with-lease="refs\/heads\/\$\{branch\}:\$\{remote_sha_before\}"/);
+assert.match(workflow, /origin ":refs\/heads\/\$\{branch\}"/);
+assert.match(workflow, /Allow GitHub Actions to create and approve pull requests/);
 assert.doesNotMatch(workflow, /git push[^\n]*\bmain\b/);
 assert.match(design, /fails and writes nothing/);
 assert.match(design, /no historic availability percentage is displayed yet/);
@@ -149,6 +160,125 @@ assert.equal(parseAvailabilityHistory(correctedRecords.map(JSON.stringify).join(
 assert.equal(
   parseAvailabilityHistory(correctedRecords.map(JSON.stringify).join("\n"))[0].observations.a.status,
   "Deployed",
+);
+
+const firstCandidateText = `${JSON.stringify(syntheticHistory[0])}\n`;
+const correctedCandidateText = `${correctedRecords.map(JSON.stringify).join("\n")}\n`;
+assert.equal(
+  decideWeeklyAvailabilityCandidate({
+    candidateText: firstCandidateText,
+    weekEnding: syntheticHistory[0].weekEnding,
+  }).action,
+  "create",
+);
+assert.equal(
+  decideWeeklyAvailabilityCandidate({
+    candidateText: firstCandidateText,
+    existingText: firstCandidateText,
+    weekEnding: syntheticHistory[0].weekEnding,
+  }).action,
+  "noop",
+);
+const retriedCandidate = {
+  ...syntheticHistory[0],
+  recordedAt: "2025-09-02T13:00:00Z",
+};
+assert.equal(
+  decideWeeklyAvailabilityCandidate({
+    candidateText: `${JSON.stringify(retriedCandidate)}\n`,
+    existingText: firstCandidateText,
+    weekEnding: syntheticHistory[0].weekEnding,
+  }).action,
+  "noop",
+);
+assert.equal(
+  decideWeeklyAvailabilityCandidate({
+    candidateText: correctedCandidateText,
+    existingText: firstCandidateText,
+    weekEnding: syntheticHistory[0].weekEnding,
+  }).action,
+  "replace",
+);
+assert.throws(
+  () =>
+    decideWeeklyAvailabilityCandidate({
+      candidateText: firstCandidateText,
+      existingText: correctedCandidateText,
+      weekEnding: syntheticHistory[0].weekEnding,
+    }),
+  /stale relative to the open weekly candidate/i,
+);
+assert.throws(
+  () =>
+    decideWeeklyAvailabilityCandidate({
+      candidateText: `${JSON.stringify({
+        ...retriedCandidate,
+        observations: {
+          ...retriedCandidate.observations,
+          a: { vesselClass: "Alpha class", status: "Deployed" },
+        },
+      })}\n`,
+      existingText: firstCandidateText,
+      weekEnding: syntheticHistory[0].weekEnding,
+    }),
+  /same reviewed release produced conflicting weekly candidates/i,
+);
+const candidateTitle = "Record weekly availability 2025-08-31";
+const canonicalCandidateBranch = "automation/weekly-availability-2025-08-31";
+assert.deepEqual(
+  selectOpenWeeklyCandidate({
+    openPullRequests: [],
+    title: candidateTitle,
+    canonicalBranch: canonicalCandidateBranch,
+    weekEnding: "2025-08-31",
+  }),
+  { branch: canonicalCandidateBranch, url: null },
+);
+assert.deepEqual(
+  selectOpenWeeklyCandidate({
+    openPullRequests: [
+      {
+        title: candidateTitle,
+        headRefName: `${canonicalCandidateBranch}-12345`,
+        url: "https://example.test/pull/1",
+        isCrossRepository: false,
+      },
+    ],
+    title: candidateTitle,
+    canonicalBranch: canonicalCandidateBranch,
+    weekEnding: "2025-08-31",
+  }),
+  { branch: `${canonicalCandidateBranch}-12345`, url: "https://example.test/pull/1" },
+);
+assert.throws(
+  () =>
+    selectOpenWeeklyCandidate({
+      openPullRequests: [
+        { title: candidateTitle },
+        { title: candidateTitle },
+      ],
+      title: candidateTitle,
+      canonicalBranch: canonicalCandidateBranch,
+      weekEnding: "2025-08-31",
+    }),
+  /multiple open candidates/i,
+);
+assert.throws(
+  () =>
+    selectOpenWeeklyCandidate({
+      openPullRequests: [
+        {
+          title: candidateTitle,
+          headRefName: "untrusted-branch",
+          url: "https://example.test/pull/2",
+          isCrossRepository: false,
+        },
+      ],
+      title: candidateTitle,
+      canonicalBranch: canonicalCandidateBranch,
+      weekEnding: "2025-08-31",
+    }),
+  /trusted same-repository automation branch/i,
 );
 
 const unsafeRecord = structuredClone(syntheticHistory[0]);

@@ -25,11 +25,11 @@ jobs:
     outputs:
       changed: ${{ steps.candidate.outputs.changed }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
           cache: npm
@@ -62,7 +62,7 @@ jobs:
           npm audit --audit-level=high
       - name: Store validated ledger candidate
         if: steps.candidate.outputs.changed == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: weekly-availability-candidate
           path: data/royal-navy/availability-history.jsonl
@@ -78,46 +78,130 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: weekly-availability-candidate
           path: candidate
-      - name: Open owner-reviewed availability pull request
+      - name: Open or update owner-reviewed availability pull request
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          cp candidate/availability-history.jsonl data/royal-navy/availability-history.jsonl
-          changed_files="$(git diff --name-only)"
-          if [[ "$changed_files" != "data/royal-navy/availability-history.jsonl" ]]; then
-            echo "Refusing an unexpected candidate path: $changed_files" >&2
+          set -euo pipefail
+          ledger="data/royal-navy/availability-history.jsonl"
+          candidate_ledger="candidate/availability-history.jsonl"
+          week_ending="$(node -e "const fs=require('fs');const line=fs.readFileSync(process.argv[1],'utf8').trim().split('\n').at(-1);process.stdout.write(JSON.parse(line).weekEnding)" "$candidate_ledger")"
+          title="Record weekly availability ${week_ending}"
+          canonical_branch="automation/weekly-availability-${week_ending}"
+
+          gh pr list --state open --base main --limit 100 \
+            --json number,title,url,headRefName,headRefOid,isCrossRepository \
+            > candidate/open-pull-requests.json
+          selection="$(node scripts/select-weekly-availability-candidate.mjs \
+            --open-prs candidate/open-pull-requests.json \
+            --title "$title" \
+            --canonical-branch "$canonical_branch" \
+            --week-ending "$week_ending")"
+          branch="$(jq -r '.branch' <<<"$selection")"
+          existing_pr_url="$(jq -r '.url // empty' <<<"$selection")"
+
+          remote_sha_before="$(git ls-remote --heads origin "refs/heads/${branch}" | awk '{print $1}')"
+          if [[ -n "$existing_pr_url" && -z "$remote_sha_before" ]]; then
+            echo "The open candidate pull request has no remote head branch." >&2
             exit 1
           fi
-          week_ending="$(node -e "const fs=require('fs');const line=fs.readFileSync('data/royal-navy/availability-history.jsonl','utf8').trim().split('\n').at(-1);process.stdout.write(JSON.parse(line).weekEnding)")"
-          existing_pr="$(gh pr list --state open --search "Record weekly availability ${week_ending} in:title" --json url --jq '.[0].url // empty')"
-          if [[ -n "$existing_pr" ]]; then
-            echo "An owner-reviewed candidate already exists: $existing_pr" >&2
-            exit 1
+          if [[ -n "$existing_pr_url" && "$branch" != "$canonical_branch" ]]; then
+            canonical_sha="$(git ls-remote --heads origin "refs/heads/${canonical_branch}" | awk '{print $1}')"
+            if [[ -n "$canonical_sha" ]]; then
+              echo "A legacy candidate pull request and a canonical orphan branch both exist." >&2
+              exit 1
+            fi
           fi
-          branch="automation/weekly-availability-${week_ending}-${GITHUB_RUN_ID}"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$branch"
-          git add -- data/royal-navy/availability-history.jsonl
-          staged_files="$(git diff --cached --name-only)"
-          if [[ "$staged_files" != "data/royal-navy/availability-history.jsonl" ]]; then
-            echo "Refusing to commit an unexpected path: $staged_files" >&2
-            exit 1
+
+          decision="create"
+          if [[ -n "$remote_sha_before" ]]; then
+            git fetch --no-tags origin "refs/heads/${branch}:refs/remotes/origin/weekly-availability-candidate"
+            git show "refs/remotes/origin/weekly-availability-candidate:${ledger}" > candidate/existing-availability-history.jsonl
+            decision="$(node scripts/decide-weekly-availability-candidate.mjs \
+              --candidate "$candidate_ledger" \
+              --existing candidate/existing-availability-history.jsonl \
+              --week-ending "$week_ending")"
           fi
-          git commit -m "chore: record weekly availability ${week_ending}"
-          gh auth setup-git
-          git push --set-upstream origin "$branch"
-          gh pr create \
+
+          if [[ "$decision" == "noop" && -n "$existing_pr_url" ]]; then
+            echo "The open candidate already represents this reviewed release: ${existing_pr_url}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          pushed_sha=""
+          if [[ "$decision" != "noop" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git switch --force-create "$branch" origin/main
+            cp "$candidate_ledger" "$ledger"
+            changed_files="$(git diff --name-only)"
+            if [[ "$changed_files" != "$ledger" ]]; then
+              echo "Refusing an unexpected candidate path: $changed_files" >&2
+              exit 1
+            fi
+            git add -- "$ledger"
+            staged_files="$(git diff --cached --name-only)"
+            if [[ "$staged_files" != "$ledger" ]]; then
+              echo "Refusing to commit an unexpected path: $staged_files" >&2
+              exit 1
+            fi
+            git commit -m "chore: record weekly availability ${week_ending}"
+            pushed_sha="$(git rev-parse HEAD)"
+            gh auth setup-git
+            if [[ -n "$remote_sha_before" ]]; then
+              git push --set-upstream \
+                --force-with-lease="refs/heads/${branch}:${remote_sha_before}" \
+                origin "HEAD:refs/heads/${branch}"
+            else
+              git push --set-upstream \
+                --force-with-lease="refs/heads/${branch}:" \
+                origin "HEAD:refs/heads/${branch}"
+            fi
+          fi
+
+          if [[ -n "$existing_pr_url" ]]; then
+            echo "Updated the owner-reviewed candidate: ${existing_pr_url}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          set +e
+          pr_url="$(gh pr create \
             --base main \
             --head "$branch" \
-            --title "Record weekly availability ${week_ending}" \
-            --body "Automated candidate containing only the append-only public availability ledger. Source statuses must already belong to a reviewed fleet release. Human merge review remains required."
+            --title "$title" \
+            --body "Automated candidate containing only the append-only public availability ledger. Source statuses must already belong to a reviewed fleet release. Human merge review remains required.")"
+          create_status=$?
+          set -e
+          if (( create_status != 0 )); then
+            cleanup_status=0
+            set +e
+            if [[ -n "$pushed_sha" && -n "$remote_sha_before" ]]; then
+              git push --force-with-lease="refs/heads/${branch}:${pushed_sha}" \
+                origin "${remote_sha_before}:refs/heads/${branch}"
+              cleanup_status=$?
+            elif [[ -n "$pushed_sha" ]]; then
+              git push --force-with-lease="refs/heads/${branch}:${pushed_sha}" \
+                origin ":refs/heads/${branch}"
+              cleanup_status=$?
+            fi
+            set -e
+            if (( cleanup_status != 0 )); then
+              echo "Automatic recovery also failed for ${branch}; inspect that exact branch before rerunning." >&2
+            elif [[ -n "$pushed_sha" ]]; then
+              echo "The branch version pushed by this run was restored or removed." >&2
+            else
+              echo "No branch state was changed by this run." >&2
+            fi
+            echo "GitHub refused pull-request creation. Enable Settings > Actions > General > Workflow permissions > Allow GitHub Actions to create and approve pull requests, then rerun this workflow." >&2
+            exit "$create_status"
+          fi
+          echo "Opened the owner-reviewed candidate: ${pr_url}" >> "$GITHUB_STEP_SUMMARY"

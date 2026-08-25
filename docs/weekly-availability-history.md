@@ -33,11 +33,17 @@ The week-ending date must be a Sunday. Omitting it selects the most recent UTC S
 
 ## Corrections and auditability
 
-The first record for a week uses ledger revision 1. If a later reviewed public release corrects that
-same week, the collector appends revision 2 (and later revisions as needed) with a reason. It never
-rewrites or deletes the previous line. Readers collapse same-week revisions to the latest logical
+The first merged record for a week uses ledger revision 1. If a later reviewed public release corrects
+an already merged week, the collector appends revision 2 (and later revisions as needed) with a reason.
+It never rewrites or deletes a merged line. Readers collapse same-week revisions to the latest logical
 observation, while validators retain and authenticate the physical audit trail. A correction must point
 to a later public release and use a later recording instant.
+
+An unmerged candidate is different: there must be only one open candidate for the week. A retry with
+the same reviewed source is a no-op. A newer corrected source safely replaces the existing candidate
+branch, including legacy run-numbered automation branches, so the open pull request remains the one
+canonical review surface. A stale or conflicting run fails before pushing. Workflow concurrency and an
+exact remote-head lease prevent an older run from racing over a corrected candidate.
 
 ## Future calculations
 
@@ -66,4 +72,11 @@ Only the second job receives `contents: write` and `pull-requests: write`; the c
 after the candidate has passed the path allow-list, validation and build gates. Repository settings must permit GitHub
 Actions to create pull requests. Pull requests created with the repository token may not trigger all
 downstream workflows automatically, so the candidate runs the complete local gate before opening and
-still requires owner review.
+still requires owner review. Every third-party action in this workflow is pinned to an immutable commit.
+
+The candidate uses a stable per-week branch. If branch creation succeeds but GitHub refuses pull-request
+creation, the workflow removes a newly created branch or restores a pre-existing orphan to its prior
+commit using an exact lease. A previously orphaned, unchanged branch is deliberately left untouched and
+can be recovered by rerunning after the repository permission is enabled. The required owner setting is
+**Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull
+requests**. The workflow does not and cannot enable that setting itself.
