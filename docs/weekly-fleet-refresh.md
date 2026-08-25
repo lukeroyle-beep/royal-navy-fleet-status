@@ -84,6 +84,11 @@ npm run generate:changes -- --base-ref origin/main
 npm run snapshot:status
 ```
 
+The separate weekly availability candidate workflow enriches the reviewed status release with the
+public vessel class that applied during that observation week. It opens an owner-reviewed pull request
+containing only the append-only availability ledger; it does not copy stale statuses when a reviewed
+weekly release is missing. See [`weekly-availability-history.md`](weekly-availability-history.md).
+
 `publication-changes.json` is regenerated for each release. It compares the proposed fleet dataset
 with the supplied base ref and records status, location, map-precision, marker-only and evidence
 changes. The base ref must identify the version currently in production, not another commit from the
@@ -104,6 +109,7 @@ npm run validate:sweeps -- --base-ref origin/main
 npm run validate:data
 npm run validate:decisions -- --base-ref origin/main
 npm run validate:history -- --base-ref origin/main
+npm run validate:availability -- --base-ref origin/main
 npm run validate:changes
 npm test
 npm run build

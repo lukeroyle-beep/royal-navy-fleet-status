@@ -1,0 +1,123 @@
+name: Weekly availability history candidate
+
+on:
+  schedule:
+    - cron: "30 6 * * 1"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - data/royal-navy/status-history.jsonl
+      - data/royal-navy/vessels.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-availability-history
+  cancel-in-progress: false
+
+jobs:
+  validate-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      changed: ${{ steps.candidate.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Append reviewed weekly availability candidate
+        run: npm run snapshot:availability -- --require-observation
+      - name: Confirm the candidate changes only the safe ledger
+        id: candidate
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "The latest reviewed public release is already represented." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          changed_files="$(git diff --name-only)"
+          if [[ "$changed_files" != "data/royal-navy/availability-history.jsonl" ]]; then
+            echo "Unexpected files changed:" >&2
+            echo "$changed_files" >&2
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Validate candidate without write credentials
+        if: steps.candidate.outputs.changed == 'true'
+        run: |
+          npm run validate:availability -- --base-ref HEAD
+          npm test
+          npm run build
+          npm run build:pages
+          npm audit --audit-level=high
+      - name: Store validated ledger candidate
+        if: steps.candidate.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-availability-candidate
+          path: data/royal-navy/availability-history.jsonl
+          if-no-files-found: error
+          retention-days: 1
+
+  open-pull-request:
+    needs: validate-candidate
+    if: needs.validate-candidate.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: weekly-availability-candidate
+          path: candidate
+      - name: Open owner-reviewed availability pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          cp candidate/availability-history.jsonl data/royal-navy/availability-history.jsonl
+          changed_files="$(git diff --name-only)"
+          if [[ "$changed_files" != "data/royal-navy/availability-history.jsonl" ]]; then
+            echo "Refusing an unexpected candidate path: $changed_files" >&2
+            exit 1
+          fi
+          week_ending="$(node -e "const fs=require('fs');const line=fs.readFileSync('data/royal-navy/availability-history.jsonl','utf8').trim().split('\n').at(-1);process.stdout.write(JSON.parse(line).weekEnding)")"
+          existing_pr="$(gh pr list --state open --search "Record weekly availability ${week_ending} in:title" --json url --jq '.[0].url // empty')"
+          if [[ -n "$existing_pr" ]]; then
+            echo "An owner-reviewed candidate already exists: $existing_pr" >&2
+            exit 1
+          fi
+          branch="automation/weekly-availability-${week_ending}-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add -- data/royal-navy/availability-history.jsonl
+          staged_files="$(git diff --cached --name-only)"
+          if [[ "$staged_files" != "data/royal-navy/availability-history.jsonl" ]]; then
+            echo "Refusing to commit an unexpected path: $staged_files" >&2
+            exit 1
+          fi
+          git commit -m "chore: record weekly availability ${week_ending}"
+          gh auth setup-git
+          git push --set-upstream origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "Record weekly availability ${week_ending}" \
+            --body "Automated candidate containing only the append-only public availability ledger. Source statuses must already belong to a reviewed fleet release. Human merge review remains required."
