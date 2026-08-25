@@ -1,5 +1,7 @@
 import crypto from "node:crypto";
 
+import { validateReviewedPublicLocation } from "./public-geography.mjs";
+
 const CONFIDENCE_LEVELS = new Set(["high", "moderate", "low", "unknown"]);
 const FRESHNESS_STATES = new Set(["current", "aging", "historical"]);
 const RELIABILITY_TIERS = new Set(["A", "B", "C", "D"]);
@@ -202,6 +204,9 @@ export function validateAssessmentLog(
     if (!assessment.assessedState || typeof assessment.assessedState.status !== "string") {
       throw new Error(`${assessment.assessmentId} has no assessed state.`);
     }
+    if (Object.hasOwn(assessment.assessedState, "publicLocation")) {
+      validateAssessmentPublicLocation(assessment);
+    }
     for (const field of ["selectedEvidenceIds", "excludedEvidenceIds", "conflictingEvidenceIds"]) {
       if (!Array.isArray(assessment[field])) throw new Error(`${assessment.assessmentId} has invalid ${field}.`);
       for (const evidenceId of assessment[field]) {
@@ -222,6 +227,9 @@ export function validateAssessmentLog(
     const assessment = assessmentById.get(current[vesselId]);
     if (!assessment || assessment.vesselId !== vesselId) {
       throw new Error(`No current assessment for ${vesselId}.`);
+    }
+    if (!Object.hasOwn(assessment.assessedState, "publicLocation")) {
+      throw new Error(`${assessment.assessmentId} has no reviewed publicLocation decision.`);
     }
   }
   for (const vesselId of Object.keys(current)) {
@@ -406,6 +414,23 @@ function reliability(source) {
 
 function normalise(value) {
   return String(value || "").trim().toLocaleLowerCase("en-GB");
+}
+
+function validateAssessmentPublicLocation(assessment) {
+  const label = `${assessment.assessmentId} publicLocation`;
+  const publicLocation = validateReviewedPublicLocation(
+    assessment.assessedState.publicLocation,
+    label,
+  );
+  const listOnlyClassification = ["unknown", "withheld"].includes(
+    assessment.assessedState.locationClassification,
+  );
+  const listOnlyState = ["unconfirmed", "no_recent_information", "withheld"].includes(
+    assessment.assessedState.locationState,
+  );
+  if ((listOnlyClassification || listOnlyState) && publicLocation.precision !== "none") {
+    throw new Error(`${label} must remain list-only for the assessed public state.`);
+  }
 }
 
 function requireNonEmpty(value, label) {

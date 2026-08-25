@@ -28,9 +28,16 @@ assert.match(COMPACT_SURFACE_QUERY, /pointer: coarse/);
 for (const id of ["fleetToggle", "layersToggle", "filterToggle", "fleetDrawer", "detailDrawer", "layersPanel", "filterPanel"]) {
   assert.match(html, new RegExp(`id="${id}"`));
 }
-for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle"]) {
+for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle", "uncertaintyLayerToggle"]) {
   assert.match(html, new RegExp(`id="${id}"[^>]*type="checkbox"`));
 }
+assert.match(html, /id="uncertaintyLayerRow"[^>]*hidden/);
+assert.match(html, /id="uncertaintyVesselPicker"[^>]*hidden/);
+assert.match(html, /id="uncertaintyVesselSelect"/);
+assert.match(app, /uncertaintyCount === 0/);
+assert.match(app, /renderUncertaintyVesselPicker\(filtered\)/);
+assert.match(app, /source: "region-picker"/);
+assert.match(app, /setUncertaintyAreasVisible/);
 assert.doesNotMatch(html, /Deployment regions|Evidence requiring review|Recent evidence events|Overseas support facilities/);
 assert.match(html, /id="filterBadge"[^>]*hidden/);
 assert.match(html, /id="resetFilters"[^>]*hidden/);
@@ -40,6 +47,7 @@ assert.match(app, /fleetMap\.selectVessel\(vessel, \{ focus: true \}\)/);
 assert.match(surfaces, /event\.key === "Escape"/);
 assert.match(surfaces, /if \(this\.isCompact\(\)\) next\.clear\(\)/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
+assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
 assert.match(styles, /outline:\s*3px solid var\(--accent-strong\)/);
 assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);

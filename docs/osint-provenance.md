@@ -24,7 +24,7 @@ The implementation deliberately avoids a database or heavyweight PROV/RDF layer.
 3. `evidence.json`: immutable source claims with retrieval/publication/observation time semantics, origin cluster, content hash, directness, geographic precision and correction links.
 4. `assessments.json`: versioned conclusions with selected, excluded and conflicting evidence, categorical confidence, freshness rationale, method/assessor and previous-assessment linkage.
 
-`scripts/generate-public-projection.mjs` joins canonical identity to the current assessment and emits only card/map fields. Build validation proves that the checked-in projection matches the internal assessment index. The production exposure scan rejects internal field names, source URLs, X handles and internal directories in built output.
+`scripts/generate-public-projection.mjs` joins canonical identity to the current assessment and emits only card/map fields. Each current assessment must contain a strict, exact-key `publicLocation` decision with explicit public precision and reviewed point/circle-or-null geometry. The projection never derives a city, port or regional radius from report text; absent or invalid direct projection input is list-only, and the assessment validator rejects incomplete current decisions. Build validation proves that the checked-in projection matches the internal assessment index. The production exposure scan rejects internal field names, source URLs, X handles and internal directories in built output.
 
 ## Deterministic assessment rules
 

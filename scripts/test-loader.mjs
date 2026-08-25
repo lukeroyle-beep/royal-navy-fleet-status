@@ -2,15 +2,22 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
-import { formatLocationClassification } from "../src/components/EventDetailsPanel.js";
+import {
+  formatLocationPrecision,
+  formatLocationState,
+} from "../src/components/EventDetailsPanel.js";
 import {
   getActiveFleetSummary,
+  getAvailabilityBand,
   getAvailabilitySummary,
   getFleetStatusSummary,
 } from "../src/utils/fleet.js";
 
 const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
+const precisionFixtures = JSON.parse(
+  fs.readFileSync(new URL("./fixtures/location-precision.json", import.meta.url), "utf8"),
+);
 const page = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const detailsPanel = fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8");
 const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
@@ -26,8 +33,15 @@ assert.equal(
 );
 assert.equal(dataset.vessels.filter((vessel) => vessel.locationClassification === "unknown").length, 0);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
-assert.equal(formatLocationClassification("approximate"), "Approximate port or area");
-assert.equal(formatLocationClassification("withheld"), "Withheld · symbolic marker");
+assert.equal(formatLocationState("confirmed"), "Confirmed public location");
+assert.equal(formatLocationState("last_reported"), "Last publicly reported location");
+assert.equal(formatLocationState("unconfirmed"), "Location unconfirmed");
+assert.equal(formatLocationState("no_recent_information"), "No recent public information");
+assert.equal(formatLocationState("withheld"), "Location not published");
+assert.equal(formatLocationPrecision("region"), "Approximate region");
+
+const allPrecisionStates = createFixtureDataset(precisionFixtures.stateCases);
+assert.equal(validateFleet(allPrecisionStates).vessels.length, precisionFixtures.stateCases.length);
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
 assert.equal(activeFleet.total, 50);
@@ -36,6 +50,12 @@ const fleetAvailability = getAvailabilitySummary(dataset.vessels);
 assert.equal(fleetAvailability.active, 50);
 assert.equal(fleetAvailability.total, 68);
 assert.equal(fleetAvailability.percentage.toFixed(1), "73.5");
+assert.equal(getAvailabilityBand(0), "low");
+assert.equal(getAvailabilityBand(33), "low");
+assert.equal(getAvailabilityBand(34), "medium");
+assert.equal(getAvailabilityBand(66), "medium");
+assert.equal(getAvailabilityBand(67), "high");
+assert.equal(getAvailabilityBand(100), "high");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
   total: 68,
   deployed: 17,
@@ -83,10 +103,12 @@ assert.match(hurworth.lastReportedLocation, /departing observed 12 August 2026/)
 const victory = dataset.vessels.find((vessel) => vessel.id === "hms-victory");
 assert.equal(victory.locationClassification, "mapped");
 assert.deepEqual(victory.position, {
-  lat: 50.801468,
-  lon: -1.1095,
+  lat: 50.8,
+  lon: -1.11,
   label: "HMS Victory, Portsmouth Historic Dockyard",
 });
+assert.equal(victory.locationState, "confirmed");
+assert.equal(victory.locationPrecision, "port");
 for (const field of ["source", "evidenceCheckedDate", "locationEvidenceDate", "evidenceClassification"]) {
   assert.equal(Object.hasOwn(victory, field), false, `Public record must not expose ${field}.`);
 }
@@ -94,11 +116,31 @@ assert.doesNotMatch(detailsPanel, /Supporting source|vessel\.source|Location evi
 assert.doesNotMatch(styles, /\.source-link/);
 
 const unknownWithCoordinates = structuredClone(dataset);
-const unknown = unknownWithCoordinates.vessels.find((vessel) => vessel.locationClassification === "approximate");
+const unknown = unknownWithCoordinates.vessels.find((vessel) => vessel.position);
 unknown.locationClassification = "unknown";
-unknown.unmappedReason = "Synthetic unknown record for validation.";
+unknown.locationState = "unconfirmed";
+unknown.locationPrecision = "none";
+unknown.publicLocationLabel = "Location unconfirmed";
 unknown.position = { lat: 0, lon: 0, label: "Invalid inferred point" };
-assert.throws(() => validateFleet(unknownWithCoordinates), /must not contain coordinates/i);
+unknown.uncertaintyArea = null;
+assert.throws(() => validateFleet(unknownWithCoordinates), /must not contain point coordinates/i);
+
+const excessiveCityCoordinates = createFixtureDataset([
+  {
+    ...precisionFixtures.stateCases.find((fixture) => fixture.caseId === "confirmed-city"),
+    position: { lat: 55.704, lon: 12.596, label: "Copenhagen, Denmark" },
+  },
+]);
+assert.throws(() => validateFleet(excessiveCityCoordinates), /excessive coordinate precision/i);
+
+const atSeaPoint = createFixtureDataset([
+  {
+    ...precisionFixtures.stateCases.find((fixture) => fixture.caseId === "location-unconfirmed"),
+    lastReportedLocation: "At sea; location unconfirmed",
+    position: { lat: 51, lon: -2, label: "Invented at-sea point" },
+  },
+]);
+assert.throws(() => validateFleet(atSeaPoint), /must not contain point coordinates/i);
 
 const accidentallyExposedSource = structuredClone(dataset);
 accidentallyExposedSource.vessels[0].source = { label: "Must stay internal", url: "https://example.invalid" };
@@ -133,10 +175,16 @@ assert.throws(() => validateFleet(invalidOperationalStatus), /invalid operationa
 const submarinePatrol = structuredClone(dataset);
 const submarine = submarinePatrol.vessels.find((vessel) => vessel.vesselType === "SSBN");
 submarine.locationClassification = "approximate";
-submarine.lastReportedLocation = "Deterrent patrol";
-submarine.position = { lat: 0, lon: 0, label: "Invalid patrol position" };
-delete submarine.symbolicPosition;
-assert.throws(() => validateFleet(submarinePatrol), /cannot expose a submarine patrol position/i);
+submarine.locationState = "last_reported";
+submarine.locationPrecision = "city";
+submarine.publicLocationLabel = "North Atlantic";
+submarine.lastReportedLocation = "North Atlantic";
+submarine.position = { lat: 0, lon: 0, label: "North Atlantic" };
+submarine.uncertaintyArea = null;
+assert.throws(
+  () => validateFleet(submarinePatrol),
+  /cannot expose submarine patrol or regional geometry/i,
+);
 
 const vanguard = dataset.vessels.find((vessel) => vessel.id === "hms-vanguard");
 assert.equal(vanguard.lastReportedLocation, "HMNB Clyde (Faslane); returned 12 June 2026");
@@ -145,7 +193,12 @@ assert.equal(vanguard.symbolicPosition, undefined);
 const vengeance = dataset.vessels.find((vessel) => vessel.id === "hms-vengeance");
 assert.equal(vengeance.status, "Deployed");
 assert.equal(vengeance.lastReportedLocation, "On patrol - classified");
-assert.equal(vengeance.symbolicPosition.label, "On patrol - classified");
+assert.equal(vengeance.locationState, "withheld");
+assert.equal(vengeance.locationPrecision, "none");
+assert.equal(vengeance.position, null);
+assert.equal(vengeance.uncertaintyArea, null);
+assert.equal(Object.hasOwn(vengeance, "symbolicPosition"), false);
+assert.equal(Object.hasOwn(vengeance, "unmappedReason"), false);
 
 const vigilant = dataset.vessels.find((vessel) => vessel.id === "hms-vigilant");
 assert.equal(vigilant.status, "Unknown");
@@ -156,3 +209,24 @@ assert.equal(vigilant.position.label, "HMNB Clyde (Faslane)");
 assert.equal(dataset.vessels.some((vessel) => vessel.id === "hms-valiant"), false);
 
 console.log("Fleet loader tests passed.");
+
+function createFixtureDataset(cases) {
+  return {
+    metadata: structuredClone(dataset.metadata),
+    vessels: cases.map((fixture, index) => {
+      const { caseId: _caseId, ...location } = structuredClone(fixture);
+      return {
+        id: `precision-fixture-${index + 1}`,
+        name: `Precision fixture ${index + 1}`,
+        service: "Royal Navy",
+        vesselClass: "Test class",
+        vesselType: "Destroyer",
+        pennantNumber: `T${index + 1}`,
+        commissionedDate: "2026",
+        homePort: "Not applicable",
+        status: "Available",
+        ...location,
+      };
+    }),
+  };
+}

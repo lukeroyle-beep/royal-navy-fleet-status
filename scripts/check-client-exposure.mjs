@@ -28,6 +28,9 @@ const forbiddenPublicFields = [
   "conflictingEvidenceIds",
   "rationale",
   "analystNotes",
+  "symbolicPosition",
+  "unmappedReason",
+  "publicLocation",
 ];
 for (const vessel of publicFleet.vessels) {
   for (const field of forbiddenPublicFields) {

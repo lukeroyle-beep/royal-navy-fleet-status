@@ -56,11 +56,13 @@
             <span id="filterResultStatus" role="status" aria-live="polite">Showing 0 vessels</span>
             <button id="resetFilters" type="button" hidden>Clear all</button>
           </div>
-          <details class="fleet-summary-disclosure">
+          <details class="fleet-summary-disclosure" open>
             <summary>Fleet snapshot</summary>
             <div class="fleet-availability" aria-label="Overall fleet availability">
               <div><span>Published availability</span><p id="fleetAvailabilityFormula">0 active of 0 total vessels</p></div>
-              <strong id="fleetAvailabilityPercentage">0%</strong>
+              <div id="fleetAvailabilityScore" class="availability-score fleet-availability-score" data-availability-band="low" aria-label="0% published fleet availability">
+                <strong id="fleetAvailabilityPercentage">0%</strong>
+              </div>
             </div>
             <div class="status-metrics">
               <div><strong id="totalCount">0</strong><span>Vessels</span></div>
@@ -118,13 +120,24 @@
               <span><strong>Marker clustering</strong><small>Group nearby vessel and shore markers</small></span>
               <input id="clusterLayerToggle" type="checkbox" checked />
             </label>
+            <label id="uncertaintyLayerRow" class="switch-row" hidden>
+              <span><strong>Uncertainty areas</strong><small id="uncertaintyLayerCount">0 regions</small></span>
+              <input id="uncertaintyLayerToggle" type="checkbox" checked />
+            </label>
+            <label id="uncertaintyVesselPicker" class="region-vessel-picker" hidden>
+              <span>Choose a regional vessel</span>
+              <select id="uncertaintyVesselSelect" aria-describedby="uncertaintyVesselHelp">
+                <option value="">Select a visible regional record</option>
+              </select>
+              <small id="uncertaintyVesselHelp">Provides direct access when uncertainty areas overlap.</small>
+            </label>
           </fieldset>
           <details class="legend-disclosure">
             <summary>Location legend</summary>
             <div class="legend" aria-label="Location marker legend">
-              <span><i class="legend-dot mapped"></i>Mapped public location</span>
-              <span><i class="legend-dot approximate"></i>Approximate port or area</span>
-              <span><i class="legend-dot classified"></i>Withheld symbolic marker</span>
+              <span><i class="legend-dot confirmed"></i>Confirmed port or city</span>
+              <span><i class="legend-dot last-reported"></i>Last publicly reported port or city</span>
+              <span><i class="legend-area"></i>Approximate region, not a live position</span>
               <span><i class="legend-dot shore"></i>Shore establishment</span>
             </div>
           </details>
@@ -153,7 +166,9 @@
             <section id="classAvailabilityPanel" class="class-availability" aria-labelledby="classAvailabilityTitle" aria-live="polite" hidden>
               <div class="class-availability-heading">
                 <div><p class="eyebrow">Selected class</p><h3 id="classAvailabilityTitle"></h3></div>
-                <div class="class-availability-score"><strong id="classAvailabilityPercentage"></strong><span>availability</span></div>
+                <div id="classAvailabilityScore" class="availability-score class-availability-score" data-availability-band="low" aria-label="0% selected class availability">
+                  <strong id="classAvailabilityPercentage"></strong>
+                </div>
               </div>
               <p id="classAvailabilityFormula" class="class-availability-formula"></p>
               <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>
@@ -164,9 +179,9 @@
             <label>Service<select id="serviceFilter"><option value="">All services</option></select></label>
             <label>Status<select id="statusFilter"><option value="">All statuses</option></select></label>
             <label>Vessel type<select id="typeFilter"><option value="">All vessel types</option></select></label>
-            <label>Location classification
+            <label>Public location status
               <select id="locationFilter">
-                <option value="">All classifications</option><option value="mapped">Mapped</option><option value="approximate">Approximate</option><option value="unknown">Unknown</option><option value="withheld">Withheld</option>
+                <option value="">All public location states</option><option value="confirmed">Confirmed public location</option><option value="last_reported">Last publicly reported location</option><option value="unconfirmed">Location unconfirmed</option><option value="no_recent_information">No recent public information</option><option value="withheld">Location not published</option>
               </select>
             </label>
           </div>

@@ -18,13 +18,16 @@
       "homePort": "Portsmouth",
       "status": "Museum ship",
       "locationClassification": "mapped",
+      "locationState": "confirmed",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMS Victory, Portsmouth Historic Dockyard",
       "lastReportedLocation": "Portsmouth Historic Dockyard",
       "position": {
-        "lat": 50.801468,
-        "lon": -1.1095,
+        "lat": 50.8,
+        "lon": -1.11,
         "label": "HMS Victory, Portsmouth Historic Dockyard"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-vanguard",
@@ -37,13 +40,16 @@
       "homePort": "HMNB Clyde",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Clyde (Faslane)",
       "lastReportedLocation": "HMNB Clyde (Faslane); returned 12 June 2026",
       "position": {
         "lat": 56.07,
         "lon": -4.82,
         "label": "HMNB Clyde (Faslane)"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-victorious",
@@ -56,13 +62,16 @@
       "homePort": "HMNB Clyde",
       "status": "In re-fit",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Devonport Naval Base, 9 Dock; Deep Maintenance Period",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Devonport Naval Base",
+      "lastReportedLocation": "Devonport Naval Base; Deep Maintenance Period",
       "position": {
         "lat": 50.38,
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-vigilant",
@@ -75,13 +84,16 @@
       "homePort": "HMNB Clyde",
       "status": "Unknown",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Clyde (Faslane)",
       "lastReportedLocation": "HMNB Clyde (Faslane); last directly reported 10 October 2025",
       "position": {
         "lat": 56.07,
         "lon": -4.82,
         "label": "HMNB Clyde (Faslane)"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-vengeance",
@@ -94,14 +106,12 @@
       "homePort": "HMNB Clyde",
       "status": "Deployed",
       "locationClassification": "withheld",
+      "locationState": "withheld",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location not published",
       "lastReportedLocation": "On patrol - classified",
       "position": null,
-      "symbolicPosition": {
-        "lat": 45,
-        "lon": -35,
-        "label": "On patrol - classified"
-      },
-      "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position."
+      "uncertaintyArea": null
     },
     {
       "id": "hms-astute",
@@ -114,13 +124,16 @@
       "homePort": "HMNB Clyde",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Devonport Naval Base",
       "lastReportedLocation": "Devonport Naval Base; Mid Life Re-Validation Period",
       "position": {
         "lat": 50.38,
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-ambush",
@@ -133,13 +146,16 @@
       "homePort": "HMNB Clyde",
       "status": "Unknown",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Clyde",
       "lastReportedLocation": "HMNB Clyde (Faslane); public report says very low readiness",
       "position": {
         "lat": 56.07,
         "lon": -4.82,
         "label": "HMNB Clyde"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-artful",
@@ -152,13 +168,16 @@
       "homePort": "HMNB Clyde",
       "status": "Unknown",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Clyde",
       "lastReportedLocation": "HMNB Clyde (Faslane); public report says alongside as of May 2026",
       "position": {
         "lat": 56.07,
         "lon": -4.82,
         "label": "HMNB Clyde"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-audacious",
@@ -171,13 +190,16 @@
       "homePort": "HMNB Clyde",
       "status": "In re-fit",
       "locationClassification": "approximate",
-      "lastReportedLocation": "Devonport Naval Base; public report says scheduled to leave 15 Dock on 25th June 2026",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Devonport Naval Base",
+      "lastReportedLocation": "Devonport Naval Base; public report says scheduled to leave on 25th June 2026",
       "position": {
         "lat": 50.38,
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-anson",
@@ -190,13 +212,16 @@
       "homePort": "HMNB Clyde",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Devonport Naval Base",
       "lastReportedLocation": "Devonport Naval Base; arrived 27th May 2026 for maintenance",
       "position": {
         "lat": 50.38,
         "lon": -4.18,
         "label": "Devonport Naval Base"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-agamemnon",
@@ -209,13 +234,16 @@
       "homePort": "HMNB Clyde",
       "status": "Unknown",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "city",
+      "publicLocationLabel": "Barrow-in-Furness",
       "lastReportedLocation": "BAE Systems, Barrow-in-Furness; final commissioning before sea trials",
       "position": {
         "lat": 54.11,
         "lon": -3.23,
         "label": "Barrow-in-Furness"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-queen-elizabeth",
@@ -228,13 +256,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Portsmouth",
       "lastReportedLocation": "HMNB Portsmouth; NATO ARF(M) high-readiness afloat command platform",
       "position": {
         "lat": 50.81,
         "lon": -1.1,
         "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-prince-of-wales",
@@ -247,13 +278,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Portsmouth",
       "lastReportedLocation": "HMNB Portsmouth; returned after Operation FIRECREST phase one",
       "position": {
         "lat": 50.81,
         "lon": -1.1,
         "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-daring",
@@ -266,13 +300,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Portsmouth",
       "lastReportedLocation": "HMNB Portsmouth; final trials and regeneration reported 31 July 2026",
       "position": {
         "lat": 50.8,
         "lon": -1.11,
-        "label": "HMNB Portsmouth (representative)"
+        "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-dauntless",
@@ -285,13 +322,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "English Channel",
       "lastReportedLocation": "English Channel; last official public operational area reported 20 February 2026",
-      "position": {
-        "lat": 50.3,
-        "lon": -1.5,
-        "label": "English Channel (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.3,
+          "lon": -1.5
+        },
+        "radiusKm": 180,
+        "label": "English Channel",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-diamond",
@@ -304,13 +348,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Portsmouth",
       "lastReportedLocation": "HMNB Portsmouth; last official public return reported 6 July 2024",
       "position": {
         "lat": 50.8,
         "lon": -1.11,
-        "label": "HMNB Portsmouth (representative)"
+        "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-dragon",
@@ -323,13 +370,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Port of Mombasa",
       "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
       "position": {
-        "lat": -4.069,
+        "lat": -4.07,
         "lon": 39.64,
-        "label": "Port of Mombasa (representative)"
+        "label": "Port of Mombasa"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-defender",
@@ -342,13 +392,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Portsmouth",
       "lastReportedLocation": "HMNB Portsmouth; directly photographed undergoing refit on 1 April 2026",
       "position": {
         "lat": 50.8,
         "lon": -1.11,
-        "label": "HMNB Portsmouth (representative)"
+        "label": "HMNB Portsmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-duncan",
@@ -361,13 +414,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "confirmed",
+      "locationPrecision": "city",
+      "publicLocationLabel": "Copenhagen, Denmark",
       "lastReportedLocation": "Copenhagen, Denmark; official arrival reported 23 August 2026",
       "position": {
-        "lat": 55.704,
-        "lon": 12.596,
-        "label": "Copenhagen harbour (representative city/port location)"
+        "lat": 55.7,
+        "lon": 12.6,
+        "label": "Copenhagen, Denmark"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-somerset",
@@ -380,13 +436,16 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Devonport",
       "lastReportedLocation": "HMNB Devonport / Plymouth; returned from North Atlantic deployment on 7 August 2026",
       "position": {
         "lat": 50.38,
         "lon": -4.19,
-        "label": "HMNB Devonport (representative)"
+        "label": "HMNB Devonport"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-sutherland",
@@ -399,13 +458,16 @@
       "homePort": "HMNB Devonport",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "confirmed",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Devonport",
       "lastReportedLocation": "HMNB Devonport; support period reported 19 August 2026",
       "position": {
-        "lat": 50.383,
-        "lon": -4.184,
-        "label": "HMNB Devonport (representative)"
+        "lat": 50.38,
+        "lon": -4.18,
+        "label": "HMNB Devonport"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-kent",
@@ -418,13 +480,16 @@
       "homePort": "HMNB Devonport",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Devonport dry dock",
       "lastReportedLocation": "Devonport dry dock; deep maintenance package reported 9 July 2024",
       "position": {
         "lat": 50.38,
         "lon": -4.19,
-        "label": "Devonport dry dock (representative)"
+        "label": "Devonport dry dock"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-portland",
@@ -437,13 +502,16 @@
       "homePort": "HMNB Devonport",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Devonport",
       "lastReportedLocation": "HMNB Devonport; last official public return reported 20 December 2024",
       "position": {
         "lat": 50.38,
         "lon": -4.19,
-        "label": "HMNB Devonport (representative)"
+        "label": "HMNB Devonport"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-st-albans",
@@ -456,13 +524,16 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Glen Mallan jetty area, Loch Long",
       "lastReportedLocation": "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
       "position": {
-        "lat": 56.049,
-        "lon": -4.832,
-        "label": "Glen Mallan jetty area, Loch Long (representative)"
+        "lat": 56.05,
+        "lon": -4.83,
+        "label": "Glen Mallan jetty area, Loch Long"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-tyne",
@@ -475,13 +546,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "confirmed",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Portsmouth Harbour",
       "lastReportedLocation": "Portsmouth Harbour; entering observed 21 August 2026",
       "position": {
-        "lat": 50.806,
-        "lon": -1.106,
-        "label": "Portsmouth Harbour (representative)"
+        "lat": 50.81,
+        "lon": -1.11,
+        "label": "Portsmouth Harbour"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-severn",
@@ -494,13 +568,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Harwich approaches",
       "lastReportedLocation": "UK east-coast waters; last confirmed outbound from Harwich on 15 August 2026",
-      "position": {
-        "lat": 51.946,
-        "lon": 1.292,
-        "label": "Harwich approaches (representative outbound location)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 51.9,
+          "lon": 1.3
+        },
+        "radiusKm": 90,
+        "label": "Harwich approaches",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-mersey",
@@ -513,13 +594,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Portsmouth approaches",
       "lastReportedLocation": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026",
-      "position": {
-        "lat": 50.766,
-        "lon": -1.063,
-        "label": "Portsmouth approaches (representative outbound location)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.8,
+          "lon": -1.1
+        },
+        "radiusKm": 90,
+        "label": "Portsmouth approaches",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-forth",
@@ -532,13 +620,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Portsmouth",
       "lastReportedLocation": "Portsmouth / UK waters after Falklands handover",
-      "position": {
-        "lat": 50.81,
-        "lon": -1.1,
-        "label": "Portsmouth"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.8,
+          "lon": -1.1
+        },
+        "radiusKm": 90,
+        "label": "Portsmouth",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-medway",
@@ -551,13 +646,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Falkland Islands / South Atlantic",
       "lastReportedLocation": "Falkland Islands / South Atlantic; Falklands guard ship",
-      "position": {
-        "lat": -51.7,
-        "lon": -57.5,
-        "label": "Falkland Islands / South Atlantic (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": -51.7,
+          "lon": -57.5
+        },
+        "radiusKm": 450,
+        "label": "Falkland Islands / South Atlantic",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-trent",
@@ -570,13 +672,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Caribbean Sea",
       "lastReportedLocation": "Caribbean region; hurricane-season patrol reported 21 August 2026",
-      "position": {
-        "lat": 15,
-        "lon": -70,
-        "label": "Caribbean Sea (representative regional location)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 15,
+          "lon": -70
+        },
+        "radiusKm": 1000,
+        "label": "Caribbean Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-tamar",
@@ -589,13 +698,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Ream Naval Base area",
       "lastReportedLocation": "Ream Naval Base, Cambodia; arrival reported 20 August 2026",
       "position": {
-        "lat": 10.504,
-        "lon": 103.611,
-        "label": "Ream Naval Base area (representative)"
+        "lat": 10.5,
+        "lon": 103.61,
+        "label": "Ream Naval Base area"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-spey",
@@ -608,13 +720,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "confirmed",
+      "locationPrecision": "city",
+      "publicLocationLabel": "Singapore",
       "lastReportedLocation": "Singapore; maintenance period nearing completion, reported 22 August 2026",
       "position": {
-        "lat": 1.285,
-        "lon": 103.835,
-        "label": "Singapore port area (representative)"
+        "lat": 1.28,
+        "lon": 103.83,
+        "label": "Singapore"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-ledbury",
@@ -627,13 +742,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "English Channel off Portland",
       "lastReportedLocation": "English Channel off Portland; shadow-fleet boarding operation reported 15 June 2026",
-      "position": {
-        "lat": 50.5,
-        "lon": -2.6,
-        "label": "English Channel off Portland (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.5,
+          "lon": -2.6
+        },
+        "radiusKm": 180,
+        "label": "English Channel off Portland",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-cattistock",
@@ -646,13 +768,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Poole Quay",
       "lastReportedLocation": "Poole Quay; public visit observed 4 May 2024",
       "position": {
-        "lat": 50.712,
-        "lon": -1.986,
-        "label": "Poole Quay (representative)"
+        "lat": 50.71,
+        "lon": -1.99,
+        "label": "Poole Quay"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-brocklesby",
@@ -665,13 +790,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Portsmouth",
       "lastReportedLocation": "Portsmouth; departed for sea trials on 26 March 2026",
       "position": {
         "lat": 50.8,
         "lon": -1.11,
-        "label": "Portsmouth (representative)"
+        "label": "Portsmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-middleton",
@@ -684,13 +812,16 @@
       "homePort": "HMNB Portsmouth",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Balaena Falmouth yard",
       "lastReportedLocation": "Falmouth, Cornwall; entered dry dock for Re-Certification Docking, reported by Forces News as Balaena Falmouth on 26 June 2026",
       "position": {
-        "lat": 50.1537,
-        "lon": -5.0563,
-        "label": "Balaena Falmouth yard (representative)"
+        "lat": 50.15,
+        "lon": -5.06,
+        "label": "Balaena Falmouth yard"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-hurworth",
@@ -703,13 +834,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Portsmouth approaches",
       "lastReportedLocation": "Portsmouth Harbour; departing observed 12 August 2026",
-      "position": {
-        "lat": 50.766,
-        "lon": -1.063,
-        "label": "Portsmouth approaches (representative outbound location)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.8,
+          "lon": -1.1
+        },
+        "radiusKm": 45,
+        "label": "Portsmouth approaches",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-bangor",
@@ -722,13 +860,16 @@
       "homePort": "HMNB Clyde",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Clyde",
       "lastReportedLocation": "HMNB Clyde (Faslane); last official public return reported 31 August 2018",
       "position": {
         "lat": 55.99,
         "lon": -4.82,
-        "label": "HMNB Clyde (representative)"
+        "label": "HMNB Clyde"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-stirling-castle",
@@ -741,13 +882,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Weymouth Bay",
       "lastReportedLocation": "Portland / Weymouth Bay; Sea Breeze 26-2 mine-countermeasures training",
-      "position": {
-        "lat": 50.58,
-        "lon": -2.42,
-        "label": "Weymouth Bay"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.58,
+          "lon": -2.42
+        },
+        "radiusKm": 20,
+        "label": "Weymouth Bay",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-archer",
@@ -760,13 +908,20 @@
       "homePort": "Edinburgh",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea",
       "lastReportedLocation": "Baltic Sea; BALTOPS activity reported 19 June 2025",
-      "position": {
-        "lat": 56,
-        "lon": 16,
-        "label": "Baltic Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 56,
+          "lon": 16
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-biter",
@@ -779,13 +934,16 @@
       "homePort": "Liverpool",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Bangor Marina, Northern Ireland",
       "lastReportedLocation": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
       "position": {
-        "lat": 54.669,
-        "lon": -5.667,
-        "label": "Bangor Marina, Northern Ireland (representative)"
+        "lat": 54.67,
+        "lon": -5.67,
+        "label": "Bangor Marina, Northern Ireland"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-smiter",
@@ -798,13 +956,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea / Poland",
       "lastReportedLocation": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
-      "position": {
-        "lat": 54.5,
-        "lon": 18.7,
-        "label": "Baltic Sea / Poland"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 54.5,
+          "lon": 18.7
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea / Poland",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-pursuer",
@@ -817,13 +982,20 @@
       "homePort": "Glasgow",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea",
       "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
-      "position": {
-        "lat": 57,
-        "lon": 18,
-        "label": "Baltic Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 57,
+          "lon": 18
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-blazer",
@@ -836,13 +1008,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "North Sea off Zeebrugge",
       "lastReportedLocation": "North Sea off Zeebrugge; exercise activity reported 25 September 2024",
-      "position": {
-        "lat": 51.35,
-        "lon": 3.2,
-        "label": "North Sea off Zeebrugge (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 51.4,
+          "lon": 3.2
+        },
+        "radiusKm": 180,
+        "label": "North Sea off Zeebrugge",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-dasher",
@@ -855,13 +1034,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea",
       "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
-      "position": {
-        "lat": 57,
-        "lon": 18,
-        "label": "Baltic Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 57,
+          "lon": 18
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-puncher",
@@ -874,13 +1060,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea / Poland",
       "lastReportedLocation": "Baltic Sea / Poland; Baltops 26 deployment reported June 2026",
-      "position": {
-        "lat": 54.5,
-        "lon": 18.7,
-        "label": "Baltic Sea / Poland"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 54.5,
+          "lon": 18.7
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea / Poland",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-charger",
@@ -893,13 +1086,16 @@
       "homePort": "Liverpool",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Bangor Marina, Northern Ireland",
       "lastReportedLocation": "Bangor Marina, Northern Ireland; training visit reported 19 August 2026",
       "position": {
-        "lat": 54.669,
-        "lon": -5.667,
-        "label": "Bangor Marina, Northern Ireland (representative)"
+        "lat": 54.67,
+        "lon": -5.67,
+        "label": "Bangor Marina, Northern Ireland"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-ranger",
@@ -912,13 +1108,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Weymouth Bay",
       "lastReportedLocation": "Weymouth Bay; helicopter training reported 18 March 2021",
-      "position": {
-        "lat": 50.58,
-        "lon": -2.42,
-        "label": "Weymouth Bay (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.58,
+          "lon": -2.42
+        },
+        "radiusKm": 20,
+        "label": "Weymouth Bay",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-trumpeter",
@@ -931,13 +1134,20 @@
       "homePort": "Ipswich",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Waters east of Orkney",
       "lastReportedLocation": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020",
-      "position": {
-        "lat": 59,
-        "lon": -2.5,
-        "label": "Waters east of Orkney (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 59,
+          "lon": -2.5
+        },
+        "radiusKm": 90,
+        "label": "Waters east of Orkney",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-express",
@@ -950,13 +1160,20 @@
       "homePort": "Cardiff",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea",
       "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
-      "position": {
-        "lat": 57,
-        "lon": 18,
-        "label": "Baltic Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 57,
+          "lon": 18
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-example",
@@ -969,13 +1186,20 @@
       "homePort": "Gateshead",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Baltic Sea",
       "lastReportedLocation": "Baltic Sea; BALTOPS activity reported 19 June 2025",
-      "position": {
-        "lat": 56,
-        "lon": 16,
-        "label": "Baltic Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 56,
+          "lon": 16
+        },
+        "radiusKm": 450,
+        "label": "Baltic Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-explorer",
@@ -988,13 +1212,20 @@
       "homePort": "Hull",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Waters east of Orkney",
       "lastReportedLocation": "East coast of Scotland / Kirkwall; summer deployment reported 30 July 2020",
-      "position": {
-        "lat": 59,
-        "lon": -2.5,
-        "label": "Waters east of Orkney (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 59,
+          "lon": -2.5
+        },
+        "radiusKm": 90,
+        "label": "Waters east of Orkney",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-exploit",
@@ -1007,13 +1238,20 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "North Sea off Zeebrugge",
       "lastReportedLocation": "North Sea off Zeebrugge; exercise activity reported 25 September 2024",
-      "position": {
-        "lat": 51.35,
-        "lon": 3.2,
-        "label": "North Sea off Zeebrugge (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 51.4,
+          "lon": 3.2
+        },
+        "radiusKm": 180,
+        "label": "North Sea off Zeebrugge",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-tracker",
@@ -1026,13 +1264,20 @@
       "homePort": "HMNB Clyde",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Firth of Clyde off Innellan",
       "lastReportedLocation": "Off Innellan, Firth of Clyde; directly photographed and published 26 June 2025",
-      "position": {
-        "lat": 55.89,
-        "lon": -4.9,
-        "label": "Firth of Clyde off Innellan (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 55.9,
+          "lon": -4.9
+        },
+        "radiusKm": 45,
+        "label": "Firth of Clyde off Innellan",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-raider",
@@ -1045,13 +1290,16 @@
       "homePort": "HMNB Clyde",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Maryport Marina",
       "lastReportedLocation": "Maryport Marina; public visit observed 27–28 June 2026",
       "position": {
-        "lat": 54.71412,
-        "lon": -3.50765,
-        "label": "Maryport Marina (representative)"
+        "lat": 54.71,
+        "lon": -3.51,
+        "label": "Maryport Marina"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-cutlass",
@@ -1064,13 +1312,20 @@
       "homePort": "Gibraltar",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Gibraltar Harbour",
       "lastReportedLocation": "British Gibraltar Territorial Waters; last official public location reported 18 May 2022",
-      "position": {
-        "lat": 36.1485,
-        "lon": -5.3652,
-        "label": "Gibraltar Harbour (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 36.1,
+          "lon": -5.4
+        },
+        "radiusKm": 90,
+        "label": "Gibraltar Harbour",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-dagger",
@@ -1083,13 +1338,16 @@
       "homePort": "Gibraltar",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Gibraltar Harbour",
       "lastReportedLocation": "Gibraltar; returned after Tangier / Ksar Sghir exercise reported 30 July 2026",
       "position": {
-        "lat": 36.1485,
-        "lon": -5.3652,
-        "label": "Gibraltar Harbour (representative)"
+        "lat": 36.15,
+        "lon": -5.37,
+        "label": "Gibraltar Harbour"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-scott",
@@ -1102,13 +1360,16 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Gibraltar harbour",
       "lastReportedLocation": "Gibraltar; arrival reported 19 August 2026",
       "position": {
-        "lat": 36.142,
-        "lon": -5.355,
-        "label": "Gibraltar harbour (representative)"
+        "lat": 36.14,
+        "lon": -5.36,
+        "label": "Gibraltar harbour"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "hms-protector",
@@ -1121,13 +1382,20 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Tees approaches / North Sea",
       "lastReportedLocation": "River Tees; sailed after docking and maintenance period reported 14 January 2026",
-      "position": {
-        "lat": 54.7,
-        "lon": -1,
-        "label": "Tees approaches / North Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 54.7,
+          "lon": -1
+        },
+        "radiusKm": 180,
+        "label": "Tees approaches / North Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-magpie",
@@ -1140,13 +1408,20 @@
       "homePort": "HMNB Devonport",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Irish Sea",
       "lastReportedLocation": "Irish Sea; sea trials reported 24 April 2018",
-      "position": {
-        "lat": 53,
-        "lon": -5,
-        "label": "Irish Sea (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 53,
+          "lon": -5
+        },
+        "radiusKm": 180,
+        "label": "Irish Sea",
+        "representation": "regional"
+      }
     },
     {
       "id": "rfa-lyme-bay",
@@ -1159,13 +1434,16 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Port of Mombasa",
       "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
       "position": {
-        "lat": -4.069,
+        "lat": -4.07,
         "lon": 39.64,
-        "label": "Port of Mombasa (representative)"
+        "label": "Port of Mombasa"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-mounts-bay",
@@ -1178,13 +1456,16 @@
       "homePort": "No fixed home base.",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Portland Harbour",
       "lastReportedLocation": "Portland Port; public visit reported 30 July 2026",
       "position": {
-        "lat": 50.585,
-        "lon": -2.445,
-        "label": "Portland Harbour (representative)"
+        "lat": 50.59,
+        "lon": -2.44,
+        "label": "Portland Harbour"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-cardigan-bay",
@@ -1197,13 +1478,16 @@
       "homePort": "No fixed home base.",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Falmouth",
       "lastReportedLocation": "Falmouth; refit",
       "position": {
         "lat": 50.15,
         "lon": -5.05,
         "label": "Falmouth"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-proteus",
@@ -1216,13 +1500,20 @@
       "homePort": "No fixed home base.",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Plymouth Sound",
       "lastReportedLocation": "Plymouth Sound; reported operating under dynamic positioning on 21 August 2026",
-      "position": {
-        "lat": 50.342,
-        "lon": -4.146,
-        "label": "Plymouth Sound (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.34,
+          "lon": -4.15
+        },
+        "radiusKm": 20,
+        "label": "Plymouth Sound",
+        "representation": "regional"
+      }
     },
     {
       "id": "rfa-tidespring",
@@ -1235,13 +1526,16 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Gibraltar harbour",
       "lastReportedLocation": "Gibraltar; reported alongside 19 August 2026",
       "position": {
-        "lat": 36.142,
-        "lon": -5.355,
-        "label": "Gibraltar harbour (representative)"
+        "lat": 36.14,
+        "lon": -5.36,
+        "label": "Gibraltar harbour"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-tiderace",
@@ -1254,13 +1548,16 @@
       "homePort": "No fixed home base.",
       "status": "In re-fit",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Birkenhead",
       "lastReportedLocation": "Birkenhead / planned reactivation later in 2026",
       "position": {
         "lat": 53.4,
         "lon": -3,
         "label": "Birkenhead"
       },
-      "unmappedReason": null
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-tidesurge",
@@ -1273,13 +1570,20 @@
       "homePort": "No fixed home base.",
       "status": "Available",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "North Sea–Dover–Channel route",
       "lastReportedLocation": "North Sea–Dover Strait–English Channel route; monitoring operation reported 11 December 2025",
-      "position": {
-        "lat": 51,
-        "lon": 1.4,
-        "label": "North Sea–Dover–Channel route (representative)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 51,
+          "lon": 1.4
+        },
+        "radiusKm": 180,
+        "label": "North Sea–Dover–Channel route",
+        "representation": "regional"
+      }
     },
     {
       "id": "rfa-tideforce",
@@ -1292,13 +1596,20 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Plymouth Sound",
       "lastReportedLocation": "Plymouth Sound; last confirmed outbound from Devonport on 21 August 2026",
-      "position": {
-        "lat": 50.342,
-        "lon": -4.146,
-        "label": "Plymouth Sound (representative outbound location)"
-      },
-      "unmappedReason": null
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.34,
+          "lon": -4.15
+        },
+        "radiusKm": 20,
+        "label": "Plymouth Sound",
+        "representation": "regional"
+      }
     }
   ]
 }

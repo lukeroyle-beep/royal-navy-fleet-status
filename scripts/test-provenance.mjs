@@ -12,6 +12,7 @@ import {
   validateSourceRegistry,
 } from "./lib/provenance.mjs";
 import { createSweepQueue } from "./lib/sweep.mjs";
+import { createPublicProjection, projectPublicVessel } from "./lib/public-projection.mjs";
 
 const entities = read("../data/internal/provenance/vessels.json");
 const registry = read("../data/internal/provenance/sources.json");
@@ -22,6 +23,144 @@ const knownVesselIds = [
   ...vesselIds,
   ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
 ];
+const publicProjection = createPublicProjection(entities, assessmentLog);
+const expectedPublicFields = [
+  "commissionedDate",
+  "homePort",
+  "id",
+  "lastReportedLocation",
+  "locationClassification",
+  "locationPrecision",
+  "locationState",
+  "name",
+  "pennantNumber",
+  "position",
+  "publicLocationLabel",
+  "service",
+  "status",
+  "uncertaintyArea",
+  "vesselClass",
+  "vesselType",
+].sort();
+for (const vessel of publicProjection.vessels) {
+  assert.deepEqual(Object.keys(vessel).sort(), expectedPublicFields, `${vessel.id} bypasses the public allow-list.`);
+}
+const projectedVengeance = publicProjection.vessels.find((vessel) => vessel.id === "hms-vengeance");
+assert.equal(projectedVengeance.locationPrecision, "none");
+assert.equal(projectedVengeance.position, null);
+assert.equal(projectedVengeance.uncertaintyArea, null);
+const vengeanceEntity = entities.vessels.find((vessel) => vessel.vesselId === "hms-vengeance");
+const vengeanceAssessment = assessmentLog.assessments.find(
+  (assessment) =>
+    assessment.assessmentId === assessmentLog.currentAssessmentIds[vengeanceEntity.vesselId],
+);
+for (const { report, requestedPrecision } of [
+  { report: "North Atlantic", requestedPrecision: undefined },
+  { report: "Norwegian Sea", requestedPrecision: "region" },
+  { report: "Caribbean region", requestedPrecision: "port" },
+]) {
+  const patrolAssessment = structuredClone(vengeanceAssessment);
+  patrolAssessment.assessedState.locationClassification = "approximate";
+  patrolAssessment.assessedState.locationState = "last_reported";
+  if (requestedPrecision === "region") {
+    patrolAssessment.assessedState.publicLocation = {
+      precision: "region",
+      label: report,
+      geometry: { type: "circle", centre: { lat: 45, lon: -30 }, radiusKm: 450 },
+    };
+  } else if (requestedPrecision === "port") {
+    patrolAssessment.assessedState.publicLocation = {
+      precision: "port",
+      label: report,
+      geometry: { type: "point", lat: 45, lon: -30 },
+    };
+  } else {
+    delete patrolAssessment.assessedState.publicLocation;
+  }
+  patrolAssessment.assessedState.lastReportedLocation = report;
+  patrolAssessment.assessedState.position = { lat: 45, lon: -30, label: report };
+  const projectedPatrol = projectPublicVessel(vengeanceEntity, patrolAssessment);
+  assert.equal(projectedPatrol.locationPrecision, "none", `${report} exposed patrol precision.`);
+  assert.equal(projectedPatrol.position, null, `${report} exposed a patrol point.`);
+  assert.equal(projectedPatrol.uncertaintyArea, null, `${report} exposed a patrol region.`);
+}
+const projectedVictorious = publicProjection.vessels.find((vessel) => vessel.id === "hms-victorious");
+assert.doesNotMatch(projectedVictorious.lastReportedLocation, /\b\d+\s*(?:dock|berth)\b/i);
+const projectedMedway = publicProjection.vessels.find((vessel) => vessel.id === "hms-medway");
+assert.equal(projectedMedway.locationPrecision, "region");
+assert.equal(projectedMedway.position, null);
+assert.equal(projectedMedway.uncertaintyArea.radiusKm, 450);
+assert.equal(projectedMedway.publicLocationLabel, "Falkland Islands / South Atlantic");
+const medwayAssessment = assessmentLog.assessments.find(
+  (assessment) => assessment.assessmentId === assessmentLog.currentAssessmentIds["hms-medway"],
+);
+assert.deepEqual(medwayAssessment.assessedState.publicLocation, {
+  precision: "region",
+  label: "Falkland Islands / South Atlantic",
+  geometry: {
+    type: "circle",
+    centre: { lat: -51.7, lon: -57.5 },
+    radiusKm: 450,
+  },
+});
+
+const duncanEntity = entities.vessels.find((vessel) => vessel.vesselId === "hms-duncan");
+const duncanAssessment = assessmentLog.assessments.find(
+  (assessment) => assessment.assessmentId === assessmentLog.currentAssessmentIds[duncanEntity.vesselId],
+);
+const explicitOsloAssessment = structuredClone(duncanAssessment);
+explicitOsloAssessment.assessedState.lastReportedLocation = "Oslo, Norway";
+explicitOsloAssessment.assessedState.publicLocation = {
+  precision: "city",
+  label: "Oslo",
+  geometry: { type: "point", lat: 59.91, lon: 10.75 },
+};
+const projectedOslo = projectPublicVessel(duncanEntity, explicitOsloAssessment);
+assert.equal(projectedOslo.locationPrecision, "city");
+assert.deepEqual(projectedOslo.position, { lat: 59.91, lon: 10.75, label: "Oslo" });
+
+const ambiguousOsloAssessment = structuredClone(explicitOsloAssessment);
+delete ambiguousOsloAssessment.assessedState.publicLocation;
+const projectedAmbiguousOslo = projectPublicVessel(duncanEntity, ambiguousOsloAssessment);
+assert.equal(projectedAmbiguousOslo.locationPrecision, "none");
+assert.equal(projectedAmbiguousOslo.position, null);
+assert.equal(projectedAmbiguousOslo.uncertaintyArea, null);
+
+const movingVesselAssessment = structuredClone(duncanAssessment);
+movingVesselAssessment.assessedState.lastReportedLocation = "Departing Oslo for sea trials";
+movingVesselAssessment.assessedState.position = { lat: 59.91, lon: 10.75, label: "Departing Oslo" };
+delete movingVesselAssessment.assessedState.publicLocation;
+const projectedMovingVessel = projectPublicVessel(duncanEntity, movingVesselAssessment);
+assert.equal(projectedMovingVessel.locationPrecision, "none");
+assert.equal(projectedMovingVessel.position, null);
+assert.equal(projectedMovingVessel.uncertaintyArea, null);
+
+const explicitAreaAssessment = structuredClone(duncanAssessment);
+explicitAreaAssessment.assessedState.locationClassification = "approximate";
+explicitAreaAssessment.assessedState.lastReportedLocation = "Reviewed operational area";
+explicitAreaAssessment.assessedState.publicLocation = {
+  precision: "region",
+  label: "Reviewed operational area",
+  geometry: { type: "circle", centre: { lat: 60, lon: 5 }, radiusKm: 275 },
+};
+const projectedExplicitArea = projectPublicVessel(duncanEntity, explicitAreaAssessment);
+assert.equal(projectedExplicitArea.locationPrecision, "region");
+assert.equal(projectedExplicitArea.position, null);
+assert.deepEqual(projectedExplicitArea.uncertaintyArea, {
+  centre: { lat: 60, lon: 5 },
+  radiusKm: 275,
+  label: "Reviewed operational area",
+  representation: "regional",
+});
+
+const ambiguousPlaceAssessment = structuredClone(duncanAssessment);
+ambiguousPlaceAssessment.assessedState.lastReportedLocation = "Springfield";
+ambiguousPlaceAssessment.assessedState.position = { lat: 51.5, lon: -1.2, label: "Springfield" };
+delete ambiguousPlaceAssessment.assessedState.publicLocation;
+const projectedAmbiguousPlace = projectPublicVessel(duncanEntity, ambiguousPlaceAssessment);
+assert.equal(projectedAmbiguousPlace.locationPrecision, "none");
+assert.equal(projectedAmbiguousPlace.position, null);
+assert.equal(projectedAmbiguousPlace.uncertaintyArea, null);
 
 assert.equal(validateSourceRegistry(registry, knownVesselIds, vesselIds), registry);
 assert.equal(
@@ -31,6 +170,34 @@ assert.equal(
 assert.equal(
   validateAssessmentLog(assessmentLog, evidenceLog.evidence, knownVesselIds, vesselIds),
   assessmentLog,
+);
+const missingReviewedGeometry = structuredClone(assessmentLog);
+delete missingReviewedGeometry.assessments.find(
+  (assessment) => assessment.assessmentId === missingReviewedGeometry.currentAssessmentIds["hms-duncan"],
+).assessedState.publicLocation;
+assert.throws(
+  () =>
+    validateAssessmentLog(
+      missingReviewedGeometry,
+      evidenceLog.evidence,
+      knownVesselIds,
+      vesselIds,
+    ),
+  /no reviewed publicLocation decision/i,
+);
+const unsafeReviewedGeometry = structuredClone(assessmentLog);
+unsafeReviewedGeometry.assessments.find(
+  (assessment) => assessment.assessmentId === unsafeReviewedGeometry.currentAssessmentIds["hms-duncan"],
+).assessedState.publicLocation.geometry.sourceUrl = "https://invalid.test/private";
+assert.throws(
+  () =>
+    validateAssessmentLog(
+      unsafeReviewedGeometry,
+      evidenceLog.evidence,
+      knownVesselIds,
+      vesselIds,
+    ),
+  /requires explicit point geometry/i,
 );
 assert.equal(registry.officialSocialCoverage.length, 68);
 for (const retiredId of ["hms-richmond", "hms-iron-duke", "hms-chiddingfold"]) {

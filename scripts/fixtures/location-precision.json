@@ -1,0 +1,170 @@
+{
+  "stateCases": [
+    {
+      "caseId": "confirmed-port",
+      "locationClassification": "mapped",
+      "locationState": "confirmed",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Portsmouth Harbour",
+      "lastReportedLocation": "Portsmouth Harbour",
+      "position": { "lat": 50.81, "lon": -1.1, "label": "Portsmouth Harbour" },
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "confirmed-city",
+      "locationClassification": "approximate",
+      "locationState": "confirmed",
+      "locationPrecision": "city",
+      "publicLocationLabel": "Copenhagen, Denmark",
+      "lastReportedLocation": "Copenhagen, Denmark",
+      "position": { "lat": 55.7, "lon": 12.6, "label": "Copenhagen, Denmark" },
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "last-reported-region",
+      "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "Plymouth Sound",
+      "lastReportedLocation": "Plymouth Sound; last publicly reported outbound",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": { "lat": 50.34, "lon": -4.15 },
+        "radiusKm": 20,
+        "label": "Plymouth Sound",
+        "representation": "regional"
+      }
+    },
+    {
+      "caseId": "location-unconfirmed",
+      "locationClassification": "unknown",
+      "locationState": "unconfirmed",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location unconfirmed",
+      "lastReportedLocation": "Location unconfirmed",
+      "position": null,
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "no-recent-information",
+      "locationClassification": "unknown",
+      "locationState": "no_recent_information",
+      "locationPrecision": "none",
+      "publicLocationLabel": "No recent public information",
+      "lastReportedLocation": "No recent public information",
+      "position": null,
+      "uncertaintyArea": null
+    },
+    {
+      "caseId": "withheld-submarine",
+      "vesselType": "SSBN",
+      "status": "Deployed",
+      "locationClassification": "withheld",
+      "locationState": "withheld",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location not published",
+      "lastReportedLocation": "On patrol; location not published",
+      "position": null,
+      "uncertaintyArea": null
+    }
+  ],
+  "missedEvidenceRegressions": [
+    {
+      "caseId": "rfa-proteus-plymouth-sound",
+      "vesselId": "rfa-proteus",
+      "vesselName": "RFA Proteus",
+      "vesselType": "RFA auxiliary - multi-role ocean surveillance ship",
+      "status": "Available",
+      "locationClassification": "approximate",
+      "freshnessState": "aging",
+      "report": "Plymouth Sound",
+      "position": { "lat": 50.342, "lon": -4.146, "label": "Plymouth Sound (representative)" },
+      "publicLocation": { "precision": "region", "label": "Plymouth Sound", "geometry": { "type": "circle", "centre": { "lat": 50.34, "lon": -4.15 }, "radiusKm": 20 } },
+      "expectedState": "last_reported",
+      "expectedPrecision": "region",
+      "expectedLabel": "Plymouth Sound",
+      "mustNotUsePoint": true
+    },
+    {
+      "caseId": "rfa-tideforce-departing-devonport",
+      "vesselId": "rfa-tideforce",
+      "vesselName": "RFA Tideforce",
+      "vesselType": "RFA auxiliary - fleet tanker",
+      "status": "Deployed",
+      "locationClassification": "approximate",
+      "freshnessState": "aging",
+      "report": "Departing Devonport through Plymouth Sound",
+      "position": { "lat": 50.342, "lon": -4.146, "label": "Plymouth Sound (representative outbound location)" },
+      "publicLocation": { "precision": "region", "label": "Plymouth Sound", "geometry": { "type": "circle", "centre": { "lat": 50.34, "lon": -4.15 }, "radiusKm": 20 } },
+      "expectedState": "last_reported",
+      "expectedPrecision": "region",
+      "expectedLabel": "Plymouth Sound",
+      "mustNotUsePoint": true
+    },
+    {
+      "caseId": "hms-spey-maintenance-singapore",
+      "vesselId": "hms-spey",
+      "vesselName": "HMS Spey",
+      "vesselType": "Offshore patrol vessel",
+      "status": "Deployed",
+      "locationClassification": "approximate",
+      "freshnessState": "current",
+      "report": "Maintenance in Singapore",
+      "position": { "lat": 1.285, "lon": 103.835, "label": "Singapore port area (representative)" },
+      "publicLocation": { "precision": "city", "label": "Singapore", "geometry": { "type": "point", "lat": 1.29, "lon": 103.84 } },
+      "expectedState": "confirmed",
+      "expectedPrecision": "city",
+      "expectedLabel": "Singapore",
+      "mustNotClaimBerth": true
+    },
+    {
+      "caseId": "hms-duncan-copenhagen",
+      "vesselId": "hms-duncan",
+      "vesselName": "HMS Duncan",
+      "vesselType": "Destroyer",
+      "status": "Deployed",
+      "locationClassification": "approximate",
+      "freshnessState": "current",
+      "report": "Copenhagen, Denmark",
+      "position": { "lat": 55.704, "lon": 12.596, "label": "Copenhagen harbour (representative city/port location)" },
+      "publicLocation": { "precision": "city", "label": "Copenhagen, Denmark", "geometry": { "type": "point", "lat": 55.7, "lon": 12.6 } },
+      "expectedState": "confirmed",
+      "expectedPrecision": "city",
+      "expectedLabel": "Copenhagen, Denmark",
+      "mustNotClaimBerth": true
+    },
+    {
+      "caseId": "hms-medway-south-atlantic",
+      "vesselId": "hms-medway",
+      "vesselName": "HMS Medway",
+      "vesselType": "Offshore patrol vessel",
+      "status": "Deployed",
+      "locationClassification": "approximate",
+      "freshnessState": "historical",
+      "report": "Falkland Islands / South Atlantic; Falklands guard ship",
+      "position": { "lat": -51.7, "lon": -57.5, "label": "Falkland Islands / South Atlantic (representative)" },
+      "publicLocation": { "precision": "region", "label": "Falkland Islands / South Atlantic", "geometry": { "type": "circle", "centre": { "lat": -51.7, "lon": -57.5 }, "radiusKm": 450 } },
+      "expectedState": "last_reported",
+      "expectedPrecision": "region",
+      "expectedLabel": "Falkland Islands / South Atlantic",
+      "mustNotUsePoint": true
+    },
+    {
+      "caseId": "hms-duncan-future-portsmouth",
+      "vesselId": "hms-duncan",
+      "vesselName": "HMS Duncan",
+      "vesselType": "Destroyer",
+      "status": "Available",
+      "locationClassification": "mapped",
+      "freshnessState": "current",
+      "report": "Portsmouth Harbour; returned from deployment",
+      "position": { "lat": 50.81, "lon": -1.1, "label": "Portsmouth Harbour" },
+      "publicLocation": { "precision": "port", "label": "Portsmouth Harbour", "geometry": { "type": "point", "lat": 50.81, "lon": -1.1 } },
+      "expectedState": "confirmed",
+      "expectedPrecision": "port",
+      "expectedLabel": "Portsmouth Harbour",
+      "mustUsePoint": true,
+      "mustNotClaimPreviousCity": true
+    }
+  ]
+}

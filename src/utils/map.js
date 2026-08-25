@@ -1,18 +1,9 @@
-const DISPLAY_POSITION_OVERRIDES = {
-  "hms-scott": { lat: 36.1442, lon: -5.3665 },
-  "rfa-tidespring": { lat: 36.149, lon: -5.382 },
-};
-
 export function hasPlottablePosition(vessel) {
-  return Boolean(getMapPosition(vessel));
+  return Boolean(getMapPosition(vessel) || getUncertaintyArea(vessel));
 }
 
 export function getMapPosition(vessel) {
-  const position = vessel?.position || vessel?.symbolicPosition;
-  const displayOverride = DISPLAY_POSITION_OVERRIDES[vessel?.id];
-  if (displayOverride && position) {
-    return { ...position, ...displayOverride };
-  }
+  const position = vessel?.position;
   return Boolean(
     position &&
       Number.isFinite(position.lat) &&
@@ -22,12 +13,38 @@ export function getMapPosition(vessel) {
     : null;
 }
 
+export function getUncertaintyArea(vessel) {
+  const area = vessel?.uncertaintyArea;
+  return Boolean(
+    vessel?.locationPrecision === "region" &&
+      area?.representation === "regional" &&
+      area.centre &&
+      Number.isFinite(area.centre.lat) &&
+      Number.isFinite(area.centre.lon) &&
+      Number.isFinite(area.radiusKm) &&
+      area.radiusKm > 0,
+  )
+    ? area
+    : null;
+}
+
+export function getMapFocusPosition(vessel) {
+  const point = getMapPosition(vessel);
+  if (point) return point;
+  const area = getUncertaintyArea(vessel);
+  return area ? { ...area.centre, label: area.label } : null;
+}
+
 export function plottedVessels(vessels) {
   return vessels.filter(hasPlottablePosition);
 }
 
 export function markerClassName(vessel, selectedId = null) {
-  const classes = ["fleet-marker", `fleet-marker--${vessel.locationClassification}`];
+  const classes = [
+    "fleet-marker",
+    `fleet-marker--${vessel.locationPrecision}`,
+    `fleet-marker--${vessel.locationState}`,
+  ];
   if (vessel.id === selectedId) classes.push("is-selected");
   return classes.join(" ");
 }
