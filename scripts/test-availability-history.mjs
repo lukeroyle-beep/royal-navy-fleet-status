@@ -17,6 +17,7 @@ import {
 } from "./lib/availability-observation.mjs";
 import {
   decideWeeklyAvailabilityCandidate,
+  inspectPushedWeeklyCandidate,
   selectOpenWeeklyCandidate,
 } from "./lib/weekly-availability-candidate.mjs";
 
@@ -63,7 +64,9 @@ assert.match(workflow, /changed_files.*availability-history\.jsonl/s);
 assert.match(workflow, /canonical_branch="automation\/weekly-availability-\$\{week_ending\}"/);
 assert.match(workflow, /select-weekly-availability-candidate\.mjs/);
 assert.match(workflow, /decide-weekly-availability-candidate\.mjs/);
+assert.match(workflow, /inspect-pushed-weekly-availability-pr\.mjs/);
 assert.match(workflow, /--force-with-lease="refs\/heads\/\$\{branch\}:\$\{remote_sha_before\}"/);
+assert.match(workflow, /--force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"/);
 assert.match(workflow, /origin ":refs\/heads\/\$\{branch\}"/);
 assert.match(workflow, /Allow GitHub Actions to create and approve pull requests/);
 assert.doesNotMatch(workflow, /git push[^\n]*\bmain\b/);
@@ -279,6 +282,99 @@ assert.throws(
       weekEnding: "2025-08-31",
     }),
   /trusted same-repository automation branch/i,
+);
+
+const pushedSha = "a".repeat(40);
+const exactPushedPullRequest = {
+  number: 12,
+  title: candidateTitle,
+  url: "https://example.test/pull/12",
+  headRefName: canonicalCandidateBranch,
+  headRefOid: pushedSha,
+  isCrossRepository: false,
+};
+assert.deepEqual(
+  inspectPushedWeeklyCandidate({
+    openPullRequests: [],
+    title: candidateTitle,
+    canonicalBranch: canonicalCandidateBranch,
+    pushedSha,
+  }),
+  { state: "none", url: null },
+  "No pull request before the push must proceed to creation.",
+);
+assert.deepEqual(
+  inspectPushedWeeklyCandidate({
+    openPullRequests: [exactPushedPullRequest],
+    title: candidateTitle,
+    canonicalBranch: canonicalCandidateBranch,
+    pushedSha,
+  }),
+  { state: "matching", url: exactPushedPullRequest.url },
+  "An exact interleaved pull request must be treated as success.",
+);
+for (const mismatchedPullRequest of [
+  { ...exactPushedPullRequest, title: `${candidateTitle} unexpected` },
+  { ...exactPushedPullRequest, headRefName: `${canonicalCandidateBranch}-elsewhere` },
+  { ...exactPushedPullRequest, headRefOid: "b".repeat(40) },
+  { ...exactPushedPullRequest, isCrossRepository: true },
+]) {
+  assert.throws(
+    () =>
+      inspectPushedWeeklyCandidate({
+        openPullRequests: [mismatchedPullRequest],
+        title: candidateTitle,
+        canonicalBranch: canonicalCandidateBranch,
+        pushedSha,
+      }),
+    /mismatched or points elsewhere/i,
+  );
+}
+assert.throws(
+  () =>
+    inspectPushedWeeklyCandidate({
+      openPullRequests: [
+        exactPushedPullRequest,
+        { ...exactPushedPullRequest, number: 13, url: "https://example.test/pull/13" },
+      ],
+      title: candidateTitle,
+      canonicalBranch: canonicalCandidateBranch,
+      pushedSha,
+    }),
+  /ambiguous open pull requests/i,
+);
+
+const preCreateQueryIndex = workflow.indexOf('post_push_state="$(query_pushed_candidate)"');
+const createIndex = workflow.indexOf('pr_url="$(gh pr create');
+const postCreateQueryIndex = workflow.indexOf('post_create_state="$(query_pushed_candidate)"');
+const cleanupIndex = workflow.indexOf('if [[ -n "$pushed_sha" && -n "$remote_sha_before" ]]');
+assert.ok(
+  preCreateQueryIndex > 0 && preCreateQueryIndex < createIndex,
+  "The matching-PR race must be checked before attempting creation.",
+);
+assert.ok(
+  postCreateQueryIndex > createIndex && postCreateQueryIndex < cleanupIndex,
+  "A failed creation must be re-queried before any rollback.",
+);
+assert.match(
+  workflow.slice(postCreateQueryIndex, cleanupIndex),
+  /state' <<<"\$post_create_state"[\s\S]*create_status == 0[\s\S]*leaving the leased branch unchanged for inspection/,
+  "A creation result without an exact PR must fail closed before cleanup decisions.",
+);
+assert.match(
+  workflow.slice(cleanupIndex),
+  /force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"[\s\S]*origin ":refs\/heads\/\$\{branch\}"/,
+  "Creation failure without a PR must delete only the exact SHA pushed by this run.",
+);
+assert.match(
+  workflow.slice(cleanupIndex),
+  /force-with-lease="refs\/heads\/\$\{branch\}:\$\{pushed_sha\}"[\s\S]*\$\{remote_sha_before\}:refs\/heads\/\$\{branch\}/,
+  "Restoring an orphan branch must use the exact pushed SHA lease.",
+);
+assert.match(
+  workflow,
+  /remote_sha_after_push[\s\S]*!= "\$pushed_sha"/,
+  "A concurrent branch change before creation must fail closed.",
 );
 
 const unsafeRecord = structuredClone(syntheticHistory[0]);

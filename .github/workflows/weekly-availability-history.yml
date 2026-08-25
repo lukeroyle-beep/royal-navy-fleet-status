@@ -173,6 +173,33 @@ jobs:
             exit 0
           fi
 
+          if [[ -z "$pushed_sha" ]]; then
+            pushed_sha="$remote_sha_before"
+          fi
+          remote_sha_after_push="$(git ls-remote --heads origin "refs/heads/${canonical_branch}" | awk '{print $1}')"
+          if [[ -z "$pushed_sha" || "$remote_sha_after_push" != "$pushed_sha" ]]; then
+            echo "The canonical candidate branch changed after validation; refusing to open or alter a pull request." >&2
+            exit 1
+          fi
+
+          query_pushed_candidate() {
+            gh pr list --state open --base main --limit 100 \
+              --json number,title,url,headRefName,headRefOid,isCrossRepository \
+              > candidate/post-push-open-pull-requests.json
+            node scripts/inspect-pushed-weekly-availability-pr.mjs \
+              --open-prs candidate/post-push-open-pull-requests.json \
+              --title "$title" \
+              --canonical-branch "$canonical_branch" \
+              --pushed-sha "$pushed_sha"
+          }
+
+          post_push_state="$(query_pushed_candidate)"
+          if [[ "$(jq -r '.state' <<<"$post_push_state")" == "matching" ]]; then
+            raced_pr_url="$(jq -r '.url' <<<"$post_push_state")"
+            echo "Another actor opened the exact validated candidate: ${raced_pr_url}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
           set +e
           pr_url="$(gh pr create \
             --base main \
@@ -181,6 +208,16 @@ jobs:
             --body "Automated candidate containing only the append-only public availability ledger. Source statuses must already belong to a reviewed fleet release. Human merge review remains required.")"
           create_status=$?
           set -e
+          post_create_state="$(query_pushed_candidate)"
+          if [[ "$(jq -r '.state' <<<"$post_create_state")" == "matching" ]]; then
+            confirmed_pr_url="$(jq -r '.url' <<<"$post_create_state")"
+            echo "Opened the owner-reviewed candidate: ${confirmed_pr_url}" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          if (( create_status == 0 )); then
+            echo "Pull-request creation reported success but the exact validated open pull request was not found; leaving the leased branch unchanged for inspection." >&2
+            exit 1
+          fi
           if (( create_status != 0 )); then
             cleanup_status=0
             set +e
@@ -204,4 +241,3 @@ jobs:
             echo "GitHub refused pull-request creation. Enable Settings > Actions > General > Workflow permissions > Allow GitHub Actions to create and approve pull requests, then rerun this workflow." >&2
             exit "$create_status"
           fi
-          echo "Opened the owner-reviewed candidate: ${pr_url}" >> "$GITHUB_STEP_SUMMARY"

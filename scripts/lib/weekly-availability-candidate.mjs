@@ -65,6 +65,41 @@ export function selectOpenWeeklyCandidate({
   return { branch: match.headRefName, url: match.url };
 }
 
+export function inspectPushedWeeklyCandidate({
+  openPullRequests,
+  title,
+  canonicalBranch,
+  pushedSha,
+}) {
+  if (!Array.isArray(openPullRequests)) throw new Error("Open pull-request data must be an array.");
+  if (!/^[a-f0-9]{40}$/.test(pushedSha || "")) {
+    throw new Error("The validated pushed candidate SHA is invalid.");
+  }
+  const relevant = openPullRequests.filter(
+    (pullRequest) =>
+      pullRequest.title === title || pullRequest.headRefName === canonicalBranch,
+  );
+  if (relevant.length === 0) return { state: "none", url: null };
+  if (relevant.length > 1) {
+    throw new Error("Ambiguous open pull requests appeared for the pushed weekly candidate.");
+  }
+
+  const match = relevant[0];
+  if (
+    match.isCrossRepository !== false ||
+    match.title !== title ||
+    match.headRefName !== canonicalBranch ||
+    match.headRefOid !== pushedSha ||
+    typeof match.url !== "string" ||
+    !match.url
+  ) {
+    throw new Error(
+      "The open pull request for the pushed weekly candidate is mismatched or points elsewhere.",
+    );
+  }
+  return { state: "matching", url: match.url };
+}
+
 function sourceIdentity(sourceRelease) {
   return {
     asOfDate: sourceRelease.snapshotDate,

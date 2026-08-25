@@ -43,7 +43,10 @@ An unmerged candidate is different: there must be only one open candidate for th
 the same reviewed source is a no-op. A newer corrected source safely replaces the existing candidate
 branch, including legacy run-numbered automation branches, so the open pull request remains the one
 canonical review surface. A stale or conflicting run fails before pushing. Workflow concurrency and an
-exact remote-head lease prevent an older run from racing over a corrected candidate.
+exact remote-head lease prevent an older run from racing over a corrected candidate. After a branch
+push, the workflow re-queries open pull requests by the exact canonical branch, title and validated
+commit. A matching pull request created by another actor is accepted; any ambiguous, mismatched or
+different-commit pull request fails closed without changing its branch.
 
 ## Future calculations
 
@@ -74,9 +77,12 @@ Actions to create pull requests. Pull requests created with the repository token
 downstream workflows automatically, so the candidate runs the complete local gate before opening and
 still requires owner review. Every third-party action in this workflow is pinned to an immutable commit.
 
-The candidate uses a stable per-week branch. If branch creation succeeds but GitHub refuses pull-request
-creation, the workflow removes a newly created branch or restores a pre-existing orphan to its prior
-commit using an exact lease. A previously orphaned, unchanged branch is deliberately left untouched and
-can be recovered by rerunning after the repository permission is enabled. The required owner setting is
+The candidate uses a stable per-week branch. It checks for the exact validated pull request both before
+and after attempting creation, so an interleaved successful creation is not rolled back. If branch
+creation succeeds but GitHub refuses pull-request creation and no matching pull request exists, the
+workflow removes a newly created branch or restores a pre-existing orphan to its prior commit using an
+exact lease. A concurrent branch change makes that cleanup fail safely rather than overwrite the newer
+state. A previously orphaned, unchanged branch is deliberately left untouched and can be recovered by
+rerunning after the repository permission is enabled. The required owner setting is
 **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull
 requests**. The workflow does not and cannot enable that setting itself.
