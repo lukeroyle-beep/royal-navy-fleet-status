@@ -38,17 +38,22 @@ Supported public filters and layer choices are saved in browser local storage un
 schema. Invalid JSON, unknown schema versions and values no longer present in the current dataset
 fall back to documented defaults without preventing the tracker from loading.
 
-A URL carrying `view=1` is authoritative for that visit, so a shared view does not inherit the
+A URL carrying `view=2` is authoritative for that visit, so a shared view does not inherit the
 recipient's saved preferences. The URL allow-list covers only public filter values, supported layer
-names, a current public vessel identifier, latitude, longitude and zoom. Coordinates and zoom are
-bounded to Leaflet's supported map range. Unknown or obsolete parameters are discarded when the
-address is rewritten. Source records, evidence assessments, analyst metadata and collection status
-are not accepted by the state parser or written to local storage or the URL.
+names (including bounded uncertainty areas), a current public vessel identifier, latitude,
+longitude and zoom. Coordinates and zoom are strictly parsed and bounded to Leaflet's supported
+map range; empty or malformed numeric values are rejected. Unknown, overlong or obsolete values
+are discarded when the address is rewritten. Version 1 saved views and links retain compatible
+public filters and layers, while the superseded location-classification filter is safely cleared
+rather than reinterpreted as the newer public location-state field. Source records, evidence
+assessments, analyst metadata and collection status are not accepted by the state parser or written
+to local storage or the URL.
 
 The United Kingdom ports preset shows only the three naval bases and two dockyards already present
-in the public shore dataset. The geographic-scope filter classifies mapped and approximate public
-vessel coordinates with a documented broad box from 49°N to 61.5°N and 12.5°W to 4°E. It performs
-no geocoding and excludes unknown and withheld records from both geographic-scope results.
+in the public shore dataset. The geographic-scope filter classifies rounded port/city points and
+the published centre of broad regional areas with a documented broad box from 49°N to 61.5°N and
+12.5°W to 4°E. It performs no geocoding and excludes list-only records from both geographic-scope
+results.
 
 ## Location safeguards
 
@@ -61,7 +66,7 @@ no geocoding and excludes unknown and withheld records from both geographic-scop
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
 - Undisclosed submarine patrol positions are never inferred, represented symbolically or displayed.
 
-The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed location classification and the project's internal evidence review.
+The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed public location state, precision and the project's internal evidence review.
 
 ## Evidence and assessment model
 

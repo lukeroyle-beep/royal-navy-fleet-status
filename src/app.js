@@ -699,16 +699,18 @@ function applyPublicState(state, { initial = false } = {}) {
   elements.service.value = state.filters.service;
   elements.status.value = state.filters.status;
   elements.type.value = state.filters.type;
-  elements.location.value = state.filters.location;
+  elements.location.value = state.filters.locationState;
   elements.presence.value = state.filters.presence;
   elements.shoreSearch.value = state.filters.shoreQuery;
   elements.shoreType.value = state.filters.shoreType;
   elements.fleetLayerToggle.checked = state.layers.fleet;
   elements.clusterLayerToggle.checked = state.layers.clusters;
+  elements.uncertaintyLayerToggle.checked = state.layers.uncertainty;
   updateClassRibbon();
 
   fleetMap.clearSelection();
   fleetMap.setClusteringEnabled(state.layers.clusters, { fit: false });
+  fleetMap.setUncertaintyAreasVisible(state.layers.uncertainty, { fit: false });
   fleetMap.setFleetVisible(state.layers.fleet, { fit: false });
   toggleShoreLayer(state.layers.shore, { fit: false, sync: false });
   const filteredVessels = applyFilters({ fit: false, sync: false });
@@ -746,7 +748,7 @@ function currentPublicState() {
       service: elements.service.value,
       status: elements.status.value,
       type: elements.type.value,
-      location: elements.location.value,
+      locationState: elements.location.value,
       presence: elements.presence.value,
       shoreQuery: elements.shoreSearch.value,
       shoreType: elements.shoreType.value,
@@ -755,6 +757,7 @@ function currentPublicState() {
       fleet: elements.fleetLayerToggle.checked,
       shore: elements.shoreLayerToggle.checked,
       clusters: elements.clusterLayerToggle.checked,
+      uncertainty: elements.uncertaintyLayerToggle.checked,
     },
     selectedVessel: selectedId,
     map: fleetMap.getView(),
@@ -764,8 +767,8 @@ function currentPublicState() {
 function syncPublicState() {
   if (!publicStateReady || applyingPublicState) return;
   const state = currentPublicState();
-  persistPublicState(publicStorage, state);
-  const shareableUrl = createShareablePublicUrl(window.location.href, state);
+  persistPublicState(publicStorage, state, publicStateCatalog);
+  const shareableUrl = createShareablePublicUrl(window.location.href, state, publicStateCatalog);
   try {
     window.history.replaceState(window.history.state, "", shareableUrl);
   } catch {
@@ -780,7 +783,11 @@ function syncPublicState() {
 
 async function copyShareableView() {
   syncPublicState();
-  const url = createShareablePublicUrl(window.location.href, currentPublicState()).href;
+  const url = createShareablePublicUrl(
+    window.location.href,
+    currentPublicState(),
+    publicStateCatalog,
+  ).href;
   let copied = false;
   try {
     await navigator.clipboard.writeText(url);

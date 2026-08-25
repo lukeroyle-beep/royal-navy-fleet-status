@@ -9,6 +9,7 @@ import {
 } from "../src/utils/interface.js";
 import {
   PORT_SHORE_FILTER,
+  PUBLIC_STATE_VERSION,
   PUBLIC_STATE_STORAGE_KEY,
   createDefaultPublicState,
   createPublicStateCatalog,
@@ -61,6 +62,10 @@ assert.match(app, /uncertaintyCount === 0/);
 assert.match(app, /renderUncertaintyVesselPicker\(filtered\)/);
 assert.match(app, /source: "region-picker"/);
 assert.match(app, /setUncertaintyAreasVisible/);
+assert.match(app, /locationState: elements\.location\.value/);
+assert.match(app, /uncertainty: elements\.uncertaintyLayerToggle\.checked/);
+assert.match(app, /persistPublicState\(publicStorage, state, publicStateCatalog\)/);
+assert.match(app, /createShareablePublicUrl\([\s\S]*publicStateCatalog/);
 assert.doesNotMatch(html, /Deployment regions|Evidence requiring review|Recent evidence events|Overseas support facilities/);
 assert.match(html, /id="filterBadge"[^>]*hidden/);
 assert.match(html, /id="resetFilters"[^>]*hidden/);
@@ -78,24 +83,31 @@ assert.doesNotMatch(details, /Supporting source|Evidence grade|Confidence score|
 
 const storedState = parsePersistedPublicState(
   JSON.stringify({
-    version: 1,
+    version: PUBLIC_STATE_VERSION,
     filters: {
       status: "Deployed",
       service: "Royal Navy",
+      locationState: "last_reported",
       presence: "overseas",
       shoreType: PORT_SHORE_FILTER,
       ignored: "not-public-state",
     },
-    layers: { fleet: true, shore: true, clusters: false, evidence: true },
+    layers: { fleet: true, shore: true, clusters: false, uncertainty: false, evidence: true },
     selectedVessel: fleet.vessels[0].id,
     map: { centre: [10, 20], zoom: 7 },
   }),
   stateCatalog,
 );
 assert.equal(storedState.filters.status, "Deployed");
+assert.equal(storedState.filters.locationState, "last_reported");
 assert.equal(storedState.filters.presence, "overseas");
 assert.equal(storedState.filters.shoreType, PORT_SHORE_FILTER);
-assert.deepEqual(storedState.layers, { fleet: true, shore: true, clusters: false });
+assert.deepEqual(storedState.layers, {
+  fleet: true,
+  shore: true,
+  clusters: false,
+  uncertainty: false,
+});
 assert.equal(storedState.selectedVessel, null, "Selection must not persist locally.");
 assert.equal(storedState.map, null, "Map position must not persist locally.");
 assert.deepEqual(parsePersistedPublicState("not-json", stateCatalog), createDefaultPublicState());
@@ -104,14 +116,42 @@ assert.deepEqual(
   createDefaultPublicState(),
 );
 
+const migratedStoredState = parsePersistedPublicState(
+  JSON.stringify({
+    version: 1,
+    filters: { status: "Deployed", location: "approximate", presence: "overseas" },
+    layers: { fleet: true, shore: false, clusters: false },
+  }),
+  stateCatalog,
+);
+assert.equal(migratedStoredState.version, PUBLIC_STATE_VERSION);
+assert.equal(migratedStoredState.filters.status, "Deployed");
+assert.equal(
+  migratedStoredState.filters.locationState,
+  "",
+  "The superseded classification filter must not be reinterpreted as a location state.",
+);
+assert.deepEqual(migratedStoredState.layers, {
+  fleet: true,
+  shore: false,
+  clusters: false,
+  uncertainty: true,
+});
+
 const selectedVessel = fleet.vessels.find((vessel) => vessel.status === "Deployed");
 const urlState = parsePublicUrlState(
-  `https://example.test/tracker?view=1&status=Deployed&presence=overseas&layers=fleet,clusters&vessel=${selectedVessel.id}&lat=100&lon=-220&zoom=40&sourceUrl=https://invalid.test`,
+  `https://example.test/tracker?view=2&status=Deployed&locationState=last_reported&presence=overseas&layers=fleet,clusters,uncertainty&vessel=${selectedVessel.id}&lat=100&lon=-220&zoom=40&sourceUrl=https://invalid.test`,
   stateCatalog,
 );
 assert.equal(urlState.filters.status, "Deployed");
+assert.equal(urlState.filters.locationState, "last_reported");
 assert.equal(urlState.filters.presence, "overseas");
-assert.deepEqual(urlState.layers, { fleet: true, shore: false, clusters: true });
+assert.deepEqual(urlState.layers, {
+  fleet: true,
+  shore: false,
+  clusters: true,
+  uncertainty: true,
+});
 assert.equal(urlState.selectedVessel, selectedVessel.id);
 assert.deepEqual(urlState.map, { centre: [85, -180], zoom: 19 });
 assert.equal(parsePublicUrlState("https://example.test/tracker", stateCatalog), null);
@@ -120,16 +160,83 @@ assert.deepEqual(
   createDefaultPublicState(),
 );
 
-const shareableUrl = createShareablePublicUrl("https://example.test/tracker?sourceUrl=remove-me#map", {
-  ...storedState,
-  selectedVessel: selectedVessel.id,
-  map: { centre: [55.953251, -3.188267], zoom: 6.25 },
-});
-assert.equal(shareableUrl.searchParams.get("view"), "1");
+for (const malformedMap of [
+  "lat=&lon=1&zoom=4",
+  "lat=%20&lon=1&zoom=4",
+  "lat=50north&lon=1&zoom=4",
+  "lat=50&lon=Infinity&zoom=4",
+  "lat=50&lon=1&zoom=",
+  "lat=50&lon=1",
+]) {
+  const malformedState = parsePublicUrlState(
+    `https://example.test/tracker?view=2&${malformedMap}`,
+    stateCatalog,
+  );
+  assert.equal(malformedState.map, null, `Malformed map state was accepted: ${malformedMap}`);
+}
+
+const legacyUrlState = parsePublicUrlState(
+  `https://example.test/tracker?view=1&status=Deployed&location=approximate&layers=fleet,clusters&vessel=${selectedVessel.id}&lat=50&lon=-4&zoom=5`,
+  stateCatalog,
+);
+assert.equal(legacyUrlState.filters.status, "Deployed");
+assert.equal(legacyUrlState.filters.locationState, "");
+assert.equal(legacyUrlState.layers.uncertainty, true);
+assert.deepEqual(legacyUrlState.map, { centre: [50, -4], zoom: 5 });
+
+const shareableUrl = createShareablePublicUrl(
+  "https://example.test/tracker?sourceUrl=remove-me#map",
+  {
+    ...storedState,
+    selectedVessel: selectedVessel.id,
+    map: { centre: [55.953251, -3.188267], zoom: 6.25 },
+  },
+  stateCatalog,
+);
+assert.equal(shareableUrl.searchParams.get("view"), String(PUBLIC_STATE_VERSION));
 assert.equal(shareableUrl.searchParams.get("vessel"), selectedVessel.id);
 assert.equal(shareableUrl.searchParams.has("sourceUrl"), false);
 assert.equal(shareableUrl.hash, "#map");
 assert.deepEqual(parsePublicUrlState(shareableUrl, stateCatalog).layers, storedState.layers);
+
+const boundedShareableUrl = createShareablePublicUrl(
+  "https://example.test/tracker",
+  {
+    filters: {
+      query: "x".repeat(81),
+      shoreQuery: "y".repeat(81),
+      status: "Not a public status",
+      locationState: "not-a-public-state",
+    },
+    layers: { fleet: true, shore: false, clusters: true, uncertainty: true },
+    selectedVessel: "not-a-public-vessel",
+    map: { centre: [100, -220], zoom: 40 },
+  },
+  stateCatalog,
+);
+assert.equal(boundedShareableUrl.searchParams.has("q"), false);
+assert.equal(boundedShareableUrl.searchParams.has("shoreQ"), false);
+assert.equal(boundedShareableUrl.searchParams.has("status"), false);
+assert.equal(boundedShareableUrl.searchParams.has("locationState"), false);
+assert.equal(boundedShareableUrl.searchParams.has("vessel"), false);
+assert.equal(boundedShareableUrl.searchParams.get("lat"), "85");
+assert.equal(boundedShareableUrl.searchParams.get("lon"), "-180");
+assert.equal(boundedShareableUrl.searchParams.get("zoom"), "19");
+
+const invalidNumericShareableUrl = createShareablePublicUrl(
+  "https://example.test/tracker",
+  {
+    filters: { query: "x".repeat(80), shoreQuery: "y".repeat(80) },
+    layers: { fleet: true, shore: false, clusters: true, uncertainty: false },
+    map: { centre: ["", "1"], zoom: "4" },
+  },
+  stateCatalog,
+);
+assert.equal(invalidNumericShareableUrl.searchParams.get("q"), "x".repeat(80));
+assert.equal(invalidNumericShareableUrl.searchParams.get("shoreQ"), "y".repeat(80));
+assert.equal(invalidNumericShareableUrl.searchParams.has("lat"), false);
+assert.equal(invalidNumericShareableUrl.searchParams.has("lon"), false);
+assert.equal(invalidNumericShareableUrl.searchParams.has("zoom"), false);
 
 for (const preset of ["overview", "deployed", "ukPorts", "maintenance", "overseas"]) {
   const presetState = stateForPublicPreset(preset);
@@ -138,25 +245,35 @@ for (const preset of ["overview", "deployed", "ukPorts", "maintenance", "oversea
 }
 assert.equal(stateForPublicPreset("ukPorts").filters.shoreType, PORT_SHORE_FILTER);
 assert.equal(stateForPublicPreset("ukPorts").layers.shore, true);
+assert.equal(stateForPublicPreset("ukPorts").layers.uncertainty, false);
 assert.equal(stateForPublicPreset("overseas").filters.presence, "overseas");
+assert.equal(stateForPublicPreset("overseas").layers.uncertainty, true);
 assert.equal(
   publicPresenceForVessel({
-    locationClassification: "mapped",
+    locationPrecision: "city",
     position: { lat: 55.95, lon: -3.19 },
   }),
   "uk",
 );
 assert.equal(
   publicPresenceForVessel({
-    locationClassification: "approximate",
+    locationPrecision: "port",
     position: { lat: 1.29, lon: 103.85 },
   }),
   "overseas",
 );
 assert.equal(
   publicPresenceForVessel({
-    locationClassification: "withheld",
-    symbolicPosition: { lat: 55, lon: -4 },
+    locationPrecision: "region",
+    uncertaintyArea: { centre: { lat: -20, lon: -20 }, radiusKm: 450 },
+  }),
+  "overseas",
+);
+assert.equal(
+  publicPresenceForVessel({
+    locationPrecision: "none",
+    position: null,
+    uncertaintyArea: null,
   }),
   "",
 );
@@ -166,20 +283,26 @@ const storage = {
   getItem: (key) => memoryStorage.get(key) ?? null,
   setItem: (key, value) => memoryStorage.set(key, value),
 };
-assert.equal(persistPublicState(storage, storedState), true);
+assert.equal(persistPublicState(storage, storedState, stateCatalog), true);
 assert.ok(memoryStorage.has(PUBLIC_STATE_STORAGE_KEY));
 assert.equal(readPersistedPublicState(storage, stateCatalog).filters.status, "Deployed");
 assert.deepEqual(
   readPersistedPublicState({ getItem: () => { throw new Error("blocked"); } }, stateCatalog),
   createDefaultPublicState(),
 );
-assert.equal(persistPublicState({ setItem: () => { throw new Error("blocked"); } }, storedState), false);
+assert.equal(
+  persistPublicState({ setItem: () => { throw new Error("blocked"); } }, storedState, stateCatalog),
+  false,
+);
 
 for (const preset of ["overview", "deployed", "ukPorts", "maintenance", "overseas"]) {
   assert.match(html, new RegExp(`data-public-preset="${preset}"`));
 }
 for (const prohibited of ["Evidence requiring review", "sourceUrl", "evidenceGrade", "analystNotes"]) {
-  assert.doesNotMatch(createShareablePublicUrl("https://example.test/", storedState).href, new RegExp(prohibited, "i"));
+  assert.doesNotMatch(
+    createShareablePublicUrl("https://example.test/", storedState, stateCatalog).href,
+    new RegExp(prohibited, "i"),
+  );
   assert.doesNotMatch(JSON.stringify(storedState), new RegExp(prohibited, "i"));
 }
 

@@ -112,7 +112,8 @@ assert.doesNotMatch(
   "Application initialisation must not overwrite the static fleet title.",
 );
 assert.match(appSource, /history\.replaceState/);
-assert.match(publicStateSource, /PUBLIC_STATE_VERSION = 1/);
+assert.match(publicStateSource, /PUBLIC_STATE_VERSION = 2/);
+assert.match(publicStateSource, /LEGACY_PUBLIC_STATE_VERSION = 1/);
 assert.match(publicStateSource, /createShareablePublicUrl/);
 assert.doesNotMatch(publicStateSource, /evidenceGrade|confidenceScore|analystNotes|sourceUrl/);
 assert.match(appSource, /insightsMatchDataset/);
