@@ -32,6 +32,17 @@ const URL_FILTER_KEYS = Object.freeze({
   shoreQuery: "shoreQ",
   shoreType: "shoreType",
 });
+const SINGLETON_QUERY_KEYS = Object.freeze([
+  "view",
+  ...Object.values(URL_FILTER_KEYS),
+  "location",
+  "layers",
+  "vessel",
+  "shore",
+  "lat",
+  "lon",
+  "zoom",
+]);
 
 export const PUBLIC_PRESETS = Object.freeze({
   overview: preset("Fleet overview", {}, { fleet: true, shore: false, clusters: true, uncertainty: true }),
@@ -172,6 +183,9 @@ export function persistPublicState(storage, state, catalog) {
 export function parsePublicUrlState(value, catalog) {
   const url = value instanceof URL ? value : new URL(value, "https://fleet.invalid/");
   if (!url.searchParams.has("view")) return null;
+  if (hasDuplicateSingletonParameters(url.searchParams)) {
+    return createDefaultPublicState();
+  }
 
   const version = url.searchParams.get("view");
   if (version === String(PUBLIC_STATE_VERSION)) {
@@ -187,6 +201,10 @@ export function parsePublicUrlState(value, catalog) {
     });
   }
   return createDefaultPublicState();
+}
+
+function hasDuplicateSingletonParameters(searchParams) {
+  return SINGLETON_QUERY_KEYS.some((key) => searchParams.getAll(key).length > 1);
 }
 
 export function createShareablePublicUrl(baseUrl, state, catalog) {

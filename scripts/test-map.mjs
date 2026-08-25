@@ -214,6 +214,7 @@ assert.match(mapComponent, /minZoom:\s*0/);
 assert.match(mapComponent, /zoomSnap:\s*0\.1/);
 assert.match(mapComponent, /padding:\s*mapFitPadding\(this\.container\.clientWidth\)/);
 assert.match(mapComponent, /getView\(\)/);
+assert.match(mapComponent, /getPublicView\(\)/);
 assert.match(mapComponent, /setView\(\{ centre, zoom \}/);
 assert.match(mapComponent, /completeStartupView\(view\)/);
 assert.match(mapComponent, /this\.map\.stop\(\)/);
@@ -224,6 +225,7 @@ assert.match(
   mapComponent,
   /invalidateSize\(\{ animate: false, debounceMoveend: false, pan: false \}\)/,
 );
+assert.match(mapComponent, /reset:\s*true/);
 assert.match(mapComponent, /iconSize:\s*\[44,\s*44\]/);
 assert.match(mapComponent, /L\.circle/);
 assert.match(mapComponent, /Approximate region, not a live position/);

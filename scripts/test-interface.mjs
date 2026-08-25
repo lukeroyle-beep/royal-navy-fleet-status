@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
+import { SurfaceController } from "../src/components/SurfaceController.js";
 import {
   COMPACT_SURFACE_QUERY,
   countActiveFilters,
@@ -76,14 +77,23 @@ assert.match(app, /fleetMap\.selectVessel\(vessel, \{ focus: focusMap \}\)/);
 assert.match(app, /if \(initial\) \{\s*fleetMap\.completeStartupView\(state\.map\);/);
 assert.match(app, /resolvePublicSelection\(publicStateCatalog, state\)/);
 assert.doesNotMatch(app, /filteredVessels\.find\(\(vessel\) => vessel\.id === state\.selectedVessel\)/);
+assert.match(app, /map: fleetMap\.getPublicView\(\)/);
 assert.match(surfaces, /event\.key === "Escape"/);
 assert.match(surfaces, /if \(this\.isCompact\(\)\) next\.clear\(\)/);
+assert.match(surfaces, /this\.returnContexts = new Map\(\)/);
+assert.match(surfaces, /recordedTarget[\s\S]*returnContext\.surface/);
+assert.match(app, /returnFocus: trigger/);
+assert.match(app, /returnSurface: "fleet"/);
+assert.match(app, /returnSurface: "layers"/);
+assert.match(html, /id="detailTitle"[^>]*tabindex="-1"[^>]*data-surface-focus/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
 assert.match(styles, /outline:\s*3px solid var\(--accent-strong\)/);
 assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);
 assert.doesNotMatch(details, /Supporting source|Evidence grade|Confidence score|Analyst note|Retrieval status/i);
+
+testCompactDetailFocusRestoration();
 
 const storedState = parsePersistedPublicState(
   JSON.stringify({
@@ -240,6 +250,24 @@ for (const malformedMap of [
   assert.equal(malformedState.map, null, `Malformed map state was accepted: ${malformedMap}`);
 }
 
+for (const duplicateQuery of [
+  "view=2&view=2&layers=fleet",
+  "view=2&layers=fleet&layers=fleet",
+  "view=2&layers=fleet&layers=shore",
+  `view=2&layers=fleet&vessel=${pointVessel.id}&vessel=${pointVessel.id}`,
+  `view=2&layers=fleet&vessel=${pointVessel.id}&vessel=${regionalVessel.id}`,
+  `view=2&layers=shore&shore=${shoreEstablishment.id}&shore=${shoreEstablishment.id}`,
+  `view=2&layers=shore&shore=${shoreEstablishment.id}&shore=removed-shore-record`,
+  "view=2&q=Dragon&q=Dragon&layers=fleet",
+  "view=2&lat=50&lat=50&lon=-4&zoom=5&layers=fleet",
+]) {
+  assert.deepEqual(
+    parsePublicUrlState(`https://example.test/tracker?${duplicateQuery}`, stateCatalog),
+    createDefaultPublicState(),
+    `Duplicate singleton state was accepted: ${duplicateQuery}`,
+  );
+}
+
 const legacyUrlState = parsePublicUrlState(
   `https://example.test/tracker?view=1&status=Deployed&location=approximate&layers=fleet,clusters&vessel=${selectedVessel.id}&lat=50&lon=-4&zoom=5`,
   stateCatalog,
@@ -369,6 +397,119 @@ for (const prohibited of ["Evidence requiring review", "sourceUrl", "evidenceGra
     new RegExp(prohibited, "i"),
   );
   assert.doesNotMatch(JSON.stringify(storedState), new RegExp(prohibited, "i"));
+}
+
+function testCompactDetailFocusRestoration() {
+  let activeElement = null;
+  let escapeHandler = null;
+  const previousWindow = globalThis.window;
+  const previousDocument = globalThis.document;
+
+  const createElement = ({ hidden = false, focusTarget = null } = {}) => ({
+    hidden,
+    isConnected: true,
+    disabled: false,
+    classList: { toggle() {} },
+    addEventListener() {},
+    setAttribute() {},
+    querySelector: () => focusTarget,
+    focus() {
+      activeElement = this;
+    },
+  });
+
+  const detailHeading = createElement();
+  const fleetSurface = createElement();
+  const layersSurface = createElement({ hidden: true });
+  const detailSurface = createElement({ hidden: true, focusTarget: detailHeading });
+  const fleetToggle = createElement();
+  const layersToggle = createElement();
+
+  try {
+    globalThis.window = {
+      matchMedia: () => ({ matches: true, addEventListener() {} }),
+    };
+    globalThis.document = {
+      querySelectorAll: () => [],
+      addEventListener(type, handler) {
+        if (type === "keydown") escapeHandler = handler;
+      },
+    };
+
+    const controller = new SurfaceController({
+      surfaces: new Map([
+        ["fleet", fleetSurface],
+        ["layers", layersSurface],
+        ["detail", detailSurface],
+      ]),
+      triggers: new Map([
+        ["fleet", fleetToggle],
+        ["layers", layersToggle],
+      ]),
+      focusFallbacks: new Map([["detail", fleetToggle]]),
+      backdrop: null,
+    });
+
+    const vesselTrigger = createElement();
+    controller.open("detail", {
+      focus: true,
+      returnFocus: vesselTrigger,
+      returnSurface: "fleet",
+      returnFocusFallback: fleetToggle,
+    });
+    assert.equal(activeElement, detailHeading, "A compact vessel selection must focus its detail heading.");
+    escapeHandler({ key: "Escape" });
+    assert.equal(activeElement, vesselTrigger, "Escape must restore the invoking vessel list control.");
+    assert.equal(fleetSurface.hidden, false, "The compact fleet list must reopen around its restored trigger.");
+
+    controller.open("layers");
+    const shoreTrigger = createElement();
+    controller.open("detail", {
+      focus: true,
+      returnFocus: shoreTrigger,
+      returnSurface: "layers",
+      returnFocusFallback: layersToggle,
+    });
+    assert.equal(activeElement, detailHeading, "A compact shore selection must focus its detail heading.");
+    escapeHandler({ key: "Escape" });
+    assert.equal(activeElement, shoreTrigger, "Escape must restore the invoking shore list control.");
+    assert.equal(layersSurface.hidden, false, "The compact layers list must reopen around its shore trigger.");
+
+    const regionalSelect = createElement();
+    controller.open("detail", {
+      focus: true,
+      returnFocus: regionalSelect,
+      returnSurface: "layers",
+      returnFocusFallback: layersToggle,
+    });
+    controller.close("detail", { restoreFocus: true });
+    assert.equal(activeElement, regionalSelect, "Closing regional detail must restore its chooser.");
+    assert.equal(layersSurface.hidden, false, "The compact layers surface must reopen around its chooser.");
+
+    const pageLoadFocus = createElement();
+    activeElement = pageLoadFocus;
+    controller.open("detail", { focus: false });
+    assert.equal(activeElement, pageLoadFocus, "Restoring selection from the URL must not steal focus.");
+    escapeHandler({ key: "Escape" });
+    assert.equal(activeElement, fleetToggle, "A restored detail without a trigger needs a stable close fallback.");
+
+    controller.open("fleet");
+    const removedTrigger = createElement();
+    controller.open("detail", {
+      focus: true,
+      returnFocus: removedTrigger,
+      returnSurface: "fleet",
+      returnFocusFallback: fleetToggle,
+    });
+    removedTrigger.isConnected = false;
+    escapeHandler({ key: "Escape" });
+    assert.equal(activeElement, fleetToggle, "A removed list trigger must fall back to the Fleet control.");
+  } finally {
+    if (previousWindow === undefined) delete globalThis.window;
+    else globalThis.window = previousWindow;
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
 }
 
 console.log("Map-first interface and public state tests passed.");

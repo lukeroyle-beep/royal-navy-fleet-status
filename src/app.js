@@ -166,6 +166,7 @@ const surfaceController = new SurfaceController({
     ["filters", elements.filterToggle],
     ["changes", elements.changesToggle],
   ]),
+  focusFallbacks: new Map([["detail", elements.fleetToggle]]),
   backdrop: document.querySelector("#surfaceBackdrop"),
 });
 if (surfaceController.isCompact()) surfaceController.closeAll();
@@ -256,7 +257,14 @@ function bindDataset() {
     const vessel = dataset.vessels.find(
       (candidate) => candidate.id === elements.uncertaintyVesselSelect.value,
     );
-    if (vessel) selectVessel(vessel, { source: "region-picker" });
+    if (vessel) {
+      selectVessel(vessel, {
+        source: "region-picker",
+        trigger: elements.uncertaintyVesselSelect,
+        returnSurface: "layers",
+        returnFocusFallback: elements.layersToggle,
+      });
+    }
   });
   elements.shoreSearch.addEventListener("input", applyShoreFilters);
   elements.shoreType.addEventListener("change", applyShoreFilters);
@@ -306,14 +314,28 @@ function createShoreListItem(establishment) {
   name.textContent = establishment.name;
   meta.textContent = `${establishment.type} · ${establishment.location}`;
   button.append(name, meta);
-  button.addEventListener("click", () => selectShoreEstablishment(establishment, { source: "list" }));
+  button.addEventListener("click", () =>
+    selectShoreEstablishment(establishment, {
+      source: "list",
+      trigger: button,
+      returnSurface: "layers",
+      returnFocusFallback: elements.layersToggle,
+    }),
+  );
   item.append(button);
   return item;
 }
 
 function selectShoreEstablishment(
   establishment,
-  { source = "list", focusMap = true, sync = true } = {},
+  {
+    source = "list",
+    focusMap = true,
+    sync = true,
+    trigger = null,
+    returnSurface = null,
+    returnFocusFallback = null,
+  } = {},
 ) {
   selectedShoreId = establishment.id;
   selectedId = null;
@@ -325,7 +347,12 @@ function selectShoreEstablishment(
   for (const button of elements.list.querySelectorAll("button")) {
     button.classList.remove("is-selected");
   }
-  surfaceController.open("detail", { focus: source === "list" });
+  surfaceController.open("detail", {
+    focus: source !== "restore" && surfaceController.isCompact(),
+    returnFocus: trigger,
+    returnSurface,
+    returnFocusFallback,
+  });
   if (sync) syncPublicState();
 }
 
@@ -473,7 +500,14 @@ function createClassVesselItem(vessel) {
   name.textContent = vessel.name;
   status.textContent = vessel.status;
   button.append(name, status);
-  button.addEventListener("click", () => selectVessel(vessel, { source: "class" }));
+  button.addEventListener("click", () =>
+    selectVessel(vessel, {
+      source: "class",
+      trigger: button,
+      returnSurface: "fleet",
+      returnFocusFallback: elements.fleetToggle,
+    }),
+  );
   item.append(button);
   return item;
 }
@@ -620,7 +654,7 @@ function createChangeList(changes) {
       .map((entry) => `${entry.label}: ${entry.before} → ${entry.after}`)
       .join(" · ");
     button.append(vesselName, description);
-    button.addEventListener("click", () => revealChangedVessel(change.vesselId));
+    button.addEventListener("click", () => revealChangedVessel(change.vesselId, button));
     item.append(button);
     list.append(item);
   }
@@ -628,12 +662,17 @@ function createChangeList(changes) {
   return section;
 }
 
-function revealChangedVessel(vesselId) {
+function revealChangedVessel(vesselId, trigger) {
   const vessel = dataset.vessels.find((candidate) => candidate.id === vesselId);
   if (!vessel) return;
   resetFilters({ focus: false });
   surfaceController.close("changes");
-  selectVessel(vessel, { source: "changes" });
+  selectVessel(vessel, {
+    source: "changes",
+    trigger,
+    returnSurface: "changes",
+    returnFocusFallback: elements.changesToggle,
+  });
 }
 
 function renderList(vessels) {
@@ -650,14 +689,31 @@ function renderList(vessels) {
       heading.textContent = vessel.name;
       meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatLocationState(vessel.locationState)} · ${formatLocationPrecision(vessel.locationPrecision)}`;
       button.append(heading, meta);
-      button.addEventListener("click", () => selectVessel(vessel, { source: "list" }));
+      button.addEventListener("click", () =>
+        selectVessel(vessel, {
+          source: "list",
+          trigger: button,
+          returnSurface: "fleet",
+          returnFocusFallback: elements.fleetToggle,
+        }),
+      );
       item.append(button);
       return item;
     }),
   );
 }
 
-function selectVessel(vessel, { source = "list", focusMap = true, sync = true } = {}) {
+function selectVessel(
+  vessel,
+  {
+    source = "list",
+    focusMap = true,
+    sync = true,
+    trigger = null,
+    returnSurface = null,
+    returnFocusFallback = null,
+  } = {},
+) {
   selectedId = vessel.id;
   selectedShoreId = null;
   details.renderVessel(vessel, {
@@ -674,10 +730,12 @@ function selectVessel(vessel, { source = "list", focusMap = true, sync = true } 
     button.classList.remove("is-selected");
   }
   elements.uncertaintyVesselSelect.value = vessel.uncertaintyArea ? vessel.id : "";
-  surfaceController.open("detail", { focus: source === "changes" });
-  if (source === "changes") {
-    document.querySelector("#detailTitle").focus({ preventScroll: true });
-  }
+  surfaceController.open("detail", {
+    focus: source === "changes" || (source !== "restore" && surfaceController.isCompact()),
+    returnFocus: trigger,
+    returnSurface,
+    returnFocusFallback,
+  });
   if (sync) syncPublicState();
 }
 
@@ -773,7 +831,7 @@ function currentPublicState() {
     },
     selectedVessel: selectedId,
     selectedShoreEstablishment: selectedShoreId,
-    map: fleetMap.getView(),
+    map: fleetMap.getPublicView(),
   };
 }
 

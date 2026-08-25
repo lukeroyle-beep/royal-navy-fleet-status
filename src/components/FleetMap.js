@@ -135,6 +135,10 @@ export class FleetMap {
     };
   }
 
+  getPublicView() {
+    return this.viewChangeGate.authoritativeView ?? this.getView();
+  }
+
   setView({ centre, zoom }, { animate = false } = {}) {
     this.map.stop();
     this.map.setView(centre, zoom, { animate: animate && !this.reducedMotion });
@@ -157,7 +161,10 @@ export class FleetMap {
     this.viewChangeGate.runInternalViewChange(() => {
       this.map.stop();
       this.map.invalidateSize({ animate: false, debounceMoveend: false, pan: false });
-      this.map.setView(preservedView.centre, preservedView.zoom, { animate: false });
+      this.map.setView(preservedView.centre, preservedView.zoom, {
+        animate: false,
+        reset: true,
+      });
     });
   }
 

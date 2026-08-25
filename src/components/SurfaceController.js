@@ -1,11 +1,13 @@
 import { COMPACT_SURFACE_QUERY, nextOpenSurfaces } from "../utils/interface.js";
 
 export class SurfaceController {
-  constructor({ surfaces, triggers, backdrop, onChange = () => {} }) {
+  constructor({ surfaces, triggers, focusFallbacks = new Map(), backdrop, onChange = () => {} }) {
     this.surfaces = surfaces;
     this.triggers = triggers;
+    this.focusFallbacks = focusFallbacks;
     this.backdrop = backdrop;
     this.onChange = onChange;
+    this.returnContexts = new Map();
     this.media = window.matchMedia(COMPACT_SURFACE_QUERY);
     this.openSurfaces = new Set(
       [...surfaces].filter(([, element]) => !element.hidden).map(([name]) => name),
@@ -33,21 +35,60 @@ export class SurfaceController {
     return this.openSurfaces.has(name);
   }
 
-  open(name, { focus = false } = {}) {
+  open(
+    name,
+    { focus = false, returnFocus = null, returnSurface = null, returnFocusFallback = null } = {},
+  ) {
     if (!this.surfaces.has(name)) return;
+    if (returnFocus) {
+      this.returnContexts.set(name, {
+        target: returnFocus,
+        surface: returnSurface,
+        fallback: returnFocusFallback,
+      });
+    } else {
+      this.returnContexts.delete(name);
+    }
     const next = new Set(this.openSurfaces);
     if (this.isCompact()) next.clear();
     next.add(name);
     this.#render(next);
-    if (focus) this.surfaces.get(name).querySelector("h2, h3, [tabindex='-1']")?.focus({ preventScroll: true });
+    if (focus) {
+      this.surfaces
+        .get(name)
+        .querySelector("[data-surface-focus], h2[tabindex='-1'], h3[tabindex='-1']")
+        ?.focus({ preventScroll: true });
+    }
   }
 
   close(name, { restoreFocus = false } = {}) {
     if (!this.openSurfaces.has(name)) return;
+    const returnContext = this.returnContexts.get(name);
+    const recordedTarget = usableFocusTarget(returnContext?.target)
+      ? returnContext.target
+      : null;
+    const focusTarget =
+      recordedTarget ??
+      returnContext?.fallback ??
+      this.focusFallbacks.get(name) ??
+      this.triggers.get(name);
     const next = new Set(this.openSurfaces);
     next.delete(name);
+    if (
+      restoreFocus &&
+      recordedTarget &&
+      this.isCompact() &&
+      returnContext?.surface &&
+      this.surfaces.has(returnContext.surface)
+    ) {
+      next.clear();
+      next.add(returnContext.surface);
+    }
     this.#render(next);
-    if (restoreFocus) this.triggers.get(name)?.focus();
+    this.returnContexts.delete(name);
+    if (restoreFocus && usableFocusTarget(focusTarget)) {
+      focusTarget.focus({ preventScroll: true });
+    }
   }
 
   toggle(name) {
@@ -84,4 +125,8 @@ export class SurfaceController {
     }
     this.onChange(new Set(next));
   }
+}
+
+function usableFocusTarget(target) {
+  return Boolean(target?.isConnected && !target.disabled && typeof target.focus === "function");
 }
