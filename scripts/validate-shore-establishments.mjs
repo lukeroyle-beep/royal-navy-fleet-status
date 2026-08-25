@@ -3,11 +3,11 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 
 import { validateShoreEstablishments } from "../src/components/ShoreEstablishmentLoader.js";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
 const publicPath = new URL("../data/royal-navy/shore-establishments.json", import.meta.url);
-const provenancePath = new URL("../data/internal/provenance/shore-establishments.json", import.meta.url);
 const dataset = validateShoreEstablishments(JSON.parse(fs.readFileSync(publicPath, "utf8")));
-const provenance = JSON.parse(fs.readFileSync(provenancePath, "utf8"));
+const provenance = resolvePrivateInputs().readJson("shoreEstablishments");
 
 const expectedIds = [
   "brnc-dartmouth",

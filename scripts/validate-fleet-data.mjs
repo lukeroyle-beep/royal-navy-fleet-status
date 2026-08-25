@@ -2,6 +2,7 @@ import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
 import { createPublicProjection } from "./lib/public-projection.mjs";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import {
   validateAssessmentLog,
   validateEvidenceLog,
@@ -9,10 +10,11 @@ import {
 } from "./lib/provenance.mjs";
 
 const dataset = readJson("../data/royal-navy/vessels.json");
-const entities = readJson("../data/internal/provenance/vessels.json");
-const registry = readJson("../data/internal/provenance/sources.json");
-const evidence = readJson("../data/internal/provenance/evidence.json");
-const assessments = readJson("../data/internal/provenance/assessments.json");
+const privateInputs = resolvePrivateInputs();
+const entities = privateInputs.readJson("vessels");
+const registry = privateInputs.readJson("sources");
+const evidence = privateInputs.readJson("evidence");
+const assessments = privateInputs.readJson("assessments");
 
 validateFleet(dataset);
 const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);

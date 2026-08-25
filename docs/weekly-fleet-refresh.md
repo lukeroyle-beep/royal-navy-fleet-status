@@ -63,7 +63,8 @@ timestamps. Evidence dated after assessment, review or finalisation cannot be re
 to the run.
 
 After the candidate assessment state and complete coverage ledger exist, finalise the run and retain
-it under `data/internal/provenance/sweep-runs/`:
+it under the configured external private root's `sweep-runs/` directory. The checked-in
+`data/internal/provenance/sweep-runs/` location is only the unchanged non-sensitive migration state:
 
 ```bash
 npm run sweep:finalise -- osint-sweep-run.json
@@ -74,6 +75,11 @@ outcome is pending or blocked, if a derived outcome or assessment binding is inc
 review timestamp falls outside the run. It seals the exact candidate public projection, current
 assessments, referenced evidence, supporting source records and projection-method version. The seal
 excludes the volatile release timestamp; the release gate binds that timestamp separately.
+
+Real private releases run only on the owner's trusted machine with `RNFS_PRIVATE_DATA_ROOT` set.
+Public GitHub Actions use no real private inputs or credentials and exercise the committed synthetic
+fixture only. Follow [`private-input-boundary.md`](private-input-boundary.md) for backup/recovery,
+credential rotation, temporary generation and sanitised-release review.
 
 After finalisation, stamp `metadata.releasedAt` later than or equal to the sweep completion, generate
 the public projection and then generate the two insight datasets in this order:

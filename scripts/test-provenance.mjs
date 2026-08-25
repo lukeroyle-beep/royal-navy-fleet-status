@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import fs from "node:fs";
 
 import {
   assessEvidenceSet,
@@ -13,11 +12,13 @@ import {
 } from "./lib/provenance.mjs";
 import { createSweepQueue } from "./lib/sweep.mjs";
 import { createPublicProjection, projectPublicVessel } from "./lib/public-projection.mjs";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
-const entities = read("../data/internal/provenance/vessels.json");
-const registry = read("../data/internal/provenance/sources.json");
-const evidenceLog = read("../data/internal/provenance/evidence.json");
-const assessmentLog = read("../data/internal/provenance/assessments.json");
+const privateInputs = resolvePrivateInputs();
+const entities = privateInputs.readJson("vessels");
+const registry = privateInputs.readJson("sources");
+const evidenceLog = privateInputs.readJson("evidence");
+const assessmentLog = privateInputs.readJson("assessments");
 const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
 const knownVesselIds = [
   ...vesselIds,
@@ -395,8 +396,4 @@ function item(evidenceId, sourceId, location, originId, observedAt) {
     historicalOnly: false,
     supersededBy: null,
   };
-}
-
-function read(relativePath) {
-  return JSON.parse(fs.readFileSync(new URL(relativePath, import.meta.url), "utf8"));
 }

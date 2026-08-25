@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "evidence": [
+    {
+      "evidenceId": "SYNTHETIC_EVIDENCE_1",
+      "vesselId": "hms-fixture",
+      "sourceId": "SYNTHETIC_SOURCE",
+      "canonicalUrl": "https://fixture.invalid/internal-evidence-item",
+      "retrievedAt": "2026-01-07T10:00:00Z",
+      "retrievalPrecision": "minute",
+      "publishedAt": "2026-01-07T09:00:00Z",
+      "publicationPrecision": "minute",
+      "observation": {
+        "from": "2026-01-07T08:00:00Z",
+        "to": "2026-01-07T08:00:00Z",
+        "precision": "minute",
+        "basis": "explicit"
+      },
+      "claim": {
+        "location": {
+          "name": "Test Harbour inner berth",
+          "classification": "mapped",
+          "position": { "lat": 50.1, "lon": -1.1, "label": "Exact internal test berth" }
+        },
+        "status": "Available"
+      },
+      "claimContext": "port-visit",
+      "geographicPrecision": "mapped",
+      "directness": "direct",
+      "primaryness": "primary",
+      "originId": "SYNTH_INTERNAL_ORIGIN",
+      "contentHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "collectionMethod": "synthetic-fixture",
+      "summary": "Synthetic evidence for boundary testing",
+      "archiveUrl": null,
+      "analystNotes": "SYNTH_INTERNAL_ONLY analyst detail",
+      "rawPost": "SYNTH_INTERNAL_ONLY unredacted source payload",
+      "diagnostics": { "collectorTrace": "SYNTH_INTERNAL_ONLY" },
+      "historicalOnly": false,
+      "correctionOf": null,
+      "supersededBy": null
+    }
+  ]
+}

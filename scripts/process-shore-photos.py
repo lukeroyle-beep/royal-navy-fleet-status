@@ -18,12 +18,25 @@ from PIL import Image, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCES_PATH = ROOT / "data" / "internal" / "provenance" / "shore-photo-sources.json"
 SHORE_DATA_PATH = ROOT / "data" / "royal-navy" / "shore-establishments.json"
-SHORE_PROVENANCE_PATH = ROOT / "data" / "internal" / "provenance" / "shore-establishments.json"
 PHOTO_DIR = ROOT / "public" / "shore" / "photos"
 USER_AGENT = "RoyalNavyStatusPhotoAudit/1.0 (local public-source image preparation)"
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
+
+
+def resolve_private_path(key: str) -> Path:
+    result = subprocess.run(
+        ["node", str(ROOT / "scripts" / "resolve-private-input.mjs"), key],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return Path(result.stdout)
+
+
+SOURCES_PATH = resolve_private_path("shorePhotoSources")
+SHORE_PROVENANCE_PATH = resolve_private_path("shoreEstablishments")
 
 
 def read_json(path: Path):
