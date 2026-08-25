@@ -2,11 +2,13 @@ import { VesselPhotoService } from "./VesselPhotoService.js";
 import { getVesselChange } from "../utils/insights.js";
 
 export class EventDetailsPanel {
-  constructor({ container, kind, title, meta, photo, photoImage, photoCredit }) {
+  constructor({ container, kind, title, primaryMeta, meta, disclosure, photo, photoImage, photoCredit }) {
     this.container = container;
     this.kind = kind;
     this.title = title;
+    this.primaryMeta = primaryMeta;
     this.meta = meta;
+    this.disclosure = disclosure;
     this.photo = photo;
     this.photoImage = photoImage;
     this.photoCredit = photoCredit;
@@ -19,7 +21,9 @@ export class EventDetailsPanel {
     this.renderToken += 1;
     this.kind.textContent = "Fleet record";
     this.title.textContent = "Select a vessel";
+    this.primaryMeta.replaceChildren();
     this.meta.replaceChildren();
+    this.disclosure.open = false;
     this.#hidePhoto();
     this.container.hidden = true;
   }
@@ -35,17 +39,23 @@ export class EventDetailsPanel {
 
     const releaseChange = getVesselChange(changes, vessel.id);
 
-    const entries = [
-      ["Pennant", vessel.pennantNumber || "Not recorded"],
+    const primaryEntries = [
+      ["Status", vessel.status],
+      ["Location", vessel.lastReportedLocation],
+      ["Location information", formatLocationClassification(vessel.locationClassification)],
       ["Class", vessel.vesselClass],
       ["Type", vessel.vesselType],
+      ["Snapshot", formatSnapshotDate(asOfDate)],
+    ];
+    const entries = [
+      ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Commission date", vessel.commissionedDate || "Not recorded"],
-      ["Status", vessel.status],
-      ["Location classification", formatLocationClassification(vessel.locationClassification)],
-      ["Location", vessel.lastReportedLocation],
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
+    this.primaryMeta.replaceChildren(...primaryEntries.map(([term, value]) => createEntry(term, value)));
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
+    this.disclosure.open = false;
+    this.disclosure.hidden = entries.length === 0;
     this.#hidePhoto();
     this.photoImage.style.removeProperty("object-position");
     this.photoImage.alt = `Photograph of ${vessel.name}`;
@@ -68,12 +78,16 @@ export class EventDetailsPanel {
     this.kind.textContent = establishment.type;
     this.title.textContent = establishment.name;
     this.container.hidden = false;
-    this.meta.replaceChildren(
+    this.primaryMeta.replaceChildren(
       createEntry("Type", establishment.type),
-      createEntry("Role", establishment.role),
       createEntry("Location", establishment.location),
+    );
+    this.meta.replaceChildren(
+      createEntry("Role", establishment.role),
       createEntry("About", establishment.description),
     );
+    this.disclosure.open = false;
+    this.disclosure.hidden = false;
     this.photoImage.alt = establishment.imageAlt;
     this.photoImage.dataset.establishmentId = establishment.id;
     delete this.photoImage.dataset.vesselId;
@@ -107,6 +121,7 @@ function createEntry(term, value) {
   const dd = document.createElement("dd");
   dt.textContent = term;
   dd.textContent = value;
+  if (term === "Status") dd.dataset.status = value;
   wrapper.append(dt, dd);
   return wrapper;
 }
@@ -123,4 +138,14 @@ export function formatLocationClassification(value) {
 export function formatReleaseChange(change) {
   const details = change.items.map((item) => `${item.label}: ${item.before} → ${item.after}`);
   return `Updated this release · ${details.join("; ")}`;
+}
+
+export function formatSnapshotDate(value) {
+  if (!value) return "Current public snapshot";
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Europe/London",
+  }).format(new Date(`${value}T12:00:00Z`));
 }

@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { insightsMatchDataset } from "../src/components/FleetInsightsLoader.js";
 import {
   formatDatasetReleaseLabel,
+  formatPublicationFreshness,
   formatPublicationChangeLabels,
 } from "../src/utils/release.js";
 import { publicationReleaseFields } from "./lib/publication-release.mjs";
@@ -69,6 +70,7 @@ assert.equal(
   formatDatasetReleaseLabel(fleet.metadata),
   "23 August 2026",
 );
+assert.equal(formatPublicationFreshness(fleet.metadata), "Published 24 Aug 2026");
 assert.deepEqual(formatPublicationChangeLabels(changes), {
   count: "23 Aug · 2 vessels",
   summary:

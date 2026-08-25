@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Interactive map of last publicly reported Royal Navy and Royal Fleet Auxiliary vessel locations."
-    />
+    <meta name="description" content="Interactive map of last publicly reported Royal Navy and Royal Fleet Auxiliary vessel locations." />
     <title>Royal Navy Fleet Status</title>
     <link rel="icon" href="data:," />
   </head>
@@ -17,212 +14,181 @@
           <span class="brand-mark" aria-hidden="true">RN</span>
           <div>
             <h1 id="mapTitle">Royal Navy Fleet Status</h1>
-            <p class="subtitle">Last publicly evidenced locations · not live tracking</p>
+            <p class="subtitle">Publicly reported locations · not live tracking</p>
           </div>
         </div>
-        <div class="release-meta">
-          <div class="as-of">
-            <span>Dataset</span>
-            <strong id="asOfDate">Loading</strong>
-          </div>
-          <button
-            id="changesToggle"
-            class="changes-trigger"
-            type="button"
-            aria-expanded="false"
-            aria-controls="changesPanel"
-            hidden
-          >
-            <span>What changed</span>
-            <strong id="changesCount"></strong>
+        <label class="top-search">
+          <span class="sr-only">Find a vessel</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="Search vessels or pennants" />
+        </label>
+        <div class="snapshot-meta" aria-label="Public dataset publication information">
+          <div class="snapshot-item"><span>Snapshot</span><strong id="asOfDate">Loading</strong></div>
+          <div class="snapshot-item freshness-item"><span>Public data</span><strong id="publicationFreshness">Loading</strong></div>
+        </div>
+        <nav class="top-actions" aria-label="Map controls">
+          <button id="fleetToggle" class="toolbar-button" type="button" aria-expanded="true" aria-controls="fleetDrawer">Fleet</button>
+          <button id="layersToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="layersPanel">Layers</button>
+          <button id="filterToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="filterPanel">
+            Filters <span id="filterBadge" class="control-badge" aria-label="0 active filters" hidden>0</span>
           </button>
-        </div>
+          <button id="changesToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="changesPanel" hidden>
+            Changes <span id="changesCount" class="control-badge"></span>
+          </button>
+        </nav>
       </header>
 
       <section class="command-workspace">
         <section class="map-stage" aria-label="Interactive fleet map">
-          <div id="fleetMap" role="region" aria-label="Map of evidenced vessel locations"></div>
-          <div class="map-tools">
-            <div class="legend" aria-label="Location marker legend">
-              <span><i class="legend-dot mapped"></i>Mapped public location</span>
-              <span><i class="legend-dot approximate"></i>Approximate port or area</span>
-              <span><i class="legend-dot classified"></i>Withheld symbolic marker</span>
-              <span><i class="legend-dot shore"></i>Shore establishment</span>
-            </div>
-            <button id="shoreLayerToggle" class="shore-layer-toggle" type="button" aria-pressed="false" aria-controls="shoreControls">
-              Shore establishments <strong id="shoreLayerCount">0</strong>
-            </button>
-            <button id="resetMap" class="map-reset" type="button">Reset map view</button>
-          </div>
+          <div id="fleetMap" role="region" aria-label="Map of publicly reported vessel locations"></div>
+          <button id="resetMap" class="map-reset" type="button">Reset view</button>
           <div id="mapNotice" class="map-notice" role="status" hidden>
-            Basemap tiles are unavailable. Vessel search and vessel details remain available.
+            Basemap tiles are unavailable. Vessel search and details remain available.
           </div>
         </section>
+        <button id="surfaceBackdrop" class="surface-backdrop" type="button" aria-label="Close open panel" hidden></button>
 
-        <aside class="side-panel" aria-label="Fleet search and vessel details">
-          <section class="fleet-summary" aria-labelledby="fleetOverviewTitle">
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">Public-status snapshot</p>
-                <h2 id="fleetOverviewTitle">Fleet overview</h2>
-              </div>
-            </div>
+        <aside id="fleetDrawer" class="surface drawer fleet-drawer is-open" data-surface="fleet" aria-labelledby="fleetDrawerTitle">
+          <header class="surface-header">
+            <div><p class="eyebrow">Public fleet snapshot</p><h2 id="fleetDrawerTitle">Fleet</h2></div>
+            <button class="surface-close" type="button" data-close-surface="fleet" aria-label="Close fleet drawer">Close</button>
+          </header>
+          <div class="result-summary">
+            <span id="filterResultStatus" role="status" aria-live="polite">Showing 0 vessels</span>
+            <button id="resetFilters" type="button" hidden>Clear all</button>
+          </div>
+          <details class="fleet-summary-disclosure">
+            <summary>Fleet snapshot</summary>
             <div class="fleet-availability" aria-label="Overall fleet availability">
-              <div>
-                <span>Overall fleet availability</span>
-                <p id="fleetAvailabilityFormula">0 active of 0 total vessels</p>
-              </div>
+              <div><span>Published availability</span><p id="fleetAvailabilityFormula">0 active of 0 total vessels</p></div>
               <strong id="fleetAvailabilityPercentage">0%</strong>
             </div>
             <div class="status-metrics">
               <div><strong id="totalCount">0</strong><span>Vessels</span></div>
               <div><strong id="deployedCount">0</strong><span>Deployed</span></div>
               <div><strong id="refitCount">0</strong><span>In re-fit</span></div>
-              <div><strong id="unknownCount">0</strong><span>Status unknown</span></div>
+              <div><strong id="unknownCount">0</strong><span>Unknown</span></div>
             </div>
-            <p class="status-note">Published status labels describe the evidence snapshot, not operational readiness.</p>
+            <p class="status-note">Published labels describe this snapshot, not operational readiness.</p>
+          </details>
+          <section class="results" aria-label="Filtered vessel results">
+            <div class="results-heading"><h2>Vessels</h2><span id="resultsStatus" role="status"></span></div>
+            <ul id="vesselList"></ul>
           </section>
+        </aside>
 
-          <section id="shoreControls" class="shore-controls" aria-labelledby="shoreControlsTitle" hidden>
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">Separate map layer</p>
-                <h2 id="shoreControlsTitle">UK shore establishments</h2>
-              </div>
-              <button id="shoreLayerClose" class="panel-close" type="button">Hide layer</button>
-            </div>
-            <p class="shore-scope-note">Public establishment-level locations only. Fleet totals and availability are unchanged.</p>
-            <div class="shore-filter-grid">
-              <label>
-                Find an establishment
-                <input id="shoreSearchInput" type="search" autocomplete="off" placeholder="Name, role or broad location" />
-              </label>
-              <label>
-                Establishment type
-                <select id="shoreTypeFilter"><option value="">All types</option></select>
-              </label>
-            </div>
-            <div class="shore-result-summary" role="status" aria-live="polite">
-              <strong id="shoreFilteredCount">0</strong> of <span id="shoreTotalCount">0</span> establishments shown
-            </div>
-            <ul id="shoreEstablishmentList" class="shore-establishment-list"></ul>
-          </section>
-
-          <section class="search-controls" aria-label="Search and filter fleet">
-            <label class="search-field">
-              <span>Find a vessel</span>
-              <input id="searchInput" type="search" autocomplete="off" placeholder="Name or pennant number" />
-            </label>
-
-            <details id="filterDisclosure" class="filter-disclosure">
-              <summary>
-                <span>Filters</span>
-                <strong id="filterSelectionStatus">All vessels</strong>
-              </summary>
-              <div class="filter-body">
-                <section class="class-selector" aria-labelledby="classSelectorTitle">
-                  <div class="section-heading">
-                    <h2 id="classSelectorTitle">Vessel class</h2>
-                    <span id="classSelectionStatus">All classes</span>
-                  </div>
-                  <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
-                  <section
-                    id="classAvailabilityPanel"
-                    class="class-availability"
-                    aria-labelledby="classAvailabilityTitle"
-                    aria-live="polite"
-                    hidden
-                  >
-                    <div class="class-availability-heading">
-                      <div>
-                        <p class="eyebrow">Selected class</p>
-                        <h3 id="classAvailabilityTitle"></h3>
-                      </div>
-                      <div class="class-availability-score">
-                        <strong id="classAvailabilityPercentage"></strong>
-                        <span>availability</span>
-                      </div>
-                    </div>
-                    <p id="classAvailabilityFormula" class="class-availability-formula"></p>
-                    <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>
-                    <div class="class-availability-vessels">
-                      <h4>Vessels in class</h4>
-                      <ul id="classAvailabilityVessels"></ul>
-                    </div>
-                  </section>
-                </section>
-
-                <div class="filter-grid">
-                  <label>
-                    Service
-                    <select id="serviceFilter"><option value="">All services</option></select>
-                  </label>
-                  <label>
-                    Status
-                    <select id="statusFilter"><option value="">All statuses</option></select>
-                  </label>
-                  <label>
-                    Vessel type
-                    <select id="typeFilter"><option value="">All vessel types</option></select>
-                  </label>
-                  <label>
-                    Location classification
-                    <select id="locationFilter">
-                      <option value="">All classifications</option>
-                      <option value="mapped">Mapped</option>
-                      <option value="approximate">Approximate</option>
-                      <option value="unknown">Unknown</option>
-                      <option value="withheld">Withheld</option>
-                    </select>
-                  </label>
-                </div>
-              </div>
-            </details>
-
-            <div class="result-summary">
-              <span id="filterResultStatus" role="status" aria-live="polite"><strong id="filteredCount">0</strong> vessels shown</span>
-              <button id="resetFilters" type="button" hidden>Clear filters</button>
-            </div>
-          </section>
-
-          <section id="changesPanel" class="changes-panel" aria-labelledby="changesTitle" hidden>
-            <div class="section-heading">
-              <div>
-                <p class="eyebrow">Latest publication</p>
-                <h2 id="changesTitle">What changed</h2>
-              </div>
-              <button id="changesClose" class="panel-close" type="button" aria-label="Close What changed">Close</button>
-            </div>
-            <p id="changesSummary" class="changes-summary"></p>
-            <div id="changesList" class="changes-list"></div>
-          </section>
-
-          <section class="detail-card" id="detailCard" aria-live="polite" hidden>
+        <aside id="detailDrawer" class="surface drawer detail-drawer" data-surface="detail" aria-labelledby="detailTitle" hidden>
+          <header class="surface-header">
+            <div><p class="eyebrow">Selected record</p><span class="surface-kicker">Public information</span></div>
+            <button class="surface-close" type="button" data-close-surface="detail" aria-label="Close selected record">Close</button>
+          </header>
+          <article class="detail-card" id="detailCard" aria-live="polite" hidden>
             <p class="eyebrow" id="detailKind">Fleet record</p>
             <h2 id="detailTitle" tabindex="-1">Select a vessel</h2>
             <figure id="detailPhoto" class="detail-photo" hidden>
               <img id="detailPhotoImage" alt="" />
               <figcaption id="detailPhotoCredit" class="detail-photo-credit" hidden></figcaption>
             </figure>
-            <dl id="detailMeta" class="detail-meta"></dl>
-          </section>
-
-          <section class="results" aria-label="Filtered vessel results">
-            <div class="results-heading">
-              <h2>Fleet list</h2>
-              <span id="resultsStatus" role="status"></span>
-            </div>
-            <ul id="vesselList"></ul>
-          </section>
+            <dl id="detailPrimaryMeta" class="detail-meta detail-primary"></dl>
+            <details id="detailDisclosure" class="detail-disclosure">
+              <summary>Vessel details</summary>
+              <dl id="detailMeta" class="detail-meta"></dl>
+            </details>
+          </article>
         </aside>
+
+        <section id="layersPanel" class="surface popover layers-panel" data-surface="layers" aria-labelledby="layersTitle" hidden>
+          <header class="surface-header">
+            <div><p class="eyebrow">Map presentation</p><h2 id="layersTitle">Layers</h2></div>
+            <button class="surface-close" type="button" data-close-surface="layers" aria-label="Close layers">Close</button>
+          </header>
+          <fieldset class="layer-group">
+            <legend>Fleet</legend>
+            <label class="switch-row">
+              <span><strong>Fleet vessels</strong><small>Royal Navy and Royal Fleet Auxiliary</small></span>
+              <input id="fleetLayerToggle" type="checkbox" checked />
+            </label>
+            <label class="switch-row">
+              <span><strong>UK shore establishments</strong><small id="shoreLayerCount">0 public locations</small></span>
+              <input id="shoreLayerToggle" type="checkbox" aria-controls="shoreControls" />
+            </label>
+          </fieldset>
+          <fieldset class="layer-group">
+            <legend>Map presentation</legend>
+            <label class="switch-row">
+              <span><strong>Marker clustering</strong><small>Group nearby vessel and shore markers</small></span>
+              <input id="clusterLayerToggle" type="checkbox" checked />
+            </label>
+          </fieldset>
+          <details class="legend-disclosure">
+            <summary>Location legend</summary>
+            <div class="legend" aria-label="Location marker legend">
+              <span><i class="legend-dot mapped"></i>Mapped public location</span>
+              <span><i class="legend-dot approximate"></i>Approximate port or area</span>
+              <span><i class="legend-dot classified"></i>Withheld symbolic marker</span>
+              <span><i class="legend-dot shore"></i>Shore establishment</span>
+            </div>
+          </details>
+          <section id="shoreControls" class="shore-controls" aria-labelledby="shoreControlsTitle" hidden>
+            <div class="section-heading"><div><p class="eyebrow">Layer records</p><h3 id="shoreControlsTitle">Shore establishments</h3></div></div>
+            <p class="shore-scope-note">Public establishment-level locations only. Fleet totals are unchanged.</p>
+            <div class="shore-filter-grid">
+              <label>Find an establishment<input id="shoreSearchInput" type="search" autocomplete="off" placeholder="Name, role or location" /></label>
+              <label>Establishment type<select id="shoreTypeFilter"><option value="">All types</option></select></label>
+            </div>
+            <p class="shore-result-summary" role="status" aria-live="polite">
+              <strong id="shoreFilteredCount">0</strong> of <span id="shoreTotalCount">0</span> shown
+            </p>
+            <ul id="shoreEstablishmentList" class="shore-establishment-list"></ul>
+          </section>
+        </section>
+
+        <section id="filterPanel" class="surface popover filter-panel" data-surface="filters" aria-labelledby="filtersTitle" hidden>
+          <header class="surface-header">
+            <div><p class="eyebrow">Fleet view</p><h2 id="filtersTitle">Filters</h2></div>
+            <button class="surface-close" type="button" data-close-surface="filters" aria-label="Close filters">Close</button>
+          </header>
+          <section class="class-selector" aria-labelledby="classSelectorTitle">
+            <div class="section-heading"><h3 id="classSelectorTitle">Vessel class</h3><span id="classSelectionStatus">All classes</span></div>
+            <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
+            <section id="classAvailabilityPanel" class="class-availability" aria-labelledby="classAvailabilityTitle" aria-live="polite" hidden>
+              <div class="class-availability-heading">
+                <div><p class="eyebrow">Selected class</p><h3 id="classAvailabilityTitle"></h3></div>
+                <div class="class-availability-score"><strong id="classAvailabilityPercentage"></strong><span>availability</span></div>
+              </div>
+              <p id="classAvailabilityFormula" class="class-availability-formula"></p>
+              <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>
+              <div class="class-availability-vessels"><h4>Vessels in class</h4><ul id="classAvailabilityVessels"></ul></div>
+            </section>
+          </section>
+          <div class="filter-grid">
+            <label>Service<select id="serviceFilter"><option value="">All services</option></select></label>
+            <label>Status<select id="statusFilter"><option value="">All statuses</option></select></label>
+            <label>Vessel type<select id="typeFilter"><option value="">All vessel types</option></select></label>
+            <label>Location classification
+              <select id="locationFilter">
+                <option value="">All classifications</option><option value="mapped">Mapped</option><option value="approximate">Approximate</option><option value="unknown">Unknown</option><option value="withheld">Withheld</option>
+              </select>
+            </label>
+          </div>
+          <div class="result-summary panel-result-summary">
+            <span id="filterSelectionStatus">All vessels</span>
+            <button id="panelResetFilters" type="button" hidden>Clear all</button>
+          </div>
+        </section>
+
+        <section id="changesPanel" class="surface popover changes-panel" data-surface="changes" aria-labelledby="changesTitle" hidden>
+          <header class="surface-header">
+            <div><p class="eyebrow">Latest publication</p><h2 id="changesTitle">What changed</h2></div>
+            <button class="surface-close" type="button" data-close-surface="changes" aria-label="Close What changed">Close</button>
+          </header>
+          <p id="changesSummary" class="changes-summary"></p>
+          <div id="changesList" class="changes-list"></div>
+        </section>
       </section>
     </main>
-
     <div id="loadError" class="load-error" role="alert" hidden>
-      <strong>Fleet data could not be loaded.</strong>
-      <span id="loadErrorMessage">Check the dataset and reload the page.</span>
+      <strong>Fleet data could not be loaded.</strong><span id="loadErrorMessage">Check the dataset and reload the page.</span>
     </div>
-
     <script type="module" src="./src/app.js"></script>
   </body>
 </html>

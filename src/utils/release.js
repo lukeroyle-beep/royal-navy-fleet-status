@@ -53,6 +53,12 @@ export function formatDatasetReleaseLabel(metadata) {
   return formatDate(release.asOfDate);
 }
 
+export function formatPublicationFreshness(metadata) {
+  const release = readReleaseMetadata(metadata);
+  const date = release.releasedAt?.slice(0, 10) || release.asOfDate;
+  return `Published ${formatDate(date, { short: true, includeYear: true })}`;
+}
+
 export function formatPublicationChangeLabels(publication) {
   const changeCount = publication?.changes?.length ?? 0;
   const previousDate = publication?.previousAsOfDate;
@@ -95,11 +101,11 @@ export function isPositiveInteger(value) {
   return Number.isInteger(value) && value > 0;
 }
 
-function formatDate(value, { short = false } = {}) {
+function formatDate(value, { short = false, includeYear = !short } = {}) {
   return new Date(`${value}T00:00:00Z`).toLocaleDateString("en-GB", {
     day: "numeric",
     month: short ? "short" : "long",
-    ...(short ? {} : { year: "numeric" }),
+    ...(includeYear ? { year: "numeric" } : {}),
     timeZone: "UTC",
   });
 }

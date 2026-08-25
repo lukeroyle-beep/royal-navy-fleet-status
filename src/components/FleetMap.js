@@ -27,7 +27,9 @@ export class FleetMap {
     this.shoreMarkers = new Map();
     this.visibleVessels = [];
     this.visibleShoreEstablishments = [];
+    this.fleetVisible = true;
     this.shoreVisible = false;
+    this.clusteringEnabled = true;
     this.selectedId = null;
     this.selectedShoreId = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -81,6 +83,8 @@ export class FleetMap {
       iconCreateFunction: (cluster) => this.#createClusterIcon(cluster),
     });
     this.map.addLayer(this.clusterGroup);
+    this.unclusteredGroup = L.layerGroup().addTo(this.map);
+    this.selectionGroup = L.layerGroup().addTo(this.map);
 
     this.shoreClusterGroup = L.markerClusterGroup({
       animate: !this.reducedMotion,
@@ -94,6 +98,8 @@ export class FleetMap {
       iconCreateFunction: (cluster) => this.#createShoreClusterIcon(cluster),
     });
     this.map.addLayer(this.shoreClusterGroup);
+    this.unclusteredShoreGroup = L.layerGroup().addTo(this.map);
+    this.shoreSelectionGroup = L.layerGroup().addTo(this.map);
 
     this.resizeObserver = new ResizeObserver(() => this.map.invalidateSize({ pan: false }));
     this.resizeObserver.observe(container);
@@ -104,6 +110,8 @@ export class FleetMap {
 
   setVessels(vessels) {
     this.clusterGroup.clearLayers();
+    this.unclusteredGroup.clearLayers();
+    this.selectionGroup.clearLayers();
     this.markers.clear();
 
     for (const vessel of plottedVessels(vessels)) {
@@ -116,10 +124,20 @@ export class FleetMap {
 
   setVisibleVessels(vessels, { fit = true } = {}) {
     this.visibleVessels = plottedVessels(vessels);
-    this.clusterGroup.clearLayers();
-    this.clusterGroup.addLayers(
-      this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean),
-    );
+    this.#syncFleetLayers();
+    if (fit) this.resetView();
+  }
+
+  setFleetVisible(visible, { fit = true } = {}) {
+    this.fleetVisible = visible;
+    this.#syncFleetLayers();
+    if (fit) this.resetView();
+  }
+
+  setClusteringEnabled(enabled, { fit = false } = {}) {
+    this.clusteringEnabled = enabled;
+    this.#syncFleetLayers();
+    this.#syncShoreLayers();
     if (fit) this.resetView();
   }
 
@@ -133,25 +151,13 @@ export class FleetMap {
 
   setVisibleShoreEstablishments(establishments, { fit = true } = {}) {
     this.visibleShoreEstablishments = establishments;
-    this.shoreClusterGroup.clearLayers();
-    if (this.shoreVisible) {
-      this.shoreClusterGroup.addLayers(
-        establishments.map((establishment) => this.shoreMarkers.get(establishment.id)).filter(Boolean),
-      );
-      if (fit) this.resetView();
-    }
+    this.#syncShoreLayers();
+    if (this.shoreVisible && fit) this.resetView();
   }
 
   setShoreVisible(visible, { fit = true } = {}) {
     this.shoreVisible = visible;
-    this.shoreClusterGroup.clearLayers();
-    if (visible) {
-      this.shoreClusterGroup.addLayers(
-        this.visibleShoreEstablishments
-          .map((establishment) => this.shoreMarkers.get(establishment.id))
-          .filter(Boolean),
-      );
-    }
+    this.#syncShoreLayers();
     if (fit) this.resetView();
   }
 
@@ -160,15 +166,15 @@ export class FleetMap {
     this.selectedShoreId = null;
     this.#refreshMarkerIcons();
     this.#refreshShoreMarkerIcons();
+    this.#syncFleetLayers();
+    this.#syncShoreLayers();
 
     if (!focus || !hasPlottablePosition(vessel)) return;
     const marker = this.markers.get(vessel.id);
-    if (!marker || !this.clusterGroup.hasLayer(marker)) return;
-
-    this.clusterGroup.zoomToShowLayer(marker, () => {
-      this.map.panTo(marker.getLatLng(), { animate: !this.reducedMotion });
-      marker.openTooltip();
-    });
+    if (!marker || !this.fleetVisible) return;
+    const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
+    this.map.setView(marker.getLatLng(), contextualZoom, { animate: !this.reducedMotion });
+    marker.openTooltip();
   }
 
   selectShoreEstablishment(establishment, { focus = true } = {}) {
@@ -176,14 +182,15 @@ export class FleetMap {
     this.selectedShoreId = establishment.id;
     this.#refreshMarkerIcons();
     this.#refreshShoreMarkerIcons();
+    this.#syncFleetLayers();
+    this.#syncShoreLayers();
 
     if (!focus || !this.shoreVisible) return;
     const marker = this.shoreMarkers.get(establishment.id);
-    if (!marker || !this.shoreClusterGroup.hasLayer(marker)) return;
-    this.shoreClusterGroup.zoomToShowLayer(marker, () => {
-      this.map.panTo(marker.getLatLng(), { animate: !this.reducedMotion });
-      marker.openTooltip();
-    });
+    if (!marker) return;
+    const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
+    this.map.setView(marker.getLatLng(), contextualZoom, { animate: !this.reducedMotion });
+    marker.openTooltip();
   }
 
   clearSelection() {
@@ -191,14 +198,21 @@ export class FleetMap {
     this.selectedShoreId = null;
     this.#refreshMarkerIcons();
     this.#refreshShoreMarkerIcons();
+    this.#syncFleetLayers();
+    this.#syncShoreLayers();
   }
 
   resetView() {
-    const markers = this.shoreVisible
-      ? this.visibleShoreEstablishments
-          .map((establishment) => this.shoreMarkers.get(establishment.id))
-          .filter(Boolean)
-      : this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean);
+    const markers = [
+      ...(this.fleetVisible
+        ? this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean)
+        : []),
+      ...(this.shoreVisible
+        ? this.visibleShoreEstablishments
+            .map((establishment) => this.shoreMarkers.get(establishment.id))
+            .filter(Boolean)
+        : []),
+    ];
 
     if (!markers.length) {
       this.map.setView(DEFAULT_VIEW.centre, DEFAULT_VIEW.zoom, {
@@ -310,6 +324,43 @@ export class FleetMap {
         marker.options.establishment ||
         this.visibleShoreEstablishments.find((candidate) => candidate.id === id);
       if (establishment) marker.setIcon(this.#createShoreMarkerIcon(establishment));
+    }
+  }
+
+  #syncFleetLayers() {
+    this.clusterGroup.clearLayers();
+    this.unclusteredGroup.clearLayers();
+    this.selectionGroup.clearLayers();
+    if (!this.fleetVisible) return;
+
+    const selectedMarker = this.selectedId ? this.markers.get(this.selectedId) : null;
+    const markers = this.visibleVessels
+      .map((vessel) => this.markers.get(vessel.id))
+      .filter((marker) => marker && marker !== selectedMarker);
+    const activeGroup = this.clusteringEnabled ? this.clusterGroup : this.unclusteredGroup;
+    for (const marker of markers) activeGroup.addLayer(marker);
+    if (selectedMarker && this.visibleVessels.some((vessel) => vessel.id === this.selectedId)) {
+      this.selectionGroup.addLayer(selectedMarker);
+    }
+  }
+
+  #syncShoreLayers() {
+    this.shoreClusterGroup.clearLayers();
+    this.unclusteredShoreGroup.clearLayers();
+    this.shoreSelectionGroup.clearLayers();
+    if (!this.shoreVisible) return;
+
+    const selectedMarker = this.selectedShoreId ? this.shoreMarkers.get(this.selectedShoreId) : null;
+    const markers = this.visibleShoreEstablishments
+      .map((establishment) => this.shoreMarkers.get(establishment.id))
+      .filter((marker) => marker && marker !== selectedMarker);
+    const activeGroup = this.clusteringEnabled ? this.shoreClusterGroup : this.unclusteredShoreGroup;
+    for (const marker of markers) activeGroup.addLayer(marker);
+    if (
+      selectedMarker &&
+      this.visibleShoreEstablishments.some((establishment) => establishment.id === this.selectedShoreId)
+    ) {
+      this.shoreSelectionGroup.addLayer(selectedMarker);
     }
   }
 

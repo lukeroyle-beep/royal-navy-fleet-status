@@ -9,19 +9,21 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - A 68-vessel current Royal Navy and RFA roster
 - Search by vessel name or pennant number
 - Filters for service, vessel type, operational status and location classification
-- A compact class ribbon with class-level active counts and public-status percentages
+- A map-first interface with a collapsible fleet drawer, selected-record drawer and compact top bar
+- A compact class ribbon with class-level active counts and public-status percentages inside Filters
 - A release-to-release change summary that stays collapsed until requested
-- Interactive OpenStreetMap basemap with clustered markers for explicitly recorded coordinates
-- Clean vessel details with status and recorded location; detailed provenance remains outside the client projection
+- Interactive OpenStreetMap basemap with optional clustering and UK shore-establishment layers
+- Progressive vessel details with status, supported public location and snapshot date; detailed provenance remains outside the client projection
 - Clear `mapped`, `approximate`, `unknown` and `withheld` location classifications
 - Automated dataset validation and production-build checks
-- Responsive desktop and mobile layouts
+- Responsive desktop drawers and touch-oriented iPad and phone bottom sheets
 
 ## Map controls
 
 - Pan by dragging and zoom with the on-map controls, mouse wheel or supported touch gestures.
-- Nearby markers cluster automatically. Select a cluster to zoom in; markers sharing one coordinate expand individually at maximum zoom.
-- Select a plotted vessel from the list to centre its marker, or use **Show all plotted vessels** to restore the filtered overview.
+- Use **Layers** to show or hide fleet vessels and public UK shore establishments, or to switch marker clustering on and off.
+- Select a plotted vessel from the map or fleet drawer to highlight it, keep regional context and open its public record. Use **Reset view** to restore the filtered overview.
+- Use **Filters** for class, service, operational status, vessel type and public location classification. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
 - Vessels without a current public fix use their last dated, vessel-specific public location, even when historical. An SSBN recorded as deployed can use a clearly labelled symbolic “Classified” marker that does not represent a reported or inferred position.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 

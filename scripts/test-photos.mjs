@@ -19,7 +19,7 @@ assert.doesNotMatch(html, /dataDisclaimer/);
 assert.doesNotMatch(html, /detailDescription|Marker shows the last publicly reported/);
 assert.match(
   html,
-  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailMeta"/,
+  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailPrimaryMeta"/,
   "The vessel photograph must appear directly below the vessel name and before the metadata.",
 );
 assert.doesNotMatch(detailPanel, /photoCaption|Marker shows the last publicly reported/);
@@ -36,8 +36,9 @@ assert.doesNotMatch(photoService, /Audacious_Under_Construction/);
 assert.match(photoService, /RFA_Proteus_in_Cammell_Laird/);
 assert.match(
   detailPanel,
-  /\["Type", vessel\.vesselType\],[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Status", vessel\.status\]/,
+  /\["Status", vessel\.status\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\]/,
 );
+assert.match(detailPanel, /\["Commission date", vessel\.commissionedDate/);
 
 for (const filename of filenames) {
   const bytes = fs.readFileSync(new URL(filename, photoDirectory));
