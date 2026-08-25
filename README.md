@@ -71,8 +71,11 @@ The dataset date is not proof that every source observation occurred on that dat
 ## Evidence and assessment model
 
 Canonical vessel identities, the central source registry, append-only evidence and versioned
-assessments live under `data/internal/provenance/`. “Internal” means excluded from the browser
-bundle, not secret storage; the repository may be public and these records contain no credentials.
+assessments currently remain under `data/internal/provenance/` as a reviewed, non-sensitive legacy
+migration state. New real private inputs live only in an owner-controlled external encrypted and
+versioned directory selected by `RNFS_PRIVATE_DATA_ROOT`; the resolver rejects repository-contained
+real roots and malformed manifests. Public CI receives no real private input or credential and tests
+the boundary with fabricated data only.
 
 `data/royal-navy/vessels.json` is generated from the current assessment index and contains only the
 fields required by the public map, filters, release insights and vessel card. Every current trusted
@@ -89,6 +92,8 @@ corroboration counts origin clusters, not links or reposts.
 
 See [`docs/osint-provenance.md`](docs/osint-provenance.md) for the full model, collection boundary,
 confidence/freshness rules and known limitations.
+See [`docs/private-input-boundary.md`](docs/private-input-boundary.md) for local configuration,
+synthetic-only CI, backup/recovery gates, credential rotation and sanitised release steps.
 See [`docs/public-geographic-precision.md`](docs/public-geographic-precision.md) for the public state,
 geometry and submarine publication safeguards.
 
@@ -179,7 +184,7 @@ submarine positions, and scan built assets for internal provenance or source exp
 ## Data maintenance
 
 Do not edit `data/royal-navy/vessels.json` as the system of record. Resolve the vessel and source
-against the internal registries, validate and append reviewed evidence, create a new assessment
+against the configured private registries, validate and append reviewed evidence, create a new assessment
 revision, then run `npm run generate:public`. Use `npm run sweep:sources` to materialise the enabled
 review queue. Use `npm run sweep:collect -- --output=<run.json>` for one read-only pass over the
 allowlisted public publisher indexes. The collector records links and hashes only: it never requests

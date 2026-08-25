@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { collectPublicIndexes } from "./lib/public-index-collector.mjs";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import { createSweepRun, sweepWindowStartFromMetadata } from "./lib/sweep.mjs";
 import { validateSourceRegistry } from "./lib/provenance.mjs";
 
@@ -10,9 +11,10 @@ const windowStartArgument = readEqualsArgument("--since=");
 const releaseRevisionArgument = readEqualsArgument("--release-revision=");
 const releaseRevision = releaseRevisionArgument === null ? 1 : Number(releaseRevisionArgument);
 const outputPath = readEqualsArgument("--output=");
-const entities = readJson("../data/internal/provenance/vessels.json");
-const registry = readJson("../data/internal/provenance/sources.json");
-const assessments = readJson("../data/internal/provenance/assessments.json");
+const privateInputs = resolvePrivateInputs();
+const entities = privateInputs.readJson("vessels");
+const registry = privateInputs.readJson("sources");
+const assessments = privateInputs.readJson("assessments");
 const windowStart =
   windowStartArgument === null
     ? sweepWindowStartFromMetadata(entities.metadata)
@@ -49,10 +51,6 @@ if (outputPath) {
 }
 if (run.discoveryChecks.some((check) => check.required && check.state !== "complete")) {
   process.exitCode = 1;
-}
-
-function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(new URL(relativePath, import.meta.url), "utf8"));
 }
 
 function readEqualsArgument(prefix) {

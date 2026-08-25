@@ -1,20 +1,27 @@
 import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   createPublicProjection,
   createPublicStatusHistoryCatalog,
 } from "./lib/public-projection.mjs";
 import { validateAssessmentLog } from "./lib/provenance.mjs";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import { parseStatusHistory, validateStatusHistoryCatalog } from "../src/utils/insights.js";
 
-const entities = readJson("../data/internal/provenance/vessels.json");
-const assessments = readJson("../data/internal/provenance/assessments.json");
-const evidence = readJson("../data/internal/provenance/evidence.json");
-const destination = new URL("../data/royal-navy/vessels.json", import.meta.url);
-const historyCatalogDestination = new URL(
-  "../data/royal-navy/status-history-catalog.json",
-  import.meta.url,
+const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
+const privateInputs = resolvePrivateInputs();
+const outputRoot = resolvePathArgument("--output-root=", path.join(repositoryRoot, "data/royal-navy"));
+const statusHistoryPath = resolvePathArgument(
+  "--status-history=",
+  path.join(repositoryRoot, "data/royal-navy/status-history.jsonl"),
 );
+const entities = privateInputs.readJson("vessels");
+const assessments = privateInputs.readJson("assessments");
+const evidence = privateInputs.readJson("evidence");
+const destination = path.join(outputRoot, "vessels.json");
+const historyCatalogDestination = path.join(outputRoot, "status-history-catalog.json");
 const currentVesselIds = entities.vessels.map((vessel) => vessel.vesselId);
 const knownVesselIds = [
   ...currentVesselIds,
@@ -22,19 +29,22 @@ const knownVesselIds = [
 ];
 validateAssessmentLog(assessments, evidence.evidence, knownVesselIds, currentVesselIds);
 const projection = createPublicProjection(entities, assessments);
-const history = parseStatusHistory(
-  fs.readFileSync(new URL("../data/royal-navy/status-history.jsonl", import.meta.url), "utf8"),
-);
+const history = parseStatusHistory(fs.readFileSync(statusHistoryPath, "utf8"));
 const historyCatalog = validateStatusHistoryCatalog(
   createPublicStatusHistoryCatalog(entities, history),
   history,
 );
 
+fs.mkdirSync(outputRoot, { recursive: true });
 fs.writeFileSync(destination, `${JSON.stringify(projection, null, 2)}\n`);
 fs.writeFileSync(historyCatalogDestination, `${JSON.stringify(historyCatalog, null, 2)}\n`);
 console.log(`Generated public projection for ${projection.vessels.length} vessels.`);
 console.log(`Generated public status history catalog for ${historyCatalog.vessels.length} vessels.`);
 
-function readJson(relativePath) {
-  return JSON.parse(fs.readFileSync(new URL(relativePath, import.meta.url), "utf8"));
+function resolvePathArgument(prefix, fallback) {
+  const argument = process.argv.find((value) => value.startsWith(prefix));
+  if (!argument) return fallback;
+  const value = argument.slice(prefix.length);
+  if (!value || !path.isAbsolute(value)) throw new Error(`${prefix.slice(0, -1)} requires an absolute path.`);
+  return path.resolve(value);
 }

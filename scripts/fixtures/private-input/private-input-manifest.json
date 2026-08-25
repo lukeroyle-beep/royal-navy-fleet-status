@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "kind": "rnfs-synthetic-private-inputs",
+  "files": {
+    "vessels": "vessels.json",
+    "sources": "sources.json",
+    "evidence": "evidence.json",
+    "assessments": "assessments.json",
+    "sweepRuns": "sweep-runs",
+    "shoreEstablishments": "shore-establishments.json",
+    "shorePhotoSources": "shore-photo-sources.json"
+  }
+}

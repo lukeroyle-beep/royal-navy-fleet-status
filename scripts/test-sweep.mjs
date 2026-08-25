@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import crypto from "node:crypto";
-import fs from "node:fs";
 
 import { collectPublicIndexes } from "./lib/public-index-collector.mjs";
 import {
@@ -17,11 +16,13 @@ import {
   validateSweepBaselineAgainstState,
   validateSweepRunShape,
 } from "./lib/sweep.mjs";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
-const entities = read("../data/internal/provenance/vessels.json");
-const registry = read("../data/internal/provenance/sources.json");
-const evidence = read("../data/internal/provenance/evidence.json");
-const assessments = read("../data/internal/provenance/assessments.json");
+const privateInputs = resolvePrivateInputs();
+const entities = privateInputs.readJson("vessels");
+const registry = privateInputs.readJson("sources");
+const evidence = privateInputs.readJson("evidence");
+const assessments = privateInputs.readJson("assessments");
 const releaseEntities = structuredClone(entities);
 Object.assign(releaseEntities.metadata, {
   asOfDate: "2026-08-24",
@@ -944,8 +945,4 @@ function stableJsonForTest(value) {
       .join(",")}}`;
   }
   return JSON.stringify(value);
-}
-
-function read(relativePath) {
-  return JSON.parse(fs.readFileSync(new URL(relativePath, import.meta.url), "utf8"));
 }

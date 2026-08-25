@@ -21,6 +21,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Test synthetic private-input boundary
+        run: npm run test:private-boundary
       - name: Validate append-only ledgers
         env:
           BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}

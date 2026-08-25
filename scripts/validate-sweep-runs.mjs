@@ -9,14 +9,16 @@ import {
   validateSweepBaselineAgainstState,
   validateSweepRunShape,
 } from "./lib/sweep.mjs";
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import { readReleaseMetadata } from "../src/utils/release.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
-const runDirectory = path.join(root, "data/internal/provenance/sweep-runs");
-const entities = readJson(path.join(root, "data/internal/provenance/vessels.json"));
-const registry = readJson(path.join(root, "data/internal/provenance/sources.json"));
-const evidence = readJson(path.join(root, "data/internal/provenance/evidence.json"));
-const assessments = readJson(path.join(root, "data/internal/provenance/assessments.json"));
+const privateInputs = resolvePrivateInputs();
+const runDirectory = privateInputs.pathFor("sweepRuns");
+const entities = privateInputs.readJson("vessels");
+const registry = privateInputs.readJson("sources");
+const evidence = privateInputs.readJson("evidence");
+const assessments = privateInputs.readJson("assessments");
 const release = readReleaseMetadata(entities.metadata);
 const files = fs.existsSync(runDirectory)
   ? fs.readdirSync(runDirectory).filter((name) => name.endsWith(".json")).sort()
@@ -39,6 +41,9 @@ const runs = files.map((name) => {
 
 assertUnique(runs.map((run) => run.runId));
 const baseRef = readArgument("--base-ref");
+if (baseRef && privateInputs.mode !== "legacy") {
+  throw new Error("--base-ref append-only validation applies only to the checked-in legacy migration ledger; external private storage must use its owner-controlled version history.");
+}
 const newFiles = validateAppendOnlyHistory(baseRef, files);
 if (baseRef && newFiles.length) {
   const baseEntities = readJsonAtRef(baseRef, "data/internal/provenance/vessels.json");

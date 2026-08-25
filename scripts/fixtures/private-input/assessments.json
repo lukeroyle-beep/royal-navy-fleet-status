@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "methodVersion": "synthetic-v1",
+  "assessments": [
+    {
+      "assessmentId": "SYNTHETIC_ASSESSMENT_1",
+      "vesselId": "hms-fixture",
+      "assessedAt": "2026-01-07T11:00:00Z",
+      "assessedState": {
+        "status": "Available",
+        "locationClassification": "mapped",
+        "locationState": "confirmed",
+        "lastReportedLocation": "Test Harbour",
+        "position": { "lat": 50.1, "lon": -1.1, "label": "Exact internal test berth" },
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Test Harbour",
+          "geometry": { "type": "point", "lat": 50.0, "lon": -1.0 }
+        }
+      },
+      "selectedEvidenceIds": ["SYNTHETIC_EVIDENCE_1"],
+      "excludedEvidenceIds": [],
+      "exclusionReasons": [],
+      "conflictingEvidenceIds": [],
+      "conflictState": "none",
+      "confidenceLevel": "moderate",
+      "confidenceReasons": ["Synthetic reason that must remain private."],
+      "freshness": { "state": "current", "validThrough": "2026-01-09T08:00:00Z", "rationale": "Synthetic freshness detail." },
+      "rationale": "SYNTH_INTERNAL_ONLY assessment rationale",
+      "assessor": "fixture:analyst",
+      "methodVersion": "synthetic-v1",
+      "previousAssessmentId": null
+    }
+  ],
+  "currentAssessmentIds": { "hms-fixture": "SYNTHETIC_ASSESSMENT_1" }
+}

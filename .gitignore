@@ -2,3 +2,22 @@ smoke-screenshot.png
 smoke-mobile.png
 node_modules/
 dist/
+
+# Local private-data mounts, caches and credentials never belong in this public repository.
+/.private/
+/private/
+/data/private/
+/data/internal/private/
+/private-cache/
+/.cache/private-inputs/
+/credentials/
+/.credentials/
+.env
+.env.*
+/.npmrc
+/.pypirc
+*.credentials.json
+*.secrets.json
+*.pem
+*.key
+osint-sweep-run.json

@@ -83,7 +83,9 @@ outcomes. Newly governed sources and normalised evidence are added before an `up
 finalised. Candidate assessment revisions and the target release date/revision must exist before
 finalisation so the run can derive and bind every vessel outcome to the exact reviewed state.
 `npm run sweep:finalise -- <run.json>` succeeds only when the required interval and checks are complete.
-The finalised file is then retained under `data/internal/provenance/sweep-runs/` as an append-only ledger.
+The finalised file is retained under the configured private root's `sweep-runs/` directory. During
+the approved non-destructive migration state, an unset root continues to use
+`data/internal/provenance/sweep-runs/` as the append-only legacy ledger.
 
 The release gate applies to dataset dates from 24 August 2026. It requires the sweep roster and source
 hashes to match the proposed release, the exact required target sets to be present, no pending or
@@ -106,7 +108,10 @@ blocker preserves the failure for audit but cannot authorise an `asOfDate` advan
 ## Known limitations and deferred work
 
 - Unreassessed migrated evidence retains legacy source material, but its former date field did not prove whether it represented publication or observation. It remains explicitly historical and unknown-confidence; no time is manufactured to make the map appear fresher.
-- The repository is public-capable. “Internal” means excluded from the client bundle, not secret. A future private datastore is required for licensed or genuinely non-public material.
+- The checked-in legacy provenance remains non-sensitive and public-capable during migration.
+  Licensed or genuinely non-public material is accepted only through the external fail-closed
+  boundary described in [`private-input-boundary.md`](private-input-boundary.md); it is never supplied
+  to public CI.
 - The manual ingestion command appends evidence but intentionally does not publish a new conclusion. An analyst must create and validate an assessment revision.
 - X/API, AIS, port-feed and archive schedulers are deferred until credentials, terms, rate limits, retention and operating ownership are approved. Public publisher index discovery is scheduled, but evidence review and publication remain manual and owner-reviewed.
 - Perceptual image deduplication, satellite automation, route inference, geofencing and impossible-speed checks are deferred until evidence has reliable capture times and coordinates.

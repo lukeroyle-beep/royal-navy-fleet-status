@@ -1,5 +1,6 @@
 import fs from "node:fs";
 
+import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import { finaliseSweepRun } from "./lib/sweep.mjs";
 
 const inputPath = process.argv.slice(2).find((argument) => !argument.startsWith("--"));
@@ -13,10 +14,11 @@ const completedAtArgument = process.argv.find((argument) => argument.startsWith(
 const completedAt = completedAtArgument
   ? completedAtArgument.slice("--at=".length)
   : new Date().toISOString();
-const entities = readJson(new URL("../data/internal/provenance/vessels.json", import.meta.url));
-const registry = readJson(new URL("../data/internal/provenance/sources.json", import.meta.url));
-const evidence = readJson(new URL("../data/internal/provenance/evidence.json", import.meta.url));
-const assessments = readJson(new URL("../data/internal/provenance/assessments.json", import.meta.url));
+const privateInputs = resolvePrivateInputs();
+const entities = privateInputs.readJson("vessels");
+const registry = privateInputs.readJson("sources");
+const evidence = privateInputs.readJson("evidence");
+const assessments = privateInputs.readJson("assessments");
 const run = readJson(inputPath);
 
 finaliseSweepRun(run, {

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "reviewedAt": "2026-01-07T12:00:00Z",
+  "policy": {
+    "publicRepositoryNotice": "Synthetic test data only"
+  },
+  "sources": [
+    {
+      "sourceId": "SYNTHETIC_SOURCE",
+      "category": "official-royal-navy",
+      "publisher": "Synthetic publisher",
+      "canonicalUrl": "https://fixture.invalid/internal-source-index",
+      "reliabilityTier": "A",
+      "collectionMode": "manual",
+      "status": "enabled",
+      "enabled": true,
+      "terms": { "reviewedAt": "2026-01-07T12:00:00Z" },
+      "notes": "SYNTH_INTERNAL_ONLY source-registry marker"
+    }
+  ],
+  "officialSocialCoverage": [
+    {
+      "vesselId": "hms-fixture",
+      "enabled": false,
+      "accountHandle": null,
+      "verifiedByUrl": null,
+      "reason": "Synthetic fixture has no social account."
+    }
+  ]
+}
