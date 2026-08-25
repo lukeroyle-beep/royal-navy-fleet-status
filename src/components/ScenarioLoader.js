@@ -25,6 +25,7 @@ const FORBIDDEN_PUBLIC_FIELDS = new Set([
   "analystNotes",
   "symbolicPosition",
   "unmappedReason",
+  "publicLocation",
 ]);
 
 export class ScenarioLoader {

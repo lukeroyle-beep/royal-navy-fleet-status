@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "methodVersion": "provenance-v1.1.0",
+  "methodVersion": "provenance-v1.2.0",
   "assessments": [
     {
       "assessmentId": "ASSESS_HMS_VICTORY_2026_08_15_1",
@@ -2502,7 +2502,16 @@
           "lon": -1.1095,
           "label": "HMS Victory, Portsmouth Historic Dockyard"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMS Victory, Portsmouth Historic Dockyard",
+          "geometry": {
+            "type": "point",
+            "lat": 50.8,
+            "lon": -1.11
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_VICTORY_MAIN_2026_08_12"
@@ -2539,7 +2548,16 @@
           "lon": -4.82,
           "label": "HMNB Clyde (Faslane)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Clyde (Faslane)",
+          "geometry": {
+            "type": "point",
+            "lat": 56.07,
+            "lon": -4.82
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_VANGUARD_MAIN_2026_08_12"
@@ -2576,7 +2594,16 @@
           "lon": -4.18,
           "label": "Devonport Naval Base"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Devonport Naval Base",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.18
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_VICTORIOUS_MAIN_2026_08_12"
@@ -2613,7 +2640,16 @@
           "lon": -4.82,
           "label": "HMNB Clyde (Faslane)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Clyde (Faslane)",
+          "geometry": {
+            "type": "point",
+            "lat": 56.07,
+            "lon": -4.82
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_VIGILANT_MAIN_2026_08_12"
@@ -2651,7 +2687,12 @@
           "lon": -35,
           "label": "On patrol - classified"
         },
-        "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position."
+        "unmappedReason": "HMS Vengeance is recorded as deployed on deterrent patrol. The actual location is classified; this mid-North Atlantic marker is symbolic and does not indicate the vessel's position.",
+        "publicLocation": {
+          "precision": "none",
+          "label": "Location not published",
+          "geometry": null
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_VENGEANCE_MAIN_2026_08_12"
@@ -2688,7 +2729,16 @@
           "lon": -4.18,
           "label": "Devonport Naval Base"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Devonport Naval Base",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.18
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_ASTUTE_MAIN_2026_08_12"
@@ -2725,7 +2775,16 @@
           "lon": -4.82,
           "label": "HMNB Clyde"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Clyde",
+          "geometry": {
+            "type": "point",
+            "lat": 56.07,
+            "lon": -4.82
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_AMBUSH_MAIN_2026_08_12"
@@ -2762,7 +2821,16 @@
           "lon": -4.82,
           "label": "HMNB Clyde"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Clyde",
+          "geometry": {
+            "type": "point",
+            "lat": 56.07,
+            "lon": -4.82
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_ARTFUL_MAIN_2026_08_12"
@@ -2799,7 +2867,16 @@
           "lon": -4.18,
           "label": "Devonport Naval Base"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Devonport Naval Base",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.18
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_AUDACIOUS_MAIN_2026_08_12"
@@ -2836,7 +2913,16 @@
           "lon": -4.18,
           "label": "Devonport Naval Base"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Devonport Naval Base",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.18
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_ANSON_MAIN_2026_08_12"
@@ -2873,7 +2959,16 @@
           "lon": -3.23,
           "label": "Barrow-in-Furness"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "city",
+          "label": "Barrow-in-Furness",
+          "geometry": {
+            "type": "point",
+            "lat": 54.11,
+            "lon": -3.23
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_AGAMEMNON_MAIN_2026_08_12"
@@ -2910,7 +3005,16 @@
           "lon": -1.1,
           "label": "HMNB Portsmouth"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Portsmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.81,
+            "lon": -1.1
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_QUEEN_ELIZABETH_MAIN_2026_08_12"
@@ -2947,7 +3051,16 @@
           "lon": -1.1,
           "label": "HMNB Portsmouth"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Portsmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.81,
+            "lon": -1.1
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_PRINCE_OF_WALES_MAIN_2026_08_12"
@@ -2984,7 +3097,16 @@
           "lon": -1.11,
           "label": "HMNB Portsmouth (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Portsmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.8,
+            "lon": -1.11
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_DARING_MAIN_2026_08_12"
@@ -3021,7 +3143,19 @@
           "lon": -1.5,
           "label": "English Channel (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "English Channel",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.3,
+              "lon": -1.5
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_DAUNTLESS_MAIN_2026_08_12"
@@ -3058,7 +3192,16 @@
           "lon": -1.11,
           "label": "HMNB Portsmouth (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Portsmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.8,
+            "lon": -1.11
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_DIAMOND_MAIN_2026_08_12"
@@ -3132,7 +3275,16 @@
           "lon": -1.11,
           "label": "HMNB Portsmouth (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Portsmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.8,
+            "lon": -1.11
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_DEFENDER_MAIN_2026_08_12"
@@ -3280,7 +3432,16 @@
           "lon": -4.19,
           "label": "HMNB Devonport (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Devonport",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.19
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_SOMERSET_MAIN_2026_08_12"
@@ -3354,7 +3515,16 @@
           "lon": -4.19,
           "label": "Devonport dry dock (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Devonport dry dock",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.19
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_KENT_MAIN_2026_08_12"
@@ -3391,7 +3561,16 @@
           "lon": -4.19,
           "label": "HMNB Devonport (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Devonport",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.19
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_PORTLAND_MAIN_2026_08_12"
@@ -3576,7 +3755,19 @@
           "lon": -1.1,
           "label": "Portsmouth"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Portsmouth",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.8,
+              "lon": -1.1
+            },
+            "radiusKm": 90
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_FORTH_MAIN_2026_08_12"
@@ -3613,7 +3804,19 @@
           "lon": -57.5,
           "label": "Falkland Islands / South Atlantic (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Falkland Islands / South Atlantic",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": -51.7,
+              "lon": -57.5
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_MEDWAY_MAIN_2026_08_12"
@@ -3761,7 +3964,19 @@
           "lon": -2.6,
           "label": "English Channel off Portland (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "English Channel off Portland",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.5,
+              "lon": -2.6
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_LEDBURY_MAIN_2026_08_12"
@@ -3798,7 +4013,16 @@
           "lon": -1.986,
           "label": "Poole Quay (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Poole Quay",
+          "geometry": {
+            "type": "point",
+            "lat": 50.71,
+            "lon": -1.99
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_CATTISTOCK_MAIN_2026_08_12"
@@ -3835,7 +4059,16 @@
           "lon": -1.11,
           "label": "Portsmouth (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Portsmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.8,
+            "lon": -1.11
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_BROCKLESBY_MAIN_2026_08_12"
@@ -3872,7 +4105,16 @@
           "lon": -5.0563,
           "label": "Balaena Falmouth yard (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Balaena Falmouth yard",
+          "geometry": {
+            "type": "point",
+            "lat": 50.15,
+            "lon": -5.06
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_MIDDLETON_MAIN_2026_08_12"
@@ -3983,7 +4225,16 @@
           "lon": -4.82,
           "label": "HMNB Clyde (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Clyde",
+          "geometry": {
+            "type": "point",
+            "lat": 55.99,
+            "lon": -4.82
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_BANGOR_MAIN_2026_08_12"
@@ -4020,7 +4271,19 @@
           "lon": -2.42,
           "label": "Weymouth Bay"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Weymouth Bay",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.58,
+              "lon": -2.42
+            },
+            "radiusKm": 20
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_STIRLING_CASTLE_MAIN_2026_08_12"
@@ -4057,7 +4320,19 @@
           "lon": 16,
           "label": "Baltic Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 56,
+              "lon": 16
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_ARCHER_MAIN_2026_08_12"
@@ -4131,7 +4406,19 @@
           "lon": 18.7,
           "label": "Baltic Sea / Poland"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea / Poland",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 54.5,
+              "lon": 18.7
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_SMITER_MAIN_2026_08_12"
@@ -4168,7 +4455,19 @@
           "lon": 18,
           "label": "Baltic Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 57,
+              "lon": 18
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_PURSUER_MAIN_2026_08_12"
@@ -4205,7 +4504,19 @@
           "lon": 3.2,
           "label": "North Sea off Zeebrugge (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "North Sea off Zeebrugge",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 51.4,
+              "lon": 3.2
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_BLAZER_MAIN_2026_08_12"
@@ -4242,7 +4553,19 @@
           "lon": 18,
           "label": "Baltic Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 57,
+              "lon": 18
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_DASHER_MAIN_2026_08_12"
@@ -4279,7 +4602,19 @@
           "lon": 18.7,
           "label": "Baltic Sea / Poland"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea / Poland",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 54.5,
+              "lon": 18.7
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_PUNCHER_MAIN_2026_08_12"
@@ -4353,7 +4688,19 @@
           "lon": -2.42,
           "label": "Weymouth Bay (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Weymouth Bay",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.58,
+              "lon": -2.42
+            },
+            "radiusKm": 20
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_RANGER_MAIN_2026_08_12"
@@ -4390,7 +4737,19 @@
           "lon": -2.5,
           "label": "Waters east of Orkney (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Waters east of Orkney",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 59,
+              "lon": -2.5
+            },
+            "radiusKm": 90
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_TRUMPETER_MAIN_2026_08_12"
@@ -4427,7 +4786,19 @@
           "lon": 18,
           "label": "Baltic Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 57,
+              "lon": 18
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_EXPRESS_MAIN_2026_08_12"
@@ -4464,7 +4835,19 @@
           "lon": 16,
           "label": "Baltic Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Baltic Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 56,
+              "lon": 16
+            },
+            "radiusKm": 450
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_EXAMPLE_MAIN_2026_08_12"
@@ -4501,7 +4884,19 @@
           "lon": -2.5,
           "label": "Waters east of Orkney (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Waters east of Orkney",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 59,
+              "lon": -2.5
+            },
+            "radiusKm": 90
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_EXPLORER_MAIN_2026_08_12"
@@ -4538,7 +4933,19 @@
           "lon": 3.2,
           "label": "North Sea off Zeebrugge (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "North Sea off Zeebrugge",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 51.4,
+              "lon": 3.2
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_EXPLOIT_MAIN_2026_08_12"
@@ -4575,7 +4982,19 @@
           "lon": -4.9,
           "label": "Firth of Clyde off Innellan (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Firth of Clyde off Innellan",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 55.9,
+              "lon": -4.9
+            },
+            "radiusKm": 45
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_TRACKER_MAIN_2026_08_12"
@@ -4612,7 +5031,16 @@
           "lon": -3.50765,
           "label": "Maryport Marina (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Maryport Marina",
+          "geometry": {
+            "type": "point",
+            "lat": 54.71,
+            "lon": -3.51
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_RAIDER_MAIN_2026_08_12"
@@ -4649,7 +5077,19 @@
           "lon": -5.3652,
           "label": "Gibraltar Harbour (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Gibraltar Harbour",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 36.1,
+              "lon": -5.4
+            },
+            "radiusKm": 90
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_CUTLASS_MAIN_2026_08_12"
@@ -4686,7 +5126,16 @@
           "lon": -5.3652,
           "label": "Gibraltar Harbour (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Gibraltar Harbour",
+          "geometry": {
+            "type": "point",
+            "lat": 36.15,
+            "lon": -5.37
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_DAGGER_MAIN_2026_08_12"
@@ -4760,7 +5209,19 @@
           "lon": -1,
           "label": "Tees approaches / North Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Tees approaches / North Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 54.7,
+              "lon": -1
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_PROTECTOR_MAIN_2026_08_12"
@@ -4797,7 +5258,19 @@
           "lon": -5,
           "label": "Irish Sea (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Irish Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 53,
+              "lon": -5
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_MAGPIE_MAIN_2026_08_12"
@@ -4871,7 +5344,16 @@
           "lon": -2.445,
           "label": "Portland Harbour (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Portland Harbour",
+          "geometry": {
+            "type": "point",
+            "lat": 50.59,
+            "lon": -2.44
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_RFA_MOUNTS_BAY_MAIN_2026_08_12"
@@ -4908,7 +5390,16 @@
           "lon": -5.05,
           "label": "Falmouth"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Falmouth",
+          "geometry": {
+            "type": "point",
+            "lat": 50.15,
+            "lon": -5.05
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_RFA_CARDIGAN_BAY_MAIN_2026_08_12"
@@ -5019,7 +5510,16 @@
           "lon": -3,
           "label": "Birkenhead"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Birkenhead",
+          "geometry": {
+            "type": "point",
+            "lat": 53.4,
+            "lon": -3
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_RFA_TIDERACE_MAIN_2026_08_12"
@@ -5056,7 +5556,19 @@
           "lon": 1.4,
           "label": "North Sea–Dover–Channel route (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "North Sea–Dover–Channel route",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 51,
+              "lon": 1.4
+            },
+            "radiusKm": 180
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_RFA_TIDESURGE_MAIN_2026_08_12"
@@ -5130,7 +5642,16 @@
           "lon": 39.64,
           "label": "Port of Mombasa (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Port of Mombasa",
+          "geometry": {
+            "type": "point",
+            "lat": -4.07,
+            "lon": 39.64
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the Mombasa report supports location only and does not independently establish operational status.",
       "selectedEvidenceIds": [
@@ -5175,7 +5696,16 @@
           "lon": 12.596,
           "label": "Copenhagen harbour (representative city/port location)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "city",
+          "label": "Copenhagen, Denmark",
+          "geometry": {
+            "type": "point",
+            "lat": 55.7,
+            "lon": 12.6
+          }
+        }
       },
       "statusRationale": "Deployed is analytically inferred from the current official Copenhagen port visit; the 20 August Forces News item is retained as time-unknown deployment context only and is not used to date or locate the vessel.",
       "selectedEvidenceIds": [
@@ -5268,7 +5798,16 @@
           "lon": -4.184,
           "label": "HMNB Devonport (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "HMNB Devonport",
+          "geometry": {
+            "type": "point",
+            "lat": 50.38,
+            "lon": -4.18
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_SUTHERLAND_NAVY_LOOKOUT_2026_08_19"
@@ -5312,7 +5851,16 @@
           "lon": -4.832,
           "label": "Glen Mallan jetty area, Loch Long (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Glen Mallan jetty area, Loch Long",
+          "geometry": {
+            "type": "point",
+            "lat": 56.05,
+            "lon": -4.83
+          }
+        }
       },
       "statusRationale": "Available is carried forward from the previous assessment; the jetty observation supports location only and does not establish readiness or deployment status.",
       "selectedEvidenceIds": [
@@ -5357,7 +5905,16 @@
           "lon": -1.106,
           "label": "Portsmouth Harbour (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Portsmouth Harbour",
+          "geometry": {
+            "type": "point",
+            "lat": 50.81,
+            "lon": -1.11
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the harbour visual supports movement and location only.",
       "selectedEvidenceIds": [
@@ -5402,7 +5959,19 @@
           "lon": 1.292,
           "label": "Harwich approaches (representative outbound location)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Harwich approaches",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 51.9,
+              "lon": 1.3
+            },
+            "radiusKm": 90
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the outbound report supports movement and last-observed location only.",
       "selectedEvidenceIds": [
@@ -5447,7 +6016,19 @@
           "lon": -1.063,
           "label": "Portsmouth approaches (representative outbound location)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Portsmouth approaches",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.8,
+              "lon": -1.1
+            },
+            "radiusKm": 90
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the outbound report supports movement and last-observed location only.",
       "selectedEvidenceIds": [
@@ -5492,7 +6073,19 @@
           "lon": -70,
           "label": "Caribbean Sea (representative regional location)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Caribbean Sea",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 15,
+              "lon": -70
+            },
+            "radiusKm": 1000
+          }
+        }
       },
       "selectedEvidenceIds": [
         "EVID_HMS_TRENT_RN_CARIBBEAN_2026_08_21"
@@ -5536,7 +6129,16 @@
           "lon": 103.611,
           "label": "Ream Naval Base area (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Ream Naval Base area",
+          "geometry": {
+            "type": "point",
+            "lat": 10.5,
+            "lon": 103.61
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the Ream arrival report supports location only.",
       "selectedEvidenceIds": [
@@ -5581,7 +6183,16 @@
           "lon": 103.835,
           "label": "Singapore port area (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "city",
+          "label": "Singapore",
+          "geometry": {
+            "type": "point",
+            "lat": 1.28,
+            "lon": 103.83
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the Singapore maintenance report supports location and maintenance context only.",
       "selectedEvidenceIds": [
@@ -5626,7 +6237,16 @@
           "lon": -5.667,
           "label": "Bangor Marina, Northern Ireland (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Bangor Marina, Northern Ireland",
+          "geometry": {
+            "type": "point",
+            "lat": 54.67,
+            "lon": -5.67
+          }
+        }
       },
       "statusRationale": "Available is carried forward from the previous assessment; the Bangor training-visit reports support location only.",
       "selectedEvidenceIds": [
@@ -5673,7 +6293,16 @@
           "lon": -5.667,
           "label": "Bangor Marina, Northern Ireland (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Bangor Marina, Northern Ireland",
+          "geometry": {
+            "type": "point",
+            "lat": 54.67,
+            "lon": -5.67
+          }
+        }
       },
       "statusRationale": "Available is carried forward from the previous assessment; the Bangor training-visit reports support location only.",
       "selectedEvidenceIds": [
@@ -5720,7 +6349,16 @@
           "lon": -5.355,
           "label": "Gibraltar harbour (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Gibraltar harbour",
+          "geometry": {
+            "type": "point",
+            "lat": 36.14,
+            "lon": -5.36
+          }
+        }
       },
       "statusRationale": "Available is carried forward from the previous assessment; the Gibraltar arrival report supports location only.",
       "selectedEvidenceIds": [
@@ -5765,7 +6403,16 @@
           "lon": 39.64,
           "label": "Port of Mombasa (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Port of Mombasa",
+          "geometry": {
+            "type": "point",
+            "lat": -4.07,
+            "lon": 39.64
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the Mombasa report supports location only and does not independently establish operational status.",
       "selectedEvidenceIds": [
@@ -5810,7 +6457,19 @@
           "lon": -4.146,
           "label": "Plymouth Sound (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Plymouth Sound",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.34,
+              "lon": -4.15
+            },
+            "radiusKm": 20
+          }
+        }
       },
       "statusRationale": "Available is carried forward from the previous assessment; the Plymouth Sound observation supports location and manoeuvring context only.",
       "selectedEvidenceIds": [
@@ -5855,7 +6514,16 @@
           "lon": -5.355,
           "label": "Gibraltar harbour (representative)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "port",
+          "label": "Gibraltar harbour",
+          "geometry": {
+            "type": "point",
+            "lat": 36.14,
+            "lon": -5.36
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the Gibraltar alongside report supports location only.",
       "selectedEvidenceIds": [
@@ -5900,7 +6568,19 @@
           "lon": -4.146,
           "label": "Plymouth Sound (representative outbound location)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Plymouth Sound",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.34,
+              "lon": -4.15
+            },
+            "radiusKm": 20
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the outbound report supports movement and last-observed location only.",
       "selectedEvidenceIds": [
@@ -5950,7 +6630,19 @@
           "lon": -1.063,
           "label": "Portsmouth approaches (representative outbound location)"
         },
-        "unmappedReason": null
+        "unmappedReason": null,
+        "publicLocation": {
+          "precision": "region",
+          "label": "Portsmouth approaches",
+          "geometry": {
+            "type": "circle",
+            "centre": {
+              "lat": 50.8,
+              "lon": -1.1
+            },
+            "radiusKm": 45
+          }
+        }
       },
       "statusRationale": "Deployed is carried forward from the previous assessment; the departure visual supports movement and last-observed location only.",
       "selectedEvidenceIds": [

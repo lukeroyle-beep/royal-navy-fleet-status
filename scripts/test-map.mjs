@@ -254,6 +254,7 @@ function projectPrecisionFixture(fixture) {
         locationClassification: fixture.locationClassification,
         lastReportedLocation: fixture.report,
         position: structuredClone(fixture.position),
+        publicLocation: structuredClone(fixture.publicLocation),
       },
     },
   );

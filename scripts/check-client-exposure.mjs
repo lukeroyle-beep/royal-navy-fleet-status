@@ -30,6 +30,7 @@ const forbiddenPublicFields = [
   "analystNotes",
   "symbolicPosition",
   "unmappedReason",
+  "publicLocation",
 ];
 for (const vessel of publicFleet.vessels) {
   for (const field of forbiddenPublicFields) {

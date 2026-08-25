@@ -1,10 +1,11 @@
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.1.0";
+import { readReviewedPublicLocation } from "./public-geography.mjs";
 
-const CITY_LEVEL_LOCATION_PATTERN =
-  /\b(?:Barrow-in-Furness|Copenhagen(?:,\s*Denmark)?|Singapore)\b/i;
-const REGIONAL_LOCATION_PATTERN =
-  /\b(?:approaches?|atlantic|bay|channel|firth|islands?|ocean|off|region|sea|sound|territorial waters|waters)\b|\broute\b/i;
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.2.0";
+
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
+const SUBMARINE_AT_SEA_PATTERN =
+  /\b(?:patrol|at sea|underway|approaches?|atlantic|bay|channel|firth|gulf|islands?|ocean|off|region|route|sea|sound|strait|territorial waters|waters)\b/i;
+const LIST_ONLY_STATES = new Set(["unconfirmed", "no_recent_information", "withheld"]);
 
 export function createPublicProjection(entities, assessmentLog) {
   if (!entities?.metadata || !Array.isArray(entities.vessels)) {
@@ -30,13 +31,15 @@ export function createPublicProjection(entities, assessmentLog) {
 export function projectPublicVessel(entity, assessment) {
   const assessedState = assessment.assessedState;
   const locationState = deriveLocationState(assessedState, assessment.freshness?.state);
-  const locationPrecision = deriveLocationPrecision(assessedState, entity.vesselType);
+  const reviewedLocation = safeReviewedLocation(entity, assessedState);
+  const listOnly = LIST_ONLY_STATES.has(locationState) || !reviewedLocation;
+  const locationPrecision = listOnly ? "none" : reviewedLocation.precision;
   const publicLocationLabel = createPublicLocationLabel(
     assessedState,
     locationState,
-    locationPrecision,
+    reviewedLocation?.label,
   );
-  const geometry = createPublicGeometry(assessedState, locationPrecision, publicLocationLabel);
+  const geometry = createPublicGeometry(reviewedLocation, locationPrecision, publicLocationLabel);
 
   return {
     id: entity.vesselId,
@@ -71,41 +74,34 @@ function deriveLocationState(assessedState, freshnessState) {
   return freshnessState === "current" ? "unconfirmed" : "no_recent_information";
 }
 
-function deriveLocationPrecision(assessedState, vesselType) {
-  if (!["mapped", "approximate"].includes(assessedState.locationClassification)) return "none";
+function safeReviewedLocation(entity, assessedState) {
+  const reviewed = readReviewedPublicLocation(assessedState.publicLocation);
+  if (!reviewed) return null;
+  if (!SUBMARINE_TYPES.has(entity.vesselType)) return reviewed;
   const reportedPlace = String(assessedState.lastReportedLocation || "").split(";")[0];
-  const locationDescription = `${assessedState.position?.label || ""} ${reportedPlace}`;
-  const requestedPrecision = assessedState.locationPrecision;
   if (
-    SUBMARINE_TYPES.has(vesselType) &&
-    (requestedPrecision === "region" ||
-      /\bpatrol\b/i.test(locationDescription) ||
-      REGIONAL_LOCATION_PATTERN.test(locationDescription))
+    reviewed.precision === "region" ||
+    SUBMARINE_AT_SEA_PATTERN.test(`${reportedPlace} ${reviewed.label}`)
   ) {
-    return "none";
+    return {
+      precision: "none",
+      label: reviewed.label,
+      geometry: null,
+    };
   }
-  if (requestedPrecision) return requestedPrecision;
-  if (CITY_LEVEL_LOCATION_PATTERN.test(locationDescription)) return "city";
-  if (REGIONAL_LOCATION_PATTERN.test(locationDescription)) return "region";
-  return "port";
+  return reviewed;
 }
 
-function createPublicGeometry(assessedState, locationPrecision, publicLocationLabel) {
-  if (locationPrecision === "none" || !assessedState.position) {
+function createPublicGeometry(reviewedLocation, locationPrecision, publicLocationLabel) {
+  if (!reviewedLocation || locationPrecision === "none") {
     return { position: null, uncertaintyArea: null };
   }
   if (locationPrecision === "region") {
-    const description = `${assessedState.position.label || ""} ${assessedState.lastReportedLocation || ""}`;
-    const radiusKm = regionalRadiusKm(description);
-    const decimalPlaces = radiusKm <= 30 ? 2 : 1;
     return {
       position: null,
       uncertaintyArea: {
-        centre: {
-          lat: roundCoordinate(assessedState.position.lat, decimalPlaces),
-          lon: roundCoordinate(assessedState.position.lon, decimalPlaces),
-        },
-        radiusKm,
+        centre: structuredClone(reviewedLocation.geometry.centre),
+        radiusKm: reviewedLocation.geometry.radiusKm,
         label: publicLocationLabel,
         representation: "regional",
       },
@@ -113,41 +109,20 @@ function createPublicGeometry(assessedState, locationPrecision, publicLocationLa
   }
   return {
     position: {
-      lat: roundCoordinate(assessedState.position.lat, 2),
-      lon: roundCoordinate(assessedState.position.lon, 2),
+      lat: reviewedLocation.geometry.lat,
+      lon: reviewedLocation.geometry.lon,
       label: publicLocationLabel,
     },
     uncertaintyArea: null,
   };
 }
 
-function createPublicLocationLabel(assessedState, locationState, locationPrecision) {
+function createPublicLocationLabel(assessedState, locationState, reviewedLabel) {
   if (locationState === "withheld") return "Location not published";
   if (locationState === "unconfirmed") return "Location unconfirmed";
   if (locationState === "no_recent_information") return "No recent public information";
-  if (typeof assessedState.publicLocationLabel === "string" && assessedState.publicLocationLabel.trim()) {
-    return assessedState.publicLocationLabel.trim();
-  }
-  if (locationPrecision === "city") return createCityLocationLabel(assessedState);
-  const label = assessedState.position?.label || assessedState.lastReportedLocation;
-  return cleanPublicLocationLabel(label);
-}
-
-function createCityLocationLabel(assessedState) {
-  const markerLabel = cleanPublicLocationLabel(assessedState.position?.label);
-  const reportPlace = String(assessedState.lastReportedLocation || "").split(";")[0].trim();
-  const genericMarker = /\b(?:harbour|port area)\b/i.test(markerLabel);
-  const cityName = markerLabel.replace(/\s+(?:harbour|port area)\b.*$/i, "").trim();
-  if (
-    genericMarker &&
-    cityName &&
-    reportPlace
-      .toLocaleLowerCase("en-GB")
-      .startsWith(cityName.toLocaleLowerCase("en-GB"))
-  ) {
-    return reportPlace;
-  }
-  return cityName || reportPlace || "Public location unavailable";
+  if (typeof reviewedLabel === "string" && reviewedLabel.trim()) return reviewedLabel.trim();
+  return cleanPublicLocationLabel(String(assessedState.lastReportedLocation || "").split(";")[0]);
 }
 
 function cleanPublicLocationLabel(value) {
@@ -164,19 +139,4 @@ function sanitiseLocationText(value, isSubmarine) {
     .replace(/\s{2,}/g, " ")
     .replace(/\s+;/g, ";")
     .trim();
-}
-
-function regionalRadiusKm(description) {
-  if (/Caribbean/i.test(description)) return 1000;
-  if (/South Atlantic|North Atlantic|Baltic Sea|South China Sea/i.test(description)) return 450;
-  if (/North Sea|Irish Sea|English Channel|Falkland Islands/i.test(description)) return 180;
-  if (/territorial waters|waters|route/i.test(description)) return 90;
-  if (/approaches?|\boff\b/i.test(description)) return 45;
-  if (/sound|bay|firth/i.test(description)) return 20;
-  return 120;
-}
-
-function roundCoordinate(value, decimalPlaces) {
-  if (!Number.isFinite(value)) return value;
-  return Number(value.toFixed(decimalPlaces));
 }

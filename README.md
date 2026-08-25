@@ -49,9 +49,10 @@ assessments live under `data/internal/provenance/`. “Internal” means exclude
 bundle, not secret storage; the repository may be public and these records contain no credentials.
 
 `data/royal-navy/vessels.json` is generated from the current assessment index and contains only the
-fields required by the public map, filters, release insights and vessel card. The projection uses an
-explicit field allow-list and converts supported geography into rounded port/city points, bounded
-regional areas or list-only states. Source URLs, evidence
+fields required by the public map, filters, release insights and vessel card. Every current trusted
+assessment contains an exact-key `publicLocation` publication decision. The projection copies only
+its explicitly reviewed rounded point, bounded circle or list-only result; it does not infer precision
+or radius from place or movement text. Source URLs, evidence
 timestamps, account handles, content hashes, origin clusters, analyst notes, confidence reasoning
 and assessment history are not copied into the public vessel projection.
 
