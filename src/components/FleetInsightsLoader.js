@@ -1,23 +1,31 @@
-import { parseStatusHistory, validatePublicationChanges } from "../utils/insights.js";
+import {
+  parseStatusHistory,
+  validatePublicationChanges,
+  validateStatusHistoryCatalog,
+} from "../utils/insights.js";
 import { readReleaseMetadata, releaseRevision } from "../utils/release.js";
 
 export class FleetInsightsLoader {
-  constructor({ changesUrl, historyUrl }) {
+  constructor({ changesUrl, historyUrl, historyCatalogUrl }) {
     this.changesUrl = changesUrl;
     this.historyUrl = historyUrl;
+    this.historyCatalogUrl = historyCatalogUrl;
   }
 
   async load() {
-    const [changesResponse, historyResponse] = await Promise.all([
+    const [changesResponse, historyResponse, historyCatalogResponse] = await Promise.all([
       fetch(this.changesUrl),
       fetch(this.historyUrl),
+      fetch(this.historyCatalogUrl),
     ]);
-    if (!changesResponse.ok || !historyResponse.ok) {
+    if (!changesResponse.ok || !historyResponse.ok || !historyCatalogResponse.ok) {
       throw new Error("Fleet insight data could not be loaded.");
     }
+    const history = parseStatusHistory(await historyResponse.text());
     return {
       changes: validatePublicationChanges(await changesResponse.json()),
-      history: parseStatusHistory(await historyResponse.text()),
+      history,
+      historyCatalog: validateStatusHistoryCatalog(await historyCatalogResponse.json(), history),
     };
   }
 }

@@ -17,7 +17,13 @@ import {
   getAvailabilitySummary,
   getFleetStatusSummary,
 } from "./utils/fleet.js";
-import { shortClassName } from "./utils/insights.js";
+import {
+  compareCurrentWithPreviousSnapshot,
+  createPublicSnapshotDataset,
+  listPublicSnapshotDates,
+  resolvePublicSnapshotDate,
+  shortClassName,
+} from "./utils/insights.js";
 import { filterShoreEstablishments, shoreTypes } from "./utils/shore.js";
 import {
   formatDatasetReleaseLabel,
@@ -44,6 +50,7 @@ const DATA_URL = "./data/royal-navy/vessels.json";
 const SHORE_DATA_URL = "./data/royal-navy/shore-establishments.json";
 const CHANGES_URL = "./data/royal-navy/publication-changes.json";
 const HISTORY_URL = "./data/royal-navy/status-history.jsonl";
+const HISTORY_CATALOG_URL = "./data/royal-navy/status-history-catalog.json";
 const CLASS_PRIORITY = [
   "Type 45 / Daring class",
   "Type 23 / Duke class",
@@ -69,6 +76,10 @@ const elements = {
   changesPanel: document.querySelector("#changesPanel"),
   changesSummary: document.querySelector("#changesSummary"),
   changesList: document.querySelector("#changesList"),
+  changedOnlyToggle: document.querySelector("#changedOnlyToggle"),
+  changedOnlyStatus: document.querySelector("#changedOnlyStatus"),
+  snapshotSelect: document.querySelector("#snapshotSelect"),
+  snapshotDescription: document.querySelector("#snapshotDescription"),
   totalCount: document.querySelector("#totalCount"),
   fleetAvailabilityScore: document.querySelector("#fleetAvailabilityScore"),
   fleetAvailabilityPercentage: document.querySelector("#fleetAvailabilityPercentage"),
@@ -130,11 +141,18 @@ const details = new EventDetailsPanel({
   photo: document.querySelector("#detailPhoto"),
   photoImage: document.querySelector("#detailPhotoImage"),
   photoCredit: document.querySelector("#detailPhotoCredit"),
+  timeline: document.querySelector("#vesselTimeline"),
+  timelineSummary: document.querySelector("#vesselTimelineSummary"),
+  timelineList: document.querySelector("#vesselTimelineList"),
 });
 
 let dataset;
+let currentDataset;
 let shoreDataset;
-let insights = { changes: null, history: [], available: false };
+let insights = { changes: null, history: [], historyCatalog: null, available: false };
+let snapshotComparison = null;
+let selectedSnapshotDate = null;
+let changedOnly = false;
 let selectedId = null;
 let selectedShoreId = null;
 let selectedClass = "";
@@ -175,16 +193,18 @@ initialize();
 
 async function initialize() {
   try {
-    [dataset, shoreDataset] = await Promise.all([
+    [currentDataset, shoreDataset] = await Promise.all([
       new ScenarioLoader(DATA_URL).load(),
       new ShoreEstablishmentLoader(SHORE_DATA_URL).load(),
     ]);
+    dataset = currentDataset;
     try {
       const loadedInsights = await new FleetInsightsLoader({
         changesUrl: CHANGES_URL,
         historyUrl: HISTORY_URL,
+        historyCatalogUrl: HISTORY_CATALOG_URL,
       }).load();
-      if (!insightsMatchDataset(loadedInsights, dataset.metadata)) {
+      if (!insightsMatchDataset(loadedInsights, currentDataset.metadata)) {
         throw new Error("Fleet insight files belong to a different dataset release.");
       }
       insights = { ...loadedInsights, available: true };
@@ -198,6 +218,15 @@ async function initialize() {
 }
 
 function bindDataset() {
+  selectedSnapshotDate = currentDataset.metadata.asOfDate;
+  snapshotComparison = insights.available
+    ? compareCurrentWithPreviousSnapshot(
+        insights.history,
+        insights.historyCatalog,
+        currentDataset.metadata.asOfDate,
+      )
+    : null;
+  renderSnapshotSelector();
   elements.asOfDate.textContent = formatDatasetReleaseLabel(dataset.metadata);
   elements.publicationFreshness.textContent = formatPublicationFreshness(dataset.metadata);
   renderFleetOverview();
@@ -218,10 +247,21 @@ function bindDataset() {
   appendSelectOption(elements.shoreType, PORT_SHORE_FILTER, "Ports and dockyards");
   fillSelect(elements.shoreType, shoreTypes(shoreDataset.establishments));
   publicStateCatalog = createPublicStateCatalog({
-    vessels: dataset.vessels,
+    vessels: currentDataset.vessels,
+    selectionVessels: insights.historyCatalog?.vessels ?? currentDataset.vessels,
     shoreEstablishments: shoreDataset.establishments,
+    snapshotDates: insights.available ? listPublicSnapshotDates(insights.history) : [],
+    currentSnapshotDate: currentDataset.metadata.asOfDate,
   });
 
+  elements.snapshotSelect.addEventListener("change", () => {
+    applySnapshotDate(elements.snapshotSelect.value);
+  });
+  elements.changedOnlyToggle.addEventListener("change", () => {
+    changedOnly = elements.changedOnlyToggle.checked;
+    updateChangedOnlyStatus();
+    applyFilters();
+  });
   elements.search.addEventListener("input", () => {
     applyFilters();
     if (elements.search.value.trim()) surfaceController.open("fleet");
@@ -277,6 +317,102 @@ function bindDataset() {
     parsePublicUrlState(window.location.href, publicStateCatalog) ??
     readPersistedPublicState(publicStorage, publicStateCatalog);
   applyPublicState(initialState, { initial: true });
+}
+
+function renderSnapshotSelector() {
+  const dates = insights.available
+    ? listPublicSnapshotDates(insights.history)
+    : [currentDataset.metadata.asOfDate];
+  elements.snapshotSelect.replaceChildren(
+    ...dates
+      .slice()
+      .reverse()
+      .map((snapshotDate) => {
+        const option = document.createElement("option");
+        option.value = snapshotDate;
+        option.textContent = `${formatDatasetReleaseLabel({ asOfDate: snapshotDate })}${
+          snapshotDate === currentDataset.metadata.asOfDate ? " (current)" : ""
+        }`;
+        return option;
+      }),
+  );
+  elements.snapshotSelect.disabled = !insights.available || dates.length < 2;
+  updateSnapshotLabels();
+}
+
+function applySnapshotDate(requestedDate, { sync = true } = {}) {
+  const resolvedDate = insights.available
+    ? resolvePublicSnapshotDate(
+        insights.history,
+        requestedDate,
+        currentDataset.metadata.asOfDate,
+      )
+    : currentDataset.metadata.asOfDate;
+  const retainedVesselId = selectedId;
+  selectedSnapshotDate = resolvedDate;
+  dataset = insights.available
+    ? createPublicSnapshotDataset({
+        currentFleet: currentDataset,
+        history: insights.history,
+        catalog: insights.historyCatalog,
+        snapshotDate: resolvedDate,
+      })
+    : currentDataset;
+
+  const isCurrent = selectedSnapshotDate === currentDataset.metadata.asOfDate;
+  if (!isCurrent) {
+    changedOnly = false;
+    elements.changedOnlyToggle.checked = false;
+  }
+  elements.changedOnlyToggle.disabled =
+    !isCurrent || !snapshotComparison?.changedCurrentVesselIds?.length;
+  updateChangedOnlyStatus();
+  updateSnapshotLabels();
+  renderFleetOverview();
+  renderClassRibbon();
+
+  const uncertaintyCount = dataset.vessels.filter((vessel) => vessel.uncertaintyArea).length;
+  elements.uncertaintyLayerRow.hidden = uncertaintyCount === 0;
+  elements.uncertaintyVesselPicker.hidden = uncertaintyCount === 0;
+  elements.uncertaintyLayerCount.textContent = `${uncertaintyCount} ${
+    uncertaintyCount === 1 ? "region" : "regions"
+  }`;
+
+  selectedId = null;
+  fleetMap.clearSelection();
+  fleetMap.setVessels(dataset.vessels);
+  applyFilters({ sync: false });
+  const retainedVessel = dataset.vessels.find((vessel) => vessel.id === retainedVesselId);
+  if (retainedVessel) {
+    selectVessel(retainedVessel, { source: "restore", focusMap: false, sync: false });
+  } else {
+    details.renderDefault(dataset);
+    surfaceController.close("detail");
+  }
+  if (sync) syncPublicState();
+}
+
+function updateSnapshotLabels() {
+  const isCurrent = selectedSnapshotDate === currentDataset.metadata.asOfDate;
+  elements.snapshotSelect.value = selectedSnapshotDate;
+  elements.asOfDate.textContent = formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate });
+  elements.publicationFreshness.textContent = isCurrent
+    ? formatPublicationFreshness(currentDataset.metadata)
+    : "Historical status only";
+  elements.snapshotDescription.textContent = isCurrent
+    ? `Current public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}.`
+    : `Historical public status snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}. Location details were not published for this snapshot.`;
+}
+
+function updateChangedOnlyStatus() {
+  if (selectedSnapshotDate !== currentDataset.metadata.asOfDate) {
+    elements.changedOnlyStatus.textContent =
+      "Changed-vessels-only is available on the current public snapshot.";
+    return;
+  }
+  elements.changedOnlyStatus.textContent = changedOnly
+    ? "Showing current vessels changed since the previous public snapshot."
+    : "Showing all current vessels.";
 }
 
 function toggleShoreLayer(open, { fit = true, sync = true } = {}) {
@@ -538,7 +674,8 @@ function applyFilters({ fit = true, sync = true } = {}) {
       (!elements.status.value || vessel.status === elements.status.value) &&
       (!elements.type.value || vessel.vesselType === elements.type.value) &&
       (!elements.location.value || vessel.locationState === elements.location.value) &&
-      (!elements.presence.value || publicPresenceForVessel(vessel) === elements.presence.value)
+      (!elements.presence.value || publicPresenceForVessel(vessel) === elements.presence.value) &&
+      (!changedOnly || snapshotComparison.changedCurrentVesselIds.includes(vessel.id))
     );
   });
 
@@ -593,6 +730,7 @@ function renderFilterSummary(filteredCount) {
     elements.type.value,
     elements.location.value ? formatLocationState(elements.location.value) : "",
     elements.presence.value ? formatPresence(elements.presence.value) : "",
+    changedOnly ? "Changed since previous snapshot" : "",
   ].filter(Boolean);
   const hasSearch = Boolean(elements.search.value.trim());
   const activeFilterCount = countActiveFilters({
@@ -603,7 +741,7 @@ function renderFilterSummary(filteredCount) {
     type: elements.type.value,
     location: elements.location.value,
     presence: elements.presence.value,
-  });
+  }) + (changedOnly ? 1 : 0);
   const hasFilters = activeFilterCount > 0;
   elements.filterResultStatus.textContent = formatVesselResultSummary(
     filteredCount,
@@ -625,9 +763,13 @@ function renderFilterSummary(filteredCount) {
 }
 
 function renderPublicationChanges() {
-  const publication = insights.changes;
-  if (!publication?.changes?.length) return;
-  const labels = formatPublicationChangeLabels(publication);
+  const publication = snapshotComparison;
+  if (!publication?.previousSnapshotDate) return;
+  const labels = formatPublicationChangeLabels({
+    previousAsOfDate: publication.previousSnapshotDate,
+    currentAsOfDate: publication.currentSnapshotDate,
+    changes: publication.changes,
+  });
   elements.changesToggle.hidden = false;
   elements.changesCount.textContent = publication.changes.length.toString();
   elements.changesCount.setAttribute(
@@ -636,26 +778,29 @@ function renderPublicationChanges() {
   );
   elements.changesSummary.textContent = labels.summary;
   elements.changesList.replaceChildren(createChangeList(publication.changes));
+  elements.changedOnlyToggle.disabled = !publication.changedCurrentVesselIds.length;
 }
 
 function createChangeList(changes) {
   const section = document.createElement("section");
   const heading = document.createElement("h3");
   const list = document.createElement("ul");
-  heading.textContent = `Updated vessels · ${changes.length}`;
+  heading.textContent = `Changed between snapshots · ${changes.length}`;
   for (const change of changes) {
     const item = document.createElement("li");
-    const button = document.createElement("button");
+    const content = document.createElement(change.presentInCurrent ? "button" : "div");
     const vesselName = document.createElement("span");
     const description = document.createElement("small");
-    button.type = "button";
+    if (change.presentInCurrent) content.type = "button";
     vesselName.textContent = change.vesselName;
     description.textContent = change.items
       .map((entry) => `${entry.label}: ${entry.before} → ${entry.after}`)
       .join(" · ");
-    button.append(vesselName, description);
-    button.addEventListener("click", () => revealChangedVessel(change.vesselId, button));
-    item.append(button);
+    content.append(vesselName, description);
+    if (change.presentInCurrent) {
+      content.addEventListener("click", () => revealChangedVessel(change.vesselId, content));
+    }
+    item.append(content);
     list.append(item);
   }
   section.append(heading, list);
@@ -663,7 +808,8 @@ function createChangeList(changes) {
 }
 
 function revealChangedVessel(vesselId, trigger) {
-  const vessel = dataset.vessels.find((candidate) => candidate.id === vesselId);
+  applySnapshotDate(currentDataset.metadata.asOfDate, { sync: false });
+  const vessel = currentDataset.vessels.find((candidate) => candidate.id === vesselId);
   if (!vessel) return;
   resetFilters({ focus: false });
   surfaceController.close("changes");
@@ -717,9 +863,10 @@ function selectVessel(
   selectedId = vessel.id;
   selectedShoreId = null;
   details.renderVessel(vessel, {
-    asOfDate: dataset.metadata.asOfDate,
+    asOfDate: selectedSnapshotDate,
     history: insights.history,
-    changes: insights.changes,
+    changes:
+      selectedSnapshotDate === currentDataset.metadata.asOfDate ? insights.changes : null,
     insightsAvailable: insights.available,
   });
   fleetMap.selectVessel(vessel, { focus: focusMap });
@@ -746,6 +893,9 @@ function resetFilters({ focus = false } = {}) {
   elements.type.value = "";
   elements.location.value = "";
   elements.presence.value = "";
+  changedOnly = false;
+  elements.changedOnlyToggle.checked = false;
+  updateChangedOnlyStatus();
   selectedClass = "";
   updateClassRibbon();
   applyFilters();
@@ -756,6 +906,7 @@ function applyPublicState(state, { initial = false } = {}) {
   applyingPublicState = true;
   selectedId = null;
   selectedShoreId = null;
+  applySnapshotDate(state.snapshotDate, { sync: false });
   selectedClass = state.filters.vesselClass;
   elements.search.value = state.filters.query;
   elements.service.value = state.filters.service;
@@ -781,8 +932,11 @@ function applyPublicState(state, { initial = false } = {}) {
   surfaceController.close("detail");
 
   const selection = resolvePublicSelection(publicStateCatalog, state);
-  if (selection.vessel) {
-    selectVessel(selection.vessel, { source: "restore", focusMap: false, sync: false });
+  const selectedVessel = selection.vessel
+    ? dataset.vessels.find((vessel) => vessel.id === selection.vessel.id)
+    : null;
+  if (selectedVessel) {
+    selectVessel(selectedVessel, { source: "restore", focusMap: false, sync: false });
   } else if (selection.shoreEstablishment) {
     selectShoreEstablishment(selection.shoreEstablishment, {
       source: "restore",
@@ -806,6 +960,7 @@ function applyPublicState(state, { initial = false } = {}) {
 function applyPublicPreset(name) {
   const state = stateForPublicPreset(name);
   if (!state) return;
+  state.snapshotDate = selectedSnapshotDate;
   applyPublicState(state);
   elements.presetStatus.textContent = `${PUBLIC_PRESETS[name].label} applied.`;
 }
@@ -831,6 +986,7 @@ function currentPublicState() {
     },
     selectedVessel: selectedId,
     selectedShoreEstablishment: selectedShoreId,
+    snapshotDate: selectedSnapshotDate,
     map: fleetMap.getPublicView(),
   };
 }

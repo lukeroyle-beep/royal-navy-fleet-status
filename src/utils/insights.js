@@ -19,6 +19,18 @@ const ALLOWED_STATUSES = new Set([
 const YEAR_MS = 365 * 24 * 60 * 60 * 1000;
 const EXPECTED_WEEKLY_OBSERVATIONS = 52;
 const MIN_MATURITY_SPAN_MS = 350 * 24 * 60 * 60 * 1000;
+const SNAPSHOT_IDENTITY_KEYS = Object.freeze([
+  "id",
+  "name",
+  "service",
+  "vesselClass",
+  "vesselType",
+  "pennantNumber",
+  "commissionedDate",
+  "homePort",
+]);
+
+export const HISTORICAL_LOCATION_EMPTY_LABEL = "Not available for this snapshot";
 
 export function parseStatusHistory(text) {
   return collapseStatusHistory(parsePhysicalStatusHistory(text));
@@ -63,6 +75,9 @@ export function parsePhysicalStatusHistory(text) {
       if (current.schemaVersion !== 2 || !current.correctionReason?.trim()) {
         throw new Error("A same-day status snapshot must be a v2 correction with a reason.");
       }
+      if (releaseRevision(current) !== releaseRevision(previous) + 1) {
+        throw new Error("Same-day status snapshot revisions must advance by exactly one.");
+      }
     } else if (releaseRevision(current) !== 1 || current.correctionReason !== undefined) {
       throw new Error("A new status snapshot date must start at release revision 1.");
     }
@@ -87,6 +102,151 @@ export function collapseStatusHistory(snapshots) {
     }
   }
   return collapsed;
+}
+
+export function listPublicSnapshotDates(history) {
+  return collapseStatusHistory(history).map((snapshot) => snapshot.snapshotDate);
+}
+
+export function resolvePublicSnapshotDate(history, requestedDate, currentDate = null) {
+  const dates = listPublicSnapshotDates(history);
+  const fallback = dates.includes(currentDate) ? currentDate : (dates.at(-1) ?? null);
+  return dates.includes(requestedDate) ? requestedDate : fallback;
+}
+
+export function validateStatusHistoryCatalog(raw, history) {
+  if (!hasOnlyKeys(raw, ["schemaVersion", "vessels"]) || raw.schemaVersion !== 1 || !Array.isArray(raw.vessels)) {
+    throw new Error("Public status history catalog is invalid.");
+  }
+
+  const catalogIds = new Set();
+  for (const [index, vessel] of raw.vessels.entries()) {
+    if (!hasOnlyKeys(vessel, SNAPSHOT_IDENTITY_KEYS)) {
+      throw new Error(`Public status history catalog vessel ${index + 1} has unexpected fields.`);
+    }
+    for (const key of ["id", "name", "service", "vesselClass", "vesselType", "homePort"]) {
+      if (typeof vessel[key] !== "string" || !vessel[key].trim()) {
+        throw new Error(`Public status history catalog vessel ${index + 1} has an invalid ${key}.`);
+      }
+    }
+    for (const key of ["pennantNumber", "commissionedDate"]) {
+      if (vessel[key] !== null && (typeof vessel[key] !== "string" || !vessel[key].trim())) {
+        throw new Error(`Public status history catalog vessel ${index + 1} has an invalid ${key}.`);
+      }
+    }
+    if (catalogIds.has(vessel.id)) {
+      throw new Error(`Public status history catalog contains duplicate vessel id ${vessel.id}.`);
+    }
+    catalogIds.add(vessel.id);
+  }
+
+  const historyIds = new Set(history.flatMap((snapshot) => Object.keys(snapshot.statuses)));
+  if (
+    catalogIds.size !== historyIds.size ||
+    [...historyIds].some((vesselId) => !catalogIds.has(vesselId))
+  ) {
+    throw new Error("Public status history catalog must match the append-only history roster.");
+  }
+  return raw;
+}
+
+export function createPublicSnapshotDataset({ currentFleet, history, catalog, snapshotDate }) {
+  const selectedDate = resolvePublicSnapshotDate(
+    history,
+    snapshotDate,
+    currentFleet?.metadata?.asOfDate,
+  );
+  if (!selectedDate) throw new Error("No validated public status snapshots are available.");
+
+  if (selectedDate === currentFleet.metadata.asOfDate) {
+    return {
+      metadata: structuredClone(currentFleet.metadata),
+      vessels: structuredClone(currentFleet.vessels),
+    };
+  }
+
+  const snapshot = collapseStatusHistory(history).find(
+    (candidate) => candidate.snapshotDate === selectedDate,
+  );
+  if (!snapshot) throw new Error("The requested public status snapshot is unavailable.");
+  const statusIds = new Set(Object.keys(snapshot.statuses));
+  const vessels = catalog.vessels
+    .filter((identity) => statusIds.has(identity.id))
+    .map((identity) => ({
+      ...structuredClone(identity),
+      status: snapshot.statuses[identity.id],
+      locationClassification: "unknown",
+      locationState: "no_recent_information",
+      locationPrecision: "none",
+      publicLocationLabel: HISTORICAL_LOCATION_EMPTY_LABEL,
+      lastReportedLocation: HISTORICAL_LOCATION_EMPTY_LABEL,
+      position: null,
+      uncertaintyArea: null,
+    }));
+  if (vessels.length !== statusIds.size) {
+    throw new Error("The historical public snapshot has an incomplete identity catalog.");
+  }
+  return { metadata: { asOfDate: selectedDate }, vessels };
+}
+
+export function compareCurrentWithPreviousSnapshot(history, catalog, currentDate = null) {
+  const snapshots = collapseStatusHistory(history);
+  const resolvedCurrentDate = resolvePublicSnapshotDate(history, currentDate, snapshots.at(-1)?.snapshotDate);
+  const currentIndex = snapshots.findIndex(
+    (snapshot) => snapshot.snapshotDate === resolvedCurrentDate,
+  );
+  const current = snapshots[currentIndex] ?? null;
+  const previous = currentIndex > 0 ? snapshots[currentIndex - 1] : null;
+  if (!current || !previous) {
+    return {
+      currentSnapshotDate: current?.snapshotDate ?? null,
+      previousSnapshotDate: null,
+      changes: [],
+      changedCurrentVesselIds: [],
+    };
+  }
+
+  const changes = [];
+  for (const identity of catalog.vessels) {
+    const before = previous.statuses[identity.id] ?? null;
+    const after = current.statuses[identity.id] ?? null;
+    if (before === after) continue;
+    const membershipChanged = before === null || after === null;
+    changes.push({
+      vesselId: identity.id,
+      vesselName: identity.name,
+      categories: [membershipChanged ? "membership" : "status"],
+      items: [
+        membershipChanged
+          ? {
+              kind: "membership",
+              label: "Fleet record",
+              before: before === null ? "Not listed" : "Listed",
+              after: after === null ? "Removed" : "Listed",
+            }
+          : { kind: "status", label: "Status", before, after },
+      ],
+      presentInCurrent: after !== null,
+    });
+  }
+  return {
+    currentSnapshotDate: current.snapshotDate,
+    previousSnapshotDate: previous.snapshotDate,
+    changes,
+    changedCurrentVesselIds: changes
+      .filter((change) => change.presentInCurrent)
+      .map((change) => change.vesselId),
+  };
+}
+
+export function getVesselPublicTimeline(history, vesselId, { upToDate = null } = {}) {
+  return collapseStatusHistory(history)
+    .filter((snapshot) => !upToDate || snapshot.snapshotDate <= upToDate)
+    .filter((snapshot) => Object.hasOwn(snapshot.statuses, vesselId))
+    .map((snapshot) => ({
+      effectiveDate: snapshot.snapshotDate,
+      status: snapshot.statuses[vesselId],
+    }));
 }
 
 export function validatePublicationChanges(raw) {
@@ -278,15 +438,30 @@ function isValidSnapshotShape(snapshot) {
   }
   if (snapshot.schemaVersion === 1) {
     return (
+      hasOnlyKeys(snapshot, ["schemaVersion", "snapshotDate", "statuses"]) &&
       snapshot.releaseRevision === undefined &&
       snapshot.releasedAt === undefined &&
       snapshot.correctionReason === undefined
     );
   }
   return (
+    hasOnlyKeys(snapshot, [
+      "schemaVersion",
+      "snapshotDate",
+      "releaseRevision",
+      "releasedAt",
+      "correctionReason",
+      "statuses",
+    ]) &&
     isPositiveInteger(snapshot.releaseRevision) &&
     isIsoInstant(snapshot.releasedAt) &&
     (snapshot.correctionReason === undefined ||
       (typeof snapshot.correctionReason === "string" && Boolean(snapshot.correctionReason.trim())))
   );
+}
+
+function hasOnlyKeys(value, keys) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const allowed = new Set(keys);
+  return Object.keys(value).every((key) => allowed.has(key));
 }

@@ -34,9 +34,23 @@ const fleet = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.jso
 const shore = JSON.parse(
   fs.readFileSync(new URL("../data/royal-navy/shore-establishments.json", import.meta.url), "utf8"),
 );
+const historyCatalog = JSON.parse(
+  fs.readFileSync(
+    new URL("../data/royal-navy/status-history-catalog.json", import.meta.url),
+    "utf8",
+  ),
+);
+const snapshotDates = ["2026-07-31", "2026-08-09", "2026-08-12", "2026-08-23"];
 const stateCatalog = createPublicStateCatalog({
   vessels: fleet.vessels,
   shoreEstablishments: shore.establishments,
+});
+const historyStateCatalog = createPublicStateCatalog({
+  vessels: fleet.vessels,
+  selectionVessels: historyCatalog.vessels,
+  shoreEstablishments: shore.establishments,
+  snapshotDates,
+  currentSnapshotDate: fleet.metadata.asOfDate,
 });
 
 assert.equal(countActiveFilters(), 0);
@@ -54,6 +68,28 @@ assert.match(COMPACT_SURFACE_QUERY, /pointer: coarse/);
 for (const id of ["fleetToggle", "layersToggle", "filterToggle", "shareButton", "fleetDrawer", "detailDrawer", "layersPanel", "filterPanel", "presenceFilter"]) {
   assert.match(html, new RegExp(`id="${id}"`));
 }
+for (const id of [
+  "snapshotSelect",
+  "snapshotDescription",
+  "changedOnlyToggle",
+  "changedOnlyStatus",
+  "vesselTimeline",
+  "vesselTimelineSummary",
+  "vesselTimelineList",
+]) {
+  assert.match(html, new RegExp(`id="${id}"`));
+}
+assert.match(html, /id="snapshotSelect"[^>]*aria-describedby="snapshotDescription"/);
+assert.match(html, /id="snapshotDescription"[^>]*role="status"[^>]*aria-live="polite"/);
+assert.match(html, /id="changedOnlyToggle"[^>]*type="checkbox"[^>]*aria-describedby=/);
+assert.match(html, /id="vesselTimeline"[^>]*aria-labelledby="vesselTimelineTitle"[^>]*hidden/);
+assert.match(html, /Discrete published snapshots only/);
+assert.match(app, /createPublicSnapshotDataset/);
+assert.match(app, /compareCurrentWithPreviousSnapshot/);
+assert.match(app, /!changedOnly \|\| snapshotComparison\.changedCurrentVesselIds\.includes/);
+assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
+assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
+assert.match(details, /getVesselPublicTimeline/);
 for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle", "uncertaintyLayerToggle"]) {
   assert.match(html, new RegExp(`id="${id}"[^>]*type="checkbox"`));
 }
@@ -124,6 +160,7 @@ assert.deepEqual(storedState.layers, {
 });
 assert.equal(storedState.selectedVessel, null, "Selection must not persist locally.");
 assert.equal(storedState.selectedShoreEstablishment, null, "Shore selection must not persist locally.");
+assert.equal(storedState.snapshotDate, null, "Snapshot selection must remain URL-scoped.");
 assert.equal(storedState.map, null, "Map position must not persist locally.");
 assert.deepEqual(parsePersistedPublicState("not-json", stateCatalog), createDefaultPublicState());
 assert.deepEqual(
@@ -235,6 +272,29 @@ assert.deepEqual(
   createDefaultPublicState(),
 );
 
+const restoredSnapshotState = parsePublicUrlState(
+  `https://example.test/tracker?view=2&layers=fleet&snapshot=2026-08-12&vessel=hms-iron-duke`,
+  historyStateCatalog,
+);
+assert.equal(restoredSnapshotState.snapshotDate, "2026-08-12");
+assert.equal(restoredSnapshotState.selectedVessel, "hms-iron-duke");
+assert.equal(
+  parsePublicUrlState(
+    "https://example.test/tracker?view=2&layers=fleet&snapshot=2025-01-01",
+    historyStateCatalog,
+  ).snapshotDate,
+  null,
+  "An obsolete snapshot URL must fall back to the current snapshot.",
+);
+assert.equal(
+  parsePublicUrlState(
+    "https://example.test/tracker?view=2&layers=fleet&snapshot=not-a-date",
+    historyStateCatalog,
+  ).snapshotDate,
+  null,
+  "A malformed snapshot URL must fall back to the current snapshot.",
+);
+
 for (const malformedMap of [
   "lat=&lon=1&zoom=4",
   "lat=%20&lon=1&zoom=4",
@@ -259,6 +319,7 @@ for (const duplicateQuery of [
   `view=2&layers=shore&shore=${shoreEstablishment.id}&shore=${shoreEstablishment.id}`,
   `view=2&layers=shore&shore=${shoreEstablishment.id}&shore=removed-shore-record`,
   "view=2&q=Dragon&q=Dragon&layers=fleet",
+  "view=2&snapshot=2026-08-12&snapshot=2026-08-12&layers=fleet",
   "view=2&lat=50&lat=50&lon=-4&zoom=5&layers=fleet",
 ]) {
   assert.deepEqual(
@@ -282,15 +343,29 @@ const shareableUrl = createShareablePublicUrl(
   {
     ...storedState,
     selectedVessel: selectedVessel.id,
+    snapshotDate: "2026-08-12",
     map: { centre: [55.953251, -3.188267], zoom: 6.25 },
   },
   stateCatalog,
 );
 assert.equal(shareableUrl.searchParams.get("view"), String(PUBLIC_STATE_VERSION));
 assert.equal(shareableUrl.searchParams.get("vessel"), selectedVessel.id);
+assert.equal(shareableUrl.searchParams.get("snapshot"), null);
 assert.equal(shareableUrl.searchParams.has("sourceUrl"), false);
 assert.equal(shareableUrl.hash, "#map");
 assert.deepEqual(parsePublicUrlState(shareableUrl, stateCatalog).layers, storedState.layers);
+
+const historicalShareableUrl = createShareablePublicUrl(
+  "https://example.test/tracker",
+  {
+    selectedVessel: "hms-iron-duke",
+    snapshotDate: "2026-08-12",
+    layers: { fleet: true, shore: false, clusters: true, uncertainty: true },
+  },
+  historyStateCatalog,
+);
+assert.equal(historicalShareableUrl.searchParams.get("snapshot"), "2026-08-12");
+assert.equal(historicalShareableUrl.searchParams.get("vessel"), "hms-iron-duke");
 
 const boundedShareableUrl = createShareablePublicUrl(
   "https://example.test/tracker",

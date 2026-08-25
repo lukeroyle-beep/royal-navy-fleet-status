@@ -366,6 +366,20 @@ h1 {
   font-size: 0.73rem;
 }
 
+.snapshot-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, auto);
+  align-items: center;
+  gap: 5px 9px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(88, 211, 235, 0.05);
+}
+.snapshot-controls label { color: var(--muted); font-size: 0.67rem; font-weight: 800; text-transform: uppercase; }
+.snapshot-controls select { width: 100%; min-width: 0; border-color: var(--line-strong); background: var(--navy-800); color: var(--text); }
+.snapshot-description { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 0.64rem; line-height: 1.4; }
+
 #filterResultStatus { color: var(--text); font-weight: 700; }
 #resetFilters,
 #panelResetFilters { flex: 0 0 auto; font-size: 0.7rem; }
@@ -485,6 +499,16 @@ h1 {
   text-align: left;
 }
 
+.changes-list li > div {
+  display: grid;
+  min-height: 48px;
+  gap: 3px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.02);
+}
+
 #vesselList button:hover,
 #vesselList button.is-selected,
 .shore-establishment-list button:hover,
@@ -499,11 +523,13 @@ h1 {
 .shore-establishment-list span,
 .class-availability-vessels span,
 .changes-list button span { font-size: 0.76rem; font-weight: 760; }
+.changes-list li > div span { font-size: 0.76rem; font-weight: 760; }
 
 #vesselList small,
 .shore-establishment-list small,
 .class-availability-vessels small,
 .changes-list button small { color: var(--muted); font-size: 0.66rem; line-height: 1.35; }
+.changes-list li > div small { color: var(--muted); font-size: 0.66rem; line-height: 1.35; }
 #vesselList button[data-status="Deployed"] small,
 #vesselList button[data-status="Available"] small,
 .detail-meta dd[data-status="Deployed"],
@@ -544,6 +570,25 @@ h1 {
 .detail-meta dd { min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: 0.78rem; line-height: 1.4; }
 .detail-primary div:first-child dd { font-weight: 800; }
 .detail-disclosure > .detail-meta { margin: 0 10px 8px; }
+
+.vessel-timeline { display: grid; gap: 7px; padding-top: 8px; border-top: 1px solid var(--line); }
+.vessel-timeline h3 { margin: 0; font-size: 0.82rem; }
+.timeline-summary,
+.timeline-note { margin: 0; color: var(--muted); font-size: 0.65rem; line-height: 1.4; }
+.vessel-timeline ol { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.vessel-timeline li {
+  display: grid;
+  grid-template-columns: minmax(105px, 0.8fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 7px 8px;
+  border-left: 3px solid var(--accent);
+  background: rgba(88, 211, 235, 0.05);
+}
+.vessel-timeline time { color: var(--muted); font-size: 0.65rem; }
+.vessel-timeline li strong { font-size: 0.7rem; }
+
+.changed-only-control { margin-top: 9px; }
+.switch-row input:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .layer-group {
   display: grid;
@@ -852,6 +897,9 @@ a:focus-visible {
   .snapshot-item { min-width: 0; flex: 1 1 50%; }
   h1 { font-size: 0.94rem; }
   .detail-meta div { grid-template-columns: 96px minmax(0, 1fr); }
+  .snapshot-controls { grid-template-columns: 1fr; }
+  .snapshot-description { grid-column: auto; }
+  .vessel-timeline li { grid-template-columns: 1fr; gap: 3px; }
   .status-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .status-metrics div:nth-child(3) { border-left: 0; }
   .status-metrics div:nth-child(n + 3) { border-top: 1px solid var(--line); }

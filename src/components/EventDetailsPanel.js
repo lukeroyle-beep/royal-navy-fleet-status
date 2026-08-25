@@ -1,8 +1,21 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
-import { getVesselChange } from "../utils/insights.js";
+import { getVesselChange, getVesselPublicTimeline } from "../utils/insights.js";
 
 export class EventDetailsPanel {
-  constructor({ container, kind, title, primaryMeta, meta, disclosure, photo, photoImage, photoCredit }) {
+  constructor({
+    container,
+    kind,
+    title,
+    primaryMeta,
+    meta,
+    disclosure,
+    photo,
+    photoImage,
+    photoCredit,
+    timeline,
+    timelineSummary,
+    timelineList,
+  }) {
     this.container = container;
     this.kind = kind;
     this.title = title;
@@ -12,6 +25,9 @@ export class EventDetailsPanel {
     this.photo = photo;
     this.photoImage = photoImage;
     this.photoCredit = photoCredit;
+    this.timeline = timeline;
+    this.timelineSummary = timelineSummary;
+    this.timelineList = timelineList;
     this.photoService = new VesselPhotoService();
     this.renderToken = 0;
     this.photoImage.addEventListener("error", () => this.#hidePhoto());
@@ -25,6 +41,7 @@ export class EventDetailsPanel {
     this.meta.replaceChildren();
     this.disclosure.open = false;
     this.#hidePhoto();
+    this.#hideTimeline();
     this.container.hidden = true;
   }
 
@@ -58,6 +75,7 @@ export class EventDetailsPanel {
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
     this.disclosure.open = false;
     this.disclosure.hidden = entries.length === 0;
+    this.#renderTimeline(history, vessel.id, asOfDate);
     this.#hidePhoto();
     this.photoImage.style.removeProperty("object-position");
     this.photoImage.alt = `Photograph of ${vessel.name}`;
@@ -103,6 +121,33 @@ export class EventDetailsPanel {
     this.photoCredit.replaceChildren("Image credit: ", creditLink);
     this.photoCredit.hidden = false;
     this.photo.hidden = false;
+    this.#hideTimeline();
+  }
+
+  #renderTimeline(history, vesselId, asOfDate) {
+    const observations = getVesselPublicTimeline(history, vesselId, { upToDate: asOfDate });
+    this.timeline.hidden = false;
+    this.timelineSummary.textContent = observations.length
+      ? `${observations.length} discrete public ${observations.length === 1 ? "observation" : "observations"} through ${formatSnapshotDate(asOfDate)}.`
+      : "No public status observations are available for this vessel.";
+    this.timelineList.replaceChildren(
+      ...observations.map((observation) => {
+        const item = document.createElement("li");
+        const time = document.createElement("time");
+        const status = document.createElement("strong");
+        time.dateTime = observation.effectiveDate;
+        time.textContent = formatSnapshotDate(observation.effectiveDate);
+        status.textContent = observation.status;
+        item.append(time, status);
+        return item;
+      }),
+    );
+  }
+
+  #hideTimeline() {
+    this.timeline.hidden = true;
+    this.timelineSummary.textContent = "";
+    this.timelineList.replaceChildren();
   }
 
   #hidePhoto() {

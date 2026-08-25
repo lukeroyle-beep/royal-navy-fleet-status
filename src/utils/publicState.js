@@ -39,6 +39,7 @@ const SINGLETON_QUERY_KEYS = Object.freeze([
   "layers",
   "vessel",
   "shore",
+  "snapshot",
   "lat",
   "lon",
   "zoom",
@@ -90,12 +91,19 @@ export function createDefaultPublicState() {
     },
     selectedVessel: null,
     selectedShoreEstablishment: null,
+    snapshotDate: null,
     map: null,
   };
 }
 
-export function createPublicStateCatalog({ vessels = [], shoreEstablishments = [] } = {}) {
-  const publicVesselsById = new Map(vessels.map((vessel) => [vessel.id, vessel]));
+export function createPublicStateCatalog({
+  vessels = [],
+  selectionVessels = vessels,
+  shoreEstablishments = [],
+  snapshotDates = [],
+  currentSnapshotDate = null,
+} = {}) {
+  const publicVesselsById = new Map(selectionVessels.map((vessel) => [vessel.id, vessel]));
   const publicShoreEstablishmentsById = new Map(
     shoreEstablishments.map((establishment) => [establishment.id, establishment]),
   );
@@ -110,6 +118,8 @@ export function createPublicStateCatalog({ vessels = [], shoreEstablishments = [
     types: new Set(vessels.map((vessel) => vessel.vesselType)),
     locationStates: new Set(vessels.map((vessel) => vessel.locationState)),
     presences: new Set(["uk", "overseas"]),
+    snapshotDates: new Set(snapshotDates),
+    currentSnapshotDate,
     shoreTypes: new Set([
       ...shoreEstablishments.map((establishment) => establishment.type),
       PORT_SHORE_FILTER,
@@ -227,6 +237,7 @@ export function createShareablePublicUrl(baseUrl, state, catalog) {
   if (validated.selectedShoreEstablishment) {
     url.searchParams.set("shore", validated.selectedShoreEstablishment);
   }
+  if (validated.snapshotDate) url.searchParams.set("snapshot", validated.snapshotDate);
   if (validated.map) {
     url.searchParams.set("lat", formatCoordinate(validated.map.centre[0]));
     url.searchParams.set("lon", formatCoordinate(validated.map.centre[1]));
@@ -308,6 +319,7 @@ function validatePublicState(value, catalog, { includeMap, includeSelection }) {
     defaults.selectedVessel = selection.vessel?.id ?? null;
     defaults.selectedShoreEstablishment = selection.shoreEstablishment?.id ?? null;
   }
+  defaults.snapshotDate = validSnapshotDate(value?.snapshotDate, catalog);
   if (includeMap) defaults.map = boundMapView(value?.map);
   return defaults;
 }
@@ -325,6 +337,7 @@ function stateFromUrl(url) {
     layers: parseUrlLayers(url.searchParams.get("layers"), defaults.layers),
     selectedVessel: url.searchParams.get("vessel"),
     selectedShoreEstablishment: url.searchParams.get("shore"),
+    snapshotDate: url.searchParams.get("snapshot"),
     map: parseUrlMap(url.searchParams),
   };
 }
@@ -342,6 +355,7 @@ function legacyStateFromUrl(url) {
     layers: parseUrlLayers(url.searchParams.get("layers"), defaults.layers, { legacy: true }),
     selectedVessel: url.searchParams.get("vessel"),
     selectedShoreEstablishment: null,
+    snapshotDate: null,
     map: parseUrlMap(url.searchParams),
   };
 }
@@ -365,6 +379,7 @@ function migrateLegacyState(value) {
     layers: { ...layers, uncertainty: true },
     selectedVessel: value.selectedVessel,
     selectedShoreEstablishment: null,
+    snapshotDate: null,
     map: value.map,
   };
 }
@@ -406,6 +421,11 @@ function validQuery(value) {
 
 function validCatalogValue(value, allowedValues) {
   return typeof value === "string" && allowedValues?.has(value) ? value : "";
+}
+
+function validSnapshotDate(value, catalog) {
+  if (typeof value !== "string" || !catalog?.snapshotDates?.has(value)) return null;
+  return value;
 }
 
 function formatCoordinate(value) {

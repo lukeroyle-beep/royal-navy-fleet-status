@@ -8,6 +8,7 @@ const files = [
   "shore-establishments.json",
   "publication-changes.json",
   "status-history.jsonl",
+  "status-history-catalog.json",
 ];
 const destinationDirectory = path.join(root, "dist", "data", "royal-navy");
 
