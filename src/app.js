@@ -322,6 +322,7 @@ function bindDataset() {
     parsePublicUrlState(window.location.href, publicStateCatalog) ??
     readPersistedPublicState(publicStorage, publicStateCatalog);
   applyPublicState(initialState, { initial: true });
+  window.dispatchEvent(new Event("rn-fleet-ready"));
 }
 
 function renderSnapshotSelector() {
@@ -1080,6 +1081,7 @@ function getPublicStorage() {
 function showError(error) {
   elements.error.hidden = false;
   elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
+  window.dispatchEvent(new Event("rn-fleet-failed"));
 }
 function formatPresence(value) {
   return {
