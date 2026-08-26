@@ -3,6 +3,8 @@ import fs from "node:fs";
 
 import {
   clusterSizeClass,
+  coLocatedMarkerOffsets,
+  coLocatedVessels,
   getMapFocusPosition,
   getMapPosition,
   getUncertaintyArea,
@@ -94,6 +96,28 @@ assert.deepEqual(getMapPosition(tidespring), {
   label: "Gibraltar harbour",
 });
 assert.deepEqual(getMapPosition(scott), getMapPosition(tidespring));
+
+const dragon = dataset.vessels.find((vessel) => vessel.id === "hms-dragon");
+const lymeBay = dataset.vessels.find((vessel) => vessel.id === "rfa-lyme-bay");
+assert.deepEqual(
+  coLocatedVessels([dragon, lymeBay, scott], dragon.id).map((vessel) => vessel.id),
+  [dragon.id, lymeBay.id],
+);
+assert.deepEqual(coLocatedVessels([dragon, lymeBay], "missing-vessel"), []);
+assert.deepEqual(coLocatedMarkerOffsets(1), [{ x: 54, y: 0 }]);
+const crowdedOffsets = coLocatedMarkerOffsets(31);
+assert.equal(coLocatedMarkerOffsets(7).length, 7);
+assert.equal(coLocatedMarkerOffsets(0).length, 0);
+for (const { x, y } of crowdedOffsets) {
+  assert.equal(Number.isFinite(x) && Number.isFinite(y), true);
+  assert.ok(Math.hypot(x, y) >= 54);
+}
+const crowdedPoints = [{ x: 0, y: 0 }, ...crowdedOffsets];
+for (const [index, point] of crowdedPoints.entries()) {
+  for (const peer of crowdedPoints.slice(index + 1)) {
+    assert.ok(Math.hypot(point.x - peer.x, point.y - peer.y) >= 53.9);
+  }
+}
 
 for (const regression of precisionFixtures.missedEvidenceRegressions) {
   const vessel = projectPrecisionFixture(regression);
@@ -304,6 +328,9 @@ assert.match(mapComponent, /event\.key !== "Enter" && event\.key !== " "/);
 assert.match(mapComponent, /groupedUncertaintyAreas/);
 assert.match(mapComponent, /fleet-region-picker-content/);
 assert.match(mapComponent, /activate to choose a vessel/);
+assert.match(mapComponent, /coLocatedVessels\(this\.visibleVessels, this\.selectedId\)/);
+assert.match(mapComponent, /#positionCoLocatedSelection\(\)/);
+assert.match(mapComponent, /className: "fleet-overlap-leg"/);
 assert.doesNotMatch(mapComponent, /symbolicPosition|withheld symbolic/);
 assert.match(mapComponent, /this\.tiles\.on\("loading"/);
 assert.match(mapComponent, /tileerror/);

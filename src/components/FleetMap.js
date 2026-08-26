@@ -5,6 +5,8 @@ import "leaflet.markercluster/dist/MarkerCluster.css";
 
 import {
   clusterSizeClass,
+  coLocatedMarkerOffsets,
+  coLocatedVessels,
   getMapPosition,
   getUncertaintyArea,
   hasPlottablePosition,
@@ -52,6 +54,7 @@ export class FleetMap {
     this.viewChangeGate = new MapViewChangeGate();
     this.selectedId = null;
     this.selectedShoreId = null;
+    this.coLocatedSelection = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     this.interactionProfile = createMapInteractionProfile({
       safari: L.Browser.safari,
@@ -159,6 +162,7 @@ export class FleetMap {
         this.onViewChange(view);
       }
     });
+    this.map.on("zoomend", () => this.#positionCoLocatedSelection());
   }
 
   getView() {
@@ -671,16 +675,38 @@ export class FleetMap {
     this.unclusteredGroup.clearLayers();
     this.selectionGroup.clearLayers();
     this.uncertaintyGroup.clearLayers();
+    this.coLocatedSelection = null;
+    for (const marker of this.markers.values()) {
+      const position = getMapPosition(marker.options.vessel);
+      if (position) marker.setLatLng([position.lat, position.lon]);
+    }
     if (!this.fleetVisible) return;
 
     const selectedMarker = this.selectedId ? this.markers.get(this.selectedId) : null;
+    const coLocatedSiblings = coLocatedVessels(this.visibleVessels, this.selectedId)
+      .filter((vessel) => vessel.id !== this.selectedId)
+      .map((vessel) => this.markers.get(vessel.id))
+      .filter(Boolean);
+    const coLocatedSiblingMarkers = new Set(coLocatedSiblings);
     const markers = this.visibleVessels
       .map((vessel) => this.markers.get(vessel.id))
-      .filter((marker) => marker && marker !== selectedMarker);
+      .filter(
+        (marker) =>
+          marker && marker !== selectedMarker && !coLocatedSiblingMarkers.has(marker),
+      );
     const activeGroup = this.clusteringEnabled ? this.clusterGroup : this.unclusteredGroup;
     for (const marker of markers) activeGroup.addLayer(marker);
     if (selectedMarker && this.visibleVessels.some((vessel) => vessel.id === this.selectedId)) {
       this.selectionGroup.addLayer(selectedMarker);
+      for (const marker of coLocatedSiblings) this.selectionGroup.addLayer(marker);
+      if (coLocatedSiblings.length) {
+        this.coLocatedSelection = {
+          legs: [],
+          origin: selectedMarker.getLatLng(),
+          siblings: coLocatedSiblings,
+        };
+        this.#positionCoLocatedSelection();
+      }
     }
     if (this.uncertaintyAreasVisible) {
       const visibleIds = new Set(this.visibleVessels.map((vessel) => vessel.id));
@@ -690,6 +716,35 @@ export class FleetMap {
         this.#configureUncertaintyLayer(layer, visibleVessels);
         this.uncertaintyGroup.addLayer(layer);
       }
+    }
+  }
+
+  #positionCoLocatedSelection() {
+    const selection = this.coLocatedSelection;
+    if (!selection || !this.fleetVisible) return;
+
+    for (const leg of selection.legs) this.selectionGroup.removeLayer(leg);
+    selection.legs = [];
+    const zoom = this.map.getZoom();
+    const originPoint = this.map.project(selection.origin, zoom);
+    const offsets = coLocatedMarkerOffsets(selection.siblings.length);
+    for (const [index, marker] of selection.siblings.entries()) {
+      const offset = offsets[index];
+      const displayPosition = this.map.unproject(
+        originPoint.add([offset.x, offset.y]),
+        zoom,
+      );
+      marker.setLatLng(displayPosition);
+      const leg = L.polyline([selection.origin, displayPosition], {
+        className: "fleet-overlap-leg",
+        color: "#ffffff",
+        dashArray: "3 4",
+        interactive: false,
+        opacity: 0.72,
+        weight: 2,
+      });
+      selection.legs.push(leg);
+      this.selectionGroup.addLayer(leg);
     }
   }
 
