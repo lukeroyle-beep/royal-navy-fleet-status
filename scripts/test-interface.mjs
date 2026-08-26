@@ -90,6 +90,8 @@ for (const id of [
   "snapshotDescription",
   "changedOnlyToggle",
   "changedOnlyStatus",
+  "detailSupplementary",
+  "detailSupplementaryTitle",
   "vesselTimeline",
   "vesselTimelineSummary",
   "vesselTimelineList",
@@ -99,7 +101,12 @@ for (const id of [
 assert.match(html, /id="snapshotSelect"[^>]*aria-describedby="snapshotDescription"/);
 assert.match(html, /id="snapshotDescription"[^>]*role="status"[^>]*aria-live="polite"/);
 assert.match(html, /id="changedOnlyToggle"[^>]*type="checkbox"[^>]*aria-describedby=/);
-assert.match(html, /id="vesselTimeline"[^>]*aria-labelledby="vesselTimelineTitle"[^>]*hidden/);
+assert.match(html, /<section id="detailSupplementary"[^>]*hidden/);
+assert.match(html, /id="detailSupplementary"[^>]*aria-labelledby="detailSupplementaryTitle"/);
+assert.match(html, /id="detailSupplementaryTitle">Vessel details<\/h3>/);
+assert.match(html, /<details id="vesselTimeline"[^>]*hidden/);
+assert.match(html, /<summary id="vesselTimelineTitle">Public status timeline<\/summary>/);
+assert.doesNotMatch(html, /id="detailDisclosure"|class="detail-disclosure"/);
 assert.match(html, /Discrete published snapshots only/);
 assert.match(app, /createPublicSnapshotDataset/);
 assert.match(app, /compareCurrentWithPreviousSnapshot/);
@@ -151,6 +158,12 @@ assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
 assert.match(styles, /outline:\s*3px solid var\(--accent-strong\)/);
 assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);
+assert.match(details, /this\.supplementaryTitle\.textContent = "Vessel details"/);
+assert.match(details, /this\.supplementaryTitle\.textContent = "Establishment details"/);
+assert.match(details, /this\.timeline\.open = false/);
+assert.doesNotMatch(details, /\["Last public report",/);
+assert.match(styles, /\.vessel-timeline > summary::after\s*\{\s*content:\s*"\+"/);
+assert.match(styles, /\.vessel-timeline\[open\] > summary::after\s*\{\s*content:\s*"−"/);
 assert.doesNotMatch(details, /Supporting source|Evidence grade|Confidence score|Analyst note|Retrieval status/i);
 
 testCompactDetailFocusRestoration();

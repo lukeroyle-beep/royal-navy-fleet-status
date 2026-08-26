@@ -96,16 +96,18 @@
               <figcaption id="detailPhotoCredit" class="detail-photo-credit" hidden></figcaption>
             </figure>
             <dl id="detailPrimaryMeta" class="detail-meta detail-primary"></dl>
-            <details id="detailDisclosure" class="detail-disclosure">
-              <summary>Vessel details</summary>
+            <section id="detailSupplementary" class="detail-supplementary" aria-labelledby="detailSupplementaryTitle" hidden>
+              <h3 id="detailSupplementaryTitle">Vessel details</h3>
               <dl id="detailMeta" class="detail-meta"></dl>
-            </details>
-            <section id="vesselTimeline" class="vessel-timeline" aria-labelledby="vesselTimelineTitle" hidden>
-              <h3 id="vesselTimelineTitle">Public status timeline</h3>
-              <p id="vesselTimelineSummary" class="timeline-summary"></p>
-              <ol id="vesselTimelineList" aria-label="Discrete public status observations"></ol>
-              <p class="timeline-note">Discrete published snapshots only. Gaps do not imply movement or an unchanged status.</p>
             </section>
+            <details id="vesselTimeline" class="vessel-timeline" hidden>
+              <summary id="vesselTimelineTitle">Public status timeline</summary>
+              <div class="vessel-timeline-content">
+                <p id="vesselTimelineSummary" class="timeline-summary"></p>
+                <ol id="vesselTimelineList" aria-label="Discrete public status observations"></ol>
+                <p class="timeline-note">Discrete published snapshots only. Gaps do not imply movement or an unchanged status.</p>
+              </div>
+            </details>
           </article>
         </aside>
 

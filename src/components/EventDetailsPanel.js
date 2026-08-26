@@ -8,7 +8,8 @@ export class EventDetailsPanel {
     title,
     primaryMeta,
     meta,
-    disclosure,
+    supplementary,
+    supplementaryTitle,
     photo,
     photoImage,
     photoCredit,
@@ -21,7 +22,8 @@ export class EventDetailsPanel {
     this.title = title;
     this.primaryMeta = primaryMeta;
     this.meta = meta;
-    this.disclosure = disclosure;
+    this.supplementary = supplementary;
+    this.supplementaryTitle = supplementaryTitle;
     this.photo = photo;
     this.photoImage = photoImage;
     this.photoCredit = photoCredit;
@@ -39,7 +41,8 @@ export class EventDetailsPanel {
     this.title.textContent = "Select a vessel";
     this.primaryMeta.replaceChildren();
     this.meta.replaceChildren();
-    this.disclosure.open = false;
+    this.supplementaryTitle.textContent = "Vessel details";
+    this.supplementary.hidden = true;
     this.#hidePhoto();
     this.#hideTimeline();
     this.container.hidden = true;
@@ -66,15 +69,14 @@ export class EventDetailsPanel {
       ["Snapshot", formatSnapshotDate(asOfDate)],
     ];
     const entries = [
-      ["Last public report", vessel.lastReportedLocation],
       ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Commission date", vessel.commissionedDate || "Not recorded"],
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
     this.primaryMeta.replaceChildren(...primaryEntries.map(([term, value]) => createEntry(term, value)));
     this.meta.replaceChildren(...entries.map(([term, value]) => createEntry(term, value)));
-    this.disclosure.open = false;
-    this.disclosure.hidden = entries.length === 0;
+    this.supplementaryTitle.textContent = "Vessel details";
+    this.supplementary.hidden = entries.length === 0;
     this.#renderTimeline(history, vessel.id, asOfDate);
     this.#hidePhoto();
     this.photoImage.style.removeProperty("object-position");
@@ -106,8 +108,8 @@ export class EventDetailsPanel {
       createEntry("Role", establishment.role),
       createEntry("About", establishment.description),
     );
-    this.disclosure.open = false;
-    this.disclosure.hidden = false;
+    this.supplementaryTitle.textContent = "Establishment details";
+    this.supplementary.hidden = false;
     this.photoImage.alt = establishment.imageAlt;
     this.photoImage.dataset.establishmentId = establishment.id;
     delete this.photoImage.dataset.vesselId;
@@ -127,6 +129,7 @@ export class EventDetailsPanel {
   #renderTimeline(history, vesselId, asOfDate) {
     const observations = getVesselPublicTimeline(history, vesselId, { upToDate: asOfDate });
     this.timeline.hidden = false;
+    this.timeline.open = false;
     this.timelineSummary.textContent = observations.length
       ? `${observations.length} discrete public ${observations.length === 1 ? "observation" : "observations"} through ${formatSnapshotDate(asOfDate)}.`
       : "No public status observations are available for this vessel.";
@@ -145,6 +148,7 @@ export class EventDetailsPanel {
   }
 
   #hideTimeline() {
+    this.timeline.open = false;
     this.timeline.hidden = true;
     this.timelineSummary.textContent = "";
     this.timelineList.replaceChildren();
