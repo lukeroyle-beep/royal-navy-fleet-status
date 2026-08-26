@@ -22,7 +22,8 @@ const count = scanPublicExposure({
     "Supporting Source", "EVID_HMS_", "ASSESS_HMS_", "ORIGIN_",
     "RN_VICTORY_PORTSMOUTH_2026", "officialSocialCoverage", "twitter.com/",
     "x.com/HMS", "x.com/RFA",
-    "requiresHumanReview",
+    "requiresHumanReview", "RNFS_HEALTH_TOKEN", "Private evidence health",
+    "mandatoryNotChecked",
   ],
 });
 console.log(`Client exposure scan passed across ${count} built files.`);
