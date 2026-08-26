@@ -256,6 +256,10 @@ h1 {
   filter: saturate(0.42) brightness(0.72) contrast(1.06);
 }
 
+#fleetMap.is-mobile-safari .leaflet-tile-pane {
+  filter: none;
+}
+
 .map-reset {
   position: absolute;
   z-index: 710;
