@@ -4,6 +4,9 @@ Use this checklist to test a release candidate without making the repository or 
 Record the observed results in `docs/release-test-report.md`. Automated checks do not replace the
 physical-device observations below.
 
+Human VoiceOver or screen-reader observations are not a release requirement. Keyboard, focus,
+responsive-layout and touch checks remain required where they apply to the device or viewport.
+
 ## Prepare the release candidate
 
 From PowerShell in the repository:
@@ -52,7 +55,7 @@ Mark each result as Pass, Fail or Blocked and record evidence in the report.
 | RT-6 | Search by vessel name and pennant number. | Counts, list entries and plotted markers update together. |
 | RT-7 | Exercise every vessel filter and clear the filters. | Results, count and badge remain synchronised and Clear all restores all vessel records. |
 | RT-8 | Select a vessel from the list. | A plotted vessel is revealed on the map and its details are shown. |
-| RT-9 | Select unknown and withheld records. | Details appear without creating a marker or moving the map. |
+| RT-9 | Select an unknown-status point record, a regional-only record and a withheld-location record. | Each detail card is accurate; regional-only and withheld records do not gain an exact marker, and the withheld record does not move the map. |
 | RT-10 | Select **Reset view**. | Every currently filtered plotted vessel fits in the viewport. |
 | RT-11 | Apply each of the five public presets. | Each preset changes the existing filters and layers, identifies its active state and introduces no empty layer. |
 | RT-12 | Rotate the iPad between Portrait and Landscape. | Layout reflows without horizontal scrolling or hidden controls. |
@@ -65,6 +68,6 @@ Mark each result as Pass, Fail or Blocked and record evidence in the report.
 
 ## Release decision
 
-A release candidate passes private testing only when every required device has completed RT-1 to
-RT-18 with no unresolved material defect. Record incomplete physical-device testing as Blocked, not
-Pass.
+A release candidate passes private testing only when every applicable check has passed on its
+required device or viewport with no unresolved material defect. Record incomplete physical-device
+testing as Blocked, not Pass.
