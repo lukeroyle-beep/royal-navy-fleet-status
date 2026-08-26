@@ -168,7 +168,7 @@ const publicStorage = getPublicStorage();
 const fleetMap = new FleetMap({
   container: document.querySelector("#fleetMap"),
   notice: elements.mapNotice,
-  onSelect: (vessel) => selectVessel(vessel, { source: "map" }),
+  onSelect: (vessel) => selectVessel(vessel, { source: "map", focusMap: false }),
   onSelectEstablishment: (establishment) =>
     selectShoreEstablishment(establishment, { source: "map" }),
   onViewChange: () => syncPublicState(),

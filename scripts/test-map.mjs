@@ -329,6 +329,14 @@ assert.match(mapComponent, /groupedUncertaintyAreas/);
 assert.match(mapComponent, /fleet-region-picker-content/);
 assert.match(mapComponent, /activate to choose a vessel/);
 assert.match(mapComponent, /coLocatedVessels\(this\.visibleVessels, this\.selectedId\)/);
+assert.match(mapComponent, /const anchor = coLocatedMarkers\[0\]/);
+assert.match(mapComponent, /siblings: coLocatedMarkers\.slice\(1\)/);
+assert.doesNotMatch(mapComponent, /vessel\.id !== this\.selectedId/);
+assert.match(
+  mapComponent,
+  /const contextualZoom = Math\.max\(this\.map\.getZoom\(\), 4\)/,
+);
+assert.doesNotMatch(mapComponent, /Math\.min\(Math\.max\(this\.map\.getZoom\(\), 4\), 7\)/);
 assert.match(mapComponent, /#positionCoLocatedSelection\(\)/);
 assert.match(mapComponent, /className: "fleet-overlap-leg"/);
 assert.doesNotMatch(mapComponent, /symbolicPosition|withheld symbolic/);

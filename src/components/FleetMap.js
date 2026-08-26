@@ -374,7 +374,7 @@ export class FleetMap {
     if (!this.fleetVisible) return;
     const marker = this.markers.get(vessel.id);
     if (marker) {
-      const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
+      const contextualZoom = Math.max(this.map.getZoom(), 4);
       this.map.setView(marker.getLatLng(), contextualZoom, {
         animate: this.interactionProfile.animationsEnabled,
       });
@@ -403,7 +403,7 @@ export class FleetMap {
     if (!focus || !this.shoreVisible) return;
     const marker = this.shoreMarkers.get(establishment.id);
     if (!marker) return;
-    const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
+    const contextualZoom = Math.max(this.map.getZoom(), 4);
     this.map.setView(marker.getLatLng(), contextualZoom, {
       animate: this.interactionProfile.animationsEnabled,
     });
@@ -683,29 +683,30 @@ export class FleetMap {
     if (!this.fleetVisible) return;
 
     const selectedMarker = this.selectedId ? this.markers.get(this.selectedId) : null;
-    const coLocatedSiblings = coLocatedVessels(this.visibleVessels, this.selectedId)
-      .filter((vessel) => vessel.id !== this.selectedId)
+    const coLocatedMarkers = coLocatedVessels(this.visibleVessels, this.selectedId)
       .map((vessel) => this.markers.get(vessel.id))
       .filter(Boolean);
-    const coLocatedSiblingMarkers = new Set(coLocatedSiblings);
+    const coLocatedMarkerSet = new Set(coLocatedMarkers);
     const markers = this.visibleVessels
       .map((vessel) => this.markers.get(vessel.id))
       .filter(
         (marker) =>
-          marker && marker !== selectedMarker && !coLocatedSiblingMarkers.has(marker),
+          marker && marker !== selectedMarker && !coLocatedMarkerSet.has(marker),
       );
     const activeGroup = this.clusteringEnabled ? this.clusterGroup : this.unclusteredGroup;
     for (const marker of markers) activeGroup.addLayer(marker);
     if (selectedMarker && this.visibleVessels.some((vessel) => vessel.id === this.selectedId)) {
-      this.selectionGroup.addLayer(selectedMarker);
-      for (const marker of coLocatedSiblings) this.selectionGroup.addLayer(marker);
-      if (coLocatedSiblings.length) {
+      if (coLocatedMarkers.length > 1) {
+        for (const marker of coLocatedMarkers) this.selectionGroup.addLayer(marker);
+        const anchor = coLocatedMarkers[0];
         this.coLocatedSelection = {
           legs: [],
-          origin: selectedMarker.getLatLng(),
-          siblings: coLocatedSiblings,
+          origin: anchor.getLatLng(),
+          siblings: coLocatedMarkers.slice(1),
         };
         this.#positionCoLocatedSelection();
+      } else {
+        this.selectionGroup.addLayer(selectedMarker);
       }
     }
     if (this.uncertaintyAreasVisible) {
