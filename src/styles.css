@@ -411,7 +411,7 @@ h1 {
 
 .fleet-summary-disclosure,
 .legend-disclosure,
-.detail-disclosure {
+.vessel-timeline {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.025);
@@ -419,7 +419,7 @@ h1 {
 
 .fleet-summary-disclosure > summary,
 .legend-disclosure > summary,
-.detail-disclosure > summary {
+.vessel-timeline > summary {
   display: flex;
   min-height: 44px;
   align-items: center;
@@ -433,14 +433,14 @@ h1 {
 
 .fleet-summary-disclosure > summary::-webkit-details-marker,
 .legend-disclosure > summary::-webkit-details-marker,
-.detail-disclosure > summary::-webkit-details-marker { display: none; }
+.vessel-timeline > summary::-webkit-details-marker { display: none; }
 
 .fleet-summary-disclosure > summary::after,
 .legend-disclosure > summary::after,
-.detail-disclosure > summary::after { content: "+"; color: var(--muted); font-size: 1rem; }
+.vessel-timeline > summary::after { content: "+"; color: var(--muted); font-size: 1rem; }
 .fleet-summary-disclosure[open] > summary::after,
 .legend-disclosure[open] > summary::after,
-.detail-disclosure[open] > summary::after { content: "−"; }
+.vessel-timeline[open] > summary::after { content: "−"; }
 
 .fleet-summary-disclosure[open] { padding-bottom: 10px; }
 .fleet-summary-disclosure[open] > :not(summary) { margin-right: 10px; margin-left: 10px; }
@@ -594,10 +594,10 @@ h1 {
 .detail-meta dt { color: var(--muted); font-size: 0.61rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
 .detail-meta dd { min-width: 0; margin: 0; overflow-wrap: anywhere; font-size: 0.78rem; line-height: 1.4; }
 .detail-primary div:first-child dd { font-weight: 800; }
-.detail-disclosure > .detail-meta { margin: 0 10px 8px; }
+.detail-supplementary { display: grid; gap: 7px; padding-top: 8px; border-top: 1px solid var(--line); }
+.detail-supplementary h3 { margin: 0; font-size: 0.82rem; }
 
-.vessel-timeline { display: grid; gap: 7px; padding-top: 8px; border-top: 1px solid var(--line); }
-.vessel-timeline h3 { margin: 0; font-size: 0.82rem; }
+.vessel-timeline-content { display: grid; gap: 7px; padding: 0 10px 10px; }
 .timeline-summary,
 .timeline-note { margin: 0; color: var(--muted); font-size: 0.65rem; line-height: 1.4; }
 .vessel-timeline ol { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
