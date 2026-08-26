@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "cases": [
+    {
+      "caseId": "rfa-proteus-missed-port-update",
+      "query": { "name": "RFA Proteus" },
+      "expectedVesselId": "rfa-proteus",
+      "requiredFamilies": ["official-rn-rfa", "port-harbour", "general-local-news"]
+    },
+    {
+      "caseId": "rfa-tideforce-missed-departure",
+      "query": { "pennantNumber": "A139" },
+      "expectedVesselId": "rfa-tideforce",
+      "requiredFamilies": ["official-rn-rfa", "port-harbour", "maritime-publishers"]
+    },
+    {
+      "caseId": "hms-spey-missed-maintenance",
+      "query": { "accountAlias": "@HMS_Spey" },
+      "expectedVesselId": "hms-spey",
+      "requiredFamilies": ["official-rn-rfa", "nato-allied", "general-local-news"]
+    },
+    {
+      "caseId": "hms-duncan-missed-deployment",
+      "query": { "pennantNumber": "D37" },
+      "expectedVesselId": "hms-duncan",
+      "requiredFamilies": ["official-rn-rfa", "nato-allied", "embassy-exercise"]
+    }
+  ]
+}

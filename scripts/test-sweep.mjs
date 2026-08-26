@@ -4,12 +4,16 @@ import crypto from "node:crypto";
 import { collectPublicIndexes } from "./lib/public-index-collector.mjs";
 import {
   PUBLIC_INDEX_TARGETS,
+  classifySweepResult,
+  completeSweepIntegrityCheck,
   computeReleaseContentHash,
   createBlocker,
   createSweepRun,
   evaluateSweepCoverage,
   evaluateStoredSweepCoverage,
   finaliseSweepRun,
+  findLateDiscoveredCandidates,
+  findSourceFamilyVolumeAnomalies,
   isRequiredRecurringSource,
   sweepWindowStartFromMetadata,
   validateReleaseSweepGate,
@@ -892,6 +896,135 @@ assert.deepEqual(
   validateReleaseSweepGate({ runs: [], datasetDate: "2026-08-23", registry, entities }),
   { required: false, pass: true, runId: null, reasons: [] },
   "The pre-gate baseline remains buildable.",
+);
+
+const completenessRun = createSweepRun({
+  registry,
+  entities,
+  assessmentLog: assessments,
+  startedAt: "2026-08-26T00:00:00Z",
+  windowStart: "2026-08-23T00:00:00Z",
+});
+assert.equal(completenessRun.integrityChecks.length, 6);
+assert.equal(classifySweepResult(completenessRun).classification, "partial");
+await collectPublicIndexes(completenessRun, {
+  registry,
+  entities,
+  checkedAt: "2026-08-26T00:01:00Z",
+  fetchImpl: async (url) => {
+    const target = PUBLIC_INDEX_TARGETS.find((entry) => entry.url === url);
+    return response(
+      url,
+      target.contentKind === "feed" ? "application/rss+xml" : "text/html",
+      candidateFor(target.targetId),
+    );
+  },
+});
+for (const sourceCheck of completenessRun.sourceChecks) {
+  Object.assign(sourceCheck, {
+    state: "complete",
+    checkedAt: "2026-08-26T00:01:00Z",
+    outcome: "manual-review-complete",
+    notes: "Mandatory source reviewed; access and result recorded.",
+    blocker: null,
+  });
+}
+for (const vessel of completenessRun.vesselOutcomes) {
+  const baseline = completenessRun.coverageInputs.baselineProjectionVessels.find(
+    (entry) => entry.id === vessel.vesselId,
+  );
+  Object.assign(vessel, {
+    state: "complete",
+    reviewedAt: "2026-08-26T00:01:00Z",
+    outcome:
+      baseline.locationClassification === "unknown"
+        ? "unknown-retained"
+        : baseline.locationClassification === "withheld"
+          ? "withheld-policy"
+          : "unchanged",
+    notes: "No newer supportable change identified.",
+    blocker: null,
+  });
+}
+for (const check of completenessRun.integrityChecks) {
+  completeSweepIntegrityCheck(completenessRun, check.checkId, {
+    checkedAt: "2026-08-26T00:01:30Z",
+    outcome: check.checkId.includes("reconciliation") ? "reconciled" : "reviewed-no-anomaly",
+    notes: "Fixture review completed with no unresolved publication blocker.",
+  });
+}
+const releaseEntities26 = structuredClone(entities);
+Object.assign(releaseEntities26.metadata, {
+  asOfDate: "2026-08-26",
+  releaseRevision: 1,
+  releasedAt: "2026-08-26T00:03:00Z",
+});
+finaliseSweepRun(completenessRun, {
+  registry,
+  entities: releaseEntities26,
+  assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
+  completedAt: "2026-08-26T00:02:00Z",
+});
+assert.equal(completenessRun.result.classification, "complete-no-supported-changes");
+assert.equal(completenessRun.result.publicationEligible, true);
+const changedClassificationRun = structuredClone(completenessRun);
+changedClassificationRun.vesselOutcomes[0].outcome = "updated";
+assert.equal(
+  classifySweepResult(changedClassificationRun, { pass: true, reasons: [] }).classification,
+  "complete-with-changes",
+);
+const degradedRun = reopenClone(completenessRun);
+Object.assign(degradedRun.sourceChecks[0], {
+  state: "blocked",
+  checkedAt: null,
+  outcome: null,
+  blocker: createBlocker("manual-unavailable", "Mandatory source unavailable.", "2026-08-26T00:01:00Z"),
+});
+degradedRun.coverage = evaluateSweepCoverage(degradedRun, {
+  registry,
+  entities,
+});
+assert.equal(classifySweepResult(degradedRun).classification, "degraded");
+assert.equal(classifySweepResult(degradedRun).publicationEligible, false);
+const failedRun = reopenClone(completenessRun);
+for (const entry of [
+  ...failedRun.discoveryChecks.filter((item) => item.required),
+  ...failedRun.sourceChecks.filter((item) => item.required),
+  ...failedRun.integrityChecks.filter((item) => item.required),
+]) {
+  Object.assign(entry, {
+    state: "blocked",
+    checkedAt: null,
+    outcome: null,
+    blocker: createBlocker("manual-unavailable", "Required check unavailable.", "2026-08-26T00:01:00Z"),
+  });
+}
+const failedCoverage = evaluateSweepCoverage(failedRun, { registry, entities });
+assert.equal(classifySweepResult(failedRun, failedCoverage).classification, "failed");
+assert.equal(classifySweepResult(failedRun, failedCoverage).publicationEligible, false);
+
+assert.deepEqual(
+  findSourceFamilyVolumeAnomalies(
+    { official: 1, media: 8 },
+    { official: 10, media: 8 },
+  ).map((entry) => entry.family),
+  ["official"],
+);
+assert.deepEqual(
+  findLateDiscoveredCandidates([
+    {
+      candidateId: "late-before-cutoff",
+      publishedAt: "2026-08-25T22:00:00Z",
+      receivedAt: "2026-08-26T01:00:00Z",
+    },
+    {
+      candidateId: "new-after-cutoff",
+      publishedAt: "2026-08-26T00:30:00Z",
+      receivedAt: "2026-08-26T01:00:00Z",
+    },
+  ], "2026-08-26T00:00:00Z"),
+  ["late-before-cutoff"],
 );
 
 console.log("OSINT sweep coverage and collector tests passed.");

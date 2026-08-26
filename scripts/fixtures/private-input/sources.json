@@ -14,7 +14,9 @@
       "collectionMode": "manual",
       "status": "enabled",
       "enabled": true,
-      "terms": { "reviewedAt": "2026-01-07T12:00:00Z" },
+      "terms": {
+        "reviewedAt": "2026-01-07T12:00:00Z"
+      },
       "notes": "SYNTH_INTERNAL_ONLY source-registry marker"
     }
   ],
@@ -25,6 +27,30 @@
       "accountHandle": null,
       "verifiedByUrl": null,
       "reason": "Synthetic fixture has no social account."
+    }
+  ],
+  "operations": [
+    {
+      "sourceId": "SYNTHETIC_SOURCE",
+      "name": "Synthetic publisher",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://fixture.invalid/internal-source-index",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-01-07.",
+      "mandatory": false
     }
   ]
 }

@@ -4,7 +4,7 @@ Buzz workflow `8c44ae64-0b49-48f3-b11e-c653d073e8e9` starts the fleet review eve
 
 The scheduled message instructs Codex to:
 
-1. review all 71 Royal Navy and Royal Fleet Auxiliary records;
+1. review all 68 Royal Navy and Royal Fleet Auxiliary records;
 2. keep or revise only dated, public, vessel-specific locations at supported precision;
 3. retain the last public location irrespective of age while labelling historical evidence;
 4. append every promotion or revision to `data/royal-navy/location-decisions.jsonl`;
@@ -44,15 +44,16 @@ production starting point is different; a missing, empty, reversed or shortened 
 invalid. The run captures the prior release identity, and CI authenticates it against the pull
 request base before allowing that lower bound to authorise publication.
 
-The automatic pass contains seven allowlisted targets. Royal Navy News remains a mandatory manual
+The automatic pass contains seven allowlisted targets. Run `npm run sweep:coverage` for the complete
+official-account reconciliation and broader free-source manual queues. Royal Navy News remains a mandatory manual
 source because its public news index and advertised sitemaps returned Cloudflare HTTP 403; the
 collector must not bypass that control. The Westward Shipping News RSS feed is the replacement
 automatic discovery target and remains Tier C, discovery-only material.
 
-Review every discovery and all 33 required recurring manual sources. Add newly governed source
+Review every discovery and every required recurring manual source. Add newly governed source
 records and normalised evidence, then create and validate any new assessment revisions. Stage the
 target `metadata.asOfDate` and `metadata.releaseRevision` in the canonical vessel file before
-finalisation, but do not stamp the final release instant yet. Record one allowed outcome for all 71
+finalisation, but do not stamp the final release instant yet. Record one allowed outcome for all 68
 vessels after its current assessment exists. A new assessment's `assessedAt` must fall within the
 sweep and be no later than that vessel's `reviewedAt`; the outcome evidence set must equal the new
 assessment's selected evidence set. A source that cannot be checked must have an explicit typed
@@ -75,6 +76,12 @@ outcome is pending or blocked, if a derived outcome or assessment binding is inc
 review timestamp falls outside the run. It seals the exact candidate public projection, current
 assessments, referenced evidence, supporting source records and projection-method version. The seal
 excludes the volatile release timestamp; the release gate binds that timestamp separately.
+
+Runs created from 26 August 2026 include six required integrity checks: prior snapshot, source-family
+volume, cutoff, late-discovery, duplicate/common-origin and contradiction review. Complete each with
+timestamped notes. The result is classified as complete-with-changes,
+complete-no-supported-changes, partial, degraded or failed. Partial/degraded/failed results remain
+publication-ineligible; a mandatory source block requires an explicit degraded or failed decision.
 
 Real private releases run only on the owner's trusted machine with `RNFS_PRIVATE_DATA_ROOT` set.
 Public GitHub Actions use no real private inputs or credentials and exercise the committed synthetic
@@ -100,7 +107,7 @@ with the supplied base ref and records status, location, map-precision, marker-o
 changes. The base ref must identify the version currently in production, not another commit from the
 feature branch.
 
-`status-history.jsonl` is append-only. The snapshot command takes the release identity and all 71
+`status-history.jsonl` is append-only. The snapshot command takes the release identity and all 68
 statuses from the current fleet dataset. A normal new dataset date starts at release revision 1.
 For a same-day correction, increment `metadata.releaseRevision`, provide a later
 `metadata.releasedAt`, and append with `--correction --reason`; never rewrite the shipped line.
