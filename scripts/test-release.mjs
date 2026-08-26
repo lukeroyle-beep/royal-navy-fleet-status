@@ -151,8 +151,9 @@ assert.match(styles, /\.availability-score\[data-availability-band="low"\]/);
 assert.match(styles, /\.availability-score\[data-availability-band="medium"\]/);
 assert.match(styles, /\.availability-score\[data-availability-band="high"\]/);
 assert.match(styles, /\.availability-score\s*\{[^}]*place-content:\s*center;[^}]*place-items:\s*center;[^}]*text-align:\s*center;/s);
-assert.match(styles, /@media \(max-width: 1100px\) and \(orientation: portrait\)/);
-assert.match(styles, /\(pointer: coarse\) and \(max-width: 1400px\)/);
+assert.match(styles, /@media \(min-width: 701px\) and \(max-width: 1100px\) and \(orientation: portrait\)/);
+assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
+assert.match(styles, /@media \(max-width: 700px\)/);
 assert.match(styles, /@media \(max-width: 760px\)/);
 assert.doesNotMatch(styles, /\.topbar\s*\{/);
 

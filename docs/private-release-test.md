@@ -59,7 +59,7 @@ Mark each result as Pass, Fail or Blocked and record evidence in the report.
 | RT-13 | Use touch targets around the map and filters. | Controls are usable without accidental adjacent activation. |
 | RT-14 | Repeat key navigation at 200% desktop browser zoom. | Content remains operable without horizontal page scrolling. |
 | RT-15 | Set filters and layers, then reload. | Supported choices restore from the versioned local state without a console error. |
-| RT-16 | Select a vessel, pan and zoom, then use **Share** and open the copied address in a clean browser context. | The selected vessel, public filters, layers and bounded map view restore. |
+| RT-16 | Select a vessel, pan and zoom, then copy the current browser address and open it in a clean browser context. | The selected vessel, public filters, layers and bounded map view restore. |
 | RT-17 | Open malformed or obsolete state parameters. | The tracker falls back safely, ignores unknown values and does not expose them in the rewritten URL. |
 | RT-18 | Temporarily block or disconnect basemap tile requests. | A non-blocking notice appears and the vessel list and public details remain usable. |
 

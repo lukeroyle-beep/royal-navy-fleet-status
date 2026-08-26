@@ -73,9 +73,11 @@ assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "detail", false)], ["f
 assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "fleet", false)], []);
 assert.match(COMPACT_SURFACE_QUERY, /pointer: coarse/);
 
-for (const id of ["fleetToggle", "layersToggle", "filterToggle", "shareButton", "fleetDrawer", "detailDrawer", "layersPanel", "filterPanel", "presenceFilter"]) {
+for (const id of ["fleetToggle", "layersToggle", "filterToggle", "fleetDrawer", "detailDrawer", "layersPanel", "filterPanel", "presenceFilter"]) {
   assert.match(html, new RegExp(`id="${id}"`));
 }
+assert.doesNotMatch(html, /id="shareButton"|id="shareStatus"/);
+assert.doesNotMatch(app, /copyShareableView|copyTextFallback|navigator\.clipboard|execCommand\("copy"\)/);
 assert.match(html, /id="reloadApp"[^>]*hidden/);
 assert.match(html, /"rn-fleet-ready"/);
 assert.match(html, /"rn-fleet-failed"/);
@@ -106,6 +108,9 @@ assert.match(app, /selectShoreEstablishment\(retainedSelection\.shoreEstablishme
 assert.match(app, /!changedOnly \|\| snapshotComparison\.changedCurrentVesselIds\.includes/);
 assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
 assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
+assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
+assert.match(styles, /\.surface-backdrop\s*\{\s*display:\s*none;/);
+assert.match(styles, /grid-auto-columns:\s*minmax\(0, 1fr\)/);
 assert.match(details, /getVesselPublicTimeline/);
 for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle", "uncertaintyLayerToggle"]) {
   assert.match(html, new RegExp(`id="${id}"[^>]*type="checkbox"`));

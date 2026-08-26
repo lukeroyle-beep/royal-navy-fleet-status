@@ -16,7 +16,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Progressive vessel details with status, supported public location and snapshot date; detailed provenance remains outside the client projection
 - Clear confirmed, last-reported, unconfirmed, no-recent-information and withheld public location states, separated from port, city, region and list-only precision
 - Automated dataset validation and production-build checks
-- Responsive desktop drawers and touch-oriented iPad and phone bottom sheets
+- Responsive desktop drawers, compact iPad side panels and touch-oriented phone bottom sheets
 - Versioned local preferences, five public view presets and validated shareable map links
 
 ## Map controls
@@ -26,7 +26,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Select a plotted vessel from the map or fleet drawer to highlight it, keep regional context and open its public record. Use **Reset view** to restore the filtered overview.
 - Use **Filters** for class, service, operational status, vessel type, public location state and broad geographic scope. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
 - Use a public preset to switch the existing filters and layers to Fleet overview, Deployed vessels, United Kingdom ports, Maintenance and refit or Overseas presence. Presets do not create a second dataset.
-- Use **Share** to copy the current public filters, layers, selected vessel and bounded map view. The same state is restored on desktop, iPad and phone layouts.
+- The browser address is kept in sync with the current public filters, layers, selected vessel and bounded map view. Copy that address to share the same state across desktop, iPad and phone layouts.
 - Vessels without a current public fix can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports use regional areas instead of representative points.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
