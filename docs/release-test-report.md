@@ -4,91 +4,103 @@
 
 | Field | Value |
 | --- | --- |
-| Commit SHA | Deployed `main` at `d208b7bb4b6d2ec353c771f21e05fb85741e6c7d` |
-| Tester | User interaction on a physical iPhone with Codex-assisted Safari Web Inspector diagnostics; Codex-assisted observation on the local physical desktop; iPad and assistive-technology testers not assigned |
-| Test date and time | 26 August 2026, through 13:39 Europe/London |
-| Device | Physical iPhone 12 Pro Max and physical Mac mini (Apple M4); the user reported a separate iPad loads the site, but its model and test matrix were not recorded |
-| Operating system | iOS 26.6 reported by the user; macOS 26.5 (build 25F71) |
-| Browser and version | iPhone Safari 26.6; desktop Safari 26.5 |
-| Orientation or viewport | iPhone portrait, 428 × 727 CSS-pixel viewport at 3× device scale, plus physical landscape checks; desktop window at normal zoom and 200% browser zoom |
-| Private preview hostname recorded outside the repository | No |
+| Commit SHA | Deployed `main` at `bd5cd752701591c80e707cb390303c9664d64591` |
+| Tester | User observations on physical iPhone and iPad hardware; Codex-assisted checks in current Chrome on the physical Mac mini |
+| Test date and time | 26 August 2026, through 20:18 Europe/London |
+| Device | iPhone 12 Pro Max; iPad Pro 13-inch (M4); Mac mini (Apple M4) |
+| Operating system | iOS/iPadOS 26.6 as reported by the user; macOS 26.5 (build 25F71) |
+| Browser and version | iPhone and iPad Safari 26.6; Google Chrome 152.0.7977.64 |
+| Orientation or viewport | iPhone portrait and landscape; iPad portrait and landscape; desktop 1280 × 720 and 640 × 360 CSS pixels (the 200%-zoom layout equivalent), supported by an earlier physical desktop Safari 200% zoom observation |
+| Private preview hostname recorded outside the repository | Yes; a temporary `.ts.net` hostname was used but is intentionally not committed |
+
+Human VoiceOver and screen-reader testing is not a release requirement by owner decision on
+26 August 2026. Keyboard, focus, responsive-layout and touch checks remain in scope.
 
 ## Results
 
 | Test ID | Result: Pass, Fail or Blocked | Observed defect | Screenshot or notes |
 | --- | --- | --- | --- |
-| RT-1 | Blocked | Prescribed private HTTPS preview and full device matrix unavailable | The deployed production site completed a clean reload in physical iPhone Safari and displayed the 23 August 2026 snapshot; this does not test the prescribed private HTTPS path. |
-| RT-2 | Blocked | Full device matrix unavailable | Desktop Safari showed the fleet map, plotted records and readable OpenStreetMap attribution. |
-| RT-3 | Blocked | Physical iPhone check passed; the full required device matrix remains incomplete | On the production release, five repeated discrete pinch-in and pinch-out gestures, pan, **Reset view**, Fleet, and both zoom buttons remained responsive. A final inspection showed navigation type `navigate`, rather than a silent WebContent reload. |
-| RT-4 | Blocked | Full device matrix unavailable | Desktop selection displayed HMS Duncan and its matching list record/details. |
-| RT-5 | Blocked | Touch-device checks unavailable | Not completed across the required matrix. |
-| RT-6 | Blocked | Full device matrix unavailable | Desktop Safari searches for `P234` and `HMS Duncan` each produced one matching vessel and synchronised the visible count/list/map. |
-| RT-7 | Blocked | Full device matrix unavailable | Not completed across the required matrix. |
-| RT-8 | Blocked | Full device matrix unavailable | Desktop list selection displayed HMS Duncan details; Escape closed the detail surface and restored focus to the originating vessel control. |
-| RT-9 | Blocked | Full device matrix unavailable | Not completed across the required matrix. |
-| RT-10 | Blocked | Full device matrix unavailable | Not completed across the required matrix. |
-| RT-11 | Blocked | Full device matrix unavailable | Not completed across the required matrix. |
-| RT-12 | Blocked | Physical iPad matrix not performed | The user reported that the site loads on an iPad, but the model, OS, orientations and required interactions were not recorded. |
-| RT-13 | Blocked | Full touch-target matrix incomplete | Fleet, **Reset view**, and both zoom buttons responded on the physical iPhone without accidental adjacent activation. Every map and filter target was not exercised. |
-| RT-14 | Blocked | Full device matrix and assistive-technology checks unavailable | Desktop Safari remained readable and keyboard focus moved at 200% browser zoom without an observed horizontal page scrollbar. |
-| RT-15 | Blocked | Full state scenario and device matrix incomplete | A physical iPhone Safari reload completed without console errors and restored the supported snapshot/layer/map URL state; the prescribed filter-and-layer scenario was not completed. |
-| RT-16 | Blocked | Clean browser context and full device matrix unavailable | Desktop Share reported “Shareable view link copied”; reload retained the selected vessel and bounded map parameters. |
-| RT-17 | Blocked | Full device matrix unavailable | Not completed across the required matrix. |
-| RT-18 | Blocked | Network-failure exercise unavailable | Basemap requests were not deliberately blocked. |
+| RT-1 | Blocked | Private HTTPS is verified on desktop; the private iPhone and iPad observations are pending | The prescribed loopback Vite preview plus Tailscale Serve returned HTTP/2 200 for the HTML and compiled JavaScript and loaded 68 vessels without host, TLS, console or blank-page errors in Chrome. |
+| RT-2 | Blocked | Private mobile-device observations are pending | Private desktop Chrome displayed the plotted fleet and readable OpenStreetMap attribution with no horizontal page overflow. Physical production checks already confirmed the blue sea and attribution on iPhone and iPad. |
+| RT-3 | Blocked | Private mobile-device observations are pending | Private desktop pan, keyboard pan, Reset and zoom controls passed. On production, the physical iPhone completed five repeated discrete pinch-in and pinch-out gestures plus pan, Reset and both zoom buttons without a WebContent reload; the physical iPad also passed pinch, pan, Reset and both buttons. |
+| RT-4 | Pass | None | Private desktop selection of HMS Duncan displayed its detail card and selected marker without changing the established contextual zoom unexpectedly. |
+| RT-5 | Pass | None | Private desktop selection expanded the HMS Dragon/RFA Lyme Bay co-location, kept both markers available, moved `is-selected` between them and retained zoom 2.5. The physical touch-device overlap scenario was also confirmed on the deployed site. |
+| RT-6 | Pass | None | Private desktop searches for `P234` and `HMS Duncan` each produced one matching vessel with synchronised count, list and plotted result. |
+| RT-7 | Pass | None | Service, status, vessel type, public-location status, geographic scope and class filters returned coherent counts; Clear all restored all 68 vessels. |
+| RT-8 | Pass | None | List selection opened the matching details and revealed plotted records; keyboard dismissal restored focus to the originating surface control. |
+| RT-9 | Pass | None | HMS Vigilant retained its existing point and accurately showed Unknown status; HMS Dauntless used only its labelled English Channel uncertainty region with no exact marker; withheld HMS Vengeance opened details without a marker or map movement and showed “Location not published”. |
+| RT-10 | Pass | None | Reset view restored the fleet-wide bounded view at zoom 2.5. |
+| RT-11 | Pass | None | Fleet overview, Deployed vessels, United Kingdom ports, Maintenance and refit, and Overseas presence each reported its active state, set coherent filters/layers and retained visible map content. |
+| RT-12 | Blocked | The production rotation check passed; the prescribed private iPad rotation observation is pending | On the deployed site, the physical iPad reflowed in portrait and landscape with right-side panels, no clipped content and no horizontal scrolling. |
+| RT-13 | Blocked | Production touch checks passed; the prescribed private mobile-device observation is pending | Physical iPhone and iPad map, panel, close, Reset and zoom targets responded without observed adjacent activation. |
+| RT-14 | Pass | None | At the 640 × 360 CSS-pixel 200%-zoom equivalent, all four toolbar controls remained visible and keyboard-operable without horizontal page scrolling; Enter opened each surface, Escape closed it and restored focus. This supports the earlier physical desktop Safari 200% zoom observation. |
+| RT-15 | Pass | None | After setting the Deployed filter plus fleet and shore layers, a navigation to the bare private address restored the supported choices, rewrote the versioned URL and produced no console error. |
+| RT-16 | Pass | None | A fresh in-app browser context opened the copied address and restored HMS Dragon, Deployed, fleet and shore layers, and the exact bounded `lat`, `lon` and `zoom` values with no console error. |
+| RT-17 | Pass | None | Invalid view, status, layer, vessel, snapshot, latitude, longitude, zoom and unknown parameters were discarded; the URL was rewritten to safe defaults, 68 vessels loaded and no console error occurred. |
+| RT-18 | Pass | None | A temporary, uncommitted compiled-build substitution redirected only basemap tile requests to a failing path. The non-blocking notice appeared while search and HMS Duncan details remained usable. A clean rebuild restored tiles, hid the notice and retained readable attribution. |
 
-## Physical iPhone diagnostic evidence
+## Physical iPhone evidence
 
-The deployed site was inspected on a physical iPhone 12 Pro Max after the user initially reported
-that the page remained on its loading state and did not respond to taps. Safari Web Inspector showed
-all of the following on the deployed `18ed5da` release:
+The originally affected iPhone 12 Pro Max runs iOS/Safari 26.6. Earlier testing reproduced both a
+stale cached document and a continuous Leaflet pinch path that became increasingly laggy, froze the
+page and could silently reload Safari WebContent. The deployed cache rules and pre-module recovery
+guard resolved the retained-document failure. The discrete mobile-Safari gesture deployed in PR #60
+keeps the map stationary during a pinch, displays **Release to zoom** and applies bounded zoom on
+release.
 
-- the document reached `complete`, displayed the 23 August 2026 snapshot and showed 68 vessels;
-- the console contained no page-load error;
-- the Fleet control was the top hit-tested element at its centre, with `pointer-events: auto` and no
-  overlay intercepting it;
-- one physical tap emitted `pointerdown`, `touchstart`, `pointerup`, `touchend`, `mousedown`,
-  `mouseup` and `click`, all targeted at the Fleet control;
-- that tap opened and visibly painted the Fleet drawer;
-- a subsequent clean reload again completed without a console error; and
-- after Web Inspector was detached, the user closed and reopened the drawer normally.
+On production, the user then completed five repeated pinch-in and pinch-out gestures, panned the
+map, selected **Reset view**, opened Fleet and used both zoom buttons. The page remained responsive
+and a final diagnostic showed navigation type `navigate`, not a silent reload. Fleet, Layers,
+Filters and Compare remained responsive; portrait and landscape panels had no clipped content or
+horizontal page scrolling. Vessel and shore details, the collapsed timeline, co-located marker
+selection and the right-side panel presentation were also confirmed.
 
-The later map-interaction investigation reproduced a separate failure in the same physical iPhone:
-continuous Leaflet pinch transforms became increasingly laggy and could freeze before Safari
-silently reloaded its WebContent process. The reduced-animation mobile profile deployed in PR #59
-removed avoidable compositor work, but a detached repeat still ended with navigation type `reload`
-and a new JavaScript context.
+## Physical iPad evidence
 
-PR #60 therefore replaced continuous mobile-Safari touch zoom with a bounded discrete gesture. The
-map remains stationary while the fingers move, displays **Release to zoom**, and applies the zoom
-around the gesture point when the fingers are released. On the deployed `d208b7b` release, the user
-observed the expected behaviour and then completed five repeated pinch-in and pinch-out gestures,
-panned the map, selected **Reset view**, opened Fleet, and used both zoom buttons. Every control
-remained responsive. A final Web Inspector connection showed the expected production bundle,
-navigation type `navigate`, and no `leaflet-touch-zoom` class, confirming that Safari had not
-silently reloaded during the test.
+The physical iPad is an iPad Pro 13-inch (M4) running iOS/iPadOS 26.6. On production, the user
+confirmed that the application loaded completely and that Fleet, Layers and Filters opened normally
+in portrait and landscape. The layout retained right-side panels without clipping or horizontal
+scrolling. Blue sea, readable OpenStreetMap attribution, pinch, pan, **Reset view** and both zoom
+buttons were confirmed. The user also verified the co-located marker correction and the revised
+detail-card presentation.
 
-This physically verifies the deployed cache-recovery and mobile-Safari map-interaction fixes on the
-originally affected iPhone. It does not replace the remaining iPad, complete touch-target, private
-HTTPS or human assistive-technology checks.
+## Private desktop evidence
+
+The prescribed private path used `npm run preview:private -- <device>.<tailnet>.ts.net` with Vite
+bound to `127.0.0.1`, fronted temporarily by Tailscale Serve. Direct HTTPS checks returned 200 for
+both the document and compiled module. Current Chrome on the physical Mac mini loaded the same
+candidate at 1280 × 720, completed the point, overlapping, regional, shore and list-only selection
+matrix, exercised every filter and preset, restored persistent and copied URL state, discarded
+malformed state and recorded no console errors.
+
+At the 640 × 360 CSS-pixel layout equivalent to viewing a 1280 × 720 desktop at 200%, Fleet, Layers,
+Filters and Compare remained visible and keyboard-operable. Enter opened each surface, Escape closed
+it, focus returned to the originating control and the document never developed a horizontal page
+scrollbar. This supplements the earlier human-observed physical desktop Safari check at actual 200%
+browser zoom.
+
+For RT-18, only ignored build output was modified: the compiled tile URL was replaced by a guaranteed
+failing same-origin path, then a fresh browser context loaded that unique module. The basemap notice
+appeared, while fleet search and HMS Duncan details remained available. `npm run build` immediately
+restored the ordinary artifact; a fresh load fetched tiles, hid the notice and displayed attribution.
 
 ## Defects requiring action
 
 | Defect ID | Severity | Description | Evidence | Resolution |
 | --- | --- | --- | --- | --- |
 | PAGES-1 | Material, resolved and deployed | A Pages-base preview requested public JSON from the site root and received HTML, leaving the interface in its loading state. | Physical desktop Safari plus direct response checks reproduced the project-path/root-path mismatch. | Public asset requests use Vite's configured base path; `scripts/test-pages-build.mjs` guards all five data assets. |
-| IOS-CACHE-1 | Material, resolved, deployed and physically verified | Production stayed on “Loading” and controls did not respond in iPhone Safari. | The originally affected physical iPhone 12 Pro Max on iOS 26.6 completed a clean production reload with no console errors, and the Fleet drawer responded normally before and after detaching Web Inspector. | Worker header rules prevent HTML caching and retain fingerprinted assets in browser caches. A pre-module startup guard exposes a cache-busting **Reload current version** action instead of silently remaining on “Loading”. |
-| IOS-MAP-1 | Material, resolved, deployed and physically verified | Continuous pinch zoom became laggy, froze the page and could trigger a silent Safari WebContent reload on the physical iPhone. | The original failure and post-PR #59 reload were observed through Safari Web Inspector. After PR #60, five repeated pinch-in and pinch-out gestures plus pan, **Reset view**, Fleet and both zoom buttons remained responsive, and final navigation type stayed `navigate`. | Mobile Safari uses discrete release-to-zoom gestures with bounded zoom and no continuous Leaflet touch transform; synthetic post-pinch clicks are suppressed. |
-| DEVICE-1 | Release-blocking | Required physical iPad, prescribed private HTTPS and complete iPhone/desktop scenarios were not performed. | Physical iPhone production loading, portrait and landscape panel layout, hit-testing and map controls are now verified. The iPad was only reported to load; its model, orientations and interaction results were not recorded. Remaining selections, filters, sharing and other matrix scenarios are incomplete. The local desktop pass was intentionally limited to non-destructive supporting checks. | Complete the remaining RT-1 to RT-18 checks on the required private device matrix. |
-| AT-1 | Release-blocking | VoiceOver and other assistive-technology observations require a human tester who can assess the spoken output and interaction quality. | Automated accessibility checks and the accessibility tree cannot substitute for the issue's requested physical assistive-technology evidence. | Run and record the screen-reader scenarios with a human tester. |
+| IOS-CACHE-1 | Material, resolved, deployed and physically verified | Production stayed on “Loading” and controls did not respond in iPhone Safari. | The originally affected physical iPhone completed a clean production reload with no console errors, and Fleet responded before and after detaching Web Inspector. | Worker header rules prevent HTML caching while retaining fingerprinted assets; a startup guard exposes **Reload current version** if needed. |
+| IOS-MAP-1 | Material, resolved, deployed and physically verified | Continuous pinch zoom became laggy, froze the page and could trigger a silent Safari WebContent reload. | After PR #60, repeated pinch, pan, Reset, Fleet and both zoom controls remained responsive and navigation type stayed `navigate`. | Mobile Safari uses discrete release-to-zoom with bounded zoom and no continuous Leaflet touch transform. |
+| OVERLAP-1 | Material, resolved and deployed | Selecting one of two co-located vessels could hide or leave the wrong marker highlighted, and selection could zoom out unexpectedly. | HMS Dragon/RFA Lyme Bay were retested after PRs #66 and #67; both remain visible, highlight follows selection and the established zoom is retained. | Co-located selection has a stable spiderfied anchor/sibling layout and preserves contextual zoom. |
+| DEVICE-1 | Release-blocking | Prescribed private HTTPS observations remain incomplete on the physical iPhone and iPad. | Desktop private HTTPS and the complete desktop functional matrix pass; production physical iPhone/iPad interaction evidence is complete. | Open the temporary private address on the Tailscale-connected iPhone and iPad and record the applicable load, rotation, touch and panel results. |
 
 ## Release decision
 
 - Decision: Blocked
 - Decided by: Not assigned
 - Date and time: Not assigned
-- Outstanding actions: Complete RT-1 to RT-18 through the prescribed private HTTPS preview on
-  physical iPad, iPhone and desktop devices, and record human VoiceOver observations.
+- Outstanding actions: Complete and record the prescribed private HTTPS checks on the physical
+  iPhone and iPad. Human VoiceOver or screen-reader testing is not required.
 
-Automated build success is supporting evidence only. It is not evidence that physical iPad or
-iPhone testing has passed. The local desktop observations above likewise do not turn a matrix-wide
-Blocked result into a Pass.
+Automated checks and production-device observations are supporting evidence. They do not turn the
+remaining private physical-device observations into a Pass.
