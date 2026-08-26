@@ -698,6 +698,7 @@ export class FleetMap {
     if (selectedMarker && this.visibleVessels.some((vessel) => vessel.id === this.selectedId)) {
       if (coLocatedMarkers.length > 1) {
         for (const marker of coLocatedMarkers) this.selectionGroup.addLayer(marker);
+        // Keep the layout independent of selection so the highlight moves, not the markers.
         const anchor = coLocatedMarkers[0];
         this.coLocatedSelection = {
           legs: [],
