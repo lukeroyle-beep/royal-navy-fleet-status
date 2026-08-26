@@ -76,6 +76,13 @@ assert.match(COMPACT_SURFACE_QUERY, /pointer: coarse/);
 for (const id of ["fleetToggle", "layersToggle", "filterToggle", "shareButton", "fleetDrawer", "detailDrawer", "layersPanel", "filterPanel", "presenceFilter"]) {
   assert.match(html, new RegExp(`id="${id}"`));
 }
+assert.match(html, /id="reloadApp"[^>]*hidden/);
+assert.match(html, /"rn-fleet-ready"/);
+assert.match(html, /"rn-fleet-failed"/);
+assert.match(html, /searchParams\.set\("_reload", Date\.now\(\)\.toString\(\)\)/);
+assert.match(html, /window\.setTimeout\(showStartupFailure, 15000\)/);
+assert.match(app, /dispatchEvent\(new Event\("rn-fleet-ready"\)\)/);
+assert.match(app, /dispatchEvent\(new Event\("rn-fleet-failed"\)\)/);
 for (const id of [
   "snapshotSelect",
   "snapshotDescription",

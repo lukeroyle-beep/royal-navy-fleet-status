@@ -1,0 +1,14 @@
+# HTML must be fetched afresh so it never references an asset removed by a later deployment.
+/
+  Cache-Control: no-store
+
+/*.html
+  Cache-Control: no-store
+
+# Fingerprinted Vite assets stay usable from the browser cache after a deployment rollover.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Public datasets can change without their URL changing.
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate

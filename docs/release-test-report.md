@@ -4,13 +4,13 @@
 
 | Field | Value |
 | --- | --- |
-| Commit SHA | Working tree on `codex/resolve-open-issues`, based on `074bc38de8ac` |
-| Tester | Codex-assisted observation on the local physical desktop; iPad/iPhone and assistive-technology testers not assigned |
+| Commit SHA | Working tree on `codex/issue-48-ios-loading-recovery`, based on `8786c8e21230` |
+| Tester | User observation on a physical iPhone; Codex-assisted observation on the local physical desktop; iPad and assistive-technology testers not assigned |
 | Test date and time | 26 August 2026, Europe/London |
-| Device | Physical Mac mini (Apple M4); no attached physical iPad or iPhone detected |
-| Operating system | macOS 26.5 (build 25F71) |
-| Browser and version | Safari 26.5 |
-| Orientation or viewport | Desktop window at normal zoom and 200% browser zoom |
+| Device | Physical iPhone 12 Pro Max and physical Mac mini (Apple M4); no physical iPad detected |
+| Operating system | iOS 26.6 reported by the user; macOS 26.5 (build 25F71) |
+| Browser and version | iPhone Safari on iOS 26.6; desktop Safari 26.5 |
+| Orientation or viewport | iPhone orientation not recorded; desktop window at normal zoom and 200% browser zoom |
 | Private preview hostname recorded outside the repository | No |
 
 ## Results
@@ -41,7 +41,8 @@
 | Defect ID | Severity | Description | Evidence | Resolution |
 | --- | --- | --- | --- | --- |
 | PAGES-1 | Material, resolved in working tree | A Pages-base preview requested public JSON from the site root and received HTML, leaving the interface in its loading state. | Physical desktop Safari plus direct response checks reproduced the project-path/root-path mismatch. | Public asset requests now use Vite's configured base path; `scripts/test-pages-build.mjs` guards all five data assets. |
-| DEVICE-1 | Release-blocking | Required physical iPad/iPhone, prescribed private HTTPS and complete desktop scenarios were not performed. | No physical iPad or iPhone was attached; the local desktop pass was intentionally limited to non-destructive supporting checks. | Complete RT-1 to RT-18 on the required private device matrix. |
+| IOS-CACHE-1 | Material, resolved in working tree; physical retest required | Production stayed on “Loading” and controls did not respond in iPhone Safari. | User observation on a physical iPhone 12 Pro Max running iOS 26.6. A clean iPhone 12 Pro Max WebKit 26.5 production run loaded 68 vessels and responded to the Fleet control; the prior deployed bundle URL now returns 404, matching a retained pre-deployment HTML document. | Worker header rules prevent HTML caching and retain fingerprinted assets in browser caches. A pre-module startup guard now exposes a cache-busting **Reload current version** action instead of silently remaining on “Loading”. |
+| DEVICE-1 | Release-blocking | Required physical iPad/iPhone, prescribed private HTTPS and complete desktop scenarios were not performed. | The physical iPhone production observation identified IOS-CACHE-1 but did not exercise the prescribed private matrix; no physical iPad was available. The local desktop pass was intentionally limited to non-destructive supporting checks. | Complete RT-1 to RT-18 on the required private device matrix. |
 | AT-1 | Release-blocking | VoiceOver and other assistive-technology observations require a human tester who can assess the spoken output and interaction quality. | Automated accessibility checks and the accessibility tree cannot substitute for the issue's requested physical assistive-technology evidence. | Run and record the screen-reader scenarios with a human tester. |
 
 ## Release decision

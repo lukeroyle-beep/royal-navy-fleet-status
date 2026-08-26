@@ -237,7 +237,56 @@
     </main>
     <div id="loadError" class="load-error" role="alert" hidden>
       <strong>Fleet data could not be loaded.</strong><span id="loadErrorMessage">Check the dataset and reload the page.</span>
+      <button id="reloadApp" type="button" hidden>Reload current version</button>
     </div>
+    <script>
+      (() => {
+        const errorPanel = document.querySelector("#loadError");
+        const errorMessage = document.querySelector("#loadErrorMessage");
+        const reloadButton = document.querySelector("#reloadApp");
+        let startupSettled = false;
+
+        const showStartupFailure = () => {
+          if (startupSettled) return;
+          errorPanel.hidden = false;
+          errorMessage.textContent =
+            "The application update did not finish loading. Reload the current version.";
+          reloadButton.hidden = false;
+        };
+        const settleStartup = () => {
+          startupSettled = true;
+          window.clearTimeout(startupTimeout);
+        };
+
+        window.addEventListener(
+          "rn-fleet-ready",
+          () => {
+            settleStartup();
+            errorPanel.hidden = true;
+            reloadButton.hidden = true;
+          },
+          { once: true },
+        );
+        window.addEventListener("rn-fleet-failed", settleStartup, { once: true });
+        window.addEventListener(
+          "error",
+          (event) => {
+            if (event.target === window || event.target instanceof HTMLScriptElement) {
+              showStartupFailure();
+            }
+          },
+          true,
+        );
+        window.addEventListener("unhandledrejection", showStartupFailure, { once: true });
+        reloadButton.addEventListener("click", () => {
+          const reloadUrl = new URL(window.location.href);
+          reloadUrl.searchParams.set("_reload", Date.now().toString());
+          window.location.replace(reloadUrl);
+        });
+
+        const startupTimeout = window.setTimeout(showStartupFailure, 15000);
+      })();
+    </script>
     <script type="module" src="./src/app.js"></script>
   </body>
 </html>

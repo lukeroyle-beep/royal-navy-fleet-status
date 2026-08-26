@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const distRoot = path.join(projectRoot, "dist");
 const html = fs.readFileSync(path.join(distRoot, "index.html"), "utf8");
+const headers = fs.readFileSync(path.join(distRoot, "_headers"), "utf8");
 const projectPath = "/royal-navy-fleet-status/";
 
 const scriptPaths = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map(
@@ -22,6 +23,18 @@ const builtJavascript = scriptPaths
   .join("\n");
 
 assert.ok(resourcePaths.length >= 2, "Pages build must include JavaScript and CSS resources.");
+assert.match(headers, /^\/\s+Cache-Control: no-store$/m, "Root HTML must not be cached.");
+assert.match(headers, /^\/\*\.html\s+Cache-Control: no-store$/m, "HTML files must not be cached.");
+assert.match(
+  headers,
+  /^\/assets\/\*\s+Cache-Control: public, max-age=31536000, immutable$/m,
+  "Fingerprinted assets must remain usable from the browser cache across deployments.",
+);
+assert.match(
+  headers,
+  /^\/data\/\*\s+Cache-Control: public, max-age=0, must-revalidate$/m,
+  "Public data must be revalidated.",
+);
 for (const resourcePath of resourcePaths) {
   assert.ok(
     resourcePath.startsWith(`${projectPath}assets/`),
