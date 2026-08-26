@@ -12,6 +12,10 @@ import {
   plottedVessels,
   shouldStackLayout,
 } from "../src/utils/map.js";
+import {
+  createMapInteractionProfile,
+  TOUCH_SAFARI_MAX_ZOOM,
+} from "../src/utils/mapInteraction.js";
 import { MapStartupViewGate } from "../src/utils/mapStartup.js";
 import { MapViewChangeGate } from "../src/utils/mapViewChange.js";
 import { projectPublicVessel } from "./lib/public-projection.mjs";
@@ -161,6 +165,30 @@ assert.deepEqual(mapFitPadding(390), [24, 24]);
 assert.deepEqual(mapFitPadding(620), [24, 24]);
 assert.deepEqual(mapFitPadding(621), [34, 34]);
 
+assert.deepEqual(
+  createMapInteractionProfile({ safari: true, mobile: true, reducedMotion: false }),
+  {
+    mobileSafari: true,
+    maxZoom: TOUCH_SAFARI_MAX_ZOOM,
+    zoomSnap: 1,
+    animationsEnabled: false,
+  },
+);
+assert.deepEqual(
+  createMapInteractionProfile({ safari: true, mobile: false, reducedMotion: false }),
+  {
+    mobileSafari: false,
+    maxZoom: 19,
+    zoomSnap: 0.1,
+    animationsEnabled: true,
+  },
+);
+assert.equal(
+  createMapInteractionProfile({ safari: false, mobile: true, reducedMotion: true })
+    .animationsEnabled,
+  false,
+);
+
 for (const width of [768, 820, 834, 1024]) {
   assert.equal(shouldStackLayout(width, 1366), true);
 }
@@ -208,10 +236,14 @@ assert.match(styles, /min-height:\s*44px/);
 assert.match(styles, /max-width:\s*1100px\)\s+and\s+\(orientation:\s*portrait/);
 assert.match(styles, /max-width:\s*700px/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
+assert.match(styles, /#fleetMap\.is-mobile-safari \.leaflet-tile-pane\s*{\s*filter:\s*none/);
 assert.match(mapComponent, /spiderfyOnMaxZoom:\s*true/);
 assert.match(mapComponent, /zoomToBoundsOnClick:\s*true/);
 assert.match(mapComponent, /minZoom:\s*0/);
-assert.match(mapComponent, /zoomSnap:\s*0\.1/);
+assert.match(mapComponent, /maxZoom:\s*this\.interactionProfile\.maxZoom/);
+assert.match(mapComponent, /zoomSnap:\s*this\.interactionProfile\.zoomSnap/);
+assert.match(mapComponent, /classList\.toggle\("is-mobile-safari"/);
+assert.match(mapComponent, /zoomAnimation:\s*this\.interactionProfile\.animationsEnabled/);
 assert.match(mapComponent, /padding:\s*mapFitPadding\(this\.container\.clientWidth\)/);
 assert.match(mapComponent, /getView\(\)/);
 assert.match(mapComponent, /getPublicView\(\)/);
@@ -220,7 +252,8 @@ assert.match(mapComponent, /completeStartupView\(view\)/);
 assert.match(mapComponent, /this\.map\.stop\(\)/);
 assert.match(mapComponent, /this\.viewChangeGate\.recordExternalViewChange\(view\)/);
 assert.match(mapComponent, /this\.map\.on\("moveend"/);
-assert.match(mapComponent, /ResizeObserver\(\(\) => this\.#preserveViewThroughResize\(\)\)/);
+assert.match(mapComponent, /ResizeObserver\(\(entries\) =>/);
+assert.match(mapComponent, /#queuePreserveViewThroughResize\(\)/);
 assert.match(
   mapComponent,
   /invalidateSize\(\{ animate: false, debounceMoveend: false, pan: false \}\)/,

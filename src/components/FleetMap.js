@@ -12,6 +12,7 @@ import {
   markerClassName,
   plottedVessels,
 } from "../utils/map.js";
+import { createMapInteractionProfile } from "../utils/mapInteraction.js";
 import { MapStartupViewGate } from "../utils/mapStartup.js";
 import { MapViewChangeGate } from "../utils/mapViewChange.js";
 
@@ -42,19 +43,27 @@ export class FleetMap {
     this.selectedId = null;
     this.selectedShoreId = null;
     this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.interactionProfile = createMapInteractionProfile({
+      safari: L.Browser.safari,
+      mobile: L.Browser.mobile,
+      reducedMotion: this.reducedMotion,
+    });
+    this.container.classList.toggle("is-mobile-safari", this.interactionProfile.mobileSafari);
+    this.resizeFrame = null;
+    this.lastContainerSize = [container.clientWidth, container.clientHeight];
 
     this.map = L.map(container, {
       center: DEFAULT_VIEW.centre,
       zoom: DEFAULT_VIEW.zoom,
       minZoom: 0,
-      maxZoom: 19,
-      zoomSnap: 0.1,
+      maxZoom: this.interactionProfile.maxZoom,
+      zoomSnap: this.interactionProfile.zoomSnap,
       worldCopyJump: true,
       zoomControl: false,
       keyboard: true,
-      zoomAnimation: !this.reducedMotion,
-      fadeAnimation: !this.reducedMotion,
-      markerZoomAnimation: !this.reducedMotion,
+      zoomAnimation: this.interactionProfile.animationsEnabled,
+      fadeAnimation: this.interactionProfile.animationsEnabled,
+      markerZoomAnimation: this.interactionProfile.animationsEnabled,
     });
 
     L.control.zoom({ position: "bottomright" }).addTo(this.map);
@@ -63,7 +72,7 @@ export class FleetMap {
     this.tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom: 19,
+      maxZoom: this.interactionProfile.maxZoom,
       detectRetina: false,
       updateWhenIdle: true,
     });
@@ -81,7 +90,7 @@ export class FleetMap {
     this.tiles.addTo(this.map);
 
     this.clusterGroup = L.markerClusterGroup({
-      animate: !this.reducedMotion,
+      animate: this.interactionProfile.animationsEnabled,
       animateAddingMarkers: false,
       chunkedLoading: false,
       maxClusterRadius: 48,
@@ -97,7 +106,7 @@ export class FleetMap {
     this.uncertaintyGroup = L.layerGroup().addTo(this.map);
 
     this.shoreClusterGroup = L.markerClusterGroup({
-      animate: !this.reducedMotion,
+      animate: this.interactionProfile.animationsEnabled,
       animateAddingMarkers: false,
       chunkedLoading: false,
       maxClusterRadius: 44,
@@ -111,11 +120,22 @@ export class FleetMap {
     this.unclusteredShoreGroup = L.layerGroup().addTo(this.map);
     this.shoreSelectionGroup = L.layerGroup().addTo(this.map);
 
-    this.resizeObserver = new ResizeObserver(() => this.#preserveViewThroughResize());
-    this.resizeObserver.observe(container);
-    window.addEventListener("orientationchange", () => {
-      window.setTimeout(() => this.#preserveViewThroughResize(), 100);
+    this.resizeObserver = new ResizeObserver((entries) => {
+      const rect = entries.at(-1)?.contentRect;
+      const nextSize = [
+        Math.round(rect?.width ?? this.container.clientWidth),
+        Math.round(rect?.height ?? this.container.clientHeight),
+      ];
+      if (
+        nextSize[0] === this.lastContainerSize[0] &&
+        nextSize[1] === this.lastContainerSize[1]
+      ) {
+        return;
+      }
+      this.lastContainerSize = nextSize;
+      this.#queuePreserveViewThroughResize();
     });
+    this.resizeObserver.observe(container);
     this.map.on("moveend", () => {
       const view = this.getView();
       if (
@@ -141,7 +161,9 @@ export class FleetMap {
 
   setView({ centre, zoom }, { animate = false } = {}) {
     this.map.stop();
-    this.map.setView(centre, zoom, { animate: animate && !this.reducedMotion });
+    this.map.setView(centre, zoom, {
+      animate: animate && this.interactionProfile.animationsEnabled,
+    });
   }
 
   completeStartupView(view) {
@@ -165,6 +187,14 @@ export class FleetMap {
         animate: false,
         reset: true,
       });
+    });
+  }
+
+  #queuePreserveViewThroughResize() {
+    if (this.resizeFrame !== null) window.cancelAnimationFrame(this.resizeFrame);
+    this.resizeFrame = window.requestAnimationFrame(() => {
+      this.resizeFrame = null;
+      this.#preserveViewThroughResize();
     });
   }
 
@@ -256,14 +286,16 @@ export class FleetMap {
     const marker = this.markers.get(vessel.id);
     if (marker) {
       const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
-      this.map.setView(marker.getLatLng(), contextualZoom, { animate: !this.reducedMotion });
+      this.map.setView(marker.getLatLng(), contextualZoom, {
+        animate: this.interactionProfile.animationsEnabled,
+      });
       marker.openTooltip();
       return;
     }
     const area = this.uncertaintyLayers.get(vessel.id);
     if (!area || !this.uncertaintyAreasVisible) return;
     this.map.fitBounds(area.getBounds(), {
-      animate: !this.reducedMotion,
+      animate: this.interactionProfile.animationsEnabled,
       maxZoom: 6,
       padding: mapFitPadding(this.container.clientWidth),
     });
@@ -283,7 +315,9 @@ export class FleetMap {
     const marker = this.shoreMarkers.get(establishment.id);
     if (!marker) return;
     const contextualZoom = Math.min(Math.max(this.map.getZoom(), 4), 7);
-    this.map.setView(marker.getLatLng(), contextualZoom, { animate: !this.reducedMotion });
+    this.map.setView(marker.getLatLng(), contextualZoom, {
+      animate: this.interactionProfile.animationsEnabled,
+    });
     marker.openTooltip();
   }
 
@@ -301,7 +335,8 @@ export class FleetMap {
     this.startupViewGate.runAutomaticFit(() => this.#resetView());
   }
 
-  #resetView({ animate = !this.reducedMotion } = {}) {
+  #resetView({ animate = this.interactionProfile.animationsEnabled } = {}) {
+    this.map.stop();
     const layers = [
       ...(this.fleetVisible
         ? this.visibleVessels.map((vessel) => this.markers.get(vessel.id)).filter(Boolean)
