@@ -10,7 +10,7 @@ export const FORBIDDEN_PUBLIC_FIELDS = Object.freeze([
   "confidenceReasons", "freshness", "diagnostics", "symbolicPosition", "unmappedReason",
   "publicLocation", "reviewState", "authorityTier", "citedSpans", "publicationEligible",
   "requiresHumanReview", "maximumPublicPrecision", "sourceHealth", "mandatoryNotChecked",
-  "lastKnownGood", "blockerType",
+  "lastKnownGood", "blockerType", "internalOnly",
 ]);
 
 const allowedFleetFields = new Set([
