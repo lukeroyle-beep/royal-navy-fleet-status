@@ -102,6 +102,7 @@ assert.match(html, /id="snapshotSelect"[^>]*aria-describedby="snapshotDescriptio
 assert.match(html, /id="snapshotDescription"[^>]*role="status"[^>]*aria-live="polite"/);
 assert.match(html, /id="changedOnlyToggle"[^>]*type="checkbox"[^>]*aria-describedby=/);
 assert.match(html, /<section id="detailSupplementary"[^>]*hidden/);
+assert.match(html, /id="detailSupplementary"[^>]*aria-labelledby="detailSupplementaryTitle"/);
 assert.match(html, /id="detailSupplementaryTitle">Vessel details<\/h3>/);
 assert.match(html, /<details id="vesselTimeline"[^>]*hidden/);
 assert.match(html, /<summary id="vesselTimelineTitle">Public status timeline<\/summary>/);
