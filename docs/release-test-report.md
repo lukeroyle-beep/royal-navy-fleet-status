@@ -6,7 +6,7 @@
 | --- | --- |
 | Commit SHA | Deployed `main` at `bd5cd752701591c80e707cb390303c9664d64591` |
 | Tester | User observations on physical iPhone and iPad hardware; Codex-assisted checks in current Chrome on the physical Mac mini |
-| Test date and time | 26 August 2026, through 20:18 Europe/London |
+| Test date and time | 26 August 2026, through 20:22 Europe/London |
 | Device | iPhone 12 Pro Max; iPad Pro 13-inch (M4); Mac mini (Apple M4) |
 | Operating system | iOS/iPadOS 26.6 as reported by the user; macOS 26.5 (build 25F71) |
 | Browser and version | iPhone and iPad Safari 26.6; Google Chrome 152.0.7977.64 |
@@ -20,9 +20,9 @@ Human VoiceOver and screen-reader testing is not a release requirement by owner 
 
 | Test ID | Result: Pass, Fail or Blocked | Observed defect | Screenshot or notes |
 | --- | --- | --- | --- |
-| RT-1 | Blocked | Private HTTPS is verified on desktop; the private iPhone and iPad observations are pending | The prescribed loopback Vite preview plus Tailscale Serve returned HTTP/2 200 for the HTML and compiled JavaScript and loaded 68 vessels without host, TLS, console or blank-page errors in Chrome. |
-| RT-2 | Blocked | Private mobile-device observations are pending | Private desktop Chrome displayed the plotted fleet and readable OpenStreetMap attribution with no horizontal page overflow. Physical production checks already confirmed the blue sea and attribution on iPhone and iPad. |
-| RT-3 | Blocked | Private mobile-device observations are pending | Private desktop pan, keyboard pan, Reset and zoom controls passed. On production, the physical iPhone completed five repeated discrete pinch-in and pinch-out gestures plus pan, Reset and both zoom buttons without a WebContent reload; the physical iPad also passed pinch, pan, Reset and both buttons. |
+| RT-1 | Pass | None | The prescribed loopback Vite preview plus Tailscale Serve returned HTTP/2 200 for the HTML and compiled JavaScript. It loaded without host, certificate, blank-page or loading errors in desktop Chrome and physical iPhone/iPad Safari. |
+| RT-2 | Pass | None | Private desktop Chrome and the private physical iPhone/iPad checks displayed the fleet map and readable OpenStreetMap attribution without horizontal page overflow. |
+| RT-3 | Pass | None | Pan, pinch/scroll, Reset and both zoom buttons remained responsive on the private desktop, iPhone and iPad candidate. The prior production iPhone stress check also completed five repeated discrete pinch-in and pinch-out gestures without a WebContent reload. |
 | RT-4 | Pass | None | Private desktop selection of HMS Duncan displayed its detail card and selected marker without changing the established contextual zoom unexpectedly. |
 | RT-5 | Pass | None | Private desktop selection expanded the HMS Dragon/RFA Lyme Bay co-location, kept both markers available, moved `is-selected` between them and retained zoom 2.5. The physical touch-device overlap scenario was also confirmed on the deployed site. |
 | RT-6 | Pass | None | Private desktop searches for `P234` and `HMS Duncan` each produced one matching vessel with synchronised count, list and plotted result. |
@@ -31,8 +31,8 @@ Human VoiceOver and screen-reader testing is not a release requirement by owner 
 | RT-9 | Pass | None | HMS Vigilant retained its existing point and accurately showed Unknown status; HMS Dauntless used only its labelled English Channel uncertainty region with no exact marker; withheld HMS Vengeance opened details without a marker or map movement and showed “Location not published”. |
 | RT-10 | Pass | None | Reset view restored the fleet-wide bounded view at zoom 2.5. |
 | RT-11 | Pass | None | Fleet overview, Deployed vessels, United Kingdom ports, Maintenance and refit, and Overseas presence each reported its active state, set coherent filters/layers and retained visible map content. |
-| RT-12 | Blocked | The production rotation check passed; the prescribed private iPad rotation observation is pending | On the deployed site, the physical iPad reflowed in portrait and landscape with right-side panels, no clipped content and no horizontal scrolling. |
-| RT-13 | Blocked | Production touch checks passed; the prescribed private mobile-device observation is pending | Physical iPhone and iPad map, panel, close, Reset and zoom targets responded without observed adjacent activation. |
+| RT-12 | Pass | None | On the private candidate, the physical iPad reflowed in portrait and landscape with responsive right-side panels, no clipped content and no horizontal scrolling. |
+| RT-13 | Pass | None | On the private candidate, physical iPhone and iPad Fleet, Layers, Filters, Compare, map, Reset and zoom targets responded without observed adjacent activation. |
 | RT-14 | Pass | None | At the 640 × 360 CSS-pixel 200%-zoom equivalent, all four toolbar controls remained visible and keyboard-operable without horizontal page scrolling; Enter opened each surface, Escape closed it and restored focus. This supports the earlier physical desktop Safari 200% zoom observation. |
 | RT-15 | Pass | None | After setting the Deployed filter plus fleet and shore layers, a navigation to the bare private address restored the supported choices, rewrote the versioned URL and produced no console error. |
 | RT-16 | Pass | None | A fresh in-app browser context opened the copied address and restored HMS Dragon, Deployed, fleet and shore layers, and the exact bounded `lat`, `lon` and `zoom` values with no console error. |
@@ -55,6 +55,10 @@ Filters and Compare remained responsive; portrait and landscape panels had no cl
 horizontal page scrolling. Vessel and shore details, the collapsed timeline, co-located marker
 selection and the right-side panel presentation were also confirmed.
 
+The same iPhone then opened the prescribed private HTTPS candidate without a host or certificate
+error. In portrait, Fleet, Layers, Filters, Compare, pan, discrete pinch, **Reset view** and both zoom
+buttons remained responsive.
+
 ## Physical iPad evidence
 
 The physical iPad is an iPad Pro 13-inch (M4) running iOS/iPadOS 26.6. On production, the user
@@ -63,6 +67,10 @@ in portrait and landscape. The layout retained right-side panels without clippin
 scrolling. Blue sea, readable OpenStreetMap attribution, pinch, pan, **Reset view** and both zoom
 buttons were confirmed. The user also verified the co-located marker correction and the revised
 detail-card presentation.
+
+The same iPad then opened the prescribed private HTTPS candidate without a host or certificate
+error. Fleet, Layers, Filters, Compare, pan, pinch, **Reset view** and both zoom buttons remained
+responsive in portrait and landscape, with no exception reported by the tester.
 
 ## Private desktop evidence
 
@@ -92,15 +100,14 @@ restored the ordinary artifact; a fresh load fetched tiles, hid the notice and d
 | IOS-CACHE-1 | Material, resolved, deployed and physically verified | Production stayed on “Loading” and controls did not respond in iPhone Safari. | The originally affected physical iPhone completed a clean production reload with no console errors, and Fleet responded before and after detaching Web Inspector. | Worker header rules prevent HTML caching while retaining fingerprinted assets; a startup guard exposes **Reload current version** if needed. |
 | IOS-MAP-1 | Material, resolved, deployed and physically verified | Continuous pinch zoom became laggy, froze the page and could trigger a silent Safari WebContent reload. | After PR #60, repeated pinch, pan, Reset, Fleet and both zoom controls remained responsive and navigation type stayed `navigate`. | Mobile Safari uses discrete release-to-zoom with bounded zoom and no continuous Leaflet touch transform. |
 | OVERLAP-1 | Material, resolved and deployed | Selecting one of two co-located vessels could hide or leave the wrong marker highlighted, and selection could zoom out unexpectedly. | HMS Dragon/RFA Lyme Bay were retested after PRs #66 and #67; both remain visible, highlight follows selection and the established zoom is retained. | Co-located selection has a stable spiderfied anchor/sibling layout and preserves contextual zoom. |
-| DEVICE-1 | Release-blocking | Prescribed private HTTPS observations remain incomplete on the physical iPhone and iPad. | Desktop private HTTPS and the complete desktop functional matrix pass; production physical iPhone/iPad interaction evidence is complete. | Open the temporary private address on the Tailscale-connected iPhone and iPad and record the applicable load, rotation, touch and panel results. |
+| DEVICE-1 | Release-blocking, resolved | Prescribed private HTTPS observations were initially incomplete on the physical iPhone and iPad. | The Tailscale-connected iPhone passed portrait loading, panel and map controls. The iPad passed the same checks in portrait and landscape, with no host, certificate, clipping, scrolling or responsiveness defect reported. | Completed and recorded on 26 August 2026. |
 
 ## Release decision
 
-- Decision: Blocked
-- Decided by: Not assigned
-- Date and time: Not assigned
-- Outstanding actions: Complete and record the prescribed private HTTPS checks on the physical
-  iPhone and iPad. Human VoiceOver or screen-reader testing is not required.
+- Decision: Pass
+- Decided by: Repository owner, based on the recorded user and Codex-assisted observations
+- Date and time: 26 August 2026, 20:22 Europe/London
+- Outstanding actions: None. Human VoiceOver or screen-reader testing is not required.
 
-Automated checks and production-device observations are supporting evidence. They do not turn the
-remaining private physical-device observations into a Pass.
+The required private physical-device, desktop, keyboard/focus, state, malformed-input and basemap
+failure/recovery observations are complete with no unresolved material defect.

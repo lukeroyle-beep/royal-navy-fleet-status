@@ -74,7 +74,7 @@ assert.match(checklist, /Landscape/);
 assert.match(checklist, /VoiceOver or screen-reader observations are not a release requirement/);
 assert.match(report, /Observed defect/);
 assert.match(report, /Screenshot or notes/);
-assert.match(report, /Decision: Blocked/);
+assert.match(report, /Decision: Pass/);
 assert.match(report, /physical iPhone and iPad/);
 assert.match(report, /physical Mac mini/);
 assert.match(report, /screen-reader testing is not a release requirement/);
