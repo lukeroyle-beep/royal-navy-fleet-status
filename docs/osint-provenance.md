@@ -137,8 +137,13 @@ also emits a conservative maximum-public-precision cap; missing location support
   boundary described in [`private-input-boundary.md`](private-input-boundary.md); it is never supplied
   to public CI.
 - The manual ingestion command appends evidence but intentionally does not publish a new conclusion. An analyst must create and validate an assessment revision.
-- X/API, AIS, port-feed and archive schedulers are deferred until credentials, terms, rate limits, retention and operating ownership are approved. Public publisher index discovery is scheduled, but evidence review and publication remain manual and owner-reviewed.
-- Perceptual image deduplication, satellite automation, route inference, geofencing and impossible-speed checks are deferred until evidence has reliable capture times and coordinates.
+- X/API, port-feed and archive schedulers are deferred until credentials, terms, rate limits,
+  retention and operating ownership are approved. AIS and Copernicus now have disabled internal
+  validation/proof-of-concept paths only; see
+  [`external-corroboration-evaluation.md`](external-corroboration-evaluation.md).
+- Perceptual image deduplication, satellite automation and route inference remain deferred. The
+  disabled AIS validator now rejects invalid, stale, out-of-order, out-of-bounds and implausible
+  position reports.
 - Forty-one official-social coverage rows remain disabled; each registry review must repeat exact unit-page verification before enabling an account.
 
 ## Research references

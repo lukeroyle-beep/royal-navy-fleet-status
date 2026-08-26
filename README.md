@@ -181,8 +181,10 @@ The checks validate the source/evidence/assessment graph, prove the public proje
 enforce the dated decision/history/publication contracts, reject invalid coordinates and unsafe
 submarine positions, and scan built assets for internal provenance or source exposure.
 
-The server-authorised private evidence-health view is documented separately in
-[`docs/private-evidence-health.md`](docs/private-evidence-health.md).
+Private operational tooling is documented separately: the server-authorised evidence-health view in
+[`docs/private-evidence-health.md`](docs/private-evidence-health.md), and the disabled AIS/Copernicus
+evaluation in
+[`docs/external-corroboration-evaluation.md`](docs/external-corroboration-evaluation.md).
 
 ## Data maintenance
 
