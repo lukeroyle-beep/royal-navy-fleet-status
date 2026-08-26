@@ -74,8 +74,6 @@ const elements = {
   layersToggle: document.querySelector("#layersToggle"),
   filterToggle: document.querySelector("#filterToggle"),
   filterBadge: document.querySelector("#filterBadge"),
-  shareButton: document.querySelector("#shareButton"),
-  shareStatus: document.querySelector("#shareStatus"),
   changesToggle: document.querySelector("#changesToggle"),
   changesCount: document.querySelector("#changesCount"),
   changesPanel: document.querySelector("#changesPanel"),
@@ -316,8 +314,6 @@ function bindDataset() {
   for (const button of elements.presetButtons) {
     button.addEventListener("click", () => applyPublicPreset(button.dataset.publicPreset));
   }
-  elements.shareButton.addEventListener("click", copyShareableView);
-
   const initialState =
     parsePublicUrlState(window.location.href, publicStateCatalog) ??
     readPersistedPublicState(publicStorage, publicStateCatalog);
@@ -1029,45 +1025,6 @@ function syncPublicState() {
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", active.toString());
   }
-}
-
-async function copyShareableView() {
-  syncPublicState();
-  const url = createShareablePublicUrl(
-    window.location.href,
-    currentPublicState(),
-    publicStateCatalog,
-  ).href;
-  let copied = false;
-  try {
-    await navigator.clipboard.writeText(url);
-    copied = true;
-  } catch {
-    copied = copyTextFallback(url);
-  }
-  elements.shareStatus.textContent = copied
-    ? "Shareable view link copied."
-    : "Copy was unavailable. Copy the address from the browser bar.";
-  window.setTimeout(() => {
-    elements.shareStatus.textContent = "";
-  }, 5000);
-}
-
-function copyTextFallback(value) {
-  const input = document.createElement("textarea");
-  input.value = value;
-  input.setAttribute("readonly", "");
-  input.className = "copy-helper";
-  document.body.append(input);
-  input.select();
-  let copied = false;
-  try {
-    copied = document.execCommand("copy");
-  } catch {
-    copied = false;
-  }
-  input.remove();
-  return copied;
 }
 
 function getPublicStorage() {
