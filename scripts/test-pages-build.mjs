@@ -15,6 +15,11 @@ const stylesheetPaths = [...html.matchAll(/<link[^>]+rel="stylesheet"[^>]*>/g)].
   (match) => match[0].match(/href="([^"]+)"/)?.[1],
 );
 const resourcePaths = [...scriptPaths, ...stylesheetPaths].filter(Boolean);
+const builtJavascript = scriptPaths
+  .map((resourcePath) =>
+    fs.readFileSync(path.join(distRoot, resourcePath.slice(projectPath.length)), "utf8"),
+  )
+  .join("\n");
 
 assert.ok(resourcePaths.length >= 2, "Pages build must include JavaScript and CSS resources.");
 for (const resourcePath of resourcePaths) {
@@ -44,5 +49,21 @@ assert.equal(
   "Weekly availability history must remain outside the current public build.",
 );
 assert.doesNotMatch(html, /(?:src|href)="\/assets\//, "Pages resources must not use root asset paths.");
+assert.ok(
+  builtJavascript.includes(projectPath),
+  "Pages JavaScript must embed the configured project base path for runtime data requests.",
+);
+for (const dataPath of [
+  "vessels.json",
+  "shore-establishments.json",
+  "publication-changes.json",
+  "status-history.jsonl",
+  "status-history-catalog.json",
+]) {
+  assert.ok(
+    builtJavascript.includes(`data/royal-navy/${dataPath}`),
+    `Pages JavaScript must retain the runtime request for ${dataPath}.`,
+  );
+}
 
 console.log("GitHub Pages build checks passed.");
