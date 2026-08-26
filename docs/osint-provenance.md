@@ -20,7 +20,10 @@ The model adapts four practical principles:
 The implementation deliberately avoids a database or heavyweight PROV/RDF layer. Four JSON records provide the smallest useful boundary:
 
 1. `vessels.json`: canonical identity, strong aliases and optional pennant/IMO/MMSI/callsign identifiers.
-2. `sources.json`: central source identity, category, publisher/account, officiality evidence, reliability tier, collection mode, terms notes and enabled state. It also records the complete 71-vessel official-X review.
+2. `sources.json`: central source identity, category, publisher/account, officiality evidence,
+   reliability tier, collection mode, terms notes and enabled state. Its operational records add
+   frequency, attempt/success/result times, failure count, retrieval method, mandatory state and
+   vessel/family/alias coverage. It also records the complete 68-vessel official-X review.
 3. `evidence.json`: immutable source claims with retrieval/publication/observation time semantics, origin cluster, content hash, directness, geographic precision and correction links.
 4. `assessments.json`: versioned conclusions with selected, excluded and conflicting evidence, categorical confidence, freshness rationale, method/assessor and previous-assessment linkage.
 
@@ -38,17 +41,24 @@ The implementation deliberately avoids a database or heavyweight PROV/RDF layer.
 
 ## Source universe and lawful collection
 
-The registry contains 120 governed source records, a 71-vessel official-social coverage matrix and these implemented collection classes:
+The registry contains 120 governed source records, a 68-vessel official-social coverage matrix and these implemented collection classes:
 
 - official MOD/GOV.UK and NATO releases;
 - Royal Navy, DefenceHQ and DefenceHQPress organisation accounts;
-- 71 vessel-account coverage records from the roster-wide official-page review: 25 enabled, three legacy, one registry-only, one provisional and 41 disabled;
+- 68 vessel-account coverage records from the roster-wide official-page review, including
+  machine-tested `@HMS_Spey` and `@HMSTrent` entries;
 - official harbour/dockyard and defence-contractor news;
 - licensed MarineTraffic and VesselFinder API entries, disabled until credentials/licence approval;
 - MarineVesselTraffic NATO Navy Ships as a manual discovery-only source;
 - official imagery, credible media and AIS-derived legacy sources classified by tier and collection mode.
 
 No X scraping, commercial-page scraping, media downloading, satellite automation, webcam automation or automatic archive submission is implemented. X requires an authorised API for automation. Commercial AIS terms and public-output licences require procurement review. Visual material needs copyright, geolocation and chronolocation review. A manual evidence-ingestion command provides a maintainable lawful alternative and fails closed on unknown source/vessel IDs, malformed URLs, hashes or timestamps.
+
+`npm run sweep:coverage` produces the machine-readable account-gap report and the manual discovery
+queues for official Royal Navy/RFA, GOV.UK/MOD, YouTube, NATO/allied government, embassy/exercise,
+port, Google News RSS, GDELT, general/local news and named maritime publishers. Discovery queues do
+not confer evidence status and record access or terms failures instead of converting them to “no
+change”.
 
 The scheduled public-index collector makes one read-only `GET` request to each explicitly allowlisted
 publisher index or feed. It uses a bounded timeout and response size, accepts only expected document
@@ -78,7 +88,7 @@ Collection and assessment stay outside page requests. The page fetches one gener
 `npm run sweep:collect -- --output=<run.json>` creates a versioned sweep run and collects only the
 allowlisted public publisher indexes. The scheduled GitHub workflow uploads this incomplete run as an
 artifact; it has read-only repository permission and cannot commit, ingest or publish. Buzz or an
-analyst must separately record every required recurring manual-source check and all 71 vessel
+analyst must separately record every required recurring manual-source check and all 68 vessel
 outcomes. Newly governed sources and normalised evidence are added before an `updated` outcome is
 finalised. Candidate assessment revisions and the target release date/revision must exist before
 finalisation so the run can derive and bind every vessel outcome to the exact reviewed state.
@@ -89,7 +99,7 @@ the approved non-destructive migration state, an unset root continues to use
 
 The release gate applies to dataset dates from 24 August 2026. It requires the sweep roster and source
 hashes to match the proposed release, the exact required target sets to be present, no pending or
-blocked checks, all 71 vessel outcomes, and an explicit finalisation timestamp. Gate-effective runs
+blocked checks, all 68 vessel outcomes, and an explicit finalisation timestamp. Gate-effective runs
 capture self-contained registry, discovery-target, roster, public-projection and current-assessment
 baselines. CI authenticates a newly added baseline against the pull request base commit and keeps
 previously committed runs append-only. The authenticated prior release date also sets the latest
@@ -104,6 +114,12 @@ outcome bindings, including that selected evidence was retrieved no later than i
 vessel review and finalisation. It then evaluates only the latest finalised sweep eligible at the
 release instant. A valid typed
 blocker preserves the failure for audit but cannot authorise an `asOfDate` advance.
+
+Runs created from 26 August 2026 also require authenticated-prior-snapshot, source-family-volume,
+cutoff, late-discovery, duplicate-origin and contradiction integrity decisions. Finalisation records
+`complete-with-changes`, `complete-no-supported-changes`, `partial`, `degraded` or `failed`; only the
+two complete outcomes are publication eligible. A critical source failure is therefore visible and
+cannot silently advance a zero-change snapshot.
 
 ## Known limitations and deferred work
 

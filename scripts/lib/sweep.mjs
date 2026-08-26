@@ -7,6 +7,16 @@ import {
 
 export const SWEEP_RUN_SCHEMA_VERSION = "2.0.0";
 export const COVERAGE_GATE_EFFECTIVE_DATE = "2026-08-24";
+export const COMPLETENESS_V2_EFFECTIVE_DATE = "2026-08-26";
+
+const INTEGRITY_CHECK_DEFINITIONS = Object.freeze([
+  ["prior-snapshot", "Authenticate the prior public snapshot and comparison baseline."],
+  ["source-family-volume", "Review source-family result volumes for material anomalies."],
+  ["cutoff", "Confirm every finding is evaluated against the recorded sweep cutoff."],
+  ["late-discovery", "Reconcile pre-cutoff evidence discovered after the initial pass."],
+  ["duplicate-origin", "Cluster duplicate, syndicated and common-origin discoveries."],
+  ["contradiction", "Resolve or explicitly retain every contradictory candidate for review."],
+]);
 
 const RECURRING_MANUAL_SOURCE_IDS = new Set([
   "MARINEVESSELTRAFFIC_NATO_DISCOVERY",
@@ -290,8 +300,17 @@ export function createSweepRun({
       notes: null,
       blocker: null,
     })),
+    integrityChecks: coverageDate >= COMPLETENESS_V2_EFFECTIVE_DATE
+      ? createCompletenessIntegrityChecks()
+      : null,
     coverage: null,
     complete: false,
+    result: {
+      classification: "partial",
+      publicationEligible: false,
+      evaluatedAt: null,
+      reasons: ["Sweep collection and review are incomplete."],
+    },
   };
   run.coverage = evaluateSweepCoverage(run, { registry, entities, discoveryTargets });
   return run;
@@ -376,6 +395,7 @@ export function validateSweepRunShape(run) {
   if (run.runId !== expectedRunId) throw new Error("Sweep runId does not match its immutable inputs.");
   validateCheckArray(run.discoveryChecks, "targetId");
   validateCheckArray(run.sourceChecks, "sourceId");
+  validateIntegrityChecks(run.integrityChecks, run.coverageDate);
   if (!Array.isArray(run.vesselOutcomes) || !run.vesselOutcomes.length) {
     throw new Error("Sweep run has no vessel outcomes.");
   }
@@ -577,6 +597,9 @@ function evaluateSweepCoverageAgainstInputs(
   for (const entry of run.vesselOutcomes) {
     if (entry.state !== "complete") reasons.push(`${entry.vesselId} outcome is ${entry.state}`);
   }
+  for (const entry of run.integrityChecks || []) {
+    if (entry.state !== "complete") reasons.push(`integrity check ${entry.checkId} is ${entry.state}`);
+  }
   if (Array.isArray(evidenceItems)) {
     const evidenceById = new Map(evidenceItems.map((item) => [item.evidenceId, item]));
     for (const entry of run.vesselOutcomes) {
@@ -587,7 +610,7 @@ function evaluateSweepCoverageAgainstInputs(
       }
     }
   }
-  return {
+  const coverage = {
     pass: reasons.length === 0,
     reasons,
     requiredDiscoveryChecks: run.discoveryChecks.filter((entry) => entry.required).length,
@@ -602,6 +625,114 @@ function evaluateSweepCoverageAgainstInputs(
     completedVesselOutcomes: run.vesselOutcomes.filter((entry) => entry.state === "complete").length,
     blockerCount: [...allChecks, ...run.vesselOutcomes].filter((entry) => entry.state === "blocked").length,
   };
+  if (Array.isArray(run.integrityChecks)) {
+    coverage.completedIntegrityChecks = run.integrityChecks.filter(
+      (entry) => entry.state === "complete",
+    ).length;
+    coverage.requiredIntegrityChecks = run.integrityChecks.length;
+  }
+  return coverage;
+}
+
+export function createCompletenessIntegrityChecks() {
+  return INTEGRITY_CHECK_DEFINITIONS.map(([checkId, description]) => ({
+    checkId,
+    description,
+    required: true,
+    state: "pending",
+    checkedAt: null,
+    outcome: null,
+    notes: null,
+    blocker: null,
+  }));
+}
+
+export function completeSweepIntegrityCheck(
+  run,
+  checkId,
+  { checkedAt, outcome = "passed", notes },
+) {
+  requireTimestamp(checkedAt, `Integrity check ${checkId} completion`);
+  if (!new Set(["passed", "reviewed-no-anomaly", "reconciled"]).has(outcome)) {
+    throw new Error(`Integrity check ${checkId} has an invalid outcome.`);
+  }
+  if (typeof notes !== "string" || !notes.trim()) {
+    throw new Error(`Integrity check ${checkId} requires review notes.`);
+  }
+  const check = run.integrityChecks?.find((entry) => entry.checkId === checkId);
+  if (!check) throw new Error(`Unknown integrity check ${checkId}.`);
+  Object.assign(check, {
+    state: "complete",
+    checkedAt,
+    outcome,
+    notes: notes.trim(),
+    blocker: null,
+  });
+  return run;
+}
+
+export function classifySweepResult(run, coverage = run.coverage) {
+  if (!coverage || typeof coverage.pass !== "boolean") {
+    throw new Error("Sweep classification requires a coverage decision.");
+  }
+  if (coverage.pass) {
+    const changed = run.vesselOutcomes.some((entry) => entry.outcome === "updated");
+    return {
+      classification: changed ? "complete-with-changes" : "complete-no-supported-changes",
+      publicationEligible: true,
+      reasons: [],
+    };
+  }
+
+  const required = [
+    ...run.discoveryChecks.filter((entry) => entry.required),
+    ...run.sourceChecks.filter((entry) => entry.required),
+    ...(run.integrityChecks || []).filter((entry) => entry.required),
+  ];
+  const blocked = required.filter((entry) => entry.state === "blocked");
+  const complete = required.filter((entry) => entry.state === "complete");
+  let classification = "partial";
+  if (blocked.length && complete.length === 0) classification = "failed";
+  else if (blocked.length) classification = "degraded";
+  return {
+    classification,
+    publicationEligible: false,
+    reasons: [...new Set(coverage.reasons)],
+  };
+}
+
+export function findSourceFamilyVolumeAnomalies(currentCounts, baselineCounts, {
+  minimumRatio = 0.25,
+  maximumRatio = 4,
+} = {}) {
+  const families = [...new Set([
+    ...Object.keys(currentCounts || {}),
+    ...Object.keys(baselineCounts || {}),
+  ])].sort();
+  return families.flatMap((family) => {
+    const current = Number(currentCounts?.[family] || 0);
+    const baseline = Number(baselineCounts?.[family] || 0);
+    if (baseline === 0) return [];
+    const ratio = current / baseline;
+    if (ratio >= minimumRatio && ratio <= maximumRatio) return [];
+    return [{ family, current, baseline, ratio, state: "requires-review" }];
+  });
+}
+
+export function findLateDiscoveredCandidates(candidates, cutoff) {
+  requireTimestamp(cutoff, "Sweep cutoff");
+  return (candidates || [])
+    .filter((candidate) => {
+      const publishedAt = Date.parse(candidate.publishedAt);
+      const receivedAt = Date.parse(candidate.receivedAt || candidate.retrievedAt);
+      return Number.isFinite(publishedAt) &&
+        Number.isFinite(receivedAt) &&
+        publishedAt <= Date.parse(cutoff) &&
+        receivedAt > Date.parse(cutoff);
+    })
+    .map((candidate) => candidate.candidateId || candidate.evidenceId)
+    .filter(Boolean)
+    .sort();
 }
 
 export function validateReleaseSweepGate({
@@ -749,6 +880,10 @@ export function finaliseSweepRun(
   run.complete = coverage.pass;
   run.completedAt = coverage.pass ? completedAt : null;
   run.releaseContentHash = coverage.pass ? releaseContentHash : null;
+  run.result = {
+    ...classifySweepResult(run, coverage),
+    evaluatedAt: completedAt,
+  };
   if (outcomeBindings) {
     for (const outcome of run.vesselOutcomes) {
       outcome.assessmentId = outcomeBindings.get(outcome.vesselId);
@@ -1051,6 +1186,7 @@ function validateRunEventTimestamps(run, upperBound) {
     [run.discoveryChecks, "checkedAt", "Discovery check"],
     [run.sourceChecks, "checkedAt", "Source check"],
     [run.vesselOutcomes, "reviewedAt", "Vessel outcome"],
+    [run.integrityChecks || [], "checkedAt", "Integrity check"],
   ];
 
   for (const [entries, timestampField, groupLabel] of groups) {
@@ -1072,6 +1208,26 @@ function validateRunEventTimestamps(run, upperBound) {
           completedAt,
         );
       }
+    }
+  }
+}
+
+function validateIntegrityChecks(entries, coverageDate) {
+  if (
+    coverageDate < COMPLETENESS_V2_EFFECTIVE_DATE &&
+    (entries === null || entries === undefined)
+  ) return;
+  if (!Array.isArray(entries)) {
+    throw new Error("Gate-effective sweep has no completeness integrity checks.");
+  }
+  const expectedIds = INTEGRITY_CHECK_DEFINITIONS.map(([checkId]) => checkId);
+  if (JSON.stringify(entries.map((entry) => entry.checkId)) !== JSON.stringify(expectedIds)) {
+    throw new Error("Sweep completeness integrity checks do not match the required set.");
+  }
+  for (const entry of entries) {
+    validateState(entry, new Set(["passed", "reviewed-no-anomaly", "reconciled"]), `Integrity ${entry.checkId}`);
+    if (entry.state === "complete" && (typeof entry.notes !== "string" || !entry.notes.trim())) {
+      throw new Error(`Integrity ${entry.checkId} has no review notes.`);
     }
   }
 }

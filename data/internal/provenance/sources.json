@@ -2889,5 +2889,2857 @@
       "enabled": true,
       "notes": "@RFATideforce; verified/enabled"
     }
+  ],
+  "operations": [
+    {
+      "sourceId": "AGAMEMNON_DELIVERY_2026",
+      "name": "UK Parliament",
+      "type": "official-uk-government",
+      "urlOrQueryTemplate": "https://questions-statements.parliament.uk/written-questions/detail/2026-06-16/10515",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-uk-government"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "ARCHER_CLASS_OFFICIAL",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/equipment/ships/archer-class",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "BABCOCK_MARINE_NEWS",
+      "name": "Babcock International",
+      "type": "defence-contractor",
+      "urlOrQueryTemplate": "https://www.babcockinternational.com/news/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "defence-contractor"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "feed",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "BANGOR_CLYDE_2018",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2018/august/31/180831-bangor-returns-after-3-year-deployment",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "BANGOR_MARINA_SOCIAL",
+      "name": "Bangor Marina",
+      "type": "port-harbour-dockyard",
+      "urlOrQueryTemplate": "https://www.facebook.com/bangormarina/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "port-harbour-dockyard"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Manual review only; no Facebook scraping or browser automation. Retain canonical post URL, date, origin attribution, content hash and only the minimum excerpt needed.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "BITER_FOYLE_2026",
+      "name": "newsletter.co.uk",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.newsletter.co.uk/news/defence/around-2000-people-boarded-royal-navy-boat-docked-in-londonderry-during-festival-despite-republican-protests-8777672",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "BLAZER_EXPLOIT_FLANDERS_2024",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2024/september/25/20240925-no-waffle-all-action-for-rn-patrol-boats-in-north-sea-exercise",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "BROCKLESBY_PORTSMOUTH_2026",
+      "name": "forcesnews.com",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.forcesnews.com/services/navy/minehunter-hms-brocklesby-leaves-portsmouth-sea-trials-after-three-year-refit",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CATTISTOCK_POOLE_2024",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2024/may/10/20240510-freedom-of-poole-for-hms-cattistock",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CFS_BALTIC_AUG_2025",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2025/august/21/20250821-back-to-the-baltic-for-royal-navys-patrol-ships",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CFS_BALTIC_JUNE_2025",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2025/june/19/20250619-royal-navy-rescue-swedish-submarine",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CFS_SCOTLAND_2020",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2020/july/30/200730-p2000-summer-deployment",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CSG_NEPTUNE_2026",
+      "name": "Navy Lookout",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/royal-navy-carrier-strike-group-spearheads-nato-arctic-deterrence-mission/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CSG_RETURN_PORTSMOUTH_2026",
+      "name": "v2radio.co.uk",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.v2radio.co.uk/news/west-sussex/hms-prince-of-wales-and-hms-duncan-return-to-portsmouth-after-arctic-mission/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "CUTLASS_GIBRALTAR_2022",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2022/may/18/20220518-hms-dasher-and-pursuer-complete-gib-mission-as-cutlass-and-dagger-take-over",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "DAGGER_GIBRALTAR_2026",
+      "name": "yourgibraltartv.com",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.yourgibraltartv.com/daily/rngs-exercise-hercules-vanguard",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "DARING_PORTSMOUTH_2026",
+      "name": "guernseypress.com",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://guernseypress.com/news/2026/07/31/hms-daring-to-return-to-the-active-fleet-this-year-says-mp",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "DAUNTLESS_ORION_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/february/20/20260220-hms-dauntless-completes-tough-workout-with-the-french-carrier-group",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "DEFENDER_PORTSMOUTH_2026",
+      "name": "shipspotting.com",
+      "type": "verified-visual",
+      "urlOrQueryTemplate": "https://www.shipspotting.com/photos/3958118",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "verified-visual"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "DIAMOND_PORTSMOUTH_2024",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2024/july/06/240706-hms-diamond-returns-home-from-historic-mission-in-the-red-sea-and-gulf-of-aden",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "DRAGON_LYME_BAY_MIDEAST_2026",
+      "name": "Royal Fleet Auxiliary / Royal Navy",
+      "type": "official-rfa",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/23/20260623-lyme-bay-suez-transit",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-rfa"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "FLEET_RETIREMENT_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/july/13/20260713-honouring-service-preparing-for-the-future",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "FORCES_NEWS_NAVY_INDEX",
+      "name": "Forces News",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.forcesnews.com/services/navy",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "feed",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. One read-only request to the public Navy index for discovery; article promotion remains manual. Retain candidate links and hashes; retain only minimum excerpts for promoted evidence.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "FRIGATE_STATUS_2026",
+      "name": "Navy Lookout",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/another-warship-quietly-withdrawn-royal-navy-now-down-to-just-5-frigates/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "HMNB_CLYDE_OFFICIAL",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/locations-and-operations/bases-and-stations/hmnb-clyde",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "HMS_DAUNTLESS_AIS_2026",
+      "name": "myshiptracking.com",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://www.myshiptracking.com/vessels/hms-dauntless-mmsi-234586000-imo-",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. No automation without an authorised provider API and licence. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "IRON_DUKE_PORTSMOUTH_2024",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2024/december/20/20241220-hms-portland-and-iron-duke-complete-autumn-deployments",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "KENT_DEVONPORT_2024",
+      "name": "linkedin.com",
+      "type": "defence-contractor",
+      "urlOrQueryTemplate": "https://www.linkedin.com/posts/babcock-international-group_hms-kent-has-arrived-in-dry-dock-at-our-devonport-activity-7216365791896596480-cKO-",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "defence-contractor"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "LEDBURY_CHANNEL_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/15/20260615-royal-navy-leads-boarding-operation-on-shadow-fleet-tanker",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MAGPIE_IRISH_SEA_2018",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2018/april/24/180424-new-survey-ship-hms-magpie-on-sea-trials",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MARINETRAFFIC_API",
+      "name": "MarineTraffic",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://servicedocs.marinetraffic.com/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MARINEVESSELTRAFFIC_NATO_DISCOVERY",
+      "name": "MarineVesselTraffic",
+      "type": "aggregator-discovery",
+      "urlOrQueryTemplate": "https://www.marinevesseltraffic.com/NATO-navy-ships",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "aggregator-discovery"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "MEDWAY_FALKLANDS_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/08/20260608-hms-medway-completes-midwinter-mercy-dash-to-worlds-remotest-island",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MIDDLETON_FALMOUTH_REFIT_2026",
+      "name": "forcesnews.com",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.forcesnews.com/services/navy/hms-middleton-goes-dry-dock-falmouth-refit-after-uk-wide-tour",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MOD_GOV_UK",
+      "name": "Ministry of Defence",
+      "type": "official-uk-government",
+      "urlOrQueryTemplate": "https://www.gov.uk/government/organisations/ministry-of-defence",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-uk-government"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "feed",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MOUNTS_BAY_PORTLAND_2026",
+      "name": "dorsetecho.co.uk",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.dorsetecho.co.uk/news/26417955.got-go-inside-rfa-mounts-bay-portland-port/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "MOUNTS_BAY_SEA_TRIALS_2026",
+      "name": "Forces News",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.forcesnews.com/services/navy/boost-royal-navy-rfa-mounts-bay-returns-sea-after-year-long-refit-complete",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "NATO_NEWS",
+      "name": "NATO",
+      "type": "official-allied-or-nato",
+      "urlOrQueryTemplate": "https://www.nato.int/cps/en/natohq/news.htm",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-allied-or-nato"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "feed",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "NAVY_LOOKOUT_INDEX",
+      "name": "Navy Lookout",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "feed",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. One read-only request to the public site or feed for discovery; item promotion remains manual. Retain candidate links and hashes; retain only minimum excerpts for promoted evidence.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "NAVY_LOOKOUT_SOCIAL",
+      "name": "Navy Lookout",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/NavyLookout",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised platform API only; manual search-index and post review otherwise. Retain direct post URL, platform timestamp, content hash, minimum excerpt and the credited original observer.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PHD_VICTORY_CURRENT_2026",
+      "name": "historicdockyard.co.uk",
+      "type": "port-harbour-dockyard",
+      "urlOrQueryTemplate": "https://historicdockyard.co.uk/attractions/hms-victory/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "port-harbour-dockyard"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PORTLAND_DEVONPORT_2024",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2024/december/20/20241220-hms-portland-and-iron-duke-complete-autumn-deployments",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PORTSMOUTH_HARBOUR_AUTHORITY",
+      "name": "King's Harbour Master Portsmouth",
+      "type": "port-harbour-dockyard",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/khm/portsmouth",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "port-harbour-dockyard"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "PORTSMOUTH_HARBOUR_PHOTOGRAPHY",
+      "name": "Portsmouth Harbour Photography",
+      "type": "verified-visual",
+      "urlOrQueryTemplate": "https://www.facebook.com/PortsmouthHarbourPhotography/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "verified-visual"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Manual review only; no Facebook scraping or browser automation. Retain canonical post URL, observation date, content hash and only the minimum excerpt needed.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PROTECTOR_TEES_2026",
+      "name": "ukdocks.com",
+      "type": "port-harbour-dockyard",
+      "urlOrQueryTemplate": "https://www.ukdocks.com/new-blog/2026/1/14/uk-docks-teesside-team-praised-by-hms-protectors-captain-weaver",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "port-harbour-dockyard"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PROTEUS_LYME_BAY_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/18/20260618-navy-survey-team-tests-new-underwater-sensor",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PUNCHER_SMITER_BALTOPS_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/26/20260626-baltops2026",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "PWLS_RETURN_PORTSMOUTH_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/july/25/20260725-pwls-crew",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "QE_ARF_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/july/07/20260707-royal-navy-takes-charge-of-nato-naval-reaction-force",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RAIDER_MARYPORT_2026",
+      "name": "newsandstar.co.uk",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.newsandstar.co.uk/news/26243675.royal-navy-patrol-ship-hms-raider-wows-visitors-maryport-marina/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RANGER_WEYMOUTH_2021",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2021/march/18/20210318-p2000s",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RFA_PROTEUS_AIS_2026",
+      "name": "myshiptracking.com",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://www.myshiptracking.com/vessels/rfa-proteus-mmsi-232047056-imo-0",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. No automation without an authorised provider API and licence. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RFA_STATUS_2026",
+      "name": "Navy Lookout",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/rfa-head-of-service-outlines-workforce-recovery-and-plan-to-return-ships-to-sea/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RICHMOND_DEVONPORT_2024",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2024/march/28/20240328-battle-proven-hms-richmond-returns-home-to-plymouth-from-red-sea-mission",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RN_FALKLANDS_SWAP_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/january/19/20260119-its-goodbye-from-forth-hello-from-medway-as-patrol-ships-swap-places-in-falklands",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RN_OFFICIAL_SHIPS",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/equipment/ships",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "RN_VICTORY_PORTSMOUTH_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/may/22/20260522-coins-found-under-hms-victory-mast",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "ROYAL_NAVY_NEWS_INDEX",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-24. Manual public-index and search review only; automated requests are blocked by the publisher edge and must not be bypassed. Retain candidate links and hashes; retain only minimum excerpts for promoted evidence.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "ROYAL_NAVY_UNIT_PAGES",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/organisation/surface-fleet",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Manual review of public unit pages; no dynamic-site bypass or unpublished endpoint collection. Retain canonical unit URL, retrieval time, content hash and only minimum status wording.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "RUSSIAN_LIVE_FIRE_JULY_2026",
+      "name": "Forces News",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.forcesnews.com/services/navy/royal-navy-monitor-russian-warship-conducting-live-fire-exercise-plymouth-coast",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "RUSSIAN_WATCH_JUNE_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/26/20260625-fre-round-up",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SCOTT_DEVONPORT_AIS_2026",
+      "name": "maritimeoptima.com",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://maritimeoptima.com/public/vessels/pages/imo%3A9127289/mmsi%3A233844000/HMS_SCOTT.html",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. No automation without an authorised provider API and licence. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SCOTT_FALMOUTH_2026",
+      "name": "navylookout.com",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/hms-scott-finally-goes-back-to-sea-on-completion-of-life-extension-refit/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SEA_BREEZE_2026",
+      "name": "Navy Lookout",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/sea-breeze-2026-the-royal-navy-hosts-ukraine-and-allies-to-build-mine-warfare-expertise/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SEA_CADETS_NORTHERN_IRELAND",
+      "name": "Sea Cadets Northern Ireland",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.facebook.com/SeaCadetsNorthern/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Manual review only; no Facebook scraping or browser automation. Retain canonical post URL, date, origin attribution, content hash and only the minimum excerpt needed.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SEAWAVES_CHIDDINGFOLD_PORTSMOUTH_2025",
+      "name": "seawaves.com",
+      "type": "verified-visual",
+      "urlOrQueryTemplate": "https://seawaves.com/wp-content/uploads/2025/07/2025-Navcall-5.pdf",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "verified-visual"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SOMERSET_DEVONPORT_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/august/08/20260807-uk-armed-forces-step-up-monitoring-of-increased-russian-activity-in-uk-waters",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SPEY_SE_ASIA_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/may/18/20260518-hms-spey-back-in-south-east-asia",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SSN_STATUS_2026",
+      "name": "Navy Lookout",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://www.navylookout.com/royal-navy-attack-submarine-fleet-update-all-boats-alongside/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "ST_ALBANS_AIS_2026",
+      "name": "maritimeoptima.com",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://maritimeoptima.com/public/vessels/pages/imo%3A8949721/mmsi%3A232002833/WARSHIP.html",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. No automation without an authorised provider API and licence. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "ST_ALBANS_CETO_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/april/09/20260409-royal-navy-monitors-russian-warships-and-submarine-in-uk-waters",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "SUTHERLAND_CHANNEL_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/15/20260615-royal-navy-leads-boarding-operation-on-shadow-fleet-tanker",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TAMAR_PACIFIC_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/march/06/20260306-hms-tamar-ready-for-south-pacific-mission-after-passing-thorough-assessment-in-australia",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TAMAR_SUVA_2026",
+      "name": "fbcnews.com.fj",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.fbcnews.com.fj/news/uk-fiji-strengthens-ties-at-hms-tamar-reception/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TIDEFORCE_UK_WATERS_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/may/06/20260506-royal-navy-keep-uk-waters-safe-from-russian-warship",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TIDESPRING_PORTLAND_2026",
+      "name": "dorsetecho.co.uk",
+      "type": "local-or-national-media",
+      "urlOrQueryTemplate": "https://www.dorsetecho.co.uk/news/26417955.got-go-inside-rfa-mounts-bay-portland-port/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "local-or-national-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TIDESURGE_CHANNEL_2025",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2025/december/11/20251112-royal-navy-tracks-russian-submarine-during-three-day-operation",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TRACKER_CLYDE_2025",
+      "name": "flickr.com",
+      "type": "verified-visual",
+      "urlOrQueryTemplate": "https://www.flickr.com/photos/113339808@N08/54615946396",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "verified-visual"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TRENT_AIS_2026",
+      "name": "myshiptracking.com",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://www.myshiptracking.com/vessels/hms-trent-mmsi-232005754-imo-0",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. No automation without an authorised provider API and licence. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TRENT_TAMPA_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/june/25/20260625-trent-in-tampa",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "TYPE45_STATUS_2026",
+      "name": "UK Defence Journal",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://ukdefencejournal.org.uk/three-of-six-type-45-destroyers-operational/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "UK_MONITORING_AUG_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2026/august/08/20260807-uk-armed-forces-step-up-monitoring-of-increased-russian-activity-in-uk-waters",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "VANGUARD_RETURN_CLYDE_2026",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/ballistic-submarines/hms-vanguard",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "VESSELFINDER_API",
+      "name": "VesselFinder",
+      "type": "licensed-ais",
+      "urlOrQueryTemplate": "https://www.vesselfinder.com/terms",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "licensed-ais"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "B",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "VICTORIOUS_DMP_2025",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2025/may/23/20250523-victorious-milestone-as-submarine-enters-devonport",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review; use feeds or APIs only where offered and permitted. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "VIGILANT_FASLANE_2025",
+      "name": "Royal Navy",
+      "type": "official-royal-navy",
+      "urlOrQueryTemplate": "https://www.royalnavy.mod.uk/news/2025/october/10/20251010-vigilant-crew-hosts-affiliates-in-faslane-as-thank-you-for-support",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-royal-navy"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Manual review only unless a permitted feed or API is separately approved. Retain canonical URL, retrieval time, content hash and only permitted excerpts.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "WESTWARD_SHIPPING_NEWS_FEED",
+      "name": "Westward Shipping News",
+      "type": "specialist-media",
+      "urlOrQueryTemplate": "https://westwardshippingnews.com/feed/",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "specialist-media"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "C",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "feed",
+      "licenceAndTermsNotes": "Reviewed 2026-08-24. One read-only request to the public RSS feed for discovery; article or visual promotion remains manual. Retain candidate links and hashes; retain only minimum excerpts for promoted evidence.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DEFENCEHQ",
+      "name": "Ministry of Defence",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/DefenceHQ",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_DEFENCEHQPRESS",
+      "name": "Ministry of Defence Press Office",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/DefenceHQPress",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_ARCHER",
+      "name": "@HMSArcher",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSArcher",
+      "coverage": {
+        "vesselIds": [
+          "hms-archer"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSArcher",
+          "P264",
+          "HMS Archer",
+          "Archer"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_BLAZER",
+      "name": "@hms_blazer",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hms_blazer",
+      "coverage": {
+        "vesselIds": [
+          "hms-blazer"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hms_blazer",
+          "P279",
+          "HMS Blazer",
+          "Blazer"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_CATTISTOCK",
+      "name": "@HMSCattistock",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSCattistock",
+      "coverage": {
+        "vesselIds": [
+          "hms-cattistock"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSCattistock",
+          "M31",
+          "HMS Cattistock",
+          "Cattistock"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_CHIDDINGFOLD",
+      "name": "@HMSChiddingfold",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSChiddingfold",
+      "coverage": {
+        "vesselIds": [
+          "hms-chiddingfold"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSChiddingfold",
+          "M37",
+          "HMS Chiddingfold",
+          "Chiddingfold"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_DASHER",
+      "name": "@HmsDasher",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HmsDasher",
+      "coverage": {
+        "vesselIds": [
+          "hms-dasher"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HmsDasher",
+          "P280",
+          "HMS Dasher",
+          "Dasher"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_DIAMOND",
+      "name": "@hmsdiamond",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hmsdiamond",
+      "coverage": {
+        "vesselIds": [
+          "hms-diamond"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hmsdiamond",
+          "D34",
+          "HMS Diamond",
+          "Diamond"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_DRAGON",
+      "name": "@HMSDragon",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSDragon",
+      "coverage": {
+        "vesselIds": [
+          "hms-dragon"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSDragon",
+          "D35",
+          "HMS Dragon",
+          "Dragon"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_DUNCAN",
+      "name": "@HMSDuncan",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSDuncan",
+      "coverage": {
+        "vesselIds": [
+          "hms-duncan"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSDuncan",
+          "D37",
+          "HMS Duncan",
+          "Duncan"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_EXAMPLE",
+      "name": "@HMSExample",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSExample",
+      "coverage": {
+        "vesselIds": [
+          "hms-example"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSExample",
+          "P165",
+          "HMS Example",
+          "Example"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_EXPLOIT",
+      "name": "@HMSExploit",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSExploit",
+      "coverage": {
+        "vesselIds": [
+          "hms-exploit"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSExploit",
+          "P167",
+          "HMS Exploit",
+          "Exploit"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_IRON_DUKE",
+      "name": "@HMSIronDuke",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSIronDuke",
+      "coverage": {
+        "vesselIds": [
+          "hms-iron-duke"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSIronDuke",
+          "F234",
+          "HMS Iron Duke",
+          "Iron Duke"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_LEDBURY",
+      "name": "@HMSLedbury",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSLedbury",
+      "coverage": {
+        "vesselIds": [
+          "hms-ledbury"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSLedbury",
+          "M30",
+          "HMS Ledbury",
+          "Ledbury"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_MAGPIE",
+      "name": "@hms_magpie",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hms_magpie",
+      "coverage": {
+        "vesselIds": [
+          "hms-magpie"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hms_magpie",
+          "H130",
+          "HMS Magpie",
+          "Magpie"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_MIDDLETON",
+      "name": "@HMSMiddleton",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSMiddleton",
+      "coverage": {
+        "vesselIds": [
+          "hms-middleton"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSMiddleton",
+          "M34",
+          "HMS Middleton",
+          "Middleton"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_PORTLAND",
+      "name": "@HMSPortland",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSPortland",
+      "coverage": {
+        "vesselIds": [
+          "hms-portland"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSPortland",
+          "F79",
+          "HMS Portland",
+          "Portland"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_PUNCHER",
+      "name": "@HMSPuncher",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSPuncher",
+      "coverage": {
+        "vesselIds": [
+          "hms-puncher"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSPuncher",
+          "P291",
+          "HMS Puncher",
+          "Puncher"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_QUEEN_ELIZABETH",
+      "name": "@HMSQnlz",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSQnlz",
+      "coverage": {
+        "vesselIds": [
+          "hms-queen-elizabeth"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSQnlz",
+          "R08",
+          "HMS Queen Elizabeth",
+          "Queen Elizabeth"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_RAIDER",
+      "name": "@HMS_Raider",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Raider",
+      "coverage": {
+        "vesselIds": [
+          "hms-raider"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Raider",
+          "P275",
+          "HMS Raider",
+          "Raider"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_RICHMOND",
+      "name": "@HMS_Richmond",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Richmond",
+      "coverage": {
+        "vesselIds": [
+          "hms-richmond"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Richmond",
+          "F239",
+          "HMS Richmond",
+          "Richmond"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_SMITER",
+      "name": "@HMS_Smiter",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Smiter",
+      "coverage": {
+        "vesselIds": [
+          "hms-smiter"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Smiter",
+          "P272",
+          "HMS Smiter",
+          "Smiter"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_SOMERSET",
+      "name": "@HMSSomerset",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSSomerset",
+      "coverage": {
+        "vesselIds": [
+          "hms-somerset"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSSomerset",
+          "F82",
+          "HMS Somerset",
+          "Somerset"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_SPEY",
+      "name": "@HMS_Spey",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Spey",
+      "coverage": {
+        "vesselIds": [
+          "hms-spey"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Spey",
+          "P234",
+          "HMS Spey",
+          "Spey"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_STIRLING_CASTLE",
+      "name": "@HMS_Str_Castle",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Str_Castle",
+      "coverage": {
+        "vesselIds": [
+          "hms-stirling-castle"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Str_Castle",
+          "M01",
+          "HMS Stirling Castle",
+          "Stirling Castle"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_TRENT",
+      "name": "@HMSTrent",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSTrent",
+      "coverage": {
+        "vesselIds": [
+          "hms-trent"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSTrent",
+          "P224",
+          "HMS Trent",
+          "Trent"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_CARDIGAN_BAY",
+      "name": "@RFACardiganBay",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFACardiganBay",
+      "coverage": {
+        "vesselIds": [
+          "rfa-cardigan-bay"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFACardiganBay",
+          "L3009",
+          "RFA Cardigan Bay",
+          "Cardigan Bay"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_LYME_BAY",
+      "name": "@RFALymeBay",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFALymeBay",
+      "coverage": {
+        "vesselIds": [
+          "rfa-lyme-bay"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFALymeBay",
+          "L3007",
+          "RFA Lyme Bay",
+          "Lyme Bay"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_PROTEUS",
+      "name": "@RFAProteus",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFAProteus",
+      "coverage": {
+        "vesselIds": [
+          "rfa-proteus"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFAProteus",
+          "K60",
+          "RFA Proteus",
+          "Proteus"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_TIDEFORCE",
+      "name": "@RFATideforce",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFATideforce",
+      "coverage": {
+        "vesselIds": [
+          "rfa-tideforce"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFATideforce",
+          "A139",
+          "RFA Tideforce",
+          "Tideforce"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_TIDESPRING",
+      "name": "@RFATidespring",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFATidespring",
+      "coverage": {
+        "vesselIds": [
+          "rfa-tidespring"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFATidespring",
+          "A136",
+          "RFA Tidespring",
+          "Tidespring"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_TIDESURGE",
+      "name": "@RFATidesurge",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFATidesurge",
+      "coverage": {
+        "vesselIds": [
+          "rfa-tidesurge"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFATidesurge",
+          "A138",
+          "RFA Tidesurge",
+          "Tidesurge"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_ROYAL_NAVY",
+      "name": "Royal Navy",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/RoyalNavy",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": []
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "manual",
+      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "mandatory": true
+    }
   ]
 }
