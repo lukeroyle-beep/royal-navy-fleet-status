@@ -8,7 +8,8 @@ export const FORBIDDEN_PUBLIC_FIELDS = Object.freeze([
   "conflictingEvidenceIds", "rationale", "analystNotes", "internalNotes", "rawPost",
   "rawContent", "contentHash", "originId", "accountHandle", "assessor", "confidenceLevel",
   "confidenceReasons", "freshness", "diagnostics", "symbolicPosition", "unmappedReason",
-  "publicLocation",
+  "publicLocation", "reviewState", "authorityTier", "citedSpans", "publicationEligible",
+  "requiresHumanReview", "maximumPublicPrecision",
 ]);
 
 const allowedFleetFields = new Set([

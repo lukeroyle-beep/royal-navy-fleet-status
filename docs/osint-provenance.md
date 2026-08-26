@@ -121,6 +121,14 @@ cutoff, late-discovery, duplicate-origin and contradiction integrity decisions. 
 two complete outcomes are publication eligible. A critical source failure is therefore visible and
 cannot silently advance a zero-change snapshot.
 
+Deterministic evidence processing is implemented in `scripts/lib/evidence-processing.mjs`. It emits
+explainable canonical-name, alias, account and pennant matches; keeps ambiguous/unmatched items
+unresolved; extracts publication and event times separately; clusters exact/common-origin copies;
+retains conflicting fields; grades candidates from explicit source/evidence properties; and routes
+new, stale, contradictory, unmatched and low-support items to private queues. A model suggestion must
+cite exact input spans, preserves missing fields as null and is never publication eligible. Grading
+also emits a conservative maximum-public-precision cap; missing location support forces `none`.
+
 ## Known limitations and deferred work
 
 - Unreassessed migrated evidence retains legacy source material, but its former date field did not prove whether it represented publication or observation. It remains explicitly historical and unknown-confidence; no time is manufactured to make the map appear fresher.
