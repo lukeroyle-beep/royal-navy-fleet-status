@@ -35,6 +35,7 @@ import {
   formatVesselResultSummary,
   resolveSnapshotTransitionSelection,
 } from "./utils/interface.js";
+import { publicAssetUrl } from "./utils/assetUrl.js";
 import {
   PORT_SHORE_FILTER,
   PUBLIC_PRESETS,
@@ -50,11 +51,11 @@ import {
 } from "./utils/publicState.js";
 import "./styles.css";
 
-const DATA_URL = "./data/royal-navy/vessels.json";
-const SHORE_DATA_URL = "./data/royal-navy/shore-establishments.json";
-const CHANGES_URL = "./data/royal-navy/publication-changes.json";
-const HISTORY_URL = "./data/royal-navy/status-history.jsonl";
-const HISTORY_CATALOG_URL = "./data/royal-navy/status-history-catalog.json";
+const DATA_URL = publicAssetUrl("data/royal-navy/vessels.json");
+const SHORE_DATA_URL = publicAssetUrl("data/royal-navy/shore-establishments.json");
+const CHANGES_URL = publicAssetUrl("data/royal-navy/publication-changes.json");
+const HISTORY_URL = publicAssetUrl("data/royal-navy/status-history.jsonl");
+const HISTORY_CATALOG_URL = publicAssetUrl("data/royal-navy/status-history-catalog.json");
 const CLASS_PRIORITY = [
   "Type 45 / Daring class",
   "Type 23 / Duke class",

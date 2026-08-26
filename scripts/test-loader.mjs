@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import { validateFleet } from "../src/components/ScenarioLoader.js";
+import { publicAssetUrl } from "../src/utils/assetUrl.js";
 import {
   formatLocationPrecision,
   formatLocationState,
@@ -21,6 +22,12 @@ const precisionFixtures = JSON.parse(
 const page = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const detailsPanel = fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8");
 const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
+
+assert.equal(publicAssetUrl("data/royal-navy/vessels.json", "/"), "/data/royal-navy/vessels.json");
+assert.equal(
+  publicAssetUrl("/data/royal-navy/vessels.json", "/royal-navy-fleet-status/"),
+  "/royal-navy-fleet-status/data/royal-navy/vessels.json",
+);
 
 assert.match(page, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
 assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
