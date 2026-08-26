@@ -181,6 +181,9 @@ The checks validate the source/evidence/assessment graph, prove the public proje
 enforce the dated decision/history/publication contracts, reject invalid coordinates and unsafe
 submarine positions, and scan built assets for internal provenance or source exposure.
 
+The server-authorised private evidence-health view is documented separately in
+[`docs/private-evidence-health.md`](docs/private-evidence-health.md).
+
 ## Data maintenance
 
 Do not edit `data/royal-navy/vessels.json` as the system of record. Resolve the vessel and source
