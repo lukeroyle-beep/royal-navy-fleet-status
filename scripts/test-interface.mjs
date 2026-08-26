@@ -140,6 +140,10 @@ assert.match(html, /id="filterBadge"[^>]*hidden/);
 assert.match(html, /id="resetFilters"[^>]*hidden/);
 assert.match(app, /formatVesselResultSummary/);
 assert.match(app, /surfaceController\.open\("detail"/);
+assert.match(
+  app,
+  /onSelect: \(vessel\) => selectVessel\(vessel, \{ source: "map", focusMap: false \}\)/,
+);
 assert.match(app, /fleetMap\.selectVessel\(vessel, \{ focus: focusMap \}\)/);
 assert.match(app, /if \(initial\) \{\s*fleetMap\.completeStartupView\(state\.map\);/);
 assert.match(app, /resolvePublicSelection\(publicStateCatalog, state\)/);
@@ -160,6 +164,13 @@ assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);
 assert.match(details, /this\.supplementaryTitle\.textContent = "Vessel details"/);
 assert.match(details, /this\.supplementaryTitle\.textContent = "Establishment details"/);
+assert.match(
+  details,
+  /const entries = \[\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\]/s,
+);
+const primaryDetailsBlock = details.match(/const primaryEntries = \[[\s\S]*?\n    \];/)?.[0];
+assert.ok(primaryDetailsBlock);
+assert.doesNotMatch(primaryDetailsBlock, /\["Class"|\["Type"/);
 assert.match(details, /this\.timeline\.open = false/);
 assert.doesNotMatch(details, /\["Last public report",/);
 assert.match(styles, /\.vessel-timeline > summary::after\s*\{\s*content:\s*"\+"/);

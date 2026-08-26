@@ -64,11 +64,11 @@ export class EventDetailsPanel {
       ["Location", vessel.publicLocationLabel],
       ["Public location status", formatLocationState(vessel.locationState)],
       ["Geographic precision", formatLocationPrecision(vessel.locationPrecision)],
-      ["Class", vessel.vesselClass],
-      ["Type", vessel.vesselType],
       ["Snapshot", formatSnapshotDate(asOfDate)],
     ];
     const entries = [
+      ["Class", vessel.vesselClass],
+      ["Type", vessel.vesselType],
       ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Commission date", vessel.commissionedDate || "Not recorded"],
     ];
