@@ -110,6 +110,8 @@ assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
 assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
 assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
 assert.match(styles, /\.surface-backdrop\s*\{\s*display:\s*none;/);
+assert.match(styles, /@media \(max-width: 700px\)[\s\S]*width:\s*min\(340px, calc\(100% - 18px\)\)/);
+assert.doesNotMatch(styles, /\.surface-header::before|max-height:\s*min\(72dvh/);
 assert.match(styles, /grid-auto-columns:\s*minmax\(0, 1fr\)/);
 assert.match(details, /getVesselPublicTimeline/);
 for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle", "uncertaintyLayerToggle"]) {

@@ -16,7 +16,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Progressive vessel details with status, supported public location and snapshot date; detailed provenance remains outside the client projection
 - Clear confirmed, last-reported, unconfirmed, no-recent-information and withheld public location states, separated from port, city, region and list-only precision
 - Automated dataset validation and production-build checks
-- Responsive desktop drawers, compact iPad side panels and touch-oriented phone bottom sheets
+- Responsive desktop drawers and compact right-side panels on iPad and phone layouts
 - Versioned local preferences, five public view presets and validated shareable map links
 
 ## Map controls
