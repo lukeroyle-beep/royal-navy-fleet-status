@@ -5,7 +5,7 @@
 | Field | Value |
 | --- | --- |
 | Scope | Restore live, gesture-midpoint pinch scaling on mobile Safari while retaining the PR #59 rendering and map-state safeguards |
-| Candidate | `codex/issue-36-smooth-pinch`; pull request and exact head commit to be recorded when published |
+| Candidate | PR #70 from `codex/issue-36-smooth-pinch`; implementation commit `1f281ff58822a70e3f71d31c7547604c2d8c02a0` |
 | Previous mitigation | PR #60 deliberately replaced continuous Leaflet transforms with bounded release-to-zoom after the original iPhone freeze |
 | Successor implementation | Issue #69 removes that discrete interface and re-enables continuous Leaflet touch zoom without re-enabling animations or increasing the mobile-Safari zoom limit |
 | Automated evidence | Local `npm test`, `npm run build` and `npm run build:pages` passed on 27 August 2026; production and Pages client-exposure scans passed across 117 built files; branch CI and Workers checks pending |
