@@ -7,6 +7,10 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const distRoot = path.join(projectRoot, "dist");
 const html = fs.readFileSync(path.join(distRoot, "index.html"), "utf8");
 const headers = fs.readFileSync(path.join(distRoot, "_headers"), "utf8");
+const completion = fs.readFileSync(
+  path.join(distRoot, "docs", "fleet-tracker-programme-completion.md"),
+  "utf8",
+);
 const projectPath = "/royal-navy-fleet-status/";
 
 const scriptPaths = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map(
@@ -23,6 +27,11 @@ const builtJavascript = scriptPaths
   .join("\n");
 
 assert.ok(resourcePaths.length >= 2, "Pages build must include JavaScript and CSS resources.");
+assert.match(
+  completion,
+  /^# Fleet tracker programme completion$/m,
+  "Pages artifact must contain the programme completion document.",
+);
 assert.match(headers, /^\/\s+Cache-Control: no-store$/m, "Root HTML must not be cached.");
 assert.match(headers, /^\/\*\.html\s+Cache-Control: no-store$/m, "HTML files must not be cached.");
 assert.match(
@@ -34,6 +43,11 @@ assert.match(
   headers,
   /^\/data\/\*\s+Cache-Control: public, max-age=0, must-revalidate$/m,
   "Public data must be revalidated.",
+);
+assert.match(
+  headers,
+  /^\/docs\/\*\s+Cache-Control: no-store$/m,
+  "Release documentation must not be retained across deployments.",
 );
 for (const resourcePath of resourcePaths) {
   assert.ok(

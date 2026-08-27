@@ -43,6 +43,10 @@ const discoveryCollector = fs.readFileSync(
   new URL("./collect-public-indexes.mjs", import.meta.url),
   "utf8",
 );
+const releaseDocCopier = fs.readFileSync(
+  new URL("./copy-release-docs.mjs", import.meta.url),
+  "utf8",
+);
 const viteConfig = fs.readFileSync(new URL("../vite.config.js", import.meta.url), "utf8");
 const indexHtml = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const appSource = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
@@ -65,6 +69,9 @@ const completion = fs.readFileSync(
 assert.match(packageJson.scripts["build:pages"], /--base=\/royal-navy-fleet-status\//);
 assert.match(packageJson.scripts.build, /validate:history/);
 assert.match(packageJson.scripts.build, /validate:changes/);
+assert.match(packageJson.scripts.build, /copy-release-docs\.mjs/);
+assert.match(packageJson.scripts["build:pages"], /copy-release-docs\.mjs/);
+assert.match(releaseDocCopier, /fleet-tracker-programme-completion\.md/);
 assert.match(packageJson.scripts["preview:private"], /private-preview\.mjs/);
 assert.match(viteConfig, /allowedHosts:\s*privatePreviewHost \? \[privatePreviewHost\] : \[\]/);
 assert.match(workflow, /npm run build:pages/);
@@ -96,7 +103,7 @@ assert.match(
 for (const child of [34, 37, 38, 39, 40, 41, 42, 43, 44, 48, 69]) {
   assert.match(completion, new RegExp(`\\[#${child}\\]`));
 }
-for (const pullRequest of [35, 45, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70]) {
+for (const pullRequest of [35, 45, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71]) {
   assert.match(completion, new RegExp(`(?:PR #|\\[#)${pullRequest}`));
 }
 for (const mergeCommit of [
@@ -122,6 +129,7 @@ for (const mergeCommit of [
   "c252df39abc3b2c74167338afc22a54f414c586f",
   "bd5cd752701591c80e707cb390303c9664d64591",
   "999560c4a33e8dc319c8764f3f1536881206af97",
+  "d9566fc524b19e952c5800482fd7e2bda80d156b",
 ]) {
   assert.match(completion, new RegExp(mergeCommit));
 }

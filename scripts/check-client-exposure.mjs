@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 
 import { scanPublicExposure } from "./lib/client-exposure.mjs";
@@ -5,6 +6,14 @@ import { repositoryRootPath, resolvePrivateInputs } from "./lib/private-inputs.m
 
 const root = repositoryRootPath();
 const registry = resolvePrivateInputs().readJson("sources");
+const completionPath = path.join(root, "dist", "docs", "fleet-tracker-programme-completion.md");
+if (!fs.existsSync(completionPath)) {
+  throw new Error("The built artifact is missing the fleet tracker programme completion document.");
+}
+const completion = fs.readFileSync(completionPath, "utf8");
+if (!completion.startsWith("# Fleet tracker programme completion\n")) {
+  throw new Error("The built programme completion document is not the expected Markdown artifact.");
+}
 const count = scanPublicExposure({
   rootDirectory: path.join(root, "dist"),
   registry,
