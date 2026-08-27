@@ -96,6 +96,8 @@ See [`docs/private-input-boundary.md`](docs/private-input-boundary.md) for local
 synthetic-only CI, backup/recovery gates, credential rotation and sanitised release steps.
 See [`docs/public-geographic-precision.md`](docs/public-geographic-precision.md) for the public state,
 geometry and submarine publication safeguards.
+See [`docs/fleet-tracker-programme-completion.md`](docs/fleet-tracker-programme-completion.md) for
+the programme's exact issue, pull-request, merge, release and deferred-work ledger.
 
 ## Run locally
 

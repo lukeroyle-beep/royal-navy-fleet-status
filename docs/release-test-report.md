@@ -1,5 +1,18 @@
 # Private release test report
 
+## Subsequent continuous-pinch experiment
+
+Issue #69 and PR #70 deliberately retested continuous Leaflet pinch on the prescribed iPhone 12 Pro
+Max and iPad Pro 13-inch (M4), both using Safari/iOS/iPadOS 26.6. Local tests, both builds, exposure
+scans, GitHub CI, Workers Builds and branch-preview browser checks passed. On the distinct physical
+commit preview, live scaling returned, but both devices again developed lag, freezing and
+unresponsive controls and markers. No map-view jump was observed.
+
+The owner selected PR #60's physically verified **Release to zoom** behavior for both iPhone and
+iPad. PR #70 was closed without merge on 27 August 2026, production was unchanged, and no rollback
+was required. Mobile zoom, fade, marker and cluster animations remain disabled under PR #59's safety
+profile. This rejected experiment does not change the stable release decision recorded below.
+
 ## Release candidate
 
 | Field | Value |
