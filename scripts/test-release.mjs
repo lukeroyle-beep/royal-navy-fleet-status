@@ -103,7 +103,7 @@ assert.match(
 for (const child of [34, 37, 38, 39, 40, 41, 42, 43, 44, 48, 69]) {
   assert.match(completion, new RegExp(`\\[#${child}\\]`));
 }
-for (const pullRequest of [35, 45, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71]) {
+for (const pullRequest of [35, 45, 46, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 70, 71, 72]) {
   assert.match(completion, new RegExp(`(?:PR #|\\[#)${pullRequest}`));
 }
 for (const mergeCommit of [
@@ -130,6 +130,7 @@ for (const mergeCommit of [
   "bd5cd752701591c80e707cb390303c9664d64591",
   "999560c4a33e8dc319c8764f3f1536881206af97",
   "d9566fc524b19e952c5800482fd7e2bda80d156b",
+  "82d9b4a682dab8a16b9a5f4b9c59b12782926db8",
 ]) {
   assert.match(completion, new RegExp(mergeCommit));
 }
