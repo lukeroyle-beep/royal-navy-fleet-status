@@ -16,7 +16,6 @@ import {
 } from "../src/utils/map.js";
 import {
   createMapInteractionProfile,
-  discretePinchZoomTarget,
   TOUCH_SAFARI_MAX_ZOOM,
 } from "../src/utils/mapInteraction.js";
 import { MapStartupViewGate } from "../src/utils/mapStartup.js";
@@ -197,8 +196,7 @@ assert.deepEqual(
     maxZoom: TOUCH_SAFARI_MAX_ZOOM,
     zoomSnap: 1,
     animationsEnabled: false,
-    continuousTouchZoom: false,
-    discreteTouchZoom: true,
+    continuousTouchZoom: true,
   },
 );
 assert.deepEqual(
@@ -209,7 +207,16 @@ assert.deepEqual(
     zoomSnap: 0.1,
     animationsEnabled: true,
     continuousTouchZoom: true,
-    discreteTouchZoom: false,
+  },
+);
+assert.deepEqual(
+  createMapInteractionProfile({ safari: false, mobile: true, reducedMotion: false }),
+  {
+    mobileSafari: false,
+    maxZoom: 19,
+    zoomSnap: 0.1,
+    animationsEnabled: true,
+    continuousTouchZoom: true,
   },
 );
 assert.equal(
@@ -217,32 +224,6 @@ assert.equal(
     .animationsEnabled,
   false,
 );
-assert.equal(
-  discretePinchZoomTarget({ startZoom: 10, startDistance: 100, endDistance: 150 }),
-  11,
-);
-assert.equal(
-  discretePinchZoomTarget({ startZoom: 10, startDistance: 100, endDistance: 50 }),
-  9,
-);
-assert.equal(
-  discretePinchZoomTarget({ startZoom: 10, startDistance: 100, endDistance: 110 }),
-  10,
-);
-assert.equal(
-  discretePinchZoomTarget({
-    startZoom: 15,
-    startDistance: 100,
-    endDistance: 800,
-    maxZoom: TOUCH_SAFARI_MAX_ZOOM,
-  }),
-  TOUCH_SAFARI_MAX_ZOOM,
-);
-assert.equal(
-  discretePinchZoomTarget({ startZoom: 8, startDistance: 0, endDistance: 200 }),
-  8,
-);
-
 for (const width of [768, 820, 834, 1024]) {
   assert.equal(shouldStackLayout(width, 1366), true);
 }
@@ -292,7 +273,7 @@ assert.match(styles, /max-width:\s*700px/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(styles, /#fleetMap\.is-mobile-safari \.leaflet-tile-pane\s*{\s*filter:\s*none/);
 assert.match(styles, /#fleetMap\.is-mobile-safari\s*{\s*touch-action:\s*none/);
-assert.match(styles, /\.map-pinch-hint\s*{/);
+assert.doesNotMatch(styles, /\.map-pinch-hint\s*{/);
 assert.match(mapComponent, /spiderfyOnMaxZoom:\s*true/);
 assert.match(mapComponent, /zoomToBoundsOnClick:\s*true/);
 assert.match(mapComponent, /minZoom:\s*0/);
@@ -301,9 +282,15 @@ assert.match(mapComponent, /zoomSnap:\s*this\.interactionProfile\.zoomSnap/);
 assert.match(mapComponent, /classList\.toggle\("is-mobile-safari"/);
 assert.match(mapComponent, /zoomAnimation:\s*this\.interactionProfile\.animationsEnabled/);
 assert.match(mapComponent, /touchZoom:\s*this\.interactionProfile\.continuousTouchZoom/);
-assert.match(mapComponent, /#installDiscreteTouchZoom\(\)/);
-assert.match(mapComponent, /Release to zoom/);
-assert.match(mapComponent, /setZoomAround\(pinch\.point, targetZoom, false\)/);
+assert.match(mapComponent, /#installPostPinchClickSuppression\(\)/);
+assert.match(mapComponent, /touchstart", observeTouchStart, \{ passive: true \}/);
+assert.match(mapComponent, /touchend", observeTouchFinish, \{ passive: true \}/);
+assert.match(mapComponent, /touchcancel", observeTouchFinish, \{ passive: true \}/);
+assert.match(mapComponent, /suppressNextClick = false/);
+assert.match(mapComponent, /event\.stopImmediatePropagation\(\)/);
+assert.doesNotMatch(mapComponent, /touchmove|Release to zoom|setZoomAround\(pinch/);
+assert.doesNotMatch(mapComponent, /passive: false/);
+assert.doesNotMatch(mapComponent, /discreteTouchZoom|installDiscreteTouchZoom/);
 assert.match(mapComponent, /padding:\s*mapFitPadding\(this\.container\.clientWidth\)/);
 assert.match(mapComponent, /getView\(\)/);
 assert.match(mapComponent, /getPublicView\(\)/);

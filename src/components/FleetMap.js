@@ -14,10 +14,7 @@ import {
   markerClassName,
   plottedVessels,
 } from "../utils/map.js";
-import {
-  createMapInteractionProfile,
-  discretePinchZoomTarget,
-} from "../utils/mapInteraction.js";
+import { createMapInteractionProfile } from "../utils/mapInteraction.js";
 import { MapStartupViewGate } from "../utils/mapStartup.js";
 import { MapViewChangeGate } from "../utils/mapViewChange.js";
 
@@ -25,13 +22,6 @@ const DEFAULT_VIEW = {
   centre: [28, 0],
   zoom: 2,
 };
-
-function touchDistance(firstTouch, secondTouch) {
-  return Math.hypot(
-    firstTouch.clientX - secondTouch.clientX,
-    firstTouch.clientY - secondTouch.clientY,
-  );
-}
 
 export class FleetMap {
   constructor({ container, notice, onSelect, onSelectEstablishment, onViewChange = () => {} }) {
@@ -81,7 +71,7 @@ export class FleetMap {
       markerZoomAnimation: this.interactionProfile.animationsEnabled,
     });
 
-    if (this.interactionProfile.discreteTouchZoom) this.#installDiscreteTouchZoom();
+    if (this.interactionProfile.mobileSafari) this.#installPostPinchClickSuppression();
 
     L.control.zoom({ position: "bottomright" }).addTo(this.map);
     this.map.attributionControl.setPrefix(false);
@@ -216,74 +206,31 @@ export class FleetMap {
     });
   }
 
-  #installDiscreteTouchZoom() {
-    const pinch = {
-      active: false,
-      point: null,
-      startDistance: 0,
-      endDistance: 0,
-      startZoom: 0,
-      suppressClickUntil: 0,
-    };
-    const hint = document.createElement("div");
-    hint.className = "map-pinch-hint";
-    hint.textContent = "Release to zoom";
-    hint.setAttribute("aria-hidden", "true");
-    hint.hidden = true;
-    this.container.parentElement?.append(hint);
+  #installPostPinchClickSuppression() {
+    let sawTwoFingerGesture = false;
+    let suppressNextClick = false;
+    let suppressClickUntil = 0;
 
-    const updateGesture = (event) => {
-      const [firstTouch, secondTouch] = event.touches;
-      pinch.endDistance = touchDistance(firstTouch, secondTouch);
-      const firstPoint = this.map.mouseEventToContainerPoint(firstTouch);
-      const secondPoint = this.map.mouseEventToContainerPoint(secondTouch);
-      pinch.point = firstPoint.add(secondPoint).divideBy(2);
+    const observeTouchStart = (event) => {
+      if (event.touches?.length >= 2) sawTwoFingerGesture = true;
     };
-    const startGesture = (event) => {
-      if (pinch.active || event.touches?.length !== 2) return;
-      pinch.active = true;
-      pinch.startZoom = this.map.getZoom();
-      updateGesture(event);
-      pinch.startDistance = pinch.endDistance;
-      hint.hidden = false;
-      this.map.stop();
-      event.preventDefault();
-    };
-    const moveGesture = (event) => {
-      if (!pinch.active || event.touches?.length !== 2) return;
-      updateGesture(event);
-      event.preventDefault();
-    };
-    const finishGesture = (event) => {
-      if (!pinch.active || (event.type === "touchend" && event.touches?.length >= 2)) return;
-      pinch.active = false;
-      hint.hidden = true;
-      pinch.suppressClickUntil = performance.now() + 500;
-      if (event.type !== "touchcancel" && pinch.point) {
-        const targetZoom = discretePinchZoomTarget({
-          startZoom: pinch.startZoom,
-          startDistance: pinch.startDistance,
-          endDistance: pinch.endDistance,
-          minZoom: this.map.getMinZoom(),
-          maxZoom: this.map.getMaxZoom(),
-        });
-        if (targetZoom !== pinch.startZoom) {
-          this.map.stop();
-          this.map.setZoomAround(pinch.point, targetZoom, false);
-        }
-      }
-      event.preventDefault();
+    const observeTouchFinish = (event) => {
+      if (!sawTwoFingerGesture || event.touches?.length > 0) return;
+      sawTwoFingerGesture = false;
+      suppressNextClick = true;
+      suppressClickUntil = performance.now() + 500;
     };
     const suppressPostPinchClick = (event) => {
-      if (performance.now() >= pinch.suppressClickUntil) return;
+      if (!suppressNextClick) return;
+      suppressNextClick = false;
+      if (performance.now() >= suppressClickUntil) return;
       event.preventDefault();
       event.stopImmediatePropagation();
     };
 
-    this.container.addEventListener("touchstart", startGesture, { passive: false });
-    document.addEventListener("touchmove", moveGesture, { passive: false });
-    document.addEventListener("touchend", finishGesture, { passive: false });
-    document.addEventListener("touchcancel", finishGesture, { passive: false });
+    this.container.addEventListener("touchstart", observeTouchStart, { passive: true });
+    document.addEventListener("touchend", observeTouchFinish, { passive: true });
+    document.addEventListener("touchcancel", observeTouchFinish, { passive: true });
     this.container.addEventListener("click", suppressPostPinchClick, true);
   }
 

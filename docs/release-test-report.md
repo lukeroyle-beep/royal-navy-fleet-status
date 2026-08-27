@@ -1,6 +1,49 @@
 # Private release test report
 
-## Release candidate
+## Issue #69 continuous-pinch successor candidate
+
+| Field | Value |
+| --- | --- |
+| Scope | Restore live, gesture-midpoint pinch scaling on mobile Safari while retaining the PR #59 rendering and map-state safeguards |
+| Candidate | `codex/issue-36-smooth-pinch`; pull request and exact head commit to be recorded when published |
+| Previous mitigation | PR #60 deliberately replaced continuous Leaflet transforms with bounded release-to-zoom after the original iPhone freeze |
+| Successor implementation | Issue #69 removes that discrete interface and re-enables continuous Leaflet touch zoom without re-enabling animations or increasing the mobile-Safari zoom limit |
+| Automated evidence | Local `npm test`, `npm run build` and `npm run build:pages` passed on 27 August 2026; production and Pages client-exposure scans passed across 117 built files; branch CI and Workers checks pending |
+| Physical evidence required | iPhone 12 Pro Max and iPad Pro 13-inch (M4), each on Safari 26.6, using the approved ten-cycle stress and control matrix |
+
+PR #60 remains the historically verified mitigation documented below. Issue #69 is a deliberate,
+high-risk successor: automated or emulated results cannot satisfy its physical-device gate.
+
+## Current candidate decision
+
+- Decision: Blocked
+- Decided by: Approved issue #69 release contract
+- Date and time: 27 August 2026, Europe/London
+- Outstanding actions: Complete automated, branch-preview and required physical-device checks.
+
+## Issue #69 local candidate evidence
+
+On 27 August 2026, the candidate passed `npm test`, `npm run build` and
+`npm run build:pages`. Both production and Pages exposure scans passed across 117 built files, and
+the Pages base-path checks passed. The compiled production module contains neither the obsolete
+gesture implementation nor the **Release to zoom** interface.
+
+Current-Chromium browser checks on the physical Mac mini covered desktop at 1280 × 720, an iPhone
+12 Pro Max layout equivalent at 428 × 926, iPad portrait at 1024 × 1366 and iPad landscape at
+1366 × 1024. All four panels remained reachable with no horizontal document overflow. Reset and
+both zoom controls responded; keyboard map movement updated the URL view; a copied URL restored the
+Deployed filter, shore layer, RFA Lyme Bay selection and zoom 2.5 without a visible error.
+
+The selection matrix covered HMS Dauntless's regional area, list-only HMS Vengeance, CTCRM
+Lympstone, an expanded shore cluster, and HMS Dragon/RFA Lyme Bay. The co-located pair both remained
+visible, selection highlighting moved to the chosen vessel and zoom remained 4. A temporary,
+uncommitted compiled-build tile substitution exposed the non-blocking basemap notice while HMS
+Duncan search and details remained usable; a clean rebuild restored tiles and hid the notice.
+
+These checks do not emulate or replace continuous two-finger Safari scaling. Branch-preview checks
+and the approved physical iPhone/iPad stress matrix remain release-blocking.
+
+## Previous deployed release candidate (PR #68)
 
 | Field | Value |
 | --- | --- |
@@ -102,7 +145,7 @@ restored the ordinary artifact; a fresh load fetched tiles, hid the notice and d
 | OVERLAP-1 | Material, resolved and deployed | Selecting one of two co-located vessels could hide or leave the wrong marker highlighted, and selection could zoom out unexpectedly. | HMS Dragon/RFA Lyme Bay were retested after PRs #66 and #67; both remain visible, highlight follows selection and the established zoom is retained. | Co-located selection has a stable spiderfied anchor/sibling layout and preserves contextual zoom. |
 | DEVICE-1 | Release-blocking, resolved | Prescribed private HTTPS observations were initially incomplete on the physical iPhone and iPad. | The Tailscale-connected iPhone passed portrait loading, panel and map controls. The iPad passed the same checks in portrait and landscape, with no host, certificate, clipping, scrolling or responsiveness defect reported. | Completed and recorded on 26 August 2026. |
 
-## Release decision
+## Previous deployed release decision
 
 - Decision: Pass
 - Decided by: Repository owner, based on the recorded user and Codex-assisted observations
