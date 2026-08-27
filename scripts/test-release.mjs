@@ -131,6 +131,7 @@ for (const mergeCommit of [
   "999560c4a33e8dc319c8764f3f1536881206af97",
   "d9566fc524b19e952c5800482fd7e2bda80d156b",
   "82d9b4a682dab8a16b9a5f4b9c59b12782926db8",
+  "84fafac98829ecbe3092c17f909e457c096e528c",
 ]) {
   assert.match(completion, new RegExp(mergeCommit));
 }
