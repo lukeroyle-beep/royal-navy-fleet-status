@@ -8,7 +8,7 @@
 | Candidate | PR #70 from `codex/issue-36-smooth-pinch`; implementation commit `1f281ff58822a70e3f71d31c7547604c2d8c02a0` |
 | Previous mitigation | PR #60 deliberately replaced continuous Leaflet transforms with bounded release-to-zoom after the original iPhone freeze |
 | Successor implementation | Issue #69 removes that discrete interface and re-enables continuous Leaflet touch zoom without re-enabling animations or increasing the mobile-Safari zoom limit |
-| Automated evidence | Local `npm test`, `npm run build` and `npm run build:pages` passed on 27 August 2026; production and Pages client-exposure scans passed across 117 built files; branch CI and Workers checks pending |
+| Automated evidence | Local `npm test`, `npm run build` and `npm run build:pages` passed on 27 August 2026; production and Pages client-exposure scans passed across 117 built files; PR #70 CI and Workers Builds passed |
 | Physical evidence required | iPhone 12 Pro Max and iPad Pro 13-inch (M4), each on Safari 26.6, using the approved ten-cycle stress and control matrix |
 
 PR #60 remains the historically verified mitigation documented below. Issue #69 is a deliberate,
@@ -19,7 +19,7 @@ high-risk successor: automated or emulated results cannot satisfy its physical-d
 - Decision: Blocked
 - Decided by: Approved issue #69 release contract
 - Date and time: 27 August 2026, Europe/London
-- Outstanding actions: Complete automated, branch-preview and required physical-device checks.
+- Outstanding actions: Complete the required physical-device checks.
 
 ## Issue #69 local candidate evidence
 
@@ -40,8 +40,22 @@ visible, selection highlighting moved to the chosen vessel and zoom remained 4. 
 uncommitted compiled-build tile substitution exposed the non-blocking basemap notice while HMS
 Duncan search and details remained usable; a clean rebuild restored tiles and hid the notice.
 
-These checks do not emulate or replace continuous two-finger Safari scaling. Branch-preview checks
-and the approved physical iPhone/iPad stress matrix remain release-blocking.
+These checks do not emulate or replace continuous two-finger Safari scaling. The approved physical
+iPhone/iPad stress matrix remains release-blocking.
+
+## Issue #69 branch-preview evidence
+
+PR #70 head `77f831aea4008a1dcd73072ffc403e2dc025a922` passed the GitHub
+`validate-and-build` job, including build, Pages, audit and artifact-upload steps, and passed Workers
+Builds. The Cloudflare branch preview returned HTTP 200 with `no-store` HTML and `noindex`; its
+compiled asset and all five public data files returned HTTP 200. The deployed bundle contains
+neither **Release to zoom** nor `discreteTouchZoom`.
+
+Browser checks against the branch preview passed at 1280 × 720, 428 × 926, 1024 × 1366 and
+1366 × 1024. All four panels opened and closed, map controls remained present, and there was no
+horizontal document overflow or visible application error. HMS Dragon and RFA Lyme Bay both
+remained visible; highlighting followed selection and zoom remained 4. Physical iPad coarse-pointer
+layout and continuous Safari pinch performance remain subject to the user-observed release gate.
 
 ## Previous deployed release candidate (PR #68)
 
