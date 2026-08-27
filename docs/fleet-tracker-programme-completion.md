@@ -3,9 +3,13 @@
 ## Completion decision
 
 The implemented baseline entering closeout for issue
-[#36](https://github.com/lukeroyle-beep/royal-navy-fleet-status/issues/36) is `main` commit
-`999560c4a33e8dc319c8764f3f1536881206af97`. Completion becomes final only after this closeout pull
-request and its production deployment check pass. The programme delivered the map-first public interface,
+[#36](https://github.com/lukeroyle-beep/royal-navy-fleet-status/issues/36) was `main` commit
+`999560c4a33e8dc319c8764f3f1536881206af97`. The completion ledger merged in
+[PR #71](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/71) at exact merge commit
+`d9566fc524b19e952c5800482fd7e2bda80d156b`. [PR #72](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/72),
+implementation commit `82d9b4a682dab8a16b9a5f4b9c59b12782926db8`, adds the deployment safeguard
+that requires this document in production and Pages artifacts. Completion becomes final only after
+the document itself is present in the deployed artifact and its production HTTP check passes. The programme delivered the map-first public interface,
 validated public state and history, honest geography, a fail-closed private boundary, governed free
 OSINT collection, deterministic review routing, an internal-only evidence-health view, and a tested
 release process.

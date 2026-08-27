@@ -12,3 +12,7 @@
 # Public datasets can change without their URL changing.
 /data/*
   Cache-Control: public, max-age=0, must-revalidate
+
+# Release documentation is updated in place and must not be retained across deployments.
+/docs/*
+  Cache-Control: no-store
