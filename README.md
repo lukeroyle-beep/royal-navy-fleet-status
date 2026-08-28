@@ -196,7 +196,10 @@ revision, then run `npm run generate:public`. Use `npm run sweep:sources` to mat
 review queue. Use `npm run sweep:collect -- --output=<run.json>` for one read-only pass over the
 allowlisted public publisher indexes. The collector records links and hashes only: it never requests
 X timelines, manual sources or commercial APIs, and it never ingests evidence or publishes a fleet
-change. A blocked required index makes the collection command fail after writing its auditable
+change. On the owner's trusted Mac, `npm run sweep:x -- --run=<run.json> --output=x-social-run.json`
+adds the separate governed public-X stage through the Keychain-backed Scrape Creators wrapper. Its
+popular-post sample is partial, locally date-filtered, origin-deduplicated and always requires human
+review. A blocked required index makes the collection command fail after writing its auditable
 ledger. Royal Navy News is reviewed manually because its publisher edge blocks the collector;
 Westward Shipping News RSS is its Tier C, discovery-only automatic replacement.
 
@@ -241,5 +244,7 @@ If late evidence requires a same-day correction, follow
 later release instant and append a reasoned correction instead of rewriting history.
 
 The owner-reviewed weekly refresh procedure is documented in
-[`docs/weekly-fleet-refresh.md`](docs/weekly-fleet-refresh.md). X scraping, unlicensed commercial
-tracking collection and unattended publication remain outside the current version.
+[`docs/weekly-fleet-refresh.md`](docs/weekly-fleet-refresh.md), with X registry, credential, credit,
+cache and failure details in [`docs/x-social-sources.md`](docs/x-social-sources.md). Direct X page
+scraping, private or logged-in social content, unlicensed commercial tracking collection and
+unattended publication remain outside the current version.

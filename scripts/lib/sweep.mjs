@@ -88,6 +88,7 @@ const CHECK_STATES = new Set(["pending", "complete", "blocked"]);
 const SOURCE_OUTCOMES = new Set([
   "checked-no-findings",
   "candidates-found",
+  "no-in-range-candidates-in-provider-sample",
   "not-modified",
   "manual-review-complete",
 ]);
@@ -104,12 +105,17 @@ const VESSEL_OUTCOMES = new Set([
 ]);
 const BLOCKER_TYPES = new Set([
   "authentication-required",
+  "credits-exhausted",
   "http-error",
+  "invalid-response",
   "invalid-content-type",
   "manual-unavailable",
   "network-error",
+  "not-found",
   "parse-empty",
+  "provider-error",
   "rate-limited",
+  "resource-blocked",
   "terms-restriction",
   "timeout",
   "other",
@@ -121,7 +127,7 @@ export function createSweepQueue(registry, asOf) {
     schemaVersion: "1.0.0",
     generatedAt: asOf,
     collectionBoundary:
-      "Collection is outside page requests. Public indexes may be read once for discovery; manual, X and API sources require external review and are never fetched by the collector.",
+      "Collection is outside page requests. The GitHub collector reads only approved public indexes; governed public X accounts are checked separately on the trusted host through the Keychain-backed Scrape Creators wrapper.",
     discoveryTargets: PUBLIC_INDEX_TARGETS.map((entry) => ({
       targetId: entry.targetId,
       sourceId: entry.sourceId,
@@ -150,6 +156,9 @@ export function createSweepQueue(registry, asOf) {
 
 export function isRequiredRecurringSource(source) {
   if (!source || source.enabled === false) return false;
+  if (source.xCollection) {
+    return source.xCollection.enabled === true && source.xCollection.required === true;
+  }
   if (source.monitoring?.recurring === true) return true;
   if (["official-vessel-social", "official-organisation-social"].includes(source.category)) {
     return true;
@@ -257,8 +266,14 @@ export function createSweepRun({
     },
     collectionPolicy: {
       readOnly: true,
-      automaticBoundary: "Configured public publisher indexes only",
-      prohibitedAutomaticTargets: ["X account pages", "manual sources", "commercial APIs"],
+      automaticBoundary:
+        "Configured public publisher indexes plus the separate governed public-X adapter on the trusted host",
+      prohibitedAutomaticTargets: [
+        "direct X page scraping",
+        "private or logged-in social content",
+        "manual sources",
+        "unapproved commercial APIs",
+      ],
       promotion: "Discovery only; no evidence ingestion, assessment or publication",
     },
     discoveryChecks: discoveryTargets.map((entry) => ({

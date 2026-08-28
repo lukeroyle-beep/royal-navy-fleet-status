@@ -31,7 +31,7 @@ const count = scanPublicExposure({
     "Supporting Source", "EVID_HMS_", "ASSESS_HMS_", "ORIGIN_",
     "RN_VICTORY_PORTSMOUTH_2026", "officialSocialCoverage", "twitter.com/",
     "x.com/HMS", "x.com/RFA",
-    "requiresHumanReview", "RNFS_HEALTH_TOKEN", "AISSTREAM_API_KEY", "Private evidence health",
+    "requiresHumanReview", "sourceClassification", "providerCoverage", "RNFS_HEALTH_TOKEN", "AISSTREAM_API_KEY", "Private evidence health",
     "mandatoryNotChecked",
   ],
 });

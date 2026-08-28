@@ -170,6 +170,11 @@ export function createDiscoveryFamilyQueue(generatedAt) {
 }
 
 function isMandatory(source) {
+  if (source.xCollection) {
+    return source.enabled !== false &&
+      source.xCollection.enabled === true &&
+      source.xCollection.required === true;
+  }
   return source.enabled !== false && (
     source.monitoring?.recurring === true ||
     ["official-vessel-social", "official-organisation-social"].includes(source.category) ||

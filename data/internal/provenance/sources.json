@@ -1,10 +1,10 @@
 {
-  "schemaVersion": "1.0.0",
-  "reviewedAt": "2026-08-23T20:47:26Z",
+  "schemaVersion": "1.1.0",
+  "reviewedAt": "2026-08-27T00:00:00Z",
   "policy": {
     "corroborationUnit": "originId",
     "aisAbsenceMeaning": "neutral",
-    "socialAutomation": "Authorised API only; no scraping or browser automation.",
+    "socialAutomation": "Public X data may be collected only through the Keychain-backed Scrape Creators wrapper; direct page scraping, private content and logged-in content are prohibited.",
     "publicRepositoryNotice": "Non-client data, not confidential storage. No secrets or non-public API data are permitted."
   },
   "sources": [
@@ -1248,17 +1248,31 @@
       "publisher": "Ministry of Defence",
       "canonicalUrl": "https://x.com/DefenceHQ",
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z"
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
       "notes": "Verified by the MOD official social-media register.",
       "officiality": {
         "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "MOD official social-media register"
+        "method": "MOD official social-media register",
+        "basis": "official-register"
+      },
+      "accountHandle": "@DefenceHQ",
+      "xCollection": {
+        "handle": "DefenceHQ",
+        "classification": "official",
+        "scope": "organisation",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
       }
     },
     {
@@ -1267,17 +1281,31 @@
       "publisher": "Ministry of Defence Press Office",
       "canonicalUrl": "https://x.com/DefenceHQPress",
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z"
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
       "notes": "Verified by the MOD official social-media register.",
       "officiality": {
         "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "MOD official social-media register"
+        "method": "MOD official social-media register",
+        "basis": "official-register"
+      },
+      "accountHandle": "@DefenceHQPress",
+      "xCollection": {
+        "handle": "DefenceHQPress",
+        "classification": "official",
+        "scope": "organisation",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
       }
     },
     {
@@ -1290,18 +1318,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-archer",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSArcher; verified/enabled"
+      "notes": "@HMSArcher; verified/enabled",
+      "xCollection": {
+        "handle": "HMSArcher",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_BLAZER",
@@ -1313,18 +1352,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-blazer",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@hms_blazer; verified/enabled"
+      "notes": "@hms_blazer; verified/enabled",
+      "xCollection": {
+        "handle": "hms_blazer",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_CATTISTOCK",
@@ -1336,18 +1386,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-cattistock",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSCattistock; verified/enabled"
+      "notes": "@HMSCattistock; verified/enabled",
+      "xCollection": {
+        "handle": "HMSCattistock",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_CHIDDINGFOLD",
@@ -1359,18 +1420,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-chiddingfold",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "legacy",
       "enabled": false,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSChiddingfold; verified/legacy—disable on decommission"
+      "notes": "@HMSChiddingfold; verified/legacy—disable on decommission",
+      "xCollection": {
+        "handle": "HMSChiddingfold",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": false,
+        "required": false,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": "@HMSChiddingfold; verified/legacy—disable on decommission"
+      }
     },
     {
       "sourceId": "X_HMS_DASHER",
@@ -1380,20 +1452,31 @@
       "vesselId": "hms-dasher",
       "canonicalUrl": "https://x.com/HmsDasher",
       "officiality": {
-        "verifiedByUrl": "https://spa.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-dasher",
-        "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-dasher",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
-      "status": "provisional",
-      "enabled": false,
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HmsDasher; provisional/disabled pending canonical production-page verification"
+      "notes": "@HmsDasher; verified/enabled by current Royal Navy unit-page link",
+      "xCollection": {
+        "handle": "HmsDasher",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_DIAMOND",
@@ -1405,18 +1488,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-diamond",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@hmsdiamond; verified/enabled"
+      "notes": "@hmsdiamond; verified/enabled",
+      "xCollection": {
+        "handle": "hmsdiamond",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_DRAGON",
@@ -1428,18 +1522,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-dragon",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSDragon; verified/enabled"
+      "notes": "@HMSDragon; verified/enabled",
+      "xCollection": {
+        "handle": "HMSDragon",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_DUNCAN",
@@ -1451,18 +1556,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-duncan",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSDuncan; verified/enabled"
+      "notes": "@HMSDuncan; verified/enabled",
+      "xCollection": {
+        "handle": "HMSDuncan",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_EXAMPLE",
@@ -1474,18 +1590,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-example",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSExample; verified/enabled"
+      "notes": "@HMSExample; verified/enabled",
+      "xCollection": {
+        "handle": "HMSExample",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_EXPLOIT",
@@ -1497,18 +1624,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-exploit",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSExploit; verified/enabled"
+      "notes": "@HMSExploit; verified/enabled",
+      "xCollection": {
+        "handle": "HMSExploit",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_IRON_DUKE",
@@ -1520,18 +1658,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-iron-duke",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "legacy",
       "enabled": false,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSIronDuke; verified/legacy—disable on decommission"
+      "notes": "@HMSIronDuke; verified/legacy—disable on decommission",
+      "xCollection": {
+        "handle": "HMSIronDuke",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": false,
+        "required": false,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": "@HMSIronDuke; verified/legacy—disable on decommission"
+      }
     },
     {
       "sourceId": "X_HMS_LEDBURY",
@@ -1543,18 +1692,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-ledbury",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSLedbury; verified/enabled"
+      "notes": "@HMSLedbury; verified/enabled",
+      "xCollection": {
+        "handle": "HMSLedbury",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_MAGPIE",
@@ -1566,18 +1726,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-magpie",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@hms_magpie; verified/enabled"
+      "notes": "@hms_magpie; verified/enabled",
+      "xCollection": {
+        "handle": "hms_magpie",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_MIDDLETON",
@@ -1588,19 +1759,30 @@
       "canonicalUrl": "https://x.com/HMSMiddleton",
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-middleton",
-        "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
-      "status": "registry-only",
-      "enabled": false,
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSMiddleton; official registry only—unrecovered post is not evidence"
+      "notes": "@HMSMiddleton; verified/enabled by current Royal Navy unit-page link",
+      "xCollection": {
+        "handle": "HMSMiddleton",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_PORTLAND",
@@ -1612,18 +1794,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-portland",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSPortland; verified/enabled"
+      "notes": "@HMSPortland; verified/enabled",
+      "xCollection": {
+        "handle": "HMSPortland",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_PUNCHER",
@@ -1635,18 +1828,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-puncher",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSPuncher; verified/enabled"
+      "notes": "@HMSPuncher; verified/enabled",
+      "xCollection": {
+        "handle": "HMSPuncher",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_QUEEN_ELIZABETH",
@@ -1658,18 +1862,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/aircraft-carriers/hms-queen-elizabeth",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSQnlz; verified/enabled"
+      "notes": "@HMSQnlz; verified/enabled",
+      "xCollection": {
+        "handle": "HMSQnlz",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_RAIDER",
@@ -1681,18 +1896,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-raider",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMS_Raider; verified/enabled"
+      "notes": "@HMS_Raider; verified/enabled",
+      "xCollection": {
+        "handle": "HMS_Raider",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_RICHMOND",
@@ -1704,18 +1930,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-richmond",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "legacy",
       "enabled": false,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMS_Richmond; verified/legacy—disable on decommission"
+      "notes": "@HMS_Richmond; verified/legacy—disable on decommission",
+      "xCollection": {
+        "handle": "HMS_Richmond",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": false,
+        "required": false,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": "@HMS_Richmond; verified/legacy—disable on decommission"
+      }
     },
     {
       "sourceId": "X_HMS_SMITER",
@@ -1727,18 +1964,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-smiter",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMS_Smiter; verified/enabled"
+      "notes": "@HMS_Smiter; verified/enabled",
+      "xCollection": {
+        "handle": "HMS_Smiter",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_SOMERSET",
@@ -1750,18 +1998,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-somerset",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSSomerset; verified/enabled"
+      "notes": "@HMSSomerset; verified/enabled",
+      "xCollection": {
+        "handle": "HMSSomerset",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_SPEY",
@@ -1773,18 +2032,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-spey",
         "verifiedAt": "2026-08-23T20:47:26Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMS_Spey; verified/enabled"
+      "notes": "@HMS_Spey; verified/enabled",
+      "xCollection": {
+        "handle": "HMS_Spey",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_STIRLING_CASTLE",
@@ -1796,18 +2066,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-stirling-castle",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMS_Str_Castle; verified/enabled"
+      "notes": "@HMS_Str_Castle; verified/enabled",
+      "xCollection": {
+        "handle": "HMS_Str_Castle",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_HMS_TRENT",
@@ -1819,18 +2100,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-trent",
         "verifiedAt": "2026-08-23T20:47:26Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@HMSTrent; verified/enabled"
+      "notes": "@HMSTrent; verified/enabled",
+      "xCollection": {
+        "handle": "HMSTrent",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_RFA_CARDIGAN_BAY",
@@ -1842,18 +2134,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-cardigan-bay",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@RFACardiganBay; verified/enabled"
+      "notes": "@RFACardiganBay; verified/enabled",
+      "xCollection": {
+        "handle": "RFACardiganBay",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_RFA_LYME_BAY",
@@ -1865,18 +2168,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-lyme-bay",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@RFALymeBay; verified/enabled"
+      "notes": "@RFALymeBay; verified/enabled",
+      "xCollection": {
+        "handle": "RFALymeBay",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_RFA_PROTEUS",
@@ -1888,18 +2202,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-proteus",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@RFAProteus; verified/enabled"
+      "notes": "@RFAProteus; verified/enabled",
+      "xCollection": {
+        "handle": "RFAProteus",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_RFA_TIDEFORCE",
@@ -1911,18 +2236,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tideforce",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@RFATideforce; verified/enabled"
+      "notes": "@RFATideforce; verified/enabled",
+      "xCollection": {
+        "handle": "RFATideforce",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_RFA_TIDESPRING",
@@ -1934,18 +2270,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tidespring",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@RFATidespring; verified/enabled"
+      "notes": "@RFATidespring; verified/enabled",
+      "xCollection": {
+        "handle": "RFATidespring",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_RFA_TIDESURGE",
@@ -1957,18 +2304,29 @@
       "officiality": {
         "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tidesurge",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "Royal Navy unit page direct link"
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Authorised X API only; manual evidence entry otherwise.",
-        "retention": "Retain canonical URL, permitted minimum excerpt, timestamps and content hash."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "@RFATidesurge; verified/enabled"
+      "notes": "@RFATidesurge; verified/enabled",
+      "xCollection": {
+        "handle": "RFATidesurge",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
     },
     {
       "sourceId": "X_ROYAL_NAVY",
@@ -1976,17 +2334,31 @@
       "publisher": "Royal Navy",
       "canonicalUrl": "https://x.com/RoyalNavy",
       "reliabilityTier": "A",
-      "collectionMode": "manual",
+      "collectionMode": "api",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z"
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
       "notes": "Official organisation account; reposts share the underlying origin.",
       "officiality": {
         "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
         "verifiedAt": "2026-08-15T00:00:00Z",
-        "method": "MOD official social-media register"
+        "method": "MOD official social-media register",
+        "basis": "official-register"
+      },
+      "accountHandle": "@RoyalNavy",
+      "xCollection": {
+        "handle": "RoyalNavy",
+        "classification": "official",
+        "scope": "organisation",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-15T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
       }
     },
     {
@@ -2043,15 +2415,35 @@
       "publisher": "Navy Lookout",
       "canonicalUrl": "https://x.com/NavyLookout",
       "reliabilityTier": "C",
-      "collectionMode": "manual",
-      "status": "manual-only",
+      "collectionMode": "api",
+      "status": "enabled",
       "enabled": true,
       "terms": {
         "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "Authorised platform API only; manual search-index and post review otherwise.",
-        "retention": "Retain direct post URL, platform timestamp, content hash, minimum excerpt and the credited original observer."
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
       },
-      "notes": "Manual X and Instagram review; reposts do not create independent origins."
+      "notes": "Enabled curated Tier C OSINT source; claims remain distinct from Royal Navy confirmation and reposts do not create independent origins.",
+      "accountHandle": "@NavyLookout",
+      "xCollection": {
+        "handle": "NavyLookout",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-23T20:47:26Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Established specialist naval reporting source already governed by the repository; posts remain Tier C claims and never official confirmation.",
+        "evidenceUrls": [
+          "https://www.navylookout.com/"
+        ]
+      }
     },
     {
       "sourceId": "PORTSMOUTH_HARBOUR_PHOTOGRAPHY",
@@ -2138,6 +2530,1458 @@
         "retention": "Retain canonical post URL, date, origin attribution, content hash and only the minimum excerpt needed."
       },
       "notes": "Institutional event corroboration for cadet training visits."
+    },
+    {
+      "sourceId": "X_HMS_PRINCE_OF_WALES",
+      "category": "official-vessel-social",
+      "publisher": "@HMSPWLS",
+      "accountHandle": "@HMSPWLS",
+      "vesselId": "hms-prince-of-wales",
+      "canonicalUrl": "https://x.com/HMSPWLS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/aircraft-carriers/hms-prince-of-wales",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSPWLS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSPWLS",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_DARING",
+      "category": "official-vessel-social",
+      "publisher": "@hmsdaring",
+      "accountHandle": "@hmsdaring",
+      "vesselId": "hms-daring",
+      "canonicalUrl": "https://x.com/hmsdaring",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-daring",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hmsdaring; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hmsdaring",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_DEFENDER",
+      "category": "official-vessel-social",
+      "publisher": "@HMSDefender",
+      "accountHandle": "@HMSDefender",
+      "vesselId": "hms-defender",
+      "canonicalUrl": "https://x.com/HMSDefender",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-defender",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSDefender; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSDefender",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_SUTHERLAND",
+      "category": "official-vessel-social",
+      "publisher": "@HMSSutherland",
+      "accountHandle": "@HMSSutherland",
+      "vesselId": "hms-sutherland",
+      "canonicalUrl": "https://x.com/HMSSutherland",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-sutherland",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSSutherland; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSSutherland",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_KENT",
+      "category": "official-vessel-social",
+      "publisher": "@hms_kent",
+      "accountHandle": "@hms_kent",
+      "vesselId": "hms-kent",
+      "canonicalUrl": "https://x.com/hms_kent",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-kent",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hms_kent; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hms_kent",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_ST_ALBANS",
+      "category": "official-vessel-social",
+      "publisher": "@HMSStAlbans",
+      "accountHandle": "@HMSStAlbans",
+      "vesselId": "hms-st-albans",
+      "canonicalUrl": "https://x.com/HMSStAlbans",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-st-albans",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSStAlbans; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSStAlbans",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_TYNE",
+      "category": "official-vessel-social",
+      "publisher": "@hms_tyne",
+      "accountHandle": "@hms_tyne",
+      "vesselId": "hms-tyne",
+      "canonicalUrl": "https://x.com/hms_tyne",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-tyne",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hms_tyne; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hms_tyne",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_SEVERN",
+      "category": "official-vessel-social",
+      "publisher": "@hmssevern",
+      "accountHandle": "@hmssevern",
+      "vesselId": "hms-severn",
+      "canonicalUrl": "https://x.com/hmssevern",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-severn",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hmssevern; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hmssevern",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_MERSEY",
+      "category": "official-vessel-social",
+      "publisher": "@hms_mersey",
+      "accountHandle": "@hms_mersey",
+      "vesselId": "hms-mersey",
+      "canonicalUrl": "https://x.com/hms_mersey",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-mersey",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hms_mersey; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hms_mersey",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_FORTH",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Forth",
+      "accountHandle": "@HMS_Forth",
+      "vesselId": "hms-forth",
+      "canonicalUrl": "https://x.com/HMS_Forth",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-forth",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMS_Forth; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMS_Forth",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_MEDWAY",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Medway",
+      "accountHandle": "@HMS_Medway",
+      "vesselId": "hms-medway",
+      "canonicalUrl": "https://x.com/HMS_Medway",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-medway",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMS_Medway; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMS_Medway",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_TAMAR",
+      "category": "official-vessel-social",
+      "publisher": "@hms_tamar",
+      "accountHandle": "@hms_tamar",
+      "vesselId": "hms-tamar",
+      "canonicalUrl": "https://x.com/hms_tamar",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-tamar",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hms_tamar; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hms_tamar",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_BROCKLESBY",
+      "category": "official-vessel-social",
+      "publisher": "@HmsBrocklesby",
+      "accountHandle": "@HmsBrocklesby",
+      "vesselId": "hms-brocklesby",
+      "canonicalUrl": "https://x.com/HmsBrocklesby",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-brocklesby",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HmsBrocklesby; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HmsBrocklesby",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_HURWORTH",
+      "category": "official-vessel-social",
+      "publisher": "@HMSHurworth",
+      "accountHandle": "@HMSHurworth",
+      "vesselId": "hms-hurworth",
+      "canonicalUrl": "https://x.com/HMSHurworth",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-hurworth",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSHurworth; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSHurworth",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_BANGOR",
+      "category": "official-vessel-social",
+      "publisher": "@HMSBangor",
+      "accountHandle": "@HMSBangor",
+      "vesselId": "hms-bangor",
+      "canonicalUrl": "https://x.com/HMSBangor",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/sandown-class/hms-bangor",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSBangor; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSBangor",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_BITER",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Biter",
+      "accountHandle": "@HMS_Biter",
+      "vesselId": "hms-biter",
+      "canonicalUrl": "https://x.com/HMS_Biter",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-biter",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMS_Biter; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMS_Biter",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_PURSUER",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Pursuer",
+      "accountHandle": "@HMS_Pursuer",
+      "vesselId": "hms-pursuer",
+      "canonicalUrl": "https://x.com/HMS_Pursuer",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-pursuer",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMS_Pursuer; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMS_Pursuer",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_CHARGER",
+      "category": "official-vessel-social",
+      "publisher": "@HMSCharger",
+      "accountHandle": "@HMSCharger",
+      "vesselId": "hms-charger",
+      "canonicalUrl": "https://x.com/HMSCharger",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-charger",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSCharger; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSCharger",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_RANGER",
+      "category": "official-vessel-social",
+      "publisher": "@HMS_Ranger",
+      "accountHandle": "@HMS_Ranger",
+      "vesselId": "hms-ranger",
+      "canonicalUrl": "https://x.com/HMS_Ranger",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-ranger",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMS_Ranger; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMS_Ranger",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_TRUMPETER",
+      "category": "official-vessel-social",
+      "publisher": "@HMSTrumpeter",
+      "accountHandle": "@HMSTrumpeter",
+      "vesselId": "hms-trumpeter",
+      "canonicalUrl": "https://x.com/HMSTrumpeter",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-trumpeter",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSTrumpeter; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSTrumpeter",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_EXPRESS",
+      "category": "official-vessel-social",
+      "publisher": "@HMSExpress",
+      "accountHandle": "@HMSExpress",
+      "vesselId": "hms-express",
+      "canonicalUrl": "https://x.com/HMSExpress",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-express",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSExpress; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSExpress",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_EXPLORER",
+      "category": "official-vessel-social",
+      "publisher": "@HMSExplorer",
+      "accountHandle": "@HMSExplorer",
+      "vesselId": "hms-explorer",
+      "canonicalUrl": "https://x.com/HMSExplorer",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-explorer",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSExplorer; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSExplorer",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_SCOTT",
+      "category": "official-vessel-social",
+      "publisher": "@HMSScottRN",
+      "accountHandle": "@HMSScottRN",
+      "vesselId": "hms-scott",
+      "canonicalUrl": "https://x.com/HMSScottRN",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-scott",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@HMSScottRN; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "HMSScottRN",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_HMS_PROTECTOR",
+      "category": "official-vessel-social",
+      "publisher": "@hmsprotector",
+      "accountHandle": "@hmsprotector",
+      "vesselId": "hms-protector",
+      "canonicalUrl": "https://x.com/hmsprotector",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-protector",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@hmsprotector; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "hmsprotector",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_RFA_MOUNTS_BAY",
+      "category": "official-vessel-social",
+      "publisher": "@RFAMountsBay",
+      "accountHandle": "@RFAMountsBay",
+      "vesselId": "rfa-mounts-bay",
+      "canonicalUrl": "https://x.com/RFAMountsBay",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-mounts-bay",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@RFAMountsBay; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "RFAMountsBay",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_RFA_TIDERACE",
+      "category": "official-vessel-social",
+      "publisher": "@RFATiderace",
+      "accountHandle": "@RFATiderace",
+      "vesselId": "rfa-tiderace",
+      "canonicalUrl": "https://x.com/RFATiderace",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tiderace",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@RFATiderace; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "RFATiderace",
+        "classification": "official",
+        "scope": "vessel",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_ROYAL_MARINES",
+      "category": "official-organisation-social",
+      "publisher": "Royal Marines",
+      "accountHandle": "@RoyalMarines",
+      "canonicalUrl": "https://x.com/RoyalMarines",
+      "officiality": {
+        "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "MOD GOV.UK social-media register",
+        "basis": "official-register"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@RoyalMarines; confirmed by mod gov.uk social-media register",
+      "xCollection": {
+        "handle": "RoyalMarines",
+        "classification": "official",
+        "scope": "organisation",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_DEFENCE_OPS",
+      "category": "official-organisation-social",
+      "publisher": "Permanent Joint Headquarters",
+      "accountHandle": "@Defenceops",
+      "canonicalUrl": "https://x.com/Defenceops",
+      "officiality": {
+        "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "MOD GOV.UK social-media register",
+        "basis": "official-register"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@Defenceops; confirmed by mod gov.uk social-media register",
+      "xCollection": {
+        "handle": "Defenceops",
+        "classification": "official",
+        "scope": "command",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_RNAS_YEOVILTON",
+      "category": "official-organisation-social",
+      "publisher": "RNAS Yeovilton",
+      "accountHandle": "@RNASYeovilton",
+      "canonicalUrl": "https://x.com/RNASYeovilton",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-and-training/727-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@RNASYeovilton; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "RNASYeovilton",
+        "classification": "official",
+        "scope": "establishment",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_40_COMMANDO",
+      "category": "official-organisation-social",
+      "publisher": "40 Commando Royal Marines",
+      "accountHandle": "@40commando",
+      "canonicalUrl": "https://x.com/40commando",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/commando-brigade/40-commando",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@40commando; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "40commando",
+        "classification": "official",
+        "scope": "unit",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_42_COMMANDO",
+      "category": "official-organisation-social",
+      "publisher": "42 Commando Royal Marines",
+      "accountHandle": "@42_commando",
+      "canonicalUrl": "https://x.com/42_commando",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/commando-brigade/42-commando",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@42_commando; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "42_commando",
+        "classification": "official",
+        "scope": "unit",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_43_COMMANDO",
+      "category": "official-organisation-social",
+      "publisher": "43 Commando Fleet Protection Group",
+      "accountHandle": "@43commando",
+      "canonicalUrl": "https://x.com/43commando",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/commando-brigade/43-cdo-fleet-protection-group",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@43commando; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "43commando",
+        "classification": "official",
+        "scope": "unit",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_45_COMMANDO",
+      "category": "official-organisation-social",
+      "publisher": "45 Commando Royal Marines",
+      "accountHandle": "@45CdoGp",
+      "canonicalUrl": "https://x.com/45CdoGp",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/commando-brigade/45-commando",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@45CdoGp; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "45CdoGp",
+        "classification": "official",
+        "scope": "unit",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_705_NAS",
+      "category": "official-organisation-social",
+      "publisher": "705 Naval Air Squadron",
+      "accountHandle": "@705_NAS",
+      "canonicalUrl": "https://x.com/705_NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-and-training/705-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@705_NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "705_NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_815_NAS",
+      "category": "official-organisation-social",
+      "publisher": "815 Naval Air Squadron",
+      "accountHandle": "@815NAS",
+      "canonicalUrl": "https://x.com/815NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/wildcat/815-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@815NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "815NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_820_NAS",
+      "category": "official-organisation-social",
+      "publisher": "820 Naval Air Squadron",
+      "accountHandle": "@820NAS",
+      "canonicalUrl": "https://x.com/820NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/merlin-mk2/820-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@820NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "820NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_825_NAS",
+      "category": "official-organisation-social",
+      "publisher": "825 Naval Air Squadron",
+      "accountHandle": "@825NAS",
+      "canonicalUrl": "https://x.com/825NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/wildcat/825-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@825NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "825NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_845_NAS",
+      "category": "official-organisation-social",
+      "publisher": "845 Naval Air Squadron",
+      "accountHandle": "@845NAS",
+      "canonicalUrl": "https://x.com/845NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/merlin-mk-4/845-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@845NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "845NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_846_NAS",
+      "category": "official-organisation-social",
+      "publisher": "846 Naval Air Squadron",
+      "accountHandle": "@846NAS",
+      "canonicalUrl": "https://x.com/846NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/merlin-mk-4/846-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@846NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "846NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_847_NAS",
+      "category": "official-organisation-social",
+      "publisher": "847 Naval Air Squadron",
+      "accountHandle": "@847NAS",
+      "canonicalUrl": "https://x.com/847NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/wildcat/847-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@847NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "847NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_1700_NAS",
+      "category": "official-organisation-social",
+      "publisher": "1700 Naval Air Squadron",
+      "accountHandle": "@1700NAS",
+      "canonicalUrl": "https://x.com/1700NAS",
+      "officiality": {
+        "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-and-training/1700-naval-air-squadron",
+        "verifiedAt": "2026-08-27T00:00:00Z",
+        "method": "Royal Navy unit page direct link",
+        "basis": "direct-official-page"
+      },
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "@1700NAS; confirmed by royal navy unit page direct link",
+      "xCollection": {
+        "handle": "1700NAS",
+        "classification": "official",
+        "scope": "squadron",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "WARSHIPCAM_SOCIAL",
+      "category": "recognised-osint",
+      "publisher": "WarshipCam",
+      "accountHandle": "@WarshipCam",
+      "canonicalUrl": "https://x.com/WarshipCam",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "disabled",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Disabled pending owner review of reliability, correction handling and weekly signal quality.",
+      "xCollection": {
+        "handle": "WarshipCam",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": false,
+        "required": false,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": "Disabled pending owner review of reliability, correction handling and weekly signal quality."
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Public warship photography and ship-index service with a dedicated Royal Navy catalogue; candidate remains disabled until the owner accepts its correction practices and signal quality.",
+        "evidenceUrls": [
+          "https://www.warshipcam.net/unitedkingdom/",
+          "https://www.warshipcam.net/unitedstates/"
+        ]
+      }
+    },
+    {
+      "sourceId": "NAVAL_NEWS_SOCIAL",
+      "category": "recognised-osint",
+      "publisher": "Naval News",
+      "accountHandle": "@navalnewscom",
+      "canonicalUrl": "https://x.com/navalnewscom",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "disabled",
+      "enabled": false,
+      "terms": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Disabled pending owner review of reliability, correction handling and weekly signal quality.",
+      "xCollection": {
+        "handle": "navalnewscom",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": false,
+        "required": false,
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": "Disabled pending owner review of reliability, correction handling and weekly signal quality."
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-27T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Specialist naval newsroom with named editorial staff and public corrections contact; candidate remains disabled because its Royal Navy movement coverage is broader and less systematic than Navy Lookout.",
+        "evidenceUrls": [
+          "https://www.navalnews.com/about-us/"
+        ]
+      }
     }
   ],
   "officialSocialCoverage": [
@@ -2276,24 +4120,24 @@
     {
       "vesselId": "hms-prince-of-wales",
       "pennantNumber": "R09",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSPWLS",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/aircraft-carriers/hms-prince-of-wales",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSPWLS; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-daring",
       "pennantNumber": "D32",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@hmsdaring",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-daring",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hmsdaring; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-dauntless",
@@ -2331,13 +4175,13 @@
     {
       "vesselId": "hms-defender",
       "pennantNumber": "D36",
-      "accountHandle": null,
+      "accountHandle": "@HMSDefender",
       "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/destroyers/hms-defender",
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "unresolved",
-      "enabled": false,
-      "notes": "Not yet independently verified; disabled"
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSDefender; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-duncan",
@@ -2364,24 +4208,24 @@
     {
       "vesselId": "hms-sutherland",
       "pennantNumber": "F81",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSSutherland",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-sutherland",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSSutherland; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-kent",
       "pennantNumber": "F78",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@hms_kent",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-kent",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hms_kent; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-portland",
@@ -2397,68 +4241,68 @@
     {
       "vesselId": "hms-st-albans",
       "pennantNumber": "F83",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSStAlbans",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/type-23/hms-st-albans",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSStAlbans; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-tyne",
       "pennantNumber": "P281",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@hms_tyne",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-tyne",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hms_tyne; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-severn",
       "pennantNumber": "P282",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@hmssevern",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-severn",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hmssevern; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-mersey",
       "pennantNumber": "P283",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@hms_mersey",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-mersey",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hms_mersey; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-forth",
       "pennantNumber": "P222",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMS_Forth",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-forth",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMS_Forth; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-medway",
       "pennantNumber": "P223",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMS_Medway",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-medway",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMS_Medway; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-trent",
@@ -2474,13 +4318,13 @@
     {
       "vesselId": "hms-tamar",
       "pennantNumber": "P233",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@hms_tamar",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/river-class/hms-tamar",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hms_tamar; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-spey",
@@ -2518,46 +4362,46 @@
     {
       "vesselId": "hms-brocklesby",
       "pennantNumber": "M33",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HmsBrocklesby",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-brocklesby",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HmsBrocklesby; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-middleton",
       "pennantNumber": "M34",
       "accountHandle": "@HMSMiddleton",
       "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-middleton",
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "registry-only",
-      "searchResult": "registry-only",
-      "enabled": false,
-      "notes": "@HMSMiddleton; official registry only—unrecovered post is not evidence"
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSMiddleton; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-hurworth",
       "pennantNumber": "M39",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSHurworth",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/hunt-class/hms-hurworth",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSHurworth; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-bangor",
       "pennantNumber": "M109",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSBangor",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/sandown-class/hms-bangor",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSBangor; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-stirling-castle",
@@ -2584,13 +4428,13 @@
     {
       "vesselId": "hms-biter",
       "pennantNumber": "P270",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMS_Biter",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-biter",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMS_Biter; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-smiter",
@@ -2606,13 +4450,13 @@
     {
       "vesselId": "hms-pursuer",
       "pennantNumber": "P273",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMS_Pursuer",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-pursuer",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMS_Pursuer; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-blazer",
@@ -2629,12 +4473,12 @@
       "vesselId": "hms-dasher",
       "pennantNumber": "P280",
       "accountHandle": "@HmsDasher",
-      "verifiedByUrl": "https://spa.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-dasher",
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "provisional",
-      "searchResult": "provisional",
-      "enabled": false,
-      "notes": "@HmsDasher; provisional/disabled pending canonical production-page verification"
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-dasher",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HmsDasher; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-puncher",
@@ -2650,46 +4494,46 @@
     {
       "vesselId": "hms-charger",
       "pennantNumber": "P292",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMSCharger",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-charger",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSCharger; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-ranger",
       "pennantNumber": "P293",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@HMS_Ranger",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-ranger",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMS_Ranger; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-trumpeter",
       "pennantNumber": "P294",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "unresolved",
-      "enabled": false,
-      "notes": "Disabled"
+      "accountHandle": "@HMSTrumpeter",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-trumpeter",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSTrumpeter; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-express",
       "pennantNumber": "P163",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "unresolved",
-      "enabled": false,
-      "notes": "Disabled"
+      "accountHandle": "@HMSExpress",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-express",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSExpress; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-example",
@@ -2705,13 +4549,13 @@
     {
       "vesselId": "hms-explorer",
       "pennantNumber": "P164",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "unresolved",
-      "enabled": false,
-      "notes": "Disabled"
+      "accountHandle": "@HMSExplorer",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/archer-class/hms-explorer",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSExplorer; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-exploit",
@@ -2771,24 +4615,24 @@
     {
       "vesselId": "hms-scott",
       "pennantNumber": "H131",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "unresolved",
-      "enabled": false,
-      "notes": "Disabled"
+      "accountHandle": "@HMSScottRN",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-scott",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@HMSScottRN; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-protector",
       "pennantNumber": "A173",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "unresolved",
-      "enabled": false,
-      "notes": "Disabled"
+      "accountHandle": "@hmsprotector",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/survey/hms-protector",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@hmsprotector; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "hms-magpie",
@@ -2815,13 +4659,13 @@
     {
       "vesselId": "rfa-mounts-bay",
       "pennantNumber": "L3008",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@RFAMountsBay",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-mounts-bay",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@RFAMountsBay; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "rfa-cardigan-bay",
@@ -2859,13 +4703,13 @@
     {
       "vesselId": "rfa-tiderace",
       "pennantNumber": "A137",
-      "accountHandle": null,
-      "verifiedByUrl": null,
-      "searchedAt": "2026-08-15T00:00:00Z",
-      "registryStatus": "disabled",
-      "searchResult": "no-direct-link",
-      "enabled": false,
-      "notes": "None; disabled"
+      "accountHandle": "@RFATiderace",
+      "verifiedByUrl": "https://www.royalnavy.mod.uk/organisation/units-and-squadrons/tankers/rfa-tiderace",
+      "searchedAt": "2026-08-27T00:00:00Z",
+      "registryStatus": "enabled",
+      "searchResult": "verified-direct-official-link",
+      "enabled": true,
+      "notes": "@RFATiderace; verified by current Royal Navy unit-page link"
     },
     {
       "vesselId": "rfa-tidesurge",
@@ -3728,6 +5572,30 @@
       "mandatory": false
     },
     {
+      "sourceId": "NAVAL_NEWS_SOCIAL",
+      "name": "Naval News",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/navalnewscom",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@navalnewscom"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
       "sourceId": "NAVY_LOOKOUT_INDEX",
       "name": "Navy Lookout",
       "type": "specialist-media",
@@ -3759,7 +5627,9 @@
         "families": [
           "recognised-osint"
         ],
-        "aliases": []
+        "aliases": [
+          "@NavyLookout"
+        ]
       },
       "authorityTier": "C",
       "expectedFrequency": "event-driven",
@@ -3767,7 +5637,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised platform API only; manual search-index and post review otherwise. Retain direct post URL, platform timestamp, content hash, minimum excerpt and the credited original observer.",
       "mandatory": false
     },
@@ -4784,6 +6654,30 @@
       "mandatory": false
     },
     {
+      "sourceId": "WARSHIPCAM_SOCIAL",
+      "name": "WarshipCam",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/WarshipCam",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@WarshipCam"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
       "sourceId": "WESTWARD_SHIPPING_NEWS_FEED",
       "name": "Westward Shipping News",
       "type": "specialist-media",
@@ -4806,6 +6700,318 @@
       "mandatory": false
     },
     {
+      "sourceId": "X_1700_NAS",
+      "name": "1700 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/1700NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@1700NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_40_COMMANDO",
+      "name": "40 Commando Royal Marines",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/40commando",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@40commando"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_42_COMMANDO",
+      "name": "42 Commando Royal Marines",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/42_commando",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@42_commando"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_43_COMMANDO",
+      "name": "43 Commando Fleet Protection Group",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/43commando",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@43commando"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_45_COMMANDO",
+      "name": "45 Commando Royal Marines",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/45CdoGp",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@45CdoGp"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_705_NAS",
+      "name": "705 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/705_NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@705_NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_815_NAS",
+      "name": "815 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/815NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@815NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_820_NAS",
+      "name": "820 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/820NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@820NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_825_NAS",
+      "name": "825 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/825NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@825NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_845_NAS",
+      "name": "845 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/845NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@845NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_846_NAS",
+      "name": "846 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/846NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@846NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_847_NAS",
+      "name": "847 Naval Air Squadron",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/847NAS",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@847NAS"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_DEFENCE_OPS",
+      "name": "Permanent Joint Headquarters",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/Defenceops",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@Defenceops"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
       "sourceId": "X_DEFENCEHQ",
       "name": "Ministry of Defence",
       "type": "official-organisation-social",
@@ -4815,7 +7021,9 @@
         "families": [
           "official-organisation-social"
         ],
-        "aliases": []
+        "aliases": [
+          "@DefenceHQ"
+        ]
       },
       "authorityTier": "A",
       "expectedFrequency": "weekly",
@@ -4823,7 +7031,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15.",
       "mandatory": true
     },
@@ -4837,7 +7045,9 @@
         "families": [
           "official-organisation-social"
         ],
-        "aliases": []
+        "aliases": [
+          "@DefenceHQPress"
+        ]
       },
       "authorityTier": "A",
       "expectedFrequency": "weekly",
@@ -4845,7 +7055,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15.",
       "mandatory": true
     },
@@ -4874,8 +7084,66 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_BANGOR",
+      "name": "@HMSBangor",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSBangor",
+      "coverage": {
+        "vesselIds": [
+          "hms-bangor"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSBangor",
+          "M109",
+          "HMS Bangor",
+          "Bangor"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_BITER",
+      "name": "@HMS_Biter",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Biter",
+      "coverage": {
+        "vesselIds": [
+          "hms-biter"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Biter",
+          "P270",
+          "HMS Biter",
+          "Biter"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -4903,8 +7171,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_BROCKLESBY",
+      "name": "@HmsBrocklesby",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HmsBrocklesby",
+      "coverage": {
+        "vesselIds": [
+          "hms-brocklesby"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HmsBrocklesby",
+          "M33",
+          "HMS Brocklesby",
+          "Brocklesby"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -4932,8 +7229,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_CHARGER",
+      "name": "@HMSCharger",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSCharger",
+      "coverage": {
+        "vesselIds": [
+          "hms-charger"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSCharger",
+          "P292",
+          "HMS Charger",
+          "Charger"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -4961,9 +7287,38 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_DARING",
+      "name": "@hmsdaring",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hmsdaring",
+      "coverage": {
+        "vesselIds": [
+          "hms-daring"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hmsdaring",
+          "D32",
+          "HMS Daring",
+          "Daring"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
     },
     {
       "sourceId": "X_HMS_DASHER",
@@ -4990,9 +7345,38 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
-      "mandatory": false
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_DEFENDER",
+      "name": "@HMSDefender",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSDefender",
+      "coverage": {
+        "vesselIds": [
+          "hms-defender"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSDefender",
+          "D36",
+          "HMS Defender",
+          "Defender"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
     },
     {
       "sourceId": "X_HMS_DIAMOND",
@@ -5019,7 +7403,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5048,7 +7432,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5077,7 +7461,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5106,7 +7490,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5135,8 +7519,124 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_EXPLORER",
+      "name": "@HMSExplorer",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSExplorer",
+      "coverage": {
+        "vesselIds": [
+          "hms-explorer"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSExplorer",
+          "P164",
+          "HMS Explorer",
+          "Explorer"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_EXPRESS",
+      "name": "@HMSExpress",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSExpress",
+      "coverage": {
+        "vesselIds": [
+          "hms-express"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSExpress",
+          "P163",
+          "HMS Express",
+          "Express"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_FORTH",
+      "name": "@HMS_Forth",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Forth",
+      "coverage": {
+        "vesselIds": [
+          "hms-forth"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Forth",
+          "P222",
+          "HMS Forth",
+          "Forth"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_HURWORTH",
+      "name": "@HMSHurworth",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSHurworth",
+      "coverage": {
+        "vesselIds": [
+          "hms-hurworth"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSHurworth",
+          "M39",
+          "HMS Hurworth",
+          "Hurworth"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5164,9 +7664,38 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_KENT",
+      "name": "@hms_kent",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hms_kent",
+      "coverage": {
+        "vesselIds": [
+          "hms-kent"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hms_kent",
+          "F78",
+          "HMS Kent",
+          "Kent"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
     },
     {
       "sourceId": "X_HMS_LEDBURY",
@@ -5193,7 +7722,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5222,8 +7751,66 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_MEDWAY",
+      "name": "@HMS_Medway",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Medway",
+      "coverage": {
+        "vesselIds": [
+          "hms-medway"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Medway",
+          "P223",
+          "HMS Medway",
+          "Medway"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_MERSEY",
+      "name": "@hms_mersey",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hms_mersey",
+      "coverage": {
+        "vesselIds": [
+          "hms-mersey"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hms_mersey",
+          "P283",
+          "HMS Mersey",
+          "Mersey"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5251,9 +7838,9 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
-      "mandatory": false
+      "mandatory": true
     },
     {
       "sourceId": "X_HMS_PORTLAND",
@@ -5280,8 +7867,66 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_PRINCE_OF_WALES",
+      "name": "@HMSPWLS",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSPWLS",
+      "coverage": {
+        "vesselIds": [
+          "hms-prince-of-wales"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSPWLS",
+          "R09",
+          "HMS Prince of Wales",
+          "Prince of Wales"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_PROTECTOR",
+      "name": "@hmsprotector",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hmsprotector",
+      "coverage": {
+        "vesselIds": [
+          "hms-protector"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hmsprotector",
+          "A173",
+          "HMS Protector",
+          "Protector"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5309,8 +7954,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_PURSUER",
+      "name": "@HMS_Pursuer",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Pursuer",
+      "coverage": {
+        "vesselIds": [
+          "hms-pursuer"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Pursuer",
+          "P273",
+          "HMS Pursuer",
+          "Pursuer"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5338,7 +8012,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5367,8 +8041,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_RANGER",
+      "name": "@HMS_Ranger",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMS_Ranger",
+      "coverage": {
+        "vesselIds": [
+          "hms-ranger"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMS_Ranger",
+          "P293",
+          "HMS Ranger",
+          "Ranger"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5396,9 +8099,67 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": false
+    },
+    {
+      "sourceId": "X_HMS_SCOTT",
+      "name": "@HMSScottRN",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSScottRN",
+      "coverage": {
+        "vesselIds": [
+          "hms-scott"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSScottRN",
+          "H131",
+          "HMS Scott",
+          "Scott"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_SEVERN",
+      "name": "@hmssevern",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hmssevern",
+      "coverage": {
+        "vesselIds": [
+          "hms-severn"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hmssevern",
+          "P282",
+          "HMS Severn",
+          "Severn"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
     },
     {
       "sourceId": "X_HMS_SMITER",
@@ -5425,7 +8186,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5454,7 +8215,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5483,8 +8244,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_ST_ALBANS",
+      "name": "@HMSStAlbans",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSStAlbans",
+      "coverage": {
+        "vesselIds": [
+          "hms-st-albans"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSStAlbans",
+          "F83",
+          "HMS St Albans",
+          "St Albans"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5512,8 +8302,66 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_SUTHERLAND",
+      "name": "@HMSSutherland",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSSutherland",
+      "coverage": {
+        "vesselIds": [
+          "hms-sutherland"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSSutherland",
+          "F81",
+          "HMS Sutherland",
+          "Sutherland"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_TAMAR",
+      "name": "@hms_tamar",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hms_tamar",
+      "coverage": {
+        "vesselIds": [
+          "hms-tamar"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hms_tamar",
+          "P233",
+          "HMS Tamar",
+          "Tamar"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5541,8 +8389,66 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_TRUMPETER",
+      "name": "@HMSTrumpeter",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/HMSTrumpeter",
+      "coverage": {
+        "vesselIds": [
+          "hms-trumpeter"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@HMSTrumpeter",
+          "P294",
+          "HMS Trumpeter",
+          "Trumpeter"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_HMS_TYNE",
+      "name": "@hms_tyne",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/hms_tyne",
+      "coverage": {
+        "vesselIds": [
+          "hms-tyne"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@hms_tyne",
+          "P281",
+          "HMS Tyne",
+          "Tyne"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5570,7 +8476,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5599,8 +8505,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_MOUNTS_BAY",
+      "name": "@RFAMountsBay",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFAMountsBay",
+      "coverage": {
+        "vesselIds": [
+          "rfa-mounts-bay"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFAMountsBay",
+          "L3008",
+          "RFA Mounts Bay",
+          "Mounts Bay"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5628,7 +8563,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5657,8 +8592,37 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RFA_TIDERACE",
+      "name": "@RFATiderace",
+      "type": "official-vessel-social",
+      "urlOrQueryTemplate": "https://x.com/RFATiderace",
+      "coverage": {
+        "vesselIds": [
+          "rfa-tiderace"
+        ],
+        "families": [
+          "official-vessel-social"
+        ],
+        "aliases": [
+          "@RFATiderace",
+          "A137",
+          "RFA Tiderace",
+          "Tiderace"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5686,7 +8650,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
       "mandatory": true
     },
@@ -5715,8 +8679,56 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_RNAS_YEOVILTON",
+      "name": "RNAS Yeovilton",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/RNASYeovilton",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@RNASYeovilton"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
+      "sourceId": "X_ROYAL_MARINES",
+      "name": "Royal Marines",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/RoyalMarines",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@RoyalMarines"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
       "mandatory": true
     },
     {
@@ -5729,7 +8741,9 @@
         "families": [
           "official-organisation-social"
         ],
-        "aliases": []
+        "aliases": [
+          "@RoyalNavy"
+        ]
       },
       "authorityTier": "A",
       "expectedFrequency": "weekly",
@@ -5737,7 +8751,7 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "manual",
+      "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15.",
       "mandatory": true
     }

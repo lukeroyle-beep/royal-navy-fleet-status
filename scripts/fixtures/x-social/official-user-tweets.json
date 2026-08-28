@@ -1,0 +1,66 @@
+{
+  "success": true,
+  "credits_remaining": 994,
+  "credits_charged": 1,
+  "tweets": [
+    {
+      "rest_id": "1000000000000000001",
+      "url": "https://x.com/HMSDuncan/status/1000000000000000001",
+      "core": {
+        "user_results": {
+          "result": {
+            "legacy": {
+              "screen_name": "HMSDuncan"
+            }
+          }
+        }
+      },
+      "legacy": {
+        "id_str": "1000000000000000001",
+        "created_at": "Tue Aug 18 12:00:00 +0000 2026",
+        "full_text": "HMS Duncan arrived in Portsmouth on 18 August 2026."
+      }
+    },
+    {
+      "rest_id": "1000000000000000002",
+      "url": "https://x.com/HMSDuncan/status/1000000000000000002",
+      "legacy": {
+        "id_str": "1000000000000000002",
+        "created_at": "Mon Aug 17 00:00:00 +0000 2026",
+        "full_text": "D37 sailed from Portsmouth for sea trials on 17 August 2026."
+      }
+    },
+    {
+      "rest_id": "999999999999999999",
+      "url": "https://x.com/HMSDuncan/status/999999999999999999",
+      "legacy": {
+        "id_str": "999999999999999999",
+        "created_at": "Sun Aug 16 23:59:59 +0000 2026",
+        "full_text": "HMS Duncan was in Portsmouth before the weekly window."
+      }
+    },
+    {
+      "rest_id": "1000000000000000003",
+      "url": "https://x.com/HMSDuncan/status/1000000000000000003",
+      "legacy": {
+        "id_str": "1000000000000000003",
+        "created_at": "Wed Aug 19 09:00:00 +0000 2026",
+        "full_text": "RT @RoyalNavy: HMS Duncan is underway.",
+        "retweeted_status_result": {
+          "result": {
+            "rest_id": "9000000000000000001",
+            "legacy": {
+              "id_str": "9000000000000000001"
+            }
+          }
+        }
+      }
+    },
+    {
+      "legacy": {
+        "created_at": "Wed Aug 19 10:00:00 +0000 2026",
+        "full_text": "Malformed fixture without a stable post identifier."
+      }
+    }
+  ]
+}

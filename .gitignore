@@ -21,3 +21,4 @@ dist/
 *.pem
 *.key
 osint-sweep-run.json
+x-social-run*.json

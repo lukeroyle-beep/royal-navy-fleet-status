@@ -49,6 +49,7 @@ import {
   resolvePublicSelection,
   stateForPublicPreset,
 } from "./utils/publicState.js";
+import { registerFleetWebMcp } from "./webmcp.js";
 import "./styles.css";
 
 const DATA_URL = publicAssetUrl("data/royal-navy/vessels.json");
@@ -293,7 +294,40 @@ function bindDataset() {
     parsePublicUrlState(window.location.href, publicStateCatalog) ??
     readPersistedPublicState(publicStorage, publicStateCatalog);
   applyPublicState(initialState, { initial: true });
+  registerWebMcpTools();
   window.dispatchEvent(new Event("rn-fleet-ready"));
+}
+
+function registerWebMcpTools() {
+  void registerFleetWebMcp({
+    getContext: () => {
+      const state = currentPublicState();
+      return {
+        dataset,
+        state,
+        availableSnapshotDates: [...publicStateCatalog.snapshotDates],
+        catalogs: {
+          services: [...publicStateCatalog.services].sort(),
+          vesselClasses: [...publicStateCatalog.vesselClasses].sort(),
+          vesselTypes: [...publicStateCatalog.types].sort(),
+          statuses: [...publicStateCatalog.statuses].sort(),
+          locationStates: [...publicStateCatalog.locationStates].sort(),
+        },
+        shareUrl: createShareablePublicUrl(
+          window.location.href,
+          state,
+          publicStateCatalog,
+        ).href,
+      };
+    },
+    applyState: (state) => applyPublicState(state),
+    showVessel: (vessel) => {
+      resetFilters({ focus: false });
+      selectVessel(vessel, { source: "webmcp" });
+    },
+  }).catch((error) => {
+    console.warn("WebMCP tools could not be registered; the fleet tracker remains usable.", error);
+  });
 }
 
 function renderSnapshotSelector() {
