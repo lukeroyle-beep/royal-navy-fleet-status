@@ -7,7 +7,6 @@ import {
   coLocatedVessels,
   getMapFocusPosition,
   getMapPosition,
-  getUncertaintyArea,
   hasPlottablePosition,
   mapFitPadding,
   markerClassName,
@@ -33,7 +32,7 @@ const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "u
 const mapComponent = fs.readFileSync(new URL("../src/components/FleetMap.js", import.meta.url), "utf8");
 
 const expectedPlottedVessels = dataset.vessels.filter(
-  (vessel) => Boolean(vessel.position || vessel.uncertaintyArea),
+  (vessel) => Boolean(vessel.position),
 );
 assert.deepEqual(
   plottedVessels(dataset.vessels).map((vessel) => vessel.id),
@@ -41,7 +40,7 @@ assert.deepEqual(
 );
 assert.equal(
   plottedVessels(dataset.vessels).every((vessel) =>
-    ["port", "city", "region"].includes(vessel.locationPrecision),
+    ["port", "city"].includes(vessel.locationPrecision),
   ),
   true,
 );
@@ -58,13 +57,13 @@ assert.equal(
 assert.equal(
   dataset.vessels
     .filter((vessel) => vessel.locationPrecision === "region")
-    .every((vessel) => !getMapPosition(vessel) && Boolean(getUncertaintyArea(vessel))),
+    .every((vessel) => !getMapPosition(vessel) && !hasPlottablePosition(vessel) && Boolean(vessel.uncertaintyArea)),
   true,
 );
 assert.equal(
   dataset.vessels
     .filter((vessel) => ["port", "city"].includes(vessel.locationPrecision))
-    .every((vessel) => Boolean(getMapPosition(vessel)) && !getUncertaintyArea(vessel)),
+    .every((vessel) => Boolean(getMapPosition(vessel)) && !vessel.uncertaintyArea),
   true,
 );
 
@@ -124,14 +123,15 @@ for (const regression of precisionFixtures.missedEvidenceRegressions) {
   assert.equal(vessel.locationState, regression.expectedState);
   assert.equal(vessel.locationPrecision, regression.expectedPrecision);
   assert.equal(vessel.publicLocationLabel, regression.expectedLabel);
-  assert.equal(hasPlottablePosition(vessel), true, `${regression.caseId} must remain visibly represented.`);
   if (regression.mustNotUsePoint) {
     assert.equal(getMapPosition(vessel), null, `${regression.caseId} must not use a fabricated point.`);
-    assert.ok(getUncertaintyArea(vessel), `${regression.caseId} must use regional representation.`);
+    assert.equal(hasPlottablePosition(vessel), false, `${regression.caseId} must not create a map marker.`);
+    assert.ok(vessel.uncertaintyArea, `${regression.caseId} must retain its regional public record.`);
   }
   if (regression.mustUsePoint) {
     assert.ok(getMapPosition(vessel), `${regression.caseId} must retain its rounded point.`);
-    assert.equal(getUncertaintyArea(vessel), null);
+    assert.equal(hasPlottablePosition(vessel), true);
+    assert.equal(vessel.uncertaintyArea, null);
   }
   if (regression.mustNotClaimBerth) {
     assert.ok(getMapPosition(vessel), `${regression.caseId} must use its bounded city-level point.`);
@@ -142,32 +142,18 @@ for (const regression of precisionFixtures.missedEvidenceRegressions) {
   }
 }
 
-const regionalGeometryGroups = new Map();
-for (const vessel of dataset.vessels.filter((candidate) => candidate.uncertaintyArea)) {
-  const area = vessel.uncertaintyArea;
-  const key = `${area.centre.lat}|${area.centre.lon}|${area.radiusKm}`;
-  regionalGeometryGroups.set(key, [...(regionalGeometryGroups.get(key) || []), vessel.id]);
-}
-assert.ok(
-  [...regionalGeometryGroups.values()].some((vesselIds) => vesselIds.length > 1),
-  "The current regression dataset must exercise co-located regional areas.",
-);
-
 const withheldFixture = precisionFixtures.stateCases.find((fixture) => fixture.caseId === "withheld-submarine");
 assert.equal(hasPlottablePosition(withheldFixture), false);
 assert.equal(getMapFocusPosition(withheldFixture), null);
 const regionFixture = precisionFixtures.stateCases.find((fixture) => fixture.caseId === "last-reported-region");
-assert.deepEqual(getMapFocusPosition(regionFixture), {
-  lat: 50.34,
-  lon: -4.15,
-  label: "Plymouth Sound",
-});
+assert.equal(getMapFocusPosition(regionFixture), null);
 for (const fixture of precisionFixtures.stateCases) {
-  const shouldPlot = fixture.locationPrecision !== "none";
+  const shouldPlot = ["port", "city"].includes(fixture.locationPrecision);
   assert.equal(hasPlottablePosition(fixture), shouldPlot, `${fixture.caseId} has the wrong selection target.`);
   if (fixture.locationPrecision === "region") {
     assert.equal(getMapPosition(fixture), null);
-    assert.ok(getUncertaintyArea(fixture));
+    assert.ok(fixture.uncertaintyArea);
+    assert.equal(getMapFocusPosition(fixture), null);
   } else if (["port", "city"].includes(fixture.locationPrecision)) {
     assert.deepEqual(getMapFocusPosition(fixture), fixture.position);
   } else {
@@ -320,14 +306,7 @@ assert.match(
 );
 assert.match(mapComponent, /reset:\s*true/);
 assert.match(mapComponent, /iconSize:\s*\[44,\s*44\]/);
-assert.match(mapComponent, /L\.circle/);
-assert.match(mapComponent, /Approximate region, not a live position/);
-assert.match(mapComponent, /fitBounds\(area\.getBounds\(\)/);
-assert.match(mapComponent, /element\.setAttribute\("tabindex", "0"\)/);
-assert.match(mapComponent, /event\.key !== "Enter" && event\.key !== " "/);
-assert.match(mapComponent, /groupedUncertaintyAreas/);
-assert.match(mapComponent, /fleet-region-picker-content/);
-assert.match(mapComponent, /activate to choose a vessel/);
+assert.doesNotMatch(mapComponent, /uncertainty|L\.circle|fleet-region-picker/i);
 assert.match(mapComponent, /coLocatedVessels\(this\.visibleVessels, this\.selectedId\)/);
 assert.match(mapComponent, /const anchor = coLocatedMarkers\[0\]/);
 assert.match(mapComponent, /siblings: coLocatedMarkers\.slice\(1\)/);

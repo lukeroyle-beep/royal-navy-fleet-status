@@ -1,5 +1,5 @@
 export function hasPlottablePosition(vessel) {
-  return Boolean(getMapPosition(vessel) || getUncertaintyArea(vessel));
+  return Boolean(getMapPosition(vessel));
 }
 
 export function getMapPosition(vessel) {
@@ -13,26 +13,8 @@ export function getMapPosition(vessel) {
     : null;
 }
 
-export function getUncertaintyArea(vessel) {
-  const area = vessel?.uncertaintyArea;
-  return Boolean(
-    vessel?.locationPrecision === "region" &&
-      area?.representation === "regional" &&
-      area.centre &&
-      Number.isFinite(area.centre.lat) &&
-      Number.isFinite(area.centre.lon) &&
-      Number.isFinite(area.radiusKm) &&
-      area.radiusKm > 0,
-  )
-    ? area
-    : null;
-}
-
 export function getMapFocusPosition(vessel) {
-  const point = getMapPosition(vessel);
-  if (point) return point;
-  const area = getUncertaintyArea(vessel);
-  return area ? { ...area.centre, label: area.label } : null;
+  return getMapPosition(vessel);
 }
 
 export function plottedVessels(vessels) {

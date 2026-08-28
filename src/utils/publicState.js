@@ -9,7 +9,8 @@ const MAP_LIMITS = Object.freeze({
   longitude: [-180, 180],
   zoom: [0, 19],
 });
-const LAYER_KEYS = Object.freeze(["fleet", "shore", "clusters", "uncertainty"]);
+const LAYER_KEYS = Object.freeze(["fleet", "shore", "clusters"]);
+const URL_LAYER_TOKENS = Object.freeze([...LAYER_KEYS, "uncertainty"]);
 const FILTER_KEYS = Object.freeze([
   "query",
   "vesselClass",
@@ -46,26 +47,26 @@ const SINGLETON_QUERY_KEYS = Object.freeze([
 ]);
 
 export const PUBLIC_PRESETS = Object.freeze({
-  overview: preset("Fleet overview", {}, { fleet: true, shore: false, clusters: true, uncertainty: true }),
+  overview: preset("Fleet overview", {}, { fleet: true, shore: false, clusters: true }),
   deployed: preset(
     "Deployed vessels",
     { status: "Deployed" },
-    { fleet: true, shore: false, clusters: true, uncertainty: true },
+    { fleet: true, shore: false, clusters: true },
   ),
   ukPorts: preset(
     "United Kingdom ports",
     { shoreType: PORT_SHORE_FILTER },
-    { fleet: false, shore: true, clusters: true, uncertainty: false },
+    { fleet: false, shore: true, clusters: true },
   ),
   maintenance: preset(
     "Maintenance and refit",
     { status: "In re-fit" },
-    { fleet: true, shore: false, clusters: true, uncertainty: true },
+    { fleet: true, shore: false, clusters: true },
   ),
   overseas: preset(
     "Overseas presence",
     { presence: "overseas" },
-    { fleet: true, shore: false, clusters: true, uncertainty: true },
+    { fleet: true, shore: false, clusters: true },
   ),
 });
 
@@ -87,7 +88,6 @@ export function createDefaultPublicState() {
       fleet: true,
       shore: false,
       clusters: true,
-      uncertainty: true,
     },
     selectedVessel: null,
     selectedShoreEstablishment: null,
@@ -352,7 +352,7 @@ function legacyStateFromUrl(url) {
   return {
     version: PUBLIC_STATE_VERSION,
     filters: { ...filters, locationState: "" },
-    layers: parseUrlLayers(url.searchParams.get("layers"), defaults.layers, { legacy: true }),
+    layers: parseUrlLayers(url.searchParams.get("layers"), defaults.layers),
     selectedVessel: url.searchParams.get("vessel"),
     selectedShoreEstablishment: null,
     snapshotDate: null,
@@ -376,7 +376,7 @@ function migrateLegacyState(value) {
       shoreQuery: filters.shoreQuery,
       shoreType: filters.shoreType,
     },
-    layers: { ...layers, uncertainty: true },
+    layers,
     selectedVessel: value.selectedVessel,
     selectedShoreEstablishment: null,
     snapshotDate: null,
@@ -384,17 +384,16 @@ function migrateLegacyState(value) {
   };
 }
 
-function parseUrlLayers(value, defaults, { legacy = false } = {}) {
+function parseUrlLayers(value, defaults) {
   if (typeof value !== "string") return defaults;
   const tokens = new Set(value.split(",").filter(Boolean));
-  if (value !== "" && ![...tokens].some((token) => LAYER_KEYS.includes(token))) {
+  if (value !== "" && ![...tokens].some((token) => URL_LAYER_TOKENS.includes(token))) {
     return defaults;
   }
   return {
     fleet: tokens.has("fleet"),
     shore: tokens.has("shore"),
     clusters: tokens.has("clusters"),
-    uncertainty: legacy ? defaults.uncertainty : tokens.has("uncertainty"),
   };
 }
 

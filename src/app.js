@@ -118,11 +118,6 @@ const elements = {
   fleetLayerToggle: document.querySelector("#fleetLayerToggle"),
   shoreLayerToggle: document.querySelector("#shoreLayerToggle"),
   clusterLayerToggle: document.querySelector("#clusterLayerToggle"),
-  uncertaintyLayerRow: document.querySelector("#uncertaintyLayerRow"),
-  uncertaintyLayerToggle: document.querySelector("#uncertaintyLayerToggle"),
-  uncertaintyLayerCount: document.querySelector("#uncertaintyLayerCount"),
-  uncertaintyVesselPicker: document.querySelector("#uncertaintyVesselPicker"),
-  uncertaintyVesselSelect: document.querySelector("#uncertaintyVesselSelect"),
   shoreLayerCount: document.querySelector("#shoreLayerCount"),
   shoreControls: document.querySelector("#shoreControls"),
   shoreSearch: document.querySelector("#shoreSearchInput"),
@@ -243,10 +238,6 @@ function bindDataset() {
   fleetMap.setShoreEstablishments(shoreDataset.establishments);
   details.renderDefault(dataset);
   elements.shoreLayerCount.textContent = `${shoreDataset.establishments.length} public locations`;
-  const uncertaintyCount = dataset.vessels.filter((vessel) => vessel.uncertaintyArea).length;
-  elements.uncertaintyLayerRow.hidden = uncertaintyCount === 0;
-  elements.uncertaintyVesselPicker.hidden = uncertaintyCount === 0;
-  elements.uncertaintyLayerCount.textContent = `${uncertaintyCount} ${uncertaintyCount === 1 ? "region" : "regions"}`;
   elements.shoreTotalCount.textContent = shoreDataset.establishments.length.toString();
   appendSelectOption(elements.shoreType, PORT_SHORE_FILTER, "Ports and dockyards");
   fillSelect(elements.shoreType, shoreTypes(shoreDataset.establishments));
@@ -292,23 +283,6 @@ function bindDataset() {
   elements.clusterLayerToggle.addEventListener("change", () => {
     fleetMap.setClusteringEnabled(elements.clusterLayerToggle.checked);
     syncPublicState();
-  });
-  elements.uncertaintyLayerToggle.addEventListener("change", () => {
-    fleetMap.setUncertaintyAreasVisible(elements.uncertaintyLayerToggle.checked);
-    syncPublicState();
-  });
-  elements.uncertaintyVesselSelect.addEventListener("change", () => {
-    const vessel = dataset.vessels.find(
-      (candidate) => candidate.id === elements.uncertaintyVesselSelect.value,
-    );
-    if (vessel) {
-      selectVessel(vessel, {
-        source: "region-picker",
-        trigger: elements.uncertaintyVesselSelect,
-        returnSurface: "layers",
-        returnFocusFallback: elements.layersToggle,
-      });
-    }
   });
   elements.shoreSearch.addEventListener("input", applyShoreFilters);
   elements.shoreType.addEventListener("change", applyShoreFilters);
@@ -374,13 +348,6 @@ function applySnapshotDate(requestedDate, { sync = true } = {}) {
   updateSnapshotLabels();
   renderFleetOverview();
   renderClassRibbon();
-
-  const uncertaintyCount = dataset.vessels.filter((vessel) => vessel.uncertaintyArea).length;
-  elements.uncertaintyLayerRow.hidden = uncertaintyCount === 0;
-  elements.uncertaintyVesselPicker.hidden = uncertaintyCount === 0;
-  elements.uncertaintyLayerCount.textContent = `${uncertaintyCount} ${
-    uncertaintyCount === 1 ? "region" : "regions"
-  }`;
 
   selectedId = null;
   selectedShoreId = null;
@@ -702,44 +669,15 @@ function applyFilters({ fit = true, sync = true } = {}) {
   renderFilterSummary(filtered.length);
   elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
   renderList(filtered);
-  renderUncertaintyVesselPicker(filtered);
   fleetMap.setVisibleVessels(filtered, { fit });
   if (selectedId && !filtered.some((vessel) => vessel.id === selectedId)) {
     selectedId = null;
     details.renderDefault(dataset);
     fleetMap.clearSelection();
     surfaceController.close("detail");
-    elements.uncertaintyVesselSelect.value = "";
   }
   if (sync) syncPublicState();
   return filtered;
-}
-
-function renderUncertaintyVesselPicker(vessels) {
-  const regionalVessels = vessels
-    .filter((vessel) => vessel.uncertaintyArea)
-    .slice()
-    .sort((left, right) => left.name.localeCompare(right.name));
-  const placeholder = document.createElement("option");
-  placeholder.value = "";
-  placeholder.textContent = regionalVessels.length
-    ? "Select a visible regional record"
-    : "No regional records match the filters";
-  elements.uncertaintyVesselSelect.replaceChildren(
-    placeholder,
-    ...regionalVessels.map((vessel) => {
-      const option = document.createElement("option");
-      option.value = vessel.id;
-      option.textContent = `${vessel.name} — ${vessel.publicLocationLabel}`;
-      return option;
-    }),
-  );
-  elements.uncertaintyVesselSelect.disabled = regionalVessels.length === 0;
-  elements.uncertaintyVesselSelect.value = regionalVessels.some(
-    (vessel) => vessel.id === selectedId,
-  )
-    ? selectedId
-    : "";
 }
 
 function renderFilterSummary(filteredCount) {
@@ -896,7 +834,6 @@ function selectVessel(
   for (const button of elements.shoreList.querySelectorAll("button")) {
     button.classList.remove("is-selected");
   }
-  elements.uncertaintyVesselSelect.value = vessel.uncertaintyArea ? vessel.id : "";
   surfaceController.open("detail", {
     focus: source === "changes" || (source !== "restore" && surfaceController.isCompact()),
     returnFocus: trigger,
@@ -938,12 +875,10 @@ function applyPublicState(state, { initial = false } = {}) {
   elements.shoreType.value = state.filters.shoreType;
   elements.fleetLayerToggle.checked = state.layers.fleet;
   elements.clusterLayerToggle.checked = state.layers.clusters;
-  elements.uncertaintyLayerToggle.checked = state.layers.uncertainty;
   updateClassRibbon();
 
   fleetMap.clearSelection();
   fleetMap.setClusteringEnabled(state.layers.clusters, { fit: false });
-  fleetMap.setUncertaintyAreasVisible(state.layers.uncertainty, { fit: false });
   fleetMap.setFleetVisible(state.layers.fleet, { fit: false });
   toggleShoreLayer(state.layers.shore, { fit: false, sync: false });
   applyFilters({ fit: false, sync: false });
@@ -1002,7 +937,6 @@ function currentPublicState() {
       fleet: elements.fleetLayerToggle.checked,
       shore: elements.shoreLayerToggle.checked,
       clusters: elements.clusterLayerToggle.checked,
-      uncertainty: elements.uncertaintyLayerToggle.checked,
     },
     selectedVessel: selectedId,
     selectedShoreEstablishment: selectedShoreId,

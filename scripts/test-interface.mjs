@@ -121,18 +121,12 @@ assert.match(styles, /@media \(max-width: 700px\)[\s\S]*width:\s*min\(340px, cal
 assert.doesNotMatch(styles, /\.surface-header::before|max-height:\s*min\(72dvh/);
 assert.match(styles, /grid-auto-columns:\s*minmax\(0, 1fr\)/);
 assert.match(details, /getVesselPublicTimeline/);
-for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle", "uncertaintyLayerToggle"]) {
+for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle"]) {
   assert.match(html, new RegExp(`id="${id}"[^>]*type="checkbox"`));
 }
-assert.match(html, /id="uncertaintyLayerRow"[^>]*hidden/);
-assert.match(html, /id="uncertaintyVesselPicker"[^>]*hidden/);
-assert.match(html, /id="uncertaintyVesselSelect"/);
-assert.match(app, /uncertaintyCount === 0/);
-assert.match(app, /renderUncertaintyVesselPicker\(filtered\)/);
-assert.match(app, /source: "region-picker"/);
-assert.match(app, /setUncertaintyAreasVisible/);
+assert.doesNotMatch(html, /uncertaintyLayer|uncertaintyVessel|legend-area/);
+assert.doesNotMatch(app, /uncertaintyLayer|uncertaintyVessel|setUncertaintyAreasVisible/);
 assert.match(app, /locationState: elements\.location\.value/);
-assert.match(app, /uncertainty: elements\.uncertaintyLayerToggle\.checked/);
 assert.match(app, /persistPublicState\(publicStorage, state, publicStateCatalog\)/);
 assert.match(app, /createShareablePublicUrl\([\s\S]*publicStateCatalog/);
 assert.doesNotMatch(html, /Deployment regions|Evidence requiring review|Recent evidence events|Overseas support facilities/);
@@ -204,7 +198,6 @@ assert.deepEqual(storedState.layers, {
   fleet: true,
   shore: true,
   clusters: false,
-  uncertainty: false,
 });
 assert.equal(storedState.selectedVessel, null, "Selection must not persist locally.");
 assert.equal(storedState.selectedShoreEstablishment, null, "Shore selection must not persist locally.");
@@ -235,7 +228,6 @@ assert.deepEqual(migratedStoredState.layers, {
   fleet: true,
   shore: false,
   clusters: false,
-  uncertainty: true,
 });
 
 const selectedVessel = fleet.vessels.find((vessel) => vessel.status === "Deployed");
@@ -318,7 +310,7 @@ const historicalShoreSelectionUrl = createShareablePublicUrl(
   {
     selectedShoreEstablishment: shoreEstablishment.id,
     snapshotDate: "2026-08-12",
-    layers: { fleet: true, shore: true, clusters: true, uncertainty: true },
+    layers: { fleet: true, shore: true, clusters: true },
   },
   historyStateCatalog,
 );
@@ -355,7 +347,6 @@ assert.deepEqual(urlState.layers, {
   fleet: true,
   shore: false,
   clusters: true,
-  uncertainty: true,
 });
 assert.equal(urlState.selectedVessel, selectedVessel.id);
 assert.deepEqual(urlState.map, { centre: [85, -180], zoom: 19 });
@@ -428,7 +419,7 @@ const legacyUrlState = parsePublicUrlState(
 );
 assert.equal(legacyUrlState.filters.status, "Deployed");
 assert.equal(legacyUrlState.filters.locationState, "");
-assert.equal(legacyUrlState.layers.uncertainty, true);
+assert.deepEqual(legacyUrlState.layers, { fleet: true, shore: false, clusters: true });
 assert.deepEqual(legacyUrlState.map, { centre: [50, -4], zoom: 5 });
 
 const shareableUrl = createShareablePublicUrl(
@@ -453,7 +444,7 @@ const historicalShareableUrl = createShareablePublicUrl(
   {
     selectedVessel: "hms-iron-duke",
     snapshotDate: "2026-08-12",
-    layers: { fleet: true, shore: false, clusters: true, uncertainty: true },
+    layers: { fleet: true, shore: false, clusters: true },
   },
   historyStateCatalog,
 );
@@ -483,12 +474,13 @@ assert.equal(boundedShareableUrl.searchParams.has("vessel"), false);
 assert.equal(boundedShareableUrl.searchParams.get("lat"), "85");
 assert.equal(boundedShareableUrl.searchParams.get("lon"), "-180");
 assert.equal(boundedShareableUrl.searchParams.get("zoom"), "19");
+assert.doesNotMatch(boundedShareableUrl.searchParams.get("layers"), /uncertainty/);
 
 const invalidNumericShareableUrl = createShareablePublicUrl(
   "https://example.test/tracker",
   {
     filters: { query: "x".repeat(80), shoreQuery: "y".repeat(80) },
-    layers: { fleet: true, shore: false, clusters: true, uncertainty: false },
+    layers: { fleet: true, shore: false, clusters: true },
     map: { centre: ["", "1"], zoom: "4" },
   },
   stateCatalog,
@@ -506,9 +498,7 @@ for (const preset of ["overview", "deployed", "ukPorts", "maintenance", "oversea
 }
 assert.equal(stateForPublicPreset("ukPorts").filters.shoreType, PORT_SHORE_FILTER);
 assert.equal(stateForPublicPreset("ukPorts").layers.shore, true);
-assert.equal(stateForPublicPreset("ukPorts").layers.uncertainty, false);
 assert.equal(stateForPublicPreset("overseas").filters.presence, "overseas");
-assert.equal(stateForPublicPreset("overseas").layers.uncertainty, true);
 assert.equal(
   publicPresenceForVessel({
     locationPrecision: "city",
