@@ -1,9 +1,11 @@
 # HTML must be fetched afresh so it never references an asset removed by a later deployment.
 /
   Cache-Control: no-store
+  Permissions-Policy: tools=(self)
 
 /*.html
   Cache-Control: no-store
+  Permissions-Policy: tools=(self)
 
 # Fingerprinted Vite assets stay usable from the browser cache after a deployment rollover.
 /assets/*

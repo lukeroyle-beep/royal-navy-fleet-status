@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 
 import { validateReviewedPublicLocation } from "./public-geography.mjs";
+import { validateSocialSourceRegistry } from "./social-source-registry.mjs";
 
 const CONFIDENCE_LEVELS = new Set(["high", "moderate", "low", "unknown"]);
 const FRESHNESS_STATES = new Set(["current", "aging", "historical"]);
@@ -46,8 +47,12 @@ export function sha256(value) {
 }
 
 export function validateSourceRegistry(registry, vesselIds = [], currentVesselIds = vesselIds) {
-  if (!registry || registry.schemaVersion !== "1.0.0" || !Array.isArray(registry.sources)) {
-    throw new Error("Source registry must use schemaVersion 1.0.0 and contain sources.");
+  if (
+    !registry ||
+    !new Set(["1.0.0", "1.1.0"]).has(registry.schemaVersion) ||
+    !Array.isArray(registry.sources)
+  ) {
+    throw new Error("Source registry must use schemaVersion 1.0.0 or 1.1.0 and contain sources.");
   }
 
   const ids = new Set();
@@ -110,6 +115,7 @@ export function validateSourceRegistry(registry, vesselIds = [], currentVesselId
       `Expected ${currentVesselIds.length} official social coverage rows, found ${coverageIds.size}.`,
     );
   }
+  validateSocialSourceRegistry(registry);
   return registry;
 }
 

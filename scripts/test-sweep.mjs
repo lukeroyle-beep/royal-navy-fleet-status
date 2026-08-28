@@ -87,12 +87,21 @@ assert.deepEqual(
 );
 assert.deepEqual(
   run.sourceChecks.map((entry) => entry.sourceId),
-  registry.sources.filter(isRequiredRecurringSource).map((entry) => entry.sourceId).sort(),
-  "Only recurring manual sources belong in the hard coverage gate.",
+  registry.sources
+    .filter(isRequiredRecurringSource)
+    .map((entry) => entry.sourceId)
+    .sort((left, right) => left.localeCompare(right)),
+  "Only governed recurring sources belong in the hard coverage gate.",
 );
 assert.ok(
-  run.sourceChecks.every((entry) => entry.collectionMode === "manual"),
-  "Public-index feeds must be represented by discovery checks, not manual source checks.",
+  run.sourceChecks.every((entry) => ["manual", "api"].includes(entry.collectionMode)),
+  "Recurring checks may use manual review or the separately governed public-X API adapter.",
+);
+assert.ok(
+  run.sourceChecks
+    .filter((entry) => entry.collectionMode === "api")
+    .every((entry) => registry.sources.find((source) => source.sourceId === entry.sourceId)?.xCollection?.enabled),
+  "Every recurring API check must resolve to an enabled governed X account.",
 );
 assert.ok(
   run.sourceChecks.length < registry.sources.filter((entry) => entry.enabled).length,

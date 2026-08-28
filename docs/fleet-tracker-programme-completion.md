@@ -122,6 +122,8 @@ privacy boundary.
   sanitised release and credential response.
 - [OSINT provenance](osint-provenance.md): evidence, assessment and public projection model.
 - [Weekly fleet refresh](weekly-fleet-refresh.md): governed collection, finalisation and release gates.
+- [Public X social sources](x-social-sources.md): trusted-host collection, account governance, credits,
+  caching and failure handling.
 - [Public geographic precision](public-geographic-precision.md): public location and submarine rules.
 - [Release revisions](release-revisions.md): append-only same-day correction procedure.
 - [Private release checklist](private-release-test.md) and [test report](release-test-report.md):
@@ -147,7 +149,7 @@ bounded work:
 - unattended publication, automatic merge or direct-to-production fleet updates;
 - satellite collection or identification automation beyond the disabled proof-of-concept evaluator;
 - route, course, destination, patrol-area or position inference from sparse public observations;
-- any live AIS, satellite or other provider integration requiring credentials, accounts, tokens,
+- any additional live AIS, satellite or provider integration requiring credentials, accounts, tokens,
   private registries, retention, billing, provider permissions or new privacy boundaries;
 - migration or deletion of the retained legacy provenance area before encrypted storage, independent
   backup, restore testing, reconciliation, retention and rollback are separately approved; and

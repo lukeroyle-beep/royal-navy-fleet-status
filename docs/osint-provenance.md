@@ -1,6 +1,6 @@
 # OSINT provenance architecture
 
-Research cut-off: 2026-08-24.
+Research cut-off: 2026-08-27.
 
 ## Current-state assessment
 
@@ -41,10 +41,11 @@ The implementation deliberately avoids a database or heavyweight PROV/RDF layer.
 
 ## Source universe and lawful collection
 
-The registry contains 120 governed source records, a 68-vessel official-social coverage matrix and these implemented collection classes:
+The registry contains 163 governed source records, a 68-vessel official-social coverage matrix and these implemented collection classes:
 
 - official MOD/GOV.UK and NATO releases;
-- Royal Navy, DefenceHQ and DefenceHQPress organisation accounts;
+- 71 confirmed Royal Navy/MOD organisation, command, unit, establishment, squadron and vessel X
+  accounts collected through the trusted-host Scrape Creators stage;
 - 68 vessel-account coverage records from the roster-wide official-page review, including
   machine-tested `@HMS_Spey` and `@HMSTrent` entries;
 - official harbour/dockyard and defence-contractor news;
@@ -52,7 +53,12 @@ The registry contains 120 governed source records, a 68-vessel official-social c
 - MarineVesselTraffic NATO Navy Ships as a manual discovery-only source;
 - official imagery, credible media and AIS-derived legacy sources classified by tier and collection mode.
 
-No X scraping, commercial-page scraping, media downloading, satellite automation, webcam automation or automatic archive submission is implemented. X requires an authorised API for automation. Commercial AIS terms and public-output licences require procurement review. Visual material needs copyright, geolocation and chronolocation review. A manual evidence-ingestion command provides a maintainable lawful alternative and fails closed on unknown source/vessel IDs, malformed URLs, hashes or timestamps.
+No direct X-page scraping, private/logged-in social access, commercial-page scraping, media downloading,
+satellite automation, webcam automation or automatic archive submission is implemented. The public-X
+adapter uses only the Keychain-backed Scrape Creators wrapper on the trusted Mac. Commercial AIS terms
+and public-output licences require procurement review. Visual material needs copyright, geolocation and
+chronolocation review. A manual evidence-ingestion command provides a maintainable lawful alternative
+and fails closed on unknown source/vessel IDs, malformed URLs, hashes or timestamps.
 
 `npm run sweep:coverage` produces the machine-readable account-gap report and the manual discovery
 queues for official Royal Navy/RFA, GOV.UK/MOD, YouTube, NATO/allied government, embassy/exercise,
@@ -74,7 +80,10 @@ and does not attempt a bypass. Westward Shipping News RSS is the replacement aut
 Tier C and discovery-only: a candidate still needs origin, temporal and corroboration review before
 it can become evidence.
 
-Official account identity never constitutes vessel-location evidence. HMS Middleton is therefore registry-only because its official account was identified but the individual post URL and original timestamp were not recovered. Disabled and unresolved handles are not guessed from naming conventions.
+Official account identity never constitutes vessel-location evidence. HMS Middleton and HMS Dasher
+are enabled only because their current Royal Navy unit pages directly link their handles; that identity
+does not recover or validate any historical post. Disabled and unresolved handles are not guessed from
+naming conventions.
 
 ## Pipeline
 
@@ -92,6 +101,11 @@ analyst must separately record every required recurring manual-source check and 
 outcomes. Newly governed sources and normalised evidence are added before an `updated` outcome is
 finalised. Candidate assessment revisions and the target release date/revision must exist before
 finalisation so the run can derive and bind every vessel outcome to the exact reviewed state.
+`npm run sweep:x -- --run=<run.json> --output=x-social-run.json` adds the trusted-host public-X
+source checks and produces a separate private candidate artifact. The endpoint provides a bounded
+popular-post sample without date parameters or pagination, so local date filtering cannot establish
+complete weekly coverage. Stable IDs and origin clusters prevent repost/cross-post double counting;
+source claims, machine interpretation and conflicts remain distinct and publication-ineligible.
 `npm run sweep:finalise -- <run.json>` succeeds only when the required interval and checks are complete.
 The finalised file is retained under the configured private root's `sweep-runs/` directory. During
 the approved non-destructive migration state, an unset root continues to use
@@ -137,14 +151,15 @@ also emits a conservative maximum-public-precision cap; missing location support
   boundary described in [`private-input-boundary.md`](private-input-boundary.md); it is never supplied
   to public CI.
 - The manual ingestion command appends evidence but intentionally does not publish a new conclusion. An analyst must create and validate an assessment revision.
-- X/API, port-feed and archive schedulers are deferred until credentials, terms, rate limits,
-  retention and operating ownership are approved. AIS and Copernicus now have disabled internal
+- Port-feed, archive and additional provider schedulers are deferred until credentials, terms, rate
+  limits, retention and operating ownership are approved. AIS and Copernicus now have disabled internal
   validation/proof-of-concept paths only; see
   [`external-corroboration-evaluation.md`](external-corroboration-evaluation.md).
 - Perceptual image deduplication, satellite automation and route inference remain deferred. The
   disabled AIS validator now rejects invalid, stale, out-of-order, out-of-bounds and implausible
   position reports.
-- Forty-one official-social coverage rows remain disabled; each registry review must repeat exact unit-page verification before enabling an account.
+- Fifteen official-social coverage rows remain disabled; each registry review must repeat exact
+  unit-page verification before enabling an account.
 
 ## Research references
 
@@ -156,4 +171,5 @@ also emits a conservative maximum-public-precision cap; missing location support
 - [VesselFinder terms](https://www.vesselfinder.com/terms)
 - [MarineVesselTraffic NATO Navy Ships](https://www.marinevesseltraffic.com/NATO-navy-ships)
 - [MOD official social-media register](https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use)
+- [Scrape Creators public X user-post endpoint](https://docs.scrapecreators.com/v1/twitter/user-tweets/)
 - [X automation rules](https://help.x.com/en/rules-and-policies/x-automation?lang=browser)

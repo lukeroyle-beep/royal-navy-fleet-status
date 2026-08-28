@@ -217,8 +217,8 @@ assert.equal(
   "Official social coverage and enabled account sources must remain in sync.",
 );
 assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "legacy").length, 0);
-assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "registry-only").length, 1);
-assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "provisional").length, 1);
+assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "registry-only").length, 0);
+assert.equal(registry.officialSocialCoverage.filter((entry) => entry.registryStatus === "provisional").length, 0);
 assert.equal(
   registry.sources.some((source) => source.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY"),
   true,
@@ -242,11 +242,12 @@ assert.equal(sweep.discoveryTargets.length, 7);
 
 const middleton = registry.officialSocialCoverage.find((entry) => entry.vesselId === "hms-middleton");
 assert.equal(middleton.accountHandle, "@HMSMiddleton");
-assert.equal(middleton.enabled, false);
-assert.equal(middleton.registryStatus, "registry-only");
+assert.equal(middleton.enabled, true);
+assert.equal(middleton.registryStatus, "enabled");
 const dasher = registry.officialSocialCoverage.find((entry) => entry.vesselId === "hms-dasher");
-assert.equal(dasher.enabled, false);
-assert.equal(dasher.registryStatus, "provisional");
+assert.equal(dasher.enabled, true);
+assert.equal(dasher.registryStatus, "enabled");
+assert.match(dasher.verifiedByUrl, /^https:\/\/www\.royalnavy\.mod\.uk\//);
 
 const malformedRegistry = structuredClone(registry);
 malformedRegistry.sources.find((source) => source.enabled).canonicalUrl = "javascript:alert(1)";
