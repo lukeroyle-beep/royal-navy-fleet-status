@@ -133,24 +133,12 @@
               <span><strong>Marker clustering</strong><small>Group nearby vessel and shore markers</small></span>
               <input id="clusterLayerToggle" type="checkbox" checked />
             </label>
-            <label id="uncertaintyLayerRow" class="switch-row" hidden>
-              <span><strong>Uncertainty areas</strong><small id="uncertaintyLayerCount">0 regions</small></span>
-              <input id="uncertaintyLayerToggle" type="checkbox" checked />
-            </label>
-            <label id="uncertaintyVesselPicker" class="region-vessel-picker" hidden>
-              <span>Choose a regional vessel</span>
-              <select id="uncertaintyVesselSelect" aria-describedby="uncertaintyVesselHelp">
-                <option value="">Select a visible regional record</option>
-              </select>
-              <small id="uncertaintyVesselHelp">Provides direct access when uncertainty areas overlap.</small>
-            </label>
           </fieldset>
           <details class="legend-disclosure">
             <summary>Location legend</summary>
             <div class="legend" aria-label="Location marker legend">
               <span><i class="legend-dot confirmed"></i>Confirmed port or city</span>
               <span><i class="legend-dot last-reported"></i>Last publicly reported port or city</span>
-              <span><i class="legend-area"></i>Approximate region, not a live position</span>
               <span><i class="legend-dot shore"></i>Shore establishment</span>
             </div>
           </details>

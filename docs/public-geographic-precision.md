@@ -18,16 +18,16 @@ not recognize place-name lists, default an unfamiliar place to a port, convert m
 a point, or derive a regional radius from label words. A missing or ambiguous decision projects as
 list-only, while assessment validation rejects a missing decision in the current assessment index.
 
-Regional areas communicate geographic context only. They are not probability boundaries, routes, current positions or evidence that a vessel remains inside the area. The map labels them “Approximate region, not a live position”.
+Regional areas communicate geographic context only. They are not probability boundaries, routes, current positions or evidence that a vessel remains inside the area. Their label remains available in the vessel list and detail record, but the public map does not render the area or create a representative marker.
 
-When multiple visible vessels have exactly the same published regional geometry, the map renders one area for that geometry. Activating it opens a named, keyboard-operable vessel chooser. The Layers panel also provides a direct regional-vessel selector, so every visible record remains unambiguous even when several broad areas overlap on screen.
+Regional vessels remain searchable and selectable through the fleet list. Selecting one opens its public detail record without changing the map view.
 
 ## Publication safeguards
 
 - The projection uses an explicit field allow-list. It never copies an assessment object wholesale.
 - The trusted `publicLocation` object and each geometry variant use exact-key allow-lists; extra source, evidence or analyst fields are rejected.
 - Port and city coordinates are rounded to at most two decimal places. Validation rejects more precise public points.
-- Regional records cannot contain a point marker. Their bounded representation must have a valid coarse centre and an explicitly reviewed integer radius between 5 and 2,500 kilometres; no radius is synthesized from text.
+- Regional records cannot contain a point marker. Their retained bounded data must have a valid coarse centre and an explicitly reviewed integer radius between 5 and 2,500 kilometres; no radius is synthesized from text or rendered as a public map layer.
 - Unconfirmed, no-recent-information and withheld records are list-only.
 - Unknown records cannot be given geometry.
 - Submarine patrol reports cannot contain point or regional geometry.
