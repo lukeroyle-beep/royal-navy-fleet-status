@@ -128,6 +128,15 @@ test("desktop right-side panels are exclusive and list selections explain map di
     .locator("#detailDrawer, #layersPanel, #filterPanel, #changesPanel")
     .evaluateAll((panels) => panels.filter((panel) => !panel.hidden).length);
   expect(visibleRightPanels).toBe(1);
+
+  await page.locator(classButtonSelector("Vanguard class")).click();
+  const classVesselButton = page.locator("#classAvailabilityVessels button").first();
+  await classVesselButton.click();
+  await expect(page.locator("#detailDrawer")).toBeVisible();
+  await expect(page.locator("#filterPanel")).toBeHidden();
+  await page.locator('[data-close-surface="detail"]').click();
+  await expect(page.locator("#filterPanel")).toBeVisible();
+  await expect(classVesselButton).toBeFocused();
 });
 
 function classButtonSelector(vesselClass) {

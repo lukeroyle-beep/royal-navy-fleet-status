@@ -674,8 +674,8 @@ function createClassVesselItem(vessel) {
     selectVessel(vessel, {
       source: "class",
       trigger: button,
-      returnSurface: "fleet",
-      returnFocusFallback: elements.fleetToggle,
+      returnSurface: "filters",
+      returnFocusFallback: elements.filterToggle,
     }),
   );
   item.append(button);
