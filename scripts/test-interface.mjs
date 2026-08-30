@@ -615,6 +615,7 @@ for (const prohibited of ["Evidence requiring review", "sourceUrl", "evidenceGra
 function testCompactDetailFocusRestoration() {
   let activeElement = null;
   let escapeHandler = null;
+  let compact = true;
   const previousWindow = globalThis.window;
   const previousDocument = globalThis.document;
 
@@ -640,7 +641,7 @@ function testCompactDetailFocusRestoration() {
 
   try {
     globalThis.window = {
-      matchMedia: () => ({ matches: true, addEventListener() {} }),
+      matchMedia: () => ({ matches: compact, addEventListener() {} }),
     };
     globalThis.document = {
       querySelectorAll: () => [],
@@ -717,6 +718,30 @@ function testCompactDetailFocusRestoration() {
     removedTrigger.isConnected = false;
     escapeHandler({ key: "Escape" });
     assert.equal(activeElement, fleetToggle, "A removed list trigger must fall back to the Fleet control.");
+
+    compact = false;
+    const desktopLayersSurface = createElement();
+    const desktopDetailSurface = createElement({ hidden: true, focusTarget: createElement() });
+    const desktopLayersToggle = createElement();
+    const desktopController = new SurfaceController({
+      surfaces: new Map([
+        ["layers", desktopLayersSurface],
+        ["detail", desktopDetailSurface],
+      ]),
+      triggers: new Map([["layers", desktopLayersToggle]]),
+      focusFallbacks: new Map([["detail", desktopLayersToggle]]),
+      backdrop: null,
+    });
+    const desktopShoreTrigger = createElement();
+    desktopController.open("detail", {
+      returnFocus: desktopShoreTrigger,
+      returnSurface: "layers",
+      returnFocusFallback: desktopLayersToggle,
+    });
+    assert.equal(desktopLayersSurface.hidden, true, "Desktop detail must temporarily replace Layers.");
+    desktopController.close("detail", { restoreFocus: true });
+    assert.equal(desktopLayersSurface.hidden, false, "Desktop close must restore the originating Layers panel.");
+    assert.equal(activeElement, desktopShoreTrigger, "Desktop close must restore the invoking shore control.");
   } finally {
     if (previousWindow === undefined) delete globalThis.window;
     else globalThis.window = previousWindow;

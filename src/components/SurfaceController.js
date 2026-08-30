@@ -74,17 +74,14 @@ export class SurfaceController {
       returnContext?.fallback ??
       this.focusFallbacks.get(name) ??
       this.triggers.get(name);
-    const next = new Set(this.openSurfaces);
+    let next = new Set(this.openSurfaces);
     next.delete(name);
     if (
       restoreFocus &&
-      recordedTarget &&
-      this.isCompact() &&
       returnContext?.surface &&
       this.surfaces.has(returnContext.surface)
     ) {
-      next.clear();
-      next.add(returnContext.surface);
+      next = openSurface(next, returnContext.surface, this.isCompact());
     }
     this.#render(next);
     this.returnContexts.delete(name);
