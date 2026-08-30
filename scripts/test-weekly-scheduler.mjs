@@ -104,4 +104,14 @@ const standby = evaluateWeeklyProductionHealth({
 assert.equal(standby.outcome, "standby");
 assert.equal(standby.action, "none");
 
+const delayedIntoMonday = evaluateWeeklyProductionHealth({
+  instant: "2026-08-30T23:15:00Z",
+  mode: "scheduled-watchdog",
+  repositoryMetadata: metadata("2026-08-23", 4),
+  liveMetadata: metadata("2026-08-23", 4),
+});
+assert.equal(delayedIntoMonday.outcome, "standby");
+assert.equal(delayedIntoMonday.action, "none");
+assert.equal(delayedIntoMonday.expectedSnapshotDate, "2026-08-30");
+
 console.log("Weekly scheduler and production-watchdog tests passed.");

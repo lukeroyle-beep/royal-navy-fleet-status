@@ -75,13 +75,10 @@ export function evaluateWeeklyProductionHealth({
   }
 
   const clock = getLondonClock(instant);
-  const expectedSnapshotDate = resolveExpectedSnapshotDate({
-    instant,
-    explicitDate,
-    manual,
-  });
-
   if (!manual && !isSundayWatchdogWindow(instant)) {
+    const expectedSnapshotDate = explicitDate
+      ? resolveExpectedSnapshotDate({ instant, explicitDate, manual })
+      : mostRecentSundayDate(clock);
     return createResult({
       action: "none",
       clock,
@@ -94,6 +91,11 @@ export function evaluateWeeklyProductionHealth({
       reasons: ["outside_sunday_watchdog_window"],
     });
   }
+  const expectedSnapshotDate = resolveExpectedSnapshotDate({
+    instant,
+    explicitDate,
+    manual,
+  });
 
   const repositoryMatches = repositoryMetadata?.asOfDate === expectedSnapshotDate;
   const liveMatches = liveMetadata?.asOfDate === expectedSnapshotDate;
@@ -177,6 +179,22 @@ function assertIsoDate(value) {
   if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
     throw new Error(`Invalid snapshot date: ${value}`);
   }
+}
+
+function mostRecentSundayDate(clock) {
+  const weekdayOffset = {
+    Sun: 0,
+    Mon: 1,
+    Tue: 2,
+    Wed: 3,
+    Thu: 4,
+    Fri: 5,
+    Sat: 6,
+  }[clock.weekday];
+  if (weekdayOffset === undefined) throw new Error(`Unsupported London weekday: ${clock.weekday}`);
+  const noonUtc = new Date(`${clock.date}T12:00:00Z`);
+  noonUtc.setUTCDate(noonUtc.getUTCDate() - weekdayOffset);
+  return noonUtc.toISOString().slice(0, 10);
 }
 
 export { LONDON_TIME_ZONE };
