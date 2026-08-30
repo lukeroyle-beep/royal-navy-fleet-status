@@ -307,6 +307,24 @@ h1 {
   transform: translateX(-50%);
 }
 
+.map-filter-notice {
+  position: absolute;
+  z-index: 718;
+  bottom: 170px;
+  left: 50%;
+  max-width: min(400px, calc(100% - 32px));
+  padding: 10px 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: rgba(10, 20, 27, 0.94);
+  box-shadow: var(--shadow);
+  color: var(--text);
+  font-size: 0.74rem;
+  line-height: 1.4;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
 .surface {
   position: absolute;
   z-index: 800;
@@ -406,6 +424,14 @@ h1 {
 .snapshot-description { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 0.64rem; line-height: 1.4; }
 
 #filterResultStatus { color: var(--text); font-weight: 700; }
+.plot-result-status,
+.class-map-summary {
+  margin: -5px 0 0;
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.4;
+}
+.class-map-summary { margin: 0; }
 #resetFilters,
 #panelResetFilters { flex: 0 0 auto; font-size: 0.7rem; }
 

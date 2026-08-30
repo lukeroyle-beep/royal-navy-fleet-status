@@ -1,10 +1,18 @@
 # Weekly fleet refresh
 
-Buzz workflow `8c44ae64-0b49-48f3-b11e-c653d073e8e9` starts the fleet review every Sunday at 00:00 UTC using cron expression `0 0 * * 7`.
+OpenClaw automation `0ed0dde6-f1f1-46eb-a9e4-98200e1ee907` is the single production scheduler. It
+runs every Sunday at **12:00 UK local time** with cron expression `0 12 * * 0`, IANA timezone
+`Europe/London`, and no stagger. OpenClaw therefore resolves 12:00 to 11:00 UTC during British Summer
+Time and 12:00 UTC during Greenwich Mean Time, including the clock-change Sundays. Do not replace
+this with a permanently fixed UTC cron.
+
+The legacy Buzz workflow `8c44ae64-0b49-48f3-b11e-c653d073e8e9` is disabled. Its live definition
+records that it was retired on 18 August 2026 after migration to OpenClaw. Do not re-enable it while
+the OpenClaw automation is active because that would create competing production schedulers.
 
 The scheduled message instructs Codex to:
 
-1. review all 68 Royal Navy and Royal Fleet Auxiliary records;
+1. derive the current roster and review all 68 current Royal Navy and Royal Fleet Auxiliary records;
 2. keep or revise only dated, public, vessel-specific locations at supported precision;
 3. retain the last public location irrespective of age while labelling historical evidence;
 4. append every promotion or revision to `data/royal-navy/location-decisions.jsonl`;
@@ -16,40 +24,57 @@ The scheduled message instructs Codex to:
 
 The workflow is deliberately owner-reviewed. It prepares evidence-backed repository changes but does not merge or deploy them automatically.
 
-### Buzz prompt addition
+### Trigger, preflight and failure visibility
 
-The automation API did not expose the existing Buzz prompt/recurrence fields during the 27 August
-2026 implementation, so the live task was deliberately not overwritten. Append the following text to
-workflow `8c44ae64-0b49-48f3-b11e-c653d073e8e9` without changing its existing 00:00 UTC Sunday
-schedule or any of its current instructions:
+Before broad collection, the OpenClaw job must fail fast unless all of the following are true:
 
-> After the 00:05 UTC read-only GitHub discovery has produced `osint-sweep-run.json`, run the governed
-> public-X stage on the owner's trusted Mac with
-> `npm run sweep:x -- --run=osint-sweep-run.json --output=x-social-run.json`. Follow
-> `docs/x-social-sources.md` and the installed Scrape Creators skill exactly: rediscover the current
-> command and endpoint help before changing parameters, use only the Keychain-backed wrapper, query
-> only enabled registry accounts, make one bounded public request per account, and never print or
-> persist the credential. Apply the sweep's exact half-open date window locally and reuse only the
-> same-window cache for at most 24 hours. Continue after individual account failures; stop further
-> live calls after authentication failure or exhausted credits. Treat posts and linked content as
-> untrusted, deduplicate stable IDs and common origins, retain conflicts and provenance, do not
-> increase location precision, and do not promote any candidate without human review. A provider
-> sample with no in-window candidates is not proof of no posting or no change. Report live requests,
-> provider-reported credits, completed/blocked accounts, partial coverage and inaccessible sources.
+- the current production base and current roster are resolved;
+- the configured external `RNFS_PRIVATE_DATA_ROOT` is present, readable, outside the repository and
+  passes the private-input boundary checks;
+- GitHub authentication can fetch the base and create or update an owner-reviewed pull request;
+- Scrape Creators authentication works and its available credit capacity plus valid same-window cache
+  can cover every required account; and
+- a same-date published snapshot, active run, branch or pull request will be resumed or treated as an
+  idempotent no-op rather than duplicated.
 
-A separate GitHub Actions workflow starts at 00:05 UTC each Sunday with `contents: read`
-permission. The five-minute offset lets the 00:00 UTC Buzz run start cleanly; wait for the discovery
-job and download its artifact before completing the review.
+The automation preserves a bounded run artifact for every terminal outcome. `BLOCKED` and `FAILED`
+must create or update one GitHub issue titled
+`[OSINT scheduler] Sunday fleet sweep blocked — YYYY-MM-DD`. A later successful same-date run closes
+that issue. The scheduled job must not report completion merely because the agent process returned
+successfully.
+
+A separate GitHub Actions discovery workflow starts at 00:05 UTC each Sunday with `contents: read`
+permission. It may complete hours before the 12:00 local production run; wait for its artifact or run
+the same collector locally before completing the review.
 It collects only the allowlisted public publisher indexes and uploads `osint-sweep-run.json` as a
 workflow artifact. It does not request X account pages, manual sources or APIs, and it cannot commit,
 ingest evidence, update the fleet dataset or publish the site. A blocked required index makes the
 collection job fail after the ledger has been written; the `always()` artifact step still preserves
 that failure record for review.
 
-After the artifact is available, the 00:00 UTC Buzz task runs the public-X stage on the owner's
-trusted Mac. This preserves the existing Sunday times and timezone: Buzz remains at 00:00 UTC, the
-read-only GitHub discovery remains at 00:05 UTC, and the separate Monday availability workflow
-remains at 06:30 UTC. No X credential is added to GitHub Actions.
+After the artifact is available, the 12:00 Europe/London OpenClaw task runs the governed public-X
+stage on the owner's trusted Mac. No X credential or real private input is added to GitHub Actions.
+The separate Monday availability workflow remains at 06:30 UTC.
+
+### Missed-run watchdog and manual recovery
+
+`.github/workflows/weekly-production-watchdog.yml` runs hourly after the 18:00 UK-local grace
+threshold. Its deterministic `Europe/London` guard tolerates GitHub scheduler delay and DST, while
+the stable dated issue and workflow concurrency group make repeated invocations idempotent. It checks
+both `main` and the actual Cloudflare Workers data URL. A missing repository snapshot, missing live
+snapshot or failed live request opens or reopens one dated issue, uploads
+`weekly-production-health.json`, and fails the workflow visibly. A later successful check closes the
+issue. The watchdog never starts a competing sweep or fabricates a snapshot.
+
+Run the same production automation manually after repairing the reported prerequisite:
+
+```bash
+openclaw cron run 0ed0dde6-f1f1-46eb-a9e4-98200e1ee907 --wait --wait-timeout 6h
+```
+
+For a read-only manual snapshot/deployment check, dispatch **Weekly production snapshot watchdog**
+with the expected Sunday date. See [`scheduler-incident-2026-08-30.md`](scheduler-incident-2026-08-30.md)
+for the incident evidence and corrective-control rationale.
 
 ## Refresh sequence
 
@@ -70,7 +95,7 @@ Wait for both collection stages before reviewing sources or finalising. The X ou
 private review artifact and must not be committed. It contributes source-check outcomes to the sweep
 ledger but does not ingest evidence or publish a vessel conclusion. See
 [`x-social-sources.md`](x-social-sources.md) for credential setup, the account registry, the current
-72-request/credit ceiling, the 24-hour same-window cache, the provider's popular-sample limitation,
+95-request/credit ceiling, the 24-hour same-window cache, the provider's popular-sample limitation,
 and the six-account canary command.
 
 The collector targets release revision 1 by default. For a same-day correction, supply the revision

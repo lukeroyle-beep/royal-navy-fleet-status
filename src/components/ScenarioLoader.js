@@ -1,13 +1,8 @@
 import { readReleaseMetadata } from "../utils/release.js";
+import { PUBLIC_LOCATION_STATES } from "../utils/publicEnums.js";
 
 const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
-const LOCATION_STATES = new Set([
-  "confirmed",
-  "last_reported",
-  "unconfirmed",
-  "no_recent_information",
-  "withheld",
-]);
+const LOCATION_STATES = new Set(PUBLIC_LOCATION_STATES);
 const LOCATION_PRECISIONS = new Set(["port", "city", "region", "none"]);
 const SUBMARINE_PATROL_REGION_PATTERN =
   /\b(?:patrol|approaches?|atlantic|bay|channel|firth|islands?|ocean|off|region|sea|sound|territorial waters|waters|route)\b/i;
@@ -56,6 +51,7 @@ export function validateFleet(raw) {
   }
 
   const ids = new Set();
+  const normalizedClasses = new Map();
   for (const [index, vessel] of raw.vessels.entries()) {
     const label = `Vessel ${index + 1}`;
     for (const field of [
@@ -82,6 +78,7 @@ export function validateFleet(raw) {
     }
     if (ids.has(vessel.id)) throw new Error(`Duplicate vessel id: ${vessel.id}.`);
     ids.add(vessel.id);
+    validateVesselClass(vessel.vesselClass, vessel.name, normalizedClasses);
     if (!CLASSIFICATIONS.has(vessel.locationClassification)) {
       throw new Error(`${vessel.name} has an invalid location classification.`);
     }
@@ -152,6 +149,22 @@ export function validateFleet(raw) {
   }
 
   return raw;
+}
+
+function validateVesselClass(value, vesselName, normalizedClasses) {
+  if (
+    value !== value.trim() ||
+    value !== value.normalize("NFC") ||
+    /\s{2,}|[\p{Cc}\p{Cf}]/u.test(value)
+  ) {
+    throw new Error(`${vesselName} has a non-canonical vessel class.`);
+  }
+  const normalized = value.normalize("NFKC").toLocaleLowerCase("en-GB");
+  const existing = normalizedClasses.get(normalized);
+  if (existing && existing !== value) {
+    throw new Error(`Inconsistent vessel class names: ${existing} and ${value}.`);
+  }
+  normalizedClasses.set(normalized, value);
 }
 
 function validateUncertaintyArea(vessel) {

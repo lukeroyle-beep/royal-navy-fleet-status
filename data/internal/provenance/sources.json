@@ -3982,6 +3982,833 @@
           "https://www.navalnews.com/about-us/"
         ]
       }
+    },
+    {
+      "sourceId": "X_ARMED_FORCES_DAY",
+      "category": "official-organisation-social",
+      "publisher": "Armed Forces Day",
+      "canonicalUrl": "https://x.com/ArmedForcesDay",
+      "reliabilityTier": "A",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Official MOD-register account added from the owner-supplied weekly X sweep list.",
+      "officiality": {
+        "verifiedByUrl": "https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use",
+        "verifiedAt": "2026-08-29T00:00:00Z",
+        "method": "MOD official social-media register",
+        "basis": "official-register"
+      },
+      "accountHandle": "@ArmedForcesDay",
+      "xCollection": {
+        "handle": "ArmedForcesDay",
+        "classification": "official",
+        "scope": "organisation",
+        "enabled": true,
+        "required": true,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_3_COMMANDO_BRIGADE",
+      "category": "recognised-osint",
+      "publisher": "3 Commando Brigade",
+      "canonicalUrl": "https://x.com/3_CommandoBde",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@3_CommandoBde",
+      "xCollection": {
+        "handle": "3_CommandoBde",
+        "classification": "osint",
+        "scope": "formation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/3_CommandoBde"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_BF_GIBRALTAR",
+      "category": "recognised-osint",
+      "publisher": "British Forces Gibraltar",
+      "canonicalUrl": "https://x.com/BFGibraltar",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@BFGibraltar",
+      "xCollection": {
+        "handle": "BFGibraltar",
+        "classification": "osint",
+        "scope": "command",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/BFGibraltar"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_BFSAI",
+      "category": "recognised-osint",
+      "publisher": "British Forces South Atlantic Islands",
+      "canonicalUrl": "https://x.com/HQBFSAI",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HQBFSAI",
+      "xCollection": {
+        "handle": "HQBFSAI",
+        "classification": "osint",
+        "scope": "command",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HQBFSAI"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_BRNC",
+      "category": "recognised-osint",
+      "publisher": "BRNC Dartmouth",
+      "canonicalUrl": "https://x.com/BRNCOfficial",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@BRNCOfficial",
+      "xCollection": {
+        "handle": "BRNCOfficial",
+        "classification": "osint",
+        "scope": "establishment",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/BRNCOfficial"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_COMMANDO_OPS",
+      "category": "recognised-osint",
+      "publisher": "UK Commando Force Operations",
+      "canonicalUrl": "https://x.com/Commando_Ops",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@Commando_Ops",
+      "xCollection": {
+        "handle": "Commando_Ops",
+        "classification": "osint",
+        "scope": "command",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/Commando_Ops"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_FLY_NAVY",
+      "category": "recognised-osint",
+      "publisher": "Naval Air Squadrons",
+      "canonicalUrl": "https://x.com/FlyNavy",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@FlyNavy",
+      "xCollection": {
+        "handle": "FlyNavy",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/FlyNavy"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMNB_CLYDE",
+      "category": "recognised-osint",
+      "publisher": "HMNB Clyde",
+      "canonicalUrl": "https://x.com/HMNBClyde",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HMNBClyde",
+      "xCollection": {
+        "handle": "HMNBClyde",
+        "classification": "osint",
+        "scope": "establishment",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HMNBClyde"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMNB_DEVONPORT",
+      "category": "recognised-osint",
+      "publisher": "HMNB Devonport",
+      "canonicalUrl": "https://x.com/HMNBDevonport",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HMNBDevonport",
+      "xCollection": {
+        "handle": "HMNBDevonport",
+        "classification": "osint",
+        "scope": "establishment",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HMNBDevonport"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMNB_PORTSMOUTH",
+      "category": "recognised-osint",
+      "publisher": "HMNB Portsmouth",
+      "canonicalUrl": "https://x.com/HMNBPortsmouth",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HMNBPortsmouth",
+      "xCollection": {
+        "handle": "HMNBPortsmouth",
+        "classification": "osint",
+        "scope": "establishment",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HMNBPortsmouth"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMS_DAUNTLESS",
+      "category": "recognised-osint",
+      "publisher": "HMS Dauntless",
+      "vesselId": "hms-dauntless",
+      "canonicalUrl": "https://x.com/HMSDauntless",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HMSDauntless",
+      "xCollection": {
+        "handle": "HMSDauntless",
+        "classification": "osint",
+        "scope": "vessel",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HMSDauntless"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMS_RALEIGH",
+      "category": "recognised-osint",
+      "publisher": "HMS Raleigh",
+      "canonicalUrl": "https://x.com/HMSRaleigh",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HMSRaleigh",
+      "xCollection": {
+        "handle": "HMSRaleigh",
+        "classification": "osint",
+        "scope": "establishment",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HMSRaleigh"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMS_TRACKER",
+      "category": "recognised-osint",
+      "publisher": "HMS Tracker",
+      "vesselId": "hms-tracker",
+      "canonicalUrl": "https://x.com/HMSTracker",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@HMSTracker",
+      "xCollection": {
+        "handle": "HMSTracker",
+        "classification": "osint",
+        "scope": "vessel",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/HMSTracker"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_MOD_GIBRALTAR",
+      "category": "recognised-osint",
+      "publisher": "MOD Gibraltar",
+      "canonicalUrl": "https://x.com/MODGibraltar",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@MODGibraltar",
+      "xCollection": {
+        "handle": "MODGibraltar",
+        "classification": "osint",
+        "scope": "command",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/MODGibraltar"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_NAVYFIT",
+      "category": "recognised-osint",
+      "publisher": "NAVYfit",
+      "canonicalUrl": "https://x.com/NAVYfit",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@NAVYfit",
+      "xCollection": {
+        "handle": "NAVYfit",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/NAVYfit"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_RFA_HEADQUARTERS",
+      "category": "recognised-osint",
+      "publisher": "Royal Fleet Auxiliary",
+      "canonicalUrl": "https://x.com/RFAHeadquarters",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@RFAHeadquarters",
+      "xCollection": {
+        "handle": "RFAHeadquarters",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/RFAHeadquarters"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_RN_DTXG",
+      "category": "recognised-osint",
+      "publisher": "Diving and Threat Exploitation Group",
+      "canonicalUrl": "https://x.com/RN_DTXG",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@RN_DTXG",
+      "xCollection": {
+        "handle": "RN_DTXG",
+        "classification": "osint",
+        "scope": "unit",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/RN_DTXG"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_RN_GIBRALTAR_SQUADRON",
+      "category": "recognised-osint",
+      "publisher": "Royal Navy Gibraltar Squadron",
+      "canonicalUrl": "https://x.com/RNGibSqn",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@RNGibSqn",
+      "xCollection": {
+        "handle": "RNGibSqn",
+        "classification": "osint",
+        "scope": "squadron",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/RNGibSqn"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_RN_SCOTLAND",
+      "category": "recognised-osint",
+      "publisher": "Royal Navy in Scotland",
+      "canonicalUrl": "https://x.com/RNinScotland",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@RNinScotland",
+      "xCollection": {
+        "handle": "RNinScotland",
+        "classification": "osint",
+        "scope": "formation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/RNinScotland"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_RNAS_CULDROSE",
+      "category": "recognised-osint",
+      "publisher": "RNAS Culdrose",
+      "canonicalUrl": "https://x.com/RNASCuldrose",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@RNASCuldrose",
+      "xCollection": {
+        "handle": "RNASCuldrose",
+        "classification": "osint",
+        "scope": "establishment",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/RNASCuldrose"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_RNR_OFFICIAL",
+      "category": "recognised-osint",
+      "publisher": "Royal Naval Reserve",
+      "canonicalUrl": "https://x.com/RNR_Official",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@RNR_Official",
+      "xCollection": {
+        "handle": "RNR_Official",
+        "classification": "osint",
+        "scope": "organisation",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/RNR_Official"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_SECOND_SEA_LORD",
+      "category": "recognised-osint",
+      "publisher": "Second Sea Lord",
+      "canonicalUrl": "https://x.com/SecondSeaLord",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@SecondSeaLord",
+      "xCollection": {
+        "handle": "SecondSeaLord",
+        "classification": "osint",
+        "scope": "command",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/SecondSeaLord"
+        ]
+      }
+    },
+    {
+      "sourceId": "X_DISCOVERY_UKMCC_MIDDLE_EAST",
+      "category": "recognised-osint",
+      "publisher": "UK Maritime Component Command Middle East",
+      "canonicalUrl": "https://x.com/UKMCCMiddleEast",
+      "reliabilityTier": "D",
+      "collectionMode": "api",
+      "status": "enabled",
+      "enabled": true,
+      "terms": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+      },
+      "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
+      "accountHandle": "@UKMCCMiddleEast",
+      "xCollection": {
+        "handle": "UKMCCMiddleEast",
+        "classification": "osint",
+        "scope": "command",
+        "enabled": true,
+        "required": false,
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "cacheHours": 24,
+        "disabledReason": null
+      },
+      "osintSelection": {
+        "reviewedAt": "2026-08-29T00:00:00Z",
+        "publicOnly": true,
+        "correctionsRequired": true,
+        "rationale": "Included from the owner-supplied weekly X sweep list as optional Tier D discovery. Account identity and every post must be independently verified before evidence promotion.",
+        "evidenceUrls": [
+          "https://x.com/UKMCCMiddleEast"
+        ]
+      }
     }
   ],
   "officialSocialCoverage": [
@@ -6988,6 +7815,30 @@
       "mandatory": true
     },
     {
+      "sourceId": "X_ARMED_FORCES_DAY",
+      "name": "Armed Forces Day",
+      "type": "official-organisation-social",
+      "urlOrQueryTemplate": "https://x.com/ArmedForcesDay",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "official-organisation-social"
+        ],
+        "aliases": [
+          "@ArmedForcesDay"
+        ]
+      },
+      "authorityTier": "A",
+      "expectedFrequency": "weekly",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": true
+    },
+    {
       "sourceId": "X_DEFENCE_OPS",
       "name": "Permanent Joint Headquarters",
       "type": "official-organisation-social",
@@ -7058,6 +7909,544 @@
       "retrievalMethod": "api",
       "licenceAndTermsNotes": "Reviewed 2026-08-15.",
       "mandatory": true
+    },
+    {
+      "sourceId": "X_DISCOVERY_3_COMMANDO_BRIGADE",
+      "name": "3 Commando Brigade",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/3_CommandoBde",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@3_CommandoBde"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_BF_GIBRALTAR",
+      "name": "British Forces Gibraltar",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/BFGibraltar",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@BFGibraltar"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_BFSAI",
+      "name": "British Forces South Atlantic Islands",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HQBFSAI",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HQBFSAI"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_BRNC",
+      "name": "BRNC Dartmouth",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/BRNCOfficial",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@BRNCOfficial"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_COMMANDO_OPS",
+      "name": "UK Commando Force Operations",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/Commando_Ops",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@Commando_Ops"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_FLY_NAVY",
+      "name": "Naval Air Squadrons",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/FlyNavy",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@FlyNavy"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMNB_CLYDE",
+      "name": "HMNB Clyde",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HMNBClyde",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HMNBClyde"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMNB_DEVONPORT",
+      "name": "HMNB Devonport",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HMNBDevonport",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HMNBDevonport"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMNB_PORTSMOUTH",
+      "name": "HMNB Portsmouth",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HMNBPortsmouth",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HMNBPortsmouth"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMS_DAUNTLESS",
+      "name": "HMS Dauntless",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HMSDauntless",
+      "coverage": {
+        "vesselIds": [
+          "hms-dauntless"
+        ],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HMSDauntless",
+          "D33",
+          "HMS Dauntless",
+          "Dauntless"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMS_RALEIGH",
+      "name": "HMS Raleigh",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HMSRaleigh",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HMSRaleigh"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_HMS_TRACKER",
+      "name": "HMS Tracker",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/HMSTracker",
+      "coverage": {
+        "vesselIds": [
+          "hms-tracker"
+        ],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@HMSTracker",
+          "P274",
+          "HMS Tracker",
+          "Tracker"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_MOD_GIBRALTAR",
+      "name": "MOD Gibraltar",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/MODGibraltar",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@MODGibraltar"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_NAVYFIT",
+      "name": "NAVYfit",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/NAVYfit",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@NAVYfit"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_RFA_HEADQUARTERS",
+      "name": "Royal Fleet Auxiliary",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/RFAHeadquarters",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@RFAHeadquarters"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_RN_DTXG",
+      "name": "Diving and Threat Exploitation Group",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/RN_DTXG",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@RN_DTXG"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_RN_GIBRALTAR_SQUADRON",
+      "name": "Royal Navy Gibraltar Squadron",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/RNGibSqn",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@RNGibSqn"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_RN_SCOTLAND",
+      "name": "Royal Navy in Scotland",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/RNinScotland",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@RNinScotland"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_RNAS_CULDROSE",
+      "name": "RNAS Culdrose",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/RNASCuldrose",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@RNASCuldrose"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_RNR_OFFICIAL",
+      "name": "Royal Naval Reserve",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/RNR_Official",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@RNR_Official"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_SECOND_SEA_LORD",
+      "name": "Second Sea Lord",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/SecondSeaLord",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@SecondSeaLord"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
+    },
+    {
+      "sourceId": "X_DISCOVERY_UKMCC_MIDDLE_EAST",
+      "name": "UK Maritime Component Command Middle East",
+      "type": "recognised-osint",
+      "urlOrQueryTemplate": "https://x.com/UKMCCMiddleEast",
+      "coverage": {
+        "vesselIds": [],
+        "families": [
+          "recognised-osint"
+        ],
+        "aliases": [
+          "@UKMCCMiddleEast"
+        ]
+      },
+      "authorityTier": "D",
+      "expectedFrequency": "event-driven",
+      "lastAttemptAt": null,
+      "lastSuccessAt": null,
+      "lastMeaningfulResultAt": null,
+      "consecutiveFailures": 0,
+      "retrievalMethod": "api",
+      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "mandatory": false
     },
     {
       "sourceId": "X_HMS_ARCHER",

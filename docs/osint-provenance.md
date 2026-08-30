@@ -41,10 +41,11 @@ The implementation deliberately avoids a database or heavyweight PROV/RDF layer.
 
 ## Source universe and lawful collection
 
-The registry contains 163 governed source records, a 68-vessel official-social coverage matrix and these implemented collection classes:
+The registry contains 186 governed source records, a 68-vessel official-social coverage matrix and these implemented collection classes:
 
 - official MOD/GOV.UK and NATO releases;
-- 71 confirmed Royal Navy/MOD organisation, command, unit, establishment, squadron and vessel X
+- 72 confirmed Royal Navy/MOD organisation, command, unit, establishment, squadron and vessel X
+  accounts, one confirmed Tier C OSINT publisher and 22 optional Tier D owner-supplied discovery
   accounts collected through the trusted-host Scrape Creators stage;
 - 68 vessel-account coverage records from the roster-wide official-page review, including
   machine-tested `@HMS_Spey` and `@HMSTrent` entries;

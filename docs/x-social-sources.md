@@ -30,18 +30,24 @@ evidence enables 53 of the 68 vessel accounts in the coverage matrix. The remain
 rather than being guessed. Command, formation, establishment, unit and squadron accounts are included
 only when a direct official relationship is recorded and their posts can support fleet review.
 
-OSINT profiles must use the `recognised-osint` category, start at Tier C or D, expose only public
-material, have an identifiable correction path, and show a sustained record of vessel-specific naval
-reporting. The registry records the selection rationale and evidence URLs. Set both `enabled` and
-`xCollection.enabled` to `false`, set `xCollection.required` to `false`, and record a clear
-`disabledReason` when reliability declines or an account changes purpose. Navy Lookout is the only
-enabled OSINT profile. WarshipCam and Naval News are recorded as disabled candidates pending owner
-review; they consume no credits and cannot affect a sweep.
+Confirmed OSINT publisher profiles must use the `recognised-osint` category, start at Tier C or D,
+expose only public material, have an identifiable correction path, and show a sustained record of
+vessel-specific naval reporting. The registry records the selection rationale and evidence URLs.
+Navy Lookout is the only enabled confirmed OSINT publisher.
 
-As reviewed on 27 August 2026, the registry contains 77 X profiles: 71 enabled official profiles,
-one enabled optional OSINT profile, two disabled OSINT candidates and three disabled legacy official
-profiles. The 71 official profiles are required recurring checks. The optional OSINT source enriches
-review but cannot by itself block release finalisation.
+An owner-supplied account roster may also add a public handle as optional Tier D discovery while its
+direct official relationship remains unverified. These provisional entries are deliberately not
+classified as official, do not satisfy official-vessel coverage, cannot block finalisation and cannot
+promote evidence without independent account and claim verification. Set both `enabled` and
+`xCollection.enabled` to `false`, set `xCollection.required` to `false`, and record a clear
+`disabledReason` when reliability declines or an account changes purpose. WarshipCam and Naval News
+are recorded as disabled candidates pending owner review; they consume no credits and cannot affect
+a sweep.
+
+As reviewed on 29 August 2026, the registry contains 100 X profiles: 72 enabled official profiles,
+23 enabled optional OSINT/discovery profiles, two disabled OSINT candidates and three disabled legacy
+official profiles. The 72 official profiles are required recurring checks. Optional profiles enrich
+review but cannot by themselves block release finalisation.
 
 ## Credential and installed command contract
 
@@ -70,8 +76,8 @@ pagination.
 
 The [provider endpoint documentation](https://docs.scrapecreators.com/v1/twitter/user-tweets/)
 describes one credit per live account request and says it returns up to 100 popular posts, not a
-latest or complete timeline. A full run currently attempts at most 72 live
-requests. That is an upper estimate of 72 credits when every call succeeds and the provider reports
+latest or complete timeline. A full run currently attempts at most 95 live
+requests. That is an upper estimate of 95 credits when every call succeeds and the provider reports
 one credit each. Disabled accounts never fan out into calls.
 
 A same-account, same-window response is cached locally for at most 24 hours under

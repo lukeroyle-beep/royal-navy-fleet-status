@@ -4,6 +4,7 @@ import fs from "node:fs";
 import { validateFleet } from "../src/components/ScenarioLoader.js";
 import { publicAssetUrl } from "../src/utils/assetUrl.js";
 import {
+  formatMapDisplay,
   formatLocationPrecision,
   formatLocationState,
 } from "../src/components/EventDetailsPanel.js";
@@ -46,6 +47,13 @@ assert.equal(formatLocationState("unconfirmed"), "Location unconfirmed");
 assert.equal(formatLocationState("no_recent_information"), "No recent public information");
 assert.equal(formatLocationState("withheld"), "Location not published");
 assert.equal(formatLocationPrecision("region"), "Approximate region");
+
+const pointMappedVessel = dataset.vessels.find((vessel) => vessel.position);
+const regionalVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "region");
+const listOnlyVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "none");
+assert.equal(formatMapDisplay(pointMappedVessel), "Point marker shown");
+assert.equal(formatMapDisplay(regionalVessel), "Regional record — no point marker shown");
+assert.equal(formatMapDisplay(listOnlyVessel), "List-only record — no point marker shown");
 
 const allPrecisionStates = createFixtureDataset(precisionFixtures.stateCases);
 assert.equal(validateFleet(allPrecisionStates).vessels.length, precisionFixtures.stateCases.length);
@@ -178,6 +186,23 @@ assert.throws(() => validateFleet(incompleteReleaseMetadata), /releaseRevision.*
 const invalidOperationalStatus = structuredClone(dataset);
 invalidOperationalStatus.vessels[0].status = "Ready-ish";
 assert.throws(() => validateFleet(invalidOperationalStatus), /invalid operational status/i);
+
+const whitespaceClass = structuredClone(dataset);
+whitespaceClass.vessels[0].vesselClass = `${whitespaceClass.vessels[0].vesselClass} `;
+assert.throws(() => validateFleet(whitespaceClass), /non-canonical vessel class/i);
+
+const hiddenCharacterClass = structuredClone(dataset);
+hiddenCharacterClass.vessels[0].vesselClass = `First\u200Brate`;
+assert.throws(() => validateFleet(hiddenCharacterClass), /non-canonical vessel class/i);
+
+const inconsistentClass = structuredClone(dataset);
+const repeatedClass = inconsistentClass.vessels.find(
+  (vessel, index) =>
+    inconsistentClass.vessels.findIndex((candidate) => candidate.vesselClass === vessel.vesselClass) !==
+    index,
+);
+repeatedClass.vesselClass = repeatedClass.vesselClass.toLocaleLowerCase("en-GB");
+assert.throws(() => validateFleet(inconsistentClass), /inconsistent vessel class names/i);
 
 const submarinePatrol = structuredClone(dataset);
 const submarine = submarinePatrol.vessels.find((vessel) => vessel.vesselType === "SSBN");
