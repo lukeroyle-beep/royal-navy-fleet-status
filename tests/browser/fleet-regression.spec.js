@@ -5,12 +5,6 @@ const fleet = JSON.parse(
   fs.readFileSync(new URL("../../data/royal-navy/vessels.json", import.meta.url), "utf8"),
 );
 const historicalSnapshotDate = "2026-08-12";
-const zeroMarkerClasses = [
-  "Ice patrol ship",
-  "Sea class 18 m variant",
-  "Specialist mine hunting mothership",
-  "Multi-Role Ocean Surveillance Ship",
-];
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -43,7 +37,7 @@ test("every current class keeps its list and point-marker counts aligned", async
       .poll(() => new URL(page.url()).searchParams.get("class"))
       .toBe(vesselClass);
 
-    if (zeroMarkerClasses.includes(vesselClass)) {
+    if (expectedMarkers === 0) {
       await expect(page.locator("#mapFilterNotice")).toHaveText(
         "No point locations are publishable for this filter. Regional and list-only records remain in the fleet list.",
       );

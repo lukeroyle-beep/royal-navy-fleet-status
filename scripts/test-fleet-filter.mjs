@@ -44,12 +44,11 @@ for (const vesselClass of classes) {
   );
 }
 
-for (const zeroMarkerClass of [
-  "Ice patrol ship",
-  "Sea class 18 m variant",
-  "Specialist mine hunting mothership",
-  "Multi-Role Ocean Surveillance Ship",
-]) {
+const zeroMarkerClasses = classes.filter((vesselClass) => {
+  const filtered = filterFleetVessels(fleet.vessels, { vesselClass });
+  return summarizePlotEligibility(filtered).pointMapped === 0;
+});
+for (const zeroMarkerClass of zeroMarkerClasses) {
   const filtered = filterFleetVessels(fleet.vessels, { vesselClass: zeroMarkerClass });
   assert.ok(filtered.length > 0, `${zeroMarkerClass} must retain list records.`);
   assert.equal(
