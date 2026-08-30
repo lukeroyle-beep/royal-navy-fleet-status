@@ -616,6 +616,7 @@ function renderClassAvailability() {
   }
 
   const vessels = dataset.vessels.filter((vessel) => vessel.vesselClass === selectedClass);
+  const filteredVessels = filterFleetVessels(dataset.vessels, currentFleetFilterCriteria());
   const summary = getAvailabilitySummary(vessels);
   const statuses = [
     ...AVAILABILITY_STATUS_ORDER,
@@ -634,7 +635,7 @@ function renderClassAvailability() {
   elements.classAvailabilityFormula.textContent =
     `${summary.active} of ${summary.total} vessels are deployed or available. ` +
     "The total includes vessels in re-fit and vessels with status unknown.";
-  elements.classMapSummary.textContent = `Map: ${formatPlotEligibilitySummary(vessels)}.`;
+  elements.classMapSummary.textContent = `Map: ${formatPlotEligibilitySummary(filteredVessels)}.`;
   elements.classAvailabilityBreakdown.replaceChildren(
     ...statuses.map((status) => createAvailabilityMetric(status, summary.byStatus[status] ?? 0)),
     createAvailabilityMetric("Total", summary.total),
@@ -694,20 +695,12 @@ function renderAvailabilityScore(container, percentageElement, percentage, acces
 }
 
 function applyFilters({ fit = true, sync = true } = {}) {
-  const filtered = filterFleetVessels(dataset.vessels, {
-    query: elements.search.value,
-    vesselClass: selectedClass,
-    service: elements.service.value,
-    status: elements.status.value,
-    type: elements.type.value,
-    locationState: elements.location.value,
-    presence: elements.presence.value,
-    changedVesselIds: changedOnly ? snapshotComparison?.changedCurrentVesselIds ?? [] : null,
-  });
+  const filtered = filterFleetVessels(dataset.vessels, currentFleetFilterCriteria());
 
   currentFilteredVessels = filtered;
   renderFilterSummary(filtered.length);
   renderPlotSummary(filtered);
+  renderClassAvailability();
   elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
   renderList(filtered);
   fleetMap.setVisibleVessels(filtered, { fit });
@@ -719,6 +712,19 @@ function applyFilters({ fit = true, sync = true } = {}) {
   }
   if (sync) syncPublicState();
   return filtered;
+}
+
+function currentFleetFilterCriteria() {
+  return {
+    query: elements.search.value,
+    vesselClass: selectedClass,
+    service: elements.service.value,
+    status: elements.status.value,
+    type: elements.type.value,
+    locationState: elements.location.value,
+    presence: elements.presence.value,
+    changedVesselIds: changedOnly ? snapshotComparison?.changedCurrentVesselIds ?? [] : null,
+  };
 }
 
 function renderPlotSummary(filtered) {

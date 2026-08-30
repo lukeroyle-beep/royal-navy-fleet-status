@@ -45,6 +45,20 @@ test("every current class keeps its list and point-marker counts aligned", async
       await expect(page.locator("#mapFilterNotice")).toBeHidden();
     }
   }
+
+  const combinedClass = "Vanguard class";
+  const combinedStatus = "Deployed";
+  const combinedRecords = fleet.vessels.filter(
+    (vessel) => vessel.vesselClass === combinedClass && vessel.status === combinedStatus,
+  );
+  const combinedMarkers = combinedRecords.filter((vessel) => vessel.position).length;
+  await page.locator(classButtonSelector(combinedClass)).click();
+  await page.locator("#statusFilter").selectOption(combinedStatus);
+  await expect(page.locator("#classMapSummary")).toHaveText(
+    `Map: ${combinedMarkers} point-mapped · ${combinedRecords.length - combinedMarkers} regional or list-only.`,
+  );
+  await expect.poll(() => page.locator(".fleet-marker").count()).toBe(combinedMarkers);
+  await expect(page.locator("#mapFilterNotice")).toBeVisible();
 });
 
 test("valid empty location states survive reload and browser history", async ({ page }) => {

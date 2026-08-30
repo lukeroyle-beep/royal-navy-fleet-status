@@ -16,6 +16,16 @@ const entities = privateInputs.readJson("vessels");
 const registry = privateInputs.readJson("sources");
 assert.equal(validateOperationalSourceRegistry(registry, entities), registry);
 assert.equal(registry.operations.length, registry.sources.length);
+const sourceReviewDates = registry.sources.flatMap((source) => [
+  source.terms?.reviewedAt,
+  source.officiality?.verifiedAt,
+  source.xCollection?.reviewedAt,
+  source.osintSelection?.reviewedAt,
+]).filter(Boolean);
+assert.ok(
+  sourceReviewDates.every((reviewedAt) => reviewedAt <= registry.reviewedAt),
+  "The registry-level review date must not predate any source review metadata.",
+);
 const enabledXAccounts = registry.sources.filter((source) => source.xCollection?.enabled);
 assert.equal(enabledXAccounts.length, 95);
 assert.equal(enabledXAccounts.filter((source) => source.xCollection.required).length, 72);

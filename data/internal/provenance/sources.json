@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.1.0",
-  "reviewedAt": "2026-08-27T00:00:00Z",
+  "reviewedAt": "2026-08-29T00:00:00Z",
   "policy": {
     "corroborationUnit": "originId",
     "aisAbsenceMeaning": "neutral",
