@@ -92,15 +92,20 @@ test("desktop right-side panels are exclusive and list selections explain map di
   await expect(page.locator("#fleetDrawer")).toBeVisible();
 
   await page.locator("#clusterLayerToggle").uncheck();
-  const firstListButton = page.locator("#vesselList button").first();
-  const vesselId = await firstListButton.getAttribute("data-vessel-id");
-  await firstListButton.click();
+  await page.locator("#fleetLayerToggle").uncheck();
+  const pointMappedVessel = fleet.vessels.find((vessel) => vessel.position);
+  const pointMappedListButton = page.locator(
+    `#vesselList button[data-vessel-id=${JSON.stringify(pointMappedVessel.id)}]`,
+  );
+  await pointMappedListButton.click();
   await expect(page.locator("#detailDrawer")).toBeVisible();
   await expect(page.locator("#layersPanel")).toBeHidden();
-  await expect(page.locator(`#vesselList button[data-vessel-id=${JSON.stringify(vesselId)}]`))
+  await expect(pointMappedListButton)
     .toHaveClass(/is-selected/);
   await expect(page.locator("#detailPrimaryMeta")).toContainText("Map display");
-  await expect(page.locator("#detailPrimaryMeta")).toContainText(/Point marker shown|no point marker shown/);
+  await expect(page.locator("#detailPrimaryMeta")).toContainText(
+    "Point-mapped record — marker shown when fleet layer is enabled",
+  );
 
   await page.locator("#filterToggle").click();
   await expect(page.locator("#filterPanel")).toBeVisible();

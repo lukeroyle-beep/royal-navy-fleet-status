@@ -51,7 +51,10 @@ assert.equal(formatLocationPrecision("region"), "Approximate region");
 const pointMappedVessel = dataset.vessels.find((vessel) => vessel.position);
 const regionalVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "region");
 const listOnlyVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "none");
-assert.equal(formatMapDisplay(pointMappedVessel), "Point marker shown");
+assert.equal(
+  formatMapDisplay(pointMappedVessel),
+  "Point-mapped record — marker shown when fleet layer is enabled",
+);
 assert.equal(formatMapDisplay(regionalVessel), "Regional record — no point marker shown");
 assert.equal(formatMapDisplay(listOnlyVessel), "List-only record — no point marker shown");
 

@@ -199,7 +199,9 @@ export function formatLocationPrecision(value) {
 }
 
 export function formatMapDisplay(vessel) {
-  if (hasPlottablePosition(vessel)) return "Point marker shown";
+  if (hasPlottablePosition(vessel)) {
+    return "Point-mapped record — marker shown when fleet layer is enabled";
+  }
   if (vessel?.locationPrecision === "region") {
     return "Regional record — no point marker shown";
   }

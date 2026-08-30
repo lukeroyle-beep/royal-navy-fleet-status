@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 
 import {
   evaluateWeeklyProductionHealth,
@@ -7,6 +8,16 @@ import {
   isSundayWatchdogWindow,
   resolveExpectedSnapshotDate,
 } from "./lib/weekly-scheduler.mjs";
+
+const watchdogWorkflow = fs.readFileSync(
+  new URL("../.github/workflows/weekly-production-watchdog.yml", import.meta.url),
+  "utf8",
+);
+assert.match(
+  watchdogWorkflow,
+  /name: Check out the production branch[\s\S]*?uses: actions\/checkout@[0-9a-f]{40}\s+# v4[\s\S]*?with:\s*\n\s*ref: main/,
+  "Manual watchdog dispatches must evaluate the production main branch.",
+);
 
 const metadata = (asOfDate, releaseRevision = 1) => ({
   asOfDate,
