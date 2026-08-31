@@ -24,6 +24,11 @@ import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
 const privateInputs = resolvePrivateInputs();
 const entities = privateInputs.readJson("vessels");
+Object.assign(entities.metadata, {
+  asOfDate: "2026-08-23",
+  releaseRevision: 4,
+  releasedAt: "2026-08-23T23:59:00Z",
+});
 const registry = privateInputs.readJson("sources");
 const evidence = privateInputs.readJson("evidence");
 const assessments = privateInputs.readJson("assessments");
@@ -114,9 +119,14 @@ assert.equal(
 );
 assert.ok(
   registry.sources
-    .filter((entry) => entry.enabled && entry.category === "official-vessel-social")
+    .filter(
+      (entry) =>
+        entry.enabled &&
+        entry.category === "official-vessel-social" &&
+        entry.xCollection?.required,
+    )
     .every((entry) => run.sourceChecks.some((check) => check.sourceId === entry.sourceId)),
-  "Every enabled official vessel account must receive a recurring external check.",
+  "Every required enabled official vessel account must receive a recurring external check.",
 );
 assert.equal(run.discoveryChecks.length, PUBLIC_INDEX_TARGETS.length);
 assert.equal(

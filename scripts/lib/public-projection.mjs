@@ -1,6 +1,7 @@
 import { readReviewedPublicLocation } from "./public-geography.mjs";
+import { sanitisePublicLocationDescription } from "./public-location-safety.mjs";
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.0";
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.1";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -60,10 +61,12 @@ export function projectPublicVessel(entity, assessment) {
   const reviewedLocation = safeReviewedLocation(entity, assessedState);
   const listOnly = LIST_ONLY_STATES.has(locationState) || !reviewedLocation;
   const locationPrecision = listOnly ? "none" : reviewedLocation.precision;
-  const publicLocationLabel = createPublicLocationLabel(
-    assessedState,
-    locationState,
-    reviewedLocation?.label,
+  const publicLocationLabel = sanitisePublicLocationLabel(
+    createPublicLocationLabel(
+      assessedState,
+      locationState,
+      reviewedLocation?.label,
+    ),
   );
   const geometry = createPublicGeometry(reviewedLocation, locationPrecision, publicLocationLabel);
 
@@ -84,6 +87,7 @@ export function projectPublicVessel(entity, assessment) {
     lastReportedLocation: sanitiseLocationText(
       assessedState.lastReportedLocation,
       SUBMARINE_TYPES.has(entity.vesselType),
+      publicLocationLabel,
     ),
     position: geometry.position,
     uncertaintyArea: geometry.uncertaintyArea,
@@ -157,9 +161,16 @@ function cleanPublicLocationLabel(value) {
     .trim();
 }
 
-function sanitiseLocationText(value, isSubmarine) {
-  if (!isSubmarine) return value;
+function sanitisePublicLocationLabel(value) {
   return String(value)
+    .replace(/\s*\/\s*(?:HMS|RFA)\b.*$/i, "")
+    .trim();
+}
+
+function sanitiseLocationText(value, isSubmarine, publicLocationLabel) {
+  const sanitised = sanitisePublicLocationDescription(value, publicLocationLabel);
+  if (!isSubmarine) return sanitised;
+  return sanitised
     .replace(/,?\s*\b\d+\s+(?:dock|berth)\b/gi, "")
     .replace(/\b(?:dock|berth)\s+\d+\b/gi, "the naval base")
     .replace(/\s{2,}/g, " ")

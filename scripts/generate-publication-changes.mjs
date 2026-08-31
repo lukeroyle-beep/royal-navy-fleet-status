@@ -2,6 +2,7 @@ import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
 import { publicationReleaseFields } from "./lib/publication-release.mjs";
+import { sanitisePublicLocationDescription } from "./lib/public-location-safety.mjs";
 
 const currentPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const outputPath = new URL("../data/royal-navy/publication-changes.json", import.meta.url);
@@ -38,8 +39,14 @@ for (const vessel of current.vessels) {
     items,
     "location",
     "Location",
-    before.lastReportedLocation,
-    vessel.lastReportedLocation,
+    sanitisePublicLocationDescription(
+      before.lastReportedLocation,
+      before.publicLocationLabel,
+    ),
+    sanitisePublicLocationDescription(
+      vessel.lastReportedLocation,
+      vessel.publicLocationLabel,
+    ),
   );
   addChange(
     items,

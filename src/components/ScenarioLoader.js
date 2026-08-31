@@ -6,6 +6,7 @@ const LOCATION_STATES = new Set(PUBLIC_LOCATION_STATES);
 const LOCATION_PRECISIONS = new Set(["port", "city", "region", "none"]);
 const SUBMARINE_PATROL_REGION_PATTERN =
   /\b(?:patrol|approaches?|atlantic|bay|channel|firth|islands?|ocean|off|region|sea|sound|territorial waters|waters|route)\b/i;
+const EXACT_BERTH_DISCLOSURE_PATTERN = /\b(?:berth|jetty)\b|alongside\s+(?:HMS|RFA)\b/i;
 const OPERATIONAL_STATUSES = new Set(["Available", "Deployed", "In re-fit", "Unknown", "Museum ship", "Decommissioned"]);
 const FORBIDDEN_PUBLIC_FIELDS = new Set([
   "source",
@@ -90,6 +91,13 @@ export function validateFleet(raw) {
     }
     if (!OPERATIONAL_STATUSES.has(vessel.status)) {
       throw new Error(`${vessel.name} has an invalid operational status.`);
+    }
+    if (
+      EXACT_BERTH_DISCLOSURE_PATTERN.test(
+        `${vessel.lastReportedLocation} ${vessel.publicLocationLabel}`,
+      )
+    ) {
+      throw new Error(`${vessel.name} exposes exact berth-level public location detail.`);
     }
     const pointPrecision = vessel.locationPrecision === "port" || vessel.locationPrecision === "city";
     if (pointPrecision) {

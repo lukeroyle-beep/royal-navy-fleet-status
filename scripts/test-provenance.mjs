@@ -12,6 +12,10 @@ import {
 } from "./lib/provenance.mjs";
 import { createSweepQueue } from "./lib/sweep.mjs";
 import { createPublicProjection, projectPublicVessel } from "./lib/public-projection.mjs";
+import {
+  hasExactBerthDisclosure,
+  sanitisePublicLocationDescription,
+} from "./lib/public-location-safety.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
 const privateInputs = resolvePrivateInputs();
@@ -120,6 +124,48 @@ const projectedOslo = projectPublicVessel(duncanEntity, explicitOsloAssessment);
 assert.equal(projectedOslo.locationPrecision, "city");
 assert.deepEqual(projectedOslo.position, { lat: 59.91, lon: 10.75, label: "Oslo" });
 
+const namedAlongsideAssessment = structuredClone(explicitOsloAssessment);
+namedAlongsideAssessment.assessedState.lastReportedLocation =
+  "London; alongside HMS Belfast reported 28 August 2026";
+namedAlongsideAssessment.assessedState.publicLocation = {
+  precision: "port",
+  label: "London / HMS Belfast",
+  geometry: { type: "point", lat: 51.51, lon: -0.08 },
+};
+const projectedNamedAlongside = projectPublicVessel(duncanEntity, namedAlongsideAssessment);
+assert.equal(projectedNamedAlongside.lastReportedLocation, "London; presence reported 28 August 2026");
+assert.equal(projectedNamedAlongside.publicLocationLabel, "London");
+assert.deepEqual(projectedNamedAlongside.position, { lat: 51.51, lon: -0.08, label: "London" });
+
+const namedJettyAssessment = structuredClone(explicitOsloAssessment);
+namedJettyAssessment.assessedState.lastReportedLocation =
+  "Dartmouth Town Jetty; alongside reported 28 August 2026";
+namedJettyAssessment.assessedState.publicLocation = {
+  precision: "port",
+  label: "Dartmouth harbour",
+  geometry: { type: "point", lat: 50.35, lon: -3.58 },
+};
+const projectedNamedJetty = projectPublicVessel(duncanEntity, namedJettyAssessment);
+assert.equal(
+  projectedNamedJetty.lastReportedLocation,
+  "Dartmouth harbour; presence reported 28 August 2026",
+);
+assert.equal(projectedNamedJetty.publicLocationLabel, "Dartmouth harbour");
+assert.equal(
+  sanitisePublicLocationDescription(
+    "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
+    "Glen Mallan jetty area, Loch Long",
+  ),
+  "Loch Long; presence reported 18 August 2026",
+);
+for (const value of [
+  projectedNamedAlongside.lastReportedLocation,
+  projectedNamedJetty.lastReportedLocation,
+  "Loch Long; presence reported 18 August 2026",
+]) {
+  assert.equal(hasExactBerthDisclosure(value), false, `${value} retained exact berth detail.`);
+}
+
 const ambiguousOsloAssessment = structuredClone(explicitOsloAssessment);
 delete ambiguousOsloAssessment.assessedState.publicLocation;
 const projectedAmbiguousOslo = projectPublicVessel(duncanEntity, ambiguousOsloAssessment);
@@ -226,8 +272,8 @@ assert.equal(
 const sweep = createSweepQueue(registry, "2026-08-15T12:00:00Z");
 assert.equal(
   sweep.sources.filter((source) => source.category === "official-vessel-social").length,
-  enabledOfficialAccounts.length,
-  "Every enabled official vessel account must enter the sweep queue.",
+  enabledOfficialAccounts.filter((source) => source.xCollection?.required).length,
+  "Every required enabled official vessel account must enter the mandatory sweep queue.",
 );
 assert.equal(
   sweep.sources.find((source) => source.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY").promotionPolicy,

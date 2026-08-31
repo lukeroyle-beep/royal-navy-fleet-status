@@ -2,6 +2,7 @@ import fs from "node:fs";
 
 import { validatePublicationChanges } from "../src/utils/insights.js";
 import { readReleaseMetadata } from "../src/utils/release.js";
+import { hasExactBerthDisclosure } from "./lib/public-location-safety.mjs";
 
 const changesPath = new URL("../data/royal-navy/publication-changes.json", import.meta.url);
 const fleetPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
@@ -51,6 +52,9 @@ for (const change of changes.changes) {
       item.before === item.after
     ) {
       throw new Error(`Invalid change item for ${change.vesselName}.`);
+    }
+    if (hasExactBerthDisclosure(item.before) || hasExactBerthDisclosure(item.after)) {
+      throw new Error(`Publication change for ${change.vesselName} exposes exact berth detail.`);
     }
   }
 }

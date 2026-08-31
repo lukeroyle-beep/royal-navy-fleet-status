@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
+import { hasExactBerthDisclosure } from "./lib/public-location-safety.mjs";
 
 const logPath = new URL("../data/royal-navy/location-decisions.jsonl", import.meta.url);
 const allowedDecisions = new Set(["promote", "retain-unknown", "downgrade", "withhold"]);
@@ -16,6 +17,7 @@ const vesselIds = new Set(
   [...entities.vessels, ...(entities.retiredVessels || [])].map((vessel) => vessel.vesselId),
 );
 const decisionIds = new Set();
+const records = [];
 
 for (const [index, line] of lines.entries()) {
   let record;
@@ -58,6 +60,7 @@ for (const [index, line] of lines.entries()) {
   if (["mapped", "approximate"].includes(record.resultingLocationClassification) && (!record.locationEvidenceDate || !mappableEvidence.has(record.evidenceClassification))) {
     throw new Error(`${label} promotes a location without sufficient dated evidence.`);
   }
+  records.push(record);
 }
 
 const baseRefIndex = process.argv.indexOf("--base-ref");
@@ -77,6 +80,13 @@ if (baseRefIndex !== -1) {
   const baseLines = parseLines(baseText);
   if (lines.length < baseLines.length || baseLines.some((line, index) => lines[index] !== line)) {
     throw new Error("Location decision history is append-only; existing records were removed, reordered or modified.");
+  }
+  for (const [offset, record] of records.slice(baseLines.length).entries()) {
+    if (hasExactBerthDisclosure(record.source.label)) {
+      throw new Error(
+        `New location decision line ${baseLines.length + offset + 1} exposes exact berth detail.`,
+      );
+    }
   }
 }
 
