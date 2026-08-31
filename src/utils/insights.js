@@ -239,6 +239,23 @@ export function compareCurrentWithPreviousSnapshot(history, catalog, currentDate
   };
 }
 
+export function createPublicationComparison(publicationChanges, currentVessels = []) {
+  const validatedChanges = validatePublicationChanges(publicationChanges);
+  const currentVesselIds = new Set(currentVessels.map((vessel) => vessel.id));
+  const changes = validatedChanges.changes.map((change) => ({
+    ...change,
+    presentInCurrent: currentVesselIds.has(change.vesselId),
+  }));
+
+  return {
+    ...validatedChanges,
+    changes,
+    changedCurrentVesselIds: changes
+      .filter((change) => change.presentInCurrent)
+      .map((change) => change.vesselId),
+  };
+}
+
 export function getVesselPublicTimeline(history, vesselId, { upToDate = null } = {}) {
   return collapseStatusHistory(history)
     .filter((snapshot) => !upToDate || snapshot.snapshotDate <= upToDate)

@@ -23,7 +23,7 @@ import {
   summarizePlotEligibility,
 } from "./utils/fleetFilter.js";
 import {
-  compareCurrentWithPreviousSnapshot,
+  createPublicationComparison,
   createPublicSnapshotDataset,
   listPublicSnapshotDates,
   resolvePublicSnapshotDate,
@@ -158,7 +158,7 @@ let dataset;
 let currentDataset;
 let shoreDataset;
 let insights = { changes: null, history: [], historyCatalog: null, available: false };
-let snapshotComparison = null;
+let publicationComparison = null;
 let selectedSnapshotDate = null;
 let changedOnly = false;
 let selectedId = null;
@@ -228,12 +228,8 @@ async function initialize() {
 
 function bindDataset() {
   selectedSnapshotDate = currentDataset.metadata.asOfDate;
-  snapshotComparison = insights.available
-    ? compareCurrentWithPreviousSnapshot(
-        insights.history,
-        insights.historyCatalog,
-        currentDataset.metadata.asOfDate,
-      )
+  publicationComparison = insights.available
+    ? createPublicationComparison(insights.changes, currentDataset.vessels)
     : null;
   renderSnapshotSelector();
   elements.asOfDate.textContent = formatDatasetReleaseLabel(dataset.metadata);
@@ -387,7 +383,7 @@ function applySnapshotDate(requestedDate, { sync = true } = {}) {
     elements.changedOnlyToggle.checked = false;
   }
   elements.changedOnlyToggle.disabled =
-    !isCurrent || !snapshotComparison?.changedCurrentVesselIds?.length;
+    !isCurrent || !publicationComparison?.changedCurrentVesselIds?.length;
   updateChangedOnlyStatus();
   updateSnapshotLabels();
   renderFleetOverview();
@@ -723,7 +719,7 @@ function currentFleetFilterCriteria() {
     type: elements.type.value,
     locationState: elements.location.value,
     presence: elements.presence.value,
-    changedVesselIds: changedOnly ? snapshotComparison?.changedCurrentVesselIds ?? [] : null,
+    changedVesselIds: changedOnly ? publicationComparison?.changedCurrentVesselIds ?? [] : null,
   };
 }
 
@@ -791,13 +787,9 @@ function renderFilterSummary(filteredCount) {
 }
 
 function renderPublicationChanges() {
-  const publication = snapshotComparison;
-  if (!publication?.previousSnapshotDate) return;
-  const labels = formatPublicationChangeLabels({
-    previousAsOfDate: publication.previousSnapshotDate,
-    currentAsOfDate: publication.currentSnapshotDate,
-    changes: publication.changes,
-  });
+  const publication = publicationComparison;
+  if (!publication?.previousAsOfDate) return;
+  const labels = formatPublicationChangeLabels(publication);
   elements.changesToggle.hidden = false;
   elements.changesCount.textContent = publication.changes.length.toString();
   elements.changesCount.setAttribute(

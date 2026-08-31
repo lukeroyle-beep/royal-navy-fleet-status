@@ -1,8 +1,16 @@
 import { expect, test } from "@playwright/test";
 import fs from "node:fs";
 
+import { formatPublicationChangeLabels } from "../../src/utils/release.js";
+
 const fleet = JSON.parse(
   fs.readFileSync(new URL("../../data/royal-navy/vessels.json", import.meta.url), "utf8"),
+);
+const publicationChanges = JSON.parse(
+  fs.readFileSync(
+    new URL("../../data/royal-navy/publication-changes.json", import.meta.url),
+    "utf8",
+  ),
 );
 const historicalSnapshotDate = "2026-08-12";
 
@@ -10,6 +18,35 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#asOfDate")).not.toHaveText("Loading");
   await expect(page.locator("#loadError")).toBeHidden();
+});
+
+test("Compare renders every publication change, including location-only changes", async ({ page }) => {
+  const expectedNames = publicationChanges.changes.map((change) => change.vesselName);
+  const currentVesselIds = new Set(fleet.vessels.map((vessel) => vessel.id));
+  const expectedCurrentIds = publicationChanges.changes
+    .map((change) => change.vesselId)
+    .filter((vesselId) => currentVesselIds.has(vesselId))
+    .sort();
+  const labels = formatPublicationChangeLabels(publicationChanges);
+
+  expect(publicationChanges.counts.status).toBe(0);
+  expect(publicationChanges.counts.location).toBe(publicationChanges.changes.length);
+  await expect(page.locator("#changesToggle")).toBeVisible();
+  await expect(page.locator("#changesCount")).toHaveText(
+    publicationChanges.changes.length.toString(),
+  );
+
+  await page.locator("#changesToggle").click();
+  await expect(page.locator("#changesPanel")).toBeVisible();
+  await expect(page.locator("#changesSummary")).toHaveText(labels.summary);
+  await expect(page.locator("#changesList li")).toHaveCount(publicationChanges.changes.length);
+  await expect(page.locator("#changesList li span")).toHaveText(expectedNames);
+
+  await page.locator("#changedOnlyToggle").check();
+  const renderedVesselIds = await page
+    .locator("#vesselList button[data-vessel-id]")
+    .evaluateAll((buttons) => buttons.map((button) => button.dataset.vesselId).sort());
+  expect(renderedVesselIds).toEqual(expectedCurrentIds);
 });
 
 test("every current class keeps its list and point-marker counts aligned", async ({ page }) => {
