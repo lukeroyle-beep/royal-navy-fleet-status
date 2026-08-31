@@ -101,7 +101,8 @@ Unsuccessful observations use one of `unavailable`, `blocked`, `rate-limited` or
 typed blocker: `authentication-required`, `challenge`, `chrome-disconnected`, `incomplete-render`,
 `missing-profile`, `navigation-failed`, `rate-limited`, `schema-failed`, `unavailable` or `other`.
 They cannot contain posts or claim a completed method. `not-searched` is reserved for prepared
-session entries and is itself blocking for required coverage.
+session entries; any selected profile still in that non-terminal state prevents browser-stage
+finalisation. Optional terminal blockers remain visible without blocking required-account coverage.
 
 ## Normalization and evidence semantics
 

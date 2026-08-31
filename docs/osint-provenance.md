@@ -103,9 +103,11 @@ analyst must separately record every required recurring manual-source check and 
 outcomes. Newly governed sources and normalised evidence are added before an `updated` outcome is
 finalised. Candidate assessment revisions and the target release date/revision must exist before
 finalisation so the run can derive and bind every vessel outcome to the exact reviewed state.
-`npm run sweep:x -- --run=<run.json> --output=x-social-run.json` adds the trusted-host public-X
-source checks and produces a separate private candidate artifact. The endpoint provides a bounded
-popular-post sample without date parameters or pagination, so local date filtering cannot establish
+`npm run sweep:x -- --mode=prepare --run=<run.json> --session=<private-session-directory>` prepares
+the governed, repository-external Chrome session. Record one typed rendered-public observation for
+every selected registry profile, then run the same command with `--mode=finalise`; finalisation
+refuses any selected profile that is still non-terminal and produces a separate private candidate
+artifact. Bounded rendered results are not an exhaustive timeline API, so they cannot establish
 complete weekly coverage. Stable IDs and origin clusters prevent repost/cross-post double counting;
 source claims, machine interpretation and conflicts remain distinct and publication-ineligible.
 `npm run sweep:finalise -- <run.json>` succeeds only when the required interval and checks are complete.
