@@ -2,6 +2,8 @@ smoke-screenshot.png
 smoke-mobile.png
 node_modules/
 dist/
+playwright-report/
+test-results/
 
 # Local private-data mounts, caches and credentials never belong in this public repository.
 /.private/

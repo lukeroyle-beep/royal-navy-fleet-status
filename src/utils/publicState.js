@@ -1,3 +1,5 @@
+import { PUBLIC_LOCATION_STATES } from "./publicEnums.js";
+
 export const PUBLIC_STATE_VERSION = 2;
 export const PUBLIC_STATE_STORAGE_KEY = "rn-fleet-public-state";
 export const PORT_SHORE_FILTER = "ports-and-dockyards";
@@ -116,7 +118,7 @@ export function createPublicStateCatalog({
     services: new Set(vessels.map((vessel) => vessel.service)),
     statuses: new Set(vessels.map((vessel) => vessel.status)),
     types: new Set(vessels.map((vessel) => vessel.vesselType)),
-    locationStates: new Set(vessels.map((vessel) => vessel.locationState)),
+    locationStates: new Set(PUBLIC_LOCATION_STATES),
     presences: new Set(["uk", "overseas"]),
     snapshotDates: new Set(snapshotDates),
     currentSnapshotDate,

@@ -18,6 +18,11 @@ import {
   getFleetStatusSummary,
 } from "./utils/fleet.js";
 import {
+  filterFleetVessels,
+  formatPlotEligibilitySummary,
+  summarizePlotEligibility,
+} from "./utils/fleetFilter.js";
+import {
   compareCurrentWithPreviousSnapshot,
   createPublicSnapshotDataset,
   listPublicSnapshotDates,
@@ -43,7 +48,6 @@ import {
   createShareablePublicUrl,
   parsePublicUrlState,
   persistPublicState,
-  publicPresenceForVessel,
   publicStateMatchesPreset,
   readPersistedPublicState,
   resolvePublicSelection,
@@ -93,6 +97,8 @@ const elements = {
   unknownCount: document.querySelector("#unknownCount"),
   filterResultStatus: document.querySelector("#filterResultStatus"),
   filterSelectionStatus: document.querySelector("#filterSelectionStatus"),
+  plotResultStatus: document.querySelector("#plotResultStatus"),
+  filterPlotStatus: document.querySelector("#filterPlotStatus"),
   classRibbon: document.querySelector("#classRibbon"),
   classSelectionStatus: document.querySelector("#classSelectionStatus"),
   classAvailabilityPanel: document.querySelector("#classAvailabilityPanel"),
@@ -100,6 +106,7 @@ const elements = {
   classAvailabilityScore: document.querySelector("#classAvailabilityScore"),
   classAvailabilityPercentage: document.querySelector("#classAvailabilityPercentage"),
   classAvailabilityFormula: document.querySelector("#classAvailabilityFormula"),
+  classMapSummary: document.querySelector("#classMapSummary"),
   classAvailabilityBreakdown: document.querySelector("#classAvailabilityBreakdown"),
   classAvailabilityVessels: document.querySelector("#classAvailabilityVessels"),
   search: document.querySelector("#searchInput"),
@@ -115,6 +122,7 @@ const elements = {
   error: document.querySelector("#loadError"),
   errorMessage: document.querySelector("#loadErrorMessage"),
   mapNotice: document.querySelector("#mapNotice"),
+  mapFilterNotice: document.querySelector("#mapFilterNotice"),
   mapReset: document.querySelector("#resetMap"),
   fleetLayerToggle: document.querySelector("#fleetLayerToggle"),
   shoreLayerToggle: document.querySelector("#shoreLayerToggle"),
@@ -159,6 +167,7 @@ let selectedClass = "";
 let publicStateCatalog;
 let publicStateReady = false;
 let applyingPublicState = false;
+let currentFilteredVessels = [];
 const publicStorage = getPublicStorage();
 
 const fleetMap = new FleetMap({
@@ -276,6 +285,7 @@ function bindDataset() {
   elements.mapReset.addEventListener("click", () => fleetMap.resetView());
   elements.fleetLayerToggle.addEventListener("change", () => {
     fleetMap.setFleetVisible(elements.fleetLayerToggle.checked);
+    renderPlotSummary(currentFilteredVessels);
     syncPublicState();
   });
   elements.shoreLayerToggle.addEventListener("change", () =>
@@ -601,10 +611,12 @@ function renderClassAvailability() {
     elements.classAvailabilityPanel.hidden = true;
     elements.classAvailabilityBreakdown.replaceChildren();
     elements.classAvailabilityVessels.replaceChildren();
+    elements.classMapSummary.textContent = "";
     return;
   }
 
   const vessels = dataset.vessels.filter((vessel) => vessel.vesselClass === selectedClass);
+  const filteredVessels = filterFleetVessels(dataset.vessels, currentFleetFilterCriteria());
   const summary = getAvailabilitySummary(vessels);
   const statuses = [
     ...AVAILABILITY_STATUS_ORDER,
@@ -623,6 +635,7 @@ function renderClassAvailability() {
   elements.classAvailabilityFormula.textContent =
     `${summary.active} of ${summary.total} vessels are deployed or available. ` +
     "The total includes vessels in re-fit and vessels with status unknown.";
+  elements.classMapSummary.textContent = `Map: ${formatPlotEligibilitySummary(filteredVessels)}.`;
   elements.classAvailabilityBreakdown.replaceChildren(
     ...statuses.map((status) => createAvailabilityMetric(status, summary.byStatus[status] ?? 0)),
     createAvailabilityMetric("Total", summary.total),
@@ -661,8 +674,8 @@ function createClassVesselItem(vessel) {
     selectVessel(vessel, {
       source: "class",
       trigger: button,
-      returnSurface: "fleet",
-      returnFocusFallback: elements.fleetToggle,
+      returnSurface: "filters",
+      returnFocusFallback: elements.filterToggle,
     }),
   );
   item.append(button);
@@ -682,25 +695,12 @@ function renderAvailabilityScore(container, percentageElement, percentage, acces
 }
 
 function applyFilters({ fit = true, sync = true } = {}) {
-  const query = elements.search.value.trim().toLocaleLowerCase("en-GB");
-  const filtered = dataset.vessels.filter((vessel) => {
-    const matchesQuery =
-      !query ||
-      vessel.name.toLocaleLowerCase("en-GB").includes(query) ||
-      (vessel.pennantNumber || "").toLocaleLowerCase("en-GB").includes(query);
-    return (
-      matchesQuery &&
-      (!selectedClass || vessel.vesselClass === selectedClass) &&
-      (!elements.service.value || vessel.service === elements.service.value) &&
-      (!elements.status.value || vessel.status === elements.status.value) &&
-      (!elements.type.value || vessel.vesselType === elements.type.value) &&
-      (!elements.location.value || vessel.locationState === elements.location.value) &&
-      (!elements.presence.value || publicPresenceForVessel(vessel) === elements.presence.value) &&
-      (!changedOnly || snapshotComparison.changedCurrentVesselIds.includes(vessel.id))
-    );
-  });
+  const filtered = filterFleetVessels(dataset.vessels, currentFleetFilterCriteria());
 
+  currentFilteredVessels = filtered;
   renderFilterSummary(filtered.length);
+  renderPlotSummary(filtered);
+  renderClassAvailability();
   elements.resultsStatus.textContent = `${filtered.length} of ${dataset.vessels.length}`;
   renderList(filtered);
   fleetMap.setVisibleVessels(filtered, { fit });
@@ -712,6 +712,42 @@ function applyFilters({ fit = true, sync = true } = {}) {
   }
   if (sync) syncPublicState();
   return filtered;
+}
+
+function currentFleetFilterCriteria() {
+  return {
+    query: elements.search.value,
+    vesselClass: selectedClass,
+    service: elements.service.value,
+    status: elements.status.value,
+    type: elements.type.value,
+    locationState: elements.location.value,
+    presence: elements.presence.value,
+    changedVesselIds: changedOnly ? snapshotComparison?.changedCurrentVesselIds ?? [] : null,
+  };
+}
+
+function renderPlotSummary(filtered) {
+  const summary = summarizePlotEligibility(filtered);
+  const status = `Map: ${formatPlotEligibilitySummary(filtered)}.`;
+  elements.plotResultStatus.textContent = status;
+  elements.filterPlotStatus.textContent = status;
+
+  if (!elements.fleetLayerToggle.checked || summary.pointMapped > 0) {
+    elements.mapFilterNotice.hidden = true;
+    elements.mapFilterNotice.textContent = "";
+    return;
+  }
+  if (summary.total === 0) {
+    elements.mapFilterNotice.textContent = "No vessel records match the current filters.";
+  } else if (selectedSnapshotDate !== currentDataset.metadata.asOfDate) {
+    elements.mapFilterNotice.textContent =
+      "Location details are not published for this historical snapshot, so no vessel markers are shown.";
+  } else {
+    elements.mapFilterNotice.textContent =
+      "No point locations are publishable for this filter. Regional and list-only records remain in the fleet list.";
+  }
+  elements.mapFilterNotice.hidden = false;
 }
 
 function renderFilterSummary(filteredCount) {

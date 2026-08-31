@@ -1,4 +1,8 @@
-import { COMPACT_SURFACE_QUERY, nextOpenSurfaces } from "../utils/interface.js";
+import {
+  COMPACT_SURFACE_QUERY,
+  nextOpenSurfaces,
+  openSurface,
+} from "../utils/interface.js";
 
 export class SurfaceController {
   constructor({ surfaces, triggers, focusFallbacks = new Map(), backdrop, onChange = () => {} }) {
@@ -49,9 +53,7 @@ export class SurfaceController {
     } else {
       this.returnContexts.delete(name);
     }
-    const next = new Set(this.openSurfaces);
-    if (this.isCompact()) next.clear();
-    next.add(name);
+    const next = openSurface(this.openSurfaces, name, this.isCompact());
     this.#render(next);
     if (focus) {
       this.surfaces
@@ -72,17 +74,14 @@ export class SurfaceController {
       returnContext?.fallback ??
       this.focusFallbacks.get(name) ??
       this.triggers.get(name);
-    const next = new Set(this.openSurfaces);
+    let next = new Set(this.openSurfaces);
     next.delete(name);
     if (
       restoreFocus &&
-      recordedTarget &&
-      this.isCompact() &&
       returnContext?.surface &&
       this.surfaces.has(returnContext.surface)
     ) {
-      next.clear();
-      next.add(returnContext.surface);
+      next = openSurface(next, returnContext.surface, this.isCompact());
     }
     this.#render(next);
     this.returnContexts.delete(name);

@@ -16,6 +16,65 @@ const entities = privateInputs.readJson("vessels");
 const registry = privateInputs.readJson("sources");
 assert.equal(validateOperationalSourceRegistry(registry, entities), registry);
 assert.equal(registry.operations.length, registry.sources.length);
+const sourceReviewDates = registry.sources.flatMap((source) => [
+  source.terms?.reviewedAt,
+  source.officiality?.verifiedAt,
+  source.xCollection?.reviewedAt,
+  source.osintSelection?.reviewedAt,
+]).filter(Boolean);
+assert.ok(
+  sourceReviewDates.every((reviewedAt) => reviewedAt <= registry.reviewedAt),
+  "The registry-level review date must not predate any source review metadata.",
+);
+const enabledXAccounts = registry.sources.filter((source) => source.xCollection?.enabled);
+assert.equal(enabledXAccounts.length, 95);
+assert.equal(enabledXAccounts.filter((source) => source.xCollection.required).length, 72);
+assert.equal(enabledXAccounts.filter((source) => !source.xCollection.required).length, 23);
+assert.ok(
+  enabledXAccounts.find((source) => source.sourceId === "X_ARMED_FORCES_DAY")
+    ?.xCollection.required,
+  "The MOD-register Armed Forces Day account must be a required official check.",
+);
+const attachedDiscoveryIds = [
+  "X_DISCOVERY_3_COMMANDO_BRIGADE",
+  "X_DISCOVERY_BF_GIBRALTAR",
+  "X_DISCOVERY_BFSAI",
+  "X_DISCOVERY_BRNC",
+  "X_DISCOVERY_COMMANDO_OPS",
+  "X_DISCOVERY_FLY_NAVY",
+  "X_DISCOVERY_HMNB_CLYDE",
+  "X_DISCOVERY_HMNB_DEVONPORT",
+  "X_DISCOVERY_HMNB_PORTSMOUTH",
+  "X_DISCOVERY_HMS_DAUNTLESS",
+  "X_DISCOVERY_HMS_RALEIGH",
+  "X_DISCOVERY_HMS_TRACKER",
+  "X_DISCOVERY_MOD_GIBRALTAR",
+  "X_DISCOVERY_NAVYFIT",
+  "X_DISCOVERY_RFA_HEADQUARTERS",
+  "X_DISCOVERY_RNAS_CULDROSE",
+  "X_DISCOVERY_RNR_OFFICIAL",
+  "X_DISCOVERY_RN_DTXG",
+  "X_DISCOVERY_RN_GIBRALTAR_SQUADRON",
+  "X_DISCOVERY_RN_SCOTLAND",
+  "X_DISCOVERY_SECOND_SEA_LORD",
+  "X_DISCOVERY_UKMCC_MIDDLE_EAST",
+];
+for (const sourceId of attachedDiscoveryIds) {
+  const source = enabledXAccounts.find((entry) => entry.sourceId === sourceId);
+  assert.equal(source?.reliabilityTier, "D", `${sourceId} must remain Tier D discovery.`);
+  assert.equal(source?.xCollection.classification, "osint", `${sourceId} must not assert officiality.`);
+  assert.equal(source?.xCollection.required, false, `${sourceId} must remain optional.`);
+}
+assert.equal(
+  enabledXAccounts.some((source) => source.xCollection.handle.toLowerCase() === "hmsdodragon"),
+  false,
+  "The attached HMSDoDragon typo must not duplicate the governed HMS Dragon account.",
+);
+assert.equal(
+  enabledXAccounts.filter((source) => source.vesselId === "hms-kent").length,
+  1,
+  "The attached HMSKent alias must not duplicate the governed HMS Kent account.",
+);
 for (const operation of registry.operations) {
   for (const field of [
     "sourceId", "name", "type", "urlOrQueryTemplate", "coverage", "authorityTier",

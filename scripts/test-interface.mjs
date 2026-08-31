@@ -4,9 +4,11 @@ import fs from "node:fs";
 import { SurfaceController } from "../src/components/SurfaceController.js";
 import {
   COMPACT_SURFACE_QUERY,
+  RIGHT_SIDE_SURFACES,
   countActiveFilters,
   formatVesselResultSummary,
   nextOpenSurfaces,
+  openSurface,
   resolveSnapshotTransitionSelection,
 } from "../src/utils/interface.js";
 import {
@@ -29,6 +31,7 @@ import {
   resolvePublicSelection,
   stateForPublicPreset,
 } from "../src/utils/publicState.js";
+import { PUBLIC_LOCATION_STATES } from "../src/utils/publicEnums.js";
 
 const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const app = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
@@ -61,6 +64,29 @@ const historyStateCatalog = createPublicStateCatalog({
   currentSnapshotDate: fleet.metadata.asOfDate,
 });
 
+assert.deepEqual([...stateCatalog.locationStates], [...PUBLIC_LOCATION_STATES]);
+for (const locationState of ["unconfirmed", "no_recent_information"]) {
+  const locationUrl = createShareablePublicUrl(
+    "https://example.test/tracker",
+    { filters: { locationState } },
+    stateCatalog,
+  );
+  assert.equal(locationUrl.searchParams.get("locationState"), locationState);
+  assert.equal(
+    parsePublicUrlState(locationUrl, stateCatalog).filters.locationState,
+    locationState,
+    `${locationState} must survive a URL round trip even when the current dataset has no records in that state.`,
+  );
+  assert.equal(
+    parsePersistedPublicState(
+      JSON.stringify({ version: PUBLIC_STATE_VERSION, filters: { locationState } }),
+      stateCatalog,
+    ).filters.locationState,
+    locationState,
+    `${locationState} must survive persisted-state validation.`,
+  );
+}
+
 assert.equal(countActiveFilters(), 0);
 assert.equal(countActiveFilters({ query: "Duncan", status: "Deployed", service: "Royal Navy" }), 3);
 assert.equal(countActiveFilters({ presence: "overseas" }), 1);
@@ -71,9 +97,36 @@ assert.equal(formatVesselResultSummary(1, 68, 1), "Showing 1 of 68 vessels · 1 
 assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "filters", true)], ["filters"]);
 assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "detail", false)], ["fleet", "detail"]);
 assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "fleet", false)], []);
+assert.deepEqual(
+  [...nextOpenSurfaces(new Set(["fleet", "filters"]), "layers", false)],
+  ["fleet", "layers"],
+);
+assert.deepEqual(
+  [...nextOpenSurfaces(new Set(["fleet", "detail"]), "filters", false)],
+  ["fleet", "filters"],
+);
+assert.deepEqual(
+  [...openSurface(new Set(["fleet", "filters"]), "detail", false)],
+  ["fleet", "detail"],
+);
+assert.deepEqual([...openSurface(new Set(["fleet", "filters"]), "detail", true)], ["detail"]);
+assert.deepEqual(RIGHT_SIDE_SURFACES, ["detail", "layers", "filters", "changes"]);
 assert.match(COMPACT_SURFACE_QUERY, /pointer: coarse/);
 
-for (const id of ["fleetToggle", "layersToggle", "filterToggle", "fleetDrawer", "detailDrawer", "layersPanel", "filterPanel", "presenceFilter"]) {
+for (const id of [
+  "fleetToggle",
+  "layersToggle",
+  "filterToggle",
+  "fleetDrawer",
+  "detailDrawer",
+  "layersPanel",
+  "filterPanel",
+  "presenceFilter",
+  "mapFilterNotice",
+  "plotResultStatus",
+  "filterPlotStatus",
+  "classMapSummary",
+]) {
   assert.match(html, new RegExp(`id="${id}"`));
 }
 assert.doesNotMatch(html, /id="shareButton"|id="shareStatus"/);
@@ -112,7 +165,8 @@ assert.match(app, /createPublicSnapshotDataset/);
 assert.match(app, /compareCurrentWithPreviousSnapshot/);
 assert.match(app, /resolveSnapshotTransitionSelection/);
 assert.match(app, /selectShoreEstablishment\(retainedSelection\.shoreEstablishment/);
-assert.match(app, /!changedOnly \|\| snapshotComparison\.changedCurrentVesselIds\.includes/);
+assert.match(app, /filterFleetVessels\(dataset\.vessels/);
+assert.match(app, /changedVesselIds: changedOnly \? snapshotComparison\?\.changedCurrentVesselIds/);
 assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
 assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
 assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
@@ -144,7 +198,7 @@ assert.match(app, /resolvePublicSelection\(publicStateCatalog, state\)/);
 assert.doesNotMatch(app, /filteredVessels\.find\(\(vessel\) => vessel\.id === state\.selectedVessel\)/);
 assert.match(app, /map: fleetMap\.getPublicView\(\)/);
 assert.match(surfaces, /event\.key === "Escape"/);
-assert.match(surfaces, /if \(this\.isCompact\(\)\) next\.clear\(\)/);
+assert.match(surfaces, /openSurface\(this\.openSurfaces, name, this\.isCompact\(\)\)/);
 assert.match(surfaces, /this\.returnContexts = new Map\(\)/);
 assert.match(surfaces, /recordedTarget[\s\S]*returnContext\.surface/);
 assert.match(app, /returnFocus: trigger/);
@@ -155,6 +209,7 @@ assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
 assert.match(styles, /outline:\s*3px solid var\(--accent-strong\)/);
 assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
+assert.match(details, /\["Map display", formatMapDisplay\(vessel\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);
 assert.match(details, /this\.supplementaryTitle\.textContent = "Vessel details"/);
 assert.match(details, /this\.supplementaryTitle\.textContent = "Establishment details"/);
@@ -560,6 +615,7 @@ for (const prohibited of ["Evidence requiring review", "sourceUrl", "evidenceGra
 function testCompactDetailFocusRestoration() {
   let activeElement = null;
   let escapeHandler = null;
+  let compact = true;
   const previousWindow = globalThis.window;
   const previousDocument = globalThis.document;
 
@@ -585,7 +641,7 @@ function testCompactDetailFocusRestoration() {
 
   try {
     globalThis.window = {
-      matchMedia: () => ({ matches: true, addEventListener() {} }),
+      matchMedia: () => ({ matches: compact, addEventListener() {} }),
     };
     globalThis.document = {
       querySelectorAll: () => [],
@@ -662,6 +718,30 @@ function testCompactDetailFocusRestoration() {
     removedTrigger.isConnected = false;
     escapeHandler({ key: "Escape" });
     assert.equal(activeElement, fleetToggle, "A removed list trigger must fall back to the Fleet control.");
+
+    compact = false;
+    const desktopLayersSurface = createElement();
+    const desktopDetailSurface = createElement({ hidden: true, focusTarget: createElement() });
+    const desktopLayersToggle = createElement();
+    const desktopController = new SurfaceController({
+      surfaces: new Map([
+        ["layers", desktopLayersSurface],
+        ["detail", desktopDetailSurface],
+      ]),
+      triggers: new Map([["layers", desktopLayersToggle]]),
+      focusFallbacks: new Map([["detail", desktopLayersToggle]]),
+      backdrop: null,
+    });
+    const desktopShoreTrigger = createElement();
+    desktopController.open("detail", {
+      returnFocus: desktopShoreTrigger,
+      returnSurface: "layers",
+      returnFocusFallback: desktopLayersToggle,
+    });
+    assert.equal(desktopLayersSurface.hidden, true, "Desktop detail must temporarily replace Layers.");
+    desktopController.close("detail", { restoreFocus: true });
+    assert.equal(desktopLayersSurface.hidden, false, "Desktop close must restore the originating Layers panel.");
+    assert.equal(activeElement, desktopShoreTrigger, "Desktop close must restore the invoking shore control.");
   } finally {
     if (previousWindow === undefined) delete globalThis.window;
     else globalThis.window = previousWindow;

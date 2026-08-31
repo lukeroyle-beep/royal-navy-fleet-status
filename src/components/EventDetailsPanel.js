@@ -1,5 +1,6 @@
 import { VesselPhotoService } from "./VesselPhotoService.js";
 import { getVesselChange, getVesselPublicTimeline } from "../utils/insights.js";
+import { hasPlottablePosition } from "../utils/map.js";
 
 export class EventDetailsPanel {
   constructor({
@@ -64,6 +65,7 @@ export class EventDetailsPanel {
       ["Location", vessel.publicLocationLabel],
       ["Public location status", formatLocationState(vessel.locationState)],
       ["Geographic precision", formatLocationPrecision(vessel.locationPrecision)],
+      ["Map display", formatMapDisplay(vessel)],
       ["Snapshot", formatSnapshotDate(asOfDate)],
     ];
     const entries = [
@@ -194,6 +196,16 @@ export function formatLocationPrecision(value) {
     region: "Approximate region",
     none: "Not mapped",
   }[value] || value;
+}
+
+export function formatMapDisplay(vessel) {
+  if (hasPlottablePosition(vessel)) {
+    return "Point-mapped record — marker shown when fleet layer is enabled";
+  }
+  if (vessel?.locationPrecision === "region") {
+    return "Regional record — no point marker shown";
+  }
+  return "List-only record — no point marker shown";
 }
 
 export function formatReleaseChange(change) {

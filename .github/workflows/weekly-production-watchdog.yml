@@ -1,0 +1,99 @@
+name: Weekly production snapshot watchdog
+
+on:
+  schedule:
+    # Hourly after the 18:00 UK-local grace threshold. The script applies the
+    # Europe/London guard; repeated runs reconcile one idempotent issue.
+    - cron: "15 17-22 * * 0"
+  workflow_dispatch:
+    inputs:
+      expected_snapshot_date:
+        description: Expected Sunday snapshot date (YYYY-MM-DD)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: weekly-production-snapshot-watchdog
+  cancel-in-progress: false
+
+jobs:
+  verify-production-snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the production branch
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: main
+
+      - name: Evaluate repository and live snapshot
+        env:
+          EXPECTED_SNAPSHOT_DATE: ${{ inputs.expected_snapshot_date }}
+          WATCHDOG_MODE: ${{ github.event_name == 'workflow_dispatch' && 'manual' || 'scheduled-watchdog' }}
+        run: |
+          arguments=(
+            "--mode=${WATCHDOG_MODE}"
+            "--live-url=https://british-armed-forces-tracker.open-defence-data.workers.dev/data/royal-navy/vessels.json"
+            "--output=weekly-production-health.json"
+          )
+          if [[ -n "${EXPECTED_SNAPSHOT_DATE}" ]]; then
+            arguments+=("--expected-date=${EXPECTED_SNAPSHOT_DATE}")
+          fi
+          node scripts/check-weekly-production.mjs "${arguments[@]}"
+
+      - name: Reconcile the stable GitHub issue
+        if: always() && hashFiles('weekly-production-health.json') != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="$(jq -r '.issue.title' weekly-production-health.json)"
+          body="$(jq -r '.issue.body' weekly-production-health.json)"
+          action="$(jq -r '.action' weekly-production-health.json)"
+          issue="$(gh issue list --repo "${GITHUB_REPOSITORY}" --state all --limit 100 --json number,title,state | jq -r --arg title "${title}" '.[] | select(.title == $title) | [.number,.state] | @tsv' | head -n 1)"
+          number="${issue%%$'\t'*}"
+          state="${issue#*$'\t'}"
+
+          if [[ "${action}" == "alert" && -z "${issue}" ]]; then
+            gh issue create --repo "${GITHUB_REPOSITORY}" --title "${title}" --body "${body}"
+          elif [[ "${action}" == "alert" ]]; then
+            if [[ "${state}" == "CLOSED" ]]; then
+              gh issue reopen "${number}" --repo "${GITHUB_REPOSITORY}"
+            fi
+            gh issue edit "${number}" --repo "${GITHUB_REPOSITORY}" --body "${body}"
+          elif [[ "${action}" == "resolve" && "${state}" == "OPEN" ]]; then
+            gh issue close "${number}" --repo "${GITHUB_REPOSITORY}" --comment "The repository and live site now expose the expected dated snapshot; the watchdog has resolved this alert."
+          fi
+
+      - name: Write run summary
+        if: always() && hashFiles('weekly-production-health.json') != ''
+        run: |
+          {
+            echo "## Weekly production snapshot watchdog"
+            echo
+            echo "- Expected: $(jq -r '.expectedSnapshotDate' weekly-production-health.json)"
+            echo "- Repository: $(jq -r '.repositorySnapshot.asOfDate // "unavailable"' weekly-production-health.json)"
+            echo "- Live: $(jq -r '.liveSnapshot.asOfDate // "unavailable"' weekly-production-health.json)"
+            echo "- Outcome: $(jq -r '.outcome' weekly-production-health.json)"
+            echo "- Action: $(jq -r '.action' weekly-production-health.json)"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Upload the run-health artifact
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: weekly-production-health-${{ github.run_id }}
+          path: weekly-production-health.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Fail visibly when production is missing
+        if: always() && hashFiles('weekly-production-health.json') != ''
+        run: |
+          outcome="$(jq -r '.outcome' weekly-production-health.json)"
+          if [[ "${outcome}" != "healthy" && "${outcome}" != "standby" ]]; then
+            exit 1
+          fi

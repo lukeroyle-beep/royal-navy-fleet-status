@@ -1,5 +1,6 @@
 export const COMPACT_SURFACE_QUERY =
   "(max-width: 1100px) and (orientation: portrait), (max-width: 700px), (pointer: coarse) and (max-width: 1400px)";
+export const RIGHT_SIDE_SURFACES = Object.freeze(["detail", "layers", "filters", "changes"]);
 
 export function countActiveFilters({
   query = "",
@@ -24,12 +25,21 @@ export function formatVesselResultSummary(filteredCount, totalCount, activeFilte
 export function nextOpenSurfaces(openSurfaces, requestedSurface, compact) {
   const next = new Set(openSurfaces);
   const shouldOpen = !next.has(requestedSurface);
+  if (!shouldOpen) {
+    next.delete(requestedSurface);
+    return next;
+  }
+  return openSurface(openSurfaces, requestedSurface, compact);
+}
+
+export function openSurface(openSurfaces, requestedSurface, compact) {
+  const next = new Set(openSurfaces);
   if (compact) {
     next.clear();
-  } else if (!shouldOpen) {
-    next.delete(requestedSurface);
+  } else if (RIGHT_SIDE_SURFACES.includes(requestedSurface)) {
+    for (const surface of RIGHT_SIDE_SURFACES) next.delete(surface);
   }
-  if (shouldOpen) next.add(requestedSurface);
+  next.add(requestedSurface);
   return next;
 }
 

@@ -248,3 +248,7 @@ The owner-reviewed weekly refresh procedure is documented in
 cache and failure details in [`docs/x-social-sources.md`](docs/x-social-sources.md). Direct X page
 scraping, private or logged-in social content, unlicensed commercial tracking collection and
 unattended publication remain outside the current version.
+
+The single production scheduler is the timezone-aware OpenClaw Sunday automation documented in that
+runbook. GitHub Actions provides discovery and an independent post-grace repository/live-snapshot
+watchdog; it does not receive private inputs and does not run a second production pipeline.
