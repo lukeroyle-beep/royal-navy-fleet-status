@@ -76,6 +76,10 @@ until:YYYY-MM-DD`, then enforce the sweep's exact half-open `[from, to)` timesta
 normalization. A profile's rendered chronological page may be used when search is unavailable, but
 the method and limitation must be recorded.
 
+For a search observation, the decoded page URL `q` parameter must exactly match the recorded method
+query and the page must use X's rendered `Latest` results tab. A declared query cannot certify a
+different page.
+
 Navigation is bounded and rate-conscious: inspect visible rendered results, use at most 12 deliberate
 scrolls, never use hidden network responses, and stop if the page ceases to render a reliable public
 result. Rendered X results are not an exhaustive timeline API; `checked-no-findings` means only that
@@ -114,8 +118,10 @@ labelled non-explicit. The normalizer recognises only existing known public loca
 them at region precision and never creates coordinates, routes, destinations or patrol areas.
 
 Stable post IDs are deduplicated. Reposts retain the original-origin relationship and are not
-evidence-eligible. Common origins are clustered before corroboration. Contradictory candidates remain
-visible for human review; no winner is selected automatically.
+evidence-eligible. Original and quote URLs must be authored by the selected registry account. A typed
+repost may retain an external canonical author, but the artifact records both the selected account and
+canonical author explicitly. Common origins are clustered before corroboration. Contradictory
+candidates remain visible for human review; no winner is selected automatically.
 
 Finalise the private browser artifact and apply its required outcomes to the existing sweep ledger:
 

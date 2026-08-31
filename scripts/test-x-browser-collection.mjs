@@ -227,6 +227,80 @@ try {
     /rendered public search page/i,
   );
 
+  const mismatchedQueryRun = sweepRun(registry);
+  const mismatchedQuerySession = createXBrowserSession({
+    registry,
+    run: mismatchedQueryRun,
+    sourceIds: ["X_HMS_DUNCAN"],
+    scope: "canary",
+    createdAt: "2026-08-31T00:20:00Z",
+  });
+  assert.throws(
+    () => recordXBrowserObservation({
+      session: mismatchedQuerySession,
+      registry,
+      entities,
+      publicVessels: publicProjection.vessels,
+      run: mismatchedQueryRun,
+      observation: {
+        ...officialObservation,
+        method: {
+          ...officialObservation.method,
+          pageUrl: "https://x.com/search?q=from%3AUnrelatedAccount&f=live",
+        },
+      },
+    }),
+    /search page query does not match the declared browser method query/i,
+  );
+
+  const authorRun = sweepRun(registry);
+  const authorSession = createXBrowserSession({
+    registry,
+    run: authorRun,
+    sourceIds: ["X_HMS_DUNCAN"],
+    scope: "canary",
+    createdAt: "2026-08-31T00:20:00Z",
+  });
+  recordXBrowserObservation({
+    session: authorSession,
+    registry,
+    entities,
+    publicVessels: publicProjection.vessels,
+    run: authorRun,
+    observation: checkedObservation({
+      sourceId: "X_HMS_DUNCAN",
+      handle: "HMSDuncan",
+      posts: [{
+        ...post("1000000000000000005", "2026-08-29T12:00:00Z", "Unrelated account claim."),
+        canonicalUrl: "https://x.com/OtherAccount/status/1000000000000000005",
+      }],
+    }),
+  });
+  assert.equal(authorSession.posts.length, 0, "A different author's original post must be rejected.");
+  assert.equal(authorSession.accounts[0].invalidPostCount, 1);
+
+  recordXBrowserObservation({
+    session: authorSession,
+    registry,
+    entities,
+    publicVessels: publicProjection.vessels,
+    run: authorRun,
+    observation: checkedObservation({
+      sourceId: "X_HMS_DUNCAN",
+      handle: "HMSDuncan",
+      posts: [{
+        ...post("1000000000000000006", "2026-08-29T12:05:00Z", "Reposted external account claim."),
+        canonicalUrl: "https://x.com/OtherAccount/status/1000000000000000006",
+        postType: "repost",
+        repostOfPostId: "1000000000000000006",
+      }],
+    }),
+  });
+  assert.equal(authorSession.posts.length, 1, "A typed repost may retain its external canonical author.");
+  assert.equal(authorSession.posts[0].sourceClaim.accountHandle, "@HMSDuncan");
+  assert.equal(authorSession.posts[0].sourceClaim.canonicalAuthorHandle, "@OtherAccount");
+  assert.equal(authorSession.posts[0].interpretation.evidenceEligible, false);
+
   console.log("Rendered-public-X normalization, resume, blocker, cutoff, dedupe, gate and exposure tests passed.");
 } finally {
   fs.rmSync(temporaryRoot, { recursive: true, force: true });
@@ -243,6 +317,7 @@ function sweepRun(registry) {
 }
 
 function checkedObservation({ sourceId, handle, posts }) {
+  const query = `from:${handle} since:2026-08-23 until:2026-09-01`;
   return {
     schemaVersion: "1.0.0",
     sourceId,
@@ -253,8 +328,8 @@ function checkedObservation({ sourceId, handle, posts }) {
       browser: "chrome",
       renderedPublicPage: true,
       readOnly: true,
-      pageUrl: `https://x.com/search?q=from%3A${handle}&f=live`,
-      query: `from:${handle} since:2026-08-23 until:2026-09-01`,
+      pageUrl: `https://x.com/search?q=${encodeURIComponent(query)}&f=live`,
+      query,
       window: { from: "2026-08-23T00:00:00Z", to: "2026-08-31T00:00:00Z" },
       scrollCount: 2,
       visibleResultCount: posts.length,

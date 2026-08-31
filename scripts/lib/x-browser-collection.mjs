@@ -453,9 +453,17 @@ function validateMethod(method, account, window) {
     if (pageUrl.pathname.replace(/\/+$/, "") !== "/search") {
       throw new Error("X search method must use the rendered public search page.");
     }
-    const query = String(method.query || "");
-    if (!query.toLocaleLowerCase("en-GB").includes(`from:${account.handle}`.toLocaleLowerCase("en-GB"))) {
+    const query = String(method.query || "").trim();
+    const fromHandles = [...query.matchAll(/\bfrom:([A-Za-z0-9_]{1,15})\b/gi)]
+      .map((match) => match[1].toLocaleLowerCase("en-GB"));
+    if (fromHandles.length !== 1 || fromHandles[0] !== account.handle.toLocaleLowerCase("en-GB")) {
       throw new Error("X search method query does not bind the registry handle.");
+    }
+    if (String(pageUrl.searchParams.get("q") || "").trim() !== query) {
+      throw new Error("X search page query does not match the declared browser method query.");
+    }
+    if (pageUrl.searchParams.get("f") !== "live") {
+      throw new Error("X search method must use the rendered Latest results tab.");
     }
   } else {
     const segments = pageUrl.pathname.split("/").filter(Boolean);
@@ -471,15 +479,26 @@ function normalizeRenderedPost({ raw, account, retrievedAt, entities, officialSo
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) throw new Error("Rendered post must be an object.");
   const postId = String(raw.postId || "").trim();
   if (!/^\d+$/.test(postId)) throw new Error("Rendered post has an invalid stable ID.");
-  const canonicalUrl = validateCanonicalPostUrl(raw.canonicalUrl, postId);
-  const text = normalizeForHash(raw.text);
-  if (!text) throw new Error("Rendered post has no bounded text.");
-  requireTimestamp(raw.publishedAt, "Rendered post publication time");
   const postType = raw.postType || "original";
   if (!POST_TYPES.has(postType)) throw new Error("Rendered post type is invalid.");
   const repostOfPostId = nullablePostId(raw.repostOfPostId, "repostOfPostId");
   const quotedPostId = nullablePostId(raw.quotedPostId, "quotedPostId");
   if (postType === "repost" && !repostOfPostId) throw new Error("Rendered repost lacks its original post ID.");
+  if (postType === "quote" && (!quotedPostId || repostOfPostId)) {
+    throw new Error("Rendered quote must contain only its quoted post ID relationship.");
+  }
+  if (postType === "original" && (repostOfPostId || quotedPostId)) {
+    throw new Error("Rendered original post cannot contain repost or quote relationships.");
+  }
+  const canonicalPost = validateCanonicalPostUrl(raw.canonicalUrl, postId);
+  const selectedAuthor = account.handle.toLocaleLowerCase("en-GB");
+  const canonicalAuthor = canonicalPost.authorHandle.toLocaleLowerCase("en-GB");
+  if (postType !== "repost" && canonicalAuthor !== selectedAuthor) {
+    throw new Error("Rendered original or quote post URL author does not match the selected registry account.");
+  }
+  const text = normalizeForHash(raw.text);
+  if (!text) throw new Error("Rendered post has no bounded text.");
+  requireTimestamp(raw.publishedAt, "Rendered post publication time");
   const extracted = extractEvidenceCandidate({
     text,
     publishedAt: raw.publishedAt,
@@ -491,13 +510,14 @@ function normalizeRenderedPost({ raw, account, retrievedAt, entities, officialSo
   return {
     candidateId: `X_POST_${postId}`,
     postId,
-    canonicalUrl,
+    canonicalUrl: canonicalPost.canonicalUrl,
     originId: `X_POST_${repostOfPostId || postId}`,
     contentHash: sha256(text),
     sourceClaim: {
       sourceId: account.sourceId,
       sourceClassification: account.classification,
       accountHandle: `@${account.handle}`,
+      canonicalAuthorHandle: `@${canonicalPost.authorHandle}`,
       publishedAt: new Date(Date.parse(raw.publishedAt)).toISOString(),
       retrievedAt: new Date(Date.parse(retrievedAt)).toISOString(),
       excerpt: compactExcerpt(text),
@@ -648,8 +668,11 @@ function validateCanonicalPostUrl(value, postId) {
   const url = validatePublicXUrl(value);
   const match = /\/status\/(\d+)/.exec(url.pathname);
   if (match?.[1] !== postId) throw new Error("Rendered post URL does not match its stable ID.");
-  const author = url.pathname.split("/").filter(Boolean)[0];
-  return `https://x.com/${handleWithoutAt(author)}/status/${postId}`;
+  const authorHandle = handleWithoutAt(url.pathname.split("/").filter(Boolean)[0]);
+  return {
+    canonicalUrl: `https://x.com/${authorHandle}/status/${postId}`,
+    authorHandle,
+  };
 }
 
 function validatePublicXUrl(value, { allowSearch = false } = {}) {
