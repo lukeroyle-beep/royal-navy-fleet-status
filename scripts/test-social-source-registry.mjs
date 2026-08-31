@@ -80,7 +80,7 @@ function officialSource(sourceId, handle, scope, overrides = {}) {
     canonicalUrl: `https://x.com/${handle}`,
     accountHandle: `@${handle}`,
     reliabilityTier: "A",
-    collectionMode: "api",
+    collectionMode: "browser",
     status: "enabled",
     enabled: true,
     officiality: {
@@ -111,7 +111,7 @@ function osintSource(sourceId, handle, { enabled = true } = {}) {
     canonicalUrl: `https://x.com/${handle}`,
     accountHandle: `@${handle}`,
     reliabilityTier: "C",
-    collectionMode: "api",
+    collectionMode: "browser",
     status: "enabled",
     enabled: true,
     osintSelection: {

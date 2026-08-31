@@ -46,7 +46,7 @@ The registry contains 186 governed source records, a 68-vessel official-social c
 - official MOD/GOV.UK and NATO releases;
 - 72 confirmed Royal Navy/MOD organisation, command, unit, establishment, squadron and vessel X
   accounts, one confirmed Tier C OSINT publisher and 22 optional Tier D owner-supplied discovery
-  accounts collected through the trusted-host Scrape Creators stage;
+  accounts inspected through the governed rendered-public-X stage in the owner's signed-in Chrome;
 - 68 vessel-account coverage records from the roster-wide official-page review, including
   machine-tested `@HMS_Spey` and `@HMSTrent` entries;
 - official harbour/dockyard and defence-contractor news;
@@ -54,9 +54,10 @@ The registry contains 186 governed source records, a 68-vessel official-social c
 - MarineVesselTraffic NATO Navy Ships as a manual discovery-only source;
 - official imagery, credible media and AIS-derived legacy sources classified by tier and collection mode.
 
-No direct X-page scraping, private/logged-in social access, commercial-page scraping, media downloading,
-satellite automation, webcam automation or automatic archive submission is implemented. The public-X
-adapter uses only the Keychain-backed Scrape Creators wrapper on the trusted Mac. Commercial AIS terms
+No non-rendered X extraction, browser-state inspection, protected/private social access,
+commercial-page scraping, media downloading, satellite automation, webcam automation or automatic
+archive submission is implemented. The public-X stage uses only bounded rendered pages in the
+owner's signed-in Chrome and records typed access blockers. Commercial AIS terms
 and public-output licences require procurement review. Visual material needs copyright, geolocation and
 chronolocation review. A manual evidence-ingestion command provides a maintainable lawful alternative
 and fails closed on unknown source/vessel IDs, malformed URLs, hashes or timestamps.
@@ -172,5 +173,4 @@ also emits a conservative maximum-public-precision cap; missing location support
 - [VesselFinder terms](https://www.vesselfinder.com/terms)
 - [MarineVesselTraffic NATO Navy Ships](https://www.marinevesseltraffic.com/NATO-navy-ships)
 - [MOD official social-media register](https://www.gov.uk/government/organisations/ministry-of-defence/about/social-media-use)
-- [Scrape Creators public X user-post endpoint](https://docs.scrapecreators.com/v1/twitter/user-tweets/)
 - [X automation rules](https://help.x.com/en/rules-and-policies/x-automation?lang=browser)

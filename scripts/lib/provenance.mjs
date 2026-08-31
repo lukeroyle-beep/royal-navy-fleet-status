@@ -6,7 +6,7 @@ import { validateSocialSourceRegistry } from "./social-source-registry.mjs";
 const CONFIDENCE_LEVELS = new Set(["high", "moderate", "low", "unknown"]);
 const FRESHNESS_STATES = new Set(["current", "aging", "historical"]);
 const RELIABILITY_TIERS = new Set(["A", "B", "C", "D"]);
-const COLLECTION_MODES = new Set(["manual", "api", "feed"]);
+const COLLECTION_MODES = new Set(["manual", "api", "feed", "browser"]);
 const SOURCE_STATUSES = new Set([
   "enabled",
   "manual-only",
