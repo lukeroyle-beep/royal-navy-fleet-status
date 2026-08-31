@@ -32,8 +32,9 @@ Before broad collection, the OpenClaw job must fail fast unless all of the follo
 - the configured external `RNFS_PRIVATE_DATA_ROOT` is present, readable, outside the repository and
   passes the private-input boundary checks;
 - GitHub authentication can fetch the base and create or update an owner-reviewed pull request;
-- Scrape Creators authentication works and its available credit capacity plus valid same-window cache
-  can cover every required account; and
+- Chrome is connected, X is signed in, the six-account rendered-public-page canary passes and the
+  private resumable session can cover every required registry account without a challenge or rate
+  limit; and
 - a same-date published snapshot, active run, branch or pull request will be resumed or treated as an
   idempotent no-op rather than duplicated.
 
@@ -88,15 +89,16 @@ npm run sweep:collect -- --output=osint-sweep-run.json
 On the trusted Mac, enrich the same run with the governed public-X account checks:
 
 ```bash
-npm run sweep:x -- --run=osint-sweep-run.json --output=x-social-run.json
+npm run sweep:x -- --mode=prepare --run=osint-sweep-run.json --session=/absolute/private/session
+# The personal royal-navy-x-browser-sweep skill records each rendered Chrome observation.
+npm run sweep:x -- --mode=finalise --run=osint-sweep-run.json --session=/absolute/private/session
 ```
 
 Wait for both collection stages before reviewing sources or finalising. The X output is an ignored,
 private review artifact and must not be committed. It contributes source-check outcomes to the sweep
 ledger but does not ingest evidence or publish a vessel conclusion. See
-[`x-social-sources.md`](x-social-sources.md) for credential setup, the account registry, the current
-95-request/credit ceiling, the 24-hour same-window cache, the provider's popular-sample limitation,
-and the six-account canary command.
+[`x-social-sources.md`](x-social-sources.md) for the Chrome-only safety boundary, private resumable
+session, exact typed observation contract, bounded rendered-result limitation and six-account canary.
 
 The collector targets release revision 1 by default. For a same-day correction, supply the revision
 that will be published, for example `--release-revision=2`. A sweep for r1 cannot authorise r2, and
@@ -153,11 +155,11 @@ Public GitHub Actions use no real private inputs or credentials and exercise the
 fixture only. Follow [`private-input-boundary.md`](private-input-boundary.md) for backup/recovery,
 credential rotation, temporary generation and sanitised-release review.
 
-The Sunday task must continue when one X account fails and retain each typed blocker. A global
-authentication or exhausted-credit failure stops further X calls, and any failed required official
-profile keeps the run incomplete. An optional OSINT failure is visible but does not become a hard
-release gate. Empty in-window results mean only that the provider's bounded popular sample contained
-no matching date; they do not prove that an account was inactive.
+The Sunday task must continue when one X account fails and retain each typed blocker unless Chrome
+disconnects, sign-in is required or a challenge requires Luke. Any failed required official profile
+keeps the run incomplete. An optional OSINT failure is visible but does not become a hard release
+gate. Empty bounded rendered results mean only that no matching candidate was visibly captured; they
+do not prove that an account was inactive.
 
 After finalisation, stamp `metadata.releasedAt` later than or equal to the sweep completion, generate
 the public projection and then generate the two insight datasets in this order:

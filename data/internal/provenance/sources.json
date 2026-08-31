@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.1.0",
-  "reviewedAt": "2026-08-29T00:00:00Z",
+  "reviewedAt": "2026-08-31T00:00:00Z",
   "policy": {
     "corroborationUnit": "originId",
     "aisAbsenceMeaning": "neutral",
-    "socialAutomation": "Public X data may be collected only through the Keychain-backed Scrape Creators wrapper; direct page scraping, private content and logged-in content are prohibited.",
+    "socialAutomation": "Public X data may be inspected only through bounded rendered pages in the owner's signed-in Chrome under the governed browser sweep; API/provider fallback, private browser-state access, protected content and account mutation are prohibited.",
     "publicRepositoryNotice": "Non-client data, not confidential storage. No secrets or non-public API data are permitted."
   },
   "sources": [
@@ -1248,13 +1248,13 @@
       "publisher": "Ministry of Defence",
       "canonicalUrl": "https://x.com/DefenceHQ",
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Verified by the MOD official social-media register.",
       "officiality": {
@@ -1281,13 +1281,13 @@
       "publisher": "Ministry of Defence Press Office",
       "canonicalUrl": "https://x.com/DefenceHQPress",
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Verified by the MOD official social-media register.",
       "officiality": {
@@ -1322,13 +1322,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSArcher; verified/enabled",
       "xCollection": {
@@ -1356,13 +1356,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hms_blazer; verified/enabled",
       "xCollection": {
@@ -1390,13 +1390,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSCattistock; verified/enabled",
       "xCollection": {
@@ -1424,13 +1424,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "legacy",
       "enabled": false,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSChiddingfold; verified/legacy—disable on decommission",
       "xCollection": {
@@ -1458,13 +1458,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HmsDasher; verified/enabled by current Royal Navy unit-page link",
       "xCollection": {
@@ -1492,13 +1492,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hmsdiamond; verified/enabled",
       "xCollection": {
@@ -1526,13 +1526,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSDragon; verified/enabled",
       "xCollection": {
@@ -1560,13 +1560,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSDuncan; verified/enabled",
       "xCollection": {
@@ -1594,13 +1594,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSExample; verified/enabled",
       "xCollection": {
@@ -1628,13 +1628,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSExploit; verified/enabled",
       "xCollection": {
@@ -1662,13 +1662,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "legacy",
       "enabled": false,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSIronDuke; verified/legacy—disable on decommission",
       "xCollection": {
@@ -1696,13 +1696,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSLedbury; verified/enabled",
       "xCollection": {
@@ -1730,13 +1730,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hms_magpie; verified/enabled",
       "xCollection": {
@@ -1764,13 +1764,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSMiddleton; verified/enabled by current Royal Navy unit-page link",
       "xCollection": {
@@ -1798,13 +1798,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSPortland; verified/enabled",
       "xCollection": {
@@ -1832,13 +1832,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSPuncher; verified/enabled",
       "xCollection": {
@@ -1866,13 +1866,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSQnlz; verified/enabled",
       "xCollection": {
@@ -1900,13 +1900,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Raider; verified/enabled",
       "xCollection": {
@@ -1934,13 +1934,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "legacy",
       "enabled": false,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Richmond; verified/legacy—disable on decommission",
       "xCollection": {
@@ -1968,13 +1968,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Smiter; verified/enabled",
       "xCollection": {
@@ -2002,13 +2002,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSSomerset; verified/enabled",
       "xCollection": {
@@ -2036,13 +2036,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Spey; verified/enabled",
       "xCollection": {
@@ -2070,13 +2070,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Str_Castle; verified/enabled",
       "xCollection": {
@@ -2104,13 +2104,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSTrent; verified/enabled",
       "xCollection": {
@@ -2138,13 +2138,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFACardiganBay; verified/enabled",
       "xCollection": {
@@ -2172,13 +2172,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFALymeBay; verified/enabled",
       "xCollection": {
@@ -2206,13 +2206,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFAProteus; verified/enabled",
       "xCollection": {
@@ -2240,13 +2240,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFATideforce; verified/enabled",
       "xCollection": {
@@ -2274,13 +2274,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFATidespring; verified/enabled",
       "xCollection": {
@@ -2308,13 +2308,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFATidesurge; verified/enabled",
       "xCollection": {
@@ -2334,13 +2334,13 @@
       "publisher": "Royal Navy",
       "canonicalUrl": "https://x.com/RoyalNavy",
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-15T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Official organisation account; reposts share the underlying origin.",
       "officiality": {
@@ -2415,13 +2415,13 @@
       "publisher": "Navy Lookout",
       "canonicalUrl": "https://x.com/NavyLookout",
       "reliabilityTier": "C",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-23T20:47:26Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Enabled curated Tier C OSINT source; claims remain distinct from Royal Navy confirmation and reposts do not create independent origins.",
       "accountHandle": "@NavyLookout",
@@ -2545,13 +2545,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSPWLS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2579,13 +2579,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hmsdaring; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2613,13 +2613,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSDefender; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2647,13 +2647,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSSutherland; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2681,13 +2681,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hms_kent; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2715,13 +2715,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSStAlbans; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2749,13 +2749,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hms_tyne; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2783,13 +2783,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hmssevern; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2817,13 +2817,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hms_mersey; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2851,13 +2851,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Forth; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2885,13 +2885,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Medway; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2919,13 +2919,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hms_tamar; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2953,13 +2953,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HmsBrocklesby; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -2987,13 +2987,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSHurworth; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3021,13 +3021,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSBangor; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3055,13 +3055,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Biter; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3089,13 +3089,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Pursuer; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3123,13 +3123,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSCharger; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3157,13 +3157,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMS_Ranger; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3191,13 +3191,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSTrumpeter; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3225,13 +3225,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSExpress; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3259,13 +3259,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSExplorer; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3293,13 +3293,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@HMSScottRN; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3327,13 +3327,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@hmsprotector; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3361,13 +3361,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFAMountsBay; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3395,13 +3395,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RFATiderace; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3428,13 +3428,13 @@
         "basis": "official-register"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RoyalMarines; confirmed by mod gov.uk social-media register",
       "xCollection": {
@@ -3461,13 +3461,13 @@
         "basis": "official-register"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@Defenceops; confirmed by mod gov.uk social-media register",
       "xCollection": {
@@ -3494,13 +3494,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@RNASYeovilton; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3527,13 +3527,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@40commando; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3560,13 +3560,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@42_commando; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3593,13 +3593,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@43commando; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3626,13 +3626,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@45CdoGp; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3659,13 +3659,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@705_NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3692,13 +3692,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@815NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3725,13 +3725,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@820NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3758,13 +3758,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@825NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3791,13 +3791,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@845NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3824,13 +3824,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@846NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3857,13 +3857,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@847NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3890,13 +3890,13 @@
         "basis": "direct-official-page"
       },
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "@1700NAS; confirmed by royal navy unit page direct link",
       "xCollection": {
@@ -3917,13 +3917,13 @@
       "accountHandle": "@WarshipCam",
       "canonicalUrl": "https://x.com/WarshipCam",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "disabled",
       "enabled": false,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Disabled pending owner review of reliability, correction handling and weekly signal quality.",
       "xCollection": {
@@ -3954,13 +3954,13 @@
       "accountHandle": "@navalnewscom",
       "canonicalUrl": "https://x.com/navalnewscom",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "disabled",
       "enabled": false,
       "terms": {
-        "reviewedAt": "2026-08-27T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Disabled pending owner review of reliability, correction handling and weekly signal quality.",
       "xCollection": {
@@ -3989,13 +3989,13 @@
       "publisher": "Armed Forces Day",
       "canonicalUrl": "https://x.com/ArmedForcesDay",
       "reliabilityTier": "A",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Official MOD-register account added from the owner-supplied weekly X sweep list.",
       "officiality": {
@@ -4022,13 +4022,13 @@
       "publisher": "3 Commando Brigade",
       "canonicalUrl": "https://x.com/3_CommandoBde",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@3_CommandoBde",
@@ -4058,13 +4058,13 @@
       "publisher": "British Forces Gibraltar",
       "canonicalUrl": "https://x.com/BFGibraltar",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@BFGibraltar",
@@ -4094,13 +4094,13 @@
       "publisher": "British Forces South Atlantic Islands",
       "canonicalUrl": "https://x.com/HQBFSAI",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HQBFSAI",
@@ -4130,13 +4130,13 @@
       "publisher": "BRNC Dartmouth",
       "canonicalUrl": "https://x.com/BRNCOfficial",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@BRNCOfficial",
@@ -4166,13 +4166,13 @@
       "publisher": "UK Commando Force Operations",
       "canonicalUrl": "https://x.com/Commando_Ops",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@Commando_Ops",
@@ -4202,13 +4202,13 @@
       "publisher": "Naval Air Squadrons",
       "canonicalUrl": "https://x.com/FlyNavy",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@FlyNavy",
@@ -4238,13 +4238,13 @@
       "publisher": "HMNB Clyde",
       "canonicalUrl": "https://x.com/HMNBClyde",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HMNBClyde",
@@ -4274,13 +4274,13 @@
       "publisher": "HMNB Devonport",
       "canonicalUrl": "https://x.com/HMNBDevonport",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HMNBDevonport",
@@ -4310,13 +4310,13 @@
       "publisher": "HMNB Portsmouth",
       "canonicalUrl": "https://x.com/HMNBPortsmouth",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HMNBPortsmouth",
@@ -4347,13 +4347,13 @@
       "vesselId": "hms-dauntless",
       "canonicalUrl": "https://x.com/HMSDauntless",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HMSDauntless",
@@ -4383,13 +4383,13 @@
       "publisher": "HMS Raleigh",
       "canonicalUrl": "https://x.com/HMSRaleigh",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HMSRaleigh",
@@ -4420,13 +4420,13 @@
       "vesselId": "hms-tracker",
       "canonicalUrl": "https://x.com/HMSTracker",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@HMSTracker",
@@ -4456,13 +4456,13 @@
       "publisher": "MOD Gibraltar",
       "canonicalUrl": "https://x.com/MODGibraltar",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@MODGibraltar",
@@ -4492,13 +4492,13 @@
       "publisher": "NAVYfit",
       "canonicalUrl": "https://x.com/NAVYfit",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@NAVYfit",
@@ -4528,13 +4528,13 @@
       "publisher": "Royal Fleet Auxiliary",
       "canonicalUrl": "https://x.com/RFAHeadquarters",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@RFAHeadquarters",
@@ -4564,13 +4564,13 @@
       "publisher": "Diving and Threat Exploitation Group",
       "canonicalUrl": "https://x.com/RN_DTXG",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@RN_DTXG",
@@ -4600,13 +4600,13 @@
       "publisher": "Royal Navy Gibraltar Squadron",
       "canonicalUrl": "https://x.com/RNGibSqn",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@RNGibSqn",
@@ -4636,13 +4636,13 @@
       "publisher": "Royal Navy in Scotland",
       "canonicalUrl": "https://x.com/RNinScotland",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@RNinScotland",
@@ -4672,13 +4672,13 @@
       "publisher": "RNAS Culdrose",
       "canonicalUrl": "https://x.com/RNASCuldrose",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@RNASCuldrose",
@@ -4708,13 +4708,13 @@
       "publisher": "Royal Naval Reserve",
       "canonicalUrl": "https://x.com/RNR_Official",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@RNR_Official",
@@ -4744,13 +4744,13 @@
       "publisher": "Second Sea Lord",
       "canonicalUrl": "https://x.com/SecondSeaLord",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@SecondSeaLord",
@@ -4780,13 +4780,13 @@
       "publisher": "UK Maritime Component Command Middle East",
       "canonicalUrl": "https://x.com/UKMCCMiddleEast",
       "reliabilityTier": "D",
-      "collectionMode": "api",
+      "collectionMode": "browser",
       "status": "enabled",
       "enabled": true,
       "terms": {
-        "reviewedAt": "2026-08-29T00:00:00Z",
-        "automation": "Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping.",
-        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt."
+        "reviewedAt": "2026-08-31T00:00:00Z",
+        "automation": "Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation.",
+        "retention": "Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts."
       },
       "notes": "Owner-supplied public X discovery account. Direct officiality is not yet accepted under the registry policy; all posts remain unverified candidates requiring human review.",
       "accountHandle": "@UKMCCMiddleEast",
@@ -6418,8 +6418,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -6464,8 +6464,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised platform API only; manual search-index and post review otherwise. Retain direct post URL, platform timestamp, content hash, minimum excerpt and the credited original observer.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -7500,8 +7500,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -7546,8 +7546,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7570,8 +7570,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7594,8 +7594,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7618,8 +7618,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7642,8 +7642,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7666,8 +7666,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7690,8 +7690,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7714,8 +7714,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7738,8 +7738,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7762,8 +7762,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7786,8 +7786,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7810,8 +7810,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7834,8 +7834,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7858,8 +7858,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7882,8 +7882,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7906,8 +7906,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -7930,8 +7930,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -7954,8 +7954,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -7978,8 +7978,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8002,8 +8002,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8026,8 +8026,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8050,8 +8050,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8074,8 +8074,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8098,8 +8098,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8122,8 +8122,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8151,8 +8151,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8175,8 +8175,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8204,8 +8204,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8228,8 +8228,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8252,8 +8252,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8276,8 +8276,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8300,8 +8300,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8324,8 +8324,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8348,8 +8348,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8372,8 +8372,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8396,8 +8396,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8420,8 +8420,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8444,8 +8444,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-29. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8473,8 +8473,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8502,8 +8502,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8531,8 +8531,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8560,8 +8560,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8589,8 +8589,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8618,8 +8618,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8647,8 +8647,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8676,8 +8676,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -8705,8 +8705,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8734,8 +8734,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8763,8 +8763,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8792,8 +8792,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8821,8 +8821,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8850,8 +8850,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8879,8 +8879,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8908,8 +8908,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8937,8 +8937,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8966,8 +8966,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -8995,8 +8995,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9024,8 +9024,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9053,8 +9053,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -9082,8 +9082,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9111,8 +9111,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9140,8 +9140,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9169,8 +9169,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9198,8 +9198,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9227,8 +9227,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9256,8 +9256,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9285,8 +9285,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9314,8 +9314,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9343,8 +9343,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9372,8 +9372,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9401,8 +9401,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9430,8 +9430,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9459,8 +9459,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9488,8 +9488,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": false
     },
     {
@@ -9517,8 +9517,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9546,8 +9546,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9575,8 +9575,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9604,8 +9604,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9633,8 +9633,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9662,8 +9662,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9691,8 +9691,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9720,8 +9720,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9749,8 +9749,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9778,8 +9778,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-23. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9807,8 +9807,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9836,8 +9836,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9865,8 +9865,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9894,8 +9894,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9923,8 +9923,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9952,8 +9952,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -9981,8 +9981,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -10010,8 +10010,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -10039,8 +10039,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -10068,8 +10068,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15. Authorised X API only; manual evidence entry otherwise. Retain canonical URL, permitted minimum excerpt, timestamps and content hash.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -10092,8 +10092,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -10116,8 +10116,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-27. Public data through the Keychain-backed Scrape Creators wrapper only; no direct X page scraping. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     },
     {
@@ -10140,8 +10140,8 @@
       "lastSuccessAt": null,
       "lastMeaningfulResultAt": null,
       "consecutiveFailures": 0,
-      "retrievalMethod": "api",
-      "licenceAndTermsNotes": "Reviewed 2026-08-15.",
+      "retrievalMethod": "browser",
+      "licenceAndTermsNotes": "Reviewed 2026-08-31. Rendered public X pages only through the owner's signed-in Chrome under the governed browser sweep; no API or provider fallback, private browser-state access, or account mutation. Retain stable post IDs, canonical URLs, timestamps, content hashes and only the minimum relevant excerpt in private browser-sweep artifacts.",
       "mandatory": true
     }
   ]

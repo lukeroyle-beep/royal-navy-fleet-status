@@ -33,9 +33,9 @@ The previous runbook incorrectly described that workflow as active.
 
 - OpenClaw remains the single production scheduler and retains the IANA timezone
   `Europe/London`; no seasonally edited UTC cron is used.
-- The production prompt must preflight the external private root, social-provider capability and
-  credit capacity, GitHub authentication, current roster, and same-date release state before broad
-  collection.
+- The production prompt must preflight the external private root, signed-in Chrome connection,
+  six-account rendered-public-X canary, GitHub authentication, current roster and same-date release
+  state before broad collection. The exhausted provider path is retired and must not be re-enabled.
 - A blocked or failed production outcome must create or update one dated GitHub issue and preserve a
   bounded audit artifact. A same-date rerun must resume or exit cleanly rather than creating another
   snapshot, branch, pull request, or alert.
@@ -49,4 +49,4 @@ The previous runbook incorrectly described that workflow as active.
   openclaw cron run 0ed0dde6-f1f1-46eb-a9e4-98200e1ee907 --wait --wait-timeout 6h
   ```
 
-  The command should not be retried until the private-root and provider preflights pass.
+  The command should not be retried until the private-root and signed-in Chrome canary preflights pass.

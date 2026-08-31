@@ -94,14 +94,14 @@ assert.deepEqual(
   "Only governed recurring sources belong in the hard coverage gate.",
 );
 assert.ok(
-  run.sourceChecks.every((entry) => ["manual", "api"].includes(entry.collectionMode)),
-  "Recurring checks may use manual review or the separately governed public-X API adapter.",
+  run.sourceChecks.every((entry) => ["manual", "browser"].includes(entry.collectionMode)),
+  "Recurring checks may use manual review or the separately governed rendered-public-X browser stage.",
 );
 assert.ok(
   run.sourceChecks
-    .filter((entry) => entry.collectionMode === "api")
+    .filter((entry) => entry.collectionMode === "browser")
     .every((entry) => registry.sources.find((source) => source.sourceId === entry.sourceId)?.xCollection?.enabled),
-  "Every recurring API check must resolve to an enabled governed X account.",
+  "Every recurring browser check must resolve to an enabled governed X account.",
 );
 assert.ok(
   run.sourceChecks.length < registry.sources.filter((entry) => entry.enabled).length,

@@ -105,17 +105,21 @@ const VESSEL_OUTCOMES = new Set([
 ]);
 const BLOCKER_TYPES = new Set([
   "authentication-required",
+  "challenge",
+  "chrome-disconnected",
   "credits-exhausted",
   "http-error",
   "invalid-response",
   "invalid-content-type",
   "manual-unavailable",
   "network-error",
+  "not-searched",
   "not-found",
   "parse-empty",
   "provider-error",
   "rate-limited",
   "resource-blocked",
+  "schema-failed",
   "terms-restriction",
   "timeout",
   "other",
@@ -127,7 +131,7 @@ export function createSweepQueue(registry, asOf) {
     schemaVersion: "1.0.0",
     generatedAt: asOf,
     collectionBoundary:
-      "Collection is outside page requests. The GitHub collector reads only approved public indexes; governed public X accounts are checked separately on the trusted host through the Keychain-backed Scrape Creators wrapper.",
+      "Collection is outside application page requests. The GitHub collector reads only approved public indexes; governed public X accounts are checked separately through rendered public pages in the owner's signed-in Chrome session.",
     discoveryTargets: PUBLIC_INDEX_TARGETS.map((entry) => ({
       targetId: entry.targetId,
       sourceId: entry.sourceId,
@@ -267,9 +271,9 @@ export function createSweepRun({
     collectionPolicy: {
       readOnly: true,
       automaticBoundary:
-        "Configured public publisher indexes plus the separate governed public-X adapter on the trusted host",
+        "Configured public publisher indexes plus the separate governed rendered-public-X Chrome stage on the trusted host",
       prohibitedAutomaticTargets: [
-        "direct X page scraping",
+        "unattended or non-rendered X extraction",
         "private or logged-in social content",
         "manual sources",
         "unapproved commercial APIs",

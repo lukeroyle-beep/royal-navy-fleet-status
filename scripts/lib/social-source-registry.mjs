@@ -88,6 +88,9 @@ export function handleWithoutAt(value) {
 
 function validateAccount(source, sourceById) {
   const collection = source.xCollection;
+  if (source.collectionMode !== "browser") {
+    throw new Error(`${source.sourceId} X collection must use the governed browser mode.`);
+  }
   const allowedKeys = [
     "cacheHours",
     "classification",

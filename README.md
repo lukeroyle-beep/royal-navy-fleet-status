@@ -196,11 +196,12 @@ revision, then run `npm run generate:public`. Use `npm run sweep:sources` to mat
 review queue. Use `npm run sweep:collect -- --output=<run.json>` for one read-only pass over the
 allowlisted public publisher indexes. The collector records links and hashes only: it never requests
 X timelines, manual sources or commercial APIs, and it never ingests evidence or publishes a fleet
-change. On the owner's trusted Mac, `npm run sweep:x -- --run=<run.json> --output=x-social-run.json`
-adds the separate governed public-X stage through the Keychain-backed Scrape Creators wrapper. Its
-popular-post sample is partial, locally date-filtered, origin-deduplicated and always requires human
-review. A blocked required index makes the collection command fail after writing its auditable
-ledger. Royal Navy News is reviewed manually because its publisher edge blocks the collector;
+change. On the owner's trusted Mac, the personal `royal-navy-x-browser-sweep` skill uses
+`npm run sweep:x` to prepare, record and finalise a repository-external rendered-public-X session
+through the owner's signed-in Chrome. The exact sweep window is enforced locally, origins are
+deduplicated and every candidate remains human-review-only. A required profile without a valid
+`checked` result blocks complete coverage. Royal Navy News is reviewed manually because its
+publisher edge blocks the collector;
 Westward Shipping News RSS is its Tier C, discovery-only automatic replacement.
 
 From 24 August 2026, advancing the canonical `metadata.asOfDate` requires a finalised sweep run in

@@ -5,7 +5,7 @@ const REQUIRED_RECURRING_IDS = new Set([
 ]);
 
 const VALID_FREQUENCIES = new Set(["daily", "weekly", "monthly", "event-driven", "manual-only"]);
-const VALID_RETRIEVAL_METHODS = new Set(["api", "feed", "manual"]);
+const VALID_RETRIEVAL_METHODS = new Set(["api", "browser", "feed", "manual"]);
 
 export const MANUAL_DISCOVERY_QUEUES = Object.freeze([
   queue("official-rn-rfa", "Royal Navy and RFA unit/news pages", "https://www.royalnavy.mod.uk/search?q={vessel-or-pennant}", "A", true),
