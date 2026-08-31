@@ -164,6 +164,18 @@ const accidentallyExposedSource = structuredClone(dataset);
 accidentallyExposedSource.vessels[0].source = { label: "Must stay internal", url: "https://example.invalid" };
 assert.throws(() => validateFleet(accidentallyExposedSource), /exposes internal provenance field source/i);
 
+for (const exactBerthText of [
+  "Dartmouth Town Jetty; alongside reported 28 August 2026",
+  "London; alongside HMS Belfast reported 28 August 2026",
+]) {
+  const exactBerthDisclosure = structuredClone(dataset);
+  exactBerthDisclosure.vessels[0].lastReportedLocation = exactBerthText;
+  assert.throws(
+    () => validateFleet(exactBerthDisclosure),
+    /exact berth-level public location detail/i,
+  );
+}
+
 const invalidDatasetDate = structuredClone(dataset);
 invalidDatasetDate.metadata.asOfDate = "2026-02-30";
 assert.throws(() => validateFleet(invalidDatasetDate), /invalid dataset date/i);

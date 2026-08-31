@@ -30,8 +30,10 @@ confirmed official account. A badge, display name, biography or handle pattern i
 Optional recognised-OSINT profiles retain their lower authority tier and never become official
 through agreement with another post.
 
-As reviewed on 31 August 2026, the registry contains 100 configured X profiles: 72 enabled required
-official profiles, 23 enabled optional OSINT/discovery profiles and five disabled profiles. A valid
+As reviewed on 31 August 2026, the registry contains 100 configured X profiles: 71 enabled required
+official profiles, one temporarily optional suspended official profile, 23 enabled optional
+OSINT/discovery profiles and five disabled profiles. The suspended account remains selected so a
+later recovery is detected, but its unavailability does not manufacture a required-source failure. A valid
 full browser stage must select every enabled profile from the current registry. Any required profile
 without a `checked` result blocks complete coverage, a no-change conclusion and release eligibility.
 Optional failures remain visible but do not themselves block required-account coverage.
@@ -70,11 +72,12 @@ must remain outside the repository.
 
 ## Chrome observation method
 
-Use only the Chrome-control skill and its required initialization. Prefer an X `Latest` search bound
-to the registry handle and UTC date envelope, for example `from:HANDLE since:YYYY-MM-DD
-until:YYYY-MM-DD`, then enforce the sweep's exact half-open `[from, to)` timestamps during
-normalization. A profile's rendered chronological page may be used when search is unavailable, but
-the method and limitation must be recorded.
+Use only the Chrome-control skill and its required initialization. Navigate directly to each
+registry account's canonical profile and inspect its rendered chronological Posts timeline, then
+enforce the sweep's exact half-open `[from, to)` timestamps during normalization. An X `Latest`
+search bound to the registry handle and UTC date envelope may be used when the canonical profile
+does not render a reliable timeline, for example `from:HANDLE since:YYYY-MM-DD until:YYYY-MM-DD`.
+The method and limitation must be recorded for every account.
 
 For a search observation, the decoded page URL `q` parameter must exactly match the recorded method
 query and the page must use X's rendered `Latest` results tab. A declared query cannot certify a
