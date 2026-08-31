@@ -179,6 +179,13 @@ export function mergeXBrowserSessionProgress(target, source, { registry, run }) 
 export function finalizeXBrowserSession({ session, registry, entities, run, completedAt = new Date().toISOString() }) {
   assertSessionBinding(session, { registry, run });
   requireTimestamp(completedAt, "X browser completion time");
+  const pendingAccounts = session.accounts.filter((entry) => !TERMINAL_STATES.has(entry.state));
+  if (pendingAccounts.length) {
+    throw new Error(
+      "X browser session cannot finalise until every selected profile has a terminal result: " +
+      `${pendingAccounts.map((entry) => entry.sourceId).join(", ")}.`,
+    );
+  }
   const deduplicated = deduplicateStablePosts(session.posts);
   const originClusters = clusterEvidenceCandidates(
     deduplicated.posts.map((post) => ({

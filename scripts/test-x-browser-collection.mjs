@@ -133,6 +133,17 @@ try {
   assert.equal(resumed.accounts.find((entry) => entry.sourceId === "NAVY_LOOKOUT_SOCIAL").state, "not-searched");
   assert.equal(resumed.posts.length, canary.posts.length);
   assertSessionBinding(resumed, { registry, run: canaryRun });
+  assert.throws(
+    () => finalizeXBrowserSession({
+      session: resumed,
+      registry,
+      entities,
+      run: canaryRun,
+      completedAt: "2026-08-31T00:11:00Z",
+    }),
+    /every selected profile has a terminal result: NAVY_LOOKOUT_SOCIAL/i,
+    "A full session must not finalise while a selected optional profile is still pending.",
+  );
 
   const blockedRun = sweepRun(registry);
   const blockedSession = createXBrowserSession({
