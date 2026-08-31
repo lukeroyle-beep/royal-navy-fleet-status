@@ -34,7 +34,11 @@ tests and exposure scanning all use this resolver. Do not put the root path or c
 
 With `RNFS_PRIVATE_DATA_ROOT` unset, the resolver enters the explicit `legacy` migration state and
 uses the existing non-sensitive `data/internal/provenance/` records. This preserves current public
-outputs until migration is separately authorised. It is not approval to add private material there.
+outputs until migration is separately authorised. Production and Pages builds explicitly retain a
+newer reviewed public projection instead of regenerating it from older legacy provenance; their
+public validator still checks the public schema and independently validates the retained legacy
+records. External and synthetic modes continue to require byte-for-byte generated-projection
+equality. It is not approval to add private material to the legacy area.
 
 ## Synthetic-only public CI
 

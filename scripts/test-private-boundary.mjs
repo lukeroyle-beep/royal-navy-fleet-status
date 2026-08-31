@@ -90,6 +90,38 @@ try {
   };
   assert.equal(scanPublicExposure(scanOptions), 2);
 
+  const legacyBuildOutput = path.join(temporaryRoot, "legacy-build-output");
+  const legacyEnvironment = { ...process.env };
+  delete legacyEnvironment[PRIVATE_ROOT_ENV];
+  delete legacyEnvironment[PRIVATE_FIXTURE_ENV];
+  const preserved = spawnSync(process.execPath, [
+    path.join(root, "scripts/generate-public-projection.mjs"),
+    "--preserve-reviewed-without-external",
+    `--output-root=${legacyBuildOutput}`,
+  ], {
+    cwd: root,
+    env: legacyEnvironment,
+    encoding: "utf8",
+  });
+  assert.equal(preserved.status, 0, preserved.stderr || preserved.stdout);
+  assert.match(preserved.stdout, /Preserved the reviewed public projection/);
+  assert.equal(
+    fs.existsSync(legacyBuildOutput),
+    false,
+    "A no-external-root build must not write a projection from stale legacy provenance.",
+  );
+
+  const reviewedValidation = spawnSync(process.execPath, [
+    path.join(root, "scripts/validate-fleet-data.mjs"),
+    "--allow-reviewed-public-without-external",
+  ], {
+    cwd: root,
+    env: legacyEnvironment,
+    encoding: "utf8",
+  });
+  assert.equal(reviewedValidation.status, 0, reviewedValidation.stderr || reviewedValidation.stdout);
+  assert.match(reviewedValidation.stdout, /Preserved reviewed public release/);
+
   const fleetPath = path.join(outputRoot, "vessels.json");
   const cleanFleet = fs.readFileSync(fleetPath, "utf8");
   const fleet = JSON.parse(cleanFleet);

@@ -27,9 +27,18 @@ assert.ok(
   "The registry-level review date must not predate any source review metadata.",
 );
 const enabledXAccounts = registry.sources.filter((source) => source.xCollection?.enabled);
+const exploitRequired = enabledXAccounts.find((source) => source.sourceId === "X_HMS_EXPLOIT")
+  ?.xCollection.required;
 assert.equal(enabledXAccounts.length, 95);
-assert.equal(enabledXAccounts.filter((source) => source.xCollection.required).length, 72);
-assert.equal(enabledXAccounts.filter((source) => !source.xCollection.required).length, 23);
+assert.equal(enabledXAccounts.filter((source) => source.xCollection.required).length, exploitRequired ? 72 : 71);
+assert.equal(enabledXAccounts.filter((source) => !source.xCollection.required).length, exploitRequired ? 23 : 24);
+if (exploitRequired === false) {
+  assert.match(
+    enabledXAccounts.find((source) => source.sourceId === "X_HMS_EXPLOIT")?.notes || "",
+    /suspended/i,
+    "A temporarily optional HMS Exploit account must retain the source-health reason.",
+  );
+}
 assert.ok(
   enabledXAccounts.find((source) => source.sourceId === "X_ARMED_FORCES_DAY")
     ?.xCollection.required,
