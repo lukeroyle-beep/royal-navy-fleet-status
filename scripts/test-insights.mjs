@@ -13,6 +13,7 @@ import { buildStatusSnapshot } from "./lib/status-snapshot.mjs";
 import {
   HISTORICAL_LOCATION_EMPTY_LABEL,
   compareCurrentWithPreviousSnapshot,
+  createPublicationComparison,
   createPublicSnapshotDataset,
   formatSignedDelta,
   getClassSnapshotSummary,
@@ -124,6 +125,44 @@ assert.equal(snapshotComparison.previousSnapshotDate, "2026-08-23");
 assert.equal(snapshotComparison.currentSnapshotDate, "2026-08-31");
 assert.equal(snapshotComparison.changes.length, 0);
 assert.deepEqual(snapshotComparison.changedCurrentVesselIds, []);
+const publicationComparison = createPublicationComparison(changes, fleet.vessels);
+assert.equal(publicationComparison.changes.length, 13);
+assert.equal(
+  publicationComparison.changes.every((change) => change.categories.includes("location")),
+  true,
+  "Location-only publication changes must remain visible when status history has no changes.",
+);
+assert.deepEqual(
+  publicationComparison.changedCurrentVesselIds,
+  changes.changes.map((change) => change.vesselId),
+);
+assert.equal(publicationComparison.changes.every((change) => change.presentInCurrent), true);
+const comparisonWithRemovedVessel = createPublicationComparison(
+  {
+    ...changes,
+    changes: [
+      changes.changes[0],
+      {
+        vesselId: "removed-vessel",
+        vesselName: "Removed vessel",
+        categories: ["membership"],
+        items: [
+          {
+            kind: "membership",
+            label: "Fleet record",
+            before: "Listed",
+            after: "Removed",
+          },
+        ],
+      },
+    ],
+  },
+  fleet.vessels,
+);
+assert.equal(comparisonWithRemovedVessel.changes[1].presentInCurrent, false);
+assert.deepEqual(comparisonWithRemovedVessel.changedCurrentVesselIds, [
+  changes.changes[0].vesselId,
+]);
 assert.deepEqual(getVesselPublicTimeline(history, "hms-duncan"), [
   { effectiveDate: "2026-07-31", status: "Available" },
   { effectiveDate: "2026-08-09", status: "Available" },

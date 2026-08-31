@@ -162,11 +162,12 @@ assert.match(html, /<summary id="vesselTimelineTitle">Public status timeline<\/s
 assert.doesNotMatch(html, /id="detailDisclosure"|class="detail-disclosure"/);
 assert.match(html, /Discrete published snapshots only/);
 assert.match(app, /createPublicSnapshotDataset/);
-assert.match(app, /compareCurrentWithPreviousSnapshot/);
+assert.match(app, /createPublicationComparison\(insights\.changes, currentDataset\.vessels\)/);
+assert.doesNotMatch(app, /compareCurrentWithPreviousSnapshot/);
 assert.match(app, /resolveSnapshotTransitionSelection/);
 assert.match(app, /selectShoreEstablishment\(retainedSelection\.shoreEstablishment/);
 assert.match(app, /filterFleetVessels\(dataset\.vessels/);
-assert.match(app, /changedVesselIds: changedOnly \? snapshotComparison\?\.changedCurrentVesselIds/);
+assert.match(app, /changedVesselIds: changedOnly \? publicationComparison\?\.changedCurrentVesselIds/);
 assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
 assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
 assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
