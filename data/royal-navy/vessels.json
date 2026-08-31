@@ -3,8 +3,8 @@
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-08-31",
-    "releaseRevision": 2,
-    "releasedAt": "2026-08-31T18:28:57.000Z"
+    "releaseRevision": 3,
+    "releasedAt": "2026-08-31T19:00:20.000Z"
   },
   "vessels": [
     {
@@ -1372,7 +1372,7 @@
       "pennantNumber": "A173",
       "commissionedDate": "2011",
       "homePort": "HMNB Devonport",
-      "status": "Available",
+      "status": "In re-fit",
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",

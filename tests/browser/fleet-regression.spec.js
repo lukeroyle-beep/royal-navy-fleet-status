@@ -20,7 +20,7 @@ test.beforeEach(async ({ page }) => {
   await expect(page.locator("#loadError")).toBeHidden();
 });
 
-test("Compare renders every publication change, including location-only changes", async ({ page }) => {
+test("Compare renders every change in the current publication artifact", async ({ page }) => {
   const expectedNames = publicationChanges.changes.map((change) => change.vesselName);
   const currentVesselIds = new Set(fleet.vessels.map((vessel) => vessel.id));
   const expectedCurrentIds = publicationChanges.changes
@@ -29,8 +29,6 @@ test("Compare renders every publication change, including location-only changes"
     .sort();
   const labels = formatPublicationChangeLabels(publicationChanges);
 
-  expect(publicationChanges.counts.status).toBe(0);
-  expect(publicationChanges.counts.location).toBe(publicationChanges.changes.length);
   await expect(page.locator("#changesToggle")).toBeVisible();
   await expect(page.locator("#changesCount")).toHaveText(
     publicationChanges.changes.length.toString(),
@@ -47,6 +45,44 @@ test("Compare renders every publication change, including location-only changes"
     .locator("#vesselList button[data-vessel-id]")
     .evaluateAll((buttons) => buttons.map((button) => button.dataset.vesselId).sort());
   expect(renderedVesselIds).toEqual(expectedCurrentIds);
+});
+
+test("Compare retains a location-only publication change", async ({ page }) => {
+  const protector = fleet.vessels.find((vessel) => vessel.id === "hms-protector");
+  const locationOnlyChanges = {
+    ...publicationChanges,
+    counts: { status: 0, location: 1, mapping: 0, marker: 0, evidence: 0 },
+    changes: [
+      {
+        vesselId: protector.id,
+        vesselName: protector.name,
+        categories: ["location"],
+        items: [
+          {
+            kind: "location",
+            label: "Location",
+            before: "Previous reviewed public location",
+            after: protector.lastReportedLocation,
+          },
+        ],
+      },
+    ],
+  };
+
+  await page.route("**/data/royal-navy/publication-changes.json", async (route) => {
+    await route.fulfill({ json: locationOnlyChanges });
+  });
+  await page.reload();
+  await expect(page.locator("#asOfDate")).not.toHaveText("Loading");
+  await expect(page.locator("#loadError")).toBeHidden();
+
+  await expect(page.locator("#changesCount")).toHaveText("1");
+  await page.locator("#changesToggle").click();
+  await expect(page.locator("#changesList li")).toHaveCount(1);
+  await expect(page.locator("#changesList li span")).toHaveText([protector.name]);
+  await page.locator("#changedOnlyToggle").check();
+  await expect(page.locator("#vesselList button[data-vessel-id]"))
+    .toHaveAttribute("data-vessel-id", protector.id);
 });
 
 test("every current class keeps its list and point-marker counts aligned", async ({ page }) => {

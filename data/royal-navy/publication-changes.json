@@ -2,61 +2,32 @@
   "schemaVersion": 2,
   "previousAsOfDate": "2026-08-31",
   "currentAsOfDate": "2026-08-31",
-  "previousReleaseRevision": 1,
-  "currentReleaseRevision": 2,
-  "previousReleasedAt": "2026-08-31T13:51:35.000Z",
-  "currentReleasedAt": "2026-08-31T18:28:57.000Z",
+  "previousReleaseRevision": 2,
+  "currentReleaseRevision": 3,
+  "previousReleasedAt": "2026-08-31T18:28:57.000Z",
+  "currentReleasedAt": "2026-08-31T19:00:20.000Z",
   "previousMappedCount": 67,
   "currentMappedCount": 67,
   "counts": {
-    "status": 0,
-    "location": 2,
-    "mapping": 2,
+    "status": 1,
+    "location": 0,
+    "mapping": 0,
     "marker": 0,
     "evidence": 0
   },
   "changes": [
     {
-      "vesselId": "hms-stirling-castle",
-      "vesselName": "HMS Stirling Castle",
-      "categories": [
-        "location",
-        "mapping"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "Portland / Weymouth Bay; Sea Breeze 26-2 mine-countermeasures training",
-          "after": "HMNB Portsmouth; last AIS report 6 August 2026"
-        },
-        {
-          "kind": "mapping",
-          "label": "Map precision",
-          "before": "Approximate region",
-          "after": "Port level"
-        }
-      ]
-    },
-    {
       "vesselId": "hms-protector",
       "vesselName": "HMS Protector",
       "categories": [
-        "location",
-        "mapping"
+        "status"
       ],
       "items": [
         {
-          "kind": "location",
-          "label": "Location",
-          "before": "River Tees; sailed after docking and maintenance period reported 14 January 2026",
-          "after": "UK Docks Teesside / Teesport; last AIS report 23 June 2026"
-        },
-        {
-          "kind": "mapping",
-          "label": "Map precision",
-          "before": "Approximate region",
-          "after": "Port level"
+          "kind": "status",
+          "label": "Status",
+          "before": "Available",
+          "after": "In re-fit"
         }
       ]
     }

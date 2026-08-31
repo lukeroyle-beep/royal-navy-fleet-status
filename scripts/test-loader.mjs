@@ -62,12 +62,12 @@ const allPrecisionStates = createFixtureDataset(precisionFixtures.stateCases);
 assert.equal(validateFleet(allPrecisionStates).vessels.length, precisionFixtures.stateCases.length);
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
-assert.equal(activeFleet.total, 50);
-assert.equal(activeFleet.percentage.toFixed(1), "73.5");
+assert.equal(activeFleet.total, 49);
+assert.equal(activeFleet.percentage.toFixed(1), "72.1");
 const fleetAvailability = getAvailabilitySummary(dataset.vessels);
-assert.equal(fleetAvailability.active, 50);
+assert.equal(fleetAvailability.active, 49);
 assert.equal(fleetAvailability.total, 68);
-assert.equal(fleetAvailability.percentage.toFixed(1), "73.5");
+assert.equal(fleetAvailability.percentage.toFixed(1), "72.1");
 assert.equal(getAvailabilityBand(0), "low");
 assert.equal(getAvailabilityBand(33), "low");
 assert.equal(getAvailabilityBand(34), "medium");
@@ -77,7 +77,7 @@ assert.equal(getAvailabilityBand(100), "high");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
   total: 68,
   deployed: 17,
-  inRefit: 13,
+  inRefit: 14,
   unknown: 4,
 });
 

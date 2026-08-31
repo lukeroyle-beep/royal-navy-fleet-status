@@ -123,14 +123,14 @@ const snapshotComparison = compareCurrentWithPreviousSnapshot(
 );
 assert.equal(snapshotComparison.previousSnapshotDate, "2026-08-23");
 assert.equal(snapshotComparison.currentSnapshotDate, "2026-08-31");
-assert.equal(snapshotComparison.changes.length, 0);
-assert.deepEqual(snapshotComparison.changedCurrentVesselIds, []);
+assert.equal(snapshotComparison.changes.length, 1);
+assert.deepEqual(snapshotComparison.changedCurrentVesselIds, ["hms-protector"]);
 const publicationComparison = createPublicationComparison(changes, fleet.vessels);
-assert.equal(publicationComparison.changes.length, 2);
+assert.equal(publicationComparison.changes.length, 1);
 assert.equal(
-  publicationComparison.changes.every((change) => change.categories.includes("location")),
+  publicationComparison.changes.every((change) => change.categories.includes("status")),
   true,
-  "Location-only publication changes must remain visible when status history has no changes.",
+  "The current status-only publication correction must remain visible.",
 );
 assert.deepEqual(
   publicationComparison.changedCurrentVesselIds,
@@ -191,14 +191,14 @@ assert.throws(
 
 assert.equal(changes.previousAsOfDate, "2026-08-31");
 assert.equal(changes.currentAsOfDate, fleet.metadata.asOfDate);
-assert.equal(changes.previousReleaseRevision ?? 1, 1);
-assert.equal(changes.currentReleaseRevision ?? 1, 2);
-assert.equal(changes.changes.length, 2);
-assert.equal(changes.counts.status, 0);
-assert.equal(changes.counts.location, 2);
-assert.equal(changes.counts.mapping, 2);
+assert.equal(changes.previousReleaseRevision ?? 1, 2);
+assert.equal(changes.currentReleaseRevision ?? 1, 3);
+assert.equal(changes.changes.length, 1);
+assert.equal(changes.counts.status, 1);
+assert.equal(changes.counts.location, 0);
+assert.equal(changes.counts.mapping, 0);
 assert.equal(changes.changes.some((change) => change.vesselId === "hms-protector"), true);
-assert.equal(changes.changes.some((change) => change.vesselId === "hms-stirling-castle"), true);
+assert.equal(changes.changes.some((change) => change.vesselId === "hms-stirling-castle"), false);
 assert.equal(changes.changes.some((change) => change.vesselId === "hms-hurworth"), false);
 assert.equal(
   formatDatasetReleaseLabel(fleet.metadata),
@@ -206,9 +206,9 @@ assert.equal(
 );
 assert.equal(formatPublicationFreshness(fleet.metadata), "Published 31 Aug 2026");
 assert.deepEqual(formatPublicationChangeLabels(changes), {
-  count: "31 Aug · 2 vessels",
+  count: "31 Aug · 1 vessel",
   summary:
-    "2 vessels changed in the 31 August 2026 correction from r1 to r2.",
+    "1 vessel changed in the 31 August 2026 correction from r2 to r3.",
 });
 assert.equal(formatDatasetReleaseLabel({ asOfDate: "2026-08-23" }), "23 August 2026");
 assert.equal(
