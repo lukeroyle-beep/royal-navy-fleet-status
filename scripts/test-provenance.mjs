@@ -12,6 +12,10 @@ import {
 } from "./lib/provenance.mjs";
 import { createSweepQueue } from "./lib/sweep.mjs";
 import { createPublicProjection, projectPublicVessel } from "./lib/public-projection.mjs";
+import {
+  hasExactBerthDisclosure,
+  sanitisePublicLocationDescription,
+} from "./lib/public-location-safety.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
 const privateInputs = resolvePrivateInputs();
@@ -147,6 +151,20 @@ assert.equal(
   "Dartmouth harbour; presence reported 28 August 2026",
 );
 assert.equal(projectedNamedJetty.publicLocationLabel, "Dartmouth harbour");
+assert.equal(
+  sanitisePublicLocationDescription(
+    "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
+    "Glen Mallan jetty area, Loch Long",
+  ),
+  "Loch Long; presence reported 18 August 2026",
+);
+for (const value of [
+  projectedNamedAlongside.lastReportedLocation,
+  projectedNamedJetty.lastReportedLocation,
+  "Loch Long; presence reported 18 August 2026",
+]) {
+  assert.equal(hasExactBerthDisclosure(value), false, `${value} retained exact berth detail.`);
+}
 
 const ambiguousOsloAssessment = structuredClone(explicitOsloAssessment);
 delete ambiguousOsloAssessment.assessedState.publicLocation;

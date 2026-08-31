@@ -1,4 +1,5 @@
 import { readReviewedPublicLocation } from "./public-geography.mjs";
+import { sanitisePublicLocationDescription } from "./public-location-safety.mjs";
 
 export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.1";
 
@@ -6,7 +7,6 @@ const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
   /\b(?:patrol|at sea|underway|approaches?|atlantic|bay|channel|firth|gulf|islands?|ocean|off|region|route|sea|sound|strait|territorial waters|waters)\b/i;
 const LIST_ONLY_STATES = new Set(["unconfirmed", "no_recent_information", "withheld"]);
-const EXACT_BERTH_DESCRIPTION_PATTERN = /\b(?:berth|jetty)\b|;\s*alongside\s+(?:HMS|RFA)\b/i;
 
 export function createPublicProjection(entities, assessmentLog) {
   if (!entities?.metadata || !Array.isArray(entities.vessels)) {
@@ -168,17 +168,7 @@ function sanitisePublicLocationLabel(value) {
 }
 
 function sanitiseLocationText(value, isSubmarine, publicLocationLabel) {
-  let sanitised = String(value);
-  if (EXACT_BERTH_DESCRIPTION_PATTERN.test(sanitised)) {
-    const separatorIndex = sanitised.indexOf(";");
-    sanitised = separatorIndex === -1
-      ? publicLocationLabel
-      : `${publicLocationLabel}${sanitised.slice(separatorIndex)}`;
-    sanitised = sanitised.replace(
-      /;\s*alongside(?:\s+(?:HMS|RFA)\s+.+?)?\s+reported\b/i,
-      "; presence reported",
-    );
-  }
+  const sanitised = sanitisePublicLocationDescription(value, publicLocationLabel);
   if (!isSubmarine) return sanitised;
   return sanitised
     .replace(/,?\s*\b\d+\s+(?:dock|berth)\b/gi, "")
