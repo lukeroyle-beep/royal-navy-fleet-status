@@ -226,8 +226,8 @@ assert.equal(
 const sweep = createSweepQueue(registry, "2026-08-15T12:00:00Z");
 assert.equal(
   sweep.sources.filter((source) => source.category === "official-vessel-social").length,
-  enabledOfficialAccounts.length,
-  "Every enabled official vessel account must enter the sweep queue.",
+  enabledOfficialAccounts.filter((source) => source.xCollection?.required).length,
+  "Every required enabled official vessel account must enter the mandatory sweep queue.",
 );
 assert.equal(
   sweep.sources.find((source) => source.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY").promotionPolicy,

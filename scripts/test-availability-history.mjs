@@ -527,10 +527,10 @@ const invalidAppend = spawnSync(
   ],
   { encoding: "utf8" },
 );
-assert.notEqual(invalidAppend.status, 0, "An early recordedAt append unexpectedly succeeded.");
+assert.notEqual(invalidAppend.status, 0, "An invalid historical availability append unexpectedly succeeded.");
 assert.match(
   invalidAppend.stderr,
-  /recordedAt must not be earlier than the reviewed source release/i,
+  /recordedAt must not be earlier than the reviewed source release|weekly observation source must match the current reviewed public release|no reviewed public fleet release is available/i,
 );
 const afterInvalidAppend = fs.readFileSync(availabilityPath);
 assert.equal(

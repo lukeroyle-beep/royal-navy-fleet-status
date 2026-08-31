@@ -96,13 +96,11 @@ assert.deepEqual(getMapPosition(tidespring), {
 });
 assert.deepEqual(getMapPosition(scott), getMapPosition(tidespring));
 
-const dragon = dataset.vessels.find((vessel) => vessel.id === "hms-dragon");
-const lymeBay = dataset.vessels.find((vessel) => vessel.id === "rfa-lyme-bay");
 assert.deepEqual(
-  coLocatedVessels([dragon, lymeBay, scott], dragon.id).map((vessel) => vessel.id),
-  [dragon.id, lymeBay.id],
+  coLocatedVessels([scott, tidespring], scott.id).map((vessel) => vessel.id),
+  [scott.id, tidespring.id],
 );
-assert.deepEqual(coLocatedVessels([dragon, lymeBay], "missing-vessel"), []);
+assert.deepEqual(coLocatedVessels([scott, tidespring], "missing-vessel"), []);
 assert.deepEqual(coLocatedMarkerOffsets(1), [{ x: 54, y: 0 }]);
 const crowdedOffsets = coLocatedMarkerOffsets(31);
 assert.equal(coLocatedMarkerOffsets(7).length, 7);

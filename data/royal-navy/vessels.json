@@ -2,9 +2,9 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-08-23",
-    "releaseRevision": 4,
-    "releasedAt": "2026-08-24T19:27:15Z"
+    "asOfDate": "2026-08-31",
+    "releaseRevision": 1,
+    "releasedAt": "2026-08-31T12:29:16.306Z"
   },
   "vessels": [
     {
@@ -414,10 +414,10 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "locationState": "confirmed",
-      "locationPrecision": "city",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
       "publicLocationLabel": "Copenhagen, Denmark",
-      "lastReportedLocation": "Copenhagen, Denmark; official arrival reported 23 August 2026",
+      "lastReportedLocation": "Copenhagen, Denmark; official departure for sea reported 28 August 2026",
       "position": {
         "lat": 55.7,
         "lon": 12.6,
@@ -503,15 +503,19 @@
       "status": "In re-fit",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "port",
-      "publicLocationLabel": "HMNB Devonport",
-      "lastReportedLocation": "HMNB Devonport; last official public return reported 20 December 2024",
-      "position": {
-        "lat": 50.38,
-        "lon": -4.19,
-        "label": "HMNB Devonport"
-      },
-      "uncertaintyArea": null
+      "locationPrecision": "region",
+      "publicLocationLabel": "Plymouth Sound",
+      "lastReportedLocation": "Plymouth Sound; outbound from Devonport on 26 August 2026",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.34,
+          "lon": -4.15
+        },
+        "radiusKm": 20,
+        "label": "Plymouth Sound",
+        "representation": "regional"
+      }
     },
     {
       "id": "hms-st-albans",
@@ -526,12 +530,12 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Glen Mallan jetty area, Loch Long",
-      "lastReportedLocation": "Glen Mallan Ammunition Jetty, Loch Long; alongside reported 18 August 2026",
+      "publicLocationLabel": "HMNB Clyde",
+      "lastReportedLocation": "HMNB Clyde; logistics stop reported 27 August 2026",
       "position": {
-        "lat": 56.05,
-        "lon": -4.83,
-        "label": "Glen Mallan jetty area, Loch Long"
+        "lat": 56.07,
+        "lon": -4.82,
+        "label": "HMNB Clyde"
       },
       "uncertaintyArea": null
     },
@@ -569,19 +573,15 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Harwich approaches",
-      "lastReportedLocation": "UK east-coast waters; last confirmed outbound from Harwich on 15 August 2026",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 51.9,
-          "lon": 1.3
-        },
-        "radiusKm": 90,
-        "label": "Harwich approaches",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "London / HMS Belfast",
+      "lastReportedLocation": "London; alongside HMS Belfast reported 28 August 2026",
+      "position": {
+        "lat": 51.51,
+        "lon": -0.08,
+        "label": "London / HMS Belfast"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-mersey",
@@ -672,18 +672,18 @@
       "homePort": "HMNB Portsmouth",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "locationState": "last_reported",
+      "locationState": "confirmed",
       "locationPrecision": "region",
-      "publicLocationLabel": "Caribbean Sea",
-      "lastReportedLocation": "Caribbean region; hurricane-season patrol reported 21 August 2026",
+      "publicLocationLabel": "Tortola, British Virgin Islands",
+      "lastReportedLocation": "Tortola, British Virgin Islands; arrival reported 30 August 2026",
       "position": null,
       "uncertaintyArea": {
         "centre": {
-          "lat": 15,
-          "lon": -70
+          "lat": 18.43,
+          "lon": -64.62
         },
-        "radiusKm": 1000,
-        "label": "Caribbean Sea",
+        "radiusKm": 30,
+        "label": "Tortola, British Virgin Islands",
         "representation": "regional"
       }
     },
@@ -701,7 +701,7 @@
       "locationState": "last_reported",
       "locationPrecision": "port",
       "publicLocationLabel": "Ream Naval Base area",
-      "lastReportedLocation": "Ream Naval Base, Cambodia; arrival reported 20 August 2026",
+      "lastReportedLocation": "Ream Naval Base / Sihanoukville, Cambodia; week-long visit reported 28 August 2026",
       "position": {
         "lat": 10.5,
         "lon": 103.61,
@@ -790,14 +790,14 @@
       "homePort": "HMNB Portsmouth",
       "status": "Available",
       "locationClassification": "approximate",
-      "locationState": "last_reported",
+      "locationState": "confirmed",
       "locationPrecision": "port",
-      "publicLocationLabel": "Portsmouth",
-      "lastReportedLocation": "Portsmouth; departed for sea trials on 26 March 2026",
+      "publicLocationLabel": "Dartmouth harbour",
+      "lastReportedLocation": "Dartmouth, Devon; Royal Regatta visit corroborated 26-30 August 2026",
       "position": {
-        "lat": 50.8,
-        "lon": -1.11,
-        "label": "Portsmouth"
+        "lat": 50.35,
+        "lon": -3.58,
+        "label": "Dartmouth harbour"
       },
       "uncertaintyArea": null
     },
@@ -863,7 +863,7 @@
       "locationState": "last_reported",
       "locationPrecision": "port",
       "publicLocationLabel": "HMNB Clyde",
-      "lastReportedLocation": "HMNB Clyde (Faslane); last official public return reported 31 August 2018",
+      "lastReportedLocation": "HMNB Clyde (Faslane); return reported 28 August 2026",
       "position": {
         "lat": 55.99,
         "lon": -4.82,
@@ -1161,19 +1161,15 @@
       "status": "Available",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Baltic Sea",
-      "lastReportedLocation": "Baltic Sea between the Kattegat and Gulf of Finland; deployment reported 21 August 2025",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 57,
-          "lon": 18
-        },
-        "radiusKm": 450,
-        "label": "Baltic Sea",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "Dartmouth harbour",
+      "lastReportedLocation": "Dartmouth Town Jetty; alongside reported 28 August 2026",
+      "position": {
+        "lat": 50.35,
+        "lon": -3.58,
+        "label": "Dartmouth harbour"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-example",
@@ -1410,16 +1406,16 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "region",
-      "publicLocationLabel": "Irish Sea",
-      "lastReportedLocation": "Irish Sea; sea trials reported 24 April 2018",
+      "publicLocationLabel": "Thames Estuary / London Gateway",
+      "lastReportedLocation": "Thames Estuary and London Gateway; survey operation reported 26 August 2026",
       "position": null,
       "uncertaintyArea": {
         "centre": {
-          "lat": 53,
-          "lon": -5
+          "lat": 51.51,
+          "lon": 0.48
         },
-        "radiusKm": 180,
-        "label": "Irish Sea",
+        "radiusKm": 30,
+        "label": "Thames Estuary / London Gateway",
         "representation": "regional"
       }
     },
@@ -1435,15 +1431,19 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "port",
-      "publicLocationLabel": "Port of Mombasa",
-      "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
-      "position": {
-        "lat": -4.07,
-        "lon": 39.64,
-        "label": "Port of Mombasa"
-      },
-      "uncertaintyArea": null
+      "locationPrecision": "region",
+      "publicLocationLabel": "Waters south of Mombasa",
+      "lastReportedLocation": "Waters south of Mombasa, Kenya; at-sea activity reported 30 August 2026",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": -4.5,
+          "lon": 39.7
+        },
+        "radiusKm": 180,
+        "label": "Waters south of Mombasa",
+        "representation": "regional"
+      }
     },
     {
       "id": "rfa-mounts-bay",
@@ -1503,7 +1503,7 @@
       "locationState": "last_reported",
       "locationPrecision": "region",
       "publicLocationLabel": "Plymouth Sound",
-      "lastReportedLocation": "Plymouth Sound; reported operating under dynamic positioning on 21 August 2026",
+      "lastReportedLocation": "Plymouth Sound; inbound to Devonport reported 28 August 2026",
       "position": null,
       "uncertaintyArea": {
         "centre": {
@@ -1596,18 +1596,18 @@
       "homePort": "No fixed home base.",
       "status": "Deployed",
       "locationClassification": "approximate",
-      "locationState": "last_reported",
+      "locationState": "confirmed",
       "locationPrecision": "region",
-      "publicLocationLabel": "Plymouth Sound",
-      "lastReportedLocation": "Plymouth Sound; last confirmed outbound from Devonport on 21 August 2026",
+      "publicLocationLabel": "English Channel",
+      "lastReportedLocation": "English Channel; shadowing a Russian military convoy reported 31 August 2026",
       "position": null,
       "uncertaintyArea": {
         "centre": {
-          "lat": 50.34,
-          "lon": -4.15
+          "lat": 50.3,
+          "lon": -1.5
         },
-        "radiusKm": 20,
-        "label": "Plymouth Sound",
+        "radiusKm": 180,
+        "label": "English Channel",
         "representation": "regional"
       }
     }
