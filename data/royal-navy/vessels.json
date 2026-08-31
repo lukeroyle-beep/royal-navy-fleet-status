@@ -3,8 +3,8 @@
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-08-31",
-    "releaseRevision": 1,
-    "releasedAt": "2026-08-31T13:51:35.000Z"
+    "releaseRevision": 2,
+    "releasedAt": "2026-08-31T18:28:57.000Z"
   },
   "vessels": [
     {
@@ -883,19 +883,15 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Weymouth Bay",
-      "lastReportedLocation": "Portland / Weymouth Bay; Sea Breeze 26-2 mine-countermeasures training",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 50.58,
-          "lon": -2.42
-        },
-        "radiusKm": 20,
-        "label": "Weymouth Bay",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "HMNB Portsmouth",
+      "lastReportedLocation": "HMNB Portsmouth; last AIS report 6 August 2026",
+      "position": {
+        "lat": 50.81,
+        "lon": -1.11,
+        "label": "HMNB Portsmouth"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-archer",
@@ -1379,19 +1375,15 @@
       "status": "Available",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Tees approaches / North Sea",
-      "lastReportedLocation": "River Tees; sailed after docking and maintenance period reported 14 January 2026",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 54.7,
-          "lon": -1
-        },
-        "radiusKm": 180,
-        "label": "Tees approaches / North Sea",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "UK Docks Teesside / Teesport",
+      "lastReportedLocation": "UK Docks Teesside / Teesport; last AIS report 23 June 2026",
+      "position": {
+        "lat": 54.59,
+        "lon": -1.19,
+        "label": "UK Docks Teesside / Teesport"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-magpie",

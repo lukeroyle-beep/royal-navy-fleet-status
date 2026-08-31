@@ -105,8 +105,11 @@ assert.ok(
 assert.ok(
   run.sourceChecks
     .filter((entry) => entry.collectionMode === "browser")
-    .every((entry) => registry.sources.find((source) => source.sourceId === entry.sourceId)?.xCollection?.enabled),
-  "Every recurring browser check must resolve to an enabled governed X account.",
+    .every((entry) => {
+      const source = registry.sources.find((candidate) => candidate.sourceId === entry.sourceId);
+      return source?.enabled && (source.collectionMode === "browser" || source.xCollection?.enabled);
+    }),
+  "Every recurring browser check must resolve to an enabled governed rendered source.",
 );
 assert.ok(
   run.sourceChecks.length < registry.sources.filter((entry) => entry.enabled).length,

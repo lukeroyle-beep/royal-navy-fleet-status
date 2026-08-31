@@ -25,13 +25,13 @@ const historyCatalog = JSON.parse(
 const currentSummary = summarizePlotEligibility(fleet.vessels);
 assert.deepEqual(currentSummary, {
   total: 68,
-  pointMapped: 39,
-  regional: 28,
+  pointMapped: 41,
+  regional: 26,
   listOnly: 1,
 });
 assert.equal(
   formatPlotEligibilitySummary(fleet.vessels),
-  "39 point-mapped · 29 regional or list-only",
+  "41 point-mapped · 27 regional or list-only",
 );
 
 const classes = [...new Set(fleet.vessels.map((vessel) => vessel.vesselClass))];
