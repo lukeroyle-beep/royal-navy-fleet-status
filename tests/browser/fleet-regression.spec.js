@@ -440,11 +440,23 @@ test("compact interactive controls retain 44 pixel touch targets", async ({ page
   ]) {
     const controls = page.locator(selector);
     await expect(controls.first(), `${selector} should have a visible target`).toBeVisible();
-    const heights = await controls.evaluateAll((nodes) =>
-      nodes.filter((node) => node.getClientRects().length).map((node) => node.getBoundingClientRect().height),
+    const targets = await controls.evaluateAll((nodes) =>
+      nodes
+        .filter((node) => node.getClientRects().length)
+        .map((node) => {
+          const { width, height } = node.getBoundingClientRect();
+          return { width, height };
+        }),
     );
-    expect(heights.length, `${selector} should expose at least one visible target`).toBeGreaterThan(0);
-    expect(Math.min(...heights), `${selector} should meet the 44px touch-target minimum`).toBeGreaterThanOrEqual(44);
+    expect(targets.length, `${selector} should expose at least one visible target`).toBeGreaterThan(0);
+    expect(
+      Math.min(...targets.map(({ width }) => width)),
+      `${selector} should meet the 44px touch-target width minimum`,
+    ).toBeGreaterThanOrEqual(44);
+    expect(
+      Math.min(...targets.map(({ height }) => height)),
+      `${selector} should meet the 44px touch-target height minimum`,
+    ).toBeGreaterThanOrEqual(44);
   }
 });
 

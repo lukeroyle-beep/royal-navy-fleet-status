@@ -258,7 +258,7 @@ for (const touchTarget of [
   /\.fleet-summary-banner button\s*\{[^}]*min-height:\s*44px;/s,
   /\.active-filter-chips button, #clearActiveFilters\s*\{[^}]*min-height:\s*44px;/s,
   /\.surface-close, \.section-heading button, \.result-summary button\s*\{[^}]*min-height:\s*44px;/s,
-  /\.result-view-toggle button\s*\{[^}]*min-height:\s*44px;/s,
+  /\.result-view-toggle button\s*\{[^}]*min-width:\s*44px;[^}]*min-height:\s*44px;/s,
   /#fleetTable button\s*\{[^}]*min-height:\s*44px;/s,
   /@media \(max-width: 700px\)[\s\S]*\.rail-button\s*\{[^}]*min-height:\s*44px;/s,
   /@media \(max-width: 700px\)[\s\S]*\.map-reset\s*\{[^}]*min-height:\s*44px;/s,

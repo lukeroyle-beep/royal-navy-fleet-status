@@ -330,7 +330,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .results-heading h3, .section-heading h3 { font-size: 14px; }
 #resultsStatus, #unifiedShoreStatus { color: var(--muted); font-size: 11px; }
 .result-view-toggle { display: flex; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-muted); }
-.result-view-toggle button { min-height: 44px; padding: 4px 8px; border: 0; background: transparent; color: var(--muted); font-size: 11px; }
+.result-view-toggle button { min-width: 44px; min-height: 44px; padding: 4px 8px; border: 0; background: transparent; color: var(--muted); font-size: 11px; }
 .result-view-toggle button[aria-pressed="true"] { background: #fff; color: var(--text); box-shadow: 0 1px 5px rgba(7, 20, 29, 0.12); }
 #vesselList, .shore-establishment-list, .unified-shore-results ul, .cluster-results ul, .changes-list ul, .class-availability-vessels ul {
   display: grid;
