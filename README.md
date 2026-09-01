@@ -1,4 +1,4 @@
-# Royal Navy and RFA OSINT Fleet Map
+# British Armed Forces Tracker
 
 A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive two-dimensional map.
 
@@ -7,16 +7,16 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 ## What is included
 
 - A 68-vessel current Royal Navy and RFA roster
-- Search by vessel name or pennant number
+- Unified search across vessel names, pennants and shore establishments
 - Filters for service, vessel type, operational status, neutral public location state and broad geographic scope
-- A map-first interface with a collapsible fleet drawer, selected-record drawer and compact top bar
+- A map-dominant operational workspace with a compact rail, selected-record drawer and thin live-data summary banner
 - A compact class ribbon with class-level active counts and public-status percentages inside Filters
 - A release-to-release change summary that stays collapsed until requested
 - Interactive OpenStreetMap basemap with optional point-marker clustering and a UK shore-establishment layer
-- Progressive vessel details with status, supported public location and snapshot date; detailed provenance remains outside the client projection
+- Prominent local photographs and immediately visible vessel details including class, type, pennant, commission date and home port; detailed provenance remains outside the client projection
 - Clear confirmed, last-reported, unconfirmed, no-recent-information and withheld public location states, separated from port, city, region and list-only precision
 - Automated dataset validation and production-build checks
-- Responsive desktop drawers and compact right-side panels on iPad and phone layouts
+- Intentional desktop drawers, iPad landscape side panels, portrait tablet sheets and mobile bottom-sheet details
 - Versioned local preferences, five public view presets and validated shareable map links
 
 ## Map controls
@@ -98,6 +98,8 @@ See [`docs/public-geographic-precision.md`](docs/public-geographic-precision.md)
 geometry and submarine publication safeguards.
 See [`docs/fleet-tracker-programme-completion.md`](docs/fleet-tracker-programme-completion.md) for
 the programme's exact issue, pull-request, merge, release and deferred-work ledger.
+See [`docs/ux/issue-85/README.md`](docs/ux/issue-85/README.md) for the Operational Map UX audit,
+concept comparison, design tokens, responsive behaviour, accessibility decisions and visual evidence.
 
 ## Run locally
 

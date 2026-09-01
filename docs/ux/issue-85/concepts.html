@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Issue 85 UX concept comparison</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 28px; background: #e8edef; color: #132630; font-family: Inter, "Segoe UI", Arial, sans-serif; }
+      #issue85Concepts { max-width: 1220px; margin: 0 auto; }
+      #issue85Concepts > header { margin-bottom: 28px; }
+      #issue85Concepts h1 { margin: 0 0 6px; font-size: 28px; }
+      #issue85Concepts > header p { max-width: 760px; margin: 0; color: #526974; line-height: 1.5; }
+      .concept { margin: 0 0 30px; padding: 22px; border: 1px solid #b7c4c9; border-radius: 12px; background: #f7f9f8; }
+      .concept-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+      .concept-heading h2 { margin: 0; font-size: 20px; }
+      .concept-heading p { margin: 0; color: #526974; font-size: 13px; }
+      .device-row { display: grid; grid-template-columns: minmax(480px, 1.8fr) minmax(270px, 0.92fr) minmax(180px, 0.64fr); align-items: end; gap: 18px; }
+      .device-label { display: block; margin-bottom: 6px; color: #526974; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+      .screen { position: relative; overflow: hidden; width: 100%; border: 5px solid #07141d; border-radius: 9px; background: #dce3e3; box-shadow: 0 8px 22px rgba(7, 20, 29, .18); }
+      .desktop { aspect-ratio: 16 / 9; }
+      .tablet { aspect-ratio: 3 / 4; }
+      .mobile { aspect-ratio: 9 / 17; border-radius: 16px; }
+      .appbar { position: absolute; z-index: 8; top: 0; right: 0; left: 0; display: flex; height: 34px; align-items: center; gap: 7px; padding: 5px 8px; background: #07141d; color: white; }
+      .appbar strong { overflow: hidden; flex: 0 1 auto; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+      .appbar .search { height: 22px; flex: 1; border: 1px solid #48616d; border-radius: 4px; background: #17313f; color: #b9c9d0; font-size: 7px; line-height: 20px; padding-left: 7px; }
+      .appbar .action { height: 22px; padding: 0 6px; border: 1px solid #58727d; border-radius: 4px; font-size: 7px; line-height: 20px; }
+      .map { position: absolute; inset: 34px 0 0; background-color: #dbe3df; background-image: linear-gradient(31deg, transparent 47%, rgba(106,130,119,.24) 48%, rgba(106,130,119,.24) 51%, transparent 52%), linear-gradient(145deg, transparent 55%, rgba(255,255,255,.68) 56%, rgba(255,255,255,.68) 60%, transparent 61%), repeating-linear-gradient(90deg, transparent 0 44px, rgba(90,113,106,.11) 45px), repeating-linear-gradient(0deg, transparent 0 35px, rgba(90,113,106,.11) 36px); }
+      .water { position: absolute; inset: 34px 0 0 58%; background: rgba(178,207,219,.65); clip-path: polygon(23% 0,100% 0,100% 100%,0 100%,18% 68%,4% 43%); }
+      .marker { position: absolute; z-index: 4; display: grid; width: 15px; height: 15px; place-items: center; border: 2px solid white; border-radius: 50% 50% 50% 0; background: #147a62; box-shadow: 0 1px 4px #07141d; color: white; font-size: 6px; font-weight: 900; transform: rotate(-45deg); }
+      .marker span { transform: rotate(45deg); }
+      .marker.m1 { top: 31%; left: 52%; }
+      .marker.m2 { top: 48%; left: 38%; background: #2672a3; }
+      .marker.m3 { top: 65%; left: 63%; background: #a86713; }
+      .marker.m4 { top: 41%; left: 77%; border-radius: 3px; background: #4d5660; }
+      .marker.selected { width: 20px; height: 20px; outline: 3px solid #ffbf47; }
+      .summary { position: absolute; z-index: 6; top: 42px; left: 55px; display: flex; overflow: hidden; border: 1px solid #9dafb6; border-radius: 5px; background: rgba(255,255,255,.96); box-shadow: 0 2px 6px rgba(7,20,29,.16); }
+      .summary span { padding: 5px 7px; border-right: 1px solid #c7d1d4; font-size: 6px; white-space: nowrap; }
+      .summary b { margin-right: 2px; font-size: 8px; }
+      .rail { position: absolute; z-index: 7; top: 42px; left: 7px; display: grid; width: 41px; gap: 3px; padding: 4px; border-radius: 6px; background: rgba(7,20,29,.94); color: white; }
+      .rail span { display: grid; height: 33px; place-items: center; border-radius: 4px; font-size: 6px; }
+      .rail span:first-child { background: #185f91; }
+      .detail { position: absolute; z-index: 7; top: 42px; right: 7px; bottom: 7px; width: 29%; overflow: hidden; border: 1px solid #9dafb6; border-radius: 7px; background: #f7f9f8; box-shadow: 0 6px 16px rgba(7,20,29,.2); }
+      .detail header { display: flex; justify-content: space-between; padding: 6px 7px; border-bottom: 1px solid #c7d1d4; color: #526974; font-size: 6px; font-weight: 800; text-transform: uppercase; }
+      .detail h3 { margin: 7px 8px 2px; font-size: 12px; }
+      .detail .classline { margin: 0 8px 6px; color: #526974; font-size: 7px; }
+      .detail img { display: block; width: calc(100% - 16px); height: 31%; margin: 0 8px 6px; object-fit: cover; border-radius: 4px; }
+      .detail dl { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 7px; margin: 0; padding: 0 8px; }
+      .detail dt { color: #526974; font-size: 5px; font-weight: 800; text-transform: uppercase; }
+      .detail dd { margin: 1px 0 0; font-size: 6px; font-weight: 700; }
+      .detail .wide { grid-column: 1 / -1; }
+      .asset-list { position: absolute; z-index: 7; top: 42px; left: 8px; bottom: 8px; width: 27%; padding: 8px; border: 1px solid #9dafb6; border-radius: 6px; background: #f7f9f8; }
+      .asset-list h3 { margin: 0 0 6px; font-size: 10px; }
+      .asset-list .filter { height: 20px; margin-bottom: 6px; border: 1px solid #9dafb6; border-radius: 3px; color: #526974; font-size: 6px; line-height: 18px; padding-left: 5px; }
+      .asset-list ul { margin: 0; padding: 0; list-style: none; }
+      .asset-list li { padding: 5px 3px; border-bottom: 1px solid #d8dfe1; font-size: 6px; }
+      .asset-list li b { display: block; margin-bottom: 1px; font-size: 7px; }
+      .insight-strip { position: absolute; z-index: 7; right: 8px; bottom: 8px; left: 31%; display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; padding: 5px; border: 1px solid #9dafb6; border-radius: 6px; background: #f7f9f8; }
+      .insight-strip span { padding: 5px; background: white; color: #526974; font-size: 6px; }
+      .insight-strip b { display: block; margin-bottom: 2px; color: #132630; font-size: 10px; }
+      .bottom-sheet { position: absolute; z-index: 8; right: 5px; bottom: 5px; left: 5px; height: 50%; overflow: hidden; border: 1px solid #9dafb6; border-radius: 10px 10px 5px 5px; background: #f7f9f8; box-shadow: 0 -5px 16px rgba(7,20,29,.2); }
+      .bottom-sheet::before { display: block; width: 36px; height: 3px; margin: 5px auto; border-radius: 3px; background: #9dafb6; content: ""; }
+      .bottom-sheet .sheet-body { display: grid; grid-template-columns: 44% 1fr; gap: 7px; padding: 3px 7px 7px; }
+      .bottom-sheet h3 { margin: 0 0 3px; font-size: 10px; }
+      .bottom-sheet img { width: 100%; height: 76px; object-fit: cover; border-radius: 4px; }
+      .bottom-sheet dl { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0; }
+      .bottom-sheet dt { color: #526974; font-size: 5px; font-weight: 800; text-transform: uppercase; }
+      .bottom-sheet dd { margin: 1px 0 0; font-size: 6px; font-weight: 700; }
+      .touchbar { position: absolute; z-index: 7; top: 41px; right: 6px; left: 6px; display: grid; grid-template-columns: 1fr auto auto; gap: 4px; }
+      .touchbar span { height: 28px; border: 1px solid #9dafb6; border-radius: 6px; background: white; color: #526974; font-size: 7px; line-height: 26px; padding-left: 7px; box-shadow: 0 2px 6px rgba(7,20,29,.15); }
+      .touchbar span:not(:first-child) { width: 31px; padding: 0; text-align: center; }
+      .field-actions { position: absolute; z-index: 7; right: 7px; bottom: 8px; display: grid; gap: 4px; }
+      .field-actions span { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #49616d; border-radius: 50%; background: #07141d; color: white; font-size: 7px; }
+      .tablet .appbar strong, .mobile .appbar strong { max-width: 48%; font-size: 8px; }
+      .tablet .appbar .search, .mobile .appbar .search { display: none; }
+      .tablet .summary { right: 7px; left: 7px; justify-content: stretch; }
+      .tablet .summary span { flex: 1; padding-inline: 2px; text-align: center; }
+      .tablet .rail { top: 78px; }
+      .tablet .detail { top: auto; right: 5px; bottom: 5px; left: 5px; width: auto; height: 44%; }
+      .tablet .detail img { float: left; width: 45%; height: 68%; }
+      .tablet .detail dl { padding-top: 1px; }
+      .tablet .asset-list { top: 77px; left: 5px; width: 43%; }
+      .tablet .insight-strip { right: 5px; left: 47%; grid-template-columns: 1fr 1fr; }
+      .mobile .summary { top: 38px; right: 4px; left: 4px; }
+      .mobile .summary span { flex: 1; overflow: hidden; padding: 4px 1px; font-size: 4px; text-align: center; }
+      .mobile .summary b { display: block; font-size: 7px; }
+      .mobile .rail { top: 72px; left: 4px; width: 34px; }
+      .mobile .rail span { height: 28px; font-size: 5px; }
+      .mobile .detail { top: auto; right: 4px; bottom: 4px; left: 4px; width: auto; height: 57%; border-radius: 10px 10px 5px 5px; }
+      .mobile .detail h3 { font-size: 10px; }
+      .mobile .detail img { height: 32%; }
+      .mobile .detail dt { font-size: 4px; }
+      .mobile .detail dd { font-size: 5px; }
+      .mobile .asset-list { top: 72px; right: 4px; bottom: 4px; left: 4px; width: auto; }
+      .mobile .insight-strip { right: 4px; bottom: 4px; left: 4px; grid-template-columns: 1fr 1fr; }
+      .mobile .bottom-sheet { height: 59%; }
+      .mobile .bottom-sheet .sheet-body { grid-template-columns: 1fr; }
+      .mobile .bottom-sheet img { height: 88px; }
+      .mobile .touchbar { top: 40px; }
+      .concept-c .desktop .bottom-sheet { right: 10%; left: 10%; height: 39%; }
+      .concept-c .desktop .bottom-sheet .sheet-body { grid-template-columns: 34% 1fr; }
+      .concept-c .desktop .bottom-sheet img { height: 90px; }
+      .concept-c .tablet .bottom-sheet { height: 48%; }
+      @media (max-width: 860px) {
+        body { padding: 14px; }
+        .device-row { grid-template-columns: 1fr; align-items: start; }
+        .desktop, .tablet, .mobile { width: min(100%, 620px); aspect-ratio: 16 / 10; }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="issue85Concepts">
+      <header>
+        <h1>British Armed Forces Tracker — concept comparison</h1>
+        <p>Three deliberately different responsive directions reviewed before the approved Operational Map implementation. Content is representative of the existing public data model; no operational claims are introduced by these layouts.</p>
+      </header>
+
+      <section class="concept concept-a">
+        <div class="concept-heading"><h2>A · Operational Map</h2><p>Map-dominant shell, compact rail, contextual record drawer</p></div>
+        <div class="device-row">
+          <div><span class="device-label">Desktop</span><div class="screen desktop"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="search">Search vessels and establishments</span><span class="action">Layers</span><span class="action">Filters</span></div><div class="map"></div><div class="water"></div><div class="summary"><span><b>17</b>Deployed</span><span><b>32</b>Available</span><span><b>14</b>In re-fit</span><span><b>4</b>Unknown</span><span><b>1</b>Classified</span></div><div class="rail"><span>Assets</span><span>Changes</span></div><i class="marker m1 selected"><span>D</span></i><i class="marker m2"><span>F</span></i><i class="marker m3"><span>R</span></i><i class="marker m4"><span>S</span></i><article class="detail"><header>Selected record <b>Close</b></header><h3>HMS Duncan · D37</h3><p class="classline">Daring class · Destroyer</p><img src="/photos/duncan.jpg" alt="HMS Duncan" /><dl><div class="wide"><dt>Status</dt><dd>Deployed</dd></div><div class="wide"><dt>Location</dt><dd>Copenhagen, Denmark</dd></div><div><dt>Pennant</dt><dd>D37</dd></div><div><dt>Commission</dt><dd>26 Sep 2013</dd></div><div><dt>Home port</dt><dd>Portsmouth</dd></div><div><dt>Snapshot</dt><dd>31 Aug 2026</dd></div></dl></article></div></div>
+          <div><span class="device-label">iPad / tablet</span><div class="screen tablet"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="action">Search</span><span class="action">Filters</span></div><div class="map"></div><div class="water"></div><div class="summary"><span><b>17</b>Deployed</span><span><b>32</b>Available</span><span><b>14</b>Refit</span><span><b>4</b>Unknown</span><span><b>1</b>Classified</span></div><div class="rail"><span>Assets</span><span>Changes</span></div><i class="marker m1 selected"><span>D</span></i><i class="marker m3"><span>R</span></i><article class="detail"><header>Selected record <b>Close</b></header><h3>HMS Duncan · D37</h3><p class="classline">Daring class · Destroyer</p><img src="/photos/duncan.jpg" alt="HMS Duncan" /><dl><div><dt>Status</dt><dd>Deployed</dd></div><div><dt>Location</dt><dd>Copenhagen</dd></div><div><dt>Pennant</dt><dd>D37</dd></div><div><dt>Commission</dt><dd>26 Sep 2013</dd></div><div><dt>Home port</dt><dd>Portsmouth</dd></div><div><dt>Snapshot</dt><dd>31 Aug 2026</dd></div></dl></article></div></div>
+          <div><span class="device-label">Mobile</span><div class="screen mobile"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="action">Search</span><span class="action">Filter</span></div><div class="map"></div><div class="water"></div><div class="summary"><span><b>17</b>Deployed</span><span><b>32</b>Available</span><span><b>14</b>Refit</span><span><b>4</b>Unknown</span><span><b>1</b>Classified</span></div><i class="marker m1 selected"><span>D</span></i><article class="detail"><header>Selected record <b>Close</b></header><h3>HMS Duncan · D37</h3><p class="classline">Daring class · Destroyer</p><img src="/photos/duncan.jpg" alt="HMS Duncan" /><dl><div><dt>Status</dt><dd>Deployed</dd></div><div><dt>Location</dt><dd>Copenhagen</dd></div><div><dt>Pennant</dt><dd>D37</dd></div><div><dt>Commission</dt><dd>26 Sep 2013</dd></div><div><dt>Home port</dt><dd>Portsmouth</dd></div><div><dt>Snapshot</dt><dd>31 Aug</dd></div></dl></article></div></div>
+        </div>
+      </section>
+
+      <section class="concept concept-b">
+        <div class="concept-heading"><h2>B · Intelligence Workspace</h2><p>Persistent asset exploration and fleet context beside the map</p></div>
+        <div class="device-row">
+          <div><span class="device-label">Desktop</span><div class="screen desktop"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="search">Search operational picture</span><span class="action">Compare</span></div><div class="map"></div><div class="water"></div><aside class="asset-list"><h3>Fleet picture</h3><div class="filter">Service · Status · Class</div><ul><li><b>HMS Duncan · D37</b>Deployed · Copenhagen</li><li><b>HMS Prince of Wales</b>Available · Portsmouth</li><li><b>RFA Tideforce · A139</b>Available · UK waters</li><li><b>HMNB Devonport</b>Naval base · Plymouth</li></ul></aside><i class="marker m1 selected"><span>D</span></i><i class="marker m2"><span>F</span></i><i class="marker m3"><span>R</span></i><div class="insight-strip"><span><b>68</b>Vessels</span><span><b>17</b>Deployed</span><span><b>6</b>Changed</span><span><b>31 Aug</b>Snapshot</span></div></div></div>
+          <div><span class="device-label">iPad / tablet</span><div class="screen tablet"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="action">Search</span><span class="action">Map</span></div><div class="map"></div><div class="water"></div><aside class="asset-list"><h3>Fleet picture</h3><div class="filter">Filters (2)</div><ul><li><b>HMS Duncan · D37</b>Deployed</li><li><b>HMS Prince of Wales</b>Available</li><li><b>RFA Tideforce</b>Available</li><li><b>HMNB Devonport</b>Naval base</li></ul></aside><i class="marker m1 selected"><span>D</span></i><div class="insight-strip"><span><b>68</b>Vessels</span><span><b>17</b>Deployed</span><span><b>6</b>Changed</span><span><b>31 Aug</b>Snapshot</span></div></div></div>
+          <div><span class="device-label">Mobile</span><div class="screen mobile"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="action">Map</span><span class="action">Filter</span></div><div class="map"></div><aside class="asset-list"><h3>Fleet picture</h3><div class="filter">Search assets</div><ul><li><b>HMS Duncan · D37</b>Deployed · Copenhagen</li><li><b>HMS Prince of Wales</b>Available · Portsmouth</li><li><b>RFA Tideforce</b>Available · UK waters</li><li><b>HMNB Devonport</b>Naval base · Plymouth</li><li><b>HMS Forth</b>Deployed · Falklands</li></ul></aside></div></div>
+        </div>
+      </section>
+
+      <section class="concept concept-c">
+        <div class="concept-heading"><h2>C · Responsive Field View</h2><p>Touch-first controls and a persistent, draggable contextual sheet</p></div>
+        <div class="device-row">
+          <div><span class="device-label">Desktop</span><div class="screen desktop"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="search">Search vessels and establishments</span><span class="action">Layers</span></div><div class="map"></div><div class="water"></div><div class="touchbar"><span>Search operational picture</span><span>Layers</span><span>Filter</span></div><i class="marker m1 selected"><span>D</span></i><i class="marker m2"><span>F</span></i><i class="marker m4"><span>S</span></i><article class="bottom-sheet"><div class="sheet-body"><div><h3>HMS Duncan · D37</h3><img src="/photos/duncan.jpg" alt="HMS Duncan" /></div><dl><div><dt>Status</dt><dd>Deployed</dd></div><div><dt>Location</dt><dd>Copenhagen</dd></div><div><dt>Class</dt><dd>Daring</dd></div><div><dt>Type</dt><dd>Destroyer</dd></div><div><dt>Commission</dt><dd>26 Sep 2013</dd></div><div><dt>Home port</dt><dd>Portsmouth</dd></div></dl></div></article></div></div>
+          <div><span class="device-label">iPad / tablet</span><div class="screen tablet"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="action">Layers</span><span class="action">Filter</span></div><div class="map"></div><div class="water"></div><div class="touchbar"><span>Search assets</span><span>☷</span><span>⌖</span></div><i class="marker m1 selected"><span>D</span></i><i class="marker m3"><span>R</span></i><article class="bottom-sheet"><div class="sheet-body"><div><h3>HMS Duncan · D37</h3><img src="/photos/duncan.jpg" alt="HMS Duncan" /></div><dl><div><dt>Status</dt><dd>Deployed</dd></div><div><dt>Location</dt><dd>Copenhagen</dd></div><div><dt>Class</dt><dd>Daring</dd></div><div><dt>Type</dt><dd>Destroyer</dd></div><div><dt>Commission</dt><dd>26 Sep 2013</dd></div><div><dt>Home port</dt><dd>Portsmouth</dd></div></dl></div></article></div></div>
+          <div><span class="device-label">Mobile</span><div class="screen mobile"><div class="appbar"><strong>British Armed Forces Tracker</strong><span class="action">Filter</span></div><div class="map"></div><div class="water"></div><div class="touchbar"><span>Search assets</span><span>☷</span><span>⌖</span></div><i class="marker m1 selected"><span>D</span></i><article class="bottom-sheet"><div class="sheet-body"><div><h3>HMS Duncan · D37</h3><img src="/photos/duncan.jpg" alt="HMS Duncan" /></div><dl><div><dt>Status</dt><dd>Deployed</dd></div><div><dt>Location</dt><dd>Copenhagen</dd></div><div><dt>Class</dt><dd>Daring</dd></div><div><dt>Type</dt><dd>Destroyer</dd></div><div><dt>Commission</dt><dd>26 Sep 2013</dd></div><div><dt>Home port</dt><dd>Portsmouth</dd></div></dl></div></article></div></div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
