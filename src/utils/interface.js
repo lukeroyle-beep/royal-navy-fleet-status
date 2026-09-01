@@ -12,8 +12,20 @@ export function countActiveFilters({
   type = "",
   location = "",
   presence = "",
+  shoreQuery = "",
+  shoreType = "",
 } = {}) {
-  return [query.trim(), vesselClass, service, status, type, location, presence].filter(Boolean).length;
+  return [
+    query.trim(),
+    vesselClass,
+    service,
+    status,
+    type,
+    location,
+    presence,
+    shoreQuery.trim(),
+    shoreType,
+  ].filter(Boolean).length;
 }
 
 export function formatVesselResultSummary(filteredCount, totalCount, activeFilterCount) {

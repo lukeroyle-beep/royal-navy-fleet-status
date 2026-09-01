@@ -507,13 +507,7 @@ function applyShoreFilters({ fit = true, sync = true } = {}) {
   elements.shoreFilteredCount.textContent = filtered.length.toString();
   elements.shoreList.replaceChildren(...filtered.map(createShoreListItem));
   fleetMap.setVisibleShoreEstablishments(filtered, { fit });
-  if (selectedShoreId && !filtered.some((establishment) => establishment.id === selectedShoreId)) {
-    selectedShoreId = null;
-    details.renderDefault(dataset);
-    fleetMap.clearSelection();
-    surfaceController.close("detail");
-    updateSelectionSemantics();
-  }
+  renderFilterSummary(currentFilteredVessels.length);
   if (sync) syncPublicState();
 }
 
@@ -676,8 +670,8 @@ function renderFleetOverview() {
 function applySummaryFilter(button) {
   const status = button.dataset.summaryFilter || "";
   const location = button.dataset.summaryLocation || "";
-  elements.status.value = elements.status.value === status ? "" : status;
-  elements.location.value = elements.location.value === location ? "" : location;
+  if (status) elements.status.value = elements.status.value === status ? "" : status;
+  if (location) elements.location.value = elements.location.value === location ? "" : location;
   applyFilters();
 }
 
@@ -918,7 +912,7 @@ function renderFilterSummary(filteredCount) {
     changedOnly ? "Changed since previous snapshot" : "",
   ].filter(Boolean);
   const hasSearch = Boolean(elements.search.value.trim());
-  const activeFilterCount = countActiveFilters({
+  const vesselFilterCount = countActiveFilters({
     query: elements.search.value,
     vesselClass: selectedClass,
     service: elements.service.value,
@@ -927,15 +921,21 @@ function renderFilterSummary(filteredCount) {
     location: elements.location.value,
     presence: elements.presence.value,
   }) + (changedOnly ? 1 : 0);
+  const activeFilterCount =
+    vesselFilterCount +
+    countActiveFilters({
+      shoreQuery: elements.shoreSearch.value,
+      shoreType: elements.shoreType.value,
+    });
   const hasFilters = activeFilterCount > 0;
   elements.filterResultStatus.textContent = formatVesselResultSummary(
     filteredCount,
     dataset.vessels.length,
-    activeFilterCount,
+    vesselFilterCount,
   );
   elements.filterSelectionStatus.textContent =
-    activeFilterCount > 1
-      ? `${activeFilterCount} active`
+    vesselFilterCount > 1
+      ? `${vesselFilterCount} active`
       : filterLabels[0] || (hasSearch ? "Search active" : "All vessels");
   elements.reset.hidden = !hasFilters;
   elements.panelReset.hidden = !hasFilters;
@@ -964,6 +964,16 @@ function renderActiveFilterChips() {
       "presence",
       elements.presence.value ? `Area: ${formatPresence(elements.presence.value)}` : "",
     ],
+    [
+      "shoreQuery",
+      elements.shoreSearch.value.trim()
+        ? `Shore search: ${elements.shoreSearch.value.trim()}`
+        : "",
+    ],
+    [
+      "shoreType",
+      elements.shoreType.value ? `Shore type: ${selectedOptionLabel(elements.shoreType)}` : "",
+    ],
     ["changed", changedOnly ? "Changed since previous snapshot" : ""],
   ].filter(([, label]) => label);
   elements.activeFilterChips.replaceChildren(
@@ -980,6 +990,10 @@ function renderActiveFilterChips() {
   elements.activeFilterBar.hidden = filters.length === 0;
 }
 
+function selectedOptionLabel(select) {
+  return select.selectedOptions[0]?.textContent || select.value;
+}
+
 function clearSingleFilter(key) {
   if (key === "query") elements.search.value = "";
   if (key === "class") {
@@ -991,12 +1005,14 @@ function clearSingleFilter(key) {
   if (key === "type") elements.type.value = "";
   if (key === "location") elements.location.value = "";
   if (key === "presence") elements.presence.value = "";
+  if (key === "shoreQuery") elements.shoreSearch.value = "";
+  if (key === "shoreType") elements.shoreType.value = "";
   if (key === "changed") {
     changedOnly = false;
     elements.changedOnlyToggle.checked = false;
     updateChangedOnlyStatus();
   }
-  renderUnifiedShoreResults();
+  applyShoreFilters({ fit: false, sync: false });
   applyFilters();
 }
 
@@ -1214,12 +1230,14 @@ function resetFilters({ focus = false } = {}) {
   elements.type.value = "";
   elements.location.value = "";
   elements.presence.value = "";
+  elements.shoreSearch.value = "";
+  elements.shoreType.value = "";
   changedOnly = false;
   elements.changedOnlyToggle.checked = false;
   updateChangedOnlyStatus();
   selectedClass = "";
   updateClassRibbon();
-  renderUnifiedShoreResults();
+  applyShoreFilters({ fit: false, sync: false });
   applyFilters();
   if (focus) elements.search.focus();
 }

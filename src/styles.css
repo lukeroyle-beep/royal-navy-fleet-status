@@ -203,7 +203,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .fleet-summary-banner button {
   display: flex;
   min-width: 88px;
-  min-height: 40px;
+  min-height: 44px;
   align-items: baseline;
   justify-content: center;
   gap: 5px;
@@ -221,7 +221,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .fleet-summary-banner span { font-size: 11px; }
 .active-filter-bar {
   position: absolute;
-  z-index: 640;
+  z-index: 810;
   top: 62px;
   left: 80px;
   display: flex;
@@ -236,7 +236,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 }
 .active-filter-chips { display: flex; min-width: 0; gap: 5px; overflow-x: auto; }
 .active-filter-chips button, #clearActiveFilters {
-  min-height: 32px;
+  min-height: 44px;
   padding: 4px 9px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
@@ -306,7 +306,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .surface-header h2, .section-heading h3, .results-heading h2, .results-heading h3 { margin: 0; color: var(--text); }
 .surface-header h2 { margin-top: 3px; font-size: 19px; }
 .surface-close, .section-heading button, .result-summary button {
-  min-height: 38px;
+  min-height: 44px;
   padding: 6px 10px;
   border: 1px solid var(--line-strong);
   border-radius: 7px;
@@ -330,7 +330,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .results-heading h3, .section-heading h3 { font-size: 14px; }
 #resultsStatus, #unifiedShoreStatus { color: var(--muted); font-size: 11px; }
 .result-view-toggle { display: flex; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-muted); }
-.result-view-toggle button { min-height: 34px; padding: 4px 8px; border: 0; background: transparent; color: var(--muted); font-size: 11px; }
+.result-view-toggle button { min-height: 44px; padding: 4px 8px; border: 0; background: transparent; color: var(--muted); font-size: 11px; }
 .result-view-toggle button[aria-pressed="true"] { background: #fff; color: var(--text); box-shadow: 0 1px 5px rgba(7, 20, 29, 0.12); }
 #vesselList, .shore-establishment-list, .unified-shore-results ul, .cluster-results ul, .changes-list ul, .class-availability-vessels ul {
   display: grid;
@@ -363,7 +363,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 #fleetTable th, #fleetTable td { padding: 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 #fleetTable thead th { position: sticky; top: 0; background: var(--surface-muted); color: var(--muted); font-size: 10px; text-transform: uppercase; }
 #fleetTable tbody tr:last-child th, #fleetTable tbody tr:last-child td { border-bottom: 0; }
-#fleetTable button { min-height: 32px; padding: 2px 4px; border: 0; background: transparent; color: var(--selection); font-weight: 750; text-align: left; }
+#fleetTable button { min-height: 44px; padding: 2px 4px; border: 0; background: transparent; color: var(--selection); font-weight: 750; text-align: left; }
 #fleetTable button[aria-current="true"] { box-shadow: inset 3px 0 0 var(--selection); background: var(--selection-soft); }
 
 .detail-card { display: grid; gap: 10px; padding: 15px 16px 20px; }
@@ -527,10 +527,10 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
   .top-search { grid-column: 1 / -1; grid-row: 2; }
   .snapshot-meta { display: none; }
   .map-rail { top: 58px; left: 10px; display: flex; width: auto; padding: 4px; }
-  .rail-button { min-width: 58px; min-height: 42px; grid-auto-flow: column; gap: 5px; padding: 4px 7px; }
+  .rail-button { min-width: 58px; min-height: 44px; grid-auto-flow: column; gap: 5px; padding: 4px 7px; }
   .rail-icon { font-size: 17px; }
   .fleet-summary-banner { top: 8px; right: 8px; left: 8px; }
-  .fleet-summary-banner button { min-width: 0; min-height: 43px; flex: 1 1 20%; display: grid; gap: 0; padding: 3px 1px; }
+  .fleet-summary-banner button { min-width: 0; min-height: 44px; flex: 1 1 20%; display: grid; gap: 0; padding: 3px 1px; }
   .fleet-summary-banner strong { font-size: 13px; }
   .fleet-summary-banner span { font-size: 9px; }
   .active-filter-bar { top: 108px; right: 8px; left: 8px; max-width: none; }
@@ -545,7 +545,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
   .detail-meta dd { font-size: 11.5px; }
   .detail-meta dt { font-size: 9px; }
   .detail-primary [data-term="status"], .detail-primary [data-term="location"] { grid-column: auto; padding-block: 7px; }
-  .map-reset { right: 8px; bottom: 66px; min-height: 40px; }
+  .map-reset { right: 8px; bottom: 66px; min-height: 44px; }
   .map-filter-notice, .map-notice { right: 8px; bottom: 8px; left: 8px; max-width: none; transform: none; }
   .data-health-notice { top: 108px; right: 8px; max-width: calc(100% - 16px); }
   .shore-filter-grid, .filter-grid { grid-template-columns: 1fr; }

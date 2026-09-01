@@ -641,12 +641,7 @@ export class FleetMap {
       .filter((marker) => marker && marker !== selectedMarker);
     const activeGroup = this.clusteringEnabled ? this.shoreClusterGroup : this.unclusteredShoreGroup;
     for (const marker of markers) activeGroup.addLayer(marker);
-    if (
-      selectedMarker &&
-      this.visibleShoreEstablishments.some((establishment) => establishment.id === this.selectedShoreId)
-    ) {
-      this.shoreSelectionGroup.addLayer(selectedMarker);
-    }
+    if (selectedMarker) this.shoreSelectionGroup.addLayer(selectedMarker);
   }
 
   #showTileNotice() {

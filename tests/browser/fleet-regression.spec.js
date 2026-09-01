@@ -241,6 +241,20 @@ test("the operational banner is derived from the dataset and works as a filter",
   await expect(page.locator("#statusFilter")).toHaveValue("Available");
   await expect(page.locator("#vesselList button[data-vessel-id]")).toHaveCount(expected.available);
   await expect(page.getByRole("button", { name: "Remove Status: Available" })).toBeVisible();
+
+  await page.locator('[data-summary-location="withheld"]').click();
+  await expect(page.locator("#statusFilter")).toHaveValue("Available");
+  await expect(page.locator("#locationFilter")).toHaveValue("withheld");
+  await expect(page.getByRole("button", { name: "Remove Status: Available" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Remove Location: Location not published" })).toBeVisible();
+  await expect(page.locator("#vesselList button[data-vessel-id]")).toHaveCount(0);
+  await expect.poll(() => new URL(page.url()).searchParams.get("status")).toBe("Available");
+  await expect.poll(() => new URL(page.url()).searchParams.get("locationState")).toBe("withheld");
+
+  await page.locator('[data-summary-location="withheld"]').click();
+  await expect(page.locator("#locationFilter")).toHaveValue("");
+  await expect(page.locator("#statusFilter")).toHaveValue("Available");
+  await expect(page.locator("#vesselList button[data-vessel-id]")).toHaveCount(expected.available);
   await page.getByRole("button", { name: "Remove Status: Available" }).click();
   await expect(page.locator("#statusFilter")).toHaveValue("");
   await expect(page.locator("#vesselList button[data-vessel-id]")).toHaveCount(fleet.vessels.length);
@@ -313,6 +327,61 @@ test("unified search selects a shore establishment with its photograph and hiera
   await expect.poll(() => new URL(page.url()).searchParams.get("shore")).toBe(devonport.id);
 });
 
+test("shore filters remain removable while selected search results stay visible", async ({ page }) => {
+  const devonport = shore.establishments.find((establishment) => establishment.id === "hmnb-devonport");
+  const excludedType = "Air station";
+  const expectedFilteredMarkers = shore.establishments.filter(
+    (establishment) => establishment.type === excludedType,
+  ).length;
+
+  await page.locator("#layersToggle").click();
+  await page.locator("#shoreLayerToggle").check();
+  await page.locator("#clusterLayerToggle").uncheck();
+  await page.locator("#shoreTypeFilter").selectOption(excludedType);
+  await expect(page.getByRole("button", { name: `Remove Shore type: ${excludedType}` })).toBeVisible();
+  await expect.poll(() => page.locator(".shore-marker").count()).toBe(expectedFilteredMarkers);
+
+  await page.locator("#searchInput").fill(devonport.name);
+  await page
+    .locator(`#unifiedShoreList button[data-establishment-id=${JSON.stringify(devonport.id)}]`)
+    .click();
+
+  await expect(page.locator("#detailTitle")).toHaveText(devonport.name);
+  await expect(page.locator("#shoreTypeFilter")).toHaveValue(excludedType);
+  await expect(page.locator(".shore-marker.is-selected")).toHaveCount(1);
+  await expect(page.locator(".shore-marker")).toHaveCount(expectedFilteredMarkers + 1);
+  await expect.poll(() => new URL(page.url()).searchParams.get("shoreType")).toBe(excludedType);
+  await expect.poll(() => new URL(page.url()).searchParams.get("shore")).toBe(devonport.id);
+});
+
+test("compact active-filter controls clear shore filters above an open sheet", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.locator("#asOfDate")).not.toHaveText("Loading");
+
+  await page.locator("#layersToggle").click();
+  await page.locator("#shoreLayerToggle").check();
+  await page.locator("#shoreSearchInput").fill("Yeovilton");
+  await page.locator("#shoreTypeFilter").selectOption("Air station");
+
+  await expect(page.locator("#surfaceBackdrop")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Remove Shore search: Yeovilton" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Remove Shore type: Air station" })).toBeVisible();
+  await expect(page.locator("#filterBadge")).toHaveText("2");
+  await expect(page.locator("#filterResultStatus")).toHaveText(`Showing ${fleet.vessels.length} vessels`);
+
+  await page.getByRole("button", { name: "Remove Shore type: Air station" }).click();
+  await expect(page.locator("#shoreTypeFilter")).toHaveValue("");
+  await expect(page.locator("#shoreSearchInput")).toHaveValue("Yeovilton");
+  await page.locator("#clearActiveFilters").click();
+  await expect(page.locator("#shoreSearchInput")).toHaveValue("");
+  await expect(page.locator("#shoreTypeFilter")).toHaveValue("");
+  await expect(page.locator("#activeFilterBar")).toBeHidden();
+  await expect(page.locator("#filterBadge")).toBeHidden();
+  await expect.poll(() => new URL(page.url()).searchParams.get("shoreQ")).toBeNull();
+  await expect.poll(() => new URL(page.url()).searchParams.get("shoreType")).toBeNull();
+});
+
 test("clusters disclose their contents and all shore categories retain their markers", async ({ page }) => {
   const firstCluster = page.locator(".fleet-cluster").first();
   await expect(firstCluster).toBeVisible();
@@ -345,8 +414,38 @@ test("the text table, empty state and missing-image fallback remain usable", asy
   await page.route("**/photos/duncan.jpg", (route) => route.abort());
   await page.locator("#searchInput").fill("HMS Duncan");
   await page.locator('#fleetTableBody button[data-vessel-id="hms-duncan"]').click();
-  await expect(page.locator("#detailPhotoFallback")).toBeVisible();
-  await expect(page.locator("#detailPhotoFallback")).toContainText("Photograph unavailable");
+  const photoFallback = page.getByRole("img", { name: "Photograph unavailable" });
+  await expect(photoFallback).toBeVisible();
+  await expect(photoFallback).toContainText("Photograph unavailable");
+});
+
+test("compact interactive controls retain 44 pixel touch targets", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.locator("#asOfDate")).not.toHaveText("Loading");
+  await page.locator('[data-summary-filter="Available"]').click();
+  await openAssets(page);
+  await page.locator("#tableViewToggle").click();
+
+  for (const selector of [
+    ".fleet-summary-banner button",
+    ".rail-button:visible",
+    "#resetMap",
+    "#activeFilterChips button",
+    "#clearActiveFilters",
+    "#fleetDrawer .surface-close",
+    "#resetFilters",
+    ".result-view-toggle button",
+    "#fleetTable button",
+  ]) {
+    const controls = page.locator(selector);
+    await expect(controls.first(), `${selector} should have a visible target`).toBeVisible();
+    const heights = await controls.evaluateAll((nodes) =>
+      nodes.filter((node) => node.getClientRects().length).map((node) => node.getBoundingClientRect().height),
+    );
+    expect(heights.length, `${selector} should expose at least one visible target`).toBeGreaterThan(0);
+    expect(Math.min(...heights), `${selector} should meet the 44px touch-target minimum`).toBeGreaterThanOrEqual(44);
+  }
 });
 
 test("loading, partial insight and malformed-data states are explicit", async ({ page }) => {

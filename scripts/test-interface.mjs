@@ -91,6 +91,7 @@ for (const locationState of ["unconfirmed", "no_recent_information"]) {
 assert.equal(countActiveFilters(), 0);
 assert.equal(countActiveFilters({ query: "Duncan", status: "Deployed", service: "Royal Navy" }), 3);
 assert.equal(countActiveFilters({ presence: "overseas" }), 1);
+assert.equal(countActiveFilters({ shoreQuery: "Devonport", shoreType: "Naval base" }), 2);
 assert.equal(formatVesselResultSummary(68, 68, 0), "Showing 68 vessels");
 assert.equal(formatVesselResultSummary(18, 68, 3), "Showing 18 of 68 vessels · 3 filters");
 assert.equal(formatVesselResultSummary(1, 68, 1), "Showing 1 of 68 vessels · 1 filter");
@@ -217,6 +218,12 @@ assert.match(app, /window\.addEventListener\("popstate"/);
 assert.match(app, /renderActiveFilterChips\(\)/);
 assert.match(app, /button\.dataset\.clearFilter = key/);
 assert.match(app, /function clearSingleFilter\(key\)/);
+assert.match(app, /if \(status\) elements\.status\.value/);
+assert.match(app, /if \(location\) elements\.location\.value/);
+assert.match(app, /\[\s*"shoreQuery",[\s\S]*Shore search:/);
+assert.match(app, /\[\s*"shoreType",[\s\S]*Shore type:/);
+assert.match(app, /elements\.shoreSearch\.value = ""/);
+assert.match(app, /elements\.shoreType\.value = ""/);
 assert.match(app, /function renderList\(vessels\)/);
 assert.match(app, /elements\.tableBody\.replaceChildren\(/);
 assert.match(app, /function setFleetResultView\(view\)/);
@@ -246,6 +253,18 @@ assert.match(html, /id="detailTitle"[^>]*tabindex="-1"[^>]*data-surface-focus/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
 assert.match(styles, /outline:\s*3px solid #ffbf47/);
+assert.match(styles, /\.active-filter-bar\s*\{[^}]*z-index:\s*810;/s);
+for (const touchTarget of [
+  /\.fleet-summary-banner button\s*\{[^}]*min-height:\s*44px;/s,
+  /\.active-filter-chips button, #clearActiveFilters\s*\{[^}]*min-height:\s*44px;/s,
+  /\.surface-close, \.section-heading button, \.result-summary button\s*\{[^}]*min-height:\s*44px;/s,
+  /\.result-view-toggle button\s*\{[^}]*min-height:\s*44px;/s,
+  /#fleetTable button\s*\{[^}]*min-height:\s*44px;/s,
+  /@media \(max-width: 700px\)[\s\S]*\.rail-button\s*\{[^}]*min-height:\s*44px;/s,
+  /@media \(max-width: 700px\)[\s\S]*\.map-reset\s*\{[^}]*min-height:\s*44px;/s,
+]) {
+  assert.match(styles, touchTarget);
+}
 assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
 assert.match(details, /\["Map display", formatMapDisplay\(vessel\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);

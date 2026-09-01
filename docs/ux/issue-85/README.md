@@ -89,7 +89,7 @@ The direction was informed by the [Royal Navy Design System](https://github.com/
 
 ## 5. Three visual concepts
 
-The reproducible desktop, iPad/tablet and mobile mock-ups for all three directions are in [concepts.html](concepts.html), with a captured review board in [concepts.png](concepts.png). They use an existing local vessel photograph and representative public fields. They are design-review material, not a production route.
+The reproducible desktop, iPad/tablet and mobile mock-ups for all three directions are in [concepts.html](concepts.html), with a captured review board in [concepts.jpg](concepts.jpg). They use an existing local vessel photograph and representative public fields. They are design-review material, not a production route.
 
 ### Concept A — Operational Map
 
@@ -345,15 +345,15 @@ The increase is bounded and proportionate to the unified search/results, complet
 
 | State | Before | Approved implementation |
 |---|---|---|
-| Desktop default | [before/desktop-default.png](before/desktop-default.png) | [after/desktop-default.png](after/desktop-default.png) |
-| Selected vessel | [before/desktop-vessel.png](before/desktop-vessel.png) | [after/desktop-vessel.png](after/desktop-vessel.png) |
-| Selected shore establishment | [before/desktop-shore.png](before/desktop-shore.png) | [after/desktop-shore.png](after/desktop-shore.png) |
+| Desktop default | [before/desktop-default.png](before/desktop-default.png) | [after/desktop-default.jpg](after/desktop-default.jpg) |
+| Selected vessel | [before/desktop-vessel.png](before/desktop-vessel.png) | [after/desktop-vessel.jpg](after/desktop-vessel.jpg) |
+| Selected shore establishment | [before/desktop-shore.png](before/desktop-shore.png) | [after/desktop-shore.jpg](after/desktop-shore.jpg) |
 | iPad portrait | [before/ipad-portrait.png](before/ipad-portrait.png) | [after/ipad-portrait.png](after/ipad-portrait.png) |
 | iPad landscape | [before/ipad-landscape.png](before/ipad-landscape.png) | [after/ipad-landscape.png](after/ipad-landscape.png) |
-| Mobile selected vessel | [before/mobile-vessel.png](before/mobile-vessel.png) | [after/mobile-vessel.png](after/mobile-vessel.png) |
-| Filtered fleet | — | [after/desktop-filtered.png](after/desktop-filtered.png) |
-| Cluster contents | — | [after/desktop-cluster.png](after/desktop-cluster.png) |
-| Mobile no results | — | [after/mobile-no-results.png](after/mobile-no-results.png) |
+| Mobile selected vessel | [before/mobile-vessel.png](before/mobile-vessel.png) | [after/mobile-vessel.jpg](after/mobile-vessel.jpg) |
+| Filtered fleet | — | [after/desktop-filtered.jpg](after/desktop-filtered.jpg) |
+| Cluster contents | — | [after/desktop-cluster.jpg](after/desktop-cluster.jpg) |
+| Mobile no results | — | [after/mobile-no-results.jpg](after/mobile-no-results.jpg) |
 
 The selected-vessel evidence is the acceptance reference for the mandatory immediately visible fields, including commission date and home port.
 
