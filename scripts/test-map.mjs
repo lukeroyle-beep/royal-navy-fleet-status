@@ -9,7 +9,9 @@ import {
   getMapPosition,
   hasPlottablePosition,
   mapFitPadding,
+  markerAssetCategory,
   markerClassName,
+  markerStatusSlug,
   plottedVessels,
   shouldStackLayout,
 } from "../src/utils/map.js";
@@ -167,6 +169,12 @@ for (const retiredId of ["hms-richmond", "hms-iron-duke", "hms-chiddingfold"]) {
 const plotted = plottedVessels(dataset.vessels)[0];
 assert.match(markerClassName(plotted, plotted.id), /is-selected/);
 assert.doesNotMatch(markerClassName(plotted, "another-id"), /is-selected/);
+assert.match(markerClassName(plotted), /fleet-marker--status-/);
+assert.equal(markerAssetCategory(dataset.vessels.find((vessel) => vessel.service === "Royal Fleet Auxiliary")), "auxiliary");
+assert.equal(markerAssetCategory(dataset.vessels.find((vessel) => vessel.vesselType === "SSN")), "submarine");
+assert.equal(markerAssetCategory(dataset.vessels.find((vessel) => vessel.vesselType === "Patrol vessel")), "patrol");
+assert.equal(markerStatusSlug("In re-fit"), "in-re-fit");
+assert.equal(markerStatusSlug("Unknown"), "unknown");
 assert.equal(clusterSizeClass(9), "fleet-cluster--small");
 assert.equal(clusterSizeClass(10), "fleet-cluster--medium");
 assert.equal(clusterSizeClass(20), "fleet-cluster--large");
@@ -304,6 +312,14 @@ assert.match(
 );
 assert.match(mapComponent, /reset:\s*true/);
 assert.match(mapComponent, /iconSize:\s*\[44,\s*44\]/);
+assert.match(mapComponent, /fleet-marker-symbol/);
+assert.match(mapComponent, /fleet-marker-status/);
+assert.match(mapComponent, /shore-marker-symbol/);
+assert.match(mapComponent, /classList\.add\("has-selection"/);
+assert.match(mapComponent, /classList\.remove\("has-selection"/);
+assert.match(mapComponent, /onOpenCluster/);
+assert.match(mapComponent, /onOpenShoreCluster/);
+assert.match(mapComponent, /focusSelection\(/);
 assert.doesNotMatch(mapComponent, /uncertainty|L\.circle|fleet-region-picker/i);
 assert.match(mapComponent, /coLocatedVessels\(this\.visibleVessels, this\.selectedId\)/);
 assert.match(mapComponent, /const anchor = coLocatedMarkers\[0\]/);

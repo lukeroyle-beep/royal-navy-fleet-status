@@ -19,9 +19,11 @@ assert.doesNotMatch(html, /dataDisclaimer/);
 assert.doesNotMatch(html, /detailDescription|Marker shows the last publicly reported/);
 assert.match(
   html,
-  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailPrimaryMeta"/,
-  "The vessel photograph must appear directly below the vessel name and before the metadata.",
+  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<p id="detailClassLine"[^>]*><\/p>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailPrimaryMeta"/,
+  "The vessel class line and photograph must appear directly below the vessel name and before the metadata.",
 );
+assert.match(html, /id="detailPhotoImage"[^>]*loading="lazy"[^>]*decoding="async"/);
+assert.match(html, /id="detailPhotoFallback"[^>]*>[\s\S]*?Photograph unavailable/);
 assert.doesNotMatch(detailPanel, /photoCaption|Marker shows the last publicly reported/);
 assert.match(detailPanel, /this\.photoCredit\.hidden = false/);
 assert.doesNotMatch(detailPanel, /Evidence checked date|Evidence classification/);
@@ -36,9 +38,9 @@ assert.doesNotMatch(photoService, /Audacious_Under_Construction/);
 assert.match(photoService, /RFA_Proteus_in_Cammell_Laird/);
 assert.match(
   detailPanel,
-  /\["Status", vessel\.status\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\]/,
+  /\["Status", vessel\.status\],[\s\S]*\["Location", vessel\.publicLocationLabel\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\],[\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
 );
-assert.match(detailPanel, /\["Commission date", vessel\.commissionedDate/);
+assert.match(detailPanel, /#showPhotoFallback\(\)/);
 
 for (const filename of filenames) {
   const bytes = fs.readFileSync(new URL(filename, photoDirectory));

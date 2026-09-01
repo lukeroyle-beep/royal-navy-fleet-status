@@ -30,8 +30,8 @@ assert.equal(
   "/royal-navy-fleet-status/data/royal-navy/vessels.json",
 );
 
-assert.match(page, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
-assert.doesNotMatch(page, /<h1 id="mapTitle">Royal Navy Fleet status<\/h1>/);
+assert.match(page, /<h1 id="mapTitle">British Armed Forces Tracker<\/h1>/);
+assert.doesNotMatch(page, /BFA Tracker/);
 assert.equal(validateFleet(dataset).vessels.length, 68);
 assert.equal(
   dataset.vessels.filter(
@@ -77,8 +77,10 @@ assert.equal(getAvailabilityBand(100), "high");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
   total: 68,
   deployed: 17,
+  available: 32,
   inRefit: 14,
   unknown: 4,
+  classified: 1,
 });
 
 const type23Availability = getAvailabilitySummary(

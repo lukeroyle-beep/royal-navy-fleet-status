@@ -3,6 +3,7 @@ import fs from "node:fs";
 
 import { insightsMatchDataset } from "../src/components/FleetInsightsLoader.js";
 import {
+  assessPublicationAge,
   formatDatasetReleaseLabel,
   formatPublicationFreshness,
   formatPublicationChangeLabels,
@@ -205,6 +206,24 @@ assert.equal(
   "31 August 2026",
 );
 assert.equal(formatPublicationFreshness(fleet.metadata), "Published 31 Aug 2026");
+assert.deepEqual(
+  assessPublicationAge(fleet.metadata, { now: "2026-09-01T20:00:00Z" }),
+  {
+    state: "current",
+    ageDays: 1,
+    staleAfterDays: 14,
+    publishedAt: fleet.metadata.releasedAt,
+  },
+);
+assert.deepEqual(
+  assessPublicationAge(fleet.metadata, { now: "2026-09-20T20:00:00Z" }),
+  {
+    state: "stale",
+    ageDays: 20,
+    staleAfterDays: 14,
+    publishedAt: fleet.metadata.releasedAt,
+  },
+);
 assert.deepEqual(formatPublicationChangeLabels(changes), {
   count: "31 Aug · 1 vessel",
   summary:

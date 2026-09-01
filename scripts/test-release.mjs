@@ -173,21 +173,23 @@ assert.deepEqual(
   [...allowedSyntheticTailscaleReferences].sort(),
   "Tracked text must not contain a concrete Tailscale machine or tailnet identifier.",
 );
-assert.match(indexHtml, /<h1 id="mapTitle">Royal Navy Fleet Status<\/h1>/);
-assert.match(indexHtml, /<title>Royal Navy Fleet Status<\/title>/);
+assert.match(indexHtml, /<h1 id="mapTitle">British Armed Forces Tracker<\/h1>/);
+assert.match(indexHtml, /<title>British Armed Forces Tracker<\/title>/);
+assert.doesNotMatch(indexHtml, /BFA Tracker/);
 assert.match(indexHtml, /class="command-header"/);
 assert.match(indexHtml, /class="command-workspace"/);
-assert.match(indexHtml, /id="totalCount"/);
-assert.match(indexHtml, /Overall fleet availability/);
-assert.match(indexHtml, /<details class="fleet-summary-disclosure" open>/);
-assert.match(indexHtml, /id="fleetAvailabilityPercentage"/);
-assert.match(indexHtml, /id="fleetAvailabilityScore"[^>]*aria-label="0% published fleet availability"/);
-assert.match(indexHtml, /id="classAvailabilityScore"[^>]*aria-label="0% selected class availability"/);
-assert.doesNotMatch(indexHtml, />\s*(?:Low|Middle|High) band\b/);
-assert.match(indexHtml, /id="fleetAvailabilityFormula"/);
+assert.match(indexHtml, /id="fleetMap"[^>]*role="region"/);
+assert.match(indexHtml, /id="fleetSummaryBanner"[^>]*aria-label="Fleet status summary"/);
 assert.match(indexHtml, /id="deployedCount"/);
+assert.match(indexHtml, /id="availableCount"/);
 assert.match(indexHtml, /id="refitCount"/);
 assert.match(indexHtml, /id="unknownCount"/);
+assert.match(indexHtml, /id="classifiedCount"/);
+assert.match(indexHtml, /id="activeFilterBar"/);
+assert.match(indexHtml, /id="detailPrimaryMeta"/);
+assert.match(indexHtml, /id="fleetTable"/);
+assert.match(indexHtml, /id="classAvailabilityScore"[^>]*aria-label="0% selected class availability"/);
+assert.doesNotMatch(indexHtml, />\s*(?:Low|Middle|High) band\b/);
 assert.match(indexHtml, /id="filterResultStatus"/);
 assert.match(indexHtml, /id="filterBadge"/);
 assert.match(indexHtml, /id="filterPanel"/);
@@ -199,9 +201,10 @@ assert.match(indexHtml, /id="classRibbon"/);
 assert.match(indexHtml, /id="classAvailabilityPanel"[^>]*aria-live="polite"[^>]*hidden/);
 assert.match(indexHtml, /id="changesPanel"[^>]*hidden/);
 assert.match(indexHtml, /id="detailCard"[^>]*aria-live="polite"[^>]*hidden/);
-assert.match(indexHtml, /Public fleet snapshot/);
-assert.match(indexHtml, /not operational readiness/);
+assert.match(indexHtml, /Public snapshot/);
+assert.match(indexHtml, /not live tracking/);
 assert.doesNotMatch(indexHtml, /id="activeCount"|id="activePercentage"|id="mappedCount"/);
+assert.doesNotMatch(indexHtml, /id="totalCount"|id="fleetAvailabilityScore"/);
 assert.doesNotMatch(indexHtml, /Royal Navy and RFA OSINT Fleet Map/);
 assert.doesNotMatch(indexHtml, /id="mapSubtitle"/);
 assert.doesNotMatch(indexHtml, /Curated open-source intelligence/i);
@@ -211,7 +214,8 @@ assert.doesNotMatch(
   /mapSubtitle|elements\.subtitle|elements\.title/,
   "Application initialisation must not overwrite the static fleet title.",
 );
-assert.match(appSource, /history\.replaceState/);
+assert.match(appSource, /"pushState"[\s\S]*"replaceState"/);
+assert.match(appSource, /window\.history\[method\]/);
 assert.match(publicStateSource, /PUBLIC_STATE_VERSION = 2/);
 assert.match(publicStateSource, /LEGACY_PUBLIC_STATE_VERSION = 1/);
 assert.match(publicStateSource, /createShareablePublicUrl/);
@@ -229,12 +233,11 @@ assert.match(appSource, /getFleetStatusSummary/);
 assert.match(appSource, /getAvailabilitySummary/);
 assert.match(appSource, /getAvailabilityBand/);
 assert.match(appSource, /setAttribute\("aria-label", `\$\{formattedPercentage\} \$\{accessibleDescription\}`\)/);
-assert.match(appSource, /active means deployed or available/);
 assert.match(appSource, /aria-controls", "classAvailabilityPanel"/);
 assert.match(appSource, /formatLocationState\(vessel\.locationState\)/);
 assert.match(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
-  /\["Location", vessel\.publicLocationLabel\]/,
+  /\["Location", vessel\.publicLocationLabel\][\s\S]*\["Class", vessel\.vesselClass\][\s\S]*\["Type", vessel\.vesselType\][\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
 );
 assert.doesNotMatch(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
@@ -246,15 +249,13 @@ assert.doesNotMatch(appSource, /hasPlottablePosition|label: "Mapped records"/);
 assert.match(styles, /\.command-header\s*\{[^}]*display:\s*grid;/s);
 assert.match(styles, /\.command-workspace\s*\{[^}]*position:\s*relative;/s);
 assert.match(styles, /\.command-workspace\s*\{[^}]*overflow:\s*hidden;/s);
-assert.match(styles, /\.status-metrics\s*\{[^}]*grid-template-columns:\s*repeat\(4,/s);
-assert.match(styles, /\.availability-score\[data-availability-band="low"\]/);
-assert.match(styles, /\.availability-score\[data-availability-band="medium"\]/);
-assert.match(styles, /\.availability-score\[data-availability-band="high"\]/);
-assert.match(styles, /\.availability-score\s*\{[^}]*place-content:\s*center;[^}]*place-items:\s*center;[^}]*text-align:\s*center;/s);
+assert.match(styles, /\.fleet-summary-banner\s*\{[^}]*position:\s*absolute;/s);
+assert.match(styles, /\.detail-primary\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
+assert.match(styles, /\.availability-score\s*\{[^}]*color:\s*var\(--selection\);/s);
 assert.match(styles, /@media \(min-width: 701px\) and \(max-width: 1100px\) and \(orientation: portrait\)/);
-assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
+assert.match(styles, /\(min-width: 701px\) and \(max-width: 1400px\) and \(orientation: landscape\) and \(pointer: coarse\)/);
 assert.match(styles, /@media \(max-width: 700px\)/);
-assert.match(styles, /@media \(max-width: 760px\)/);
+assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
 assert.doesNotMatch(styles, /\.topbar\s*\{/);
 
 for (const file of [workflow, viteConfig, checklist, report]) {
