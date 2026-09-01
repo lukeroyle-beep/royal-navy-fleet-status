@@ -57,11 +57,29 @@ export function coLocatedMarkerOffsets(count, spacing = 54) {
 export function markerClassName(vessel, selectedId = null) {
   const classes = [
     "fleet-marker",
+    `fleet-marker--${markerAssetCategory(vessel)}`,
+    `fleet-marker--status-${markerStatusSlug(vessel?.status)}`,
     `fleet-marker--${vessel.locationPrecision}`,
     `fleet-marker--${vessel.locationState}`,
   ];
   if (vessel.id === selectedId) classes.push("is-selected");
   return classes.join(" ");
+}
+
+export function markerAssetCategory(vessel) {
+  if (vessel?.service === "Royal Fleet Auxiliary") return "auxiliary";
+  if (["SSBN", "SSN"].includes(vessel?.vesselType)) return "submarine";
+  if (["Patrol vessel", "Offshore patrol vessel"].includes(vessel?.vesselType)) {
+    return "patrol";
+  }
+  return "warship";
+}
+
+export function markerStatusSlug(value) {
+  return String(value || "unknown")
+    .toLocaleLowerCase("en-GB")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export function clusterSizeClass(count) {

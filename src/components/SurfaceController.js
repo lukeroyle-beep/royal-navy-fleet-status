@@ -1,5 +1,6 @@
 import {
   COMPACT_SURFACE_QUERY,
+  SHEET_SURFACE_QUERY,
   nextOpenSurfaces,
   openSurface,
 } from "../utils/interface.js";
@@ -13,6 +14,7 @@ export class SurfaceController {
     this.onChange = onChange;
     this.returnContexts = new Map();
     this.media = window.matchMedia(COMPACT_SURFACE_QUERY);
+    this.sheetMedia = window.matchMedia(SHEET_SURFACE_QUERY);
     this.openSurfaces = new Set(
       [...surfaces].filter(([, element]) => !element.hidden).map(([name]) => name),
     );
@@ -28,6 +30,7 @@ export class SurfaceController {
       if (event.key === "Escape" && this.openSurfaces.size) this.closeMostRecent({ restoreFocus: true });
     });
     this.media.addEventListener?.("change", () => this.#handleViewportChange());
+    this.sheetMedia.addEventListener?.("change", () => this.#render(this.openSurfaces));
     this.#handleViewportChange();
   }
 
@@ -120,7 +123,7 @@ export class SurfaceController {
       this.triggers.get(name)?.setAttribute("aria-expanded", open.toString());
     }
     if (this.backdrop) {
-      this.backdrop.hidden = !(this.isCompact() && next.size > 0);
+      this.backdrop.hidden = !(this.sheetMedia.matches && next.size > 0);
     }
     this.onChange(new Set(next));
   }

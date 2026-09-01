@@ -1,5 +1,7 @@
 export const COMPACT_SURFACE_QUERY =
   "(max-width: 1100px) and (orientation: portrait), (max-width: 700px), (pointer: coarse) and (max-width: 1400px)";
+export const SHEET_SURFACE_QUERY =
+  "(max-width: 1100px) and (orientation: portrait), (max-width: 700px)";
 export const RIGHT_SIDE_SURFACES = Object.freeze(["detail", "layers", "filters", "changes"]);
 
 export function countActiveFilters({
