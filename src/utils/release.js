@@ -1,6 +1,9 @@
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const ISO_INSTANT =
   /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
+const MILLISECONDS_PER_DAY = 86_400_000;
+
+export const PUBLICATION_STALE_AFTER_DAYS = 14;
 
 export function readReleaseMetadata(metadata, { allowLegacy = true } = {}) {
   if (!metadata || typeof metadata !== "object" || !isIsoDate(metadata.asOfDate)) {
@@ -57,6 +60,23 @@ export function formatPublicationFreshness(metadata) {
   const release = readReleaseMetadata(metadata);
   const date = release.releasedAt?.slice(0, 10) || release.asOfDate;
   return `Published ${formatDate(date, { short: true, includeYear: true })}`;
+}
+
+export function assessPublicationAge(
+  metadata,
+  { now = Date.now(), staleAfterDays = PUBLICATION_STALE_AFTER_DAYS } = {},
+) {
+  const release = readReleaseMetadata(metadata);
+  const publishedAt = release.releasedAt || `${release.asOfDate}T00:00:00Z`;
+  const nowValue = new Date(now).valueOf();
+  const publishedValue = new Date(publishedAt).valueOf();
+  const ageDays = Math.max(0, Math.floor((nowValue - publishedValue) / MILLISECONDS_PER_DAY));
+  return {
+    state: ageDays > staleAfterDays ? "stale" : "current",
+    ageDays,
+    staleAfterDays,
+    publishedAt,
+  };
 }
 
 export function formatPublicationChangeLabels(publication) {

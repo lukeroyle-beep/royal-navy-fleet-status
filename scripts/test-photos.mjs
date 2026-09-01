@@ -6,6 +6,7 @@ const photoService = fs.readFileSync(new URL("../src/components/VesselPhotoServi
 const detailPanel = fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8");
 const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const filenames = fs.readdirSync(photoDirectory).filter((filename) => /\.(?:jpe?g|png)$/i.test(filename));
+const uxDirectory = new URL("../docs/ux/issue-85/", import.meta.url);
 
 assert.equal(filenames.length, 68, "Every current fleet record must have one curated local photograph.");
 for (const retiredPhoto of ["richmond.jpg", "iron_duke.jpg", "chiddingfold.jpg"]) {
@@ -19,8 +20,13 @@ assert.doesNotMatch(html, /dataDisclaimer/);
 assert.doesNotMatch(html, /detailDescription|Marker shows the last publicly reported/);
 assert.match(
   html,
-  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailPrimaryMeta"/,
-  "The vessel photograph must appear directly below the vessel name and before the metadata.",
+  /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<p id="detailClassLine"[^>]*><\/p>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailPrimaryMeta"/,
+  "The vessel class line and photograph must appear directly below the vessel name and before the metadata.",
+);
+assert.match(html, /id="detailPhotoImage"[^>]*loading="lazy"[^>]*decoding="async"/);
+assert.match(
+  html,
+  /id="detailPhotoFallback"[^>]*role="img"[^>]*aria-label="Photograph unavailable"[^>]*>[\s\S]*?Photograph unavailable/,
 );
 assert.doesNotMatch(detailPanel, /photoCaption|Marker shows the last publicly reported/);
 assert.match(detailPanel, /this\.photoCredit\.hidden = false/);
@@ -36,9 +42,9 @@ assert.doesNotMatch(photoService, /Audacious_Under_Construction/);
 assert.match(photoService, /RFA_Proteus_in_Cammell_Laird/);
 assert.match(
   detailPanel,
-  /\["Status", vessel\.status\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\]/,
+  /\["Status", vessel\.status\],[\s\S]*\["Location", vessel\.publicLocationLabel\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\],[\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
 );
-assert.match(detailPanel, /\["Commission date", vessel\.commissionedDate/);
+assert.match(detailPanel, /#showPhotoFallback\(\)/);
 
 for (const filename of filenames) {
   const bytes = fs.readFileSync(new URL(filename, photoDirectory));
@@ -59,4 +65,27 @@ for (const filename of filenames) {
   }
 }
 
+for (const filename of listFilesRecursively(uxDirectory).filter((name) => /\.(?:jpe?g|png)$/i.test(name))) {
+  const bytes = fs.readFileSync(new URL(filename, uxDirectory));
+  if (/\.png$/i.test(filename)) {
+    assert.deepEqual(
+      [...bytes.subarray(0, 8)],
+      [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a],
+      `${filename} uses a .png extension but is not PNG encoded.`,
+    );
+  } else {
+    assert.deepEqual([...bytes.subarray(0, 2)], [0xff, 0xd8], `${filename} is not JPEG encoded.`);
+    assert.deepEqual([...bytes.subarray(-2)], [0xff, 0xd9], `${filename} is truncated.`);
+  }
+}
+
 console.log(`Fleet photo tests passed for ${filenames.length} local images.`);
+
+function listFilesRecursively(directory, prefix = "") {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const relativePath = `${prefix}${entry.name}`;
+    return entry.isDirectory()
+      ? listFilesRecursively(new URL(`${entry.name}/`, directory), `${relativePath}/`)
+      : [relativePath];
+  });
+}

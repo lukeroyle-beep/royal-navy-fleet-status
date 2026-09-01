@@ -3,43 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Interactive map of last publicly reported Royal Navy and Royal Fleet Auxiliary vessel locations." />
-    <title>Royal Navy Fleet Status</title>
+    <meta name="description" content="Interactive map of publicly reported British Armed Forces vessels and shore establishments." />
+    <title>British Armed Forces Tracker</title>
     <link rel="icon" href="data:," />
   </head>
   <body>
     <main id="app">
       <header class="command-header">
         <div class="brand-lockup">
-          <span class="brand-mark" aria-hidden="true">RN</span>
+          <span class="brand-mark" aria-hidden="true">UK</span>
           <div>
-            <h1 id="mapTitle">Royal Navy Fleet Status</h1>
+            <h1 id="mapTitle">British Armed Forces Tracker</h1>
             <p class="subtitle">Publicly reported locations · not live tracking</p>
           </div>
         </div>
         <label class="top-search">
-          <span class="sr-only">Find a vessel</span>
-          <input id="searchInput" type="search" autocomplete="off" placeholder="Search vessels or pennants" />
+          <span class="sr-only">Search vessels and shore establishments</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="Search vessels and establishments" />
         </label>
         <div class="snapshot-meta" aria-label="Public dataset publication information">
           <div class="snapshot-item"><span>Snapshot</span><strong id="asOfDate">Loading</strong></div>
           <div class="snapshot-item freshness-item"><span>Public data</span><strong id="publicationFreshness">Loading</strong></div>
         </div>
         <nav class="top-actions" aria-label="Map controls">
-          <button id="fleetToggle" class="toolbar-button" type="button" aria-expanded="true" aria-controls="fleetDrawer">Fleet</button>
           <button id="layersToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="layersPanel">Layers</button>
           <button id="filterToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="filterPanel">
             Filters <span id="filterBadge" class="control-badge" aria-label="0 active filters" hidden>0</span>
-          </button>
-          <button id="changesToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="changesPanel" hidden>
-            Compare <span id="changesCount" class="control-badge"></span>
           </button>
         </nav>
       </header>
 
       <section class="command-workspace">
+        <nav class="map-rail" aria-label="Workspace views">
+          <button id="fleetToggle" class="rail-button" type="button" aria-expanded="false" aria-controls="fleetDrawer">
+            <span class="rail-icon" aria-hidden="true">☷</span><span>Assets</span>
+          </button>
+          <button id="changesToggle" class="rail-button" type="button" aria-expanded="false" aria-controls="changesPanel" hidden>
+            <span class="rail-icon" aria-hidden="true">↺</span><span>Changes</span><span id="changesCount" class="control-badge"></span>
+          </button>
+        </nav>
         <section class="map-stage" aria-label="Interactive fleet map">
           <div id="fleetMap" role="region" aria-label="Map of publicly reported vessel locations"></div>
+          <section id="fleetSummaryBanner" class="fleet-summary-banner" aria-label="Fleet status summary">
+            <button type="button" data-summary-filter="Deployed"><strong id="deployedCount">0</strong><span>Deployed</span></button>
+            <button type="button" data-summary-filter="Available"><strong id="availableCount">0</strong><span>Available</span></button>
+            <button type="button" data-summary-filter="In re-fit"><strong id="refitCount">0</strong><span>In re-fit</span></button>
+            <button type="button" data-summary-filter="Unknown"><strong id="unknownCount">0</strong><span>Unknown</span></button>
+            <button type="button" data-summary-location="withheld"><strong id="classifiedCount">0</strong><span>Classified</span></button>
+          </section>
+          <section id="activeFilterBar" class="active-filter-bar" aria-label="Active filters" hidden>
+            <div id="activeFilterChips" class="active-filter-chips"></div>
+            <button id="clearActiveFilters" type="button">Clear all</button>
+          </section>
+          <div id="loadingState" class="loading-state" role="status" aria-live="polite">
+            <span class="loading-spinner" aria-hidden="true"></span>
+            <strong>Loading fleet picture</strong>
+          </div>
+          <div id="dataHealthNotice" class="data-health-notice" role="status" hidden></div>
           <button id="resetMap" class="map-reset" type="button">Reset view</button>
           <div id="mapNotice" class="map-notice" role="status" hidden>
             Basemap tiles are unavailable. Vessel search and details remain available.
@@ -48,10 +68,10 @@
         </section>
         <button id="surfaceBackdrop" class="surface-backdrop" type="button" aria-label="Close open panel" hidden></button>
 
-        <aside id="fleetDrawer" class="surface drawer fleet-drawer is-open" data-surface="fleet" aria-labelledby="fleetDrawerTitle">
+        <aside id="fleetDrawer" class="surface drawer fleet-drawer" data-surface="fleet" aria-labelledby="fleetDrawerTitle" hidden>
           <header class="surface-header">
-            <div><p class="eyebrow">Public fleet snapshot</p><h2 id="fleetDrawerTitle">Fleet</h2></div>
-            <button class="surface-close" type="button" data-close-surface="fleet" aria-label="Close fleet drawer">Close</button>
+            <div><p class="eyebrow">Public operational picture</p><h2 id="fleetDrawerTitle">Assets</h2></div>
+            <button class="surface-close" type="button" data-close-surface="fleet" aria-label="Close asset list">Close</button>
           </header>
           <section class="snapshot-controls" aria-labelledby="snapshotControlsTitle">
             <label for="snapshotSelect"><span id="snapshotControlsTitle">Public snapshot</span></label>
@@ -63,25 +83,31 @@
             <button id="resetFilters" type="button" hidden>Clear all</button>
           </div>
           <p id="plotResultStatus" class="plot-result-status" role="status" aria-live="polite">Map: loading</p>
-          <details class="fleet-summary-disclosure" open>
-            <summary>Fleet snapshot</summary>
-            <div class="fleet-availability" aria-label="Overall fleet availability">
-              <div><span>Published availability</span><p id="fleetAvailabilityFormula">0 active of 0 total vessels</p></div>
-              <div id="fleetAvailabilityScore" class="availability-score fleet-availability-score" data-availability-band="low" aria-label="0% published fleet availability">
-                <strong id="fleetAvailabilityPercentage">0%</strong>
+          <section id="clusterResults" class="cluster-results" aria-labelledby="clusterResultsTitle" hidden>
+            <div class="section-heading"><h3 id="clusterResultsTitle">Cluster contents</h3><button id="closeClusterResults" type="button">Dismiss</button></div>
+            <ul id="clusterResultList"></ul>
+          </section>
+          <section id="unifiedShoreResults" class="unified-shore-results" aria-labelledby="unifiedShoreTitle" hidden>
+            <div class="results-heading"><h3 id="unifiedShoreTitle">Shore establishments</h3><span id="unifiedShoreStatus"></span></div>
+            <ul id="unifiedShoreList"></ul>
+          </section>
+          <section class="results" aria-label="Filtered vessel results">
+            <div class="results-heading">
+              <div><h2>Vessels</h2><span id="resultsStatus" role="status"></span></div>
+              <div class="result-view-toggle" role="group" aria-label="Vessel results presentation">
+                <button id="cardViewToggle" type="button" aria-pressed="true">List</button>
+                <button id="tableViewToggle" type="button" aria-pressed="false">Table</button>
               </div>
             </div>
-            <div class="status-metrics">
-              <div><strong id="totalCount">0</strong><span>Vessels</span></div>
-              <div><strong id="deployedCount">0</strong><span>Deployed</span></div>
-              <div><strong id="refitCount">0</strong><span>In re-fit</span></div>
-              <div><strong id="unknownCount">0</strong><span>Unknown</span></div>
-            </div>
-            <p class="status-note">Published labels describe this snapshot, not operational readiness.</p>
-          </details>
-          <section class="results" aria-label="Filtered vessel results">
-            <div class="results-heading"><h2>Vessels</h2><span id="resultsStatus" role="status"></span></div>
+            <p id="fleetEmptyState" class="empty-state" hidden>No vessels match the current search and filters. Clear filters or search for another asset.</p>
             <ul id="vesselList"></ul>
+            <div id="fleetTableWrap" class="fleet-table-wrap" hidden>
+              <table id="fleetTable">
+                <caption class="sr-only">Filtered public vessel records</caption>
+                <thead><tr><th scope="col">Vessel</th><th scope="col">Service</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Public location</th></tr></thead>
+                <tbody id="fleetTableBody"></tbody>
+              </table>
+            </div>
           </section>
         </aside>
 
@@ -93,13 +119,15 @@
           <article class="detail-card" id="detailCard" aria-live="polite" hidden>
             <p class="eyebrow" id="detailKind">Fleet record</p>
             <h2 id="detailTitle" tabindex="-1" data-surface-focus>Select a vessel</h2>
+            <p id="detailClassLine" class="detail-class-line"></p>
             <figure id="detailPhoto" class="detail-photo" hidden>
-              <img id="detailPhotoImage" alt="" />
+              <img id="detailPhotoImage" alt="" loading="lazy" decoding="async" />
+              <div id="detailPhotoFallback" class="detail-photo-fallback" role="img" aria-label="Photograph unavailable" hidden><span aria-hidden="true">▧</span><strong>Photograph unavailable</strong></div>
               <figcaption id="detailPhotoCredit" class="detail-photo-credit" hidden></figcaption>
             </figure>
             <dl id="detailPrimaryMeta" class="detail-meta detail-primary"></dl>
             <section id="detailSupplementary" class="detail-supplementary" aria-labelledby="detailSupplementaryTitle" hidden>
-              <h3 id="detailSupplementaryTitle">Vessel details</h3>
+              <h3 id="detailSupplementaryTitle">Operational context</h3>
               <dl id="detailMeta" class="detail-meta"></dl>
             </section>
             <details id="vesselTimeline" class="vessel-timeline" hidden>
@@ -191,7 +219,7 @@
             </section>
           </section>
           <div class="filter-grid">
-            <label>Service<select id="serviceFilter"><option value="">All services</option></select></label>
+            <label>Service<select id="serviceFilter"><option value="">Royal Navy and RFA</option></select></label>
             <label>Status<select id="statusFilter"><option value="">All statuses</option></select></label>
             <label>Vessel type<select id="typeFilter"><option value="">All vessel types</option></select></label>
             <label>Public location status

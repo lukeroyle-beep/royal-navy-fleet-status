@@ -5,6 +5,7 @@ import { SurfaceController } from "../src/components/SurfaceController.js";
 import {
   COMPACT_SURFACE_QUERY,
   RIGHT_SIDE_SURFACES,
+  SHEET_SURFACE_QUERY,
   countActiveFilters,
   formatVesselResultSummary,
   nextOpenSurfaces,
@@ -90,6 +91,7 @@ for (const locationState of ["unconfirmed", "no_recent_information"]) {
 assert.equal(countActiveFilters(), 0);
 assert.equal(countActiveFilters({ query: "Duncan", status: "Deployed", service: "Royal Navy" }), 3);
 assert.equal(countActiveFilters({ presence: "overseas" }), 1);
+assert.equal(countActiveFilters({ shoreQuery: "Devonport", shoreType: "Naval base" }), 2);
 assert.equal(formatVesselResultSummary(68, 68, 0), "Showing 68 vessels");
 assert.equal(formatVesselResultSummary(18, 68, 3), "Showing 18 of 68 vessels · 3 filters");
 assert.equal(formatVesselResultSummary(1, 68, 1), "Showing 1 of 68 vessels · 1 filter");
@@ -112,9 +114,12 @@ assert.deepEqual(
 assert.deepEqual([...openSurface(new Set(["fleet", "filters"]), "detail", true)], ["detail"]);
 assert.deepEqual(RIGHT_SIDE_SURFACES, ["detail", "layers", "filters", "changes"]);
 assert.match(COMPACT_SURFACE_QUERY, /pointer: coarse/);
+assert.doesNotMatch(SHEET_SURFACE_QUERY, /pointer: coarse/);
+assert.match(SHEET_SURFACE_QUERY, /orientation: portrait/);
 
 for (const id of [
   "fleetToggle",
+  "changesToggle",
   "layersToggle",
   "filterToggle",
   "fleetDrawer",
@@ -126,9 +131,33 @@ for (const id of [
   "plotResultStatus",
   "filterPlotStatus",
   "classMapSummary",
+  "fleetSummaryBanner",
+  "deployedCount",
+  "availableCount",
+  "refitCount",
+  "unknownCount",
+  "classifiedCount",
+  "activeFilterBar",
+  "activeFilterChips",
+  "clearActiveFilters",
+  "loadingState",
+  "dataHealthNotice",
+  "fleetTable",
+  "fleetTableBody",
+  "unifiedShoreResults",
+  "detailClassLine",
+  "detailPhotoFallback",
 ]) {
   assert.match(html, new RegExp(`id="${id}"`));
 }
+assert.match(html, /<title>British Armed Forces Tracker<\/title>/);
+assert.match(html, /<h1 id="mapTitle">British Armed Forces Tracker<\/h1>/);
+assert.doesNotMatch(html, /BFA Tracker/);
+assert.match(html, /data-summary-filter="Deployed"/);
+assert.match(html, /data-summary-filter="Available"/);
+assert.match(html, /data-summary-filter="In re-fit"/);
+assert.match(html, /data-summary-filter="Unknown"/);
+assert.match(html, /data-summary-location="withheld"/);
 assert.doesNotMatch(html, /id="shareButton"|id="shareStatus"/);
 assert.doesNotMatch(app, /copyShareableView|copyTextFallback|navigator\.clipboard|execCommand\("copy"\)/);
 assert.match(html, /id="reloadApp"[^>]*hidden/);
@@ -156,7 +185,7 @@ assert.match(html, /id="snapshotDescription"[^>]*role="status"[^>]*aria-live="po
 assert.match(html, /id="changedOnlyToggle"[^>]*type="checkbox"[^>]*aria-describedby=/);
 assert.match(html, /<section id="detailSupplementary"[^>]*hidden/);
 assert.match(html, /id="detailSupplementary"[^>]*aria-labelledby="detailSupplementaryTitle"/);
-assert.match(html, /id="detailSupplementaryTitle">Vessel details<\/h3>/);
+assert.match(html, /id="detailSupplementaryTitle">Operational context<\/h3>/);
 assert.match(html, /<details id="vesselTimeline"[^>]*hidden/);
 assert.match(html, /<summary id="vesselTimelineTitle">Public status timeline<\/summary>/);
 assert.doesNotMatch(html, /id="detailDisclosure"|class="detail-disclosure"/);
@@ -169,12 +198,12 @@ assert.match(app, /selectShoreEstablishment\(retainedSelection\.shoreEstablishme
 assert.match(app, /filterFleetVessels\(dataset\.vessels/);
 assert.match(app, /changedVesselIds: changedOnly \? publicationComparison\?\.changedCurrentVesselIds/);
 assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
-assert.match(styles, /@media \(max-width: 430px\)[\s\S]*\.snapshot-controls\s*\{\s*grid-template-columns:\s*1fr;/);
-assert.match(styles, /\(pointer: coarse\) and \(min-width: 701px\) and \(max-width: 1400px\)/);
-assert.match(styles, /\.surface-backdrop\s*\{\s*display:\s*none;/);
-assert.match(styles, /@media \(max-width: 700px\)[\s\S]*width:\s*min\(340px, calc\(100% - 18px\)\)/);
+assert.match(styles, /@media \(min-width: 701px\) and \(max-width: 1100px\) and \(orientation: portrait\)/);
+assert.match(styles, /\(min-width: 701px\) and \(max-width: 1400px\) and \(orientation: landscape\) and \(pointer: coarse\)/);
+assert.match(styles, /\.surface-backdrop\s*\{[^}]*z-index:\s*790;/s);
+assert.match(styles, /@media \(max-width: 700px\)[\s\S]*\.surface\.drawer, \.surface\.popover\s*\{[^}]*bottom:\s*0;[^}]*border-radius:\s*16px 16px 0 0;/s);
 assert.doesNotMatch(styles, /\.surface-header::before|max-height:\s*min\(72dvh/);
-assert.match(styles, /grid-auto-columns:\s*minmax\(0, 1fr\)/);
+assert.match(styles, /\.map-stage, #fleetMap\s*\{[^}]*inset:\s*0;/s);
 assert.match(details, /getVesselPublicTimeline/);
 for (const id of ["fleetLayerToggle", "shoreLayerToggle", "clusterLayerToggle"]) {
   assert.match(html, new RegExp(`id="${id}"[^>]*type="checkbox"`));
@@ -184,6 +213,21 @@ assert.doesNotMatch(app, /uncertaintyLayer|uncertaintyVessel|setUncertaintyAreas
 assert.match(app, /locationState: elements\.location\.value/);
 assert.match(app, /persistPublicState\(publicStorage, state, publicStateCatalog\)/);
 assert.match(app, /createShareablePublicUrl\([\s\S]*publicStateCatalog/);
+assert.match(app, /mode === "push"[\s\S]*"pushState"[\s\S]*"replaceState"/);
+assert.match(app, /window\.addEventListener\("popstate"/);
+assert.match(app, /renderActiveFilterChips\(\)/);
+assert.match(app, /button\.dataset\.clearFilter = key/);
+assert.match(app, /function clearSingleFilter\(key\)/);
+assert.match(app, /if \(status\) elements\.status\.value/);
+assert.match(app, /if \(location\) elements\.location\.value/);
+assert.match(app, /\[\s*"shoreQuery",[\s\S]*Shore search:/);
+assert.match(app, /\[\s*"shoreType",[\s\S]*Shore type:/);
+assert.match(app, /elements\.shoreSearch\.value = ""/);
+assert.match(app, /elements\.shoreType\.value = ""/);
+assert.match(app, /function renderList\(vessels\)/);
+assert.match(app, /elements\.tableBody\.replaceChildren\(/);
+assert.match(app, /function setFleetResultView\(view\)/);
+assert.match(app, /function renderUnifiedShoreResults\(/);
 assert.doesNotMatch(html, /Deployment regions|Evidence requiring review|Recent evidence events|Overseas support facilities/);
 assert.match(html, /id="filterBadge"[^>]*hidden/);
 assert.match(html, /id="resetFilters"[^>]*hidden/);
@@ -208,7 +252,19 @@ assert.match(app, /returnSurface: "layers"/);
 assert.match(html, /id="detailTitle"[^>]*tabindex="-1"[^>]*data-surface-focus/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
-assert.match(styles, /outline:\s*3px solid var\(--accent-strong\)/);
+assert.match(styles, /outline:\s*3px solid #ffbf47/);
+assert.match(styles, /\.active-filter-bar\s*\{[^}]*z-index:\s*810;/s);
+for (const touchTarget of [
+  /\.fleet-summary-banner button\s*\{[^}]*min-height:\s*44px;/s,
+  /\.active-filter-chips button, #clearActiveFilters\s*\{[^}]*min-height:\s*44px;/s,
+  /\.surface-close, \.section-heading button, \.result-summary button\s*\{[^}]*min-height:\s*44px;/s,
+  /\.result-view-toggle button\s*\{[^}]*min-width:\s*44px;[^}]*min-height:\s*44px;/s,
+  /#fleetTable button\s*\{[^}]*min-height:\s*44px;/s,
+  /@media \(max-width: 700px\)[\s\S]*\.rail-button\s*\{[^}]*min-height:\s*44px;/s,
+  /@media \(max-width: 700px\)[\s\S]*\.map-reset\s*\{[^}]*min-height:\s*44px;/s,
+]) {
+  assert.match(styles, touchTarget);
+}
 assert.match(details, /\["Snapshot", formatSnapshotDate\(asOfDate\)\]/);
 assert.match(details, /\["Map display", formatMapDisplay\(vessel\)\]/);
 assert.match(details, /this\.primaryMeta\.replaceChildren/);
@@ -216,15 +272,19 @@ assert.match(details, /this\.supplementaryTitle\.textContent = "Vessel details"/
 assert.match(details, /this\.supplementaryTitle\.textContent = "Establishment details"/);
 assert.match(
   details,
-  /const entries = \[\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\]/s,
+  /const primaryEntries = \[\s*\["Status", vessel\.status\],\s*\["Location", vessel\.publicLocationLabel\],\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\],\s*\["Pennant", vessel\.pennantNumber[^\n]*\],\s*\["Commission date", vessel\.commissionedDate[^\n]*\],\s*\["Home port", vessel\.homePort/s,
 );
 const primaryDetailsBlock = details.match(/const primaryEntries = \[[\s\S]*?\n    \];/)?.[0];
 assert.ok(primaryDetailsBlock);
-assert.doesNotMatch(primaryDetailsBlock, /\["Class"|\["Type"/);
+for (const requiredTerm of ["Status", "Location", "Class", "Type", "Pennant", "Commission date", "Home port", "Precision", "Snapshot"]) {
+  assert.match(primaryDetailsBlock, new RegExp(`\\["${requiredTerm}"`));
+}
+assert.match(details, /this\.classLine\.textContent = `\$\{vessel\.vesselClass\} · \$\{vessel\.vesselType\}`/);
+assert.match(details, /this\.kind\.textContent = \[vessel\.service, vessel\.pennantNumber\]/);
+assert.match(details, /this\.supplementaryTitle\.textContent = "Operational context"/);
 assert.match(details, /this\.timeline\.open = false/);
 assert.doesNotMatch(details, /\["Last public report",/);
-assert.match(styles, /\.vessel-timeline > summary::after\s*\{\s*content:\s*"\+"/);
-assert.match(styles, /\.vessel-timeline\[open\] > summary::after\s*\{\s*content:\s*"−"/);
+assert.match(styles, /\.vessel-timeline > summary[^\{]*\{[^}]*min-height:\s*44px;/s);
 assert.doesNotMatch(details, /Supporting source|Evidence grade|Confidence score|Analyst note|Retrieval status/i);
 
 testCompactDetailFocusRestoration();

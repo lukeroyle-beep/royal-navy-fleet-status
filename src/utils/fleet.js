@@ -21,8 +21,10 @@ export function getFleetStatusSummary(vessels) {
   return {
     total: vessels.length,
     deployed: count("Deployed"),
+    available: count("Available"),
     inRefit: count("In re-fit"),
     unknown: count("Unknown"),
+    classified: vessels.filter((vessel) => vessel.locationState === "withheld").length,
   };
 }
 

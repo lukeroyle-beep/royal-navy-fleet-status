@@ -32,11 +32,21 @@ function touchDistance(firstTouch, secondTouch) {
 }
 
 export class FleetMap {
-  constructor({ container, notice, onSelect, onSelectEstablishment, onViewChange = () => {} }) {
+  constructor({
+    container,
+    notice,
+    onSelect,
+    onSelectEstablishment,
+    onOpenCluster = () => {},
+    onOpenShoreCluster = () => {},
+    onViewChange = () => {},
+  }) {
     this.container = container;
     this.notice = notice;
     this.onSelect = onSelect;
     this.onSelectEstablishment = onSelectEstablishment;
+    this.onOpenCluster = onOpenCluster;
+    this.onOpenShoreCluster = onOpenShoreCluster;
     this.onViewChange = onViewChange;
     this.markers = new Map();
     this.shoreMarkers = new Map();
@@ -113,6 +123,14 @@ export class FleetMap {
       iconCreateFunction: (cluster) => this.#createClusterIcon(cluster),
     });
     this.map.addLayer(this.clusterGroup);
+    this.clusterGroup.on("clusterclick", (event) => {
+      const vessels = event.layer
+        .getAllChildMarkers()
+        .map((marker) => marker.options.vessel)
+        .filter(Boolean)
+        .sort((left, right) => left.name.localeCompare(right.name));
+      this.onOpenCluster(vessels);
+    });
     this.unclusteredGroup = L.layerGroup().addTo(this.map);
     this.selectionGroup = L.layerGroup().addTo(this.map);
 
@@ -128,6 +146,14 @@ export class FleetMap {
       iconCreateFunction: (cluster) => this.#createShoreClusterIcon(cluster),
     });
     this.map.addLayer(this.shoreClusterGroup);
+    this.shoreClusterGroup.on("clusterclick", (event) => {
+      const establishments = event.layer
+        .getAllChildMarkers()
+        .map((marker) => marker.options.establishment)
+        .filter(Boolean)
+        .sort((left, right) => left.name.localeCompare(right.name));
+      this.onOpenShoreCluster(establishments);
+    });
     this.unclusteredShoreGroup = L.layerGroup().addTo(this.map);
     this.shoreSelectionGroup = L.layerGroup().addTo(this.map);
 
@@ -340,6 +366,7 @@ export class FleetMap {
     this.#refreshShoreMarkerIcons();
     this.#syncFleetLayers();
     this.#syncShoreLayers();
+    this.container.classList.add("has-selection");
 
     if (!focus) return;
     if (!this.fleetVisible) return;
@@ -360,6 +387,7 @@ export class FleetMap {
     this.#refreshShoreMarkerIcons();
     this.#syncFleetLayers();
     this.#syncShoreLayers();
+    this.container.classList.add("has-selection");
 
     if (!focus || !this.shoreVisible) return;
     const marker = this.shoreMarkers.get(establishment.id);
@@ -378,6 +406,21 @@ export class FleetMap {
     this.#refreshShoreMarkerIcons();
     this.#syncFleetLayers();
     this.#syncShoreLayers();
+    this.container.classList.remove("has-selection");
+  }
+
+  focusSelection({ top = 0, right = 0, bottom = 0, left = 0 } = {}) {
+    const marker = this.selectedId
+      ? this.markers.get(this.selectedId)
+      : this.shoreMarkers.get(this.selectedShoreId);
+    if (!marker || (!this.fleetVisible && this.selectedId) || (!this.shoreVisible && this.selectedShoreId)) {
+      return;
+    }
+    this.map.panInside(marker.getLatLng(), {
+      animate: this.interactionProfile.animationsEnabled,
+      paddingTopLeft: [left + 28, top + 28],
+      paddingBottomRight: [right + 28, bottom + 28],
+    });
   }
 
   resetView() {
@@ -458,7 +501,7 @@ export class FleetMap {
   #createMarkerIcon(vessel) {
     return L.divIcon({
       className: markerClassName(vessel, this.selectedId),
-      html: '<span aria-hidden="true"></span>',
+      html: '<span class="fleet-marker-symbol" aria-hidden="true"><i class="fleet-marker-category"></i><i class="fleet-marker-status"></i></span>',
       iconAnchor: [22, 22],
       iconSize: [44, 44],
       tooltipAnchor: [0, -16],
@@ -469,7 +512,7 @@ export class FleetMap {
     const selectedClass = establishment.id === this.selectedShoreId ? " is-selected" : "";
     return L.divIcon({
       className: `shore-marker${selectedClass}`,
-      html: '<span aria-hidden="true"></span>',
+      html: '<span class="shore-marker-symbol" aria-hidden="true"><i></i></span>',
       iconAnchor: [22, 22],
       iconSize: [44, 44],
       tooltipAnchor: [0, -16],
@@ -497,7 +540,10 @@ export class FleetMap {
   #refreshMarkerIcons() {
     for (const [id, marker] of this.markers) {
       const vessel = marker.options.vessel || this.visibleVessels.find((item) => item.id === id);
-      if (vessel) marker.setIcon(this.#createMarkerIcon(vessel));
+      if (vessel) {
+        marker.setIcon(this.#createMarkerIcon(vessel));
+        marker.getElement()?.setAttribute("aria-current", (id === this.selectedId).toString());
+      }
     }
   }
 
@@ -506,7 +552,10 @@ export class FleetMap {
       const establishment =
         marker.options.establishment ||
         this.visibleShoreEstablishments.find((candidate) => candidate.id === id);
-      if (establishment) marker.setIcon(this.#createShoreMarkerIcon(establishment));
+      if (establishment) {
+        marker.setIcon(this.#createShoreMarkerIcon(establishment));
+        marker.getElement()?.setAttribute("aria-current", (id === this.selectedShoreId).toString());
+      }
     }
   }
 
@@ -592,12 +641,7 @@ export class FleetMap {
       .filter((marker) => marker && marker !== selectedMarker);
     const activeGroup = this.clusteringEnabled ? this.shoreClusterGroup : this.unclusteredShoreGroup;
     for (const marker of markers) activeGroup.addLayer(marker);
-    if (
-      selectedMarker &&
-      this.visibleShoreEstablishments.some((establishment) => establishment.id === this.selectedShoreId)
-    ) {
-      this.shoreSelectionGroup.addLayer(selectedMarker);
-    }
+    if (selectedMarker) this.shoreSelectionGroup.addLayer(selectedMarker);
   }
 
   #showTileNotice() {

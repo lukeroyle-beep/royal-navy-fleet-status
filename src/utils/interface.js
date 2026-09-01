@@ -1,5 +1,7 @@
 export const COMPACT_SURFACE_QUERY =
   "(max-width: 1100px) and (orientation: portrait), (max-width: 700px), (pointer: coarse) and (max-width: 1400px)";
+export const SHEET_SURFACE_QUERY =
+  "(max-width: 1100px) and (orientation: portrait), (max-width: 700px)";
 export const RIGHT_SIDE_SURFACES = Object.freeze(["detail", "layers", "filters", "changes"]);
 
 export function countActiveFilters({
@@ -10,8 +12,20 @@ export function countActiveFilters({
   type = "",
   location = "",
   presence = "",
+  shoreQuery = "",
+  shoreType = "",
 } = {}) {
-  return [query.trim(), vesselClass, service, status, type, location, presence].filter(Boolean).length;
+  return [
+    query.trim(),
+    vesselClass,
+    service,
+    status,
+    type,
+    location,
+    presence,
+    shoreQuery.trim(),
+    shoreType,
+  ].filter(Boolean).length;
 }
 
 export function formatVesselResultSummary(filteredCount, totalCount, activeFilterCount) {
