@@ -3,8 +3,16 @@ import path from "node:path";
 
 import { scanPublicExposure } from "./lib/client-exposure.mjs";
 import { repositoryRootPath, resolvePrivateInputs } from "./lib/private-inputs.mjs";
+import { parseLocationHistory } from "../src/utils/location-history.js";
+import { parsePhysicalStatusHistory } from "../src/utils/insights.js";
 
 const root = repositoryRootPath();
+const builtData = path.join(root, "dist", "data", "royal-navy");
+parseLocationHistory(
+  fs.readFileSync(path.join(builtData, "status-location-history.jsonl"), "utf8"),
+  parsePhysicalStatusHistory(fs.readFileSync(path.join(builtData, "status-history.jsonl"), "utf8")),
+  JSON.parse(fs.readFileSync(path.join(builtData, "status-history-catalog.json"), "utf8")),
+);
 const registry = resolvePrivateInputs().readJson("sources");
 const completionPath = path.join(root, "dist", "docs", "fleet-tracker-programme-completion.md");
 if (!fs.existsSync(completionPath)) {

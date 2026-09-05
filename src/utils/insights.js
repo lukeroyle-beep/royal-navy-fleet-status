@@ -5,6 +5,7 @@ import {
   isPositiveInteger,
   releaseRevision,
 } from "./release.js";
+import { sameLocationRelease } from "./location-history.js";
 
 const ACTIVE_STATUSES = new Set(["Available", "Deployed"]);
 const EXCLUDED_AVAILABILITY_STATUSES = new Set(["Museum ship", "Decommissioned"]);
@@ -150,7 +151,7 @@ export function validateStatusHistoryCatalog(raw, history) {
   return raw;
 }
 
-export function createPublicSnapshotDataset({ currentFleet, history, catalog, snapshotDate }) {
+export function createPublicSnapshotDataset({ currentFleet, history, catalog, snapshotDate, locationHistory = [] }) {
   const selectedDate = resolvePublicSnapshotDate(
     history,
     snapshotDate,
@@ -170,6 +171,7 @@ export function createPublicSnapshotDataset({ currentFleet, history, catalog, sn
   );
   if (!snapshot) throw new Error("The requested public status snapshot is unavailable.");
   const statusIds = new Set(Object.keys(snapshot.statuses));
+  const locations = locationHistory.find((record) => sameLocationRelease(record, snapshot))?.locations ?? {};
   const vessels = catalog.vessels
     .filter((identity) => statusIds.has(identity.id))
     .map((identity) => ({
@@ -182,6 +184,7 @@ export function createPublicSnapshotDataset({ currentFleet, history, catalog, sn
       lastReportedLocation: HISTORICAL_LOCATION_EMPTY_LABEL,
       position: null,
       uncertaintyArea: null,
+      ...structuredClone(locations[identity.id] ?? {}),
     }));
   if (vessels.length !== statusIds.size) {
     throw new Error("The historical public snapshot has an incomplete identity catalog.");

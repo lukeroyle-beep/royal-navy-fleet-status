@@ -236,6 +236,21 @@ append-only in `data/royal-navy/status-history.jsonl`; append the current datase
 12-month availability figure until at least 52 weekly observations span approximately one year, and
 unknown observations reduce coverage instead of being guessed.
 
+Historical map locations are stored separately in
+`data/royal-navy/status-location-history.jsonl`. Each sparse record is bound to an exact status
+snapshot date, release revision and release instant. The selector uses the latest status revision
+for a date; a missing location record never falls back to an older revision or to current positions.
+The recovered archive contains only reviewed, rounded port/city points. Unsupported legacy points
+remain unlocated, so historical coverage is partial. These are archived public reports, not live fixes.
+
+`npm run snapshot:status` now captures the reviewed public location projection alongside each new
+status release, including its existing regional/list-only decisions. It validates both records before
+writing, prepares the location ledger first, and reuses an identical prepared record if interrupted
+before the status append. Retry the same command in that case; never edit a prepared record to force
+a retry. Validate the separate append-only ledger with
+`npm run validate:location-history -- --base-ref <production-ref>`. Historical client records contain
+only public location fields; evidence mappings and archive-review reasoning remain outside the build.
+
 Future fleet/class analytics use the separate, class-aware
 `data/royal-navy/availability-history.jsonl` ledger. Its proposed scheduled collector accepts only a
 reviewed public status release, opens a human-reviewed pull request containing that ledger alone and

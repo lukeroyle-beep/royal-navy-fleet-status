@@ -61,6 +61,7 @@ const DATA_URL = publicAssetUrl("data/royal-navy/vessels.json");
 const SHORE_DATA_URL = publicAssetUrl("data/royal-navy/shore-establishments.json");
 const CHANGES_URL = publicAssetUrl("data/royal-navy/publication-changes.json");
 const HISTORY_URL = publicAssetUrl("data/royal-navy/status-history.jsonl");
+const LOCATION_HISTORY_URL = publicAssetUrl("data/royal-navy/status-location-history.jsonl");
 const HISTORY_CATALOG_URL = publicAssetUrl("data/royal-navy/status-history-catalog.json");
 const CLASS_PRIORITY = [
   "Type 45 / Daring class",
@@ -235,6 +236,7 @@ async function initialize() {
       const loadedInsights = await new FleetInsightsLoader({
         changesUrl: CHANGES_URL,
         historyUrl: HISTORY_URL,
+        locationHistoryUrl: LOCATION_HISTORY_URL,
         historyCatalogUrl: HISTORY_CATALOG_URL,
       }).load();
       if (!insightsMatchDataset(loadedInsights, currentDataset.metadata)) {
@@ -423,6 +425,7 @@ function applySnapshotDate(requestedDate, { sync = true } = {}) {
         currentFleet: currentDataset,
         history: insights.history,
         catalog: insights.historyCatalog,
+        locationHistory: insights.locationHistory,
         snapshotDate: resolvedDate,
       })
     : currentDataset;
@@ -475,10 +478,10 @@ function updateSnapshotLabels() {
   elements.asOfDate.textContent = formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate });
   elements.publicationFreshness.textContent = isCurrent
     ? formatPublicationFreshness(currentDataset.metadata)
-    : "Historical status only";
+    : "Historical public snapshot";
   elements.snapshotDescription.textContent = isCurrent
     ? `Current public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}.`
-    : `Historical public status snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}. Location details were not published for this snapshot.`;
+    : `Historical public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}. Markers show supported archived public locations; coverage is partial and these are not live positions.`;
 }
 
 function updateChangedOnlyStatus() {
@@ -893,7 +896,7 @@ function renderPlotSummary(filtered) {
       : "No vessel records match the current filters.";
   } else if (selectedSnapshotDate !== currentDataset.metadata.asOfDate) {
     elements.mapFilterNotice.textContent =
-      "Location details are not published for this historical snapshot, so no vessel markers are shown.";
+      "No supported point locations match this historical view. Unlocated vessels remain in the fleet list.";
   } else {
     elements.mapFilterNotice.textContent =
       "No point locations are publishable for this filter. Regional and list-only records remain in the fleet list.";

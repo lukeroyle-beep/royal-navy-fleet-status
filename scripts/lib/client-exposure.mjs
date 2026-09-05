@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import { hasPrivateFilesystemPath } from "../../src/utils/public-location-text.js";
 
 export const FORBIDDEN_PUBLIC_FIELDS = Object.freeze([
   "source", "sourceId", "sourceUrl", "canonicalUrl", "evidenceCheckedDate", "locationEvidenceDate",
@@ -40,10 +41,13 @@ export function scanPublicExposure({
   expectedFleetCount = null, expectedShoreCount = null, retiredAssets = [], forbiddenTokens = [],
 }) {
   const files = walk(rootDirectory);
-  const text = files.filter((file) => /\.(?:html|js|css|json|map|txt|xml|svg|webmanifest|pem|key|ya?ml|toml)$/i.test(file))
+  const text = files.filter((file) => /\.(?:html|js|css|json|jsonl|map|txt|xml|svg|webmanifest|pem|key|ya?ml|toml)$/i.test(file))
     .map((file) => fs.readFileSync(file, "utf8")).join("\n");
   const publicFleet = readJson(path.join(rootDirectory, fleetPath));
   const publicHistoryCatalog = readJson(path.join(rootDirectory, historyPath));
+  for (const file of files.filter((file) => /\.(?:json|jsonl)$/i.test(file))) {
+    assert.ok(!hasPrivateFilesystemPath(fs.readFileSync(file, "utf8")), `Public data exposes a filesystem path: ${path.basename(file)}`);
+  }
 
   for (const vessel of publicFleet.vessels) {
     assertNoForbiddenKeys(vessel, `Public fleet record ${vessel.id}`);
