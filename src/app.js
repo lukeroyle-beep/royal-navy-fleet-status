@@ -222,6 +222,9 @@ const surfaceController = new SurfaceController({
   backdrop: document.querySelector("#surfaceBackdrop"),
   onChange: (open) => {
     document.querySelector(".command-workspace").classList.toggle("has-detail", open.has("detail"));
+    document.querySelector(".command-workspace").classList.toggle("has-panel", [...open].some((name) => name !== "detail"));
+    document.querySelector(".command-workspace").classList.toggle("has-right-panel", ["filters", "layers", "changes"].some((name) => open.has(name)));
+    document.querySelector(".command-workspace").classList.toggle("has-fleet-panel", open.has("fleet"));
     if (publicStateReady && (selectedId || selectedShoreId)) queueSelectedRecordVisibility();
   },
 });

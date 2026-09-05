@@ -255,7 +255,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
   border-radius: 8px;
   box-shadow: var(--shadow-soft);
 }
-.map-reset { bottom: 72px; padding: 0 13px; border: 1px solid #3d5662; background: var(--navy-950); color: #fff; font-weight: 700; }
+.map-reset { bottom: 128px; padding: 0 13px; border: 1px solid #3d5662; background: var(--navy-950); color: #fff; font-weight: 700; }
 .map-notice, .map-filter-notice, .data-health-notice { max-width: min(520px, calc(100% - 100px)); padding: 10px 12px; border: 1px solid #c49045; background: #fff5df; color: #60410e; font-size: 12px; }
 .map-notice { bottom: 16px; left: 80px; right: auto; }
 .map-filter-notice { bottom: 16px; left: 50%; right: auto; transform: translateX(-50%); }
@@ -509,6 +509,9 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .detail-drawer .surface-header { padding: 6px 10px; align-items: center; }
 .surface.detail-drawer { position: relative; grid-column: 2; grid-row: 1; inset: auto; width: auto; max-height: none; border-radius: 0; border-width: 0 0 0 1px; box-shadow: none; }
 .fleet-drawer { left: 12px; }
+.has-right-panel .leaflet-bottom.leaflet-right { left: 12px; right: auto; }
+.has-right-panel .map-reset { left: 12px; right: auto; }
+.has-right-panel.has-fleet-panel .leaflet-bottom.leaflet-right, .has-right-panel.has-fleet-panel .map-reset { left: 350px; }
 .surface-header { position: sticky; top: 0; z-index: 2; background: var(--surface); }
 #detailExpand { display: none; }
 .detail-meta dd, #fleetTable { font-size: 14px; }
@@ -531,6 +534,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
   .command-workspace.has-detail.detail-expanded { grid-template-rows: minmax(0, 1fr) 65%; }
   .surface.detail-drawer { grid-column: 1; grid-row: 2; border-width: 1px 0 0; }
   #detailExpand { display: block; margin-left: auto; }
+  .has-panel .leaflet-bottom.leaflet-right { top: 8px; right: 8px; bottom: auto; left: auto; }
+  .has-panel .map-reset { top: 8px; right: auto; bottom: auto; left: 8px; }
   .detail-card { grid-template-columns: minmax(0, 42%) minmax(0, 1fr); }
   .detail-card > .eyebrow, .detail-card > h2, .detail-class-line { grid-column: 1 / -1; }
   .detail-photo { grid-column: 1; grid-row: 4 / span 3; align-self: start; }
@@ -561,7 +566,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
   .detail-class-line { font-size: 12px; }
   .detail-photo img, .detail-photo-fallback { aspect-ratio: 16 / 10; }
   .detail-primary { display: block; }
-  .map-reset { right: 8px; bottom: 110px; min-height: 44px; }
+  .map-reset { right: 8px; bottom: 128px; min-height: 44px; }
   .map-filter-notice, .map-notice { right: 8px; bottom: 8px; left: 8px; max-width: none; transform: none; }
   .data-health-notice { top: 8px; right: 8px; max-width: calc(100% - 16px); }
   .shore-filter-grid, .filter-grid, .class-availability-vessels ul { grid-template-columns: 1fr; }

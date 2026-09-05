@@ -116,3 +116,22 @@ test('an edge selection stays clear through repeated rotation',async({page})=>{
     }).toBe(true);
   }
 });
+
+test('Fit results and zoom controls remain separate and outside open panels',async({page})=>{
+  for(const [width,height] of [[1366,768],[390,844]]){
+    await page.setViewportSize({width,height});
+    await page.goto('/?view=2');
+    await expect(page.locator('#loadingState')).toBeHidden();
+    for(const openFilters of [false,true]){
+      if(openFilters){await page.locator('#fleetToggle').click();await page.locator('#filterToggle').click();}
+      const overlap=await page.evaluate(()=>{
+        const rect=s=>document.querySelector(s).getBoundingClientRect();
+        const intersects=(a,b)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+        const controls=[rect('#resetMap'),rect('.leaflet-control-zoom')];
+        const panels=[...document.querySelectorAll('.surface:not([hidden])')].map(p=>p.getBoundingClientRect());
+        return intersects(...controls)||controls.some(c=>panels.some(p=>intersects(c,p)));
+      });
+      expect(overlap).toBe(false);
+    }
+  }
+});
