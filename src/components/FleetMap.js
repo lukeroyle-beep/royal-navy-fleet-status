@@ -40,6 +40,7 @@ export class FleetMap {
     onOpenCluster = () => {},
     onOpenShoreCluster = () => {},
     onViewChange = () => {},
+    shouldKeepSelectionVisible = () => true,
   }) {
     this.container = container;
     this.notice = notice;
@@ -48,6 +49,7 @@ export class FleetMap {
     this.onOpenCluster = onOpenCluster;
     this.onOpenShoreCluster = onOpenShoreCluster;
     this.onViewChange = onViewChange;
+    this.shouldKeepSelectionVisible = shouldKeepSelectionVisible;
     this.markers = new Map();
     this.shoreMarkers = new Map();
     this.visibleVessels = [];
@@ -420,6 +422,7 @@ export class FleetMap {
   }
 
   focusSelection({ top = 0, right = 0, bottom = 0, left = 0 } = {}) {
+    if (!this.shouldKeepSelectionVisible()) return;
     const marker = this.selectedId
       ? this.markers.get(this.selectedId)
       : this.shoreMarkers.get(this.selectedShoreId);

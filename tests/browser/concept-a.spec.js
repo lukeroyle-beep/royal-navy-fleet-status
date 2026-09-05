@@ -135,3 +135,40 @@ test('Fit results and zoom controls remain separate and outside open panels',asy
     }
   }
 });
+
+test('opening a different map cluster does not return to the hidden selected record', async ({page}) => {
+  await page.setViewportSize({width:1194,height:834});
+  await page.emulateMedia({reducedMotion:'no-preference'});
+  await page.goto('/?view=2&layers=fleet,clusters&vessel=hms-protector&lat=54&lon=-3&zoom=5');
+  await expect(page.locator('#detailTitle')).toHaveText('HMS Protector');
+  // The Clyde cluster is separate from Protector at Teesside.
+  await page.locator('.fleet-cluster').filter({has:page.locator('.sr-only', {hasText:/^6 vessel locations$/})}).click();
+  await expect(page.locator('#clusterResultList')).toContainText('HMS Bangor');
+  await expect(page.locator('#detailDrawer')).toBeHidden();
+  await expect.poll(()=>Number(new URL(page.url()).searchParams.get('lon'))).toBeLessThan(-4);
+  await page.waitForTimeout(500);
+  expect(Number(new URL(page.url()).searchParams.get('lon'))).toBeLessThan(-4);
+});
+
+test('selected photos display without waiting for detached image decoding', async ({page}) => {
+  await page.addInitScript(() => {
+    HTMLImageElement.prototype.decode = () => new Promise(() => {});
+  });
+  await page.goto('/?view=2&vessel=hms-protector');
+  await expect(page.locator('#detailPhotoImage')).toHaveAttribute('src', /protector.jpg$/);
+  await expect(page.locator('#detailPhoto')).not.toHaveClass(/is-loading/);
+  expect(await page.locator('#detailPhotoImage').evaluate(image => image.complete && image.naturalWidth > 0)).toBe(true);
+});
+
+test('a photo without credit has no empty band beneath the image', async ({page}) => {
+  await page.goto('/?view=2&vessel=hms-queen-elizabeth');
+  await expect(page.locator('#detailPhoto')).not.toHaveClass(/is-loading/);
+  await expect(page.locator('#detailPhotoImage')).toHaveAttribute('src', /queen_elizabeth.jpg$/);
+  const sizes=await page.locator('#detailPhoto').evaluate(figure=>({
+    figure:figure.getBoundingClientRect().height,
+    image:figure.querySelector('img').getBoundingClientRect().height,
+    credit:figure.querySelector('figcaption').getBoundingClientRect().height,
+  }));
+  expect(sizes.credit).toBe(0);
+  expect(sizes.figure-sizes.image).toBeLessThanOrEqual(2);
+});

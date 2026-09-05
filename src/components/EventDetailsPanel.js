@@ -192,18 +192,24 @@ export class EventDetailsPanel {
     this.photoCredit.hidden = true;
   }
 
-  async #loadPhoto(url, token, credit) {
-    const image = new Image();
-    image.src = url;
-    try {
-      await image.decode();
-      if (token !== this.renderToken) return;
-      this.photoImage.src = url;
+  #loadPhoto(url, token, credit) {
+    // Load directly into the displayed image. A fresh element isolates late
+    // load/error events from an earlier vessel without a second image request
+    // or waiting for a detached image's decode promise before display.
+    const image = this.photoImage.cloneNode(false);
+    image.removeAttribute("src");
+    image.loading = "eager";
+    image.onload = () => {
+      if (token !== this.renderToken || image !== this.photoImage) return;
       credit();
       this.#showPhotoImage();
-    } catch {
-      if (token === this.renderToken) this.#showPhotoFallback();
-    }
+    };
+    image.onerror = () => {
+      if (token === this.renderToken && image === this.photoImage) this.#showPhotoFallback();
+    };
+    this.photoImage.replaceWith(image);
+    this.photoImage = image;
+    image.src = url;
   }
 
   #showPhotoImage() {

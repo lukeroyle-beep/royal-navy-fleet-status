@@ -202,6 +202,7 @@ const fleetMap = new FleetMap({
   onOpenShoreCluster: (establishments) =>
     renderClusterResults(establishments, "shore"),
   onViewChange: () => syncPublicState(),
+  shouldKeepSelectionVisible: () => surfaceController.isOpen("detail"),
 });
 
 const surfaceController = new SurfaceController({

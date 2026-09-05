@@ -523,7 +523,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .class-availability-content { display: grid; gap: 8px; }
 .detail-photo.is-loading::before { background: #e2e7e7; animation: none; }
 .detail-photo-credit { min-height: 42px; }
-.detail-photo-credit[hidden] { display: block !important; visibility: hidden; }
+.detail-photo-credit[hidden] { display: none !important; }
 .detail-photo:not(.is-loading):not(.has-fallback) img { animation: photo-enter 150ms linear; }
 @keyframes photo-enter { from { opacity: 0; } to { opacity: 1; } }
 .surface.is-open { animation: surface-enter 180ms ease-out; }

@@ -23,7 +23,7 @@ assert.match(
   /id="detailTitle"[^>]*>[\s\S]*?<\/h2>\s*<p id="detailClassLine"[^>]*><\/p>\s*<figure id="detailPhoto"[\s\S]*?<\/figure>\s*<dl id="detailPrimaryMeta"/,
   "The vessel class line and photograph must appear directly below the vessel name and before the metadata.",
 );
-assert.match(html, /id="detailPhotoImage"[^>]*loading="lazy"[^>]*decoding="async"/);
+assert.match(html, /id="detailPhotoImage"[^>]*loading="eager"[^>]*decoding="async"/);
 assert.match(
   html,
   /id="detailPhotoFallback"[^>]*role="img"[^>]*aria-label="Photograph unavailable"[^>]*>[\s\S]*?Photograph unavailable/,
