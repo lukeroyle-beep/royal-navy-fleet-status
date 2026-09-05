@@ -66,7 +66,7 @@ test('class filters precede optional analytics and hidden panels are inert',asyn
 
 test('a delayed photograph cannot overwrite a newer selection or shift its slot', async ({page})=>{
   const delayed=[];
-  await page.route('**/photos/duncan.jpg', route=>{ delayed.push(route); });
+  await page.route('**/photos/cards/duncan.jpg', route=>{ delayed.push(route); });
   await page.goto('/?view=2&vessel=hms-duncan', {waitUntil:'domcontentloaded'});
   await expect(page.locator('#detailTitle')).toHaveText('HMS Duncan');
   await expect.poll(()=>delayed.length).toBeGreaterThan(0);
@@ -171,4 +171,11 @@ test('a photo without credit has no empty band beneath the image', async ({page}
   }));
   expect(sizes.credit).toBe(0);
   expect(sizes.figure-sizes.image).toBeLessThanOrEqual(2);
+});
+
+test('historical partial coverage remains visible beside the map', async ({page}) => {
+  await page.goto('/?view=2&snapshot=2026-08-23');
+  await expect(page.locator('#snapshotDescription')).toContainText('coverage is partial');
+  await expect(page.locator('#snapshotDescription')).not.toHaveClass(/sr-only/);
+  expect((await page.locator('#snapshotDescription').boundingBox()).height).toBeGreaterThan(10);
 });

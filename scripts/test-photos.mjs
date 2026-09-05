@@ -48,6 +48,10 @@ assert.match(detailPanel, /#showPhotoFallback\(\)/);
 
 for (const filename of filenames) {
   const bytes = fs.readFileSync(new URL(filename, photoDirectory));
+  const card = fs.readFileSync(new URL(`cards/${filename}`, photoDirectory));
+  assert.ok(card.length <= bytes.length, `${filename} display copy must not exceed its original.`);
+  assert.equal(card.at(-2), 0xff);
+  assert.equal(card.at(-1), 0xd9);
   assert.ok(bytes.length > 10_000, `${filename} is unexpectedly small or empty.`);
 
   if (/\.jpe?g$/i.test(filename)) {

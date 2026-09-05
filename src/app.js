@@ -489,6 +489,7 @@ function updateSnapshotLabels() {
   elements.publicationFreshness.textContent = isCurrent
     ? formatPublicationFreshness(currentDataset.metadata)
     : "Historical public snapshot";
+  elements.snapshotDescription.classList.toggle("sr-only", isCurrent);
   elements.snapshotDescription.textContent = isCurrent
     ? `Current public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}.`
     : `Historical public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}. Markers show supported archived public locations; coverage is partial and these are not live positions.`;

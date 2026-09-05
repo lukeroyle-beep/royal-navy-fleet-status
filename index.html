@@ -42,7 +42,6 @@
           <section class="snapshot-controls" aria-labelledby="snapshotControlsTitle">
             <label for="snapshotSelect"><span id="snapshotControlsTitle">Public snapshot</span></label>
             <select id="snapshotSelect" aria-describedby="snapshotDescription"></select>
-            <p id="snapshotDescription" class="snapshot-description sr-only" role="status" aria-live="polite">Loading validated public snapshots.</p>
           </section>
         <div class="snapshot-meta" aria-label="Public dataset publication information">
           <div class="snapshot-item sr-only"><span>Snapshot</span><strong id="asOfDate">Loading</strong></div>
@@ -50,6 +49,8 @@
         </div>
       </section>
       <section class="workspace-context" aria-label="Fleet scope">
+            <p id="snapshotDescription" class="snapshot-description sr-only" role="status" aria-live="polite">Loading validated public snapshots.</p>
+
           <section id="fleetSummaryBanner" class="fleet-summary-banner" aria-label="Fleet status summary" aria-busy="true">
             <button type="button" disabled data-summary-filter="Deployed"><strong id="deployedCount">—</strong><span>Deployed</span></button>
             <button type="button" disabled data-summary-filter="Available"><strong id="availableCount">—</strong><span>Available</span></button>

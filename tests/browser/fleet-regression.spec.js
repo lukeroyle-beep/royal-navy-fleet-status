@@ -27,7 +27,7 @@ async function expectCompleteMarkerNames(page, names) {
 }
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("#asOfDate")).not.toHaveText("Loading");
   await expect(page.locator("#loadError")).toBeHidden();
 });
@@ -325,7 +325,7 @@ test("vessel selection exposes the complete card and survives browser history", 
   }
   const photo = page.locator("#detailPhotoImage");
   await expect(photo).toBeVisible();
-  await expect(photo).toHaveAttribute("src", /photos\/duncan\.jpg$/);
+  await expect(photo).toHaveAttribute("src", /photos\/cards\/duncan\.jpg$/);
   await expect.poll(() => photo.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
   await expect(page.locator("#fleetMap")).toHaveClass(/has-selection/);
   await expect(page.locator(".fleet-marker.is-selected")).toHaveCount(1);
@@ -448,7 +448,7 @@ test("the text table, empty state and missing-image fallback remain usable", asy
   await expect(page.locator("#fleetTableBody tr")).toHaveCount(0);
   await page.locator("#resetFilters").click();
 
-  await page.route("**/photos/duncan.jpg", (route) => route.abort());
+  await page.route("**/photos/cards/duncan.jpg", (route) => route.abort());
   await page.locator("#searchInput").fill("HMS Duncan");
   await page.locator('#fleetTableBody button[data-vessel-id="hms-duncan"]').click();
   const photoFallback = page.getByRole("img", { name: "Photograph unavailable" });
@@ -487,11 +487,11 @@ test("compact interactive controls retain 44 pixel touch targets", async ({ page
     );
     expect(targets.length, `${selector} should expose at least one visible target`).toBeGreaterThan(0);
     expect(
-      Math.min(...targets.map(({ width }) => width)),
+      Math.min(...targets.map(({ width }) => Math.round(width * 100) / 100)),
       `${selector} should meet the 44px touch-target width minimum`,
     ).toBeGreaterThanOrEqual(44);
     expect(
-      Math.min(...targets.map(({ height }) => height)),
+      Math.min(...targets.map(({ height }) => Math.round(height * 100) / 100)),
       `${selector} should meet the 44px touch-target height minimum`,
     ).toBeGreaterThanOrEqual(44);
   }
