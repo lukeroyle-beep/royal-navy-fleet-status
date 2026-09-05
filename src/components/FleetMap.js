@@ -40,6 +40,7 @@ export class FleetMap {
     onOpenCluster = () => {},
     onOpenShoreCluster = () => {},
     onViewChange = () => {},
+    shouldKeepSelectionVisible = () => true,
   }) {
     this.container = container;
     this.notice = notice;
@@ -48,6 +49,7 @@ export class FleetMap {
     this.onOpenCluster = onOpenCluster;
     this.onOpenShoreCluster = onOpenShoreCluster;
     this.onViewChange = onViewChange;
+    this.shouldKeepSelectionVisible = shouldKeepSelectionVisible;
     this.markers = new Map();
     this.shoreMarkers = new Map();
     this.visibleVessels = [];
@@ -60,7 +62,8 @@ export class FleetMap {
     this.selectedId = null;
     this.selectedShoreId = null;
     this.coLocatedSelection = null;
-    this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.motionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    this.reducedMotion = this.motionMedia.matches;
     this.interactionProfile = createMapInteractionProfile({
       safari: L.Browser.safari,
       mobile: L.Browser.mobile,
@@ -81,9 +84,16 @@ export class FleetMap {
       keyboard: true,
       touchZoom: this.interactionProfile.continuousTouchZoom,
       bounceAtZoomLimits: false,
-      zoomAnimation: this.interactionProfile.animationsEnabled,
-      fadeAnimation: this.interactionProfile.animationsEnabled,
-      markerZoomAnimation: this.interactionProfile.animationsEnabled,
+      zoomAnimation: false,
+      fadeAnimation: false,
+      markerZoomAnimation: false,
+    });
+
+    this.motionMedia.addEventListener("change", ({ matches }) => {
+      this.reducedMotion = matches;
+      this.interactionProfile = createMapInteractionProfile({ safari: L.Browser.safari, mobile: L.Browser.mobile, reducedMotion: matches });
+      this.map.stop();
+      // Tile and cluster animations stay disabled; camera moves use this live profile.
     });
 
     if (this.interactionProfile.discreteTouchZoom) this.#installDiscreteTouchZoom();
@@ -112,7 +122,7 @@ export class FleetMap {
     this.tiles.addTo(this.map);
 
     this.clusterGroup = L.markerClusterGroup({
-      animate: this.interactionProfile.animationsEnabled,
+      animate: false,
       animateAddingMarkers: false,
       chunkedLoading: false,
       maxClusterRadius: 48,
@@ -135,7 +145,7 @@ export class FleetMap {
     this.selectionGroup = L.layerGroup().addTo(this.map);
 
     this.shoreClusterGroup = L.markerClusterGroup({
-      animate: this.interactionProfile.animationsEnabled,
+      animate: false,
       animateAddingMarkers: false,
       chunkedLoading: false,
       maxClusterRadius: 44,
@@ -226,6 +236,8 @@ export class FleetMap {
         reset: true,
       });
     });
+    // Use the invalidated map size, not the pre-inspector dimensions.
+    this.focusSelection({ top: 64 });
   }
 
   #queuePreserveViewThroughResize() {
@@ -410,6 +422,7 @@ export class FleetMap {
   }
 
   focusSelection({ top = 0, right = 0, bottom = 0, left = 0 } = {}) {
+    if (!this.shouldKeepSelectionVisible()) return;
     const marker = this.selectedId
       ? this.markers.get(this.selectedId)
       : this.shoreMarkers.get(this.selectedShoreId);
@@ -417,9 +430,10 @@ export class FleetMap {
       return;
     }
     this.map.panInside(marker.getLatLng(), {
-      animate: this.interactionProfile.animationsEnabled,
-      paddingTopLeft: [left + 28, top + 28],
-      paddingBottomRight: [right + 28, bottom + 28],
+      // Geometry correction must finish before resize preservation reads the camera.
+      animate: false,
+      paddingTopLeft: [left + 48, top + 48],
+      paddingBottomRight: [right + 48, bottom + 48],
     });
   }
 

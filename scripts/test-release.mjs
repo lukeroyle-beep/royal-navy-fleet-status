@@ -198,7 +198,7 @@ assert.doesNotMatch(indexHtml, /Location confidence/);
 assert.match(indexHtml, /id="changesToggle"/);
 assert.match(indexHtml, /aria-controls="changesPanel"/);
 assert.match(indexHtml, /id="classRibbon"/);
-assert.match(indexHtml, /id="classAvailabilityPanel"[^>]*aria-live="polite"[^>]*hidden/);
+assert.match(indexHtml, /<details id="classAvailabilityPanel"[^>]*hidden/);
 assert.match(indexHtml, /id="changesPanel"[^>]*hidden/);
 assert.match(indexHtml, /id="detailCard"[^>]*aria-live="polite"[^>]*hidden/);
 assert.match(indexHtml, /Public snapshot/);
@@ -233,7 +233,7 @@ assert.match(appSource, /getFleetStatusSummary/);
 assert.match(appSource, /getAvailabilitySummary/);
 assert.match(appSource, /getAvailabilityBand/);
 assert.match(appSource, /setAttribute\("aria-label", `\$\{formattedPercentage\} \$\{accessibleDescription\}`\)/);
-assert.match(appSource, /aria-controls", "classAvailabilityPanel"/);
+assert.match(appSource, /filter by vessel class/);
 assert.match(appSource, /formatLocationState\(vessel\.locationState\)/);
 assert.match(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
@@ -253,7 +253,7 @@ assert.match(styles, /\.fleet-summary-banner\s*\{[^}]*position:\s*absolute;/s);
 assert.match(styles, /\.detail-primary\s*\{[^}]*grid-template-columns:\s*repeat\(2,/s);
 assert.match(styles, /\.availability-score\s*\{[^}]*color:\s*var\(--selection\);/s);
 assert.match(styles, /@media \(min-width: 701px\) and \(max-width: 1100px\) and \(orientation: portrait\)/);
-assert.match(styles, /\(min-width: 701px\) and \(max-width: 1400px\) and \(orientation: landscape\) and \(pointer: coarse\)/);
+assert.match(styles, /grid-template-columns: minmax\(0, 1fr\) min\(380px, 38%\)/);
 assert.match(styles, /@media \(max-width: 700px\)/);
 assert.match(styles, /@media \(prefers-reduced-motion: reduce\)/);
 assert.doesNotMatch(styles, /\.topbar\s*\{/);

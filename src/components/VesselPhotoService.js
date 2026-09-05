@@ -87,7 +87,7 @@ export class VesselPhotoService {
     const credit = LOCAL_PHOTO_CREDITS.get(filename);
 
     return {
-      imageUrl: `./photos/${filename}`,
+      imageUrl: `./photos/cards/${filename}`,
       pageUrl: credit?.pageUrl || null,
       creditLabel: credit?.creditLabel || null,
     };

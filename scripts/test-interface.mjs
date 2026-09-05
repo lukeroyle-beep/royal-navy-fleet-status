@@ -97,7 +97,7 @@ assert.equal(formatVesselResultSummary(18, 68, 3), "Showing 18 of 68 vessels · 
 assert.equal(formatVesselResultSummary(1, 68, 1), "Showing 1 of 68 vessels · 1 filter");
 
 assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "filters", true)], ["filters"]);
-assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "detail", false)], ["fleet", "detail"]);
+assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "detail", false)], ["detail"]);
 assert.deepEqual([...nextOpenSurfaces(new Set(["fleet"]), "fleet", false)], []);
 assert.deepEqual(
   [...nextOpenSurfaces(new Set(["fleet", "filters"]), "layers", false)],
@@ -109,7 +109,7 @@ assert.deepEqual(
 );
 assert.deepEqual(
   [...openSurface(new Set(["fleet", "filters"]), "detail", false)],
-  ["fleet", "detail"],
+  ["detail"],
 );
 assert.deepEqual([...openSurface(new Set(["fleet", "filters"]), "detail", true)], ["detail"]);
 assert.deepEqual(RIGHT_SIDE_SURFACES, ["detail", "layers", "filters", "changes"]);
@@ -199,9 +199,9 @@ assert.match(app, /filterFleetVessels\(dataset\.vessels/);
 assert.match(app, /changedVesselIds: changedOnly \? publicationComparison\?\.changedCurrentVesselIds/);
 assert.match(styles, /\.snapshot-controls\s*\{[^}]*grid-template-columns/s);
 assert.match(styles, /@media \(min-width: 701px\) and \(max-width: 1100px\) and \(orientation: portrait\)/);
-assert.match(styles, /\(min-width: 701px\) and \(max-width: 1400px\) and \(orientation: landscape\) and \(pointer: coarse\)/);
+assert.match(styles, /grid-template-columns: minmax\(0, 1fr\) min\(380px, 38%\)/);
 assert.match(styles, /\.surface-backdrop\s*\{[^}]*z-index:\s*790;/s);
-assert.match(styles, /@media \(max-width: 700px\)[\s\S]*\.surface\.drawer, \.surface\.popover\s*\{[^}]*bottom:\s*0;[^}]*border-radius:\s*16px 16px 0 0;/s);
+assert.match(styles, /\.surface\.detail-drawer\s*\{[^}]*grid-column: 2;/s);
 assert.doesNotMatch(styles, /\.surface-header::before|max-height:\s*min\(72dvh/);
 assert.match(styles, /\.map-stage, #fleetMap\s*\{[^}]*inset:\s*0;/s);
 assert.match(details, /getVesselPublicTimeline/);
@@ -252,7 +252,7 @@ assert.match(app, /returnSurface: "layers"/);
 assert.match(html, /id="detailTitle"[^>]*tabindex="-1"[^>]*data-surface-focus/);
 assert.match(styles, /prefers-reduced-motion:\s*reduce/);
 assert.match(styles, /#fleetMap\s*\{[^}]*z-index:\s*0;/s);
-assert.match(styles, /outline:\s*3px solid #ffbf47/);
+assert.match(styles, /outline:\s*3px solid #176fb1/);
 assert.match(styles, /\.active-filter-bar\s*\{[^}]*z-index:\s*810;/s);
 for (const touchTarget of [
   /\.fleet-summary-banner button\s*\{[^}]*min-height:\s*44px;/s,

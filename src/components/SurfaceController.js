@@ -119,11 +119,13 @@ export class SurfaceController {
     for (const [name, surface] of this.surfaces) {
       const open = next.has(name);
       surface.hidden = !open;
+      surface.inert = !open;
       surface.classList.toggle("is-open", open);
       this.triggers.get(name)?.setAttribute("aria-expanded", open.toString());
     }
     if (this.backdrop) {
-      this.backdrop.hidden = !(this.sheetMedia.matches && next.size > 0);
+      // All workspace panels are modeless; the map and filter controls stay operable.
+      this.backdrop.hidden = true;
     }
     this.onChange(new Set(next));
   }

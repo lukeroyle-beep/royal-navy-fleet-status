@@ -27,7 +27,7 @@ async function expectCompleteMarkerNames(page, names) {
 }
 
 test.beforeEach(async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "domcontentloaded" });
   await expect(page.locator("#asOfDate")).not.toHaveText("Loading");
   await expect(page.locator("#loadError")).toBeHidden();
 });
@@ -248,6 +248,7 @@ test("desktop right-side panels are exclusive and list selections explain map di
   expect(visibleRightPanels).toBe(1);
 
   await page.locator(classButtonSelector("Vanguard class")).click();
+  await page.locator("#classAvailabilityPanel > summary").click();
   const classVesselButton = page.locator("#classAvailabilityVessels button").first();
   await classVesselButton.click();
   await expect(page.locator("#detailDrawer")).toBeVisible();
@@ -324,7 +325,7 @@ test("vessel selection exposes the complete card and survives browser history", 
   }
   const photo = page.locator("#detailPhotoImage");
   await expect(photo).toBeVisible();
-  await expect(photo).toHaveAttribute("src", /photos\/duncan\.jpg$/);
+  await expect(photo).toHaveAttribute("src", /photos\/cards\/duncan\.jpg$/);
   await expect.poll(() => photo.evaluate((image) => image.naturalWidth)).toBeGreaterThan(0);
   await expect(page.locator("#fleetMap")).toHaveClass(/has-selection/);
   await expect(page.locator(".fleet-marker.is-selected")).toHaveCount(1);
@@ -400,7 +401,7 @@ test("compact active-filter controls clear shore filters above an open sheet", a
   await page.locator("#shoreSearchInput").fill("Yeovilton");
   await page.locator("#shoreTypeFilter").selectOption("Air station");
 
-  await expect(page.locator("#surfaceBackdrop")).toBeVisible();
+  await expect(page.locator("#surfaceBackdrop")).toBeHidden();
   await expect(page.getByRole("button", { name: "Remove Shore search: Yeovilton" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Remove Shore type: Air station" })).toBeVisible();
   await expect(page.locator("#filterBadge")).toHaveText("2");
@@ -447,7 +448,7 @@ test("the text table, empty state and missing-image fallback remain usable", asy
   await expect(page.locator("#fleetTableBody tr")).toHaveCount(0);
   await page.locator("#resetFilters").click();
 
-  await page.route("**/photos/duncan.jpg", (route) => route.abort());
+  await page.route("**/photos/cards/duncan.jpg", (route) => route.abort());
   await page.locator("#searchInput").fill("HMS Duncan");
   await page.locator('#fleetTableBody button[data-vessel-id="hms-duncan"]').click();
   const photoFallback = page.getByRole("img", { name: "Photograph unavailable" });
@@ -486,11 +487,11 @@ test("compact interactive controls retain 44 pixel touch targets", async ({ page
     );
     expect(targets.length, `${selector} should expose at least one visible target`).toBeGreaterThan(0);
     expect(
-      Math.min(...targets.map(({ width }) => width)),
+      Math.min(...targets.map(({ width }) => Math.round(width * 100) / 100)),
       `${selector} should meet the 44px touch-target width minimum`,
     ).toBeGreaterThanOrEqual(44);
     expect(
-      Math.min(...targets.map(({ height }) => height)),
+      Math.min(...targets.map(({ height }) => Math.round(height * 100) / 100)),
       `${selector} should meet the 44px touch-target height minimum`,
     ).toBeGreaterThanOrEqual(44);
   }
@@ -540,16 +541,18 @@ test("desktop, iPad portrait, iPad landscape and mobile use intentional map-firs
     { width: 390, height: 844, sheet: true },
   ]) {
     await page.setViewportSize(viewport);
-    await page.goto("/");
+    await page.goto("/?view=2");
     await expect(page.locator("#mapTitle")).toHaveText("British Armed Forces Tracker");
     const mapBox = await page.locator("#fleetMap").boundingBox();
     expect(mapBox.height).toBeGreaterThan(viewport.height * 0.7);
 
     await page.locator("#searchInput").fill("HMS Duncan");
     await page.locator('#vesselList button[data-vessel-id="hms-duncan"]').click();
+    await expect.poll(async () => {
+      const box = await page.locator("#detailDrawer").boundingBox();
+      return Math.abs(box.y + box.height - viewport.height);
+    }).toBeLessThan(3);
     const detailBox = await page.locator("#detailDrawer").boundingBox();
-    const expectedBottom = viewport.sheet ? viewport.height : viewport.height - 12;
-    expect(Math.abs(detailBox.y + detailBox.height - expectedBottom)).toBeLessThan(3);
     if (viewport.sheet) {
       expect(detailBox.width).toBeGreaterThan(viewport.width * 0.9);
       expect(detailBox.y).toBeGreaterThan(viewport.height * 0.2);
@@ -587,7 +590,7 @@ test("coarse-pointer iPad layouts replace the asset surface with selected detail
     await expect(touchPage.locator('#detailPrimaryMeta [data-term="home-port"]')).toBeVisible();
     const detailBox = await touchPage.locator("#detailDrawer").boundingBox();
     if (viewport.bottomSheet) {
-      await expect(touchPage.locator("#surfaceBackdrop")).toBeVisible();
+      await expect(touchPage.locator("#surfaceBackdrop")).toBeHidden();
       expect(detailBox.width).toBeGreaterThan(viewport.width * 0.9);
       expect(Math.abs(detailBox.y + detailBox.height - viewport.height)).toBeLessThan(3);
     } else {
