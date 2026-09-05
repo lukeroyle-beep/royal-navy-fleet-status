@@ -103,10 +103,11 @@ test('motion policy follows preference changes without reloading',async({page})=
 });
 
 test('an edge selection stays clear through repeated rotation',async({page})=>{
+  await page.emulateMedia({reducedMotion:'no-preference'});
   await page.setViewportSize({width:1194,height:834});
   await page.goto('/?view=2&vessel=hms-protector&lat=30&lon=49&zoom=4');
   await expect(page.locator('#detailTitle')).toHaveText('HMS Protector');
-  for(const [width,height] of [[834,1194],[390,844],[844,390],[360,780]]){
+  for(const [width,height] of [[1194,834],[834,1194],[390,844],[844,390],[360,780]]){
     await page.setViewportSize({width,height});
     await expect.poll(async()=>{
       const map=await page.locator('#fleetMap').boundingBox();

@@ -234,6 +234,8 @@ export class FleetMap {
         reset: true,
       });
     });
+    // Use the invalidated map size, not the pre-inspector dimensions.
+    this.focusSelection({ top: 64 });
   }
 
   #queuePreserveViewThroughResize() {
@@ -425,8 +427,8 @@ export class FleetMap {
       return;
     }
     this.map.panInside(marker.getLatLng(), {
-      duration: 0.2,
-      animate: this.interactionProfile.animationsEnabled,
+      // Geometry correction must finish before resize preservation reads the camera.
+      animate: false,
       paddingTopLeft: [left + 48, top + 48],
       paddingBottomRight: [right + 48, bottom + 48],
     });
