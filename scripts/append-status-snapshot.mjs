@@ -2,9 +2,12 @@ import fs from "node:fs";
 
 import { parsePhysicalStatusHistory } from "../src/utils/insights.js";
 import { buildStatusSnapshot } from "./lib/status-snapshot.mjs";
+import { appendLocationSnapshot, buildStatusLocationSnapshot } from "./lib/status-location-snapshot.mjs";
 
 const fleetPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
 const historyPath = new URL("../data/royal-navy/status-history.jsonl", import.meta.url);
+const locationPath = new URL("../data/royal-navy/status-location-history.jsonl", import.meta.url);
+const catalog = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/status-history-catalog.json", import.meta.url), "utf8"));
 const fleet = JSON.parse(fs.readFileSync(fleetPath, "utf8"));
 const allowedStatuses = new Set([
   "Available",
@@ -26,7 +29,18 @@ const correction = process.argv.includes("--correction");
 const reason = readArgument("--reason");
 const snapshot = buildStatusSnapshot({ fleet, snapshots, correction, reason });
 const prefix = existing ? `${existing}\n` : "";
-fs.writeFileSync(historyPath, `${prefix}${JSON.stringify(snapshot)}\n`);
+const locationText = appendLocationSnapshot(
+  fs.existsSync(locationPath) ? fs.readFileSync(locationPath, "utf8") : "",
+  buildStatusLocationSnapshot(fleet), [...snapshots, snapshot], catalog,
+);
+// Prepare the location ledger first. Re-running after interruption reuses its
+// identical record; all validation happens before either ledger is changed.
+const pendingLocation = new URL(`${locationPath.href}.pending`);
+fs.writeFileSync(pendingLocation, locationText);
+fs.renameSync(pendingLocation, locationPath);
+const pendingHistory = new URL(`${historyPath.href}.pending`);
+fs.writeFileSync(pendingHistory, `${prefix}${JSON.stringify(snapshot)}\n`);
+fs.renameSync(pendingHistory, historyPath);
 console.log(
   `Appended ${snapshot.snapshotDate} r${snapshot.releaseRevision ?? 1} status snapshot for ` +
     `${fleet.vessels.length} vessels.`,

@@ -1,0 +1,734 @@
+{
+  "2026-07-31": {
+    "archiveCommit": "deaecbc0d1e13f75ac040c72be393f3163558dbc",
+    "archiveSha256": "7d2da6c6dabb4af935977fdf715f662e5f5d44894f6c1224c64e967bcbbc30fc",
+    "points": [
+      {
+        "id": "hms-ambush",
+        "name": "HMS Ambush",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-anson",
+        "name": "HMS Anson",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-artful",
+        "name": "HMS Artful",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-astute",
+        "name": "HMS Astute",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-audacious",
+        "name": "HMS Audacious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-duncan",
+        "name": "HMS Duncan",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-iron-duke",
+        "name": "HMS Iron Duke",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-prince-of-wales",
+        "name": "HMS Prince of Wales",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-queen-elizabeth",
+        "name": "HMS Queen Elizabeth",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-richmond",
+        "name": "HMS Richmond",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-scott",
+        "name": "HMS Scott",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-spey",
+        "name": "HMS Spey",
+        "lat": 4,
+        "lon": 108
+      },
+      {
+        "id": "hms-st-albans",
+        "name": "HMS St Albans",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-tamar",
+        "name": "HMS Tamar",
+        "lat": -10,
+        "lon": 130
+      },
+      {
+        "id": "hms-vanguard",
+        "name": "HMS Vanguard",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-victorious",
+        "name": "HMS Victorious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-victory",
+        "name": "HMS Victory",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-vigilant",
+        "name": "HMS Vigilant",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "rfa-cardigan-bay",
+        "name": "RFA Cardigan Bay",
+        "lat": 50.15,
+        "lon": -5.05
+      },
+      {
+        "id": "rfa-tiderace",
+        "name": "RFA Tiderace",
+        "lat": 53.4,
+        "lon": -3
+      }
+    ]
+  },
+  "2026-08-09": {
+    "archiveCommit": "f9094aa24b4661085482ae12cf062e3b790a3eb6",
+    "archiveSha256": "f5cbf474b7eb83f1fd66b3a74de245e0e12dacf0b4862d6ecd85aaa7d4e45090",
+    "points": [
+      {
+        "id": "hms-ambush",
+        "name": "HMS Ambush",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-anson",
+        "name": "HMS Anson",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-artful",
+        "name": "HMS Artful",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-astute",
+        "name": "HMS Astute",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-audacious",
+        "name": "HMS Audacious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-bangor",
+        "name": "HMS Bangor",
+        "lat": 55.99,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-biter",
+        "name": "HMS Biter",
+        "lat": 55.01,
+        "lon": -7.3
+      },
+      {
+        "id": "hms-cattistock",
+        "name": "HMS Cattistock",
+        "lat": 50.71,
+        "lon": -1.99
+      },
+      {
+        "id": "hms-chiddingfold",
+        "name": "HMS Chiddingfold",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-dagger",
+        "name": "HMS Dagger",
+        "lat": 36.15,
+        "lon": -5.37
+      },
+      {
+        "id": "hms-daring",
+        "name": "HMS Daring",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-defender",
+        "name": "HMS Defender",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-diamond",
+        "name": "HMS Diamond",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-duncan",
+        "name": "HMS Duncan",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-iron-duke",
+        "name": "HMS Iron Duke",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-kent",
+        "name": "HMS Kent",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-portland",
+        "name": "HMS Portland",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-prince-of-wales",
+        "name": "HMS Prince of Wales",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-queen-elizabeth",
+        "name": "HMS Queen Elizabeth",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-raider",
+        "name": "HMS Raider",
+        "lat": 54.71,
+        "lon": -3.51
+      },
+      {
+        "id": "hms-richmond",
+        "name": "HMS Richmond",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-tamar",
+        "name": "HMS Tamar",
+        "lat": -18.14,
+        "lon": 178.41
+      },
+      {
+        "id": "hms-vanguard",
+        "name": "HMS Vanguard",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-victorious",
+        "name": "HMS Victorious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-victory",
+        "name": "HMS Victory",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-vigilant",
+        "name": "HMS Vigilant",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "rfa-cardigan-bay",
+        "name": "RFA Cardigan Bay",
+        "lat": 50.15,
+        "lon": -5.05
+      },
+      {
+        "id": "rfa-mounts-bay",
+        "name": "RFA Mounts Bay",
+        "lat": 50.59,
+        "lon": -2.44
+      },
+      {
+        "id": "rfa-tiderace",
+        "name": "RFA Tiderace",
+        "lat": 53.4,
+        "lon": -3
+      },
+      {
+        "id": "rfa-tidespring",
+        "name": "RFA Tidespring",
+        "lat": 50.59,
+        "lon": -2.44
+      }
+    ]
+  },
+  "2026-08-12": {
+    "archiveCommit": "f25e912adf529dc8cba2ef88afd831d3364f6ec4",
+    "archiveSha256": "92bf13a83789818e3c0a3eadf08b029f46dd715dbdb1c0afa9aecc2221a6d169",
+    "points": [
+      {
+        "id": "hms-ambush",
+        "name": "HMS Ambush",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-anson",
+        "name": "HMS Anson",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-artful",
+        "name": "HMS Artful",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-astute",
+        "name": "HMS Astute",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-audacious",
+        "name": "HMS Audacious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-bangor",
+        "name": "HMS Bangor",
+        "lat": 55.99,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-biter",
+        "name": "HMS Biter",
+        "lat": 55.01,
+        "lon": -7.3
+      },
+      {
+        "id": "hms-cattistock",
+        "name": "HMS Cattistock",
+        "lat": 50.71,
+        "lon": -1.99
+      },
+      {
+        "id": "hms-chiddingfold",
+        "name": "HMS Chiddingfold",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-dagger",
+        "name": "HMS Dagger",
+        "lat": 36.15,
+        "lon": -5.37
+      },
+      {
+        "id": "hms-daring",
+        "name": "HMS Daring",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-defender",
+        "name": "HMS Defender",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-diamond",
+        "name": "HMS Diamond",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-duncan",
+        "name": "HMS Duncan",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-iron-duke",
+        "name": "HMS Iron Duke",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-kent",
+        "name": "HMS Kent",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-middleton",
+        "name": "HMS Middleton",
+        "lat": 50.15,
+        "lon": -5.06
+      },
+      {
+        "id": "hms-portland",
+        "name": "HMS Portland",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-prince-of-wales",
+        "name": "HMS Prince of Wales",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-queen-elizabeth",
+        "name": "HMS Queen Elizabeth",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-raider",
+        "name": "HMS Raider",
+        "lat": 54.71,
+        "lon": -3.51
+      },
+      {
+        "id": "hms-richmond",
+        "name": "HMS Richmond",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-tamar",
+        "name": "HMS Tamar",
+        "lat": -18.14,
+        "lon": 178.41
+      },
+      {
+        "id": "hms-vanguard",
+        "name": "HMS Vanguard",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-victorious",
+        "name": "HMS Victorious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-victory",
+        "name": "HMS Victory",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-vigilant",
+        "name": "HMS Vigilant",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "rfa-cardigan-bay",
+        "name": "RFA Cardigan Bay",
+        "lat": 50.15,
+        "lon": -5.05
+      },
+      {
+        "id": "rfa-mounts-bay",
+        "name": "RFA Mounts Bay",
+        "lat": 50.59,
+        "lon": -2.44
+      },
+      {
+        "id": "rfa-tiderace",
+        "name": "RFA Tiderace",
+        "lat": 53.4,
+        "lon": -3
+      },
+      {
+        "id": "rfa-tidespring",
+        "name": "RFA Tidespring",
+        "lat": 50.59,
+        "lon": -2.44
+      }
+    ]
+  },
+  "2026-08-23": {
+    "archiveCommit": "6ac9a76db9900a0d753213c21491f3fcf50f7215",
+    "archiveSha256": "aaf7dd1da22d8059e5556d58e0a82edcd6e4bd28f0149bfa820d2b79a24c4267",
+    "points": [
+      {
+        "id": "hms-ambush",
+        "name": "HMS Ambush",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-anson",
+        "name": "HMS Anson",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-artful",
+        "name": "HMS Artful",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-astute",
+        "name": "HMS Astute",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-audacious",
+        "name": "HMS Audacious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-bangor",
+        "name": "HMS Bangor",
+        "lat": 55.99,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-biter",
+        "name": "HMS Biter",
+        "lat": 54.67,
+        "lon": -5.67
+      },
+      {
+        "id": "hms-cattistock",
+        "name": "HMS Cattistock",
+        "lat": 50.71,
+        "lon": -1.99
+      },
+      {
+        "id": "hms-charger",
+        "name": "HMS Charger",
+        "lat": 54.67,
+        "lon": -5.67
+      },
+      {
+        "id": "hms-dagger",
+        "name": "HMS Dagger",
+        "lat": 36.15,
+        "lon": -5.37
+      },
+      {
+        "id": "hms-daring",
+        "name": "HMS Daring",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-defender",
+        "name": "HMS Defender",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-diamond",
+        "name": "HMS Diamond",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-dragon",
+        "name": "HMS Dragon",
+        "lat": -4.07,
+        "lon": 39.64
+      },
+      {
+        "id": "hms-duncan",
+        "name": "HMS Duncan",
+        "lat": 55.7,
+        "lon": 12.6
+      },
+      {
+        "id": "hms-kent",
+        "name": "HMS Kent",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-middleton",
+        "name": "HMS Middleton",
+        "lat": 50.15,
+        "lon": -5.06
+      },
+      {
+        "id": "hms-portland",
+        "name": "HMS Portland",
+        "lat": 50.38,
+        "lon": -4.19
+      },
+      {
+        "id": "hms-prince-of-wales",
+        "name": "HMS Prince of Wales",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-queen-elizabeth",
+        "name": "HMS Queen Elizabeth",
+        "lat": 50.81,
+        "lon": -1.1
+      },
+      {
+        "id": "hms-raider",
+        "name": "HMS Raider",
+        "lat": 54.71,
+        "lon": -3.51
+      },
+      {
+        "id": "hms-scott",
+        "name": "HMS Scott",
+        "lat": 36.14,
+        "lon": -5.36
+      },
+      {
+        "id": "hms-spey",
+        "name": "HMS Spey",
+        "lat": 1.28,
+        "lon": 103.83
+      },
+      {
+        "id": "hms-sutherland",
+        "name": "HMS Sutherland",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-tamar",
+        "name": "HMS Tamar",
+        "lat": 10.5,
+        "lon": 103.61
+      },
+      {
+        "id": "hms-tyne",
+        "name": "HMS Tyne",
+        "lat": 50.81,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-vanguard",
+        "name": "HMS Vanguard",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "hms-victorious",
+        "name": "HMS Victorious",
+        "lat": 50.38,
+        "lon": -4.18
+      },
+      {
+        "id": "hms-victory",
+        "name": "HMS Victory",
+        "lat": 50.8,
+        "lon": -1.11
+      },
+      {
+        "id": "hms-vigilant",
+        "name": "HMS Vigilant",
+        "lat": 56.07,
+        "lon": -4.82
+      },
+      {
+        "id": "rfa-cardigan-bay",
+        "name": "RFA Cardigan Bay",
+        "lat": 50.15,
+        "lon": -5.05
+      },
+      {
+        "id": "rfa-lyme-bay",
+        "name": "RFA Lyme Bay",
+        "lat": -4.07,
+        "lon": 39.64
+      },
+      {
+        "id": "rfa-mounts-bay",
+        "name": "RFA Mounts Bay",
+        "lat": 50.59,
+        "lon": -2.44
+      },
+      {
+        "id": "rfa-proteus",
+        "name": "RFA Proteus",
+        "lat": 50.34,
+        "lon": -4.15
+      },
+      {
+        "id": "rfa-tideforce",
+        "name": "RFA Tideforce",
+        "lat": 50.34,
+        "lon": -4.15
+      },
+      {
+        "id": "rfa-tiderace",
+        "name": "RFA Tiderace",
+        "lat": 53.4,
+        "lon": -3
+      },
+      {
+        "id": "rfa-tidespring",
+        "name": "RFA Tidespring",
+        "lat": 36.14,
+        "lon": -5.36
+      }
+    ]
+  }
+}

@@ -19,6 +19,12 @@ const shore = JSON.parse(
   ),
 );
 const historicalSnapshotDate = "2026-08-12";
+const expectedHistoricalMarkers = JSON.parse(fs.readFileSync(new URL("../../scripts/fixtures/historical-location-markers.json", import.meta.url), "utf8"));
+
+async function expectCompleteMarkerNames(page, names) {
+  await expect.poll(() => page.locator(".fleet-marker").evaluateAll(markers => markers.map(marker => marker.title).sort()))
+    .toEqual(names.slice().sort());
+}
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
@@ -160,22 +166,52 @@ test("valid empty location states survive reload and browser history", async ({ 
   await expect(page.locator("#locationFilter")).toHaveValue("no_recent_information");
 });
 
-test("historical status snapshots explicitly show why markers are absent", async ({ page }) => {
-  await openAssets(page);
-  await page.locator("#snapshotSelect").selectOption(historicalSnapshotDate);
-  await expect(page.locator("#publicationFreshness")).toHaveText("Historical status only");
-  await expect(page.locator("#plotResultStatus")).toContainText("0 point-mapped");
-  await expect(page.locator("#mapFilterNotice")).toHaveText(
-    "Location details are not published for this historical snapshot, so no vessel markers are shown.",
-  );
-  await expect(page.locator(".fleet-marker")).toHaveCount(0);
-  await expect
-    .poll(() => new URL(page.url()).searchParams.get("snapshot"))
-    .toBe(historicalSnapshotDate);
-  await page.reload();
-  await expect(page.locator("#snapshotSelect")).toHaveValue(historicalSnapshotDate);
-  await expect(page.locator("#mapFilterNotice")).toBeVisible();
-});
+for (const viewport of [{ width: 1366, height: 768 }, { width: 390, height: 844 }]) {
+  test(`historical locations isolate dates and preserve current view at ${viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/?view=2&layers=fleet&snapshot=2026-07-31");
+    await openAssets(page);
+    await expect(page.locator("#publicationFreshness")).toHaveText("Historical public snapshot");
+    await expect(page.locator("#plotResultStatus")).toContainText("20 point-mapped");
+    await expect(page.locator(".fleet-marker")).toHaveCount(20);
+    await expectCompleteMarkerNames(page, expectedHistoricalMarkers["2026-07-31"].points.map(p => p.name));
+    await page.locator("#snapshotSelect").selectOption(historicalSnapshotDate);
+    await expect(page.locator("#plotResultStatus")).toContainText("31 point-mapped");
+    await expect(page.locator(".fleet-marker")).toHaveCount(31);
+    await expectCompleteMarkerNames(page, expectedHistoricalMarkers[historicalSnapshotDate].points.map(p => p.name));
+    await page.reload();
+    await expect(page.locator("#snapshotSelect")).toHaveValue(historicalSnapshotDate);
+    await expect(page.locator(".fleet-marker")).toHaveCount(31);
+    await openAssets(page);
+    await page.locator("#searchInput").fill("HMS Victory");
+    await page.locator('#vesselList button[data-vessel-id="hms-victory"]').click();
+    await expect(page.locator("#detailCard")).toContainText("Portsmouth");
+    await expect(page.locator(".fleet-marker.is-selected")).toHaveCount(1);
+    await page.screenshot({ path: `/private/tmp/rn-historical-${viewport.width}.png` });
+    await page.getByRole("button", { name: "Close selected record", exact: true }).click();
+    await openAssets(page);
+    await page.locator("#searchInput").fill("HMS Vengeance");
+    await page.locator('#vesselList button[data-vessel-id="hms-vengeance"]').click();
+    await expect(page.locator("#detailCard")).toContainText("Not available for this snapshot");
+    await expect(page.locator(".fleet-marker")).toHaveCount(0);
+    await page.getByRole("button", { name: "Close selected record", exact: true }).click();
+    await openAssets(page);
+    await page.locator("#searchInput").fill("");
+    await page.locator("#snapshotSelect").selectOption("2026-08-23");
+    await expect(page.locator(".fleet-marker")).toHaveCount(37);
+    await expectCompleteMarkerNames(page, expectedHistoricalMarkers["2026-08-23"].points.map(p => p.name));
+    await expect(page.locator("#vesselList button[data-vessel-id]")).toHaveCount(68);
+    await expect(page.locator('#vesselList button[data-vessel-id="hms-iron-duke"]')).toHaveCount(0);
+    await page.reload();
+    await expect(page.locator("#snapshotSelect")).toHaveValue("2026-08-23");
+    await expect(page.locator(".fleet-marker")).toHaveCount(37);
+    await openAssets(page);
+    await page.locator("#snapshotSelect").selectOption(fleet.metadata.asOfDate);
+    await expect(page.locator(".fleet-marker")).toHaveCount(fleet.vessels.filter(v => v.position).length);
+    await expectCompleteMarkerNames(page, fleet.vessels.filter(v => v.position).map(v => v.name));
+    await expect(page.locator("#loadError")).toBeHidden();
+  });
+}
 
 test("desktop right-side panels are exclusive and list selections explain map display", async ({ page }) => {
   await openAssets(page);
