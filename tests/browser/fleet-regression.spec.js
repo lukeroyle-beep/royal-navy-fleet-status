@@ -248,6 +248,7 @@ test("desktop right-side panels are exclusive and list selections explain map di
   expect(visibleRightPanels).toBe(1);
 
   await page.locator(classButtonSelector("Vanguard class")).click();
+  await page.locator("#classAvailabilityPanel > summary").click();
   const classVesselButton = page.locator("#classAvailabilityVessels button").first();
   await classVesselButton.click();
   await expect(page.locator("#detailDrawer")).toBeVisible();
@@ -400,7 +401,7 @@ test("compact active-filter controls clear shore filters above an open sheet", a
   await page.locator("#shoreSearchInput").fill("Yeovilton");
   await page.locator("#shoreTypeFilter").selectOption("Air station");
 
-  await expect(page.locator("#surfaceBackdrop")).toBeVisible();
+  await expect(page.locator("#surfaceBackdrop")).toBeHidden();
   await expect(page.getByRole("button", { name: "Remove Shore search: Yeovilton" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Remove Shore type: Air station" })).toBeVisible();
   await expect(page.locator("#filterBadge")).toHaveText("2");
@@ -540,16 +541,18 @@ test("desktop, iPad portrait, iPad landscape and mobile use intentional map-firs
     { width: 390, height: 844, sheet: true },
   ]) {
     await page.setViewportSize(viewport);
-    await page.goto("/");
+    await page.goto("/?view=2");
     await expect(page.locator("#mapTitle")).toHaveText("British Armed Forces Tracker");
     const mapBox = await page.locator("#fleetMap").boundingBox();
     expect(mapBox.height).toBeGreaterThan(viewport.height * 0.7);
 
     await page.locator("#searchInput").fill("HMS Duncan");
     await page.locator('#vesselList button[data-vessel-id="hms-duncan"]').click();
+    await expect.poll(async () => {
+      const box = await page.locator("#detailDrawer").boundingBox();
+      return Math.abs(box.y + box.height - viewport.height);
+    }).toBeLessThan(3);
     const detailBox = await page.locator("#detailDrawer").boundingBox();
-    const expectedBottom = viewport.sheet ? viewport.height : viewport.height - 12;
-    expect(Math.abs(detailBox.y + detailBox.height - expectedBottom)).toBeLessThan(3);
     if (viewport.sheet) {
       expect(detailBox.width).toBeGreaterThan(viewport.width * 0.9);
       expect(detailBox.y).toBeGreaterThan(viewport.height * 0.2);
@@ -587,7 +590,7 @@ test("coarse-pointer iPad layouts replace the asset surface with selected detail
     await expect(touchPage.locator('#detailPrimaryMeta [data-term="home-port"]')).toBeVisible();
     const detailBox = await touchPage.locator("#detailDrawer").boundingBox();
     if (viewport.bottomSheet) {
-      await expect(touchPage.locator("#surfaceBackdrop")).toBeVisible();
+      await expect(touchPage.locator("#surfaceBackdrop")).toBeHidden();
       expect(detailBox.width).toBeGreaterThan(viewport.width * 0.9);
       expect(Math.abs(detailBox.y + detailBox.height - viewport.height)).toBeLessThan(3);
     } else {

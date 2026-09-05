@@ -220,6 +220,10 @@ const surfaceController = new SurfaceController({
   ]),
   focusFallbacks: new Map([["detail", elements.fleetToggle]]),
   backdrop: document.querySelector("#surfaceBackdrop"),
+  onChange: (open) => {
+    document.querySelector(".command-workspace").classList.toggle("has-detail", open.has("detail"));
+    if (publicStateReady && (selectedId || selectedShoreId)) queueSelectedRecordVisibility();
+  },
 });
 if (surfaceController.isCompact()) surfaceController.closeAll();
 
@@ -352,6 +356,8 @@ function bindDataset() {
     if (state) applyPublicState(state, { sync: false });
   });
   elements.loadingState.hidden = true;
+  document.querySelector("#fleetSummaryBanner").setAttribute("aria-busy", "false");
+  elements.summaryFilters.forEach((button) => { button.disabled = false; });
   registerWebMcpTools();
   window.dispatchEvent(new Event("rn-fleet-ready"));
 }
@@ -641,6 +647,7 @@ function selectShoreEstablishment(
     returnFocusFallback = null,
   } = {},
 ) {
+  if (selectedShoreId !== establishment.id) collapseInspector();
   selectedShoreId = establishment.id;
   selectedId = null;
   details.renderEstablishment(establishment);
@@ -725,11 +732,11 @@ function createClassButton(value, label) {
   button.dataset.vesselClass = value;
   button.textContent = label;
   if (value) {
-    button.setAttribute("aria-controls", "classAvailabilityPanel");
-    button.setAttribute("aria-label", `${label}: show class availability`);
+    button.setAttribute("aria-label", `${label}: filter by vessel class`);
   }
   button.addEventListener("click", () => {
     selectedClass = value;
+    elements.classAvailabilityPanel.open = false;
     updateClassRibbon();
     applyFilters();
   });
@@ -741,9 +748,6 @@ function updateClassRibbon() {
     const isSelected = button.dataset.vesselClass === selectedClass;
     button.classList.toggle("is-selected", isSelected);
     button.setAttribute("aria-pressed", isSelected.toString());
-    if (button.dataset.vesselClass) {
-      button.setAttribute("aria-expanded", isSelected.toString());
-    }
   }
   elements.classSelectionStatus.textContent = selectedClass ? shortClassName(selectedClass) : "All classes";
   renderClassAvailability();
@@ -839,7 +843,7 @@ function renderAvailabilityScore(container, percentageElement, percentage, acces
   container.setAttribute("aria-label", `${formattedPercentage} ${accessibleDescription}`);
 }
 
-function applyFilters({ fit = true, sync = true } = {}) {
+function applyFilters({ fit = false, sync = true } = {}) {
   const filtered = filterFleetVessels(dataset.vessels, currentFleetFilterCriteria());
 
   currentFilteredVessels = filtered;
@@ -1162,6 +1166,7 @@ function selectVessel(
     returnFocusFallback = null,
   } = {},
 ) {
+  if (selectedId !== vessel.id) collapseInspector();
   selectedId = vessel.id;
   selectedShoreId = null;
   details.renderVessel(vessel, {
@@ -1183,24 +1188,30 @@ function selectVessel(
   if (sync) syncPublicState({ mode: source === "restore" ? "replace" : "push" });
 }
 
-function queueSelectedRecordVisibility() {
-  window.requestAnimationFrame(() => {
-    const mapRect = document.querySelector("#fleetMap").getBoundingClientRect();
-    const detail = document.querySelector("#detailDrawer");
-    const fleet = document.querySelector("#fleetDrawer");
-    const detailRect = detail.hidden ? null : detail.getBoundingClientRect();
-    const fleetRect = fleet.hidden ? null : fleet.getBoundingClientRect();
-    const compactBottomSheet = Boolean(
-      detailRect && detailRect.width > mapRect.width * 0.72 && detailRect.top > mapRect.top,
-    );
-    fleetMap.focusSelection({
-      left: fleetRect && !surfaceController.isCompact() ? fleetRect.width + 18 : 0,
-      right: detailRect && !compactBottomSheet ? detailRect.width + 18 : 0,
-      bottom: compactBottomSheet ? mapRect.bottom - detailRect.top + 18 : 0,
-      top: 0,
-    });
-  });
+function collapseInspector() {
+  document.querySelector(".command-workspace").classList.remove("detail-expanded");
+  const button = document.querySelector("#detailExpand");
+  button.setAttribute("aria-expanded", "false");
+  button.textContent = "Expand details";
 }
+
+function queueSelectedRecordVisibility() {
+  window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+    fleetMap.focusSelection({ top: 64 });
+  }));
+}
+
+const detailExpand = document.querySelector("#detailExpand");
+detailExpand.addEventListener("click", () => {
+  const expanded = detailExpand.getAttribute("aria-expanded") !== "true";
+  detailExpand.setAttribute("aria-expanded", String(expanded));
+  detailExpand.textContent = expanded ? "Collapse details" : "Expand details";
+  document.querySelector(".command-workspace").classList.toggle("detail-expanded", expanded);
+  queueSelectedRecordVisibility();
+});
+new ResizeObserver(() => {
+  if (publicStateReady && (selectedId || selectedShoreId)) queueSelectedRecordVisibility();
+}).observe(document.querySelector(".command-workspace"));
 
 function clearSelectedRecord({ syncMode = "replace" } = {}) {
   selectedId = null;
@@ -1362,6 +1373,8 @@ function getPublicStorage() {
 
 function showError(error) {
   elements.loadingState.hidden = true;
+  document.querySelector("#fleetSummaryBanner").setAttribute("aria-busy", "false");
+  elements.summaryFilters.forEach((button) => { button.disabled = true; });
   elements.error.hidden = false;
   elements.errorMessage.textContent = error instanceof Error ? error.message : "Unknown fleet data error.";
   window.dispatchEvent(new Event("rn-fleet-failed"));

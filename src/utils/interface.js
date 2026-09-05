@@ -53,6 +53,8 @@ export function openSurface(openSurfaces, requestedSurface, compact) {
   } else if (RIGHT_SIDE_SURFACES.includes(requestedSurface)) {
     for (const surface of RIGHT_SIDE_SURFACES) next.delete(surface);
   }
+  if (requestedSurface === "detail") next.delete("fleet");
+  if (requestedSurface === "fleet") next.delete("detail");
   next.add(requestedSurface);
   return next;
 }

@@ -291,7 +291,7 @@ assert.match(mapComponent, /minZoom:\s*0/);
 assert.match(mapComponent, /maxZoom:\s*this\.interactionProfile\.maxZoom/);
 assert.match(mapComponent, /zoomSnap:\s*this\.interactionProfile\.zoomSnap/);
 assert.match(mapComponent, /classList\.toggle\("is-mobile-safari"/);
-assert.match(mapComponent, /zoomAnimation:\s*this\.interactionProfile\.animationsEnabled/);
+assert.match(mapComponent, /zoomAnimation:\s*false/);
 assert.match(mapComponent, /touchZoom:\s*this\.interactionProfile\.continuousTouchZoom/);
 assert.match(mapComponent, /#installDiscreteTouchZoom\(\)/);
 assert.match(mapComponent, /Release to zoom/);

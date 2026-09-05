@@ -60,7 +60,8 @@ export class FleetMap {
     this.selectedId = null;
     this.selectedShoreId = null;
     this.coLocatedSelection = null;
-    this.reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.motionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    this.reducedMotion = this.motionMedia.matches;
     this.interactionProfile = createMapInteractionProfile({
       safari: L.Browser.safari,
       mobile: L.Browser.mobile,
@@ -81,9 +82,16 @@ export class FleetMap {
       keyboard: true,
       touchZoom: this.interactionProfile.continuousTouchZoom,
       bounceAtZoomLimits: false,
-      zoomAnimation: this.interactionProfile.animationsEnabled,
-      fadeAnimation: this.interactionProfile.animationsEnabled,
-      markerZoomAnimation: this.interactionProfile.animationsEnabled,
+      zoomAnimation: false,
+      fadeAnimation: false,
+      markerZoomAnimation: false,
+    });
+
+    this.motionMedia.addEventListener("change", ({ matches }) => {
+      this.reducedMotion = matches;
+      this.interactionProfile = createMapInteractionProfile({ safari: L.Browser.safari, mobile: L.Browser.mobile, reducedMotion: matches });
+      this.map.stop();
+      // Tile and cluster animations stay disabled; camera moves use this live profile.
     });
 
     if (this.interactionProfile.discreteTouchZoom) this.#installDiscreteTouchZoom();
@@ -112,7 +120,7 @@ export class FleetMap {
     this.tiles.addTo(this.map);
 
     this.clusterGroup = L.markerClusterGroup({
-      animate: this.interactionProfile.animationsEnabled,
+      animate: false,
       animateAddingMarkers: false,
       chunkedLoading: false,
       maxClusterRadius: 48,
@@ -135,7 +143,7 @@ export class FleetMap {
     this.selectionGroup = L.layerGroup().addTo(this.map);
 
     this.shoreClusterGroup = L.markerClusterGroup({
-      animate: this.interactionProfile.animationsEnabled,
+      animate: false,
       animateAddingMarkers: false,
       chunkedLoading: false,
       maxClusterRadius: 44,
@@ -417,9 +425,10 @@ export class FleetMap {
       return;
     }
     this.map.panInside(marker.getLatLng(), {
+      duration: 0.2,
       animate: this.interactionProfile.animationsEnabled,
-      paddingTopLeft: [left + 28, top + 28],
-      paddingBottomRight: [right + 28, bottom + 28],
+      paddingTopLeft: [left + 48, top + 48],
+      paddingBottomRight: [right + 48, bottom + 48],
     });
   }
 

@@ -37,8 +37,6 @@ export class EventDetailsPanel {
     this.timelineList = timelineList;
     this.photoService = new VesselPhotoService();
     this.renderToken = 0;
-    this.photoImage.addEventListener("load", () => this.#showPhotoImage());
-    this.photoImage.addEventListener("error", () => this.#showPhotoFallback());
   }
 
   renderDefault(dataset) {
@@ -91,6 +89,7 @@ export class EventDetailsPanel {
     this.#beginPhoto(`Photograph of ${vessel.name}`);
     this.photoImage.style.removeProperty("object-position");
     this.photoImage.dataset.vesselId = vessel.id;
+    delete this.photoImage.dataset.establishmentId;
 
     this.photoService
       .find(vessel)
@@ -100,8 +99,7 @@ export class EventDetailsPanel {
           this.#showPhotoFallback();
           return;
         }
-        this.photoImage.src = result.imageUrl;
-        this.#renderPhotoCredit(result);
+        return this.#loadPhoto(result.imageUrl, token, () => this.#renderPhotoCredit(result));
       })
       .catch(() => {
         if (token === this.renderToken) this.#showPhotoFallback();
@@ -109,7 +107,7 @@ export class EventDetailsPanel {
   }
 
   renderEstablishment(establishment) {
-    this.renderToken += 1;
+    const token = ++this.renderToken;
     this.kind.textContent = establishment.type;
     this.title.textContent = establishment.name;
     this.classLine.textContent = establishment.location;
@@ -128,14 +126,15 @@ export class EventDetailsPanel {
     this.photoImage.dataset.establishmentId = establishment.id;
     delete this.photoImage.dataset.vesselId;
     this.photoImage.style.objectPosition = establishment.imageFocalPoint;
-    this.photoImage.src = establishment.image;
-    const creditLink = document.createElement("a");
-    creditLink.href = establishment.imageCredit.sourceUrl;
-    creditLink.target = "_blank";
-    creditLink.rel = "noreferrer noopener";
-    creditLink.textContent = `${establishment.imageCredit.label} · ${establishment.imageCredit.license}`;
-    this.photoCredit.replaceChildren("Image credit: ", creditLink);
-    this.photoCredit.hidden = false;
+    this.#loadPhoto(establishment.image, token, () => {
+      const creditLink = document.createElement("a");
+      creditLink.href = establishment.imageCredit.sourceUrl;
+      creditLink.target = "_blank";
+      creditLink.rel = "noreferrer noopener";
+      creditLink.textContent = `${establishment.imageCredit.label} · ${establishment.imageCredit.license}`;
+      this.photoCredit.replaceChildren("Image credit: ", creditLink);
+      this.photoCredit.hidden = false;
+    });
     this.#hideTimeline();
   }
 
@@ -191,6 +190,20 @@ export class EventDetailsPanel {
     this.photoFallback.hidden = true;
     this.photoCredit.replaceChildren();
     this.photoCredit.hidden = true;
+  }
+
+  async #loadPhoto(url, token, credit) {
+    const image = new Image();
+    image.src = url;
+    try {
+      await image.decode();
+      if (token !== this.renderToken) return;
+      this.photoImage.src = url;
+      credit();
+      this.#showPhotoImage();
+    } catch {
+      if (token === this.renderToken) this.#showPhotoFallback();
+    }
   }
 
   #showPhotoImage() {

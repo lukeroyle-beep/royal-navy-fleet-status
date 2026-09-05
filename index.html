@@ -21,10 +21,7 @@
           <span class="sr-only">Search vessels and shore establishments</span>
           <input id="searchInput" type="search" autocomplete="off" placeholder="Search vessels and establishments" />
         </label>
-        <div class="snapshot-meta" aria-label="Public dataset publication information">
-          <div class="snapshot-item"><span>Snapshot</span><strong id="asOfDate">Loading</strong></div>
-          <div class="snapshot-item freshness-item"><span>Public data</span><strong id="publicationFreshness">Loading</strong></div>
-        </div>
+
         <nav class="top-actions" aria-label="Map controls">
           <button id="layersToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="layersPanel">Layers</button>
           <button id="filterToggle" class="toolbar-button" type="button" aria-expanded="false" aria-controls="filterPanel">
@@ -33,7 +30,7 @@
         </nav>
       </header>
 
-      <section class="command-workspace">
+      <section class="workspace-toolbar" aria-label="Fleet workspace controls">
         <nav class="map-rail" aria-label="Workspace views">
           <button id="fleetToggle" class="rail-button" type="button" aria-expanded="false" aria-controls="fleetDrawer">
             <span class="rail-icon" aria-hidden="true">☷</span><span>Assets</span>
@@ -42,25 +39,41 @@
             <span class="rail-icon" aria-hidden="true">↺</span><span>Changes</span><span id="changesCount" class="control-badge"></span>
           </button>
         </nav>
-        <section class="map-stage" aria-label="Interactive fleet map">
-          <div id="fleetMap" role="region" aria-label="Map of publicly reported vessel locations"></div>
-          <section id="fleetSummaryBanner" class="fleet-summary-banner" aria-label="Fleet status summary">
-            <button type="button" data-summary-filter="Deployed"><strong id="deployedCount">0</strong><span>Deployed</span></button>
-            <button type="button" data-summary-filter="Available"><strong id="availableCount">0</strong><span>Available</span></button>
-            <button type="button" data-summary-filter="In re-fit"><strong id="refitCount">0</strong><span>In re-fit</span></button>
-            <button type="button" data-summary-filter="Unknown"><strong id="unknownCount">0</strong><span>Unknown</span></button>
-            <button type="button" data-summary-location="withheld"><strong id="classifiedCount">0</strong><span>Classified</span></button>
+          <section class="snapshot-controls" aria-labelledby="snapshotControlsTitle">
+            <label for="snapshotSelect"><span id="snapshotControlsTitle">Public snapshot</span></label>
+            <select id="snapshotSelect" aria-describedby="snapshotDescription"></select>
+            <p id="snapshotDescription" class="snapshot-description sr-only" role="status" aria-live="polite">Loading validated public snapshots.</p>
+          </section>
+        <div class="snapshot-meta" aria-label="Public dataset publication information">
+          <div class="snapshot-item sr-only"><span>Snapshot</span><strong id="asOfDate">Loading</strong></div>
+          <div class="snapshot-item freshness-item"><span>Public data</span><strong id="publicationFreshness">Loading</strong></div>
+        </div>
+      </section>
+      <section class="workspace-context" aria-label="Fleet scope">
+          <section id="fleetSummaryBanner" class="fleet-summary-banner" aria-label="Fleet status summary" aria-busy="true">
+            <button type="button" disabled data-summary-filter="Deployed"><strong id="deployedCount">—</strong><span>Deployed</span></button>
+            <button type="button" disabled data-summary-filter="Available"><strong id="availableCount">—</strong><span>Available</span></button>
+            <button type="button" disabled data-summary-filter="In re-fit"><strong id="refitCount">—</strong><span>In re-fit</span></button>
+            <button type="button" disabled data-summary-filter="Unknown"><strong id="unknownCount">—</strong><span>Unknown</span></button>
+            <button type="button" disabled data-summary-location="withheld"><strong id="classifiedCount">—</strong><span>Withheld</span></button>
           </section>
           <section id="activeFilterBar" class="active-filter-bar" aria-label="Active filters" hidden>
             <div id="activeFilterChips" class="active-filter-chips"></div>
             <button id="clearActiveFilters" type="button">Clear all</button>
           </section>
+      </section>
+      <section class="command-workspace">
+
+        <section class="map-stage" aria-label="Interactive fleet map">
+          <div id="fleetMap" role="region" aria-label="Map of publicly reported vessel locations"></div>
+
+
           <div id="loadingState" class="loading-state" role="status" aria-live="polite">
             <span class="loading-spinner" aria-hidden="true"></span>
             <strong>Loading fleet picture</strong>
           </div>
           <div id="dataHealthNotice" class="data-health-notice" role="status" hidden></div>
-          <button id="resetMap" class="map-reset" type="button">Reset view</button>
+          <button id="resetMap" class="map-reset" type="button">Fit results</button>
           <div id="mapNotice" class="map-notice" role="status" hidden>
             Basemap tiles are unavailable. Vessel search and details remain available.
           </div>
@@ -73,11 +86,7 @@
             <div><p class="eyebrow">Public operational picture</p><h2 id="fleetDrawerTitle">Assets</h2></div>
             <button class="surface-close" type="button" data-close-surface="fleet" aria-label="Close asset list">Close</button>
           </header>
-          <section class="snapshot-controls" aria-labelledby="snapshotControlsTitle">
-            <label for="snapshotSelect"><span id="snapshotControlsTitle">Public snapshot</span></label>
-            <select id="snapshotSelect" aria-describedby="snapshotDescription"></select>
-            <p id="snapshotDescription" class="snapshot-description" role="status" aria-live="polite">Loading validated public snapshots.</p>
-          </section>
+
           <div class="result-summary">
             <span id="filterResultStatus" role="status" aria-live="polite">Showing 0 vessels</span>
             <button id="resetFilters" type="button" hidden>Clear all</button>
@@ -113,7 +122,8 @@
 
         <aside id="detailDrawer" class="surface drawer detail-drawer" data-surface="detail" aria-labelledby="detailTitle" hidden>
           <header class="surface-header">
-            <div><p class="eyebrow">Selected record</p><span class="surface-kicker">Public information</span></div>
+            <span class="surface-kicker">Selected record</span>
+            <button id="detailExpand" class="surface-close" type="button" aria-expanded="false" aria-controls="detailCard">Expand details</button>
             <button class="surface-close" type="button" data-close-surface="detail" aria-label="Close selected record">Close</button>
           </header>
           <article class="detail-card" id="detailCard" aria-live="polite" hidden>
@@ -205,18 +215,7 @@
           <section class="class-selector" aria-labelledby="classSelectorTitle">
             <div class="section-heading"><h3 id="classSelectorTitle">Vessel class</h3><span id="classSelectionStatus">All classes</span></div>
             <div id="classRibbon" class="class-ribbon" role="group" aria-label="Filter by vessel class"></div>
-            <section id="classAvailabilityPanel" class="class-availability" aria-labelledby="classAvailabilityTitle" aria-live="polite" hidden>
-              <div class="class-availability-heading">
-                <div><p class="eyebrow">Selected class</p><h3 id="classAvailabilityTitle"></h3></div>
-                <div id="classAvailabilityScore" class="availability-score class-availability-score" data-availability-band="low" aria-label="0% selected class availability">
-                  <strong id="classAvailabilityPercentage"></strong>
-                </div>
-              </div>
-              <p id="classAvailabilityFormula" class="class-availability-formula"></p>
-              <p id="classMapSummary" class="class-map-summary"></p>
-              <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>
-              <div class="class-availability-vessels"><h4>Vessels in class</h4><ul id="classAvailabilityVessels"></ul></div>
-            </section>
+
           </section>
           <div class="filter-grid">
             <label>Service<select id="serviceFilter"><option value="">Royal Navy and RFA</option></select></label>
@@ -233,6 +232,21 @@
               </select>
             </label>
           </div>
+            <details id="classAvailabilityPanel" class="class-availability" aria-labelledby="classAvailabilityTitle" hidden>
+              <summary>Class availability and vessels</summary>
+              <div class="class-availability-content">
+              <div class="class-availability-heading">
+                <div><p class="eyebrow">Selected class</p><h3 id="classAvailabilityTitle"></h3></div>
+                <div id="classAvailabilityScore" class="availability-score class-availability-score" data-availability-band="low" aria-label="0% selected class availability">
+                  <strong id="classAvailabilityPercentage"></strong>
+                </div>
+              </div>
+              <p id="classAvailabilityFormula" class="class-availability-formula"></p>
+              <p id="classMapSummary" class="class-map-summary"></p>
+              <dl id="classAvailabilityBreakdown" class="class-availability-breakdown"></dl>
+              <div class="class-availability-vessels"><h4>Vessels in class</h4><ul id="classAvailabilityVessels"></ul></div>
+              </div>
+            </details>
           <p id="filterPlotStatus" class="plot-result-status" role="status" aria-live="polite">Map: loading</p>
           <div class="result-summary panel-result-summary">
             <span id="filterSelectionStatus">All vessels</span>
