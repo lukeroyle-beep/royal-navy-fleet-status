@@ -167,7 +167,7 @@ test("valid empty location states survive reload and browser history", async ({ 
 });
 
 for (const viewport of [{ width: 1366, height: 768 }, { width: 390, height: 844 }]) {
-  test(`historical locations isolate dates and preserve current view at ${viewport.width}px`, async ({ page }) => {
+  test(`historical locations isolate dates and preserve current view at ${viewport.width}px`, async ({ page }, testInfo) => {
     await page.setViewportSize(viewport);
     await page.goto("/?view=2&layers=fleet&snapshot=2026-07-31");
     await openAssets(page);
@@ -187,7 +187,7 @@ for (const viewport of [{ width: 1366, height: 768 }, { width: 390, height: 844 
     await page.locator('#vesselList button[data-vessel-id="hms-victory"]').click();
     await expect(page.locator("#detailCard")).toContainText("Portsmouth");
     await expect(page.locator(".fleet-marker.is-selected")).toHaveCount(1);
-    await page.screenshot({ path: `/private/tmp/rn-historical-${viewport.width}.png` });
+    await page.screenshot({ path: testInfo.outputPath(`rn-historical-${viewport.width}.png`) });
     await page.getByRole("button", { name: "Close selected record", exact: true }).click();
     await openAssets(page);
     await page.locator("#searchInput").fill("HMS Vengeance");
