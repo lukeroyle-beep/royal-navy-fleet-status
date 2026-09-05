@@ -490,12 +490,13 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 #app { display: grid; grid-template-rows: auto auto auto minmax(0, 1fr); height: 100dvh; }
 .command-header { grid-template-columns: minmax(240px, auto) minmax(180px, 1fr) auto; }
 .workspace-toolbar { display: flex; align-items: center; gap: 16px; padding: 6px 12px; background: var(--navy-900); color: white; }
-.workspace-toolbar .map-rail { position: static; display: flex; width: auto; padding: 0; border: 0; box-shadow: none; background: transparent; }
+.workspace-toolbar .map-rail { position: static; display: flex; width: 204px; flex: 0 0 204px; padding: 0; border: 0; box-shadow: none; background: transparent; }
 .rail-button { display: flex; min-height: 44px; gap: 6px; padding: 6px 10px; font-size: 12px; }
 .rail-button .control-badge { position: static; }
 .snapshot-controls { display: flex; flex: 1; gap: 10px; margin: 0; padding: 0; border: 0; background: transparent; }
 .snapshot-controls label { color: #d5e2e8; font-size: 12px; }
 .snapshot-controls select { width: auto; flex: 1; max-width: 300px; }
+.workspace-toolbar .freshness-item { width: 180px; }
 .workspace-toolbar::after { content: "Public reports · Not live"; font-size: 12px; white-space: nowrap; }
 .workspace-context { background: var(--surface); border-bottom: 1px solid var(--line); }
 .fleet-summary-banner { position: static; border: 0; border-radius: 0; box-shadow: none; }
@@ -550,7 +551,7 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
   .top-actions { grid-column: 2; grid-row: 1; }
   .toolbar-button { padding: 0 8px; font-size: 12px; }
   .workspace-toolbar { flex-wrap: wrap; gap: 4px 8px; padding: 4px 8px; }
-  .workspace-toolbar .map-rail { gap: 3px; }
+  .workspace-toolbar .map-rail { gap: 3px; width: 136px; flex-basis: 136px; }
   .rail-button { min-height: 44px; padding: 4px; }
   .rail-icon { display: none; }
   .snapshot-controls { min-width: 170px; gap: 4px; }

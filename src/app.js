@@ -654,7 +654,9 @@ function selectShoreEstablishment(
   selectedShoreId = establishment.id;
   selectedId = null;
   details.renderEstablishment(establishment);
-  fleetMap.selectShoreEstablishment(establishment, { focus: focusMap });
+  window.requestAnimationFrame(() => {
+    if (selectedShoreId === establishment.id) fleetMap.selectShoreEstablishment(establishment, { focus: focusMap });
+  });
   updateSelectionSemantics();
   surfaceController.open("detail", {
     focus: source !== "restore" && surfaceController.isCompact(),
@@ -1179,7 +1181,11 @@ function selectVessel(
       selectedSnapshotDate === currentDataset.metadata.asOfDate ? insights.changes : null,
     insightsAvailable: insights.available,
   });
-  fleetMap.selectVessel(vessel, { focus: focusMap });
+  // Let the record text update before rebuilding the map selection layers.
+  // A newer selection cancels this pending acknowledgement.
+  window.requestAnimationFrame(() => {
+    if (selectedId === vessel.id) fleetMap.selectVessel(vessel, { focus: focusMap });
+  });
   updateSelectionSemantics();
   surfaceController.open("detail", {
     focus: source === "changes" || (source !== "restore" && surfaceController.isCompact()),
