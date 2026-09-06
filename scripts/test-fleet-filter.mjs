@@ -24,14 +24,15 @@ const historyCatalog = JSON.parse(
 
 const currentSummary = summarizePlotEligibility(fleet.vessels);
 assert.deepEqual(currentSummary, {
-  total: 68,
-  pointMapped: 41,
+  total: 69,
+  pointMapped: 42,
   regional: 26,
-  listOnly: 1,
+  listOnly: 0,
+  representative: 1,
 });
 assert.equal(
   formatPlotEligibilitySummary(fleet.vessels),
-  "41 point-mapped · 27 regional or list-only",
+  "42 point-mapped · 1 representative · 26 regional or list-only",
 );
 
 const classes = [...new Set(fleet.vessels.map((vessel) => vessel.vesselClass))];
@@ -160,12 +161,12 @@ function assertSummaryMatchesRecords(vessels, label) {
   const summary = summarizePlotEligibility(vessels);
   assert.equal(summary.total, vessels.length, `${label} total summary is inconsistent.`);
   assert.equal(
-    summary.pointMapped,
+    summary.pointMapped + (summary.representative || 0),
     vessels.filter(hasPlottablePosition).length,
     `${label} point-marker summary is inconsistent.`,
   );
   assert.equal(
-    summary.pointMapped + summary.regional + summary.listOnly,
+    summary.pointMapped + summary.regional + summary.listOnly + (summary.representative || 0),
     vessels.length,
     `${label} plot categories must cover every filtered record.`,
   );

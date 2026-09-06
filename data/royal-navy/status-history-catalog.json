@@ -710,6 +710,16 @@
       "pennantNumber": "A139",
       "commissionedDate": "2019",
       "homePort": "No fixed home base."
+    },
+    {
+      "id": "rfa-fort-victoria",
+      "name": "RFA Fort Victoria",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Fort class",
+      "vesselType": "RFA auxiliary - replenishment ship",
+      "pennantNumber": "A387",
+      "commissionedDate": "1994",
+      "homePort": "Not recorded"
     }
   ]
 }

@@ -34,7 +34,7 @@ const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "u
 const mapComponent = fs.readFileSync(new URL("../src/components/FleetMap.js", import.meta.url), "utf8");
 
 const expectedPlottedVessels = dataset.vessels.filter(
-  (vessel) => Boolean(vessel.position),
+  (vessel) => Boolean(vessel.position) || vessel.id === "hms-vengeance",
 );
 assert.deepEqual(
   plottedVessels(dataset.vessels).map((vessel) => vessel.id),
@@ -42,7 +42,7 @@ assert.deepEqual(
 );
 assert.equal(
   plottedVessels(dataset.vessels).every((vessel) =>
-    ["port", "city"].includes(vessel.locationPrecision),
+    ["port", "city"].includes(vessel.locationPrecision) || vessel.id === "hms-vengeance",
   ),
   true,
 );
@@ -54,7 +54,7 @@ assert.equal(
 );
 assert.equal(
   dataset.vessels.filter((vessel) => vessel.locationClassification === "withheld").filter(hasPlottablePosition).length,
-  0,
+  1,
 );
 assert.equal(
   dataset.vessels

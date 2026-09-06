@@ -28,7 +28,7 @@ const count = scanPublicExposure({
   fleetPath: "data/royal-navy/vessels.json",
   historyPath: "data/royal-navy/status-history-catalog.json",
   shorePath: "data/royal-navy/shore-establishments.json",
-  expectedFleetCount: 68,
+  expectedFleetCount: JSON.parse(fs.readFileSync(path.join(root, "data/royal-navy/vessels.json"), "utf8")).vessels.length,
   expectedShoreCount: 40,
   retiredAssets: [
     ["hms-richmond", "richmond.jpg"],

@@ -32,12 +32,12 @@ assert.equal(
 
 assert.match(page, /<h1 id="mapTitle">British Armed Forces Tracker<\/h1>/);
 assert.doesNotMatch(page, /BFA Tracker/);
-assert.equal(validateFleet(dataset).vessels.length, 68);
+assert.equal(validateFleet(dataset).vessels.length, 69);
 assert.equal(
   dataset.vessels.filter(
     (vessel) => ["mapped", "approximate", "withheld"].includes(vessel.locationClassification),
   ).length,
-  68,
+  69,
 );
 assert.equal(dataset.vessels.filter((vessel) => vessel.locationClassification === "unknown").length, 0);
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
@@ -56,18 +56,18 @@ assert.equal(
   "Point-mapped record — marker shown when fleet layer is enabled",
 );
 assert.equal(formatMapDisplay(regionalVessel), "Regional record — no point marker shown");
-assert.equal(formatMapDisplay(listOnlyVessel), "List-only record — no point marker shown");
+assert.equal(formatMapDisplay(listOnlyVessel), "Representative marker — not an actual vessel position");
 
 const allPrecisionStates = createFixtureDataset(precisionFixtures.stateCases);
 assert.equal(validateFleet(allPrecisionStates).vessels.length, precisionFixtures.stateCases.length);
 
 const activeFleet = getActiveFleetSummary(dataset.vessels);
 assert.equal(activeFleet.total, 49);
-assert.equal(activeFleet.percentage.toFixed(1), "72.1");
+assert.equal(activeFleet.percentage.toFixed(1), "71.0");
 const fleetAvailability = getAvailabilitySummary(dataset.vessels);
 assert.equal(fleetAvailability.active, 49);
-assert.equal(fleetAvailability.total, 68);
-assert.equal(fleetAvailability.percentage.toFixed(1), "72.1");
+assert.equal(fleetAvailability.total, 69);
+assert.equal(fleetAvailability.percentage.toFixed(1), "71.0");
 assert.equal(getAvailabilityBand(0), "low");
 assert.equal(getAvailabilityBand(33), "low");
 assert.equal(getAvailabilityBand(34), "medium");
@@ -75,10 +75,10 @@ assert.equal(getAvailabilityBand(66), "medium");
 assert.equal(getAvailabilityBand(67), "high");
 assert.equal(getAvailabilityBand(100), "high");
 assert.deepEqual(getFleetStatusSummary(dataset.vessels), {
-  total: 68,
+  total: 69,
   deployed: 17,
   available: 32,
-  inRefit: 14,
+  inRefit: 15,
   unknown: 4,
   classified: 1,
 });
@@ -241,7 +241,7 @@ assert.equal(vanguard.symbolicPosition, undefined);
 
 const vengeance = dataset.vessels.find((vessel) => vessel.id === "hms-vengeance");
 assert.equal(vengeance.status, "Deployed");
-assert.equal(vengeance.lastReportedLocation, "On patrol - classified");
+assert.equal(vengeance.lastReportedLocation, "On patrol");
 assert.equal(vengeance.locationState, "withheld");
 assert.equal(vengeance.locationPrecision, "none");
 assert.equal(vengeance.position, null);

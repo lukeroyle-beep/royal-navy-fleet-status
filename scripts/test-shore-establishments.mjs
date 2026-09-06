@@ -46,10 +46,10 @@ assert.ok(excellent.position.lat >= 50.814 && excellent.position.lat <= 50.82);
 assert.ok(excellent.position.lon >= -1.101 && excellent.position.lon <= -1.092);
 
 const availability = getAvailabilitySummary(fleet.vessels);
-assert.equal(fleet.vessels.length, 68);
+assert.equal(fleet.vessels.length, 69);
 assert.equal(availability.active, 49);
-assert.equal(availability.total, 68);
-assert.equal(availability.percentage.toFixed(1), "72.1");
+assert.equal(availability.total, 69);
+assert.equal(availability.percentage.toFixed(1), "71.0");
 
 assert.match(html, /id="shoreLayerToggle"[^>]*type="checkbox"[^>]*aria-controls="shoreControls"/);
 assert.match(html, /id="shoreControls"[^>]*hidden/);

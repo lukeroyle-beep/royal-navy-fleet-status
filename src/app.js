@@ -1,3 +1,4 @@
+import { hasRepresentativePatrolMarker } from "./utils/representativePatrol.js";
 import {
   EventDetailsPanel,
   formatLocationPrecision,
@@ -13,6 +14,7 @@ import { ShoreEstablishmentLoader } from "./components/ShoreEstablishmentLoader.
 import { SurfaceController } from "./components/SurfaceController.js";
 import {
   AVAILABILITY_STATUS_ORDER,
+  formatOperationalStatus,
   getAvailabilityBand,
   getAvailabilitySummary,
   getFleetStatusSummary,
@@ -711,7 +713,7 @@ function fillSelect(select, values) {
 function appendSelectOption(select, value, label) {
   const option = document.createElement("option");
   option.value = value;
-  option.textContent = label;
+  option.textContent = formatOperationalStatus(label);
   select.append(option);
 }
 
@@ -820,11 +822,11 @@ function createClassVesselItem(vessel) {
   const status = document.createElement("small");
   button.type = "button";
   button.dataset.vesselId = vessel.id;
-  button.setAttribute("aria-label", `${vessel.name}, ${vessel.status}`);
+  button.setAttribute("aria-label", `${vessel.name}, ${formatOperationalStatus(vessel.status)}`);
   button.className = vessel.id === selectedId ? "is-selected" : "";
   button.setAttribute("aria-current", (vessel.id === selectedId).toString());
   name.textContent = vessel.name;
-  status.textContent = vessel.status;
+  status.textContent = formatOperationalStatus(vessel.status);
   button.append(name, status);
   button.addEventListener("click", () =>
     selectVessel(vessel, {
@@ -891,7 +893,7 @@ function renderPlotSummary(filtered) {
   elements.plotResultStatus.textContent = status;
   elements.filterPlotStatus.textContent = status;
 
-  if (!elements.fleetLayerToggle.checked || summary.pointMapped > 0) {
+  if (!elements.fleetLayerToggle.checked || summary.pointMapped + (summary.representative || 0) > 0) {
     elements.mapFilterNotice.hidden = true;
     elements.mapFilterNotice.textContent = "";
     return;
@@ -1102,7 +1104,7 @@ function renderList(vessels) {
       button.setAttribute("aria-current", (vessel.id === selectedId).toString());
       button.dataset.status = vessel.status;
       heading.textContent = vessel.name;
-      meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${vessel.status} · ${formatLocationState(vessel.locationState)} · ${formatLocationPrecision(vessel.locationPrecision)}`;
+      meta.textContent = `${vessel.pennantNumber || "No pennant"} · ${formatOperationalStatus(vessel.status)} · ${hasRepresentativePatrolMarker(vessel) ? "On patrol · Representative marker" : `${formatLocationState(vessel.locationState)} · ${formatLocationPrecision(vessel.locationPrecision)}`}`;
       button.append(heading, meta);
       button.addEventListener("click", () =>
         selectVessel(vessel, {
@@ -1138,7 +1140,7 @@ function renderList(vessels) {
       for (const value of [
         vessel.service,
         vessel.vesselType,
-        vessel.status,
+        formatOperationalStatus(vessel.status),
         vessel.publicLocationLabel,
       ]) {
         const cell = document.createElement("td");

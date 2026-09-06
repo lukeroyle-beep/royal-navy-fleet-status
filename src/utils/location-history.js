@@ -33,7 +33,8 @@ export function parseLocationHistory(text, history, catalog) {
       if (!Object.hasOwn(snapshot.statuses, id) || !identities.has(id)) {
         throw new Error(`Historical location ${id} is outside its snapshot roster.`);
       }
-      exactKeys(location, PUBLIC_LOCATION_FIELDS);
+      exactKeys(location, Object.hasOwn(location, "mapRepresentation")
+        ? [...PUBLIC_LOCATION_FIELDS, "mapRepresentation"] : PUBLIC_LOCATION_FIELDS);
       for (const key of ["publicLocationLabel", "lastReportedLocation"]) {
         if (typeof location[key] !== "string" || /https?:\/\/|www\.|[\p{Cc}\p{Cf}]/u.test(location[key]) || hasPrivateFilesystemPath(location[key])) {
           throw new Error("Historical location labels must be public text without URLs.");

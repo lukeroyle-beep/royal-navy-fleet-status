@@ -1,0 +1,224 @@
+{
+  "baseCommit": "ca5b99b9d0a0a66f1e96d49b6fcda1bd6eb4473f",
+  "markers": {
+    "hms-victory": {
+      "lat": 50.8,
+      "lon": -1.11,
+      "label": "HMS Victory, Portsmouth Historic Dockyard"
+    },
+    "hms-vanguard": {
+      "lat": 56.07,
+      "lon": -4.82,
+      "label": "HMNB Clyde (Faslane)"
+    },
+    "hms-victorious": {
+      "lat": 50.38,
+      "lon": -4.18,
+      "label": "Devonport Naval Base"
+    },
+    "hms-vigilant": {
+      "lat": 56.07,
+      "lon": -4.82,
+      "label": "HMNB Clyde (Faslane)"
+    },
+    "hms-astute": {
+      "lat": 50.38,
+      "lon": -4.18,
+      "label": "Devonport Naval Base"
+    },
+    "hms-ambush": {
+      "lat": 56.07,
+      "lon": -4.82,
+      "label": "HMNB Clyde"
+    },
+    "hms-artful": {
+      "lat": 56.07,
+      "lon": -4.82,
+      "label": "HMNB Clyde"
+    },
+    "hms-audacious": {
+      "lat": 50.38,
+      "lon": -4.18,
+      "label": "Devonport Naval Base"
+    },
+    "hms-anson": {
+      "lat": 50.38,
+      "lon": -4.18,
+      "label": "Devonport Naval Base"
+    },
+    "hms-agamemnon": {
+      "lat": 54.11,
+      "lon": -3.23,
+      "label": "Barrow-in-Furness"
+    },
+    "hms-queen-elizabeth": {
+      "lat": 50.81,
+      "lon": -1.1,
+      "label": "HMNB Portsmouth"
+    },
+    "hms-prince-of-wales": {
+      "lat": 50.81,
+      "lon": -1.1,
+      "label": "HMNB Portsmouth"
+    },
+    "hms-daring": {
+      "lat": 50.8,
+      "lon": -1.11,
+      "label": "HMNB Portsmouth"
+    },
+    "hms-diamond": {
+      "lat": 50.8,
+      "lon": -1.11,
+      "label": "HMNB Portsmouth"
+    },
+    "hms-dragon": {
+      "lat": -4.07,
+      "lon": 39.64,
+      "label": "Port of Mombasa"
+    },
+    "hms-defender": {
+      "lat": 50.8,
+      "lon": -1.11,
+      "label": "HMNB Portsmouth"
+    },
+    "hms-duncan": {
+      "lat": 55.7,
+      "lon": 12.6,
+      "label": "Copenhagen, Denmark"
+    },
+    "hms-somerset": {
+      "lat": 50.38,
+      "lon": -4.19,
+      "label": "HMNB Devonport"
+    },
+    "hms-sutherland": {
+      "lat": 50.38,
+      "lon": -4.18,
+      "label": "HMNB Devonport"
+    },
+    "hms-kent": {
+      "lat": 50.38,
+      "lon": -4.19,
+      "label": "Devonport dry dock"
+    },
+    "hms-st-albans": {
+      "lat": 56.07,
+      "lon": -4.82,
+      "label": "HMNB Clyde"
+    },
+    "hms-tyne": {
+      "lat": 50.81,
+      "lon": -1.11,
+      "label": "Portsmouth Harbour"
+    },
+    "hms-severn": {
+      "lat": 51.51,
+      "lon": -0.08,
+      "label": "London"
+    },
+    "hms-tamar": {
+      "lat": 10.5,
+      "lon": 103.61,
+      "label": "Ream Naval Base area"
+    },
+    "hms-spey": {
+      "lat": 1.28,
+      "lon": 103.83,
+      "label": "Singapore"
+    },
+    "hms-cattistock": {
+      "lat": 50.71,
+      "lon": -1.99,
+      "label": "Poole Quay"
+    },
+    "hms-brocklesby": {
+      "lat": 50.35,
+      "lon": -3.58,
+      "label": "Dartmouth harbour"
+    },
+    "hms-middleton": {
+      "lat": 50.15,
+      "lon": -5.06,
+      "label": "Balaena Falmouth yard"
+    },
+    "hms-bangor": {
+      "lat": 55.99,
+      "lon": -4.82,
+      "label": "HMNB Clyde"
+    },
+    "hms-stirling-castle": {
+      "lat": 50.81,
+      "lon": -1.11,
+      "label": "HMNB Portsmouth"
+    },
+    "hms-biter": {
+      "lat": 54.67,
+      "lon": -5.67,
+      "label": "Bangor Marina, Northern Ireland"
+    },
+    "hms-charger": {
+      "lat": 54.67,
+      "lon": -5.67,
+      "label": "Bangor Marina, Northern Ireland"
+    },
+    "hms-express": {
+      "lat": 50.35,
+      "lon": -3.58,
+      "label": "Dartmouth harbour"
+    },
+    "hms-raider": {
+      "lat": 54.71,
+      "lon": -3.51,
+      "label": "Maryport Marina"
+    },
+    "hms-dagger": {
+      "lat": 36.15,
+      "lon": -5.37,
+      "label": "Gibraltar Harbour"
+    },
+    "hms-scott": {
+      "lat": 36.14,
+      "lon": -5.36,
+      "label": "Gibraltar harbour"
+    },
+    "hms-protector": {
+      "lat": 54.59,
+      "lon": -1.19,
+      "label": "UK Docks Teesside / Teesport"
+    },
+    "rfa-mounts-bay": {
+      "lat": 50.59,
+      "lon": -2.44,
+      "label": "Portland Harbour"
+    },
+    "rfa-cardigan-bay": {
+      "lat": 50.15,
+      "lon": -5.05,
+      "label": "Falmouth"
+    },
+    "rfa-tidespring": {
+      "lat": 36.14,
+      "lon": -5.36,
+      "label": "Gibraltar harbour"
+    },
+    "rfa-tiderace": {
+      "lat": 53.4,
+      "lon": -3,
+      "label": "Birkenhead"
+    }
+  },
+  "history": {
+    "status-history.jsonl": {
+      "bytes": 19860,
+      "sha256": "1e33d14303bad9a6efc8ab30b1840888ca8febc1bef766474404bcd5a2dad53e"
+    },
+    "status-location-history.jsonl": {
+      "bytes": 48334,
+      "sha256": "f7d1b078a452fb3622463ae050368f6cae7947e98d0e3e463c3104ce109bef7d"
+    },
+    "availability-history.jsonl": {
+      "bytes": 4922,
+      "sha256": "3f8fc8af32601f79297bb252efc7bf1ae9cbc209931919192daa45b7e2ad5698"
+    }
+  }
+}

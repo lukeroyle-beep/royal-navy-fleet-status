@@ -1,7 +1,9 @@
 import { readReviewedPublicLocation } from "./public-geography.mjs";
 import { sanitisePublicLocationDescription } from "./public-location-safety.mjs";
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.1";
+import { REPRESENTATIVE_PATROL, REPRESENTATIVE_PATROL_ANCHOR, hasRepresentativePatrolMarker } from "../../src/utils/representativePatrol.js";
+
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.2";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -61,7 +63,8 @@ export function projectPublicVessel(entity, assessment) {
   const reviewedLocation = safeReviewedLocation(entity, assessedState);
   const listOnly = LIST_ONLY_STATES.has(locationState) || !reviewedLocation;
   const locationPrecision = listOnly ? "none" : reviewedLocation.precision;
-  const publicLocationLabel = sanitisePublicLocationLabel(
+  const representative = assessedState.mapRepresentation === REPRESENTATIVE_PATROL;
+  const publicLocationLabel = representative ? "On patrol" : sanitisePublicLocationLabel(
     createPublicLocationLabel(
       assessedState,
       locationState,
@@ -70,7 +73,7 @@ export function projectPublicVessel(entity, assessment) {
   );
   const geometry = createPublicGeometry(reviewedLocation, locationPrecision, publicLocationLabel);
 
-  return {
+  const vessel = {
     id: entity.vesselId,
     name: entity.name,
     service: entity.service,
@@ -91,7 +94,17 @@ export function projectPublicVessel(entity, assessment) {
     ),
     position: geometry.position,
     uncertaintyArea: geometry.uncertaintyArea,
+    ...(representative ? { mapRepresentation: REPRESENTATIVE_PATROL } : {}),
   };
+  if (Object.hasOwn(assessedState, "mapRepresentation")) {
+    const anchor = assessedState.symbolicPosition;
+    if (!hasRepresentativePatrolMarker(vessel) ||
+        anchor?.lat !== REPRESENTATIVE_PATROL_ANCHOR.lat ||
+        anchor?.lon !== REPRESENTATIVE_PATROL_ANCHOR.lon) {
+      throw new Error("Invalid representative patrol display decision.");
+    }
+  }
+  return vessel;
 }
 
 function deriveLocationState(assessedState, freshnessState) {

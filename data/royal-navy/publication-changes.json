@@ -1,33 +1,55 @@
 {
   "schemaVersion": 2,
   "previousAsOfDate": "2026-08-31",
-  "currentAsOfDate": "2026-08-31",
-  "previousReleaseRevision": 2,
-  "currentReleaseRevision": 3,
-  "previousReleasedAt": "2026-08-31T18:28:57.000Z",
-  "currentReleasedAt": "2026-08-31T19:00:20.000Z",
+  "currentAsOfDate": "2026-09-06",
+  "previousReleaseRevision": 3,
+  "currentReleaseRevision": 1,
+  "previousReleasedAt": "2026-08-31T19:00:20.000Z",
+  "currentReleasedAt": "2026-09-06T09:51:13.987Z",
   "previousMappedCount": 67,
-  "currentMappedCount": 67,
+  "currentMappedCount": 69,
   "counts": {
-    "status": 1,
-    "location": 0,
-    "mapping": 0,
-    "marker": 0,
+    "status": 0,
+    "location": 1,
+    "mapping": 1,
+    "marker": 1,
     "evidence": 0
   },
   "changes": [
     {
-      "vesselId": "hms-protector",
-      "vesselName": "HMS Protector",
+      "vesselId": "hms-vengeance",
+      "vesselName": "HMS Vengeance",
       "categories": [
-        "status"
+        "marker",
+        "location"
       ],
       "items": [
         {
-          "kind": "status",
-          "label": "Status",
-          "before": "Available",
-          "after": "In re-fit"
+          "kind": "marker",
+          "label": "Map display",
+          "before": "No representative marker",
+          "after": "Representative patrol marker"
+        },
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "On patrol - classified",
+          "after": "On patrol"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-fort-victoria",
+      "vesselName": "RFA Fort Victoria",
+      "categories": [
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "mapping",
+          "label": "Fleet record",
+          "before": "Not listed",
+          "after": "Added"
         }
       ]
     }

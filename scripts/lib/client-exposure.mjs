@@ -21,7 +21,7 @@ const allowedFleetFields = new Set([
   "id", "name", "service", "vesselClass", "vesselType", "pennantNumber",
   "commissionedDate", "homePort", "status", "locationClassification", "locationState",
   "locationPrecision", "publicLocationLabel", "lastReportedLocation", "position",
-  "uncertaintyArea",
+  "uncertaintyArea", "mapRepresentation",
 ]);
 const allowedHistoryFields = new Set([
   "id", "name", "service", "vesselClass", "vesselType", "pennantNumber",

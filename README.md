@@ -2,7 +2,7 @@
 
 A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive two-dimensional map.
 
-The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Map markers represent deliberately rounded, publicly reported port or city locations rather than exact vessel positions; broader regional records remain available in the fleet list without a map marker.
+The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Map markers represent deliberately rounded, publicly reported port or city locations rather than exact vessel positions; broader regional records remain available in the fleet list without a map marker. A fixed representative marker also identifies the deployed deterrent patrol without disclosing a vessel position.
 
 ## What is included
 
@@ -64,7 +64,7 @@ results.
 - A plotted historical location is never presented as a live fix. Its marker uses only the precision supported by the reviewed evidence.
 - Unknown, unconfirmed and no-recent-information vessels remain searchable and listable without invented coordinates.
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
-- Undisclosed submarine patrol positions are never inferred, represented symbolically or displayed.
+- Undisclosed submarine patrol positions are never inferred or displayed. HMS Vengeance has an explicitly approved, fixed representative patrol marker: a display anchor only, with actual position withheld and precision `none`. It conveys no patrol area or geographical presence.
 
 The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed public location state, precision and the project's internal evidence review.
 
