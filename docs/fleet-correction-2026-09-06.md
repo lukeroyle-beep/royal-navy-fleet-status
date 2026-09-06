@@ -2,7 +2,7 @@
 
 Implementation branch: `codex/vengeance-fort-victoria`, based on `ca5b99b9d0a0a66f1e96d49b6fcda1bd6eb4473f`.
 
-This is a locally implemented and validated candidate, not a published release. The existing dirty checkout and active external private-input root were preserved. The external candidate contains the canonical inventory, assessments and source-coverage row needed to regenerate the public dataset; the committed legacy migration inputs remain unchanged.
+This is an implemented and validated candidate in [draft PR #91](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/91), not a published release. The existing dirty checkout and active external private-input root were preserved. The external candidate contains the canonical inventory, assessments and source-coverage row needed to regenerate the public dataset; the committed legacy migration inputs remain unchanged.
 
 ## Result
 
@@ -61,6 +61,9 @@ Two existing browser assertions were made timing-safe during production verifica
 - `scripts/test-location-history.mjs`
 - `scripts/test-map.mjs`
 - `scripts/test-photos.mjs`
+- `scripts/test-provenance.mjs`
+- `scripts/test-sweep.mjs`
+- `scripts/test-x-browser-collection.mjs`
 - `scripts/test-shore-establishments.mjs`
 - `scripts/validate-publication-changes.mjs`
 - `src/app.js`
@@ -85,4 +88,11 @@ Two existing browser assertions were made timing-safe during production verifica
 - Historical-prefix and existing-marker regression: PASS; all 41 previous marker identities and coordinates preserved, no past status/location lines rewritten, and availability history unchanged.
 - Publication readiness: NOT READY; native sweep gate correctly rejects the candidate because no sweep covers 6 September r1. This is a release follow-up, not a disabled check or an invented successful sweep.
 
-All verification is local. No PR, merge, deployment, canonical-input activation or memory write-back was performed. A dedicated Fort Victoria photograph and reviewed direct social-source coverage remain follow-up items; the approved image fallback already works.
+The branch is published in draft PR #91, linked to Issue #90. Independent implementation review found no must-fix issue and GitHub CI passed on the initial head; the PR records subsequent exact-head checks. No merge, production deployment or canonical-input activation was performed. A dedicated Fort Victoria photograph and reviewed direct social-source coverage remain follow-up items; the approved image fallback already works.
+
+
+## Release-process follow-up
+
+The release-manager run against the external candidate exposed old test assumptions that the public CI fixture did not exercise. The provenance test now permits the optional representation field only when the full strict marker contract holds and rejects attempts to attach observed geometry to it. Social-coverage and sweep-outcome checks compare exact canonical vessel IDs instead of a fixed 68. The browser-collection test pins its in-memory release identity to its existing fixed observation window; no live evidence or workflow dates are changed. The full `npm test` suite then passed against the canonical candidate.
+
+The canonical build remains blocked at its first native sweep check (`no sweep run covers 2026-09-06 r1`). Public build success and independent code review do not discharge that dependency. Keep the PR draft until the candidate is reconciled with current production and passes the complete evidence/release process. The scheduled Sunday workflow has not been changed or duplicated.

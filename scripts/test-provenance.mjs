@@ -17,6 +17,7 @@ import {
   sanitisePublicLocationDescription,
 } from "./lib/public-location-safety.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
+import { hasRepresentativePatrolMarker } from "../src/utils/representativePatrol.js";
 
 const privateInputs = resolvePrivateInputs();
 const entities = privateInputs.readJson("vessels");
@@ -48,7 +49,12 @@ const expectedPublicFields = [
   "vesselType",
 ].sort();
 for (const vessel of publicProjection.vessels) {
-  assert.deepEqual(Object.keys(vessel).sort(), expectedPublicFields, `${vessel.id} bypasses the public allow-list.`);
+  const fields = [...expectedPublicFields];
+  if (Object.hasOwn(vessel, "mapRepresentation")) {
+    assert.equal(hasRepresentativePatrolMarker(vessel), true, `${vessel.id} has an invalid representative marker.`);
+    fields.push("mapRepresentation");
+  }
+  assert.deepEqual(Object.keys(vessel).sort(), fields.sort(), `${vessel.id} bypasses the public allow-list.`);
 }
 const projectedVengeance = publicProjection.vessels.find((vessel) => vessel.id === "hms-vengeance");
 assert.equal(projectedVengeance.locationPrecision, "none");
@@ -84,6 +90,14 @@ for (const { report, requestedPrecision } of [
   }
   patrolAssessment.assessedState.lastReportedLocation = report;
   patrolAssessment.assessedState.position = { lat: 45, lon: -30, label: report };
+  if (Object.hasOwn(patrolAssessment.assessedState, "mapRepresentation")) {
+    assert.throws(
+      () => projectPublicVessel(vengeanceEntity, patrolAssessment),
+      /Invalid representative patrol display decision/,
+      `${report} must not turn a representative marker into an observed position.`,
+    );
+    delete patrolAssessment.assessedState.mapRepresentation;
+  }
   const projectedPatrol = projectPublicVessel(vengeanceEntity, patrolAssessment);
   assert.equal(projectedPatrol.locationPrecision, "none", `${report} exposed patrol precision.`);
   assert.equal(projectedPatrol.position, null, `${report} exposed a patrol point.`);
@@ -246,7 +260,11 @@ assert.throws(
     ),
   /requires explicit point geometry/i,
 );
-assert.equal(registry.officialSocialCoverage.length, 68);
+assert.deepEqual(
+  registry.officialSocialCoverage.map((entry) => entry.vesselId).sort(),
+  [...vesselIds].sort(),
+  "Every canonical fleet member must have exactly one social-coverage disposition.",
+);
 for (const retiredId of ["hms-richmond", "hms-iron-duke", "hms-chiddingfold"]) {
   const retired = entities.retiredVessels.find((vessel) => vessel.vesselId === retiredId);
   assert.equal(Boolean(retired), true);

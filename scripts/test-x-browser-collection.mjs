@@ -18,6 +18,12 @@ import {
 
 const privateInputs = resolvePrivateInputs();
 const entities = privateInputs.readJson("vessels");
+// This in-memory scenario has a fixed observation window, independent of the live release date.
+Object.assign(entities.metadata, {
+  asOfDate: "2026-08-23",
+  releaseRevision: 4,
+  releasedAt: "2026-08-23T23:59:00Z",
+});
 const assessments = privateInputs.readJson("assessments");
 const publicProjection = JSON.parse(
   fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"),
