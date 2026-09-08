@@ -1,6 +1,19 @@
 import { digest } from './acquisition.mjs';
 import { extractEvidenceCandidate, findEvidenceContradictions, clusterEvidenceCandidates } from './evidence-processing.mjs';
 
+// Absence of maritime words in an excerpt is not evidence of irrelevance.
+// Only a complete text-only observation can use these deliberately narrow rules.
+function deterministicTriage(item, matches) {
+  if (item.contentComplete !== true || item.hasUnexaminedMedia !== false || item.revised || matches.length) return null;
+  const text = item.text.trim();
+  if (/https?:|www\.|…|\.\.\.|show more|\b(quote|correction|reportedly|possibly|unclear)\b/i.test(text)) return null;
+  if (/\b(navy|naval|maritime|marine|marines|hms|rfa|ship|ships|vessel|vessels|submarine|submarines|carrier|frigate|destroyer|fleet|port|harbour|harbor|sea|seas|coast|sail|sailing|deploy|deployment|exercise|operation|maintenance|refit)\b/i.test(text)) return null;
+  if (/^(?:Happy (?:Christmas|New Year|Easter|Father['’]s Day|Mother['’]s Day)|Merry Christmas)[!.\s]*$/i.test(text)) {
+    return { ruleId: 'complete-text-only-greeting-v1', classification: 'irrelevant' };
+  }
+  return null;
+}
+
 export function preprocessEvidence(items, source, { vessels, current = [], cutoff, windowStart, locations = [], retainedEvidence = [] }) {
   const byId = new Map(current.map(v => [v.id || v.vesselId, v]));
   return items.map(item => {
@@ -28,7 +41,8 @@ export function preprocessEvidence(items, source, { vessels, current = [], cutof
     if (location && state && location !== state.location?.name) reasons.push('location-change');
     if (!status && !location) reasons.push('claim-requires-review');
     const exactRetained = retainedEvidence.find(e => e.sourceId === source.sourceId && e.canonicalUrl === item.url && e.contentHash === item.contentHash && e.reviewState === 'approved');
-    const priority = exactRetained && !item.revised && !reasons.length ? 3 : reasons.length ? 1 : source.reliabilityTier === 'A' ? 2 : 1;
+    const triage = deterministicTriage(item, matches);
+    const priority = triage || (exactRetained && !item.revised && !reasons.length) ? 3 : reasons.length ? 1 : source.reliabilityTier === 'A' ? 2 : 1;
     return { evidenceId: `CAND_${digest({ sourceId: source.sourceId, id: item.id, contentHash: item.contentHash }).slice(0, 24)}`,
       sourceId: source.sourceId, sourceType: source.category, authorityTier: source.reliabilityTier,
       vesselId: vessel?.vesselId || null, candidateVesselIds: matches.filter(Boolean).map(v => v.vesselId),
@@ -36,7 +50,8 @@ export function preprocessEvidence(items, source, { vessels, current = [], cutof
       claim: item.text.slice(0, 1000), supportingSpans: extracted.citedSpans, status, location,
       contentHash: item.contentHash, originId: item.originId || item.url, locationPrecision: 'unreviewed',
       directness: 'unreviewed', confidence: 'unreviewed', reviewState: 'new', publicationEligible: false,
-      priority, classification: priority === 3 ? 'corroboration' : reasons.includes('state-transition') ? 'state-transition' : reasons.includes('location-change') ? 'location-change' : 'ambiguous-or-verification', reasons: priority === 3 ? ['exact-retained-reviewed-evidence'] : reasons.length ? reasons : ['explicit-candidate-verification-required'] };
+      ...(triage ? { triageAudit: { ...triage, contentComplete: true, hasUnexaminedMedia: false, supersededReasons: reasons } } : {}),
+      priority, classification: triage?.classification || (priority === 3 ? 'corroboration' : reasons.includes('state-transition') ? 'state-transition' : reasons.includes('location-change') ? 'location-change' : 'ambiguous-or-verification'), reasons: triage ? [triage.ruleId] : priority === 3 ? ['exact-retained-reviewed-evidence'] : reasons.length ? reasons : ['explicit-candidate-verification-required'] };
   });
 }
 
@@ -45,7 +60,7 @@ export function adjudicationQueue(candidates) {
   const conflictIds = new Set(conflicts.flatMap(c => c.candidateIds));
   const items = candidates.map(c => ({ ...c, priority: conflictIds.has(c.evidenceId) ? 1 : c.priority,
     reasons: [...new Set([...c.reasons, ...(conflictIds.has(c.evidenceId) ? ['conflicting-evidence'] : [])])],
-    reasoning: (conflictIds.has(c.evidenceId) || c.priority === 1) ? { model: 'gpt-6-astra', effort: 'xhigh' } : { effort: 'verification' } }));
+    reasoning: (conflictIds.has(c.evidenceId) || c.priority === 1) ? { model: 'gpt-6-astra', effort: 'xhigh' } : c.triageAudit ? { effort: 'none', method: 'deterministic-triage' } : { effort: 'verification' } }));
   return { items: items.sort((a,b) => a.priority - b.priority || a.evidenceId.localeCompare(b.evidenceId)), conflicts, origins: clusterEvidenceCandidates(candidates) };
 }
 

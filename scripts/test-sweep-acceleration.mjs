@@ -77,6 +77,15 @@ try {
  check('exact reviewed corroboration avoids deep reasoning',()=>assert.equal(corroboration[0].priority,3));
  const revisedCorroboration=preprocessEvidence([{...item,contentHash:'hash',revised:true}],{sourceId:'official',reliabilityTier:'A'},{vessels,current:[{id:'example',status:'Alongside'}],cutoff,windowStart:'2026-09-01T00:00:00Z',retainedEvidence:retained});
  check('revision overrides corroboration shortcut',()=>assert.equal(revisedCorroboration[0].priority,1));
+ const triageItem={...item,text:'Happy Christmas!',contentHash:'greeting',contentComplete:true,hasUnexaminedMedia:false};
+ const triageContext={vessels,cutoff,windowStart:'2026-09-01T00:00:00Z'};
+ const triage=preprocessEvidence([triageItem],{sourceId:'general'},triageContext)[0];
+ check('complete greeting retained with auditable irrelevant disposition',()=>{assert.equal(triage.priority,3);assert.equal(triage.classification,'irrelevant');assert.equal(triage.publicationEligible,false);assert.ok(triage.triageAudit.supersededReasons.includes('event-time-unknown'));assert.equal(adjudicationQueue([triage]).items[0].reasoning.effort,'none');});
+ check('uncertain media excerpts revisions and additional claims cannot be downgraded',()=>{
+  for(const patch of [{contentComplete:false},{contentComplete:undefined},{hasUnexaminedMedia:true},{hasUnexaminedMedia:undefined},{revised:true},{text:'Happy Christmas from the sea!'},{text:'Happy Christmas! HMS Example has arrived.'},{text:'Happy Christmas! https://example.invalid'},{text:'Happy Christmas…'}]) assert.equal(preprocessEvidence([{...triageItem,...patch}],{sourceId:'general'},triageContext)[0].priority,1);
+  assert.equal(preprocessEvidence([triageItem],{sourceId:'unit',vesselId:'example'},triageContext)[0].priority,1);
+ });
+ check('conflicts override deterministic triage',()=>{const q=adjudicationQueue([{...triage,evidenceId:'triage-a',vesselId:'example',location:'Port A'},{...triage,evidenceId:'triage-b',vesselId:'example',location:'Port B'}]);assert.ok(q.conflicts.length);assert.ok(q.items.every(c=>c.priority===1&&c.reasoning.effort==='xhigh'));});
  const conflicts=adjudicationQueue([{...candidates[0],evidenceId:'a',location:'Port A'},{...candidates[0],evidenceId:'b',location:'Port B'}]);
  check('contradiction escalation',()=>{assert.equal(conflicts.conflicts.length,1);assert.ok(conflicts.items.every(i=>i.priority===1&&i.reasoning.effort==='xhigh'));});
  const run={runId:'test',coverageDate:'2026-09-13',window:{to:cutoff},sourceRegistryHash:'registry',sourceChecks:sources.map(s=>({sourceId:s.sourceId})),vesselOutcomes:[{vesselId:'example',state:'complete',reviewedAt:cutoff}],coverageInputs:{baselineAssessmentIds:{example:'a'}},complete:true,releaseContentHash:'sealed',releaseTarget:{asOfDate:'2026-09-13'},startedAt:cutoff};

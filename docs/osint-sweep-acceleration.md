@@ -10,9 +10,18 @@ run; the measurements below do not establish them. No automated publication is a
 The operator remains Codex, using its supported Computer Use connection to the existing signed-in
 Chrome for public X. Acquisition and deterministic preprocessing do not require Astra Extra High.
 Priority 1 adjudication uses `gpt-6-astra` with `xhigh`; Priority 2 requires verification; Priority 3
-is exact previously reviewed corroboration. Unknown dates, unmatched entities, revisions,
+includes exact previously reviewed corroboration and narrowly recognised irrelevant text. Unknown dates, unmatched entities, revisions,
 state/location transitions, protected activity and conflicts escalate. Keyword matches never
 become accepted fleet facts. No model API key or autonomous model caller is introduced.
+
+The deterministic irrelevant rule currently recognises only standalone seasonal greetings with
+no tracked entity. It requires explicit `contentComplete: true` and `hasUnexaminedMedia: false`
+on the acquisition item. Excerpts, unknown media coverage, quoted content, links, revisions and
+additional claims remain escalated. Existing browser excerpt adapters deliberately do not assert
+these flags. Each downgrade preserves its rule ID and superseded review reasons in `triageAudit`;
+the item stays in the ledger, does not corroborate fleet state, cannot refresh stale support, and
+still needs a certificate-bound disposition. Conflicts override the downgrade. This narrow rule
+is not evidence of a reduction in the current live historical queue.
 
 ## Retained architecture and inspection findings
 
