@@ -67,6 +67,14 @@ try {
  check('same-run normaliser upgrade appends a new atomic transaction',()=>{assert.equal(upgraded.records[0].cursor.normalisationVersion,NORMALISATION_VERSION);assert.notEqual(upgraded.records[0].hash,legacy.hash);assert.equal(upgradeJournal.transactions[0].hash,legacy.hash);assert.equal(upgraded.records[0].candidates.length,1);});
  const upgradedAgain=await acquireSources(upgradeOptions);
  check('upgraded rerun is idempotent',()=>assert.equal(upgradedAgain.records[0].hash,upgraded.records[0].hash));
+ const parserSource={...sources[0],acquisition:{...sources[0].acquisition,parserVersion:'2'}};
+ const parserUpgrade=await acquireSources({...upgradeOptions,sources:[parserSource]});
+ check('same-run adapter parser change re-extracts historical items',()=>{assert.equal(parserUpgrade.records[0].cursor.parserVersion,'2');assert.equal(parserUpgrade.records[0].candidates.length,1);assert.notEqual(parserUpgrade.records[0].hash,upgraded.records[0].hash);});
+ const identitySource={...parserSource,canonicalUrl:'https://example.invalid/corrected-source'};
+ const identityUpgrade=await acquireSources({...upgradeOptions,sources:[identitySource]});
+ check('same-run corrected source identity is examined afresh',()=>{assert.notEqual(identityUpgrade.records[0].sourceIdentityHash,parserUpgrade.records[0].sourceIdentityHash);assert.equal(identityUpgrade.records[0].candidates.length,1);assert.notEqual(identityUpgrade.records[0].hash,parserUpgrade.records[0].hash);});
+ const identityAgain=await acquireSources({...upgradeOptions,sources:[identitySource]});
+ check('unchanged corrected source resumes idempotently',()=>assert.equal(identityAgain.records[0].hash,identityUpgrade.records[0].hash));
  upgradeJournal.close();
  check('parser version invalidates cursor',()=>assert.equal(retrievalWindow(prior,one.cutoff,{parserVersion:'2'}).deep,true));
  check('normal incremental overlap',()=>assert.equal(retrievalWindow(prior,one.cutoff).deep,false));

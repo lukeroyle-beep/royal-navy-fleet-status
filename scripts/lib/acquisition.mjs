@@ -116,8 +116,10 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
   const pool = await boundedMap(sources, async source => {
     const priorRun = journal.transactions.findLast(t => t.runId === runId && t.sourceId === source.sourceId);
     if (priorRun && (priorRun.registryHash !== registryHash || priorRun.cutoff !== cutoff)) throw new Error('Resume inputs changed');
-    if (priorRun && SUCCESS.has(priorRun.outcome) && priorRun.cursor?.normalisationVersion === NORMALISATION_VERSION) return priorRun;
     const { sourceIdentityHash, previous, window } = acquisitionContext(source, journal, cutoff, policy);
+    if (priorRun && SUCCESS.has(priorRun.outcome) && priorRun.sourceIdentityHash === sourceIdentityHash &&
+        priorRun.cursor?.parserVersion === window.parserVersion &&
+        priorRun.cursor?.normalisationVersion === NORMALISATION_VERSION) return priorRun;
     const adapterId = source.acquisition?.adapter || source.collectionMode;
     const adapter = adapters[adapterId];
     const begin = performance.now();

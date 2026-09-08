@@ -362,3 +362,21 @@ browser collection and analytical review. All 53 acceleration checks and the com
 build passed. Mandatory deep coverage remains 70/77, and fleet reconciliation remains incomplete.
 The original candidate review batches span approximately 40 minutes. Neither replay speed nor
 that review interval demonstrates a complete live routine sweep below 60 minutes.
+
+The subsequent recovery check also binds same-run reuse to the source identity and adapter
+parser version before returning a prior result. Correcting a source URL or upgrading its parser
+therefore performs fresh acquisition/extraction; an unchanged rerun remains idempotent. The
+56-check acceleration suite and complete production build pass, including these regressions.
+
+The rendered official-news archive review reached five entries preceding the 90-day boundary
+and examined all 66 in-window article bodies, conservatively including the day-only boundary
+article. Per-article content fingerprints, concise claims, temporal qualifications and review
+dispositions were saved privately. Integrating this source increased mandatory deep coverage
+to 71/77 and the active candidate set to 546, all dispositioned. Previous evidence transactions
+remain intact. These are analytical dispositions, not 546 accepted fleet-state updates.
+
+Current directory review covered 63 linked unit/programme pages and 13 class pages. Missing
+historical revisions remain an explicit coverage gap; the approved two-source AIS exception
+does not implicitly cover these directories. Portsmouth's rendered navigation exposes current
+and next-day planned movements, not a historical movement archive or confirmation of execution.
+Neither these limitations nor unfinished fleet reconciliation is converted into release success.
