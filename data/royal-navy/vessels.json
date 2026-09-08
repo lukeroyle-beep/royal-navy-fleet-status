@@ -4,7 +4,7 @@
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-09-06",
     "releaseRevision": 2,
-    "releasedAt": "2026-09-08T06:17:33.715549+00:00"
+    "releasedAt": "2026-09-08T09:34:39.052Z"
   },
   "vessels": [
     {
@@ -1290,7 +1290,7 @@
       "locationState": "last_reported",
       "locationPrecision": "port",
       "publicLocationLabel": "Maryport Marina",
-      "lastReportedLocation": "Maryport Marina; public visit observed 27\u201328 June 2026",
+      "lastReportedLocation": "Maryport Marina; public visit observed 27–28 June 2026",
       "position": {
         "lat": 54.71,
         "lon": -3.51,
@@ -1561,8 +1561,8 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "region",
-      "publicLocationLabel": "North Sea\u2013Dover\u2013Channel route",
-      "lastReportedLocation": "North Sea\u2013Dover Strait\u2013English Channel route; monitoring operation reported 11 December 2025",
+      "publicLocationLabel": "North Sea–Dover–Channel route",
+      "lastReportedLocation": "North Sea–Dover Strait–English Channel route; monitoring operation reported 11 December 2025",
       "position": null,
       "uncertaintyArea": {
         "centre": {
@@ -1570,7 +1570,7 @@
           "lon": 1.4
         },
         "radiusKm": 180,
-        "label": "North Sea\u2013Dover\u2013Channel route",
+        "label": "North Sea–Dover–Channel route",
         "representation": "regional"
       }
     },

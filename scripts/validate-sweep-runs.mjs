@@ -10,6 +10,7 @@ import {
   validateSweepRunShape,
 } from "./lib/sweep.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
+import { validateCorrectionInputs } from "./lib/validate-correction-inputs.mjs";
 import { readReleaseMetadata } from "../src/utils/release.js";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -60,7 +61,7 @@ if (baseRef && newFiles.length) {
   }
 }
 
-const gate = validateReleaseSweepGate({
+let gate = validateReleaseSweepGate({
   runs,
   datasetDate: release.asOfDate,
   releaseRevision: release.releaseRevision,
@@ -71,10 +72,17 @@ const gate = validateReleaseSweepGate({
   evidenceItems: evidence.evidence,
 });
 if (!gate.pass) {
+  const correction = validateCorrectionInputs({ root, privateInputs, runs,
+    candidate: { entities, registry, assessmentLog: assessments, evidenceItems: evidence.evidence } });
+  if (correction) gate = correction;
+}
+if (!gate.pass) {
   throw new Error(`Fleet publication coverage gate failed: ${gate.reasons.join("; ")}`);
 }
 console.log(
-  gate.required
+  gate.kind === "owner-approved-correction"
+    ? `Validated owner correction ${gate.correctionId}: ${gate.baselineVessels} vessels in the original sweep; ${gate.reviewedCorrections} corrections; ${gate.candidateVessels} inventory records. No new collection claimed.`
+    : gate.required
     ? `Validated ${runs.length} sweep run(s); ${gate.runId} authorises ${release.asOfDate} r${release.releaseRevision}.`
     : `Validated ${runs.length} sweep run(s); coverage gate applies from 2026-08-24.`,
 );

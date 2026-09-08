@@ -1,6 +1,6 @@
 # Vengeance and Fort Victoria correction
 
-Draft [PR #91](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/91), linked to Issue #90, contains the approved corrections. This is an unpublished candidate. The active private inputs and production deployment are unchanged by this work.
+[PR #91](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/91), linked to Issue #90, contains the approved corrections. This is an unpublished candidate. The active private inputs and production deployment are unchanged by this work.
 
 ## Reconciled candidate
 
@@ -21,13 +21,25 @@ A separate r2 private candidate was composed from the current authoritative inpu
 
 The owner's instruction supplies the operational corrections. Fort Victoria's class, role, pennant and commission year were checked against the [official Royal Navy vessel page](https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-fort-victoria). Dock-level geography was checked against the [Wikimedia Seaforth location record](https://commons.wikimedia.org/wiki/Category:Seaforth_Container_Terminal,_Port_of_Liverpool). These are not berth-level vessel observations. No actual SSBN-location research was performed.
 
-The projection method is now 1.3.3, distinguishing the combined representation semantics from the independently published r1 method. That r1 sweep covers 68 vessels and its own sealed projection. It cannot authorize the new 69-vessel r2 candidate. Native validation reports `no sweep run covers 2026-09-06 r2`. The final release timestamp remains provisional until a legitimate matching correction sweep is complete. No scheduler or collection workflow was changed by this PR reconciliation.
+The projection method is now 1.3.3, distinguishing the combined representation semantics from the independently published r1 method. That r1 sweep covers 68 vessels and its own sealed projection. It remains the authenticated baseline for a separately recorded owner-approved correction. The owner explicitly confirmed that adding the omitted vessel correctly increases inventory to 69 and approved a scoped correction review. Native validation now authenticates the original seal under its original code, preserves its 68-vessel coverage, and binds the two owner dispositions to the exact r2 inputs and projection. No new full sweep or collection is claimed. No scheduler or collection workflow was changed by this PR reconciliation.
 
 ## Validation
 
 - Regression coverage verifies one symbolic Vengeance marker, null real geometry, Fort's status/location/counts, both vessels' filters and URL state, normal cards and image fallback.
 - The baseline fixture now identifies the published base commit and preserves all of its point markers, history byte prefixes, and exact Tamar/Magpie/Tideforce records. A separate assertion confirms that published r1 does not contain Fort Victoria.
 - The full public and canonical-input suites and both production/Pages builds passed for the reconciled candidate. All 43 browser tests passed. Independent integration review found no must-fix code issue; final exact-head review and CI are recorded on the PR. Public CI build success is separate from native publication authorization.
-- The r2 evidence-release gate remains blocked. Do not merge until a matching finalized review covers the full 69-vessel candidate, the release artifacts are finalized, and native checks and exact-head review pass.
+- The native scoped correction gate passes against the separate private candidate. The original sweep still reports 68 vessels; two explicit corrections produce 69 inventory records. The new regression suite accepts the additive case and rejects 22 authority, content, coverage and historical-tampering cases.
 
-Rollback of this unpublished work leaves production untouched. Retain the draft branch and separate private candidate for review; do not reset, overwrite or backfill the published release.
+Rollback of this unpublished work leaves production untouched. Retain the correction branch and separate private candidate for review; do not reset, overwrite or backfill the published release.
+
+## Scoped correction release review
+
+The separate private correction record retains the parent inputs and seal, explicit owner authority,
+per-vessel dispositions, review instant, candidate hashes and limitations. It cannot change collected
+evidence, existing sources, old assessments, retired records or undeclared vessels. Historical r1
+bytes remain untouched. Fort Victoria's social coverage remains disabled and not reviewed.
+
+The generic full-sweep release-manager adapter does not understand this record type; its missing-r2
+sweep output is not a validation of the correction contract. Readiness for this explicitly approved
+correction is assessed with the native correction gate, all repository tests/builds and independent
+review. The weekly collection gate and public provenance policy are unchanged.
