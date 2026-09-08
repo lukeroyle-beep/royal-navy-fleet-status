@@ -39,7 +39,7 @@ const publicDataCopy = fs.readFileSync(
 );
 const publicApp = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
 const storedHistory = parseAvailabilityHistory(storedText);
-assert.equal(storedHistory.length, 1);
+assert.ok(storedHistory.length >= 1, "The initial availability observation must be retained as history grows");
 assert.equal(storedHistory[0].weekEnding, "2026-08-23");
 assert.equal(Object.keys(storedHistory[0].observations).length, 68);
 assert.equal(
