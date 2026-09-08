@@ -88,6 +88,13 @@ try {
  const bootstrapWindow=acquisitionContext(bootstrapSource,bootstrapJournal,cutoff).window;
  const historicalException={policyId:BOOTSTRAP_POLICY,approvalReference:'owner-approval-2026-09-08',reason:'Public historical archive unavailable; current coverage complete',historicalDisposition:'SOURCE_UNAVAILABLE',windowFrom:bootstrapWindow.from,windowTo:bootstrapWindow.to,currentReview:{complete:true,asOf:cutoff,reviewer:'fixture reviewer',completedAt:cutoff,artifactHash:digest('review'),evidenceRefs:['private-review-fixture']}};
  const bootstrapOptions={...options,journal:bootstrapJournal,sources:[bootstrapSource],runId:'baseline',adapters:{fixture:async()=>({examined:true,extractionComplete:true,method:'fixture',items:[],historicalException})}};
+ check('AIS baseline retains actual later review time without backdating positions',()=>{
+  const later=new Date(Date.parse(cutoff)+3600000).toISOString();
+  const value={...historicalException,currentReview:{...historicalException.currentReview,asOf:later,completedAt:later}};
+  assert.equal(validateBootstrapException(value,{sourceId:bootstrapSource.sourceId,window:bootstrapWindow}).currentReview.asOf,later);
+  assert.throws(()=>validateBootstrapException({...value,currentReview:{...value.currentReview,asOf:new Date(Date.parse(later)+1).toISOString()}},{sourceId:bootstrapSource.sourceId,window:bootstrapWindow}));
+  assert.throws(()=>validateBootstrapException({...value,currentReview:{...value.currentReview,complete:false}},{sourceId:bootstrapSource.sourceId,window:bootstrapWindow}));
+ });
  const bootstrap=await acquireSources(bootstrapOptions);
  check('approved initial current baseline preserves unavailable history explicitly',()=>{const r=bootstrap.records[0];assert.equal(r.outcome,BOOTSTRAP_OUTCOME);assert.equal(r.cursor.historicalGap.historicalDisposition,'SOURCE_UNAVAILABLE');assert.equal(r.cursor.examinedThrough,cutoff);assert.equal(Date.parse(retrievalWindow(r,'2026-10-30T12:00:00Z').from),Date.parse(cutoff));});
  const repeatedException=await acquireSources({...bootstrapOptions,runId:'not-initial',cutoff:'2026-09-20T12:00:00Z'});

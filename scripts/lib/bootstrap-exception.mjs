@@ -11,11 +11,13 @@ const POLICIES = new Map([
 export function validateBootstrapException(value, { sourceId, window, previous = null }) {
   const review = value?.currentReview;
   const policy = POLICIES.get(sourceId);
-  // Undated directory pages establish the observed baseline, not a retrospectively
-  // asserted state at the sweep cutoff. Keep the cursor cutoff conservative.
+  // Current pages establish an observed baseline, not a retrospectively asserted
+  // position at the cutoff. Preserve cutoff-time AIS captures for compatibility.
+  const observedBaseline = review?.asOf === review?.completedAt &&
+    Date.parse(review?.asOf) >= Date.parse(window?.to);
   const validAsOf = policy?.[0] === DIRECTORY_BOOTSTRAP_POLICY
-    ? review?.asOf === review?.completedAt && Date.parse(review?.asOf) >= Date.parse(window?.to)
-    : review?.asOf === window?.to;
+    ? observedBaseline
+    : review?.asOf === window?.to || observedBaseline;
   if (!policy || previous?.cursor || !window?.deep || value?.policyId !== policy[0] ||
       value?.approvalReference !== policy[1] || !value.reason?.trim() ||
       value.historicalDisposition !== 'SOURCE_UNAVAILABLE' || value.windowFrom !== window.from || value.windowTo !== window.to ||

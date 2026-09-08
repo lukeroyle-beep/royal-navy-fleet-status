@@ -400,3 +400,26 @@ Existing page-quality findings and per-page dispositions remain in the private a
 The exception is valid only without an earlier successful cursor and only for these two
 sources. It cannot excuse incomplete current retrieval, later failures, harbour-history gaps
 or incomplete social timelines. The older AIS policy and approval remain separately bound.
+
+## Current AIS review and remaining live-validation hold
+
+The approved AIS bootstrap also accepts an explicitly recorded observation time after the
+sweep cutoff. It does not backdate that observation: the review timestamp remains separate,
+post-cutoff events are ineligible for the earlier snapshot, and the historical-gap cursor stays
+conservative. A regression rejects incomplete reviews and inconsistent observation/completion
+pairs. All 59 acceleration checks and the full production build pass.
+
+The public VesselFinder review examined 51 fleet-related detail records, rejected two further
+foreign namesakes, and completed pagination for missing-name aliases. Its initial current
+baseline retains unavailable history and identity/date limitations. Duplicate identities,
+rounded report ages, unavailable positions and uncorroborated port reports remain private
+review findings; AIS alone does not authorize a fleet change.
+
+MarineVesselTraffic's carrier canary failed an identity-consistency check between its parent
+page and embedded AIS panel. This is a `PARSING_FAILURE`, with no cursor advance; historical
+bootstrap approval cannot excuse a failed current identity check. At this checkpoint, 71 of
+77 mandatory sources have full examination, three have explicitly approved current-only
+baselines, and three remain blocked (the failed AIS canary, unavailable harbour history and
+incomplete DefenceHQ historical timeline). The private candidate ledger contains 723 reviewed
+candidates. Fleet reconciliation and live end-to-end timing remain incomplete. This checkpoint
+is not release permission and does not establish a routine under-60-minute sweep.
