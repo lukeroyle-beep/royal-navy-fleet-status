@@ -1,3 +1,4 @@
+import { hasRepresentativePatrolMarker } from "../src/utils/representativePatrol.js";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
@@ -34,6 +35,11 @@ for (const vessel of current.vessels) {
   }
 
   const items = [];
+  if (hasRepresentativePatrolMarker(before) !== hasRepresentativePatrolMarker(vessel)) {
+    items.push({ kind: "marker", label: "Map display",
+      before: hasRepresentativePatrolMarker(before) ? "Representative patrol marker" : "No representative marker",
+      after: hasRepresentativePatrolMarker(vessel) ? "Representative patrol marker" : "No representative marker" });
+  }
   addChange(items, "status", "Status", before.status, vessel.status);
   addChange(
     items,
@@ -127,7 +133,7 @@ function addChange(items, kind, label, before, after) {
 }
 
 function hasMapPosition(vessel) {
-  return Boolean(vessel.position || vessel.uncertaintyArea);
+  return Boolean(vessel.position || vessel.uncertaintyArea || hasRepresentativePatrolMarker(vessel));
 }
 
 function formatLocationPrecision(precision, legacyClassification) {

@@ -1,6 +1,8 @@
 import { readReleaseMetadata } from "../utils/release.js";
 import { PUBLIC_LOCATION_STATES } from "../utils/publicEnums.js";
 
+import { hasRepresentativePatrolMarker } from "../utils/representativePatrol.js";
+
 const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
 const LOCATION_STATES = new Set(PUBLIC_LOCATION_STATES);
 const LOCATION_PRECISIONS = new Set(["port", "city", "region", "none"]);
@@ -98,6 +100,9 @@ export function validateFleet(raw) {
       )
     ) {
       throw new Error(`${vessel.name} exposes exact berth-level public location detail.`);
+    }
+    if (Object.hasOwn(vessel, "mapRepresentation") && !hasRepresentativePatrolMarker(vessel)) {
+      throw new Error(`${vessel.name} has an invalid representative display marker.`);
     }
     const pointPrecision = vessel.locationPrecision === "port" || vessel.locationPrecision === "city";
     if (pointPrecision) {

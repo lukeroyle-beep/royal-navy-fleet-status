@@ -9,7 +9,9 @@ export function buildStatusLocationSnapshot(fleet) {
     releaseRevision: release.releaseRevision,
     releasedAt: release.releasedAt,
     locations: Object.fromEntries(fleet.vessels.map((vessel) => [vessel.id,
-      Object.fromEntries(PUBLIC_LOCATION_FIELDS.map((key) => [key, structuredClone(vessel[key])])),
+      Object.fromEntries([...PUBLIC_LOCATION_FIELDS,
+        ...(Object.hasOwn(vessel, "mapRepresentation") ? ["mapRepresentation"] : []),
+      ].map((key) => [key, structuredClone(vessel[key])])),
     ])),
   };
 }

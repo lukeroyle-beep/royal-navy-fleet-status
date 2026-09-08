@@ -1,3 +1,5 @@
+import { hasPlottablePosition } from "../../src/utils/map.js";
+import { formatPlotEligibilitySummary } from "../../src/utils/fleetFilter.js";
 import { expect, test } from "@playwright/test";
 import fs from "node:fs";
 
@@ -110,15 +112,15 @@ test("every current class keeps its list and point-marker counts aligned", async
   const classes = [...new Set(fleet.vessels.map((vessel) => vessel.vesselClass))];
   for (const vesselClass of classes) {
     const records = fleet.vessels.filter((vessel) => vessel.vesselClass === vesselClass);
-    const points = records.filter((vessel) => vessel.position).length;
-    const representatives = records.filter((vessel) => vessel.uncertaintyArea?.representation === "representative-marker").length;
-    const expectedMarkers = points + representatives;
+    const expectedMarkers = records.filter(hasPlottablePosition).length;
+
     await page.locator(classButtonSelector(vesselClass)).click();
     await expect(page.locator("#filterResultStatus")).toContainText(
       `Showing ${records.length} of ${fleet.vessels.length} vessels`,
     );
     await expect(page.locator("#classMapSummary")).toHaveText(
-      `Map: ${points} point-mapped · ${representatives ? `${representatives} representative regional ${representatives === 1 ? "marker" : "markers"} · ` : ""}${records.length - expectedMarkers} regional or list-only.`,
+      `Map: ${formatPlotEligibilitySummary(records)}.`,
+
     );
     await expect.poll(() => page.locator(".fleet-marker").count()).toBe(expectedMarkers);
     await expect
@@ -139,14 +141,15 @@ test("every current class keeps its list and point-marker counts aligned", async
   const combinedRecords = fleet.vessels.filter(
     (vessel) => vessel.vesselClass === combinedClass && vessel.status === combinedStatus,
   );
-  const combinedMarkers = combinedRecords.filter((vessel) => vessel.position).length;
+  const combinedMarkers = combinedRecords.filter(hasPlottablePosition).length;
   await page.locator(classButtonSelector(combinedClass)).click();
   await page.locator("#statusFilter").selectOption(combinedStatus);
   await expect(page.locator("#classMapSummary")).toHaveText(
-    `Map: ${combinedMarkers} point-mapped · ${combinedRecords.length - combinedMarkers} regional or list-only.`,
+    `Map: ${formatPlotEligibilitySummary(combinedRecords)}.`,
   );
   await expect.poll(() => page.locator(".fleet-marker").count()).toBe(combinedMarkers);
-  await expect(page.locator("#mapFilterNotice")).toBeVisible();
+  if (combinedMarkers) await expect(page.locator("#mapFilterNotice")).toBeHidden();
+  else await expect(page.locator("#mapFilterNotice")).toBeVisible();
 });
 
 test("valid empty location states survive reload and browser history", async ({ page }) => {
@@ -209,8 +212,9 @@ for (const viewport of [{ width: 1366, height: 768 }, { width: 390, height: 844 
     await expect(page.locator(".fleet-marker")).toHaveCount(37);
     await openAssets(page);
     await page.locator("#snapshotSelect").selectOption(fleet.metadata.asOfDate);
-    await expect(page.locator(".fleet-marker")).toHaveCount(fleet.vessels.filter(v => v.position || v.uncertaintyArea?.representation === "representative-marker").length);
-    await expectCompleteMarkerNames(page, fleet.vessels.filter(v => v.position || v.uncertaintyArea?.representation === "representative-marker").map(v => v.name));
+    await expect(page.locator(".fleet-marker")).toHaveCount(fleet.vessels.filter(hasPlottablePosition).length);
+    await expectCompleteMarkerNames(page, fleet.vessels.filter(hasPlottablePosition).map(v => v.name));
+
     await expect(page.locator("#loadError")).toBeHidden();
   });
 }
@@ -318,7 +322,7 @@ test("vessel selection exposes the complete card and survives browser history", 
     ["pennant", duncan.pennantNumber],
     ["commission-date", duncan.commissionedDate],
     ["home-port", duncan.homePort],
-    ["precision", "Port-level location"],
+
     ["snapshot", "6 Sept 2026"],
   ]) {
     const entry = page.locator(`#detailPrimaryMeta [data-term=${JSON.stringify(term)}]`);
@@ -594,7 +598,10 @@ test("coarse-pointer iPad layouts replace the asset surface with selected detail
     if (viewport.bottomSheet) {
       await expect(touchPage.locator("#surfaceBackdrop")).toBeHidden();
       expect(detailBox.width).toBeGreaterThan(viewport.width * 0.9);
-      expect(Math.abs(detailBox.y + detailBox.height - viewport.height)).toBeLessThan(3);
+      await expect.poll(async () => {
+        const settled = await touchPage.locator("#detailDrawer").boundingBox();
+        return Math.abs(settled.y + settled.height - viewport.height);
+      }).toBeLessThan(3);
     } else {
       await expect(touchPage.locator("#surfaceBackdrop")).toBeHidden();
       expect(detailBox.width).toBeLessThan(viewport.width * 0.5);
@@ -649,4 +656,47 @@ async function openAssets(page) {
 
 function classButtonSelector(vesselClass) {
   return `#classRibbon button[data-vessel-class=${JSON.stringify(vesselClass)}]`;
+}
+
+for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
+  for (const record of [
+    {id:'hms-vengeance',name:'HMS Vengeance',service:'Royal Navy',vesselClass:'Vanguard class',type:'SSBN',status:'Deployed',label:'On patrol'},
+    {id:'rfa-fort-victoria',name:'RFA Fort Victoria',service:'Royal Fleet Auxiliary',vesselClass:'Fort class',type:'RFA auxiliary - replenishment ship',status:'In re-fit',label:'Seaforth Docks, Liverpool'},
+  ]) {
+    test(`fleet correction ${record.id} filters, selection and share state at ${viewport.width}px`,async({page},testInfo)=>{
+      await page.setViewportSize(viewport);
+      // Force the documented fallback so missing imagery cannot block the card.
+      if(record.id==='rfa-fort-victoria') {
+        await page.route('**/commons.wikimedia.org/**',route=>route.abort());
+        await page.route('**/en.wikipedia.org/**',route=>route.abort());
+      }
+      const query=new URLSearchParams({view:'2',layers:'fleet,clusters',service:record.service,class:record.vesselClass,type:record.type,status:record.status,vessel:record.id});
+      await page.goto(`/?${query}`);
+      await expect(page.locator('#detailTitle')).toHaveText(record.name);
+      const terms=page.locator('#detailPrimaryMeta');
+      await expect(terms.locator('div').filter({has:page.locator('dt',{hasText:/^Location$/})})).toContainText(record.label);
+      await expect(terms).toContainText(record.status==='In re-fit'?'In Re-fit':record.status);
+      const forbidden=['Precision','Location evidence date','Evidence checked','Evidence classification','Supporting source','Source'];
+      for(const label of forbidden) await expect(page.locator('#detailCard dt').filter({hasText:new RegExp(`^${label}$`,'i')})).toHaveCount(0);
+      const selected=page.locator(`.fleet-marker.is-selected[title="${record.name}"]`);
+      await expect(selected).toHaveCount(1);
+      await expect(page.locator("#mapFilterNotice")).toBeHidden();
+      if(record.id==='hms-vengeance') {
+        await expect(selected).toHaveAttribute('aria-label',/representative marker, not an actual position/);
+        await expect(page.locator('#detailMeta')).toContainText('not an actual vessel position');
+      } else await expect(page.locator('#detailPhotoFallback')).toBeVisible();
+      await selected.click({force:true});
+      await expect(page.locator('#detailTitle')).toHaveText(record.name);
+      await page.reload();
+      await expect(page.locator('#detailTitle')).toHaveText(record.name);
+      await expect(selected).toHaveCount(1);
+      await page.screenshot({path:testInfo.outputPath(`${record.id}-${viewport.width}.png`)});
+      query.set('layers','fleet');
+      await page.goto(`/?${query}`);
+      await expect(selected).toHaveCount(1);
+      await expect(page.locator('#statusFilter')).toHaveValue(record.status);
+      await expect(page.locator('#serviceFilter')).toHaveValue(record.service);
+      await expect(page.locator('#loadError')).toBeHidden();
+    });
+  }
 }

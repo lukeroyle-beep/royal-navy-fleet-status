@@ -1,84 +1,55 @@
 {
   "schemaVersion": 2,
-  "previousAsOfDate": "2026-08-31",
+  "previousAsOfDate": "2026-09-06",
   "currentAsOfDate": "2026-09-06",
-  "previousReleaseRevision": 3,
-  "currentReleaseRevision": 1,
-  "previousReleasedAt": "2026-08-31T19:00:20.000Z",
-  "currentReleasedAt": "2026-09-08T05:17:13.704623+00:00",
-  "previousMappedCount": 67,
-  "currentMappedCount": 65,
+  "previousReleaseRevision": 1,
+  "currentReleaseRevision": 2,
+  "previousReleasedAt": "2026-09-08T05:17:13.704623+00:00",
+  "currentReleasedAt": "2026-09-08T09:34:39.052Z",
+  "previousMappedCount": 65,
+  "currentMappedCount": 67,
   "counts": {
     "status": 0,
-    "location": 3,
-    "mapping": 3,
-    "marker": 0,
+    "location": 1,
+    "mapping": 1,
+    "marker": 1,
     "evidence": 0
   },
   "changes": [
     {
-      "vesselId": "hms-tamar",
-      "vesselName": "HMS Tamar",
+      "vesselId": "hms-vengeance",
+      "vesselName": "HMS Vengeance",
       "categories": [
-        "location",
-        "mapping"
+        "marker",
+        "location"
       ],
       "items": [
         {
-          "kind": "location",
-          "label": "Location",
-          "before": "Ream Naval Base / Sihanoukville, Cambodia; week-long visit reported 28 August 2026",
-          "after": "South China Sea; late-August activity reported 3 September 2026"
+          "kind": "marker",
+          "label": "Map display",
+          "before": "No representative marker",
+          "after": "Representative patrol marker"
         },
         {
-          "kind": "mapping",
-          "label": "Map precision",
-          "before": "Port level",
-          "after": "Approximate region"
+          "kind": "location",
+          "label": "Location",
+          "before": "On patrol - classified",
+          "after": "On patrol"
         }
       ]
     },
     {
-      "vesselId": "hms-magpie",
-      "vesselName": "HMS Magpie",
+      "vesselId": "rfa-fort-victoria",
+      "vesselName": "RFA Fort Victoria",
       "categories": [
-        "location",
         "mapping"
       ],
       "items": [
         {
-          "kind": "location",
-          "label": "Location",
-          "before": "Thames Estuary and London Gateway; survey operation reported 26 August 2026",
-          "after": "UK East Coast; survey focus reported 26 August 2026"
-        },
-        {
           "kind": "mapping",
-          "label": "Map precision",
-          "before": "Approximate region",
-          "after": "Not mapped"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-tideforce",
-      "vesselName": "RFA Tideforce",
-      "categories": [
-        "location",
-        "mapping"
-      ],
-      "items": [
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "English Channel; shadowing a Russian military convoy reported 31 August 2026",
-          "after": "Location unconfirmed; earlier English Channel attribution withdrawn"
-        },
-        {
-          "kind": "mapping",
-          "label": "Map precision",
-          "before": "Approximate region",
-          "after": "Not mapped"
+          "label": "Fleet record",
+          "before": "Not listed",
+          "after": "Added"
         }
       ]
     }

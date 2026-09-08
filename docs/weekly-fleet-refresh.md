@@ -106,6 +106,11 @@ The collector targets release revision 1 by default. For a same-day correction, 
 that will be published, for example `--release-revision=2`. A sweep for r1 cannot authorise r2, and
 the finalised sweep timestamp must precede the new release instant.
 
+An explicitly owner-approved inventory/display correction to a completed release uses the separate
+[private correction contract](private-input-boundary.md#owner-approved-inventory-and-display-corrections).
+It preserves the original sweep and its actual coverage; it does not rerun collection or claim a new
+full sweep. This exception does not apply to ordinary weekly intelligence refreshes.
+
 When `--since` is omitted, the collector uses 00:00 UTC on the checked-in
 `metadata.asOfDate` as the required lower bound. Supply `--since=<ISO timestamp>` only when the
 production starting point is different; a missing, empty, reversed or shortened sweep interval is

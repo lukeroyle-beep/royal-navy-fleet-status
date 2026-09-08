@@ -43,3 +43,7 @@ export function getAvailabilitySummary(vessels) {
     byStatus,
   };
 }
+
+export function formatOperationalStatus(status) {
+  return status === "In re-fit" ? "In Re-fit" : status;
+}

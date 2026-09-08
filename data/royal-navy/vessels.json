@@ -3,8 +3,8 @@
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-09-06",
-    "releaseRevision": 1,
-    "releasedAt": "2026-09-08T05:17:13.704623+00:00"
+    "releaseRevision": 2,
+    "releasedAt": "2026-09-08T09:34:39.052Z"
   },
   "vessels": [
     {
@@ -108,10 +108,11 @@
       "locationClassification": "withheld",
       "locationState": "withheld",
       "locationPrecision": "none",
-      "publicLocationLabel": "Location not published",
-      "lastReportedLocation": "On patrol - classified",
+      "publicLocationLabel": "On patrol",
+      "lastReportedLocation": "On patrol",
       "position": null,
-      "uncertaintyArea": null
+      "uncertaintyArea": null,
+      "mapRepresentation": "representative-patrol"
     },
     {
       "id": "hms-astute",
@@ -1589,6 +1590,28 @@
       "publicLocationLabel": "Location unconfirmed",
       "lastReportedLocation": "Location unconfirmed; earlier English Channel attribution withdrawn",
       "position": null,
+      "uncertaintyArea": null
+    },
+    {
+      "id": "rfa-fort-victoria",
+      "name": "RFA Fort Victoria",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Fort class",
+      "vesselType": "RFA auxiliary - replenishment ship",
+      "pennantNumber": "A387",
+      "commissionedDate": "1994",
+      "homePort": "Not recorded",
+      "status": "In re-fit",
+      "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "port",
+      "publicLocationLabel": "Seaforth Docks, Liverpool",
+      "lastReportedLocation": "Seaforth Docks, Liverpool; long-term lay-up",
+      "position": {
+        "lat": 53.46,
+        "lon": -3.02,
+        "label": "Seaforth Docks, Liverpool"
+      },
       "uncertaintyArea": null
     }
   ]

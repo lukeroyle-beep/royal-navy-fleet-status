@@ -1,11 +1,15 @@
+import { hasRepresentativePatrolMarker, REPRESENTATIVE_PATROL_ANCHOR } from "./representativePatrol.js";
+
 export function hasPlottablePosition(vessel) {
   return Boolean(getMapPosition(vessel));
 }
 
 export function getMapPosition(vessel) {
+  if (hasRepresentativePatrolMarker(vessel)) return REPRESENTATIVE_PATROL_ANCHOR;
   if (isRepresentativeRegionMarker(vessel)) {
     return { ...vessel.uncertaintyArea.centre, label: vessel.publicLocationLabel };
   }
+
   const position = vessel?.position;
   return Boolean(
     position &&

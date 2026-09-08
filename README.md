@@ -2,11 +2,11 @@
 
 A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive two-dimensional map.
 
-The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Map markers represent deliberately rounded, publicly reported port or city locations rather than exact vessel positions; broader regional records remain available in the fleet list without a map marker.
+The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Map markers represent deliberately rounded, publicly reported port or city locations rather than exact vessel positions; broader regional records normally remain list-only. An explicitly reviewed regional record, such as HMS Tamar, can use a labelled representative marker. A separate fixed representative marker identifies the deployed deterrent patrol without disclosing a vessel position.
 
 ## What is included
 
-- A 68-vessel current Royal Navy and RFA roster
+- A 69-vessel current Royal Navy and RFA roster
 - Unified search across vessel names, pennants and shore establishments
 - Filters for service, vessel type, operational status, neutral public location state and broad geographic scope
 - A map-dominant operational workspace with a compact rail, selected-record drawer and thin live-data summary banner
@@ -27,7 +27,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Use **Filters** for class, service, operational status, vessel type, public location state and broad geographic scope. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
 - Use a public preset to switch the existing filters and layers to Fleet overview, Deployed vessels, United Kingdom ports, Maintenance and refit or Overseas presence. Presets do not create a second dataset.
 - The browser address is kept in sync with the current public filters, layers, selected vessel and bounded map view. Copy that address to share the same state across desktop, iPad and phone layouts.
-- Vessels without a current public point can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports remain list records rather than being assigned representative markers.
+- Vessels without a current public point can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports remain list records unless the reviewed data explicitly permits a labelled representative regional marker.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.
@@ -64,7 +64,7 @@ results.
 - A plotted historical location is never presented as a live fix. Its marker uses only the precision supported by the reviewed evidence.
 - Unknown, unconfirmed and no-recent-information vessels remain searchable and listable without invented coordinates.
 - Submarines are plotted only at publicly reported ports, shipyards or maintenance locations.
-- Undisclosed submarine patrol positions are never inferred, represented symbolically or displayed.
+- Undisclosed submarine patrol positions are never inferred or displayed. HMS Vengeance has an explicitly approved, fixed representative patrol marker: a display anchor only, with actual position withheld and precision `none`. It conveys no patrol area or geographical presence.
 
 The dataset date is not proof that every source observation occurred on that date. Each marker should be read as the last public location recorded by this project, subject to its displayed public location state, precision and the project's internal evidence review.
 
@@ -207,7 +207,7 @@ publisher edge blocks the collector;
 Westward Shipping News RSS is its Tier C, discovery-only automatic replacement.
 
 From 24 August 2026, advancing the canonical `metadata.asOfDate` requires a finalised sweep run in
-`data/internal/provenance/sweep-runs/`. The run must contain an explicit outcome for all 68 current vessels,
+`data/internal/provenance/sweep-runs/`. The run must contain an explicit outcome for every current vessel in the canonical roster,
 every required recurring manual source and every required public index. A typed collection or review
 blocker is retained in the ledger but leaves the run incomplete, so the release gate fails closed.
 Historical one-off evidence URLs do not become recurring sweep targets merely because their source

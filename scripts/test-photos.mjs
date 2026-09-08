@@ -8,7 +8,11 @@ const html = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const filenames = fs.readdirSync(photoDirectory).filter((filename) => /\.(?:jpe?g|png)$/i.test(filename));
 const uxDirectory = new URL("../docs/ux/issue-85/", import.meta.url);
 
-assert.equal(filenames.length, 68, "Every current fleet record must have one curated local photograph.");
+const fleet = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"));
+const missingPhotos = fleet.vessels.filter(vessel => !filenames.includes(vessel.name.replace(/^(HMS|RFA) /, "").toLowerCase().replace(/[^a-z0-9]+/g, "_") + ".jpg"));
+assert.deepEqual(missingPhotos.map(vessel => vessel.id), ["rfa-fort-victoria"], "Only Fort Victoria may use the approved image fallback.");
+assert.equal(filenames.length, fleet.vessels.length - missingPhotos.length);
+assert.doesNotMatch(detailPanel, /\["Precision"/);
 for (const retiredPhoto of ["richmond.jpg", "iron_duke.jpg", "chiddingfold.jpg"]) {
   assert.ok(!filenames.includes(retiredPhoto), `${retiredPhoto} must not ship as a live fleet photo.`);
 }
@@ -42,7 +46,7 @@ assert.doesNotMatch(photoService, /Audacious_Under_Construction/);
 assert.match(photoService, /RFA_Proteus_in_Cammell_Laird/);
 assert.match(
   detailPanel,
-  /\["Status", vessel\.status\],[\s\S]*\["Location", vessel\.publicLocationLabel\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\],[\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
+  /\["Status", formatOperationalStatus\(vessel\.status\)\],[\s\S]*\["Location", vessel\.publicLocationLabel\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\],[\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
 );
 assert.match(detailPanel, /#showPhotoFallback\(\)/);
 

@@ -272,11 +272,12 @@ assert.match(details, /this\.supplementaryTitle\.textContent = "Vessel details"/
 assert.match(details, /this\.supplementaryTitle\.textContent = "Establishment details"/);
 assert.match(
   details,
-  /const primaryEntries = \[\s*\["Status", vessel\.status\],\s*\["Location", vessel\.publicLocationLabel\],\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\],\s*\["Pennant", vessel\.pennantNumber[^\n]*\],\s*\["Commission date", vessel\.commissionedDate[^\n]*\],\s*\["Home port", vessel\.homePort/s,
+  /const primaryEntries = \[\s*\["Status", formatOperationalStatus\(vessel\.status\)\],\s*\["Location", vessel\.publicLocationLabel\],\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\],\s*\["Pennant", vessel\.pennantNumber[^\n]*\],\s*\["Commission date", vessel\.commissionedDate[^\n]*\],\s*\["Home port", vessel\.homePort/s,
 );
+assert.doesNotMatch(details, /\["Precision"/);
 const primaryDetailsBlock = details.match(/const primaryEntries = \[[\s\S]*?\n    \];/)?.[0];
 assert.ok(primaryDetailsBlock);
-for (const requiredTerm of ["Status", "Location", "Class", "Type", "Pennant", "Commission date", "Home port", "Precision", "Snapshot"]) {
+for (const requiredTerm of ["Status", "Location", "Class", "Type", "Pennant", "Commission date", "Home port", "Snapshot"]) {
   assert.match(primaryDetailsBlock, new RegExp(`\\["${requiredTerm}"`));
 }
 assert.match(details, /this\.classLine\.textContent = `\$\{vessel\.vesselClass\} · \$\{vessel\.vesselType\}`/);

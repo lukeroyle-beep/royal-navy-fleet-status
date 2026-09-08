@@ -91,3 +91,30 @@ If any credential may have entered a checkout, log, artifact, pull request or pu
 publication, revoke and rotate it at the provider, remove it from local caches, inspect repository
 history and workflow artifacts, and re-run the secret/exposure scan. Rewriting repository history
 or deleting retained provenance requires separate owner approval and a documented recovery plan.
+
+## Owner-approved inventory and display corrections
+
+A correction to an already published snapshot can use an optional private manifest entry
+`"releaseCorrection": "release-correction.json"`. This is a separate `owner-approved-correction`
+record, not a sweep run. Never store it in `sweep-runs`, publish its private baseline inputs, or
+change the original sweep's coverage. Ordinary weekly sweeps retain their existing gate.
+
+The correction must name the published ancestor commit, original finalized sweep and its hash,
+retain the original canonical inputs, and record the owner's instruction, review time, limitations,
+and each added or updated vessel. Bind both the complete candidate inputs and its public-content
+hash, including the projection method version. The next same-date release revision must follow the
+review and the original release. Regeneration requires a fresh review if bound content changes.
+
+`validate:sweeps` first tries the ordinary sweep gate. Only an explicitly configured correction
+record can select the alternative path. It authenticates the original seal using the original Git
+code and verifies its projection against published bytes. It then requires unchanged collected
+evidence, source registry, retired roster, and original assessment rows; only declared owner
+assessments may be appended. Added social coverage stays disabled and not reviewed. Undeclared
+entity, assessment, projection or coverage changes fail. Both published history prefixes must
+remain byte-identical, with exactly one correction appended. Full data, history, tests, builds and
+independent review remain mandatory; passing this check never authorizes deployment.
+
+The existing general Fleet Snapshot Release Manager adapter understands full sweeps only. Its
+missing-sweep result does not evaluate this separate correction contract; use the native correction
+result together with the mandatory repository checks and independent review. Do not relabel the
+correction as a full sweep to satisfy that adapter.

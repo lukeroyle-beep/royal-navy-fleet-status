@@ -1,3 +1,4 @@
+import { hasRepresentativePatrolMarker } from "../utils/representativePatrol.js";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster";
@@ -476,7 +477,8 @@ export class FleetMap {
       ? " · Representative regional marker, not an exact or current ship position"
       : "";
     const marker = L.marker([position.lat, position.lon], {
-      alt: `${vessel.name}, ${formatLocationState(vessel.locationState)}, ${formatPrecision(vessel.locationPrecision)}${representation}`,
+      alt: `${vessel.name}, ${hasRepresentativePatrolMarker(vessel) ? "On patrol, representative marker, not an actual position" : `${formatLocationState(vessel.locationState)}, ${formatPrecision(vessel.locationPrecision)}${representation}`}`,
+
       icon: this.#createMarkerIcon(vessel),
       keyboard: true,
       riseOnHover: true,
@@ -484,13 +486,19 @@ export class FleetMap {
       vessel,
     });
     marker.bindTooltip(
-      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)} · ${escapeHtml(formatLocationState(vessel.locationState))}${escapeHtml(representation)}</span>`,
+      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)}${hasRepresentativePatrolMarker(vessel) ? "" : ` · ${escapeHtml(formatLocationState(vessel.locationState))}${escapeHtml(representation)}`}</span>`,
+
       {
         className: "fleet-tooltip",
         direction: "top",
         offset: [0, -12],
       },
     );
+    marker.on("add", () => {
+      if (hasRepresentativePatrolMarker(vessel)) {
+        marker.getElement()?.setAttribute("aria-label", marker.options.alt);
+      }
+    });
     marker.on("click", () => this.onSelect(vessel));
     return marker;
   }

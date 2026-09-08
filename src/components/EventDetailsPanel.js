@@ -1,3 +1,5 @@
+import { formatOperationalStatus } from "../utils/fleet.js";
+import { hasRepresentativePatrolMarker } from "../utils/representativePatrol.js";
 import { VesselPhotoService } from "./VesselPhotoService.js";
 import { getVesselChange, getVesselPublicTimeline } from "../utils/insights.js";
 import { hasPlottablePosition, isRepresentativeRegionMarker } from "../utils/map.js";
@@ -66,18 +68,17 @@ export class EventDetailsPanel {
     const releaseChange = getVesselChange(changes, vessel.id);
 
     const primaryEntries = [
-      ["Status", vessel.status],
+      ["Status", formatOperationalStatus(vessel.status)],
       ["Location", vessel.publicLocationLabel],
       ["Class", vessel.vesselClass],
       ["Type", vessel.vesselType],
       ["Pennant", vessel.pennantNumber || "Not recorded"],
       ["Commission date", vessel.commissionedDate || "Not recorded"],
       ["Home port", vessel.homePort || "Not recorded"],
-      ["Precision", formatLocationPrecision(vessel.locationPrecision)],
       ["Snapshot", formatSnapshotDate(asOfDate)],
     ];
     const entries = [
-      ["Public location status", formatLocationState(vessel.locationState)],
+      ["Public location status", hasRepresentativePatrolMarker(vessel) ? "On patrol" : formatLocationState(vessel.locationState)],
       ["Map display", formatMapDisplay(vessel)],
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
@@ -244,7 +245,7 @@ function createEntry(term, value) {
   dt.textContent = term;
   wrapper.dataset.term = term.toLocaleLowerCase("en-GB").replace(/[^a-z0-9]+/g, "-");
   dd.textContent = value;
-  if (term === "Status") dd.dataset.status = value;
+  if (term === "Status") dd.dataset.status = value === "In Re-fit" ? "In re-fit" : value;
   wrapper.append(dt, dd);
   return wrapper;
 }
@@ -269,9 +270,11 @@ export function formatLocationPrecision(value) {
 }
 
 export function formatMapDisplay(vessel) {
+  if (hasRepresentativePatrolMarker(vessel)) return "Representative marker — not an actual vessel position";
   if (isRepresentativeRegionMarker(vessel)) {
     return "Representative marker for the reported region — not an exact or current ship position";
   }
+
   if (hasPlottablePosition(vessel)) {
     return "Point-mapped record — marker shown when fleet layer is enabled";
   }

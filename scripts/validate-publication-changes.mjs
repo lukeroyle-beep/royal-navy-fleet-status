@@ -1,3 +1,4 @@
+import { hasRepresentativePatrolMarker } from "../src/utils/representativePatrol.js";
 import fs from "node:fs";
 
 import { validatePublicationChanges } from "../src/utils/insights.js";
@@ -73,5 +74,5 @@ if (changes.currentMappedCount !== fleet.vessels.filter(hasMapPosition).length) 
 console.log(`Validated ${changes.changes.length} publication changes.`);
 
 function hasMapPosition(vessel) {
-  return Boolean(vessel.position || vessel.uncertaintyArea);
+  return Boolean(vessel.position || vessel.uncertaintyArea || hasRepresentativePatrolMarker(vessel));
 }
