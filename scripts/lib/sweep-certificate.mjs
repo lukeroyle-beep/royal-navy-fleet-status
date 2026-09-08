@@ -57,7 +57,11 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     schemaVersion: '1.0.0', runId: run.runId, snapshotDate: run.releaseTarget.asOfDate, generatedAt: at,
     sourceRegistryHash: run.sourceRegistryHash, releaseContentHash: run.releaseContentHash,
     registeredSources, mandatorySources: expected.length,
-    attemptedMandatorySources: expected.filter(id => bySource.get(id)?.attempts > 0 && bySource.get(id)?.outcome !== 'DEFERRED_WITH_JUSTIFICATION').length,
+    attemptedMandatorySources: expected.filter(id => {
+      const record = bySource.get(id);
+      return record?.attempts > 0 && (record.sourceAttempted === true ||
+        (record.sourceAttempted === undefined && record.outcome !== 'DEFERRED_WITH_JUSTIFICATION'));
+    }).length,
     successfullyExamined: records.filter(r => SUCCESS.has(r.outcome) && r.outcome !== BOOTSTRAP_OUTCOME).length,
     currentBaselinesWithHistoricalException: records.filter(r => r.outcome === BOOTSTRAP_OUTCOME).length,
     historicalExceptions: records.filter(r => r.historicalException).map(r => ({ sourceId:r.sourceId, ...r.historicalException })),

@@ -423,3 +423,9 @@ baselines, and three remain blocked (the failed AIS canary, unavailable harbour 
 incomplete DefenceHQ historical timeline). The private candidate ledger contains 723 reviewed
 candidates. Fleet reconciliation and live end-to-end timing remain incomplete. This checkpoint
 is not release permission and does not establish a routine under-60-minute sweep.
+
+Attempt reporting separately records `sourceAttempted` for partial rendered checks. An adapter
+invocation with no source observation is not itself a source check. Explicit attempted-but-
+incomplete observations count towards attempts while retaining their failure disposition and
+unadvanced cursor. The certificate still blocks release. The 60-check acceleration suite and
+full production build pass, including attempted versus unattempted deferral reporting.

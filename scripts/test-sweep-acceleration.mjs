@@ -169,6 +169,14 @@ try {
  const bundle={acquisition:full,reconciliation,adjudication:{decisions:[],conflicts:[]},validation,registeredSources:77};
  const cert=buildSweepCertificate({run,...bundle,at:cutoff});
  check('valid certificate',()=>assert.equal(cert.status,'PASS'));
+ check('attempted incomplete sources remain distinct from unattempted deferrals and success',()=>{
+  const acquisition=structuredClone(full);const record=acquisition.records[0];
+  Object.assign(record,{outcome:'DEFERRED_WITH_JUSTIFICATION',sourceAttempted:true,cursor:null});
+  const attempted=buildSweepCertificate({run,...bundle,acquisition,at:cutoff});
+  assert.equal(attempted.attemptedMandatorySources,77);assert.equal(attempted.successfullyExamined,76);assert.equal(attempted.status,'FAIL');
+  record.sourceAttempted=false;
+  assert.equal(buildSweepCertificate({run,...bundle,acquisition,at:cutoff}).attemptedMandatorySources,76);
+ });
  const exceptionRun={...run,sourceChecks:[{sourceId:bootstrapSource.sourceId},...run.sourceChecks.slice(1)]};
  const exceptionRecord={...bootstrap.records[0],runId:run.runId};
  const exceptionBundle={...bundle,acquisition:{...full,records:[exceptionRecord,...full.records.slice(1)]}};

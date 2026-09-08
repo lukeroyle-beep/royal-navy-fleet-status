@@ -191,6 +191,7 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
     const record = journal.commit({ runId, registryHash, cutoff, sourceIdentityHash, sourceId: source.sourceId, mandatory: source.mandatory === true,
       ...(success && response.historicalException ? { historicalException: response.historicalException } : {}),
       outcome, reason: success ? (response.historicalException?.reason || null) : reason, attempts, adapter: adapterId, method: response?.method || null,
+      sourceAttempted: attempts > 0 && (outcome !== 'DEFERRED_WITH_JUSTIFICATION' || response?.sourceAttempted === true),
       checkedAt: new Date().toISOString(), durationMs: performance.now() - begin, extractionMs,
       items: success || response?.partialItems ? items : [], candidates: success || response?.partialItems ? extracted : [], window,
       cursor: success ? { ...(response.historicalException || previous?.cursor?.historicalGap ? { historicalGap: response.historicalException || previous.cursor.historicalGap } : {}), examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion, normalisationVersion: NORMALISATION_VERSION,
