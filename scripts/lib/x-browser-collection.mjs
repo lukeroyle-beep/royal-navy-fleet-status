@@ -442,11 +442,11 @@ export function approvedBrowserScrollLimit(method, account, window) {
   if (account.sourceId !== 'X_DEFENCEHQ' ||
       window.from !== '2026-06-10T09:11:15.938Z' || window.to !== '2026-09-08T09:11:15.938Z' ||
       exception.policyId !== 'defencehq-bootstrap-scrolls-2026-09-08' ||
-      exception.approvalReference !== 'owner-defencehq-scroll-approval-2026-09-08' ||
-      exception.maxTotalScrolls !== 30) {
+      !((exception.approvalReference === 'owner-defencehq-scroll-approval-2026-09-08' && exception.maxTotalScrolls === 30) ||
+        (exception.approvalReference === 'owner-defencehq-additional-scroll-approval-2026-09-08' && exception.maxTotalScrolls === 60))) {
     throw new Error('Invalid one-off DefenceHQ scroll approval');
   }
-  return 30;
+  return exception.maxTotalScrolls;
 }
 
 function validateMethod(method, account, window) {

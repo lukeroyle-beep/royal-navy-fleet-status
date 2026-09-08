@@ -471,3 +471,32 @@ The review tab is retained for continuation without restarting the timeline. Add
 scrolling requires an extension of the owner's exhausted budget; it must not be reset by
 opening another tab. No source coverage, fleet reconciliation or live runtime completion
 is claimed by this checkpoint.
+
+## DefenceHQ boundary completion, 8 September
+
+The owner approved up to thirty additional scrolls after the prior thirty were exhausted,
+with an immediate stop at the June10 boundary. The native validator now recognises that
+second approval only for `X_DEFENCEHQ` and the exact original June10–September8 bootstrap
+window. The original thirty-scroll approval remains valid; it cannot authorise sixty.
+Other sources and windows retain the default twelve-scroll cap. Regression assertions
+cover both approval references, mismatched accounts/windows and excess budgets.
+
+The boundary was reached after seven additional scrolls (37 total). Twenty-five new
+in-window post excerpts were retained, bringing this source to111 posts. The first older
+post, June9, is boundary metadata rather than in-window evidence. Truncated potentially
+relevant claims were opened in post detail. The bounded rendered method completed; it does
+not guarantee that X exposes every public post. The native acquisition adapter accepted
+all111 records and advanced the source cursor only after normalization succeeded.
+
+The current live checkpoint has785 candidate reviews,158 accepted historical items and
+no pending item decisions. Two tanker-operation posts were reconciled against the retained
+RN article and official MOD statements as same-origin historical corroboration. Historical
+acceptance is not a current fleet assessment. Prior86 DefenceHQ decisions were rebound only
+after verifying unchanged substantive candidate fields against the hash-chained journal;
+the retrieval timestamp and acquisition review flags were separately accounted for.
+
+Mandatory outcomes:72 fully examined, four explicitly approved current-only baselines,
+and one MarineVesselTraffic identity/parser failure. All77 were attempted. The full build
+and62 acceleration checks pass. Native68-vessel reconciliation and snapshot sealing remain
+incomplete, so the diagnostic certificate remains FAIL. No public snapshot, deployment,
+scheduler activation or live routine under60-minute success is claimed.

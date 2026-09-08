@@ -17,6 +17,12 @@ try {
   const method={scrollException:{policyId:'defencehq-bootstrap-scrolls-2026-09-08',approvalReference:'owner-defencehq-scroll-approval-2026-09-08',maxTotalScrolls:30}};
   assert.equal(approvedBrowserScrollLimit({},account,window),12);
   assert.equal(approvedBrowserScrollLimit(method,account,window),30);
+  const extended={scrollException:{...method.scrollException,approvalReference:'owner-defencehq-additional-scroll-approval-2026-09-08',maxTotalScrolls:60}};
+  assert.equal(approvedBrowserScrollLimit(extended,account,window),60);
+  assert.throws(()=>approvedBrowserScrollLimit(extended,{sourceId:'X_ROYAL_NAVY'},window));
+  assert.throws(()=>approvedBrowserScrollLimit(extended,account,{...window,from:cutoff}));
+  assert.throws(()=>approvedBrowserScrollLimit({scrollException:{...extended.scrollException,maxTotalScrolls:61}},account,window));
+  assert.throws(()=>approvedBrowserScrollLimit({scrollException:{...method.scrollException,maxTotalScrolls:60}},account,window));
   assert.throws(()=>approvedBrowserScrollLimit(method,{sourceId:'X_ROYAL_NAVY'},window));
   assert.throws(()=>approvedBrowserScrollLimit(method,account,{...window,to:cutoff}));
   assert.throws(()=>approvedBrowserScrollLimit({scrollException:{...method.scrollException,maxTotalScrolls:31}},account,window));
