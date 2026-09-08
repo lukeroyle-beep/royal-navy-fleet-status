@@ -69,6 +69,16 @@ export function validateReleaseCorrection({ record, baseline, candidate, parentG
     assert.equal(change.beforeHash, oldPublic.has(id) ? correctionHash(oldPublic.get(id)) : null);
     assert.equal(change.afterHash, correctionHash(newPublic.get(id)));
     assert.equal(change.assessmentId, newId);
+    if (change.mode === 'home-port-only') {
+      assert.equal(change.action, 'update', 'Home-port correction requires an existing vessel');
+      assert.equal(newId, oldId, 'Home port must retain the operational assessment');
+      equal(omit(entity, ['homePort']), omit(oldEntities.get(id), ['homePort']), 'Home-port correction changed other entity fields');
+      equal(omit(newPublic.get(id), ['homePort']), omit(oldPublic.get(id), ['homePort']), 'Home-port correction changed operational data');
+      assert.ok(typeof entity.homePort === 'string' && entity.homePort.trim() && entity.homePort !== oldEntities.get(id).homePort, 'Home port must change to a non-empty value');
+      equal(newSocial.get(id), oldSocial.get(id), 'Home-port correction changed social coverage');
+      continue;
+    }
+    assert.ok(change.mode === undefined || change.mode === 'operational', 'Unknown correction mode');
     assert.ok(!oldAssessments.has(newId), 'Correction requires a new assessment ID');
     assert.equal(assessment.previousAssessmentId, oldId || null);
     assert.ok(Number.isFinite(Date.parse(assessment.assessedAt)) && Date.parse(assessment.assessedAt) <= reviewed, 'Assessment postdates review');
@@ -83,7 +93,7 @@ export function validateReleaseCorrection({ record, baseline, candidate, parentG
     }
   }
   for (const id of changes.keys()) assert.ok(newEntities.has(id), 'Unknown correction vessel');
-  equal(candidate.assessmentLog.assessments.slice(baseline.assessmentLog.assessments.length).map(a => a.assessmentId).sort(), [...changes.values()].map(c => c.assessmentId).sort(), 'Undeclared assessment append');
+  equal(candidate.assessmentLog.assessments.slice(baseline.assessmentLog.assessments.length).map(a => a.assessmentId).sort(), [...changes.values()].filter(c => c.mode !== 'home-port-only').map(c => c.assessmentId).sort(), 'Undeclared assessment append');
   for (const [name, history] of Object.entries(histories)) {
     assert.ok(history.current.startsWith(history.baseline), `${name}: published history changed`);
     const extra = history.current.slice(history.baseline.length).trim().split('\n').filter(Boolean);

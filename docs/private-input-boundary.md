@@ -118,3 +118,15 @@ The existing general Fleet Snapshot Release Manager adapter understands full swe
 missing-sweep result does not evaluate this separate correction contract; use the native correction
 result together with the mandatory repository checks and independent review. Do not relabel the
 correction as a full sweep to satisfy that adapter.
+
+A subsequent correction may embed the already shipped `parentCorrection` and its
+`parentCorrectionHash`. Each link must authenticate under the Git code that shipped it, match that
+commit's public projection and immutable histories, and descend from its own baseline commit.
+Validation terminates at the original sweep; a 16-link bound rejects excessive/cyclic chains.
+Neither the original sweep nor a shipped correction is resealed.
+
+For reference home-port changes, `mode: "home-port-only"` permits only an existing vessel's
+`homePort` to change. The operational assessment ID/log, all other entity/public fields, and social
+coverage must remain identical. Such a correction still receives the next release revision and
+append-only history, but does not manufacture a new operational assessment. Other metadata fields
+or operational changes cannot use this mode.

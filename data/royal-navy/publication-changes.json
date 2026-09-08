@@ -2,54 +2,33 @@
   "schemaVersion": 2,
   "previousAsOfDate": "2026-09-06",
   "currentAsOfDate": "2026-09-06",
-  "previousReleaseRevision": 1,
-  "currentReleaseRevision": 2,
-  "previousReleasedAt": "2026-09-08T05:17:13.704623+00:00",
-  "currentReleasedAt": "2026-09-08T09:34:39.052Z",
-  "previousMappedCount": 65,
+  "previousReleaseRevision": 2,
+  "currentReleaseRevision": 3,
+  "previousReleasedAt": "2026-09-08T09:34:39.052Z",
+  "currentReleasedAt": "2026-09-08T09:54:56.509Z",
+  "previousMappedCount": 67,
   "currentMappedCount": 67,
   "counts": {
     "status": 0,
-    "location": 1,
-    "mapping": 1,
-    "marker": 1,
-    "evidence": 0
+    "location": 0,
+    "mapping": 0,
+    "marker": 0,
+    "evidence": 0,
+    "metadata": 1
   },
   "changes": [
-    {
-      "vesselId": "hms-vengeance",
-      "vesselName": "HMS Vengeance",
-      "categories": [
-        "marker",
-        "location"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative marker",
-          "after": "Representative patrol marker"
-        },
-        {
-          "kind": "location",
-          "label": "Location",
-          "before": "On patrol - classified",
-          "after": "On patrol"
-        }
-      ]
-    },
     {
       "vesselId": "rfa-fort-victoria",
       "vesselName": "RFA Fort Victoria",
       "categories": [
-        "mapping"
+        "metadata"
       ],
       "items": [
         {
-          "kind": "mapping",
-          "label": "Fleet record",
-          "before": "Not listed",
-          "after": "Added"
+          "kind": "metadata",
+          "label": "Home port",
+          "before": "Not recorded",
+          "after": "Marchwood Military Port, Southampton"
         }
       ]
     }

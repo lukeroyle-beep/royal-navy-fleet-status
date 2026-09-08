@@ -88,5 +88,6 @@ for(const [name,record] of Object.entries(baseline.history)) {
 const currentMarkers=new Map(plottedVessels(fleet.vessels).map(v=>[v.id,getMapPosition(v)]));
 for(const [id,position] of Object.entries(baseline.markers)) assert.deepEqual(currentMarkers.get(id),position,`${id}: existing marker must not disappear or move`);
 assert.equal(currentMarkers.size,Object.keys(baseline.markers).length+2);
-assert.equal(await new VesselPhotoService(async()=>({ok:false})).find(fort),null,'Missing dedicated photo must use the existing accessible fallback.');
+assert.equal((await new VesselPhotoService(async()=>{throw new Error('Local photo must not need network');}).find(fort)).imageUrl,'./photos/cards/fort_victoria.jpg');
+assert.equal(fort.homePort, 'Marchwood Military Port, Southampton');
 console.log('Fleet correction regressions passed: counts, representative semantics, filters, URL state, images and immutable history.');

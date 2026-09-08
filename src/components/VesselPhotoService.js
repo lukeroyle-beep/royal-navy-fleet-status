@@ -6,7 +6,7 @@ const LOCAL_PHOTOS = new Set([
   "audacious.jpg", "bangor.jpg", "biter.jpg", "blazer.jpg", "brocklesby.jpg",
   "cardigan_bay.jpg", "cattistock.jpg", "charger.jpg", "cutlass.jpg",
   "dagger.jpg", "daring.jpg", "dasher.jpg", "dauntless.jpg", "defender.jpg", "diamond.jpg",
-  "dragon.jpg", "duncan.jpg", "example.jpg", "exploit.jpg", "explorer.jpg", "express.jpg", "forth.jpg",
+  "dragon.jpg", "duncan.jpg", "example.jpg", "exploit.jpg", "explorer.jpg", "express.jpg", "forth.jpg", "fort_victoria.jpg",
   "hurworth.jpg", "kent.jpg", "ledbury.jpg", "magpie.jpg", "medway.jpg",
   "lyme_bay.jpg", "mersey.jpg", "middleton.jpg", "mounts_bay.jpg", "portland.jpg",
   "prince_of_wales.jpg", "protector.jpg", "proteus.jpg", "puncher.jpg",
@@ -19,6 +19,10 @@ const LOCAL_PHOTOS = new Set([
 ]);
 
 const LOCAL_PHOTO_CREDITS = new Map([
+  ["fort_victoria.jpg", {
+    pageUrl: "https://commons.wikimedia.org/wiki/File:RFA_Fort_Victoria_(A387).jpg",
+    creditLabel: "Photograph: Royal Navy / OGL v3.0",
+  }],
   ["agamemnon.jpg", commonsCredit("HMS_Agamennon_formal_naming_cerimony.jpg")],
   ["ambush.jpg", commonsCredit("HMS_Ambush_long.jpg")],
   [

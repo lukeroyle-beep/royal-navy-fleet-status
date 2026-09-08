@@ -10,7 +10,7 @@ const uxDirectory = new URL("../docs/ux/issue-85/", import.meta.url);
 
 const fleet = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"));
 const missingPhotos = fleet.vessels.filter(vessel => !filenames.includes(vessel.name.replace(/^(HMS|RFA) /, "").toLowerCase().replace(/[^a-z0-9]+/g, "_") + ".jpg"));
-assert.deepEqual(missingPhotos.map(vessel => vessel.id), ["rfa-fort-victoria"], "Only Fort Victoria may use the approved image fallback.");
+assert.deepEqual(missingPhotos.map(vessel => vessel.id), [], "Every current vessel must have a dedicated local photograph.");
 assert.equal(filenames.length, fleet.vessels.length - missingPhotos.length);
 assert.doesNotMatch(detailPanel, /\["Precision"/);
 for (const retiredPhoto of ["richmond.jpg", "iron_duke.jpg", "chiddingfold.jpg"]) {

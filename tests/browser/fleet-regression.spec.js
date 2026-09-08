@@ -665,7 +665,7 @@ for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
   ]) {
     test(`fleet correction ${record.id} filters, selection and share state at ${viewport.width}px`,async({page},testInfo)=>{
       await page.setViewportSize(viewport);
-      // Force the documented fallback so missing imagery cannot block the card.
+      // Dedicated local imagery must work without external image services.
       if(record.id==='rfa-fort-victoria') {
         await page.route('**/commons.wikimedia.org/**',route=>route.abort());
         await page.route('**/en.wikipedia.org/**',route=>route.abort());
@@ -684,7 +684,13 @@ for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
       if(record.id==='hms-vengeance') {
         await expect(selected).toHaveAttribute('aria-label',/representative marker, not an actual position/);
         await expect(page.locator('#detailMeta')).toContainText('not an actual vessel position');
-      } else await expect(page.locator('#detailPhotoFallback')).toBeVisible();
+      } else {
+        await expect(page.locator('#detailPhotoFallback')).toBeHidden();
+        await expect(page.locator('#detailPhotoImage')).toHaveAttribute('src', /photos\/cards\/fort_victoria\.jpg$/);
+        await expect.poll(()=>page.locator('#detailPhotoImage').evaluate(image=>image.complete && image.naturalWidth > 0)).toBe(true);
+        await expect(page.locator('#detailPhotoCredit')).toContainText('Royal Navy / OGL v3.0');
+        await expect(terms.locator('div').filter({has:page.locator('dt',{hasText:/^Home port$/})}).locator('dd')).toHaveText('Marchwood Military Port, Southampton');
+      }
       await selected.click({force:true});
       await expect(page.locator('#detailTitle')).toHaveText(record.name);
       await page.reload();

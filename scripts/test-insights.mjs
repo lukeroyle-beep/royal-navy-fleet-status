@@ -128,11 +128,11 @@ assert.equal(snapshotComparison.currentSnapshotDate, "2026-09-06");
 assert.equal(snapshotComparison.changes.length, 1);
 assert.deepEqual(snapshotComparison.changedCurrentVesselIds, ["rfa-fort-victoria"]);
 const publicationComparison = createPublicationComparison(changes, fleet.vessels);
-assert.equal(publicationComparison.changes.length, 2);
+assert.equal(publicationComparison.changes.length, 1);
 assert.equal(
-  publicationComparison.changes.some((change) => change.categories.includes("marker")),
+  publicationComparison.changes.some((change) => change.categories.includes("metadata")),
   true,
-  "The representative marker correction must remain visible.",
+  "The home-port metadata correction must remain visible.",
 
 );
 assert.deepEqual(
@@ -195,12 +195,13 @@ assert.throws(
 
 assert.equal(changes.previousAsOfDate, "2026-09-06");
 assert.equal(changes.currentAsOfDate, fleet.metadata.asOfDate);
-assert.equal(changes.previousReleaseRevision ?? 1, 1);
-assert.equal(changes.currentReleaseRevision ?? 1, 2);
-assert.equal(changes.changes.length, 2);
+assert.equal(changes.previousReleaseRevision ?? 1, 2);
+assert.equal(changes.currentReleaseRevision ?? 1, 3);
+assert.equal(changes.changes.length, 1);
 assert.equal(changes.counts.status, 0);
-assert.equal(changes.counts.location, 1);
-assert.equal(changes.counts.mapping, 1);
+assert.equal(changes.counts.location, 0);
+assert.equal(changes.counts.mapping, 0);
+assert.equal(changes.counts.metadata, 1);
 assert.equal(changes.changes.some((change) => change.vesselId === "rfa-fort-victoria"), true);
 
 assert.equal(changes.changes.some((change) => change.vesselId === "hms-stirling-castle"), false);
@@ -231,9 +232,9 @@ assert.deepEqual(
   },
 );
 assert.deepEqual(formatPublicationChangeLabels(changes), {
-  count: "6 Sept · 2 vessels",
+  count: "6 Sept · 1 vessel",
   summary:
-    "2 vessels changed in the 6 September 2026 correction from r1 to r2.",
+    "1 vessel changed in the 6 September 2026 correction from r2 to r3.",
 
 });
 assert.equal(formatDatasetReleaseLabel({ asOfDate: "2026-08-23" }), "23 August 2026");
@@ -260,7 +261,7 @@ assert.equal(
   changes.currentMappedCount,
   fleet.vessels.filter((vessel) => vessel.position || vessel.uncertaintyArea || vessel.mapRepresentation).length,
 );
-for (const category of ["status", "location", "mapping", "marker", "evidence"]) {
+for (const category of ["status", "location", "mapping", "marker", "evidence", "metadata"]) {
   assert.equal(
     changes.counts[category],
     changes.changes.filter((change) => change.categories.includes(category)).length,

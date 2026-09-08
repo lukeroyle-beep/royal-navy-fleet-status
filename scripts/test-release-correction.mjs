@@ -59,3 +59,51 @@ reject(a=>a.histories['status-location-history.jsonl'].current+=JSON.stringify({
 reject(a=>a.record.changes[0].afterHash='stale');
 reject(a=>a.published.vessels[0].name='wrong published base');
 console.log(`Release correction tests passed: additive inventory accepted; ${rejected} tampering/coverage/history cases rejected.`);
+
+// A home-port correction retains the exact operational assessment and chains the
+// prior release, rather than editing its seal or claiming another vessel sweep.
+const homeBaseline=structuredClone(candidate), homeCandidate=structuredClone(candidate);
+homeCandidate.entities.metadata.releaseRevision=3;
+homeCandidate.entities.metadata.releasedAt='2026-09-08T12:00:00Z';
+homeCandidate.entities.vessels.find(v=>v.vesselId===added.vesselId).homePort='Marchwood Military Port, Southampton';
+const homePublic=createPublicProjection(homeCandidate.entities,homeCandidate.assessmentLog);
+const homeRecord={...structuredClone(record),baselineCommit:'b'.repeat(40),baselineInputs:homeBaseline,baselineRelease:homeBaseline.entities.metadata,release:homeCandidate.entities.metadata,reviewedAt:'2026-09-08T11:00:00Z',parentInputsHash:correctionHash(homeBaseline),candidateInputsHash:correctionHash(homeCandidate),releaseContentHash:computeReleaseContentHash(homeCandidate),changes:[{...record.changes[1],action:'update',mode:'home-port-only',beforeHash:correctionHash(publicCandidate.vessels.at(-1)),afterHash:correctionHash(homePublic.vessels.at(-1))}]};
+const homeHistories=Object.fromEntries(Object.entries(args.histories).map(([name,h])=>[name,{baseline:h.current,current:h.current+JSON.stringify({snapshotDate:'2026-09-06',releaseRevision:3,releasedAt:homeCandidate.entities.metadata.releasedAt})+'\n'}]));
+const homeArgs={record:homeRecord,baseline:homeBaseline,candidate:homeCandidate,published:publicCandidate,parentGate:{pass:true,runId:record.parentRunId,projection:publicCandidate},histories:homeHistories};
+assert.equal(validateReleaseCorrection(homeArgs).pass,true);
+for(const mutate of [
+ a=>a.candidate.entities.vessels.at(-1).name='unreviewed name',
+ a=>a.candidate.assessmentLog.assessments.at(-1).assessedState.status='Unknown',
+ a=>a.candidate.assessmentLog.currentAssessmentIds[added.vesselId]=oldId,
+ a=>a.candidate.assessmentLog.assessments.push({...addedAssessment,assessmentId:'UNNECESSARY_NEW_ASSESSMENT'}),
+ a=>a.candidate.entities.vessels.at(-1).homePort='',
+ a=>a.record.changes[0].mode='unknown',
+]) {
+ const a=structuredClone(homeArgs);mutate(a);
+ a.record.candidateInputsHash=correctionHash(a.candidate);
+ try {a.record.releaseContentHash=computeReleaseContentHash(a.candidate);} catch {} // A broken binding must fail too.
+ assert.throws(()=>validateReleaseCorrection(a));
+}
+const {validateCorrectionChain}=await import('./lib/validate-correction-inputs.mjs');
+const parentRecord={...structuredClone(record),baselineInputs:baseline,baselineCommit:'a'.repeat(40),parentRunHash:'seal'};
+Object.assign(homeRecord,{parentRunHash:'seal',parentCorrection:parentRecord,parentCorrectionHash:correctionHash(parentRecord)});
+const ancestry=[];
+const io={
+ assertAncestor:(base,descendant)=>{assert.ok((base==='b'.repeat(40)&&descendant==='HEAD')||(base==='a'.repeat(40)&&descendant==='b'.repeat(40)));ancestry.push([base,descendant]);},
+ readPublished:commit=>commit==='a'.repeat(40)?published:publicCandidate,
+ readHistories:base=>base==='a'.repeat(40)?args.histories:homeHistories,
+ authenticateSweep:item=>{assert.equal(item.baselineRelease.releaseRevision,1);return args.parentGate;},
+ validatePublished:(commit,a)=>{assert.equal(commit,'b'.repeat(40));return validateReleaseCorrection(a);},
+};
+assert.equal(validateCorrectionChain({record:homeRecord,candidate:homeCandidate,io}).pass,true);
+assert.equal(ancestry.length,2);
+for(const mutate of [
+ r=>r.parentCorrection.reason='altered parent',
+ r=>delete r.parentCorrection,
+ r=>r.parentRunId='wrong root',
+ r=>r.parentRunHash='wrong seal',
+ r=>r.baselineCommit='c'.repeat(40),
+]) {const r=structuredClone(homeRecord);mutate(r);assert.throws(()=>validateCorrectionChain({record:r,candidate:homeCandidate,io}));}
+assert.throws(()=>validateCorrectionChain({record:homeRecord,candidate:homeCandidate,depth:16,io}));
+assert.throws(()=>validateCorrectionChain({record:homeRecord,candidate:homeCandidate,seen:new Set([correctionHash(homeRecord)]),io}));
+console.log('Home-port-only and chained corrections passed; operational edits, parent tampering, ancestry and recursion failures rejected.');

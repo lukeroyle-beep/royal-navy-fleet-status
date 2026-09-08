@@ -18,7 +18,7 @@ const previous = JSON.parse(
 );
 const releaseFields = publicationReleaseFields(previous.metadata, current.metadata);
 const previousById = new Map(previous.vessels.map((vessel) => [vessel.id, vessel]));
-const counts = { status: 0, location: 0, mapping: 0, marker: 0, evidence: 0 };
+const counts = { status: 0, location: 0, mapping: 0, marker: 0, evidence: 0, metadata: 0 };
 const changes = [];
 
 for (const vessel of current.vessels) {
@@ -40,6 +40,7 @@ for (const vessel of current.vessels) {
       before: hasRepresentativePatrolMarker(before) ? "Representative patrol marker" : "No representative marker",
       after: hasRepresentativePatrolMarker(vessel) ? "Representative patrol marker" : "No representative marker" });
   }
+  addChange(items, "metadata", "Home port", before.homePort, vessel.homePort);
   addChange(items, "status", "Status", before.status, vessel.status);
   addChange(
     items,
