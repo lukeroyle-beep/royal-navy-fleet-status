@@ -1,4 +1,4 @@
-import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY, DIRECTORY_BOOTSTRAP_POLICY, validateBootstrapException } from './lib/bootstrap-exception.mjs';
+import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY, DIRECTORY_BOOTSTRAP_POLICY, HARBOUR_BOOTSTRAP_POLICY, validateBootstrapException } from './lib/bootstrap-exception.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -112,6 +112,15 @@ try {
   for(const sourceId of ['PORTSMOUTH_HARBOUR_AUTHORITY','X_DEFENCEHQ','VESSELFINDER_PUBLIC_WEEKLY'])assert.throws(()=>validateBootstrapException(directoryException,{sourceId,window:bootstrapWindow}));
  });
  const incomplete=await acquireSources({...bootstrapOptions,runId:'incomplete-current',sources:[{...bootstrapSource,sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY'}],adapters:{fixture:async()=>({examined:false,extractionComplete:true,method:'fixture',items:[],historicalException})}});
+ check('Portsmouth approval cannot backdate a review or excuse other source failures',()=>{
+  const at=new Date(Date.parse(cutoff)+3600000).toISOString();
+  const value={...historicalException,policyId:HARBOUR_BOOTSTRAP_POLICY,approvalReference:'owner-harbour-approval-2026-09-08',currentReview:{...historicalException.currentReview,asOf:at,completedAt:at}};
+  const context={sourceId:'PORTSMOUTH_HARBOUR_AUTHORITY',window:bootstrapWindow};
+  assert.equal(validateBootstrapException(value,context),value);
+  for(const patch of [{asOf:cutoff},{complete:false}])assert.throws(()=>validateBootstrapException({...value,currentReview:{...value.currentReview,...patch}},context));
+  assert.throws(()=>validateBootstrapException(value,{...context,previous:{cursor:{}}}));
+  for(const sourceId of ['X_DEFENCEHQ','MARINEVESSELTRAFFIC_NATO_DISCOVERY','RN_OFFICIAL_SHIPS'])assert.throws(()=>validateBootstrapException(value,{...context,sourceId}));
+ });
  check('exception cannot excuse incomplete current examination',()=>assert.equal(incomplete.records[0].cursor,null));
  bootstrapJournal.close();
  recovered.close();

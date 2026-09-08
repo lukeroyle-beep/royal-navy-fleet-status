@@ -429,3 +429,24 @@ invocation with no source observation is not itself a source check. Explicit att
 incomplete observations count towards attempts while retaining their failure disposition and
 unadvanced cursor. The certificate still blocks release. The 60-check acceleration suite and
 full production build pass, including attempted versus unattempted deferral reporting.
+
+## Approved Portsmouth baseline and bounded DefenceHQ continuation
+
+The owner explicitly approved `portsmouth-current-baseline-2026-09-08` for
+`PORTSMOUTH_HARBOUR_AUTHORITY`, using `owner-harbour-approval-2026-09-08`. It requires a
+completed current review at its actual observation/completion timestamp, an unavailable
+historical archive and no prior successful cursor. It does not backdate planned movements,
+confirm execution, excuse another source's failure or waive later source checks. Existing
+AIS and directory timestamp rules remain unchanged. The full production build and 61
+acceleration checks pass, including policy isolation and timestamp regressions.
+
+The same approval permits 30 total deliberate scrolls for this one-off `X_DEFENCEHQ`
+historical review. Ten were already performed, so twenty remain. It does not change the
+normal skill limit or other accounts. Chrome subsequently lost its control connection:
+the profile opens but both DOM and accessibility reads fail, including in a fresh tab.
+No additional scrolls were performed. Retained observations remain available and the source
+cursor does not advance. Reconnect browser control before resuming the remaining budget.
+
+Current mandatory dispositions are 71 fully examined, four approved current baselines and
+two failed/incomplete sources. MarineVesselTraffic's identity failure and DefenceHQ's unfinished
+history still block publication, together with incomplete native fleet reconciliation.
