@@ -72,6 +72,7 @@ assert.throws(()=>appendLocationSnapshot(currentText,changed,history,catalog),/d
 const nextDate=new Date(Date.parse(fleet.metadata.asOfDate)+86400000).toISOString().slice(0,10);
 const nextFleet=structuredClone(fleet);nextFleet.metadata={asOfDate:nextDate,releaseRevision:1,releasedAt:`${nextDate}T12:00:00Z`};
 const nextStatus={schemaVersion:2,snapshotDate:nextDate,releaseRevision:1,releasedAt:nextFleet.metadata.releasedAt,statuses:Object.fromEntries(fleet.vessels.map(v=>[v.id,v.status]))};
+
 const next=buildStatusLocationSnapshot(nextFleet);
 assert.equal(parseLocationHistory(appendLocationSnapshot(currentText,next,[...history,nextStatus],catalog),[...history,nextStatus],catalog).length,2);
 // The loader fails the insights bundle closed if location data is absent or malformed.

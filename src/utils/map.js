@@ -6,6 +6,10 @@ export function hasPlottablePosition(vessel) {
 
 export function getMapPosition(vessel) {
   if (hasRepresentativePatrolMarker(vessel)) return REPRESENTATIVE_PATROL_ANCHOR;
+  if (isRepresentativeRegionMarker(vessel)) {
+    return { ...vessel.uncertaintyArea.centre, label: vessel.publicLocationLabel };
+  }
+
   const position = vessel?.position;
   return Boolean(
     position &&
@@ -14,6 +18,18 @@ export function getMapPosition(vessel) {
   )
     ? position
     : null;
+}
+
+export function isRepresentativeRegionMarker(vessel) {
+  const area = vessel?.uncertaintyArea;
+  return Boolean(
+    vessel?.locationPrecision === "region" &&
+    ["confirmed", "last_reported"].includes(vessel.locationState) &&
+    !["SSBN", "SSN"].includes(vessel.vesselType) &&
+    area?.representation === "representative-marker" &&
+    Number.isFinite(area.centre?.lat) && Math.abs(area.centre.lat) <= 90 &&
+    Number.isFinite(area.centre?.lon) && Math.abs(area.centre.lon) <= 180
+  );
 }
 
 export function getMapFocusPosition(vessel) {

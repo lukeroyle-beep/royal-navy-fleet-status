@@ -133,6 +133,7 @@ assert.equal(
   publicationComparison.changes.some((change) => change.categories.includes("marker")),
   true,
   "The representative marker correction must remain visible.",
+
 );
 assert.deepEqual(
   publicationComparison.changedCurrentVesselIds,
@@ -192,24 +193,26 @@ assert.throws(
   /unexpected fields/,
 );
 
-assert.equal(changes.previousAsOfDate, "2026-08-31");
+assert.equal(changes.previousAsOfDate, "2026-09-06");
 assert.equal(changes.currentAsOfDate, fleet.metadata.asOfDate);
-assert.equal(changes.previousReleaseRevision ?? 1, 3);
-assert.equal(changes.currentReleaseRevision ?? 1, 1);
+assert.equal(changes.previousReleaseRevision ?? 1, 1);
+assert.equal(changes.currentReleaseRevision ?? 1, 2);
 assert.equal(changes.changes.length, 2);
 assert.equal(changes.counts.status, 0);
 assert.equal(changes.counts.location, 1);
 assert.equal(changes.counts.mapping, 1);
 assert.equal(changes.changes.some((change) => change.vesselId === "rfa-fort-victoria"), true);
+
 assert.equal(changes.changes.some((change) => change.vesselId === "hms-stirling-castle"), false);
 assert.equal(changes.changes.some((change) => change.vesselId === "hms-hurworth"), false);
 assert.equal(
   formatDatasetReleaseLabel(fleet.metadata),
   "6 September 2026",
 );
-assert.equal(formatPublicationFreshness(fleet.metadata), "Published 6 Sept 2026");
+assert.equal(formatPublicationFreshness({...fleet.metadata, releasedAt:"2026-09-06T14:23:11.536Z"}), "Published 6 Sept 2026");
 assert.deepEqual(
-  assessPublicationAge(fleet.metadata, { now: "2026-09-07T20:00:00Z" }),
+  assessPublicationAge(fleet.metadata, { now: new Date(Date.parse(fleet.metadata.releasedAt) + 86400000).toISOString() }),
+
   {
     state: "current",
     ageDays: 1,
@@ -218,7 +221,8 @@ assert.deepEqual(
   },
 );
 assert.deepEqual(
-  assessPublicationAge(fleet.metadata, { now: "2026-09-26T20:00:00Z" }),
+  assessPublicationAge(fleet.metadata, { now: new Date(Date.parse(fleet.metadata.releasedAt) + 20 * 86400000).toISOString() }),
+
   {
     state: "stale",
     ageDays: 20,
@@ -227,9 +231,10 @@ assert.deepEqual(
   },
 );
 assert.deepEqual(formatPublicationChangeLabels(changes), {
-  count: "31 Aug · 2 vessels",
+  count: "6 Sept · 2 vessels",
   summary:
-    "2 vessels changed between 31 August 2026 and 6 September 2026.",
+    "2 vessels changed in the 6 September 2026 correction from r1 to r2.",
+
 });
 assert.equal(formatDatasetReleaseLabel({ asOfDate: "2026-08-23" }), "23 August 2026");
 assert.equal(

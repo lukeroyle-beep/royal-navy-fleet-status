@@ -3,7 +3,8 @@ import { sanitisePublicLocationDescription } from "./public-location-safety.mjs"
 
 import { REPRESENTATIVE_PATROL, REPRESENTATIVE_PATROL_ANCHOR, hasRepresentativePatrolMarker } from "../../src/utils/representativePatrol.js";
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.2";
+
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.3";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -146,7 +147,7 @@ function createPublicGeometry(reviewedLocation, locationPrecision, publicLocatio
         centre: structuredClone(reviewedLocation.geometry.centre),
         radiusKm: reviewedLocation.geometry.radiusKm,
         label: publicLocationLabel,
-        representation: "regional",
+        representation: reviewedLocation.representation || "regional",
       },
     };
   }

@@ -1,98 +1,33 @@
 # Vengeance and Fort Victoria correction
 
-Implementation branch: `codex/vengeance-fort-victoria`, based on `ca5b99b9d0a0a66f1e96d49b6fcda1bd6eb4473f`.
+Draft [PR #91](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/91), linked to Issue #90, contains the approved corrections. This is an unpublished candidate. The active private inputs and production deployment are unchanged by this work.
 
-This is an implemented and validated candidate in [draft PR #91](https://github.com/lukeroyle-beep/royal-navy-fleet-status/pull/91), not a published release. The existing dirty checkout and active external private-input root were preserved. The external candidate contains the canonical inventory, assessments and source-coverage row needed to regenerate the public dataset; the committed legacy migration inputs remain unchanged.
+## Reconciled candidate
 
-## Result
+The candidate is based on published `db0400b6ec87971c35d630f904edf010de5ee0ba` and stages **6 September r2**, following the separately published r1. It preserves the reviewed Tamar representative regional marker, Magpie UK East Coast description without a point marker, and Tideforce unconfirmed location. Every other existing public vessel record is also unchanged except Vengeance.
 
-- HMS Vengeance remains one deployed Vanguard-class SSBN record. Both public location labels are `On patrol`. Its actual `position` and `uncertaintyArea` remain null, with location withheld and precision `none`.
-- `mapRepresentation: representative-patrol` is a strictly validated display opt-in. The map resolves it to the same fixed symbolic North Atlantic anchor retained in the legacy internal assessment. The projection requires an explicit current decision and rejects a different anchor. Neither a historical symbolic coordinate alone nor an arbitrary submarine record enables it.
-- The anchor is not an observed position, patrol area, route, likely operating position or geographical-presence datum. The marker remains selectable and uses the normal filtering, clustering and URL-state paths. Its tooltip says `On patrol`; the card and accessible marker label distinguish it from an actual position.
-- RFA Fort Victoria is added as `Fort class`, type `RFA auxiliary - replenishment ship`, pennant A387, commission year 1994. Her canonical status is the established `In re-fit` enum, formatted as `In Re-fit` in the current card, list, table and filter labels.
-- Her public location is `Seaforth Docks, Liverpool`, using the port-level anchor 53.46, -3.02. The location description retains `long-term lay-up`; no berth is asserted.
-- Total inventory: **68 → 69**; Royal Navy: **60 unchanged**; Royal Fleet Auxiliary: **8 → 9**; Fort class: **0 → 1**; refit: **14 → 15**.
-- Visible markers: **41 → 43**, comprising **42 ordinary port/city markers plus one representative marker**. All original marker IDs and coordinates are preserved. Regional records remain 26. The publication artifact's existing broader geometry count includes regional geometry: **67 → 69**; that is not a count of visible point markers.
-- Historical status/location lines and weekly availability records are unchanged. A new 6 September candidate status/location entry and identity-catalog record were appended. Earlier snapshots do not acquire Fort Victoria or the new representative marker.
-- The `Precision` row found in the current vessel-card component was removed as requested. Evidence dates, evidence classification and supporting sources remain absent from cards. All 68 existing photographs and their card-sized assets are unchanged.
+- HMS Vengeance remains one deployed Vanguard-class SSBN. Public location text is `On patrol`. Actual position and uncertainty geometry remain null, precision remains `none`, and location remains withheld.
+- `mapRepresentation: representative-patrol` is a strict opt-in to the previously retained fixed symbolic North Atlantic anchor. Invalid geometry, a different anchor or an arbitrary submarine cannot enable it. No actual SSBN position, patrol area, route, likely operating location or geographical-presence inference is introduced.
+- The two representative-marker conventions coexist: Tamar uses the independently reviewed reported-region representation; Vengeance uses deliberately withheld location plus symbolic display. Filters, clustering, selection and shareable URL state use the normal map architecture.
+- RFA Fort Victoria is a Fort-class RFA replenishment ship, A387, commissioned in 1994. Her established canonical status enum `In re-fit` renders as `In Re-fit`. Location is `Seaforth Docks, Liverpool`, with long-term lay-up context and the rounded port-level anchor 53.46, -3.02. No exact berth is asserted. Home port remains `Not recorded`.
+- Inventory **68 → 69**, RFA **8 → 9**, Royal Navy **60 unchanged**, Fort class **0 → 1**, refit **14 → 15**.
+- Visible fleet markers **41 → 43**, now **41 ordinary point markers and 2 representative markers**. The other 26 records remain regional or list-only. All 41 markers from the newly published base are preserved. The old pre-sweep baseline is superseded only by the independently published r1 corrections.
+- Published status and location ledgers are retained byte-for-byte, with one new r2 record appended. Earlier snapshots do not acquire Fort Victoria or the Vengeance marker. The unmerged draft r1 was replaced by the actual published r1 during reconciliation; no shipped history was rewritten.
+- Provenance fields remain absent from public cards, including Precision, evidence dates/classification and sources. Existing vessel photographs are preserved. No dedicated Fort Victoria image exists; the existing lookup and accessible fallback remain in use.
 
-## Assumptions and source handling
+## Canonical preparation and evidence boundary
 
-The owner's explicit instruction supplies the patrol status, Fort Victoria's refit status and lay-up location. These have not been relabelled as newly collected OSINT observations. New internal assessments explain that distinction and do not manufacture observation dates or a completed sweep.
+A separate r2 private candidate was composed from the current authoritative inputs, retaining all reviewed r1 assessments and adding only the previously prepared owner-directed Vengeance and Fort Victoria amendments. Neither the active root nor the retained draft-r1 root was overwritten. Fort Victoria has an explicitly unreviewed, disabled social-coverage disposition; no successful collection is asserted.
 
-Fort Victoria's class, role, pennant and service year were checked against the [official Royal Navy vessel page](https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-fort-victoria). Dock-level geography was checked against public Seaforth Dock location references, including [the Wikimedia location record](https://commons.wikimedia.org/wiki/Category:Seaforth_Container_Terminal,_Port_of_Liverpool). These identify the dock, not the vessel's berth. No supporting-source URL is added to the public fleet records or cards.
+The owner's instruction supplies the operational corrections. Fort Victoria's class, role, pennant and commission year were checked against the [official Royal Navy vessel page](https://www.royalnavy.mod.uk/organisation/units-and-squadrons/support-ships/rfa-fort-victoria). Dock-level geography was checked against the [Wikimedia Seaforth location record](https://commons.wikimedia.org/wiki/Category:Seaforth_Container_Terminal,_Port_of_Liverpool). These are not berth-level vessel observations. No actual SSBN-location research was performed.
 
-No reliable home-port value was supplied, so the existing `Not recorded` presentation is used. There is no dedicated Fort Victoria image in the repository. The existing Wikimedia/Wikipedia lookup and accessible `Photograph unavailable` fallback remain available; regression tests force image lookup failure to verify the fallback.
+The projection method is now 1.3.3, distinguishing the combined representation semantics from the independently published r1 method. That r1 sweep covers 68 vessels and its own sealed projection. It cannot authorize the new 69-vessel r2 candidate. Native validation reports `no sweep run covers 2026-09-06 r2`. The final release timestamp remains provisional until a legitimate matching correction sweep is complete. No scheduler or collection workflow was changed by this PR reconciliation.
 
-The private candidate adds an explicitly unreviewed/disabled social-coverage row for Fort Victoria. The official vessel page links an account, but its collection readiness has not been tested or enabled in this task. No Sunday scheduler, collector or release gate was changed.
+## Validation
 
-## Validation and delivery
+- Regression coverage verifies one symbolic Vengeance marker, null real geometry, Fort's status/location/counts, both vessels' filters and URL state, normal cards and image fallback.
+- The baseline fixture now identifies the published base commit and preserves all of its point markers, history byte prefixes, and exact Tamar/Magpie/Tideforce records. A separate assertion confirms that published r1 does not contain Fort Victoria.
+- The full public and canonical-input suites and both production/Pages builds passed for the reconciled candidate. All 43 browser tests passed. Independent integration review found no must-fix code issue; final exact-head review and CI are recorded on the PR. Public CI build success is separate from native publication authorization.
+- The r2 evidence-release gate remains blocked. Do not merge until a matching finalized review covers the full 69-vessel candidate, the release artifacts are finalized, and native checks and exact-head review pass.
 
-Validation results are recorded in the completion evidence accompanying this worktree. The production and Pages builds use the existing public CI path with the external private-root variable unset. The canonical candidate is separately checked with the normal data/projection validator.
-
-The live publication gate remains intentionally unsatisfied: `no sweep run covers 2026-09-06 r1`. The passing public CI build is not evidence of completed sweep coverage and does not authorise publication. Before activation, reconcile this candidate with the latest authoritative fleet release and complete the normal release process. Do not replace newer Sunday work with this candidate.
-
-Rollback requires only discarding this isolated branch/candidate; no live state was changed.
-
-Two existing browser assertions were made timing-safe during production verification: the delayed-photo test waits for the selected photograph's own loading state to finish before measuring its figure, and the iPad check waits for the drawer's entrance animation to settle before measuring its edge. Application photo/layout behaviour was not changed.
-
-## Changed repository files
-
-- `README.md`
-- `data/royal-navy/publication-changes.json`
-- `data/royal-navy/status-history-catalog.json`
-- `data/royal-navy/status-history.jsonl`
-- `data/royal-navy/status-location-history.jsonl`
-- `data/royal-navy/vessels.json`
-- `docs/fleet-correction-2026-09-06.md`
-- `index.html`
-- `package.json`
-- `scripts/check-client-exposure.mjs`
-- `scripts/fixtures/fleet-correction-baseline.json`
-- `scripts/generate-publication-changes.mjs`
-- `scripts/lib/client-exposure.mjs`
-- `scripts/lib/public-projection.mjs`
-- `scripts/lib/status-location-snapshot.mjs`
-- `scripts/test-fleet-corrections.mjs`
-- `scripts/test-fleet-filter.mjs`
-- `scripts/test-insights.mjs`
-- `scripts/test-interface.mjs`
-- `scripts/test-loader.mjs`
-- `scripts/test-location-history.mjs`
-- `scripts/test-map.mjs`
-- `scripts/test-photos.mjs`
-- `scripts/test-provenance.mjs`
-- `scripts/test-sweep.mjs`
-- `scripts/test-x-browser-collection.mjs`
-- `scripts/test-shore-establishments.mjs`
-- `scripts/validate-publication-changes.mjs`
-- `src/app.js`
-- `src/components/EventDetailsPanel.js`
-- `src/components/FleetMap.js`
-- `src/components/ScenarioLoader.js`
-- `src/utils/fleet.js`
-- `src/utils/fleetFilter.js`
-- `src/utils/location-history.js`
-- `src/utils/map.js`
-- `src/utils/representativePatrol.js`
-- `tests/browser/concept-a.spec.js`
-- `tests/browser/fleet-regression.spec.js`
-
-## Final test results
-
-- Full unit/integration suite: PASS (run within both production build pipelines).
-- Configured browser suite: 43/43 PASS.
-- Production-compatible browser suite: 42/42 PASS after making the two existing timing assumptions explicit. The development-module motion test runs on the configured Vite surface and is excluded only from the bundled-production invocation.
-- Production build and Pages build: PASS, including data/history validation, Pages base-path checks and the client-exposure scan across 187 built files.
-- Canonical candidate: normal data/projection validation PASS for 69 vessels; active inputs remain unchanged at 68 vessels.
-- Historical-prefix and existing-marker regression: PASS; all 41 previous marker identities and coordinates preserved, no past status/location lines rewritten, and availability history unchanged.
-- Publication readiness: NOT READY; native sweep gate correctly rejects the candidate because no sweep covers 6 September r1. This is a release follow-up, not a disabled check or an invented successful sweep.
-
-The branch is published in draft PR #91, linked to Issue #90. Independent implementation review found no must-fix issue and GitHub CI passed on the initial head; the PR records subsequent exact-head checks. No merge, production deployment or canonical-input activation was performed. A dedicated Fort Victoria photograph and reviewed direct social-source coverage remain follow-up items; the approved image fallback already works.
-
-
-## Release-process follow-up
-
-The release-manager run against the external candidate exposed old test assumptions that the public CI fixture did not exercise. The provenance test now permits the optional representation field only when the full strict marker contract holds and rejects attempts to attach observed geometry to it. Social-coverage and sweep-outcome checks compare exact canonical vessel IDs instead of a fixed 68. The browser-collection test pins its in-memory release identity to its existing fixed observation window; no live evidence or workflow dates are changed. The full `npm test` suite then passed against the canonical candidate.
-
-The canonical build remains blocked at its first native sweep check (`no sweep run covers 2026-09-06 r1`). Public build success and independent code review do not discharge that dependency. Keep the PR draft until the candidate is reconciled with current production and passes the complete evidence/release process. The scheduled Sunday workflow has not been changed or duplicated.
+Rollback of this unpublished work leaves production untouched. Retain the draft branch and separate private candidate for review; do not reset, overwrite or backfill the published release.

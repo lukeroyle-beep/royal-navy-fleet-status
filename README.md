@@ -2,7 +2,7 @@
 
 A static browser application showing the last publicly reported locations of Royal Navy and Royal Fleet Auxiliary (RFA) vessels on an interactive two-dimensional map.
 
-The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Map markers represent deliberately rounded, publicly reported port or city locations rather than exact vessel positions; broader regional records remain available in the fleet list without a map marker. A fixed representative marker also identifies the deployed deterrent patrol without disclosing a vessel position.
+The application is a curated open-source intelligence (OSINT) snapshot. It is not a live tracking service. Map markers represent deliberately rounded, publicly reported port or city locations rather than exact vessel positions; broader regional records normally remain list-only. An explicitly reviewed regional record, such as HMS Tamar, can use a labelled representative marker. A separate fixed representative marker identifies the deployed deterrent patrol without disclosing a vessel position.
 
 ## What is included
 
@@ -27,7 +27,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 - Use **Filters** for class, service, operational status, vessel type, public location state and broad geographic scope. Active constraints appear as a compact count on the button and **Clear all** appears only when needed.
 - Use a public preset to switch the existing filters and layers to Fleet overview, Deployed vessels, United Kingdom ports, Maintenance and refit or Overseas presence. Presets do not create a second dataset.
 - The browser address is kept in sync with the current public filters, layers, selected vessel and bounded map view. Copy that address to share the same state across desktop, iPad and phone layouts.
-- Vessels without a current public point can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports remain list records rather than being assigned representative markers.
+- Vessels without a current public point can retain a neutral last-publicly-reported label. Port and city reports use deliberately rounded point markers; broader reports remain list records unless the reviewed data explicitly permits a labelled representative regional marker.
 - If basemap tiles are unavailable, vessel search and vessel details continue to work.
 
 The basemap is provided by [OpenStreetMap](https://www.openstreetmap.org/copyright) and its attribution remains visible on the map. The browser requests only the tiles needed for the current viewport; the application does not prefetch or bulk-download tiles.

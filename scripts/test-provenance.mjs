@@ -462,3 +462,12 @@ function item(evidenceId, sourceId, location, originId, observedAt) {
     supersededBy: null,
   };
 }
+
+const representativeAssessment = structuredClone(explicitAreaAssessment);
+representativeAssessment.assessedState.publicLocation.representation = "representative-marker";
+const representativeProjection = projectPublicVessel(duncanEntity, representativeAssessment);
+assert.equal(representativeProjection.position, null);
+assert.equal(representativeProjection.locationPrecision, "region");
+assert.equal(representativeProjection.uncertaintyArea.representation, "representative-marker");
+representativeAssessment.assessedState.publicLocation.precision = "port";
+assert.equal(projectPublicVessel(duncanEntity, representativeAssessment).uncertaintyArea, null);

@@ -113,12 +113,14 @@ test("every current class keeps its list and point-marker counts aligned", async
   for (const vesselClass of classes) {
     const records = fleet.vessels.filter((vessel) => vessel.vesselClass === vesselClass);
     const expectedMarkers = records.filter(hasPlottablePosition).length;
+
     await page.locator(classButtonSelector(vesselClass)).click();
     await expect(page.locator("#filterResultStatus")).toContainText(
       `Showing ${records.length} of ${fleet.vessels.length} vessels`,
     );
     await expect(page.locator("#classMapSummary")).toHaveText(
       `Map: ${formatPlotEligibilitySummary(records)}.`,
+
     );
     await expect.poll(() => page.locator(".fleet-marker").count()).toBe(expectedMarkers);
     await expect
@@ -212,6 +214,7 @@ for (const viewport of [{ width: 1366, height: 768 }, { width: 390, height: 844 
     await page.locator("#snapshotSelect").selectOption(fleet.metadata.asOfDate);
     await expect(page.locator(".fleet-marker")).toHaveCount(fleet.vessels.filter(hasPlottablePosition).length);
     await expectCompleteMarkerNames(page, fleet.vessels.filter(hasPlottablePosition).map(v => v.name));
+
     await expect(page.locator("#loadError")).toBeHidden();
   });
 }
@@ -319,6 +322,7 @@ test("vessel selection exposes the complete card and survives browser history", 
     ["pennant", duncan.pennantNumber],
     ["commission-date", duncan.commissionedDate],
     ["home-port", duncan.homePort],
+
     ["snapshot", "6 Sept 2026"],
   ]) {
     const entry = page.locator(`#detailPrimaryMeta [data-term=${JSON.stringify(term)}]`);

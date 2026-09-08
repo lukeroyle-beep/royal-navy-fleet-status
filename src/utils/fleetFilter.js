@@ -1,5 +1,6 @@
 import { hasRepresentativePatrolMarker } from "./representativePatrol.js";
-import { hasPlottablePosition } from "./map.js";
+import { hasPlottablePosition, isRepresentativeRegionMarker } from "./map.js";
+
 import { publicPresenceForVessel } from "./publicState.js";
 
 export function filterFleetVessels(
@@ -37,8 +38,9 @@ export function filterFleetVessels(
 }
 
 export function summarizePlotEligibility(vessels) {
-  const representative = vessels.filter(hasRepresentativePatrolMarker).length;
-  const pointMapped = vessels.filter((vessel) => hasPlottablePosition(vessel) && !hasRepresentativePatrolMarker(vessel)).length;
+  const isRepresentative = (vessel) => hasRepresentativePatrolMarker(vessel) || isRepresentativeRegionMarker(vessel);
+  const representative = vessels.filter(isRepresentative).length;
+  const pointMapped = vessels.filter((vessel) => hasPlottablePosition(vessel) && !isRepresentative(vessel)).length;
   const regional = vessels.filter(
     (vessel) => !hasPlottablePosition(vessel) && vessel.locationPrecision === "region",
   ).length;
@@ -55,4 +57,5 @@ export function formatPlotEligibilitySummary(vessels) {
   const summary = summarizePlotEligibility(vessels);
   const nonPoint = summary.regional + summary.listOnly;
   return `${summary.pointMapped} point-mapped${summary.representative ? ` · ${summary.representative} representative` : ""} · ${nonPoint} regional or list-only`;
+
 }

@@ -2,7 +2,7 @@ import { formatOperationalStatus } from "../utils/fleet.js";
 import { hasRepresentativePatrolMarker } from "../utils/representativePatrol.js";
 import { VesselPhotoService } from "./VesselPhotoService.js";
 import { getVesselChange, getVesselPublicTimeline } from "../utils/insights.js";
-import { hasPlottablePosition } from "../utils/map.js";
+import { hasPlottablePosition, isRepresentativeRegionMarker } from "../utils/map.js";
 
 export class EventDetailsPanel {
   constructor({
@@ -271,6 +271,10 @@ export function formatLocationPrecision(value) {
 
 export function formatMapDisplay(vessel) {
   if (hasRepresentativePatrolMarker(vessel)) return "Representative marker — not an actual vessel position";
+  if (isRepresentativeRegionMarker(vessel)) {
+    return "Representative marker for the reported region — not an exact or current ship position";
+  }
+
   if (hasPlottablePosition(vessel)) {
     return "Point-mapped record — marker shown when fleet layer is enabled";
   }

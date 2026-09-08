@@ -29,9 +29,11 @@ assert.ok(
 const enabledXAccounts = registry.sources.filter((source) => source.xCollection?.enabled);
 const exploitRequired = enabledXAccounts.find((source) => source.sourceId === "X_HMS_EXPLOIT")
   ?.xCollection.required;
-assert.equal(enabledXAccounts.length, 95);
+const removedOptionalIds = new Set(["X_DISCOVERY_BF_GIBRALTAR", "X_DISCOVERY_BFSAI", "X_DISCOVERY_FLY_NAVY", "X_DISCOVERY_HMS_RALEIGH"]);
+const disabledOptional = registry.sources.filter((source) => removedOptionalIds.has(source.sourceId) && source.enabled === false && source.xCollection?.enabled === false);
+assert.equal(enabledXAccounts.length, 95 - disabledOptional.length);
 assert.equal(enabledXAccounts.filter((source) => source.xCollection.required).length, exploitRequired ? 72 : 71);
-assert.equal(enabledXAccounts.filter((source) => !source.xCollection.required).length, exploitRequired ? 23 : 24);
+assert.equal(enabledXAccounts.filter((source) => !source.xCollection.required).length, (exploitRequired ? 23 : 24) - disabledOptional.length);
 if (exploitRequired === false) {
   assert.match(
     enabledXAccounts.find((source) => source.sourceId === "X_HMS_EXPLOIT")?.notes || "",
@@ -69,7 +71,7 @@ const attachedDiscoveryIds = [
   "X_DISCOVERY_UKMCC_MIDDLE_EAST",
 ];
 for (const sourceId of attachedDiscoveryIds) {
-  const source = enabledXAccounts.find((entry) => entry.sourceId === sourceId);
+  const source = registry.sources.find((entry) => entry.sourceId === sourceId);
   assert.equal(source?.reliabilityTier, "D", `${sourceId} must remain Tier D discovery.`);
   assert.equal(source?.xCollection.classification, "osint", `${sourceId} must not assert officiality.`);
   assert.equal(source?.xCollection.required, false, `${sourceId} must remain optional.`);

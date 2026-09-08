@@ -1,11 +1,16 @@
 const PRECISIONS = new Set(["port", "city", "region", "none"]);
 
 export function validateReviewedPublicLocation(value, label = "publicLocation") {
-  if (!hasExactKeys(value, ["precision", "label", "geometry"])) {
+  const representative = value?.representation === "representative-marker";
+  const keys = ["precision", "label", "geometry", ...(representative ? ["representation"] : [])];
+  if (!hasExactKeys(value, keys)) {
     throw new Error(`${label} must contain only precision, label and geometry.`);
   }
   if (!PRECISIONS.has(value.precision)) {
     throw new Error(`${label} has an invalid precision.`);
+  }
+  if (representative && value.precision !== "region") {
+    throw new Error(`${label} representative markers require regional precision.`);
   }
   if (typeof value.label !== "string" || !value.label.trim()) {
     throw new Error(`${label} requires a non-empty label.`);

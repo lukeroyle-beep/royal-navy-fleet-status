@@ -7,6 +7,7 @@ import {
   coLocatedVessels,
   getMapFocusPosition,
   getMapPosition,
+  isRepresentativeRegionMarker,
   hasPlottablePosition,
   mapFitPadding,
   markerAssetCategory,
@@ -34,7 +35,8 @@ const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "u
 const mapComponent = fs.readFileSync(new URL("../src/components/FleetMap.js", import.meta.url), "utf8");
 
 const expectedPlottedVessels = dataset.vessels.filter(
-  (vessel) => Boolean(vessel.position) || vessel.id === "hms-vengeance",
+  (vessel) => Boolean(vessel.position) || isRepresentativeRegionMarker(vessel) || vessel.id === "hms-vengeance",
+
 );
 assert.deepEqual(
   plottedVessels(dataset.vessels).map((vessel) => vessel.id),
@@ -42,7 +44,8 @@ assert.deepEqual(
 );
 assert.equal(
   plottedVessels(dataset.vessels).every((vessel) =>
-    ["port", "city"].includes(vessel.locationPrecision) || vessel.id === "hms-vengeance",
+    ["port", "city"].includes(vessel.locationPrecision) || isRepresentativeRegionMarker(vessel) || vessel.id === "hms-vengeance",
+
   ),
   true,
 );
@@ -58,7 +61,7 @@ assert.equal(
 );
 assert.equal(
   dataset.vessels
-    .filter((vessel) => vessel.locationPrecision === "region")
+    .filter((vessel) => vessel.locationPrecision === "region" && !isRepresentativeRegionMarker(vessel))
     .every((vessel) => !getMapPosition(vessel) && !hasPlottablePosition(vessel) && Boolean(vessel.uncertaintyArea)),
   true,
 );
@@ -423,4 +426,15 @@ function projectPrecisionFixture(fixture) {
       },
     },
   );
+}
+
+const representative = {
+  vesselType: "Offshore patrol vessel", locationPrecision: "region", locationState: "last_reported",
+  publicLocationLabel: "South China Sea", position: null,
+  uncertaintyArea: { centre: { lat: 11.78, lon: 112.31 }, radiusKm: 1930, representation: "representative-marker" },
+};
+assert.deepEqual(getMapPosition(representative), {lat: 11.78, lon: 112.31, label: "South China Sea"});
+assert.equal(representative.position, null);
+for (const override of [{locationState:"withheld"}, {locationState:"unconfirmed"}, {vesselType:"SSBN"}, {vesselType:"SSN"}, {locationPrecision:"none"}, {uncertaintyArea:{...representative.uncertaintyArea,representation:"regional"}}]) {
+  assert.equal(getMapPosition({...representative,...override}), null);
 }

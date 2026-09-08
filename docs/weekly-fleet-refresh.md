@@ -1,16 +1,17 @@
 # Weekly fleet refresh
 
-OpenClaw automation `0ed0dde6-f1f1-46eb-a9e4-98200e1ee907` is the single production scheduler. It
-runs every Sunday at **12:00 UK local time** with cron expression `0 12 * * 0`, IANA timezone
-`Europe/London`, and no stagger. OpenClaw therefore resolves 12:00 to 11:00 UTC during British Summer
-Time and 12:00 UTC during Greenwich Mean Time, including the clock-change Sundays. Do not replace
-this with a permanently fixed UTC cron.
+On 6 September 2026, Luke replaced OpenClaw for all tracker OSINT sweeps with the Codex task
+automation **Tracker OSINT sweeps**. It wakes daily at **12:00 UK local time**, runs the full
+review on Sunday, and runs bounded incremental discovery Monday through Saturday. Both former
+OpenClaw OSINT jobs are disabled. See [Codex OSINT scheduling](codex-osint-scheduling.md) for the
+cutover, recovery, browser, ownership and verification contract. Preserve `Europe/London` daylight
+saving behaviour; do not substitute a permanently fixed UTC hour.
 
 The legacy Buzz workflow `8c44ae64-0b49-48f3-b11e-c653d073e8e9` is disabled. Its live definition
 records that it was retired on 18 August 2026 after migration to OpenClaw. Do not re-enable it while
-the OpenClaw automation is active because that would create competing production schedulers.
+the Codex automation is active because that would create competing schedulers.
 
-The scheduled message instructs Codex to:
+The Sunday scheduled message instructs Codex to:
 
 1. derive the current roster and review all 68 current Royal Navy and Royal Fleet Auxiliary records;
 2. keep or revise only dated, public, vessel-specific locations at supported precision;
@@ -19,19 +20,21 @@ The scheduled message instructs Codex to:
 5. generate the release-to-release change summary;
 6. append one fleet-status snapshot for the new dataset date;
 7. run the full validation, test and production-build suite;
-8. open a pull request linked to the originating Buzz channel for owner review; and
+8. prepare the reviewed data outputs without requiring a pull request for a data-only sweep; and
 9. report plotted, unknown and withheld counts plus any evidence blockers.
 
-The workflow is deliberately owner-reviewed. It prepares evidence-backed repository changes but does not merge or deploy them automatically.
+The workflow retains evidence-review and release-readiness gates. Data-only sweeps do not require
+a pull request; code and workflow changes follow their separate governance. Future scheduled runs require separate authorization before production publication or deployment.
+Luke explicitly authorized the reviewed 6 September recovery release and direct main update on 8 September.
 
 ### Trigger, preflight and failure visibility
 
-Before broad collection, the OpenClaw job must fail fast unless all of the following are true:
+Before broad collection, the Codex task must fail fast unless all of the following are true:
 
 - the current production base and current roster are resolved;
 - the configured external `RNFS_PRIVATE_DATA_ROOT` is present, readable, outside the repository and
   passes the private-input boundary checks;
-- GitHub authentication can fetch the base and create or update an owner-reviewed pull request;
+- GitHub authentication can fetch the base and maintain the existing incident when needed;
 - Chrome is connected, X is signed in, the six-account rendered-public-page canary passes and the
   private resumable session can cover every required registry account without a challenge or rate
   limit; and
@@ -53,7 +56,7 @@ ingest evidence, update the fleet dataset or publish the site. A blocked require
 collection job fail after the ledger has been written; the `always()` artifact step still preserves
 that failure record for review.
 
-After the artifact is available, the 12:00 Europe/London OpenClaw task runs the governed public-X
+After the artifact is available, the 12:00 Europe/London Codex task runs the governed public-X
 stage on the owner's trusted Mac. No X credential or real private input is added to GitHub Actions.
 The separate Monday availability workflow remains at 06:30 UTC.
 
@@ -67,11 +70,10 @@ snapshot or failed live request opens or reopens one dated issue, uploads
 `weekly-production-health.json`, and fails the workflow visibly. A later successful check closes the
 issue. The watchdog never starts a competing sweep or fabricates a snapshot.
 
-Run the same production automation manually after repairing the reported prerequisite:
-
-```bash
-openclaw cron run 0ed0dde6-f1f1-46eb-a9e4-98200e1ee907 --wait --wait-timeout 6h
-```
+After repairing the prerequisite, resume the existing **Tracker OSINT sweeps** task in Codex.
+Retain its explicit dated lock, run-health record and evidence window. Do not invoke or reactivate
+the retired OpenClaw jobs. A scheduled wake or completed agent process is not proof of a completed
+sweep. Luke explicitly authorized the reviewed 6 September recovery release and direct main update on 8 September.
 
 For a read-only manual snapshot/deployment check, dispatch **Weekly production snapshot watchdog**
 with the expected Sunday date. See [`scheduler-incident-2026-08-30.md`](scheduler-incident-2026-08-30.md)

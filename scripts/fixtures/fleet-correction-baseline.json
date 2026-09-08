@@ -1,5 +1,5 @@
 {
-  "baseCommit": "ca5b99b9d0a0a66f1e96d49b6fcda1bd6eb4473f",
+  "baseCommit": "db0400b6ec87971c35d630f904edf010de5ee0ba",
   "markers": {
     "hms-victory": {
       "lat": 50.8,
@@ -117,9 +117,9 @@
       "label": "London"
     },
     "hms-tamar": {
-      "lat": 10.5,
-      "lon": 103.61,
-      "label": "Ream Naval Base area"
+      "lat": 11.78,
+      "lon": 112.31,
+      "label": "South China Sea"
     },
     "hms-spey": {
       "lat": 1.28,
@@ -209,16 +209,80 @@
   },
   "history": {
     "status-history.jsonl": {
-      "bytes": 19860,
-      "sha256": "1e33d14303bad9a6efc8ab30b1840888ca8febc1bef766474404bcd5a2dad53e"
+      "bytes": 21771,
+      "sha256": "501ca80dcd70aa5c208d55f0b50db0e516eba7dd99eb6f5b415f98fb05ad245b"
     },
     "status-location-history.jsonl": {
-      "bytes": 48334,
-      "sha256": "f7d1b078a452fb3622463ae050368f6cae7947e98d0e3e463c3104ce109bef7d"
+      "bytes": 72331,
+      "sha256": "5341e9ace1320ee6a64d8b176c0f1d1e076d33d319e0d3a40028a5657391e23e"
     },
     "availability-history.jsonl": {
       "bytes": 4922,
       "sha256": "3f8fc8af32601f79297bb252efc7bf1ae9cbc209931919192daa45b7e2ad5698"
+    }
+  },
+  "reviewedReleaseCorrections": {
+    "hms-tamar": {
+      "id": "hms-tamar",
+      "name": "HMS Tamar",
+      "service": "Royal Navy",
+      "vesselClass": "River class",
+      "vesselType": "Offshore patrol vessel",
+      "pennantNumber": "P233",
+      "commissionedDate": "2020",
+      "homePort": "HMNB Portsmouth",
+      "status": "Deployed",
+      "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "region",
+      "publicLocationLabel": "South China Sea",
+      "lastReportedLocation": "South China Sea; late-August activity reported 3 September 2026",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 11.78,
+          "lon": 112.31
+        },
+        "radiusKm": 1930,
+        "label": "South China Sea",
+        "representation": "representative-marker"
+      }
+    },
+    "hms-magpie": {
+      "id": "hms-magpie",
+      "name": "HMS Magpie",
+      "service": "Royal Navy",
+      "vesselClass": "Sea class 18 m variant",
+      "vesselType": "Ocean survey",
+      "pennantNumber": "H130",
+      "commissionedDate": "2018",
+      "homePort": "HMNB Devonport",
+      "status": "Available",
+      "locationClassification": "approximate",
+      "locationState": "last_reported",
+      "locationPrecision": "none",
+      "publicLocationLabel": "UK East Coast",
+      "lastReportedLocation": "UK East Coast; survey focus reported 26 August 2026",
+      "position": null,
+      "uncertaintyArea": null
+    },
+    "rfa-tideforce": {
+      "id": "rfa-tideforce",
+      "name": "RFA Tideforce",
+      "service": "Royal Fleet Auxiliary",
+      "vesselClass": "Tide class",
+      "vesselType": "RFA auxiliary - fleet tanker",
+      "pennantNumber": "A139",
+      "commissionedDate": "2019",
+      "homePort": "No fixed home base.",
+      "status": "Deployed",
+      "locationClassification": "unknown",
+      "locationState": "unconfirmed",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location unconfirmed",
+      "lastReportedLocation": "Location unconfirmed; earlier English Channel attribution withdrawn",
+      "position": null,
+      "uncertaintyArea": null
     }
   }
 }
