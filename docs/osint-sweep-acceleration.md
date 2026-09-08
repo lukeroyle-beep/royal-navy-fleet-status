@@ -380,3 +380,9 @@ historical revisions remain an explicit coverage gap; the approved two-source AI
 does not implicitly cover these directories. Portsmouth's rendered navigation exposes current
 and next-day planned movements, not a historical movement archive or confirmation of execution.
 Neither these limitations nor unfinished fleet reconciliation is converted into release success.
+
+The certificate now counts detected conflicts even before an adjudicator has supplied a
+resolution, so a blocked conflict cannot appear as zero in the operator totals. Matching reviewed
+conflicts are counted once. The 57-check acceleration suite and full build pass. Twelve live
+conflict groups were separately reviewed with dated temporal-progression explanations; this
+does not itself approve any current fleet-state change or complete fleet reconciliation.

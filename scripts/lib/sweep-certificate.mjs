@@ -34,11 +34,15 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     if (!decision || !['accepted', 'rejected', 'corroboration', 'irrelevant'].includes(decision.outcome) || !decision.reason || !decision.reviewedAt || !decision.reviewer || decision.candidateHash !== digest(c)) issues.push(`adjudication-incomplete:${c.evidenceId}`);
   }
   const detectedConflicts = findEvidenceContradictions(candidates);
+  const allConflicts = [...(adjudication.conflicts || [])];
   for (const conflict of detectedConflicts) {
-    if (!(adjudication.conflicts || []).some(c => digest(c.candidateIds?.slice().sort()) === digest(conflict.candidateIds.slice().sort()))) issues.push('undispositioned-detected-conflict');
+    if (!allConflicts.some(c => digest(c.candidateIds?.slice().sort()) === digest(conflict.candidateIds.slice().sort()))) {
+      issues.push('undispositioned-detected-conflict');
+      allConflicts.push({ ...conflict, resolution: 'unresolved' });
+    }
   }
   const resolvedStates = new Set(['resolved', 'resolved-temporal-progression', 'resolved-source-precedence', 'dismissed-not-material']);
-  const unresolved = (adjudication.conflicts || []).filter(c => !resolvedStates.has(c.resolution) || !c.reason?.trim() || !Array.isArray(c.evidenceIds) || !c.evidenceIds.length || c.evidenceIds.some(id => typeof id !== 'string' || !id.trim()));
+  const unresolved = allConflicts.filter(c => !resolvedStates.has(c.resolution) || !c.reason?.trim() || !Array.isArray(c.evidenceIds) || !c.evidenceIds.length || c.evidenceIds.some(id => typeof id !== 'string' || !id.trim()));
   if (unresolved.length) issues.push('unresolved-conflicts');
   if (reconciliation.records.some(r => r.pass !== true || !Array.isArray(r.issues) || r.issues.length)) issues.push('failed-fleet-reconciliation-record');
   if (!reconciliation.pass || reconciliation.total !== run.vesselOutcomes.length || reconciliation.reconciled !== reconciliation.total || digest(reconciliation.records.map(r=>r.vesselId).sort()) !== digest(run.vesselOutcomes.map(r=>r.vesselId).sort())) issues.push('incomplete-fleet-reconciliation');
@@ -64,7 +68,7 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     fleetChangesProposed: decisions.filter(d => d.proposedChange).length,
     fleetChangesAccepted: decisions.filter(d => d.proposedChange && d.outcome === 'accepted').length,
     fleetChangesRejected: decisions.filter(d => d.proposedChange && d.outcome === 'rejected').length,
-    evidenceConflicts: (adjudication.conflicts || []).length, unresolvedConflicts: unresolved.length,
+    evidenceConflicts: allConflicts.length, unresolvedConflicts: unresolved.length,
     fleetRecordsReconciled: reconciliation.reconciled, totalFleetRecords: reconciliation.total,
     staleRecordWarnings: reconciliation.staleWarnings, unresolvedIntegrityIssues: [...new Set(issues)],
     runtimeMs: durationMs, timings: acquisition.timings,

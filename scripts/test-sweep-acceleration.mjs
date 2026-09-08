@@ -163,6 +163,14 @@ try {
  validateSweepCertificate(run);
  check('missing mandatory source gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,acquisition:{...full,records:full.records.slice(1)},at:cutoff}).status,'FAIL'));
  check('unresolved conflict gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,adjudication:{decisions:[],conflicts:[{}]},at:cutoff}).status,'FAIL'));
+ check('unreviewed detected conflicts appear in certificate counts',()=>{
+  const acquisition=structuredClone(full);acquisition.records[0].candidates=conflicts.items;
+  const result=buildSweepCertificate({run,...bundle,acquisition,at:cutoff});
+  assert.equal(result.status,'FAIL');assert.equal(result.evidenceConflicts,1);assert.equal(result.unresolvedConflicts,1);
+  const reviewed={decisions:[],conflicts:[{...conflicts.conflicts[0],resolution:'resolved-temporal-progression',reason:'Distinct dated observations',evidenceIds:['a','b']}]};
+  const resolved=buildSweepCertificate({run,...bundle,acquisition,adjudication:reviewed,at:cutoff});
+  assert.equal(resolved.evidenceConflicts,1);assert.equal(resolved.unresolvedConflicts,0);
+ });
  check('nonempty unresolved conflict label still blocks release',()=>assert.equal(buildSweepCertificate({run,...bundle,adjudication:{decisions:[],conflicts:[{resolution:'unresolved',reason:'Still ambiguous',evidenceIds:['e']}]},at:cutoff}).status,'FAIL'));
  check('failed reconciliation record cannot hide behind passing totals',()=>{const broken=structuredClone(reconciliation);broken.records[0].issues=['last-known-location-review-required'];broken.records[0].pass=false;assert.equal(buildSweepCertificate({run,...bundle,reconciliation:broken,at:cutoff}).status,'FAIL');});
  check('incomplete reconciliation gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,reconciliation:{...reconciliation,reconciled:0},at:cutoff}).status,'FAIL'));
