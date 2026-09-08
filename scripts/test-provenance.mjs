@@ -494,3 +494,5 @@ const retentionReconciliation=log=>reconcileFleet({entities:retainedEntities,ass
 assert.ok(retentionReconciliation(noRetention).records[0].issues.includes('last-known-location-review-required'));
 assert.ok(!retentionReconciliation(retainedLog).records[0].issues.includes('last-known-location-review-required'));
 assert.equal(retentionReconciliation(retainedLog).records[0].latestSupportAt,'2026-08-01T00:00:00Z');
+
+assert.ok(retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[{...retainedEvidence,observation:{...retainedEvidence.observation,basis:'inferred'}}]), 'Reviewed inferred observation dates use the native evidence enum');

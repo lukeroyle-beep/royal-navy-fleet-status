@@ -323,3 +323,13 @@ is copied into a historical snapshot. Withdrawn/excluded or superseded evidence
 cannot support retention. Withheld locations and protected submarines cannot use this
 automatic fallback; existing representative/CASD rules remain unchanged. With no valid
 retained public location, the vessel remains in the list without an invented marker.
+
+## Additional gate validation
+
+Conflict resolutions must use `resolved`, `resolved-temporal-progression`,
+`resolved-source-precedence` or `dismissed-not-material`, with a reason and supporting
+evidence references. A nonempty `unresolved` or arbitrary label is never a resolution.
+Every fleet reconciliation record must independently pass with no issues; passing
+aggregate counts cannot override a failing vessel. Retained observation dates use the
+existing evidence schema's `explicit` or reviewed `inferred` basis; unknown or legacy
+conflated dates remain ineligible for automatic retention.

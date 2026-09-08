@@ -125,6 +125,8 @@ try {
  validateSweepCertificate(run);
  check('missing mandatory source gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,acquisition:{...full,records:full.records.slice(1)},at:cutoff}).status,'FAIL'));
  check('unresolved conflict gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,adjudication:{decisions:[],conflicts:[{}]},at:cutoff}).status,'FAIL'));
+ check('nonempty unresolved conflict label still blocks release',()=>assert.equal(buildSweepCertificate({run,...bundle,adjudication:{decisions:[],conflicts:[{resolution:'unresolved',reason:'Still ambiguous',evidenceIds:['e']}]},at:cutoff}).status,'FAIL'));
+ check('failed reconciliation record cannot hide behind passing totals',()=>{const broken=structuredClone(reconciliation);broken.records[0].issues=['last-known-location-review-required'];broken.records[0].pass=false;assert.equal(buildSweepCertificate({run,...bundle,reconciliation:broken,at:cutoff}).status,'FAIL');});
  check('incomplete reconciliation gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,reconciliation:{...reconciliation,reconciled:0},at:cutoff}).status,'FAIL'));
  run.sweepCertificate.successfullyExamined=0;
  check('certificate tampering',()=>assert.throws(()=>validateSweepCertificate(run),/Invalid/));

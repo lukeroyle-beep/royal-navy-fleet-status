@@ -76,6 +76,9 @@ test('a delayed photograph cannot overwrite a newer selection or shift its slot'
   await page.locator('#searchInput').fill('HMS Protector');
   await page.locator('#vesselList button[data-vessel-id="hms-protector"]').click();
   await expect(page.locator('#detailPhotoImage')).toHaveAttribute('src',/protector.jpg$/);
+  // Finish the selected photo's own credit layout before releasing the stale request.
+  // A src attribute alone does not establish that the new image has loaded.
+  await expect(page.locator('#detailPhoto')).not.toHaveClass(/is-loading/);
   const photoHeight=(await page.locator('#detailPhoto').boundingBox()).height;
   await Promise.all(delayed.map(route=>route.continue()));
   await page.waitForLoadState('networkidle');

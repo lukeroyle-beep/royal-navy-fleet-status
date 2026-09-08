@@ -25,7 +25,7 @@ export function retainedLocationAssessment(assessment, assessments, evidenceItem
       const evidence = evidenceItems.find(e => e.evidenceId === id);
       if (!evidence || evidence.vesselId !== assessment.vesselId || evidence.supersededBy ||
           !['direct'].includes(evidence.directness) ||
-          !['explicit', 'bounded'].includes(evidence.observation?.basis) ||
+          !['explicit', 'inferred'].includes(evidence.observation?.basis) ||
           ![evidence.observation.from, evidence.observation.to].includes(retained.observedAt)) {
         throw new Error('Last-known location requires retained dated direct evidence, not superseded or conflated observations');
       }
