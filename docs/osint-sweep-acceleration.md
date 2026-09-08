@@ -184,7 +184,7 @@ A certificate is mandatory for releases dated 9 September 2026 onward. Existing 
 grandfathered. The native release gate recomputes the certificate from its bound inputs; missing,
 failed, tampered or mismatched certificates block release. Missing mandatory sources, unresolved
 conflicts, missing decisions, incomplete vessel reconciliation or invalid validation evidence fail.
-No new exception policy is enabled: a mandatory unavailable source remains a blocker. A certificate
+Only the owner-approved initial public AIS baseline exception described below is enabled; other mandatory unavailable sources remain blockers. A certificate
 is not owner publication permission, a build, deployment, or rendered production verification.
 
 ## Observability and responsibility integration
@@ -280,3 +280,46 @@ Revert the acceleration code commit to restore the former workflow. Retain all p
 files, source registry, evidence and historical snapshots. Do not downgrade, delete or reseal a
 historical run. Pause any later activated accelerated scheduler before restoring its predecessor;
 never run two sweep owners. No deployment-platform or public-data migration is required.
+
+## Approved current-only AIS bootstrap policy (8 September 2026)
+
+The owner approved `public-ais-initial-baseline-2026-09-08` for
+`MARINEVESSELTRAFFIC_NATO_DISCOVERY` and `VESSELFINDER_PUBLIC_WEEKLY` only.
+An initial packet may carry `historicalException` with `policyId`,
+`approvalReference: "owner-approval-2026-09-08"`, an explicit reason,
+`historicalDisposition: "SOURCE_UNAVAILABLE"`, and the exact `windowFrom`/`windowTo`.
+Its `currentReview` must include `complete: true`, `asOf` matching the cutoff,
+`completedAt`, `reviewer`, the SHA-256 `artifactHash` of the full current review,
+and nonempty private `evidenceRefs`. Ordinary `examined`, `extractionComplete`,
+method and item validation still apply. A missing or incomplete current review fails.
+
+The resulting outcome is `CHECKED_CURRENT_BASELINE_WITH_HISTORICAL_EXCEPTION`.
+The certificate lists this separately from successfully examined full windows and
+retains the historical exception. Earlier failed transactions remain immutable.
+The cursor starts at the current examination and carries the historical gap forever;
+future incremental/monthly comparisons cannot claim to cover the unavailable period
+before that baseline. Subsequent failures cannot use this bootstrap exception.
+No live packet has been granted an exception merely because the policy was approved.
+All other coverage, adjudication, reconciliation and publication gates remain required.
+
+## Last-known location when current whereabouts are uncertain
+
+The owner's display policy is to retain the last supported public location rather
+than remove a vessel's marker merely because current whereabouts are unknown or
+ambiguous. During adjudication, an unknown-location assessment should carry a reviewed
+`retainedLocation` object referencing `assessmentId`, retained `evidenceIds`, the
+original `observedAt`, `reason` (`current-location-unknown` or
+`current-location-ambiguous`), `reviewedBy` and `reviewedAt`. Supporting IDs must still
+be selected by the new assessment and the prior assessment. They must have dated,
+direct, unsuperseded evidence. The ordinary assessment validator checks this record.
+
+The public projection uses the prior reviewed geometry and precision, marks it
+`last_reported`, and labels its original date and the uncertainty of the current
+location. It preserves the new operational status. It does not expose internal
+references, change evidence dates or refresh freshness. Reconciliation blocks an
+unknown-location transition that drops an available supported baseline location
+without this retention review. No arbitrary old point, home port or current position
+is copied into a historical snapshot. Withdrawn/excluded or superseded evidence
+cannot support retention. Withheld locations and protected submarines cannot use this
+automatic fallback; existing representative/CASD rules remain unchanged. With no valid
+retained public location, the vessel remains in the list without an invented marker.

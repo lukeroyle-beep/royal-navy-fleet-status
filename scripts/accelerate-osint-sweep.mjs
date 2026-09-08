@@ -79,7 +79,7 @@ try {
       const success = SUCCESS.has(record.outcome);
       Object.assign(check, { state: success ? 'complete' : 'blocked', checkedAt: success ? record.checkedAt : null,
         outcome: success ? (record.items.length ? 'candidates-found' : 'manual-review-complete') : null,
-        notes: success ? `Completed acquisition transaction ${record.hash}; bounded rendered coverage limitations retained in method metadata.` : null,
+        notes: success ? `Completed acquisition transaction ${record.hash}; ${record.historicalException ? `current baseline only, historical coverage unavailable under ${record.historicalException.policyId}; ` : ''}bounded rendered coverage limitations retained in method metadata.` : null,
         blocker: success ? null : { type: { AUTHENTICATION_FAILURE:'authentication-required', PARSING_FAILURE:'schema-failed', RATE_LIMITED:'rate-limited', DEFERRED_WITH_JUSTIFICATION:'not-searched' }[record.outcome] || 'manual-unavailable', at: record.checkedAt, message: record.reason },
       });
     }

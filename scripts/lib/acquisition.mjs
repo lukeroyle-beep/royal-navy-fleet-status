@@ -1,3 +1,4 @@
+import { BOOTSTRAP_OUTCOME, validateBootstrapException } from './bootstrap-exception.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -8,7 +9,7 @@ function stable(v) {
   if (v && typeof v === 'object') return `{${Object.keys(v).sort().map(k => `${JSON.stringify(k)}:${stable(v[k])}`).join(',')}}`;
   return JSON.stringify(v);
 }
-export const SUCCESS = new Set(['CHECKED_NEW_EVIDENCE', 'CHECKED_NO_RELEVANT_CHANGE', 'CHECKED_CORROBORATION_ONLY']);
+export const SUCCESS = new Set(['CHECKED_NEW_EVIDENCE', 'CHECKED_NO_RELEVANT_CHANGE', 'CHECKED_CORROBORATION_ONLY', BOOTSTRAP_OUTCOME]);
 export const FAILURE = new Set(['SOURCE_UNAVAILABLE', 'AUTHENTICATION_FAILURE', 'RETRIEVAL_FAILURE', 'PARSING_FAILURE', 'RATE_LIMITED', 'DEFERRED_WITH_JUSTIFICATION']);
 export function atomicJson(file, value) {
   fs.mkdirSync(path.dirname(file), { recursive: true, mode: 0o700 });
@@ -70,7 +71,9 @@ export function retrievalWindow(previous, cutoff, { overlapDays = 7, deepDays = 
   const deep = forceDeep || !cursor || cursor.parserVersion !== parserVersion || !cursor.lastDeepAt || end - Date.parse(cursor.lastDeepAt) >= deepEveryDays * 86400000;
   const baseline = cursor ? Date.parse(cursor.examinedThrough) : end;
   if (!Number.isFinite(baseline) || baseline > end) throw new Error('Invalid or future cursor');
-  return { from: new Date(deep ? Math.min(baseline, end - deepDays * 86400000) : baseline - overlapDays * 86400000).toISOString(), to: cutoff, deep, parserVersion };
+  const baselineFloor = cursor?.historicalGap ? Date.parse(cursor.historicalGap.windowTo) : -Infinity;
+  if (cursor?.historicalGap && (!Number.isFinite(baselineFloor) || baselineFloor > end)) throw new Error('Invalid bootstrap baseline');
+  return { from: new Date(Math.max(baselineFloor, deep ? Math.min(baseline, end - deepDays * 86400000) : baseline - overlapDays * 86400000)).toISOString(), to: cutoff, deep, parserVersion };
 }
 
 // Fair bounded work pool; independent group caps prevent one adapter monopolising connections.
@@ -122,6 +125,10 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
         response = await adapter({ source, window, cursor: previous?.cursor || null, signal });
         if (FAILURE.has(response?.outcome)) throw Object.assign(new Error(response.reason || 'Acquisition failed'), response);
         if (response?.examined !== true || response?.extractionComplete !== true || !Array.isArray(response.items) || !response.method) throw Object.assign(new Error('Incomplete acquisition response'), { outcome: 'PARSING_FAILURE' });
+        if (response.historicalException) {
+          try { validateBootstrapException(response.historicalException, { sourceId: source.sourceId, window, previous }); }
+          catch (error) { throw Object.assign(error, { outcome: 'PARSING_FAILURE' }); }
+        }
         items = response.items;
         const known = new Set(journal.transactions.filter(t => t.sourceId === source.sourceId && t.sourceIdentityHash === sourceIdentityHash && t.cursor?.parserVersion === window.parserVersion).flatMap(t => t.items || []).map(i => `${i.id}:${i.contentHash}`));
         const seen = new Set();
@@ -140,7 +147,7 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
         if (!Array.isArray(extracted) || extracted.length !== fresh.length) throw Object.assign(new Error('Extraction must disposition every new item'), { outcome: 'PARSING_FAILURE' });
         extractionMs = performance.now() - extractionStart;
         items = fresh;
-        outcome = items.length ? 'CHECKED_NEW_EVIDENCE' : 'CHECKED_NO_RELEVANT_CHANGE';
+        outcome = response.historicalException ? BOOTSTRAP_OUTCOME : items.length ? 'CHECKED_NEW_EVIDENCE' : 'CHECKED_NO_RELEVANT_CHANGE';
         break;
       } catch (error) {
         outcome = FAILURE.has(error.outcome) ? error.outcome : 'RETRIEVAL_FAILURE';
@@ -173,10 +180,11 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
       }
     }
     const record = journal.commit({ runId, registryHash, cutoff, sourceIdentityHash, sourceId: source.sourceId, mandatory: source.mandatory === true,
-      outcome, reason: success ? null : reason, attempts, adapter: adapterId, method: response?.method || null,
+      ...(success && response.historicalException ? { historicalException: response.historicalException } : {}),
+      outcome, reason: success ? (response.historicalException?.reason || null) : reason, attempts, adapter: adapterId, method: response?.method || null,
       checkedAt: new Date().toISOString(), durationMs: performance.now() - begin, extractionMs,
       items: success || response?.partialItems ? items : [], candidates: success || response?.partialItems ? extracted : [], window,
-      cursor: success ? { examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion,
+      cursor: success ? { ...(response.historicalException || previous?.cursor?.historicalGap ? { historicalGap: response.historicalException || previous.cursor.historicalGap } : {}), examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion,
         lastStaleAuditAt: source.staleEvidencePriority ? (window.deep ? cutoff : previous?.cursor?.lastStaleAuditAt || null) : null,
         ids: [...new Set([...(previous?.cursor?.ids || []), ...items.map(i => i.id)])], latestContentAt: items.reduce((v,i) => i.publishedAt > v ? i.publishedAt : v, previous?.cursor?.latestContentAt || ''), validator: response.validator || null } : null });
     onProgress(record);

@@ -74,6 +74,16 @@ export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at
     const selected = (assessment?.selectedEvidenceIds || []).map(id => evidence.get(id));
     const issues = [];
     if (!assessment || assessment.vesselId !== v.vesselId) issues.push('missing-current-assessment');
+    const baseline = assessments.get(run.coverageInputs.baselineAssessmentIds[v.vesselId]);
+    const priorLocation = baseline?.assessedState?.publicLocation;
+    const retainedSupport = (baseline?.selectedEvidenceIds || []).some(id => {
+      const e = evidence.get(id);
+      return e && !e.supersededBy && !(assessment?.excludedEvidenceIds || []).includes(id);
+    });
+    if (assessment?.assessedState.locationClassification === 'unknown' &&
+        !['SSN','SSBN'].includes(v.vesselType) && priorLocation && priorLocation.precision !== 'none' &&
+        retainedSupport && !assessment.retainedLocation) issues.push('last-known-location-review-required');
+
     if (outcome?.state !== 'complete') issues.push('vessel-review-incomplete');
     if (!selected.length && !['unknown', 'withheld'].includes(assessment?.assessedState?.locationClassification)) issues.push('missing-retained-support');
     if (selected.some(e => !e || e.vesselId !== v.vesselId)) issues.push('invalid-supporting-evidence');

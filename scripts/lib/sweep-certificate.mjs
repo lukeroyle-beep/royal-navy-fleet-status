@@ -1,3 +1,4 @@
+import { BOOTSTRAP_OUTCOME, validateBootstrapException } from './bootstrap-exception.mjs';
 import { findEvidenceContradictions } from './evidence-processing.mjs';
 import { digest, SUCCESS, FAILURE } from './acquisition.mjs';
 
@@ -15,6 +16,11 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     else if (!SUCCESS.has(record.outcome)) issues.push(`mandatory-source-failed:${id}:${record.outcome}`);
   }
   for (const record of records) {
+    if (record.outcome === BOOTSTRAP_OUTCOME) {
+      try { validateBootstrapException(record.historicalException, { sourceId: record.sourceId, window: record.window });
+        if (digest(record.cursor?.historicalGap) !== digest(record.historicalException)) throw new Error('Unbound baseline');
+      } catch { issues.push(`invalid-bootstrap-exception:${record.sourceId}`); }
+    } else if (record.historicalException) issues.push(`unexpected-bootstrap-exception:${record.sourceId}`);
     if (record.runId !== run.runId || record.registryHash !== run.sourceRegistryHash || record.cutoff !== run.window.to) issues.push(`source-binding:${record.sourceId}`);
     if (!SUCCESS.has(record.outcome) && !FAILURE.has(record.outcome)) issues.push(`invalid-disposition:${record.sourceId}`);
     if (SUCCESS.has(record.outcome) && (!record.cursor || !Array.isArray(record.candidates))) issues.push(`invalid-source-success:${record.sourceId}`);
@@ -46,7 +52,9 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     sourceRegistryHash: run.sourceRegistryHash, releaseContentHash: run.releaseContentHash,
     registeredSources, mandatorySources: expected.length,
     attemptedMandatorySources: expected.filter(id => bySource.get(id)?.attempts > 0 && bySource.get(id)?.outcome !== 'DEFERRED_WITH_JUSTIFICATION').length,
-    successfullyExamined: records.filter(r => SUCCESS.has(r.outcome)).length,
+    successfullyExamined: records.filter(r => SUCCESS.has(r.outcome) && r.outcome !== BOOTSTRAP_OUTCOME).length,
+    currentBaselinesWithHistoricalException: records.filter(r => r.outcome === BOOTSTRAP_OUTCOME).length,
+    historicalExceptions: records.filter(r => r.historicalException).map(r => ({ sourceId:r.sourceId, ...r.historicalException })),
     unavailable: count('SOURCE_UNAVAILABLE'), rateLimited: count('RATE_LIMITED'), authenticationFailures: count('AUTHENTICATION_FAILURE'),
     retrievalFailures: count('RETRIEVAL_FAILURE'), parsingFailures: count('PARSING_FAILURE'), deferred: count('DEFERRED_WITH_JUSTIFICATION'),
     newItemsExamined: records.reduce((n,r) => n + (r.items?.length || 0),0), candidateEvidenceItems: candidates.length,

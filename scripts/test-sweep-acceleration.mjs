@@ -1,3 +1,4 @@
+import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY } from './lib/bootstrap-exception.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -57,6 +58,20 @@ try {
  assert.equal(acquisitionContext(staleSource,recovered,one.cutoff).window.deep,true);
  await acquireSources({...one,sources:[staleSource],runId:'stale-audit',adapters:{fixture:response([])}});
  check('stale record audited once then monthly rather than every week',()=>{assert.equal(acquisitionContext(staleSource,recovered,one.cutoff).window.deep,false);assert.equal(acquisitionContext(staleSource,recovered,'2026-10-30T12:00:00Z').window.deep,true);});
+ const bootstrapJournal=openAcquisitionJournal(path.join(temporary,'bootstrap'));
+ const bootstrapSource={...sources[0],sourceId:'VESSELFINDER_PUBLIC_WEEKLY'};
+ const bootstrapWindow=acquisitionContext(bootstrapSource,bootstrapJournal,cutoff).window;
+ const historicalException={policyId:BOOTSTRAP_POLICY,approvalReference:'owner-approval-2026-09-08',reason:'Public historical archive unavailable; current coverage complete',historicalDisposition:'SOURCE_UNAVAILABLE',windowFrom:bootstrapWindow.from,windowTo:bootstrapWindow.to,currentReview:{complete:true,asOf:cutoff,reviewer:'fixture reviewer',completedAt:cutoff,artifactHash:digest('review'),evidenceRefs:['private-review-fixture']}};
+ const bootstrapOptions={...options,journal:bootstrapJournal,sources:[bootstrapSource],runId:'baseline',adapters:{fixture:async()=>({examined:true,extractionComplete:true,method:'fixture',items:[],historicalException})}};
+ const bootstrap=await acquireSources(bootstrapOptions);
+ check('approved initial current baseline preserves unavailable history explicitly',()=>{const r=bootstrap.records[0];assert.equal(r.outcome,BOOTSTRAP_OUTCOME);assert.equal(r.cursor.historicalGap.historicalDisposition,'SOURCE_UNAVAILABLE');assert.equal(r.cursor.examinedThrough,cutoff);assert.equal(Date.parse(retrievalWindow(r,'2026-10-30T12:00:00Z').from),Date.parse(cutoff));});
+ const repeatedException=await acquireSources({...bootstrapOptions,runId:'not-initial',cutoff:'2026-09-20T12:00:00Z'});
+ check('bootstrap exception cannot excuse subsequent failures',()=>{assert.equal(repeatedException.records[0].outcome,'PARSING_FAILURE');assert.equal(repeatedException.records[0].cursor,null);assert.equal(bootstrapJournal.latest(bootstrapSource.sourceId).runId,'baseline');});
+ const forbidden=await acquireSources({...bootstrapOptions,runId:'not-approved-source',sources:[{...bootstrapSource,sourceId:'OTHER'}]});
+ check('exception restricted to approved source IDs',()=>assert.equal(forbidden.records[0].outcome,'PARSING_FAILURE'));
+ const incomplete=await acquireSources({...bootstrapOptions,runId:'incomplete-current',sources:[{...bootstrapSource,sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY'}],adapters:{fixture:async()=>({examined:false,extractionComplete:true,method:'fixture',items:[],historicalException})}});
+ check('exception cannot excuse incomplete current examination',()=>assert.equal(incomplete.records[0].cursor,null));
+ bootstrapJournal.close();
  recovered.close();
  const names=fs.readdirSync(temporary).filter(n=>n.endsWith('.json')).sort();
  const corrupt=path.join(temporary,names[0]);const contents=fs.readFileSync(corrupt,'utf8');fs.writeFileSync(corrupt,contents.replace('TEST_0','FORGED'));
@@ -99,6 +114,13 @@ try {
  const bundle={acquisition:full,reconciliation,adjudication:{decisions:[],conflicts:[]},validation,registeredSources:77};
  const cert=buildSweepCertificate({run,...bundle,at:cutoff});
  check('valid certificate',()=>assert.equal(cert.status,'PASS'));
+ const exceptionRun={...run,sourceChecks:[{sourceId:bootstrapSource.sourceId},...run.sourceChecks.slice(1)]};
+ const exceptionRecord={...bootstrap.records[0],runId:run.runId};
+ const exceptionBundle={...bundle,acquisition:{...full,records:[exceptionRecord,...full.records.slice(1)]}};
+ const exceptionCertificate=buildSweepCertificate({run:exceptionRun,...exceptionBundle,at:cutoff});
+ check('certificate distinguishes current baseline exception from full historical success',()=>{assert.equal(exceptionCertificate.status,'PASS');assert.equal(exceptionCertificate.successfullyExamined,76);assert.equal(exceptionCertificate.currentBaselinesWithHistoricalException,1);assert.equal(exceptionCertificate.historicalExceptions[0].historicalDisposition,'SOURCE_UNAVAILABLE');});
+ check('tampered exception blocks release',()=>{const broken=structuredClone(exceptionBundle);broken.acquisition.records[0].historicalException.currentReview.complete=false;assert.equal(buildSweepCertificate({run:exceptionRun,...broken,at:cutoff}).status,'FAIL');});
+
  run.sweepCertificate=cert;run.certificateInputs=bundle;
  validateSweepCertificate(run);
  check('missing mandatory source gates release',()=>assert.equal(buildSweepCertificate({run,...bundle,acquisition:{...full,records:full.records.slice(1)},at:cutoff}).status,'FAIL'));
