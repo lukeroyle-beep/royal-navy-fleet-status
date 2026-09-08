@@ -6,7 +6,7 @@ The application is a curated open-source intelligence (OSINT) snapshot. It is no
 
 ## What is included
 
-- A 68-vessel current Royal Navy and RFA roster
+- A 69-vessel current Royal Navy and RFA roster
 - Unified search across vessel names, pennants and shore establishments
 - Filters for service, vessel type, operational status, neutral public location state and broad geographic scope
 - A map-dominant operational workspace with a compact rail, selected-record drawer and thin live-data summary banner
@@ -207,7 +207,7 @@ publisher edge blocks the collector;
 Westward Shipping News RSS is its Tier C, discovery-only automatic replacement.
 
 From 24 August 2026, advancing the canonical `metadata.asOfDate` requires a finalised sweep run in
-`data/internal/provenance/sweep-runs/`. The run must contain an explicit outcome for all 68 current vessels,
+`data/internal/provenance/sweep-runs/`. The run must contain an explicit outcome for every current vessel in the canonical roster,
 every required recurring manual source and every required public index. A typed collection or review
 blocker is retained in the ledger but leaves the run incomplete, so the release gate fails closed.
 Historical one-off evidence URLs do not become recurring sweep targets merely because their source
