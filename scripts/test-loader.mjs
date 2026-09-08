@@ -35,11 +35,11 @@ assert.doesNotMatch(page, /BFA Tracker/);
 assert.equal(validateFleet(dataset).vessels.length, 68);
 assert.equal(
   dataset.vessels.filter(
-    (vessel) => ["mapped", "approximate", "withheld"].includes(vessel.locationClassification),
+    (vessel) => ["mapped", "approximate", "withheld", "unknown"].includes(vessel.locationClassification),
   ).length,
   68,
 );
-assert.equal(dataset.vessels.filter((vessel) => vessel.locationClassification === "unknown").length, 0);
+assert.ok(dataset.vessels.filter((vessel) => vessel.locationClassification === "unknown").every((vessel) => vessel.position === null && vessel.uncertaintyArea === null));
 assert.throws(() => validateFleet({ metadata: {}, vessels: [] }), /no vessel records/i);
 assert.equal(formatLocationState("confirmed"), "Confirmed public location");
 assert.equal(formatLocationState("last_reported"), "Last publicly reported location");
@@ -49,7 +49,7 @@ assert.equal(formatLocationState("withheld"), "Location not published");
 assert.equal(formatLocationPrecision("region"), "Approximate region");
 
 const pointMappedVessel = dataset.vessels.find((vessel) => vessel.position);
-const regionalVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "region");
+const regionalVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "region" && vessel.uncertaintyArea.representation === "regional");
 const listOnlyVessel = dataset.vessels.find((vessel) => vessel.locationPrecision === "none");
 assert.equal(
   formatMapDisplay(pointMappedVessel),
@@ -279,3 +279,10 @@ function createFixtureDataset(cases) {
     }),
   };
 }
+
+const representativeVessel = structuredClone(regionalVessel);
+representativeVessel.uncertaintyArea.representation = "representative-marker";
+assert.match(formatMapDisplay(representativeVessel), /Representative marker.*not an exact or current ship position/);
+assert.equal(validateFleet({metadata:dataset.metadata,vessels:[representativeVessel]}).vessels.length,1);
+representativeVessel.vesselType = "SSN";
+assert.throws(()=>validateFleet({metadata:dataset.metadata,vessels:[representativeVessel]}));

@@ -179,7 +179,8 @@ function validateUncertaintyArea(vessel) {
   const area = vessel.uncertaintyArea;
   if (
     !area ||
-    area.representation !== "regional" ||
+    !["regional", "representative-marker"].includes(area.representation) ||
+    (area.representation === "representative-marker" && ["SSBN", "SSN"].includes(vessel.vesselType)) ||
     !area.centre ||
     !Number.isFinite(area.centre.lat) ||
     !Number.isFinite(area.centre.lon) ||

@@ -1,7 +1,7 @@
 import { readReviewedPublicLocation } from "./public-geography.mjs";
 import { sanitisePublicLocationDescription } from "./public-location-safety.mjs";
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.1";
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.2";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -133,7 +133,7 @@ function createPublicGeometry(reviewedLocation, locationPrecision, publicLocatio
         centre: structuredClone(reviewedLocation.geometry.centre),
         radiusKm: reviewedLocation.geometry.radiusKm,
         label: publicLocationLabel,
-        representation: "regional",
+        representation: reviewedLocation.representation || "regional",
       },
     };
   }

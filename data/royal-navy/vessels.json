@@ -2,9 +2,9 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-08-31",
-    "releaseRevision": 3,
-    "releasedAt": "2026-08-31T19:00:20.000Z"
+    "asOfDate": "2026-09-06",
+    "releaseRevision": 1,
+    "releasedAt": "2026-09-08T05:17:13.704623+00:00"
   },
   "vessels": [
     {
@@ -699,15 +699,19 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "port",
-      "publicLocationLabel": "Ream Naval Base area",
-      "lastReportedLocation": "Ream Naval Base / Sihanoukville, Cambodia; week-long visit reported 28 August 2026",
-      "position": {
-        "lat": 10.5,
-        "lon": 103.61,
-        "label": "Ream Naval Base area"
-      },
-      "uncertaintyArea": null
+      "locationPrecision": "region",
+      "publicLocationLabel": "South China Sea",
+      "lastReportedLocation": "South China Sea; late-August activity reported 3 September 2026",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 11.78,
+          "lon": 112.31
+        },
+        "radiusKm": 1930,
+        "label": "South China Sea",
+        "representation": "representative-marker"
+      }
     },
     {
       "id": "hms-spey",
@@ -1397,19 +1401,11 @@
       "status": "Available",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Thames Estuary / London Gateway",
-      "lastReportedLocation": "Thames Estuary and London Gateway; survey operation reported 26 August 2026",
+      "locationPrecision": "none",
+      "publicLocationLabel": "UK East Coast",
+      "lastReportedLocation": "UK East Coast; survey focus reported 26 August 2026",
       "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 51.51,
-          "lon": 0.48
-        },
-        "radiusKm": 30,
-        "label": "Thames Estuary / London Gateway",
-        "representation": "regional"
-      }
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-lyme-bay",
@@ -1587,21 +1583,13 @@
       "commissionedDate": "2019",
       "homePort": "No fixed home base.",
       "status": "Deployed",
-      "locationClassification": "approximate",
-      "locationState": "confirmed",
-      "locationPrecision": "region",
-      "publicLocationLabel": "English Channel",
-      "lastReportedLocation": "English Channel; shadowing a Russian military convoy reported 31 August 2026",
+      "locationClassification": "unknown",
+      "locationState": "unconfirmed",
+      "locationPrecision": "none",
+      "publicLocationLabel": "Location unconfirmed",
+      "lastReportedLocation": "Location unconfirmed; earlier English Channel attribution withdrawn",
       "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 50.3,
-          "lon": -1.5
-        },
-        "radiusKm": 180,
-        "label": "English Channel",
-        "representation": "regional"
-      }
+      "uncertaintyArea": null
     }
   ]
 }

@@ -26,12 +26,12 @@ const currentSummary = summarizePlotEligibility(fleet.vessels);
 assert.deepEqual(currentSummary, {
   total: 68,
   pointMapped: 41,
-  regional: 26,
-  listOnly: 1,
+  regional: 24,
+  listOnly: 3,
 });
 assert.equal(
   formatPlotEligibilitySummary(fleet.vessels),
-  "41 point-mapped · 27 regional or list-only",
+  "40 point-mapped · 1 representative regional marker · 27 regional or list-only",
 );
 
 const classes = [...new Set(fleet.vessels.map((vessel) => vessel.vesselClass))];
