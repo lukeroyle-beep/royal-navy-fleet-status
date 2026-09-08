@@ -689,7 +689,7 @@ for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
         await expect(page.locator('#detailPhotoImage')).toHaveAttribute('src', /photos\/cards\/fort_victoria\.jpg$/);
         await expect.poll(()=>page.locator('#detailPhotoImage').evaluate(image=>image.complete && image.naturalWidth > 0)).toBe(true);
         await expect(page.locator('#detailPhotoCredit')).toContainText('Royal Navy / OGL v3.0');
-        await expect(page.locator('#detailMeta')).toContainText('Marchwood Military Port, Southampton');
+        await expect(terms.locator('div').filter({has:page.locator('dt',{hasText:/^Home port$/})}).locator('dd')).toHaveText('Marchwood Military Port, Southampton');
       }
       await selected.click({force:true});
       await expect(page.locator('#detailTitle')).toHaveText(record.name);
