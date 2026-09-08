@@ -450,3 +450,24 @@ cursor does not advance. Reconnect browser control before resuming the remaining
 Current mandatory dispositions are 71 fully examined, four approved current baselines and
 two failed/incomplete sources. MarineVesselTraffic's identity failure and DefenceHQ's unfinished
 history still block publication, together with incomplete native fleet reconciliation.
+
+## DefenceHQ resumed review checkpoint
+
+Chrome control recovered and the owner-approved 30-scroll total was used: ten earlier plus
+twenty resumed scrolls. The retained timeline reached 30 June, leaving 10–29 June unchecked.
+Thirty-seven newly retained posts bring DefenceHQ's partial observation to 86 posts. The
+source remains deferred with no cursor advance. The newly verified 6 July carrier report is
+historical evidence, not a current position; its incident date is not separately stated.
+
+The native browser validator now recognizes the explicit 30-scroll approval only for
+`X_DEFENCEHQ` and the exact bootstrap window ending `2026-09-08T09:11:15.938Z`.
+It requires `defencehq-bootstrap-scrolls-2026-09-08` and its recorded owner approval; the
+normal twelve-scroll limit is unchanged. Other sources, windows and higher limits fail.
+The full production build and 62 acceleration checks pass. Processing retains all 760
+candidate decisions, including 49 existing DefenceHQ decisions revalidated against changes
+limited to retrieval time. Earlier failed normalization transactions remain in the journal.
+
+The review tab is retained for continuation without restarting the timeline. Additional
+scrolling requires an extension of the owner's exhausted budget; it must not be reset by
+opening another tab. No source coverage, fleet reconciliation or live runtime completion
+is claimed by this checkpoint.

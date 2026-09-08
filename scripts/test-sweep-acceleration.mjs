@@ -6,11 +6,22 @@ import path from 'node:path';
 import { NORMALISATION_VERSION, acquireSources, acquisitionContext, boundedMap, digest, openAcquisitionJournal, retrievalWindow } from './lib/acquisition.mjs';
 import { preprocessEvidence, adjudicationQueue, reconcileFleet } from './lib/sweep-analysis.mjs';
 import { buildSweepCertificate, validateSweepCertificate } from './lib/sweep-certificate.mjs';
+import { approvedBrowserScrollLimit } from './lib/x-browser-collection.mjs';
 const temporary = fs.mkdtempSync(path.join(os.tmpdir(),'rnfs-acceleration-test-'));
 const cutoff='2026-09-13T12:00:00Z';
 let tests=0;
 const check=(name,fn)=>{fn();tests++;};
 try {
+ check('extended browser budget is confined to the approved DefenceHQ window',()=>{
+  const account={sourceId:'X_DEFENCEHQ'},window={from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'};
+  const method={scrollException:{policyId:'defencehq-bootstrap-scrolls-2026-09-08',approvalReference:'owner-defencehq-scroll-approval-2026-09-08',maxTotalScrolls:30}};
+  assert.equal(approvedBrowserScrollLimit({},account,window),12);
+  assert.equal(approvedBrowserScrollLimit(method,account,window),30);
+  assert.throws(()=>approvedBrowserScrollLimit(method,{sourceId:'X_ROYAL_NAVY'},window));
+  assert.throws(()=>approvedBrowserScrollLimit(method,account,{...window,to:cutoff}));
+  assert.throws(()=>approvedBrowserScrollLimit({scrollException:{...method.scrollException,maxTotalScrolls:31}},account,window));
+  assert.throws(()=>approvedBrowserScrollLimit({scrollException:{...method.scrollException,approvalReference:'unapproved'}},account,window));
+ });
  const journal=openAcquisitionJournal(temporary);
  assert.throws(()=>openAcquisitionJournal(temporary),/EEXIST/);
  const reader=openAcquisitionJournal(temporary,{readOnly:true});
