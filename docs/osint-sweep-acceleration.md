@@ -500,3 +500,20 @@ and one MarineVesselTraffic identity/parser failure. All77 were attempted. The f
 and62 acceleration checks pass. Native68-vessel reconciliation and snapshot sealing remain
 incomplete, so the diagnostic certificate remains FAIL. No public snapshot, deployment,
 scheduler activation or live routine under60-minute success is claimed.
+
+## Approved one-run identity quarantine
+
+The owner approved the MarineVesselTraffic proposal on September8. Certificate policy
+`mvt-identity-quarantine-2026-09-08` applies only to the exact bootstrap run, registry,
+source, historical window and failed record hash. It requires an attempted PARSING_FAILURE,
+null cursor, no candidates, a hashed review artifact and explicit approval reference.
+The certificate separately counts this exception while preserving its parsing-failure count;
+it does not count the source as successfully examined. Other source failures, reconciliation,
+validation and sealing gates remain unchanged. Tests cover scope isolation, forbidden
+cursor/evidence changes, visible failure counts and continued release blocking.
+
+The private run carries the approval, with pre-approval copies retained. Native evidence
+promotion, fleet outcomes and snapshot sealing remain unfinished; approval does not itself
+complete native source-coverage review or authorise publication. A future acquisition retry
+changes the record hash and therefore requires revalidation; never silently rebind an approval.
+The next sweep receives no exception. Full build and64 acceleration checks pass.

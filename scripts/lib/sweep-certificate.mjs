@@ -2,6 +2,23 @@ import { BOOTSTRAP_OUTCOME, validateBootstrapException } from './bootstrap-excep
 import { findEvidenceContradictions } from './evidence-processing.mjs';
 import { digest, SUCCESS, FAILURE } from './acquisition.mjs';
 
+// Owner-approved quarantine for one failed source in one bootstrap run only.
+export function validateSourceCoverageException(value, run, record) {
+  if (value?.policyId !== 'mvt-identity-quarantine-2026-09-08' ||
+      value.approvalReference !== 'owner-mvt-quarantine-approval-2026-09-08' ||
+      run.runId !== 'SWEEP_20260908T091115938Z_R1_d8289d45' || value.runId !== run.runId ||
+      run.sourceRegistryHash !== 'd8289d45a1f1156e249488d5002ef00c561d5654d9ac875b8f2538c71605a379' || value.registryHash !== run.sourceRegistryHash ||
+      value.sourceId !== 'MARINEVESSELTRAFFIC_NATO_DISCOVERY' || record?.sourceId !== value.sourceId ||
+      record.window?.from !== '2026-06-10T09:11:15.938Z' || record.window?.to !== '2026-09-08T09:11:15.938Z' ||
+      run.window?.to !== record.window.to || value.recordHash !== digest(record) || record.outcome !== 'PARSING_FAILURE' || record.cursor !== null ||
+      record.sourceAttempted !== true || !(record.attempts > 0) || !Array.isArray(record.candidates) || record.candidates.length ||
+      !value.reason?.trim() || !Number.isFinite(Date.parse(value.approvedAt)) ||
+      !/^[a-f0-9]{64}$/.test(value.reviewArtifactHash || '') || value.quarantined !== true) {
+    throw new Error('Invalid one-run source quarantine exception');
+  }
+  return value;
+}
+
 // Existing sealed history is grandfathered. All future sweep releases require a certificate.
 export const CERTIFICATE_EFFECTIVE_DATE = '2026-09-09';
 export function buildSweepCertificate({ run, acquisition, reconciliation, adjudication, validation, registeredSources, at }) {
@@ -9,11 +26,21 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
   const expected = run.sourceChecks.map(s => s.sourceId);
   const bySource = new Map(records.map(r => [r.sourceId, r]));
   const issues = [];
+  const exceptions = run.sourceCoverageExceptions || [];
+  const approved = new Set();
+  if (!Array.isArray(exceptions)) issues.push('invalid-source-coverage-exceptions');
+  else for (const exception of exceptions) {
+    try {
+      validateSourceCoverageException(exception, run, bySource.get(exception.sourceId));
+      if (approved.has(exception.sourceId)) throw new Error('Duplicate exception');
+      approved.add(exception.sourceId);
+    } catch { issues.push('invalid-source-coverage-exception'); }
+  }
   if (bySource.size !== records.length) issues.push('duplicate-source-dispositions');
   for (const id of expected) {
     const record = bySource.get(id);
     if (!record) issues.push(`missing-source:${id}`);
-    else if (!SUCCESS.has(record.outcome)) issues.push(`mandatory-source-failed:${id}:${record.outcome}`);
+    else if (!SUCCESS.has(record.outcome) && !approved.has(id)) issues.push(`mandatory-source-failed:${id}:${record.outcome}`);
   }
   for (const record of records) {
     if (record.outcome === BOOTSTRAP_OUTCOME) {
@@ -64,6 +91,8 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     }).length,
     successfullyExamined: records.filter(r => SUCCESS.has(r.outcome) && r.outcome !== BOOTSTRAP_OUTCOME).length,
     currentBaselinesWithHistoricalException: records.filter(r => r.outcome === BOOTSTRAP_OUTCOME).length,
+    sourceCoverageExceptions: Array.isArray(exceptions) ? exceptions : [],
+    exceptedMandatorySources: expected.filter(id => approved.has(id)).length,
     historicalExceptions: records.filter(r => r.historicalException).map(r => ({ sourceId:r.sourceId, ...r.historicalException })),
     unavailable: count('SOURCE_UNAVAILABLE'), rateLimited: count('RATE_LIMITED'), authenticationFailures: count('AUTHENTICATION_FAILURE'),
     retrievalFailures: count('RETRIEVAL_FAILURE'), parsingFailures: count('PARSING_FAILURE'), deferred: count('DEFERRED_WITH_JUSTIFICATION'),
@@ -76,7 +105,7 @@ export function buildSweepCertificate({ run, acquisition, reconciliation, adjudi
     fleetRecordsReconciled: reconciliation.reconciled, totalFleetRecords: reconciliation.total,
     staleRecordWarnings: reconciliation.staleWarnings, unresolvedIntegrityIssues: [...new Set(issues)],
     runtimeMs: durationMs, timings: acquisition.timings,
-    inputHash: digest({ records, reconciliation, adjudication, validation }),
+    inputHash: digest({ records, reconciliation, adjudication, validation, exceptions }),
     status: issues.length ? 'FAIL' : 'PASS',
   };
   return { ...body, certificateHash: digest(body) };

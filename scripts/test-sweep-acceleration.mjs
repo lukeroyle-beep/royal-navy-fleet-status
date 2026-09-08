@@ -5,13 +5,24 @@ import os from 'node:os';
 import path from 'node:path';
 import { NORMALISATION_VERSION, acquireSources, acquisitionContext, boundedMap, digest, openAcquisitionJournal, retrievalWindow } from './lib/acquisition.mjs';
 import { preprocessEvidence, adjudicationQueue, reconcileFleet } from './lib/sweep-analysis.mjs';
-import { buildSweepCertificate, validateSweepCertificate } from './lib/sweep-certificate.mjs';
+import { buildSweepCertificate, validateSweepCertificate, validateSourceCoverageException } from './lib/sweep-certificate.mjs';
 import { approvedBrowserScrollLimit } from './lib/x-browser-collection.mjs';
 const temporary = fs.mkdtempSync(path.join(os.tmpdir(),'rnfs-acceleration-test-'));
 const cutoff='2026-09-13T12:00:00Z';
 let tests=0;
 const check=(name,fn)=>{fn();tests++;};
 try {
+ check('one-run quarantine preserves failure and rejects scope or evidence changes',()=>{
+  const run={runId:'SWEEP_20260908T091115938Z_R1_d8289d45',sourceRegistryHash:'d8289d45a1f1156e249488d5002ef00c561d5654d9ac875b8f2538c71605a379',window:{to:'2026-09-08T09:11:15.938Z'}};
+  const record={sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY',window:{from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'},outcome:'PARSING_FAILURE',cursor:null,sourceAttempted:true,attempts:1,candidates:[]};
+  const value={policyId:'mvt-identity-quarantine-2026-09-08',approvalReference:'owner-mvt-quarantine-approval-2026-09-08',runId:run.runId,registryHash:run.sourceRegistryHash,sourceId:record.sourceId,recordHash:digest(record),reason:'Reviewed identity corruption',approvedAt:cutoff,reviewArtifactHash:'a'.repeat(64),quarantined:true};
+  assert.equal(validateSourceCoverageException(value,run,record),value);
+  for(const change of [{sourceId:'OTHER'},{cursor:{}},{candidates:[{}]},{outcome:'CHECKED_NO_RELEVANT_CHANGE'},{sourceAttempted:false}]) {
+    const changed={...record,...change};assert.throws(()=>validateSourceCoverageException({...value,recordHash:digest(changed)},run,changed));
+  }
+  assert.throws(()=>validateSourceCoverageException(value,{...run,runId:'NEXT_SWEEP'},record));
+  assert.throws(()=>validateSourceCoverageException({...value,approvalReference:'unapproved'},run,record));
+ });
  check('extended browser budget is confined to the approved DefenceHQ window',()=>{
   const account={sourceId:'X_DEFENCEHQ'},window={from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'};
   const method={scrollException:{policyId:'defencehq-bootstrap-scrolls-2026-09-08',approvalReference:'owner-defencehq-scroll-approval-2026-09-08',maxTotalScrolls:30}};
@@ -195,6 +206,19 @@ try {
  const bundle={acquisition:full,reconciliation,adjudication:{decisions:[],conflicts:[]},validation,registeredSources:77};
  const cert=buildSweepCertificate({run,...bundle,at:cutoff});
  check('valid certificate',()=>assert.equal(cert.status,'PASS'));
+ check('quarantine is counted as failure and cannot waive other release gates',()=>{
+  const qrun={...run,runId:'SWEEP_20260908T091115938Z_R1_d8289d45',sourceRegistryHash:'d8289d45a1f1156e249488d5002ef00c561d5654d9ac875b8f2538c71605a379',window:{...run.window,to:'2026-09-08T09:11:15.938Z'}};
+  const acquisition=structuredClone(full);
+  for(const r of acquisition.records)Object.assign(r,{runId:qrun.runId,registryHash:qrun.sourceRegistryHash,cutoff:qrun.window.to});
+  const record=acquisition.records[0];Object.assign(record,{sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY',window:{from:'2026-06-10T09:11:15.938Z',to:qrun.window.to},outcome:'PARSING_FAILURE',cursor:null,sourceAttempted:true,attempts:1,candidates:[]});
+  qrun.sourceChecks=[{sourceId:record.sourceId},...run.sourceChecks.slice(1)];
+  qrun.sourceCoverageExceptions=[{policyId:'mvt-identity-quarantine-2026-09-08',approvalReference:'owner-mvt-quarantine-approval-2026-09-08',runId:qrun.runId,registryHash:qrun.sourceRegistryHash,sourceId:record.sourceId,recordHash:digest(record),reason:'Reviewed identity corruption',approvedAt:cutoff,reviewArtifactHash:'a'.repeat(64),quarantined:true}];
+  const result=buildSweepCertificate({run:qrun,...bundle,acquisition,at:cutoff});
+  assert.equal(result.status,'PASS');assert.equal(result.parsingFailures,1);assert.equal(result.successfullyExamined,76);assert.equal(result.exceptedMandatorySources,1);
+  assert.equal(buildSweepCertificate({run:{...qrun,complete:false},...bundle,acquisition,at:cutoff}).status,'FAIL');
+  assert.equal(buildSweepCertificate({run:qrun,...bundle,acquisition,reconciliation:{...reconciliation,pass:false},at:cutoff}).status,'FAIL');
+  assert.equal(buildSweepCertificate({run:{...qrun,sourceCoverageExceptions:[]},...bundle,acquisition,at:cutoff}).status,'FAIL');
+ });
  check('attempted incomplete sources remain distinct from unattempted deferrals and success',()=>{
   const acquisition=structuredClone(full);const record=acquisition.records[0];
   Object.assign(record,{outcome:'DEFERRED_WITH_JUSTIFICATION',sourceAttempted:true,cursor:null});
