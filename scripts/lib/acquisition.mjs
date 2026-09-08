@@ -4,7 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 
 // Version the shared evidence normaliser independently of source adapter parsers.
-export const NORMALISATION_VERSION = '3';
+export const NORMALISATION_VERSION = '4';
 export const digest = value => crypto.createHash('sha256').update(stable(value)).digest('hex');
 function stable(v) {
   if (Array.isArray(v)) return `[${v.map(stable).join(',')}]`;
@@ -51,7 +51,12 @@ export function openAcquisitionJournal(directory, { readOnly = false } = {}) {
       if (closed || readOnly) throw new Error('Journal closed or read-only');
       if (!SUCCESS.has(body.outcome) && !FAILURE.has(body.outcome)) throw new Error('Invalid source disposition');
       if (!SUCCESS.has(body.outcome) && body.cursor !== null) throw new Error('Failure cannot advance cursor');
-      const prior = transactions.find(t => t.runId === body.runId && t.sourceId === body.sourceId && SUCCESS.has(t.outcome));
+      const prior = SUCCESS.has(body.outcome) && transactions.findLast(t =>
+        t.runId === body.runId && t.sourceId === body.sourceId && SUCCESS.has(t.outcome) &&
+        t.registryHash === body.registryHash && t.cutoff === body.cutoff &&
+        t.sourceIdentityHash === body.sourceIdentityHash &&
+        t.cursor?.parserVersion === body.cursor?.parserVersion &&
+        t.cursor?.normalisationVersion === body.cursor?.normalisationVersion);
       if (prior) return prior;
       const record = { ...body, sequence: transactions.length, previousHash };
       const transaction = { ...record, hash: digest(record) };

@@ -341,8 +341,24 @@ an upgrade forces deeper re-extraction and prevents same-run reuse of old normal
 Historical exception floors and the previous successful cursor remain retained. Existing journal
 transactions and reviewed candidate hashes are never rewritten by this change.
 
-The individual review checkpoint now has 456 resolved decisions and 26 pending original-text,
-media or linked-report checks out of 482 retained candidates. This is a review checkpoint, not a
+The individual review checkpoint now has 482 resolved decisions and no pending candidate
+reviews. Source coverage and fleet reconciliation remain separate unfinished gates. This is a review checkpoint, not a
 PASS certificate: mandatory deeper source coverage and fleet reconciliation remain incomplete.
-The 49-check acceleration regression suite includes the live-discovered alias defect and
-normaliser-upgrade recovery. These counts do not demonstrate the live under-60-minute objective.
+The 53-check acceleration regression suite includes identifier boundaries, exact registered
+account handles, and same-run normaliser-upgrade recovery, including failed upgrade handling. These counts do not demonstrate the live under-60-minute objective.
+
+
+The normaliser version 4 replay used a copy of all 330 prior journal transactions. It retained
+482 candidates: 126 decisions matched byte-for-byte and 356 were explicitly rebound after
+checking that claims, dates and provenance were unchanged. Five entity bindings were corrected;
+the other differences were historical re-extraction flags. The migration journal verified all
+448 hash-linked transactions. Journal idempotency now includes parser and normaliser versions,
+so an earlier success cannot mask a failed upgrade or replace a newly extracted result.
+Registered enabled official account handles are matched exactly, preserving multi-vessel
+ambiguity without treating longer lookalike handles as the registered source.
+
+The measured retained-packet replay took 2.143 seconds at peak concurrency four; this excludes
+browser collection and analytical review. All 53 acceleration checks and the complete production
+build passed. Mandatory deep coverage remains 70/77, and fleet reconciliation remains incomplete.
+The original candidate review batches span approximately 40 minutes. Neither replay speed nor
+that review interval demonstrates a complete live routine sweep below 60 minutes.

@@ -68,7 +68,7 @@ try {
     };
     const result = await acquireSources({ sources, runId: run.runId, registryHash: run.sourceRegistryHash, cutoff: run.window.to, journal,
       adapters: Object.fromEntries(sources.map(s => [s.acquisition.adapter, adapter])),
-      extract: (items, source, window) => preprocessEvidence(items, source, { vessels: entities.vessels, cutoff: window.to, windowStart: window.from }),
+      extract: (items, source, window) => preprocessEvidence(items, source, { vessels: entities.vessels, sourceRegistry: registry.sources, cutoff: window.to, windowStart: window.from }),
       onProgress: r => console.log(JSON.stringify({ sourceId: r.sourceId, outcome: r.outcome, durationMs: r.durationMs })) });
     atomicJson(path.join(directory, 'acquisition.json'), result);
     const processedRun = structuredClone(run);

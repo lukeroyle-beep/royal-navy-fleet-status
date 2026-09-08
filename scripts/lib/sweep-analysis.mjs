@@ -21,11 +21,14 @@ function mentionsIdentifier(text, name) {
   return new RegExp(`(?<![\\p{L}\\p{N}_])${escaped}(?![\\p{L}\\p{N}_])`, 'iu').test(text);
 }
 
-export function preprocessEvidence(items, source, { vessels, current = [], cutoff, windowStart, locations = [], retainedEvidence = [] }) {
+export function preprocessEvidence(items, source, { vessels, current = [], cutoff, windowStart, locations = [], retainedEvidence = [], sourceRegistry = [] }) {
   const byId = new Map(current.map(v => [v.id || v.vesselId, v]));
   return items.map(item => {
     const extracted = extractEvidenceCandidate({ text: item.text, publishedAt: item.publishedAt, receivedAt: item.retrievedAt || cutoff, locations });
-    const matches = vessels.filter(v => [v.name, v.pennantNumber, ...(v.aliases || [])].filter(Boolean).some(name => mentionsIdentifier(item.text, name)));
+    const matches = vessels.filter(v => [v.name, v.pennantNumber, ...(v.aliases || [])].filter(Boolean).some(name => mentionsIdentifier(item.text, name)) || sourceRegistry.some(s =>
+      s.vesselId === v.vesselId && s.enabled !== false && s.xCollection?.enabled === true &&
+      s.xCollection.classification === 'official' && s.xCollection.handle &&
+      mentionsIdentifier(item.text, `@${s.xCollection.handle.replace(/^@/, '')}`)));
     // An account's own vessel may be the subject of "we" even when another ship
     // is named. Preserve both candidates instead of assigning the whole claim to
     // the named ship. Class references likewise do not identify a single hull.
