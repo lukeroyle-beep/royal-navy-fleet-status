@@ -1,3 +1,4 @@
+import { approvedNativeSourceExceptions } from './lib/sweep.mjs';
 import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY, DIRECTORY_BOOTSTRAP_POLICY, HARBOUR_BOOTSTRAP_POLICY, validateBootstrapException } from './lib/bootstrap-exception.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -17,6 +18,14 @@ try {
   const record={sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY',window:{from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'},outcome:'PARSING_FAILURE',cursor:null,sourceAttempted:true,attempts:1,candidates:[]};
   const value={policyId:'mvt-identity-quarantine-2026-09-08',approvalReference:'owner-mvt-quarantine-approval-2026-09-08',runId:run.runId,registryHash:run.sourceRegistryHash,sourceId:record.sourceId,recordHash:digest(record),reason:'Reviewed identity corruption',approvedAt:cutoff,reviewArtifactHash:'a'.repeat(64),quarantined:true};
   assert.equal(validateSourceCoverageException(value,run,record),value);
+  const boundRecord={...record,runId:run.runId,registryHash:run.sourceRegistryHash,cutoff:run.window.to};
+  const boundRun={...run,sourceCoverageExceptions:[{...value,recordHash:digest(boundRecord)}],certificateInputs:{acquisition:{records:[boundRecord]}}};
+  assert.equal(approvedNativeSourceExceptions(boundRun).has(record.sourceId),true);
+  const missing=[];assert.equal(approvedNativeSourceExceptions({...boundRun,certificateInputs:null},missing).size,0);assert.equal(missing.length,1);
+  assert.equal(approvedNativeSourceExceptions({...boundRun,runId:'NEXT_SWEEP'}).size,0);
+  const duplicate=[];approvedNativeSourceExceptions({...boundRun,sourceCoverageExceptions:[...boundRun.sourceCoverageExceptions,...boundRun.sourceCoverageExceptions]},duplicate);assert.equal(duplicate.length,1);
+  assert.equal(record.outcome,'PARSING_FAILURE');assert.equal(record.cursor,null);
+
   for(const change of [{sourceId:'OTHER'},{cursor:{}},{candidates:[{}]},{outcome:'CHECKED_NO_RELEVANT_CHANGE'},{sourceAttempted:false}]) {
     const changed={...record,...change};assert.throws(()=>validateSourceCoverageException({...value,recordHash:digest(changed)},run,changed));
   }

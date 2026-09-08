@@ -517,3 +517,22 @@ promotion, fleet outcomes and snapshot sealing remain unfinished; approval does 
 complete native source-coverage review or authorise publication. A future acquisition retry
 changes the record hash and therefore requires revalidation; never silently rebind an approval.
 The next sweep receives no exception. Full build and64 acceleration checks pass.
+
+## Native coverage validation checkpoint
+
+The native coverage evaluator now recognises the same approved one-run quarantine only
+when its exact acquisition record is supplied in `run.certificateInputs.acquisition`.
+It retains the blocked source state and76 completed checks, reporting one exception
+separately. Missing bindings, another run or duplicate exceptions fail closed. Discovery,
+fleet and integrity checks are unaffected. Historical coverage objects gain no new fields
+unless their run contains exceptions, preserving stored historical totals.
+
+Fresh live checks pass for registry, evidence and assessment schemas, sweep shape, baseline
+binding, public projection,589 journal transactions,785 candidate-review bindings and the
+approved exception. All7 discovery checks pass. Native68-vessel outcomes and6 integrity
+reviews remain pending;45 records have stale/unknown support warnings. These are remaining
+analytical work, not a schema corruption or evidence of complete no-change. Diagnostic
+certificates now report schema and ledger results independently from missing snapshot sealing.
+
+The full build,64 acceleration checks and controlled CLI pipeline pass after this fix.
+The live certificate remains FAIL. This checkpoint does not activate the scheduler or publish.
