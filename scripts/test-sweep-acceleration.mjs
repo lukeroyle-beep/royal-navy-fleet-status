@@ -51,6 +51,12 @@ try {
  const missing=await acquireSources({...one,runId:'missing',adapters:{}});
  check('unconfigured adapter explicitly deferred',()=>assert.equal(missing.records[0].outcome,'DEFERRED_WITH_JUSTIFICATION'));
  check('monthly historical audit',()=>assert.equal(retrievalWindow(prior,'2026-10-30T12:00:00Z').deep,true));
+ check('normaliser upgrade forces deep review while retaining historical exception',()=>{
+  const source=sources[0], identity=acquisitionContext(source,{latest:()=>null},cutoff).sourceIdentityHash;
+  const old={sourceIdentityHash:identity,cursor:{...prior.cursor,normalisationVersion:'2',historicalGap:{windowTo:'2026-09-01T00:00:00Z'}}};
+  const context=acquisitionContext(source,{latest:()=>old},one.cutoff);
+  assert.equal(context.window.deep,true);assert.equal(context.previous,old);assert.deepEqual(context.previous.cursor.historicalGap,old.cursor.historicalGap);
+ });
  check('parser version invalidates cursor',()=>assert.equal(retrievalWindow(prior,one.cutoff,{parserVersion:'2'}).deep,true));
  check('normal incremental overlap',()=>assert.equal(retrievalWindow(prior,one.cutoff).deep,false));
  check('invalid deeper-audit cursor cannot suppress periodic review',()=>assert.throws(()=>retrievalWindow({...prior,cursor:{...prior.cursor,lastDeepAt:'invalid'}},one.cutoff),/Invalid or future cursor/));
@@ -86,6 +92,11 @@ try {
  check('account context and mentioned ship remain ambiguous',()=>{assert.equal(accountContext[0].vesselId,null);assert.deepEqual(accountContext[0].candidateVesselIds.sort(),['example','sister']);assert.equal(accountContext[0].priority,1);});
  const classClaim=preprocessEvidence([{...item,text:'Training for HMS Example class operations.',contentHash:'class'}],{sourceId:'unit'},{vessels,cutoff,windowStart:'2026-09-01T00:00:00Z'});
  check('class reference cannot identify a single hull',()=>{assert.equal(classClaim[0].vesselId,null);assert.ok(classClaim[0].reasons.includes('class-reference-requires-entity-review'));});
+ check('entity aliases and pennants require complete identifiers',()=>{
+  const context={vessels:[{vesselId:'express',name:'HMS Express',aliases:['Express'],pennantNumber:'P163'}],cutoff,windowStart:'2026-09-01T00:00:00Z'};
+  for(const text of ['Image expressly from 2024','P1630','éExpress','Expressé']) assert.equal(preprocessEvidence([{...item,text,contentHash:text}],{sourceId:'org'},context)[0].vesselId,null);
+  for(const text of ['HMS Express arrived.','(Express)','P163 arrived','#Express','Express’s crew']) assert.equal(preprocessEvidence([{...item,text,contentHash:text}],{sourceId:'org'},context)[0].vesselId,'express');
+ });
  check('normalisation separates event and publication dates',()=>{assert.notEqual(candidates[0].eventTime,candidates[0].publishedAt);assert.equal(candidates[0].publicationEligible,false);});
  const retained = [{sourceId:'official',canonicalUrl:item.url,contentHash:'hash',reviewState:'approved'}];
  const corroboration=preprocessEvidence([{...item,contentHash:'hash'}],{sourceId:'official',reliabilityTier:'A'},{vessels,current:[{id:'example',status:'Alongside'}],cutoff,windowStart:'2026-09-01T00:00:00Z',retainedEvidence:retained});

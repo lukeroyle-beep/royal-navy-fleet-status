@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
+// Version the shared evidence normaliser independently of source adapter parsers.
+export const NORMALISATION_VERSION = '3';
 export const digest = value => crypto.createHash('sha256').update(stable(value)).digest('hex');
 function stable(v) {
   if (Array.isArray(v)) return `[${v.map(stable).join(',')}]`;
@@ -109,7 +111,7 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
   const pool = await boundedMap(sources, async source => {
     const priorRun = journal.transactions.findLast(t => t.runId === runId && t.sourceId === source.sourceId);
     if (priorRun && (priorRun.registryHash !== registryHash || priorRun.cutoff !== cutoff)) throw new Error('Resume inputs changed');
-    if (priorRun && SUCCESS.has(priorRun.outcome)) return priorRun;
+    if (priorRun && SUCCESS.has(priorRun.outcome) && priorRun.cursor?.normalisationVersion === NORMALISATION_VERSION) return priorRun;
     const { sourceIdentityHash, previous, window } = acquisitionContext(source, journal, cutoff, policy);
     const adapterId = source.acquisition?.adapter || source.collectionMode;
     const adapter = adapters[adapterId];
@@ -130,7 +132,7 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
           catch (error) { throw Object.assign(error, { outcome: 'PARSING_FAILURE' }); }
         }
         items = response.items;
-        const known = new Set(journal.transactions.filter(t => t.sourceId === source.sourceId && t.sourceIdentityHash === sourceIdentityHash && t.cursor?.parserVersion === window.parserVersion).flatMap(t => t.items || []).map(i => `${i.id}:${i.contentHash}`));
+        const known = new Set(journal.transactions.filter(t => t.sourceId === source.sourceId && t.sourceIdentityHash === sourceIdentityHash && t.cursor?.parserVersion === window.parserVersion && t.cursor?.normalisationVersion === NORMALISATION_VERSION).flatMap(t => t.items || []).map(i => `${i.id}:${i.contentHash}`));
         const seen = new Set();
         const fresh = [];
         for (const item of items) {
@@ -184,7 +186,7 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
       outcome, reason: success ? (response.historicalException?.reason || null) : reason, attempts, adapter: adapterId, method: response?.method || null,
       checkedAt: new Date().toISOString(), durationMs: performance.now() - begin, extractionMs,
       items: success || response?.partialItems ? items : [], candidates: success || response?.partialItems ? extracted : [], window,
-      cursor: success ? { ...(response.historicalException || previous?.cursor?.historicalGap ? { historicalGap: response.historicalException || previous.cursor.historicalGap } : {}), examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion,
+      cursor: success ? { ...(response.historicalException || previous?.cursor?.historicalGap ? { historicalGap: response.historicalException || previous.cursor.historicalGap } : {}), examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion, normalisationVersion: NORMALISATION_VERSION,
         lastStaleAuditAt: source.staleEvidencePriority ? (window.deep ? cutoff : previous?.cursor?.lastStaleAuditAt || null) : null,
         ids: [...new Set([...(previous?.cursor?.ids || []), ...items.map(i => i.id)])], latestContentAt: items.reduce((v,i) => i.publishedAt > v ? i.publishedAt : v, previous?.cursor?.latestContentAt || ''), validator: response.validator || null } : null });
     onProgress(record);
@@ -205,6 +207,6 @@ export function acquisitionContext(source, journal, cutoff, policy = {}) {
   const retained = journal.latest(source.sourceId);
   const previous = retained?.sourceIdentityHash === sourceIdentityHash ? retained : null;
   const staleAuditDue = source.staleEvidencePriority === true && !previous?.cursor?.lastStaleAuditAt;
-  const window = retrievalWindow(previous, cutoff, { ...policy, parserVersion: source.acquisition?.parserVersion || policy.parserVersion || '1', forceDeep: source.acquisition?.forceDeep === true || policy.forceDeep === true || staleAuditDue });
+  const window = retrievalWindow(previous, cutoff, { ...policy, parserVersion: source.acquisition?.parserVersion || policy.parserVersion || '1', forceDeep: source.acquisition?.forceDeep === true || policy.forceDeep === true || staleAuditDue || previous?.cursor?.normalisationVersion !== NORMALISATION_VERSION });
   return { sourceIdentityHash, previous, window };
 }

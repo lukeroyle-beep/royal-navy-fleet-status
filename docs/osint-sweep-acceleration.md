@@ -333,3 +333,16 @@ Every fleet reconciliation record must independently pass with no issues; passin
 aggregate counts cannot override a failing vessel. Retained observation dates use the
 existing evidence schema's `explicit` or reviewed `inferred` basis; unknown or legacy
 conflated dates remain ineligible for automatic retention.
+
+Additional live adjudication identified an entity substring error: the bare alias `Express`
+matched `expressly`. The shared normaliser now requires Unicode identifier boundaries for names,
+aliases and pennants. Its version is stored independently of the acquisition adapter parser;
+an upgrade forces deeper re-extraction and prevents same-run reuse of old normalisation output.
+Historical exception floors and the previous successful cursor remain retained. Existing journal
+transactions and reviewed candidate hashes are never rewritten by this change.
+
+The individual review checkpoint now has 456 resolved decisions and 26 pending original-text,
+media or linked-report checks out of 482 retained candidates. This is a review checkpoint, not a
+PASS certificate: mandatory deeper source coverage and fleet reconciliation remain incomplete.
+The 49-check acceleration regression suite includes the live-discovered alias defect and
+normaliser-upgrade recovery. These counts do not demonstrate the live under-60-minute objective.

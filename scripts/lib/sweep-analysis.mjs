@@ -14,11 +14,18 @@ function deterministicTriage(item, matches) {
   return null;
 }
 
+// Match whole identifiers, including Unicode word characters. A bare alias such
+// as Express must not match "expressly", nor a pennant match a longer number.
+function mentionsIdentifier(text, name) {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp(`(?<![\\p{L}\\p{N}_])${escaped}(?![\\p{L}\\p{N}_])`, 'iu').test(text);
+}
+
 export function preprocessEvidence(items, source, { vessels, current = [], cutoff, windowStart, locations = [], retainedEvidence = [] }) {
   const byId = new Map(current.map(v => [v.id || v.vesselId, v]));
   return items.map(item => {
     const extracted = extractEvidenceCandidate({ text: item.text, publishedAt: item.publishedAt, receivedAt: item.retrievedAt || cutoff, locations });
-    const matches = vessels.filter(v => [v.name, v.pennantNumber, ...(v.aliases || [])].filter(Boolean).some(name => item.text.toLowerCase().includes(name.toLowerCase())));
+    const matches = vessels.filter(v => [v.name, v.pennantNumber, ...(v.aliases || [])].filter(Boolean).some(name => mentionsIdentifier(item.text, name)));
     // An account's own vessel may be the subject of "we" even when another ship
     // is named. Preserve both candidates instead of assigning the whole claim to
     // the named ship. Class references likewise do not identify a single hull.
