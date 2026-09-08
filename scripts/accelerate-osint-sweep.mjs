@@ -19,14 +19,14 @@ const operations = buildOperationalSourceRegistry(registry, entities);
 const sources = registry.sources.filter(s => isRequiredRecurringSource(s) || (s.enabled !== false && s.xCollection?.enabled)).map(s => ({ ...s, ...{ mandatory: isRequiredRecurringSource(s), acquisition: operations.find(o => o.sourceId === s.sourceId).acquisition } }));
 const stale = new Set(reconcileFleet({ entities, assessmentLog: inputs.readJson('assessments'), evidenceItems: inputs.readJson('evidence').evidence, run, at: run.window.to }).staleWarnings);
 for (const source of sources) {
-  source.acquisition.forceDeep = Boolean(source.vesselId && stale.has(source.vesselId));
+  source.staleEvidencePriority = Boolean(source.vesselId && stale.has(source.vesselId));
 }
-sources.sort((a,b) => Number(b.acquisition.forceDeep)-Number(a.acquisition.forceDeep) || a.sourceId.localeCompare(b.sourceId));
+sources.sort((a,b) => Number(b.staleEvidencePriority)-Number(a.staleEvidencePriority) || a.sourceId.localeCompare(b.sourceId));
 const journal = openAcquisitionJournal(directory, { readOnly: mode === 'status' });
 try {
   if (mode === 'plan') {
     const tasks = sources.map(source => ({ sourceId: source.sourceId, mandatory: source.mandatory,
-      acquisition: source.acquisition, staleEvidencePriority: source.acquisition.forceDeep, canonicalUrl: source.canonicalUrl,
+      acquisition: source.acquisition, staleEvidencePriority: source.staleEvidencePriority, canonicalUrl: source.canonicalUrl,
       window: acquisitionContext(source, journal, run.window.to).window,
       previousCursor: journal.latest(source.sourceId)?.cursor || null }));
     atomicJson(path.join(directory, 'plan.json'), { runId: run.runId, registryHash: run.sourceRegistryHash, tasks,
@@ -42,7 +42,18 @@ try {
       if (!fs.existsSync(file)) return { outcome: 'DEFERRED_WITH_JUSTIFICATION', reason: 'No completed source observation packet' };
       const packet = JSON.parse(fs.readFileSync(file, 'utf8'));
       if (packet.runId !== run.runId || packet.sourceId !== source.sourceId || digest(packet.window) !== digest(window) || packet.registryHash !== run.sourceRegistryHash) throw new Error('Observation packet binding mismatch');
-      if (FAILURE.has(packet.outcome)) return packet;
+      if (FAILURE.has(packet.outcome)) {
+        if (source.xCollection && packet.partialItems !== undefined) throw new Error('X partial items require native rendered observation normalization');
+        if (!packet.partialObservation) return packet;
+        if (!source.xCollection) throw new Error('Partial observation requires native X contract');
+        const observation=packet.partialObservation, partialWindow=observation.method?.window;
+        if (!partialWindow || !Number.isFinite(Date.parse(partialWindow.from)) || !Number.isFinite(Date.parse(partialWindow.to)) ||
+          Date.parse(partialWindow.from)<Date.parse(window.from) || Date.parse(partialWindow.to)>Date.parse(window.to) || Date.parse(partialWindow.from)>=Date.parse(partialWindow.to)) throw new Error('Partial observation window is outside acquisition window');
+        const session=createXBrowserSession({registry,run,sourceIds:[source.sourceId],scope:'canary',createdAt:new Date().toISOString()});
+        const normalized=normalizeBrowserObservation({observation,account:session.accounts[0],window:partialWindow,entities,officialSocialCoverage:registry.officialSocialCoverage,knownLocations:[]});
+        if (normalized.accountResult.state!=='checked') return {outcome:'PARSING_FAILURE',reason:'Partial browser observation failed normalization'};
+        return {...packet,method:normalized.accountResult.method,partialItems:normalized.posts.map(p=>({id:p.postId,url:p.canonicalUrl,text:p.sourceClaim.excerpt,sourceContentHash:p.contentHash,publishedAt:p.sourceClaim.publishedAt,retrievedAt:p.sourceClaim.retrievedAt,originId:p.originId,eventTime:p.interpretation.eventTime}))};
+      }
       if (source.xCollection && (packet.method?.browser !== 'chrome' || packet.method?.renderedPublicPage !== true || packet.method?.readOnly !== true)) throw new Error('X requires rendered public Chrome observation');
       if (source.xCollection) {
         const session = createXBrowserSession({ registry, run, sourceIds: [source.sourceId], scope: 'canary', createdAt: new Date().toISOString() });

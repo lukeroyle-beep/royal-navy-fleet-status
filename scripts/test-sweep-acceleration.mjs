@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { acquireSources, boundedMap, digest, openAcquisitionJournal, retrievalWindow } from './lib/acquisition.mjs';
+import { acquireSources, acquisitionContext, boundedMap, digest, openAcquisitionJournal, retrievalWindow } from './lib/acquisition.mjs';
 import { preprocessEvidence, adjudicationQueue, reconcileFleet } from './lib/sweep-analysis.mjs';
 import { buildSweepCertificate, validateSweepCertificate } from './lib/sweep-certificate.mjs';
 const temporary = fs.mkdtempSync(path.join(os.tmpdir(),'rnfs-acceleration-test-'));
@@ -38,6 +38,10 @@ try {
  const prior=recovered.latest(sources[0].sourceId);
  const failed=await acquireSources({...one,runId:'parse-failure',adapters:{fixture:response([{...item,id:'new'}])},extract:()=>{throw Object.assign(new Error('Parser failed midway'),{outcome:'PARSING_FAILURE'});}});
  check('parser failure cannot advance cursor',()=>{assert.equal(failed.records[0].outcome,'PARSING_FAILURE');assert.equal(failed.records[0].cursor,null);assert.equal(recovered.latest(sources[0].sourceId).hash,prior.hash);});
+ const partial=await acquireSources({...one,runId:'partial-source',adapters:{fixture:async()=>({outcome:'DEFERRED_WITH_JUSTIFICATION',reason:'Deep window incomplete',method:'fixture-only',partialItems:[item,item]})}});
+ check('partial evidence escalates without coverage or cursor success',()=>{const r=partial.records[0];assert.equal(r.outcome,'DEFERRED_WITH_JUSTIFICATION');assert.equal(r.cursor,null);assert.equal(r.items.length,1);assert.equal(r.candidates[0].priority,1);assert.ok(r.candidates[0].reasons.includes('incomplete-source-coverage'));assert.equal(recovered.latest(sources[0].sourceId).hash,prior.hash);});
+ const brokenPartial=await acquireSources({...one,runId:'broken-partial',adapters:{fixture:async()=>({outcome:'DEFERRED_WITH_JUSTIFICATION',reason:'Deep incomplete',method:'fixture-only',partialItems:[{...item,id:null}]})}});
+ check('malformed partial evidence remains a parser failure',()=>{assert.equal(brokenPartial.records[0].outcome,'PARSING_FAILURE');assert.equal(brokenPartial.records[0].cursor,null);assert.equal(brokenPartial.records[0].candidates.length,0);});
  for (const failure of ['SOURCE_UNAVAILABLE','AUTHENTICATION_FAILURE','RETRIEVAL_FAILURE','RATE_LIMITED']) {
   const waits=[];
   const result=await acquireSources({...one,runId:failure,sleep:async ms=>waits.push(ms),adapters:{fixture:async()=>({outcome:failure,reason:'Injected failure',retryAfterMs:failure==='RATE_LIMITED'?100:0})}});
@@ -48,6 +52,11 @@ try {
  check('monthly historical audit',()=>assert.equal(retrievalWindow(prior,'2026-10-30T12:00:00Z').deep,true));
  check('parser version invalidates cursor',()=>assert.equal(retrievalWindow(prior,one.cutoff,{parserVersion:'2'}).deep,true));
  check('normal incremental overlap',()=>assert.equal(retrievalWindow(prior,one.cutoff).deep,false));
+ check('invalid deeper-audit cursor cannot suppress periodic review',()=>assert.throws(()=>retrievalWindow({...prior,cursor:{...prior.cursor,lastDeepAt:'invalid'}},one.cutoff),/Invalid or future cursor/));
+ const staleSource={...sources[0],staleEvidencePriority:true};
+ assert.equal(acquisitionContext(staleSource,recovered,one.cutoff).window.deep,true);
+ await acquireSources({...one,sources:[staleSource],runId:'stale-audit',adapters:{fixture:response([])}});
+ check('stale record audited once then monthly rather than every week',()=>{assert.equal(acquisitionContext(staleSource,recovered,one.cutoff).window.deep,false);assert.equal(acquisitionContext(staleSource,recovered,'2026-10-30T12:00:00Z').window.deep,true);});
  recovered.close();
  const names=fs.readdirSync(temporary).filter(n=>n.endsWith('.json')).sort();
  const corrupt=path.join(temporary,names[0]);const contents=fs.readFileSync(corrupt,'utf8');fs.writeFileSync(corrupt,contents.replace('TEST_0','FORGED'));
@@ -57,6 +66,11 @@ try {
  await assert.rejects(()=>boundedMap([1,2],async()=>{}, {signal:abort.signal}),/Interrupted/);tests++;
  const vessels=[{vesselId:'example',name:'HMS Example',type:'Frigate'}];
  const candidates=preprocessEvidence([{...item,contentHash:'hash'}],{sourceId:'official',category:'official',reliabilityTier:'A'},{vessels,cutoff,windowStart:'2026-09-01T00:00:00Z'});
+ const otherVessels=[...vessels,{vesselId:'sister',name:'HMS Sister',type:'Frigate'}];
+ const accountContext=preprocessEvidence([{...item,text:'We were at anchor while HMS Sister passed us.',contentHash:'context'}],{sourceId:'official',vesselId:'example'},{vessels:otherVessels,cutoff,windowStart:'2026-09-01T00:00:00Z'});
+ check('account context and mentioned ship remain ambiguous',()=>{assert.equal(accountContext[0].vesselId,null);assert.deepEqual(accountContext[0].candidateVesselIds.sort(),['example','sister']);assert.equal(accountContext[0].priority,1);});
+ const classClaim=preprocessEvidence([{...item,text:'Training for HMS Example class operations.',contentHash:'class'}],{sourceId:'unit'},{vessels,cutoff,windowStart:'2026-09-01T00:00:00Z'});
+ check('class reference cannot identify a single hull',()=>{assert.equal(classClaim[0].vesselId,null);assert.ok(classClaim[0].reasons.includes('class-reference-requires-entity-review'));});
  check('normalisation separates event and publication dates',()=>{assert.notEqual(candidates[0].eventTime,candidates[0].publishedAt);assert.equal(candidates[0].publicationEligible,false);});
  const retained = [{sourceId:'official',canonicalUrl:item.url,contentHash:'hash',reviewState:'approved'}];
  const corroboration=preprocessEvidence([{...item,contentHash:'hash'}],{sourceId:'official',reliabilityTier:'A'},{vessels,current:[{id:'example',status:'Alongside'}],cutoff,windowStart:'2026-09-01T00:00:00Z',retainedEvidence:retained});
@@ -68,6 +82,10 @@ try {
  const run={runId:'test',coverageDate:'2026-09-13',window:{to:cutoff},sourceRegistryHash:'registry',sourceChecks:sources.map(s=>({sourceId:s.sourceId})),vesselOutcomes:[{vesselId:'example',state:'complete',reviewedAt:cutoff}],coverageInputs:{baselineAssessmentIds:{example:'a'}},complete:true,releaseContentHash:'sealed',releaseTarget:{asOfDate:'2026-09-13'},startedAt:cutoff};
  const reconciliation=reconcileFleet({entities:{vessels},assessmentLog:{assessments:[{assessmentId:'a',vesselId:'example',selectedEvidenceIds:['e'],assessedState:{status:'Alongside'}}],currentAssessmentIds:{example:'a'}},evidenceItems:[{evidenceId:'e',vesselId:'example',publishedAt:'2026-01-01',retrievedAt:'2026-01-01'}],run,at:cutoff});
  check('stale support flags without status mutation',()=>{assert.equal(reconciliation.staleWarnings.length,1);assert.equal(reconciliation.pass,true);});
+ const refit=reconcileFleet({entities:{vessels},assessmentLog:{assessments:[{assessmentId:'a',vesselId:'example',selectedEvidenceIds:['e'],assessedState:{status:'In re-fit'}}],currentAssessmentIds:{example:'a'}},evidenceItems:[{evidenceId:'e',vesselId:'example',publishedAt:'2026-06-01',retrievedAt:'2026-06-01'}],run,at:cutoff});
+ check('native refit status uses long maintenance threshold',()=>{assert.equal(refit.records[0].thresholdDays,180);assert.equal(refit.records[0].stale,false);});
+ const imported=reconcileFleet({entities:{vessels},assessmentLog:{assessments:[{assessmentId:'a',vesselId:'example',selectedEvidenceIds:['e'],assessedState:{status:'Available'}}],currentAssessmentIds:{example:'a'}},evidenceItems:[{evidenceId:'e',vesselId:'example',publishedAt:cutoff,retrievedAt:cutoff,observation:{from:null,to:null,basis:'legacy-conflated'}}],run,at:cutoff});
+ check('conflated import date cannot refresh stale support',()=>{assert.equal(imported.records[0].latestSupportAt,null);assert.equal(imported.records[0].stale,true);});
  const validation=Object.fromEntries(['tests','snapshot','ledger','schema'].map(k=>[k,{pass:true,artifactHash:digest(k),command:'synthetic-test',completedAt:cutoff}]));
  const bundle={acquisition:full,reconciliation,adjudication:{decisions:[],conflicts:[]},validation,registeredSources:77};
  const cert=buildSweepCertificate({run,...bundle,at:cutoff});

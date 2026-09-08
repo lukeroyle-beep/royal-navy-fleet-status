@@ -58,7 +58,7 @@ export function buildOperationalSourceRegistry(registry, entities, existingOpera
           group: source.xCollection ? "rendered-chrome" : new URL(source.canonicalUrl).hostname,
           authentication: source.xCollection ? "existing-chrome-session" : "none-recorded",
           cursorKind: source.xCollection ? "post-id-and-content-hash" : "item-id-and-content-hash",
-          parserVersion: "1",
+          parserVersion: "2",
           retry: { attempts: 2, baseMs: 1000, maxMs: 30000 },
         },
       };

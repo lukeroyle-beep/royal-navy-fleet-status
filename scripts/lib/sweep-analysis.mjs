@@ -6,14 +6,20 @@ export function preprocessEvidence(items, source, { vessels, current = [], cutof
   return items.map(item => {
     const extracted = extractEvidenceCandidate({ text: item.text, publishedAt: item.publishedAt, receivedAt: item.retrievedAt || cutoff, locations });
     const matches = vessels.filter(v => [v.name, v.pennantNumber, ...(v.aliases || [])].filter(Boolean).some(name => item.text.toLowerCase().includes(name.toLowerCase())));
-    if (!matches.length && source.vesselId) matches.push(vessels.find(v => v.vesselId === source.vesselId));
-    const vessel = matches.filter(Boolean).length === 1 ? matches.filter(Boolean)[0] : null;
+    // An account's own vessel may be the subject of "we" even when another ship
+    // is named. Preserve both candidates instead of assigning the whole claim to
+    // the named ship. Class references likewise do not identify a single hull.
+    const accountVessel = vessels.find(v => v.vesselId === source.vesselId);
+    if (accountVessel && !matches.some(v => v.vesselId === accountVessel.vesselId)) matches.push(accountVessel);
+    const classReference = /\bclass\b/i.test(item.text) && matches.length > 0;
+    const vessel = matches.length === 1 && !classReference ? matches[0] : null;
     const state = byId.get(vessel?.vesselId);
     const reasons = [];
     const status = extracted.statusCandidate?.value || null;
     const location = extracted.locationCandidate?.value || null;
     const eventTime = item.eventTime || extracted.eventTime;
     if (!vessel) reasons.push('entity-unresolved-or-ambiguous');
+    if (classReference) reasons.push('class-reference-requires-entity-review');
     if (!eventTime) reasons.push('event-time-unknown');
     if (eventTime && (Date.parse(eventTime) >= Date.parse(cutoff) || Date.parse(eventTime) < Date.parse(windowStart))) reasons.push('retrospective-or-outside-window');
     if (item.revised) reasons.push('historical-content-revised');
@@ -43,7 +49,7 @@ export function adjudicationQueue(candidates) {
   return { items: items.sort((a,b) => a.priority - b.priority || a.evidenceId.localeCompare(b.evidenceId)), conflicts, origins: clusterEvidenceCandidates(candidates) };
 }
 
-export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at, staleDays = { Maintenance: 180, Alongside: 14, Deployed: 30, default: 60 } }) {
+export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at, staleDays = { 'In re-fit': 180, Maintenance: 180, Alongside: 14, Deployed: 30, 'Museum ship': 365, default: 60 } }) {
   const evidence = new Map(evidenceItems.map(e => [e.evidenceId, e]));
   const assessments = new Map(assessmentLog.assessments.map(a => [a.assessmentId, a]));
   const outcomes = new Map(run.vesselOutcomes.map(o => [o.vesselId, o]));
@@ -58,7 +64,11 @@ export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at
     if (selected.some(e => !e || e.vesselId !== v.vesselId)) issues.push('invalid-supporting-evidence');
     if ((assessment?.conflictingEvidenceIds || []).length && !['resolved', 'resolved-temporal-progression', 'resolved-source-precedence'].includes(assessment?.conflictState)) issues.push('unresolved-material-conflict');
     if (selected.some(e => Date.parse(e?.retrievedAt) > Date.parse(at))) issues.push('future-retrieval');
-    const latest = selected.filter(Boolean).map(e => e.observation?.to || e.observation?.from || e.publishedAt).filter(t => Number.isFinite(Date.parse(t))).sort((a,b) => Date.parse(b)-Date.parse(a))[0] || null;
+    // Imported publication/retrieval metadata must not rejuvenate an observation
+    // whose event date was explicitly recorded as conflated or unknown.
+    const latest = selected.filter(Boolean).map(e => e.observation?.to || e.observation?.from ||
+      (['legacy-conflated', 'unknown'].includes(e.observation?.basis) ? null : e.publishedAt))
+      .filter(t => Number.isFinite(Date.parse(t))).sort((a,b) => Date.parse(b)-Date.parse(a))[0] || null;
     const status = assessment?.assessedState?.status;
     const thresholdDays = staleDays[status] ?? staleDays.default;
     if (!Number.isFinite(thresholdDays) || thresholdDays <= 0) throw new Error('Invalid stale threshold');

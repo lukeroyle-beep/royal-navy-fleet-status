@@ -64,6 +64,9 @@ export function retrievalWindow(previous, cutoff, { overlapDays = 7, deepDays = 
   const end = Date.parse(cutoff);
   if (!Number.isFinite(end) || [overlapDays, deepDays, deepEveryDays].some(n => !Number.isFinite(n) || n <= 0)) throw new Error('Invalid retrieval window policy');
   const cursor = previous?.cursor;
+  for (const key of ['lastDeepAt','lastStaleAuditAt']) {
+    if (cursor?.[key] != null && (!Number.isFinite(Date.parse(cursor[key])) || Date.parse(cursor[key]) > end)) throw new Error(`Invalid or future cursor ${key}`);
+  }
   const deep = forceDeep || !cursor || cursor.parserVersion !== parserVersion || !cursor.lastDeepAt || end - Date.parse(cursor.lastDeepAt) >= deepEveryDays * 86400000;
   const baseline = cursor ? Date.parse(cursor.examinedThrough) : end;
   if (!Number.isFinite(baseline) || baseline > end) throw new Error('Invalid or future cursor');
@@ -149,11 +152,32 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
       }
     }
     const success = SUCCESS.has(outcome);
+    // A source may have a valid bounded observation but incomplete wider coverage.
+    // Retain and escalate those items without ever advancing its cursor.
+    if (!success && response?.partialItems) {
+      try {
+        if (!Array.isArray(response.partialItems) || !response.method) throw new Error('Invalid partial observation');
+        const seen = new Set();
+        items = response.partialItems.map(item => {
+          if (!item.id || !item.url || typeof item.text !== 'string' || (item.publishedAt !== null && !Number.isFinite(Date.parse(item.publishedAt)))) throw new Error('Malformed partial item');
+          return { ...item, contentHash: digest({ text:item.text, sourceContentHash:item.sourceContentHash || null, publishedAt:item.publishedAt, url:item.url }) };
+        }).filter(item => { const key=`${item.id}:${item.contentHash}`; if(seen.has(key)) return false; seen.add(key); return true; });
+        const extractionStart = performance.now();
+        extracted = await extract(items, source, window);
+        if (!Array.isArray(extracted) || extracted.length !== items.length) throw new Error('Partial extraction must disposition every item');
+        extracted = extracted.map(c => ({ ...c, priority:1, reasons:[...new Set([...(c.reasons || []),'incomplete-source-coverage'])], publicationEligible:false }));
+        extractionMs += performance.now()-extractionStart;
+      } catch (error) {
+        outcome='PARSING_FAILURE'; reason=`${reason}; partial extraction: ${error.message}`;
+        items=[]; extracted=[];
+      }
+    }
     const record = journal.commit({ runId, registryHash, cutoff, sourceIdentityHash, sourceId: source.sourceId, mandatory: source.mandatory === true,
       outcome, reason: success ? null : reason, attempts, adapter: adapterId, method: response?.method || null,
       checkedAt: new Date().toISOString(), durationMs: performance.now() - begin, extractionMs,
-      items: success ? items : [], candidates: success ? extracted : [], window,
+      items: success || response?.partialItems ? items : [], candidates: success || response?.partialItems ? extracted : [], window,
       cursor: success ? { examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion,
+        lastStaleAuditAt: source.staleEvidencePriority ? (window.deep ? cutoff : previous?.cursor?.lastStaleAuditAt || null) : null,
         ids: [...new Set([...(previous?.cursor?.ids || []), ...items.map(i => i.id)])], latestContentAt: items.reduce((v,i) => i.publishedAt > v ? i.publishedAt : v, previous?.cursor?.latestContentAt || ''), validator: response.validator || null } : null });
     onProgress(record);
     return record;
@@ -172,6 +196,7 @@ export function acquisitionContext(source, journal, cutoff, policy = {}) {
   const sourceIdentityHash = digest({ sourceId: source.sourceId, url: source.canonicalUrl || null, adapter: source.acquisition?.adapter || source.collectionMode });
   const retained = journal.latest(source.sourceId);
   const previous = retained?.sourceIdentityHash === sourceIdentityHash ? retained : null;
-  const window = retrievalWindow(previous, cutoff, { ...policy, parserVersion: source.acquisition?.parserVersion || policy.parserVersion || '1', forceDeep: source.acquisition?.forceDeep === true || policy.forceDeep === true });
+  const staleAuditDue = source.staleEvidencePriority === true && !previous?.cursor?.lastStaleAuditAt;
+  const window = retrievalWindow(previous, cutoff, { ...policy, parserVersion: source.acquisition?.parserVersion || policy.parserVersion || '1', forceDeep: source.acquisition?.forceDeep === true || policy.forceDeep === true || staleAuditDue });
   return { sourceIdentityHash, previous, window };
 }

@@ -119,6 +119,13 @@ method metadata and items with stable `id`, `url`, `publishedAt`, bounded `text`
 `eventTime`, `retrievedAt` and `originId`. A successful empty list is an explicit examined result.
 These are completed observations, not declarations that an unvisited source was checked.
 
+A failed/deferred packet may retain valid partial evidence without claiming coverage. For X, attach
+`partialObservation` using the native checked-observation contract and its actual narrower window,
+contained within the planned acquisition interval. Direct `partialItems` are forbidden for X. For
+other approved adapters, `partialItems` plus method metadata retain already extracted items. Every
+partial item is validated, deduplicated and escalated with `incomplete-source-coverage`; the source
+remains failed/deferred and its cursor stays null. Malformed partial extraction fails closed.
+
 For X, also provide the native `observation` from the existing browser contract and a rendered
 Chrome `method`. The processor runs the existing normalizer against the source and acquisition
 window. Raw posts, author identities, stable IDs, exact timestamps, method and typed blockers must
@@ -152,8 +159,10 @@ retained support, review completion, temporal checks, conflicts and stale-suppor
 assessment/projection validation remains responsible for location plausibility, protected activity,
 representative CASD markers and precision. No coordinates are inferred by preprocessing.
 
-Stale defaults are Alongside 14 days, Deployed 30 days, Maintenance 180 days, otherwise 60 days.
-Staleness flags a deeper-check priority; it never changes fleet status. Shore-establishment and retired
+Stale defaults are Alongside 14 days, Deployed 30 days, native `In re-fit` and Maintenance 180 days,
+Museum ship 365 days, otherwise 60 days. An explicitly unknown/conflated observation date cannot
+be refreshed by an import's publication date; it remains an unknown-age warning.
+Staleness flags a deeper-check priority; it never changes fleet status. A successful deeper check records `lastStaleAuditAt` so an unresolved old record does not force the same historical audit every week; monthly audits and parser changes still apply. Failed checks do not mark that obligation satisfied. Shore-establishment and retired
 record reviews remain the existing separate workflow; the new reconciliation certificate currently
 covers the native current-vessel roster only.
 
@@ -212,6 +221,39 @@ The dominant remaining performance risk is rendered browser capture plus analyti
 browser workers, 91 profiles must average below about 59 seconds per profile to leave 15 minutes
 inside a 60-minute run for all other work, excluding canary/retry overhead. This is a budget, not a
 measured throughput claim. A live complete timed run is still required before operational activation.
+
+### Live validation on 8 September 2026
+
+After an encrypted external backup and hash-verified restore, a separate private dry run examined
+all 91 X profiles using the six-account canary and two rendered Chrome tabs. All 71 mandatory X
+profiles were checked: 87 profiles checked overall, three optional profiles unavailable, one optional
+profile with an identity mismatch, and no rate limiting. The browser stage, including canary and a
+quote-identifier repair, spanned 38m 59s. The seven HTTP indexes completed in 1.06 seconds at peak four.
+
+This was a roughly 57-hour evidence interval, **not a normal seven-day sweep**. It captured 23 X
+posts. The first-run 90-day audit completed for 45 of 97 acquisition tasks (39 of 77 mandatory);
+48 remained explicitly deferred and four unavailable. Fourteen historical/bootstrap items were
+extracted. Packet processing took 1.61 seconds; it does not include browsing. All 97 tasks received
+typed outcomes, incomplete sources received no cursor, and the incomplete run's FAIL certificate
+was rejected by the release gate. No new snapshot was published or scheduler activated.
+
+Rendered website fallbacks exposed news and harbour data absent from text extraction. Root-directory
+retrieval does not prove all child unit pages or historical entries were examined. These gaps remain
+release blockers. Partial-source discoveries are retained in the native browser/website artifacts
+and automatically accompany adjudication even when their deeper acquisition transaction fails.
+Reprocessing the captured observations with the repaired handoff placed all 39 retained items into
+the standard queue in 1.71 seconds, including 25 partial-source items. Coverage remained failed.
+
+The live review also found two preprocessing issues now covered by regression tests: an account's
+own vessel must remain a candidate when another vessel is named, and class-level wording must not
+identify a single hull. Default parser version 2 triggers re-extraction on the next run; version-1
+live transactions remain immutable audit evidence. Do not reuse the initial journal as proof that
+the corrected parser has completed its bootstrap. The final regression suite has 36 acceleration
+checks plus the controlled 100-source/68-vessel CLI pipeline and existing project checks.
+
+The under-60-minute whole-sweep objective remains unproven. Live evidence identifies the remaining
+costs: rendered acquisition, historical baseline completion, dynamic website traversal and analytical
+reconciliation. A fast processor or short-window source check cannot satisfy those obligations.
 
 ## Rollback
 
