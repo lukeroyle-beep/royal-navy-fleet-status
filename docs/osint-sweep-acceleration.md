@@ -184,7 +184,7 @@ A certificate is mandatory for releases dated 9 September 2026 onward. Existing 
 grandfathered. The native release gate recomputes the certificate from its bound inputs; missing,
 failed, tampered or mismatched certificates block release. Missing mandatory sources, unresolved
 conflicts, missing decisions, incomplete vessel reconciliation or invalid validation evidence fail.
-Only the owner-approved initial public AIS baseline exception described below is enabled; other mandatory unavailable sources remain blockers. A certificate
+Only the owner-approved initial public AIS and official-directory baseline exceptions described below are enabled; other mandatory unavailable sources remain blockers. A certificate
 is not owner publication permission, a build, deployment, or rendered production verification.
 
 ## Observability and responsibility integration
@@ -386,3 +386,17 @@ resolution, so a blocked conflict cannot appear as zero in the operator totals. 
 conflicts are counted once. The 57-check acceleration suite and full build pass. Twelve live
 conflict groups were separately reviewed with dated temporal-progression explanations; this
 does not itself approve any current fleet-state change or complete fleet reconciliation.
+
+## Approved official-directory initial baselines
+
+The owner subsequently approved initial baselines for `RN_OFFICIAL_SHIPS` and
+`ROYAL_NAVY_UNIT_PAGES` only, under `official-directories-initial-baseline-2026-09-08`.
+This separate policy requires the completed current review and its private artifact hash.
+It records historical revisions as unavailable, rather than claiming the 90-day history was
+examined. The actual observation timestamp is retained; undated pages do not establish a
+past operational state at the sweep cutoff. Page fingerprints support future revision checks.
+Existing page-quality findings and per-page dispositions remain in the private audit trail.
+
+The exception is valid only without an earlier successful cursor and only for these two
+sources. It cannot excuse incomplete current retrieval, later failures, harbour-history gaps
+or incomplete social timelines. The older AIS policy and approval remain separately bound.

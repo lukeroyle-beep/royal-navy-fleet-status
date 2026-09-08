@@ -1,4 +1,4 @@
-import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY } from './lib/bootstrap-exception.mjs';
+import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY, DIRECTORY_BOOTSTRAP_POLICY, validateBootstrapException } from './lib/bootstrap-exception.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -94,6 +94,16 @@ try {
  check('bootstrap exception cannot excuse subsequent failures',()=>{assert.equal(repeatedException.records[0].outcome,'PARSING_FAILURE');assert.equal(repeatedException.records[0].cursor,null);assert.equal(bootstrapJournal.latest(bootstrapSource.sourceId).runId,'baseline');});
  const forbidden=await acquireSources({...bootstrapOptions,runId:'not-approved-source',sources:[{...bootstrapSource,sourceId:'OTHER'}]});
  check('exception restricted to approved source IDs',()=>assert.equal(forbidden.records[0].outcome,'PARSING_FAILURE'));
+ const directoryException={...historicalException,policyId:DIRECTORY_BOOTSTRAP_POLICY,approvalReference:'owner-directory-approval-2026-09-08'};
+ check('directory baseline requires its separate owner approval',()=>{
+  for(const sourceId of ['RN_OFFICIAL_SHIPS','ROYAL_NAVY_UNIT_PAGES']){
+   assert.equal(validateBootstrapException(directoryException,{sourceId,window:bootstrapWindow}),directoryException);
+   assert.throws(()=>validateBootstrapException(historicalException,{sourceId,window:bootstrapWindow}));
+   assert.throws(()=>validateBootstrapException(directoryException,{sourceId,window:bootstrapWindow,previous:{cursor:{}}}));
+   assert.throws(()=>validateBootstrapException({...directoryException,currentReview:{...directoryException.currentReview,complete:false}},{sourceId,window:bootstrapWindow}));
+  }
+  for(const sourceId of ['PORTSMOUTH_HARBOUR_AUTHORITY','X_DEFENCEHQ','VESSELFINDER_PUBLIC_WEEKLY'])assert.throws(()=>validateBootstrapException(directoryException,{sourceId,window:bootstrapWindow}));
+ });
  const incomplete=await acquireSources({...bootstrapOptions,runId:'incomplete-current',sources:[{...bootstrapSource,sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY'}],adapters:{fixture:async()=>({examined:false,extractionComplete:true,method:'fixture',items:[],historicalException})}});
  check('exception cannot excuse incomplete current examination',()=>assert.equal(incomplete.records[0].cursor,null));
  bootstrapJournal.close();
