@@ -92,7 +92,9 @@ export function createPrivateEvidenceHealth({
           startedAt: latestRun.startedAt,
           completedAt: latestRun.completedAt || null,
           classification: latestRun.result?.classification || (latestRun.complete ? "complete" : "partial"),
-          publicationEligible: Boolean(latestRun.complete && latestRun.result?.publicationEligible !== false),
+          publicationEligible: Boolean(latestRun.complete && latestRun.result?.publicationEligible !== false && (latestRun.coverageDate < "2026-09-09" || latestRun.sweepCertificate?.status === "PASS")),
+          sweepCertificate: latestRun.sweepCertificate || null,
+          acquisitionTiming: latestRun.acquisitionTiming || null,
           completedSourceChecks: latestRun.coverage?.completedSourceChecks || 0,
           requiredSourceChecks: latestRun.coverage?.requiredSourceChecks || latestRun.sourceChecks?.length || 0,
         }

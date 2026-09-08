@@ -67,3 +67,7 @@ Do not repeatedly notify for an unchanged blocker. Never fabricate a missed week
 
 Rollback is a deliberate scheduler cutover: pause the Codex schedule before re-enabling any
 predecessor, with explicit owner direction. Never leave both schedulers active.
+
+## Acceleration candidate
+
+See [incremental sweep execution](osint-sweep-acceleration.md) for bounded acquisition, durable cursors, deeper audits, adjudication, certificates and rollout validation. Live full-sweep performance remains to be demonstrated before activation.

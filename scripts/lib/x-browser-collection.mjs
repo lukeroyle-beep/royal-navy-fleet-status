@@ -342,7 +342,7 @@ export function writeJsonAtomic(targetPath, value) {
   fs.chmodSync(resolved, 0o600);
 }
 
-function normalizeBrowserObservation({
+export function normalizeBrowserObservation({
   observation,
   account,
   window,
@@ -388,6 +388,10 @@ function normalizeBrowserObservation({
     }
     posts.push(post);
   }
+  if (invalidPostCount) return normalizeBlockedObservation({
+    state: "failed", checkedAt: null, method: null, posts: [],
+    blocker: { type: "schema-failed", message: `Browser parsing failed for ${invalidPostCount} posts; retry required.`, at: observation.checkedAt },
+  }, account);
   const uniquePosts = deduplicateStablePosts(posts).posts;
   return {
     accountResult: {

@@ -279,7 +279,8 @@ try {
     }),
   });
   assert.equal(authorSession.posts.length, 0, "A different author's original post must be rejected.");
-  assert.equal(authorSession.accounts[0].invalidPostCount, 1);
+  assert.equal(authorSession.accounts[0].state, "failed");
+  assert.equal(authorSession.accounts[0].blocker.type, "schema-failed");
 
   recordXBrowserObservation({
     session: authorSession,

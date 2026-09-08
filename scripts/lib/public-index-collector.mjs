@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { boundedMap } from "./acquisition.mjs";
 
 import {
   PUBLIC_INDEX_TARGETS,
@@ -23,16 +24,20 @@ export async function collectPublicIndexes(
     fetchImpl = globalThis.fetch,
     checkedAt = new Date().toISOString(),
     targets = PUBLIC_INDEX_TARGETS,
+    concurrency = 4,
   },
 ) {
   if (typeof fetchImpl !== "function") throw new Error("Public-index collection requires fetch.");
   const targetById = new Map(targets.map((entry) => [entry.targetId, entry]));
 
-  for (const check of run.discoveryChecks) {
+  const started = performance.now();
+  const batch = await boundedMap(run.discoveryChecks, async (check) => {
     const target = targetById.get(check.targetId);
-    if (!target) continue;
+    if (!target) throw new Error(`Missing discovery target ${check.targetId}`);
+    const sourceStarted = performance.now();
     const result = await collectOne(target, { fetchImpl, checkedAt });
     Object.assign(check, result);
+    check.durationMs = performance.now() - sourceStarted;
     if (target.sourceId) {
       const sourceCheck = run.sourceChecks.find((entry) => entry.sourceId === target.sourceId);
       if (sourceCheck) {
@@ -43,7 +48,9 @@ export async function collectPublicIndexes(
         sourceCheck.blocker = result.blocker;
       }
     }
-  }
+  }, { concurrency, group: check => new URL(check.url).hostname, limits: Object.fromEntries(targets.map(t => [t.allowedHost, 1])) });
+  for (const result of batch.results) if (result?.error) throw result.error;
+  run.acquisitionTiming = { durationMs: performance.now() - started, peakConcurrency: batch.peak };
 
   run.coverage = evaluateSweepCoverage(run, { registry, entities, discoveryTargets: targets });
   run.complete = false;

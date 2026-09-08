@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { validateSweepCertificate } from "./sweep-certificate.mjs";
 
 import {
   PUBLIC_PROJECTION_METHOD_VERSION,
@@ -842,6 +843,7 @@ export function validateReleaseSweepGate({
   } catch (error) {
     failures.push(`${run.runId} has invalid outcome bindings: ${error.message}`);
   }
+  try { validateSweepCertificate(run); } catch (error) { failures.push(error.message); }
   if (!failures.length) {
     return { required: true, pass: true, runId: run.runId, reasons: [] };
   }
