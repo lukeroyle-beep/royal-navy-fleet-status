@@ -257,8 +257,18 @@ The live review also found two preprocessing issues now covered by regression te
 own vessel must remain a candidate when another vessel is named, and class-level wording must not
 identify a single hull. Default parser version 2 triggers re-extraction on the next run; version-1
 live transactions remain immutable audit evidence. Do not reuse the initial journal as proof that
-the corrected parser has completed its bootstrap. The final regression suite has 36 acceleration
+the corrected parser has completed its bootstrap. The final regression suite has 39 acceleration
 checks plus the controlled 100-source/68-vessel CLI pipeline and existing project checks.
+
+The later checkpoint completed 76 of 97 deep acquisition tasks, including 70 of 77 mandatory
+sources. Seventeen tasks remained deferred and four unavailable. The ledger retained 482 candidates,
+including 100 partial-source items; only 10 earlier decisions still matched both claim and content
+hash, leaving 472 pending. The most recent packet-processing pass took 1.20 seconds at peak four,
+excluding all browsing and analytical work. All 68 fleet records were inspected, but none was
+falsely marked reconciled. The FAIL certificate was rejected again. The live run remained incomplete
+more than two hours after starting; this includes cold bootstrap and implementation repairs.
+A verified encrypted checkpoint contains 735 files and 7,401,762 bytes. These later counts supersede
+the initial checkpoint above; neither is a complete weekly runtime measurement.
 
 The under-60-minute whole-sweep objective remains unproven. Live evidence identifies the remaining
 costs: rendered acquisition, historical baseline completion, dynamic website traversal and analytical
