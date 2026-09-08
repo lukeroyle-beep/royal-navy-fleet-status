@@ -3,8 +3,8 @@
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
     "asOfDate": "2026-09-06",
-    "releaseRevision": 2,
-    "releasedAt": "2026-09-08T09:34:39.052Z"
+    "releaseRevision": 3,
+    "releasedAt": "2026-09-08T09:54:56.509Z"
   },
   "vessels": [
     {
@@ -1600,7 +1600,7 @@
       "vesselType": "RFA auxiliary - replenishment ship",
       "pennantNumber": "A387",
       "commissionedDate": "1994",
-      "homePort": "Not recorded",
+      "homePort": "Marchwood Military Port, Southampton",
       "status": "In re-fit",
       "locationClassification": "approximate",
       "locationState": "last_reported",

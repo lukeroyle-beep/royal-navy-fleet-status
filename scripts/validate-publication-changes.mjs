@@ -12,7 +12,7 @@ const fleet = JSON.parse(fs.readFileSync(fleetPath, "utf8"));
 const normalizedChanges = validatePublicationChanges(changes);
 const fleetRelease = readReleaseMetadata(fleet.metadata);
 const fleetIds = new Set(fleet.vessels.map((vessel) => vessel.id));
-const categories = ["status", "location", "mapping", "marker", "evidence"];
+const categories = ["status", "location", "mapping", "marker", "evidence", "metadata"];
 
 if (
   changes.currentAsOfDate !== fleetRelease.asOfDate ||
@@ -60,7 +60,7 @@ for (const change of changes.changes) {
   }
 }
 for (const category of categories) {
-  if (changes.counts?.[category] !== calculated[category]) {
+  if ((changes.counts?.[category] ?? (category === "metadata" ? 0 : undefined)) !== calculated[category]) {
     throw new Error(`Publication change count is wrong for ${category}.`);
   }
 }

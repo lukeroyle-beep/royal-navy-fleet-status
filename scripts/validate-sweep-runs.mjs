@@ -81,7 +81,7 @@ if (!gate.pass) {
 }
 console.log(
   gate.kind === "owner-approved-correction"
-    ? `Validated owner correction ${gate.correctionId}: ${gate.baselineVessels} vessels in the original sweep; ${gate.reviewedCorrections} corrections; ${gate.candidateVessels} inventory records. No new collection claimed.`
+    ? `Validated owner correction ${gate.correctionId}: ${gate.baselineVessels} vessels in the published baseline; ${gate.reviewedCorrections} corrections; ${gate.candidateVessels} inventory records. No new collection claimed.`
     : gate.required
     ? `Validated ${runs.length} sweep run(s); ${gate.runId} authorises ${release.asOfDate} r${release.releaseRevision}.`
     : `Validated ${runs.length} sweep run(s); coverage gate applies from 2026-08-24.`,
