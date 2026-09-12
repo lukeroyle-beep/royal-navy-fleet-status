@@ -471,3 +471,46 @@ assert.equal(representativeProjection.locationPrecision, "region");
 assert.equal(representativeProjection.uncertaintyArea.representation, "representative-marker");
 representativeAssessment.assessedState.publicLocation.precision = "port";
 assert.equal(projectPublicVessel(duncanEntity, representativeAssessment).uncertaintyArea, null);
+
+// Unknown current whereabouts retain only an explicitly reviewed, dated prior public location.
+const retainedPrevious = structuredClone(medwayAssessment);
+Object.assign(retainedPrevious, { assessmentId:'retained-before', assessedAt:'2026-08-02T00:00:00Z', selectedEvidenceIds:['retained-location-proof'] });
+const retainedCurrent = structuredClone(retainedPrevious);
+Object.assign(retainedCurrent, { assessmentId:'retained-current', previousAssessmentId:'retained-before', assessedAt:'2026-09-08T00:00:00Z',
+  retainedLocation:{assessmentId:'retained-before',evidenceIds:['retained-location-proof'],observedAt:'2026-08-01T00:00:00Z',reason:'current-location-ambiguous',reviewedBy:'synthetic reviewer',reviewedAt:'2026-09-08T00:00:00Z'} });
+Object.assign(retainedCurrent.assessedState, {status:'Available',locationClassification:'unknown',locationState:'unconfirmed',publicLocation:{precision:'none',label:'Location unconfirmed',geometry:null}});
+const retainedLog={...assessmentLog,assessments:[retainedPrevious,retainedCurrent],currentAssessmentIds:{'hms-medway':'retained-current'}};
+const retainedEntity=entities.vessels.find(v=>v.vesselId==='hms-medway');
+const retainedEntities={metadata:entities.metadata,vessels:[retainedEntity]};
+const retainedEvidence={evidenceId:'retained-location-proof',vesselId:'hms-medway',directness:'direct',observation:{from:'2026-08-01T00:00:00Z',to:'2026-08-01T00:00:00Z',basis:'explicit'}};
+const {retainedLocationAssessment}=await import('./lib/retained-location.mjs');
+assert.ok(retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[retainedEvidence]));
+const retainedPublic=createPublicProjection(retainedEntities,retainedLog).vessels[0];
+assert.equal(retainedPublic.locationState,'last_reported');
+assert.equal(retainedPublic.status,'Available','Retaining position must not restore an old operational status');
+assert.deepEqual(retainedPublic.uncertaintyArea.centre,projectedMedway.uncertaintyArea.centre);
+assert.match(retainedPublic.publicLocationLabel,/last reported 2026-08-01; current location unconfirmed/);
+assert.equal(retainedCurrent.assessedState.locationClassification,'unknown','Projection must not rewrite canonical assessment');
+assert.equal(retainedPublic.retainedLocation,undefined,'Internal evidence references must not leak');
+const {validateFleet}=await import('../src/components/ScenarioLoader.js');
+validateFleet({metadata:entities.metadata,vessels:[retainedPublic]});
+for(const patch of [{supersededBy:'correction'},{directness:'indirect'},{observation:{...retainedEvidence.observation,basis:'legacy-conflated'}}]) {
+ assert.throws(()=>retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[{...retainedEvidence,...patch}]),/requires retained dated/);
+}
+const revoked=structuredClone(retainedCurrent);revoked.excludedEvidenceIds=['retained-location-proof'];
+assert.throws(()=>retainedLocationAssessment(revoked,retainedLog.assessments,[retainedEvidence]),/unsupported/);
+const withheld=structuredClone(retainedCurrent);withheld.assessedState.locationClassification='withheld';
+assert.throws(()=>retainedLocationAssessment(withheld,retainedLog.assessments,[retainedEvidence]),/unsupported/);
+assert.throws(()=>createPublicProjection({...retainedEntities,vessels:[{...retainedEntity,vesselType:'SSBN'}]},retainedLog),/Protected submarine/);
+const noRetention=structuredClone(retainedLog);delete noRetention.assessments[1].retainedLocation;
+assert.equal(createPublicProjection(retainedEntities,noRetention).vessels[0].position,null);
+assert.equal(createPublicProjection(retainedEntities,noRetention).vessels[0].uncertaintyArea,null);
+console.log('Reviewed last-known location retention, public map schema, dates, status isolation and protected/withdrawn safeguards passed.');
+const {reconcileFleet}=await import('./lib/sweep-analysis.mjs');
+const retentionRun={vesselOutcomes:[{vesselId:'hms-medway',state:'complete',reviewedAt:'2026-09-08T00:00:00Z'}],coverageInputs:{baselineAssessmentIds:{'hms-medway':'retained-before'}}};
+const retentionReconciliation=log=>reconcileFleet({entities:retainedEntities,assessmentLog:log,evidenceItems:[retainedEvidence],run:retentionRun,at:'2026-09-08T00:00:00Z'});
+assert.ok(retentionReconciliation(noRetention).records[0].issues.includes('last-known-location-review-required'));
+assert.ok(!retentionReconciliation(retainedLog).records[0].issues.includes('last-known-location-review-required'));
+assert.equal(retentionReconciliation(retainedLog).records[0].latestSupportAt,'2026-08-01T00:00:00Z');
+
+assert.ok(retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[{...retainedEvidence,observation:{...retainedEvidence.observation,basis:'inferred'}}]), 'Reviewed inferred observation dates use the native evidence enum');

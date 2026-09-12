@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import fs from 'node:fs';
+const clusterFixture = JSON.parse(fs.readFileSync(new URL('../../scripts/fixtures/release-regression-20260906/vessels.json', import.meta.url), 'utf8'));
 
 for (const [width, height] of [[720,450], [1440,900], [1366,768], [1194,834], [1024,768], [834,1194], [768,1024], [390,844], [360,780]]) {
   test(`Concept A keeps context, map and inspector separate at ${width}x${height}`, async ({ page }, testInfo) => {
@@ -76,6 +78,8 @@ test('a delayed photograph cannot overwrite a newer selection or shift its slot'
   await page.locator('#searchInput').fill('HMS Protector');
   await page.locator('#vesselList button[data-vessel-id="hms-protector"]').click();
   await expect(page.locator('#detailPhotoImage')).toHaveAttribute('src',/protector.jpg$/);
+  // Finish the selected photo's own credit layout before releasing the stale request.
+  // A src attribute alone does not establish that the new image has loaded.
   await expect(page.locator('#detailPhoto')).not.toHaveClass(/is-loading/);
   const photoHeight=(await page.locator('#detailPhoto').boundingBox()).height;
   await Promise.all(delayed.map(route=>route.continue()));
@@ -138,6 +142,8 @@ test('Fit results and zoom controls remain separate and outside open panels',asy
 });
 
 test('opening a different map cluster does not return to the hidden selected record', async ({page}) => {
+  // Fixed geometry isolates the camera regression from weekly vessel movements.
+  await page.route('**/data/royal-navy/vessels.json', route=>route.fulfill({json:clusterFixture}));
   await page.setViewportSize({width:1194,height:834});
   await page.emulateMedia({reducedMotion:'no-preference'});
   await page.goto('/?view=2&layers=fleet,clusters&vessel=hms-protector&lat=54&lon=-3&zoom=5');

@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { atomicJson } from "./lib/acquisition.mjs";
 
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import { finaliseSweepRun } from "./lib/sweep.mjs";
@@ -21,6 +22,7 @@ const evidence = privateInputs.readJson("evidence");
 const assessments = privateInputs.readJson("assessments");
 const run = readJson(inputPath);
 
+const finalisationStarted = performance.now();
 finaliseSweepRun(run, {
   registry,
   entities,
@@ -28,7 +30,8 @@ finaliseSweepRun(run, {
   evidenceItems: evidence.evidence,
   completedAt,
 });
-fs.writeFileSync(inputPath, `${JSON.stringify(run, null, 2)}\n`);
+run.finalisationTimingMs = performance.now() - finalisationStarted;
+atomicJson(inputPath, run);
 if (!run.complete) {
   throw new Error(`Sweep remains incomplete: ${run.coverage.reasons.join("; ")}`);
 }

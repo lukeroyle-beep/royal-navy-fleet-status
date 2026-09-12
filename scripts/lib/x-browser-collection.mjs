@@ -342,7 +342,7 @@ export function writeJsonAtomic(targetPath, value) {
   fs.chmodSync(resolved, 0o600);
 }
 
-function normalizeBrowserObservation({
+export function normalizeBrowserObservation({
   observation,
   account,
   window,
@@ -388,6 +388,10 @@ function normalizeBrowserObservation({
     }
     posts.push(post);
   }
+  if (invalidPostCount) return normalizeBlockedObservation({
+    state: "failed", checkedAt: null, method: null, posts: [],
+    blocker: { type: "schema-failed", message: `Browser parsing failed for ${invalidPostCount} posts; retry required.`, at: observation.checkedAt },
+  }, account);
   const uniquePosts = deduplicateStablePosts(posts).posts;
   return {
     accountResult: {
@@ -432,6 +436,19 @@ function normalizeBlockedObservation(observation, account) {
   };
 }
 
+export function approvedBrowserScrollLimit(method, account, window) {
+  if (!method?.scrollException) return 12;
+  const exception = method.scrollException;
+  if (account.sourceId !== 'X_DEFENCEHQ' ||
+      window.from !== '2026-06-10T09:11:15.938Z' || window.to !== '2026-09-08T09:11:15.938Z' ||
+      exception.policyId !== 'defencehq-bootstrap-scrolls-2026-09-08' ||
+      !((exception.approvalReference === 'owner-defencehq-scroll-approval-2026-09-08' && exception.maxTotalScrolls === 30) ||
+        (exception.approvalReference === 'owner-defencehq-additional-scroll-approval-2026-09-08' && exception.maxTotalScrolls === 60))) {
+    throw new Error('Invalid one-off DefenceHQ scroll approval');
+  }
+  return exception.maxTotalScrolls;
+}
+
 function validateMethod(method, account, window) {
   if (!method || !METHOD_KINDS.has(method.kind)) throw new Error("Browser method kind is invalid.");
   if (method.browser !== "chrome" || method.renderedPublicPage !== true || method.readOnly !== true) {
@@ -439,8 +456,9 @@ function validateMethod(method, account, window) {
   }
   const pageUrl = validatePublicXUrl(method.pageUrl, { allowSearch: true });
   if (!sameValue(method.window, window)) throw new Error("Browser method window does not match the sweep cutoff.");
-  if (!Number.isInteger(method.scrollCount) || method.scrollCount < 0 || method.scrollCount > 12) {
-    throw new Error("Browser method scrollCount must be an integer from 0 to 12.");
+  const scrollLimit = approvedBrowserScrollLimit(method, account, window);
+  if (!Number.isInteger(method.scrollCount) || method.scrollCount < 0 || method.scrollCount > scrollLimit) {
+    throw new Error(`Browser method scrollCount must be an integer from 0 to ${scrollLimit}.`);
   }
   if (!Number.isInteger(method.visibleResultCount) || method.visibleResultCount < 0 || method.visibleResultCount > 200) {
     throw new Error("Browser method visibleResultCount must be an integer from 0 to 200.");

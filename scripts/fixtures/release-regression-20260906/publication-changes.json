@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 2,
+  "previousAsOfDate": "2026-09-06",
+  "currentAsOfDate": "2026-09-06",
+  "previousReleaseRevision": 2,
+  "currentReleaseRevision": 3,
+  "previousReleasedAt": "2026-09-08T09:34:39.052Z",
+  "currentReleasedAt": "2026-09-08T09:54:56.509Z",
+  "previousMappedCount": 67,
+  "currentMappedCount": 67,
+  "counts": {
+    "status": 0,
+    "location": 0,
+    "mapping": 0,
+    "marker": 0,
+    "evidence": 0,
+    "metadata": 1
+  },
+  "changes": [
+    {
+      "vesselId": "rfa-fort-victoria",
+      "vesselName": "RFA Fort Victoria",
+      "categories": [
+        "metadata"
+      ],
+      "items": [
+        {
+          "kind": "metadata",
+          "label": "Home port",
+          "before": "Not recorded",
+          "after": "Marchwood Military Port, Southampton"
+        }
+      ]
+    }
+  ]
+}

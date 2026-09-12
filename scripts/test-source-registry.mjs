@@ -96,8 +96,8 @@ for (const operation of registry.operations) {
   }
 }
 assert.deepEqual(
-  buildOperationalSourceRegistry(registry, entities, registry.operations),
-  registry.operations,
+  buildOperationalSourceRegistry(registry, entities, registry.operations).map(({ acquisition, ...entry }) => entry),
+  registry.operations.map(({ acquisition, ...entry }) => entry),
   "Operational registry generation must be deterministic.",
 );
 

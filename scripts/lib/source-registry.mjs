@@ -53,6 +53,14 @@ export function buildOperationalSourceRegistry(registry, entities, existingOpera
         retrievalMethod: source.collectionMode,
         licenceAndTermsNotes: prior.licenceAndTermsNotes || termsSummary(source),
         mandatory,
+        acquisition: prior.acquisition || {
+          adapter: source.xCollection ? "rendered-chrome" : source.collectionMode,
+          group: source.xCollection ? "rendered-chrome" : new URL(source.canonicalUrl).hostname,
+          authentication: source.xCollection ? "existing-chrome-session" : "none-recorded",
+          cursorKind: source.xCollection ? "post-id-and-content-hash" : "item-id-and-content-hash",
+          parserVersion: "2",
+          retry: { attempts: 2, baseMs: 1000, maxMs: 30000 },
+        },
       };
     })
     .sort((left, right) => left.sourceId.localeCompare(right.sourceId));
@@ -94,6 +102,17 @@ export function validateOperationalSourceRegistry(registry, entities) {
       throw new Error(`${entry.sourceId} has invalid coverage metadata.`);
     }
     requireText(entry.licenceAndTermsNotes, `${entry.sourceId} licence and terms notes`);
+    if (entry.acquisition !== undefined) {
+      const config = entry.acquisition;
+      for (const key of ["adapter", "group", "authentication", "cursorKind", "parserVersion"]) requireText(config?.[key], `${entry.sourceId} acquisition ${key}`);
+      const retry = config.retry;
+      if (!retry || !Number.isInteger(retry.attempts) || retry.attempts < 1 || retry.attempts > 5 ||
+          !Number.isFinite(retry.baseMs) || retry.baseMs < 0 || !Number.isFinite(retry.maxMs) ||
+          retry.maxMs < retry.baseMs || retry.maxMs > 60000) throw new Error(`${entry.sourceId} invalid acquisition retry policy`);
+      const source = registry.sources.find(s => s.sourceId === entry.sourceId);
+      if (source?.xCollection && config.adapter !== "rendered-chrome") throw new Error(`${entry.sourceId} X requires rendered-chrome acquisition`);
+    }
+
   }
   if (expected.some((entry, index) => entry.sourceId !== registry.operations[index]?.sourceId)) {
     throw new Error("Operational source records must use deterministic sourceId ordering.");

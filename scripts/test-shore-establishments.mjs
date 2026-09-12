@@ -6,7 +6,7 @@ import { getAvailabilitySummary } from "../src/utils/fleet.js";
 import { filterShoreEstablishments, shoreTypes } from "../src/utils/shore.js";
 import { PORT_SHORE_FILTER } from "../src/utils/publicState.js";
 
-const fleet = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"));
+const fleet = JSON.parse(fs.readFileSync(new URL("./fixtures/release-regression-20260906/vessels.json", import.meta.url), "utf8"));
 const shore = validateShoreEstablishments(
   JSON.parse(fs.readFileSync(new URL("../data/royal-navy/shore-establishments.json", import.meta.url), "utf8")),
 );

@@ -1,3 +1,4 @@
+import { retainedLocationAssessment } from './retained-location.mjs';
 import { readReviewedPublicLocation } from "./public-geography.mjs";
 import { sanitisePublicLocationDescription } from "./public-location-safety.mjs";
 
@@ -26,6 +27,15 @@ export function createPublicProjection(entities, assessmentLog) {
       const assessment = assessments.get(assessmentId);
       if (!assessment || assessment.vesselId !== entity.vesselId) {
         throw new Error(`No current assessment for ${entity.vesselId}.`);
+      }
+      const retained = retainedLocationAssessment(assessment, assessmentLog.assessments);
+      if (retained) {
+        if (SUBMARINE_TYPES.has(entity.vesselType)) throw new Error('Protected submarine locations cannot use automatic last-known retention.');
+        const label = `${retained.location.label} (last reported ${retained.retained.observedAt.slice(0, 10)}; current location unconfirmed)`;
+        return projectPublicVessel(entity, { ...assessment, assessedState: {
+          ...assessment.assessedState, locationClassification: 'approximate', locationState: 'last_reported',
+          publicLocation: { ...retained.location, label }, lastReportedLocation: label,
+        } });
       }
       return projectPublicVessel(entity, assessment);
     }),
