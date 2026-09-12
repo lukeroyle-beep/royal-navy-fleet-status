@@ -536,3 +536,16 @@ certificates now report schema and ledger results independently from missing sna
 
 The full build,64 acceleration checks and controlled CLI pipeline pass after this fix.
 The live certificate remains FAIL. This checkpoint does not activate the scheduler or publish.
+
+## Separately approved 12 September source quarantine
+
+The fresh validation run `SWEEP_20260912T151038841Z_R1_1add15ac` reproduced the
+Marine Vessel Traffic identity mismatch between a carrier record and its embedded AIS panel.
+Luke explicitly approved quarantining that source for this run after the fresh check. The
+validator therefore has a second independently bound policy entry; the September 8 approval
+remains confined to its original run. Neither entry permits future-run reuse.
+
+The acquisition remains `PARSING_FAILURE`, with no accepted candidates and a null cursor.
+The approval record and failed acquisition hash remain private. Every other mandatory source,
+fleet reconciliation, conflict and release gate still applies. This exception does not establish
+complete collection, a passing certificate, publication authority or a live runtime result.
