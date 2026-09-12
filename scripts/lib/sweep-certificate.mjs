@@ -2,14 +2,29 @@ import { BOOTSTRAP_OUTCOME, validateBootstrapException } from './bootstrap-excep
 import { findEvidenceContradictions } from './evidence-processing.mjs';
 import { digest, SUCCESS, FAILURE } from './acquisition.mjs';
 
-// Owner-approved quarantine for one failed source in one bootstrap run only.
+// Each entry is separately owner-approved and bound to one exact run and registry.
+// Adding an entry requires a new explicit approval; this is not a standing waiver.
+const APPROVED_QUARANTINES = Object.freeze({
+  'mvt-identity-quarantine-2026-09-08': {
+    approvalReference: 'owner-mvt-quarantine-approval-2026-09-08',
+    runId: 'SWEEP_20260908T091115938Z_R1_d8289d45',
+    registryHash: 'd8289d45a1f1156e249488d5002ef00c561d5654d9ac875b8f2538c71605a379',
+    from: '2026-06-10T09:11:15.938Z', to: '2026-09-08T09:11:15.938Z',
+  },
+  'mvt-identity-quarantine-2026-09-12': {
+    approvalReference: 'owner-mvt-quarantine-approval-2026-09-12',
+    runId: 'SWEEP_20260912T151038841Z_R1_1add15ac',
+    registryHash: '1add15ac6e45ab37ad3e402de0bbd6d634e152c22ce5b90f5042ad54f6e233dd',
+    from: '2026-06-14T15:10:38.841Z', to: '2026-09-12T15:10:38.841Z',
+  },
+});
 export function validateSourceCoverageException(value, run, record) {
-  if (value?.policyId !== 'mvt-identity-quarantine-2026-09-08' ||
-      value.approvalReference !== 'owner-mvt-quarantine-approval-2026-09-08' ||
-      run.runId !== 'SWEEP_20260908T091115938Z_R1_d8289d45' || value.runId !== run.runId ||
-      run.sourceRegistryHash !== 'd8289d45a1f1156e249488d5002ef00c561d5654d9ac875b8f2538c71605a379' || value.registryHash !== run.sourceRegistryHash ||
+  const policy = Object.hasOwn(APPROVED_QUARANTINES, value?.policyId || '') ? APPROVED_QUARANTINES[value.policyId] : null;
+  if (!policy || value.approvalReference !== policy.approvalReference ||
+      run.runId !== policy.runId || value.runId !== run.runId ||
+      run.sourceRegistryHash !== policy.registryHash || value.registryHash !== run.sourceRegistryHash ||
       value.sourceId !== 'MARINEVESSELTRAFFIC_NATO_DISCOVERY' || record?.sourceId !== value.sourceId ||
-      record.window?.from !== '2026-06-10T09:11:15.938Z' || record.window?.to !== '2026-09-08T09:11:15.938Z' ||
+      record.window?.from !== policy.from || record.window?.to !== policy.to ||
       run.window?.to !== record.window.to || value.recordHash !== digest(record) || record.outcome !== 'PARSING_FAILURE' || record.cursor !== null ||
       record.sourceAttempted !== true || !(record.attempts > 0) || !Array.isArray(record.candidates) || record.candidates.length ||
       !value.reason?.trim() || !Number.isFinite(Date.parse(value.approvedAt)) ||

@@ -32,6 +32,26 @@ try {
   assert.throws(()=>validateSourceCoverageException(value,{...run,runId:'NEXT_SWEEP'},record));
   assert.throws(()=>validateSourceCoverageException({...value,approvalReference:'unapproved'},run,record));
  });
+ check('separate September12 approval preserves failure and cannot reuse September8 authority',()=>{
+  const run={runId:'SWEEP_20260912T151038841Z_R1_1add15ac',sourceRegistryHash:'1add15ac6e45ab37ad3e402de0bbd6d634e152c22ce5b90f5042ad54f6e233dd',window:{to:'2026-09-12T15:10:38.841Z'}};
+  const record={sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY',window:{from:'2026-06-14T15:10:38.841Z',to:'2026-09-12T15:10:38.841Z'},outcome:'PARSING_FAILURE',cursor:null,sourceAttempted:true,attempts:1,candidates:[]};
+  const value={policyId:'mvt-identity-quarantine-2026-09-12',approvalReference:'owner-mvt-quarantine-approval-2026-09-12',runId:run.runId,registryHash:run.sourceRegistryHash,sourceId:record.sourceId,recordHash:digest(record),reason:'Reviewed identity corruption',approvedAt:cutoff,reviewArtifactHash:'a'.repeat(64),quarantined:true};
+  assert.equal(validateSourceCoverageException(value,run,record),value);
+  assert.throws(()=>validateSourceCoverageException({...value,policyId:'mvt-identity-quarantine-2026-09-08',approvalReference:'owner-mvt-quarantine-approval-2026-09-08'},run,record));
+  const boundRecord={...record,runId:run.runId,registryHash:run.sourceRegistryHash,cutoff:run.window.to};
+  const boundRun={...run,sourceCoverageExceptions:[{...value,recordHash:digest(boundRecord)}],certificateInputs:{acquisition:{records:[boundRecord]}}};
+  assert.equal(approvedNativeSourceExceptions(boundRun).has(record.sourceId),true);
+  const missing=[];assert.equal(approvedNativeSourceExceptions({...boundRun,certificateInputs:null},missing).size,0);assert.equal(missing.length,1);
+  assert.equal(approvedNativeSourceExceptions({...boundRun,runId:'NEXT_SWEEP'}).size,0);
+  const duplicate=[];approvedNativeSourceExceptions({...boundRun,sourceCoverageExceptions:[...boundRun.sourceCoverageExceptions,...boundRun.sourceCoverageExceptions]},duplicate);assert.equal(duplicate.length,1);
+  assert.equal(record.outcome,'PARSING_FAILURE');assert.equal(record.cursor,null);
+
+  for(const change of [{sourceId:'OTHER'},{cursor:{}},{candidates:[{}]},{outcome:'CHECKED_NO_RELEVANT_CHANGE'},{sourceAttempted:false}]) {
+    const changed={...record,...change};assert.throws(()=>validateSourceCoverageException({...value,recordHash:digest(changed)},run,changed));
+  }
+  assert.throws(()=>validateSourceCoverageException(value,{...run,runId:'NEXT_SWEEP'},record));
+  assert.throws(()=>validateSourceCoverageException({...value,approvalReference:'unapproved'},run,record));
+ });
  check('extended browser budget is confined to the approved DefenceHQ window',()=>{
   const account={sourceId:'X_DEFENCEHQ'},window={from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'};
   const method={scrollException:{policyId:'defencehq-bootstrap-scrolls-2026-09-08',approvalReference:'owner-defencehq-scroll-approval-2026-09-08',maxTotalScrolls:30}};
