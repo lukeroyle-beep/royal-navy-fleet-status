@@ -322,8 +322,7 @@ test("vessel selection exposes the complete card and survives browser history", 
     ["pennant", duncan.pennantNumber],
     ["commission-date", duncan.commissionedDate],
     ["home-port", duncan.homePort],
-
-    ["snapshot", "6 Sept 2026"],
+    ["snapshot", new Intl.DateTimeFormat("en-GB", {day:"numeric", month:"short", year:"numeric", timeZone:"UTC"}).format(new Date(fleet.metadata.asOfDate+"T00:00:00Z"))],
   ]) {
     const entry = page.locator(`#detailPrimaryMeta [data-term=${JSON.stringify(term)}]`);
     await expect(entry).toBeVisible();
@@ -706,3 +705,19 @@ for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
     });
   }
 }
+test('uncertain current whereabouts retain a dated last-known marker', async ({page}) => {
+  const {createPublicProjection}=await import('../../scripts/lib/public-projection.mjs');
+  const vessel=fleet.vessels.find(v=>v.position && !['SSBN','SSN'].includes(v.vesselType));
+  const entity={...vessel,vesselId:vessel.id};
+  const previous={assessmentId:'prior-location',vesselId:vessel.id,assessedAt:'2026-08-02T00:00:00Z',selectedEvidenceIds:['dated-proof'],assessedState:{status:vessel.status,locationClassification:'mapped',publicLocation:{precision:'port',label:'Previously reported port',geometry:{type:'point',lat:vessel.position.lat,lon:vessel.position.lon}}}};
+  const current={...previous,assessmentId:'uncertain-now',assessedAt:'2026-09-08T00:00:00Z',excludedEvidenceIds:[],assessedState:{status:vessel.status,locationClassification:'unknown',locationState:'unconfirmed',publicLocation:{precision:'none',label:'Location unconfirmed',geometry:null}},retainedLocation:{assessmentId:'prior-location',evidenceIds:['dated-proof'],observedAt:'2026-08-01T00:00:00Z',reason:'current-location-unknown',reviewedBy:'test reviewer',reviewedAt:'2026-09-08T00:00:00Z'}};
+  const projected=createPublicProjection({metadata:fleet.metadata,vessels:[entity]},{assessments:[previous,current],currentAssessmentIds:{[vessel.id]:'uncertain-now'}}).vessels[0];
+  const fixture={...fleet,vessels:fleet.vessels.map(v=>v.id===vessel.id?projected:v)};
+  await page.route('**/data/royal-navy/vessels.json',route=>route.fulfill({json:fixture}));
+  await page.goto(`/?view=2&vessel=${vessel.id}&layers=fleet`,{waitUntil:'domcontentloaded'});
+  await expect(page.locator('#loadError')).toBeHidden();
+  await expect(page.locator('.fleet-marker.is-selected')).toHaveCount(1);
+  await expect(page.locator('.fleet-marker.is-selected')).toHaveClass(/fleet-marker--last_reported/);
+  await expect(page.locator('#detailPrimaryMeta [data-term="location"] dd')).toContainText('last reported 2026-08-01; current location unconfirmed');
+  await expect(page.locator('#detailTitle')).toHaveText(vessel.name);
+});

@@ -22,7 +22,9 @@ const historyCatalog = JSON.parse(
   ),
 );
 
-const currentSummary = summarizePlotEligibility(fleet.vessels);
+// Exact totals exercise a fixed regression scenario; filters below use the current candidate.
+const regressionFleet = JSON.parse(fs.readFileSync(new URL("./fixtures/release-regression-20260906/vessels.json", import.meta.url), "utf8"));
+const currentSummary = summarizePlotEligibility(regressionFleet.vessels);
 assert.deepEqual(currentSummary, {
   total: 69,
   pointMapped: 41,
@@ -31,7 +33,7 @@ assert.deepEqual(currentSummary, {
   representative: 2,
 });
 assert.equal(
-  formatPlotEligibilitySummary(fleet.vessels),
+  formatPlotEligibilitySummary(regressionFleet.vessels),
   "41 point-mapped · 2 representative · 26 regional or list-only",
 
 );
@@ -107,7 +109,7 @@ assert.deepEqual(
   changedVesselIds,
 );
 assert.deepEqual(
-  filterFleetVessels(fleet.vessels, {
+  filterFleetVessels(regressionFleet.vessels, {
     changedVesselIds,
     status: "Deployed",
   }).map((vessel) => vessel.id),

@@ -227,3 +227,7 @@ date. `Available` and `Deployed` are counted as active observations. `Unknown` o
 coverage and are not guessed as either active or inactive; museum and decommissioned records are
 excluded. Until at least 52 weekly observations span approximately one year, the interface reports
 that history is building rather than presenting the result as a 12-month availability figure.
+
+## Acceleration candidate
+
+See [incremental sweep execution](osint-sweep-acceleration.md) for bounded acquisition, durable cursors, deeper audits, adjudication, certificates and rollout validation. Live full-sweep performance remains to be demonstrated before activation.

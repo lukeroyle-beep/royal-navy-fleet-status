@@ -67,3 +67,33 @@ Do not repeatedly notify for an unchanged blocker. Never fabricate a missed week
 
 Rollback is a deliberate scheduler cutover: pause the Codex schedule before re-enabling any
 predecessor, with explicit owner direction. Never leave both schedulers active.
+
+## Acceleration candidate
+
+See [incremental sweep execution](osint-sweep-acceleration.md) for bounded acquisition, durable cursors, deeper audits, adjudication, certificates and rollout validation. Live full-sweep performance remains to be demonstrated before activation.
+
+## Adoption preflight for subsequent runs
+
+After the acceleration change is merged, use the incremental plan, packet processing and certificate
+commands in the runbook for every full Sunday sweep. Retain the existing daily schedule and weekday
+scope. This changes orchestration, not publication authority. A weekday partial check cannot issue a
+full-sweep PASS certificate.
+
+Before collection, compare the resolved private projection with the current reviewed public release.
+The 12 September integration found the default private environment still resolving the older
+68-vessel baseline, while the published correction contains 69 vessels. Resolve and validate the
+preserved owner-correction manifest matching that release; do not overwrite it with an older sweep
+candidate or silently drop the added vessel. Confirm the correction chain with `validate:sweeps`
+and the projection with the normal build before preparing the next run.
+
+Carry forward a hash-verified copy of the previously validated acquisition journal into the new
+private run workspace. An empty journal is a bootstrap/deeper retrieval, not an incremental run.
+Recompute source plans against the current registry and retain explicit failures for sources with
+no successful cursor. The September 8 source exception is bound to that run and must not be reused.
+
+Start a fresh wall-clock measurement before registry loading and live acquisition, include browser
+collection, adjudication, reconciliation and release checks, and record pauses separately. Packet
+processing benchmarks do not demonstrate collection performance. Keep automatic publication blocked
+until the fresh run satisfies its own mandatory coverage, 69-record reconciliation (or the actual
+current roster), integrity and certificate gates. Record remaining live bottlenecks if it exceeds
+60 minutes rather than reducing coverage.

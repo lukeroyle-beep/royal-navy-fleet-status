@@ -1,9 +1,27 @@
 import crypto from "node:crypto";
+import { validateSweepCertificate, validateSourceCoverageException } from "./sweep-certificate.mjs";
 
 import {
   PUBLIC_PROJECTION_METHOD_VERSION,
   createPublicProjection,
 } from "./public-projection.mjs";
+
+export function approvedNativeSourceExceptions(run, reasons = []) {
+  const exceptedSources = new Set();
+  if (run.sourceCoverageExceptions !== undefined) {
+    if (!Array.isArray(run.sourceCoverageExceptions)) reasons.push('invalid source coverage exceptions');
+    else for (const exception of run.sourceCoverageExceptions) {
+      try {
+        const record = run.certificateInputs?.acquisition?.records?.find(r => r.sourceId === exception.sourceId);
+        validateSourceCoverageException(exception, run, record);
+        if (record.runId !== run.runId || record.registryHash !== run.sourceRegistryHash ||
+            record.cutoff !== run.window.to || exceptedSources.has(exception.sourceId)) throw new Error('Unbound or duplicate source exception');
+        exceptedSources.add(exception.sourceId);
+      } catch { reasons.push('invalid or unbound source coverage exception'); }
+    }
+  }
+  return exceptedSources;
+}
 
 export const SWEEP_RUN_SCHEMA_VERSION = "2.0.0";
 export const COVERAGE_GATE_EFFECTIVE_DATE = "2026-08-24";
@@ -600,9 +618,10 @@ function evaluateSweepCoverageAgainstInputs(
     reasons.push("captured vessel outcomes do not match the stored roster hash");
   }
 
+  const exceptedSources = approvedNativeSourceExceptions(run, reasons);
   const allChecks = [...run.discoveryChecks, ...run.sourceChecks];
   for (const entry of allChecks) {
-    if (entry.required && entry.state !== "complete") {
+    if (entry.required && entry.state !== "complete" && !(entry.sourceId && !entry.targetId && exceptedSources.has(entry.sourceId))) {
       reasons.push(`${entry.targetId || entry.sourceId} is ${entry.state}`);
     }
   }
@@ -640,6 +659,7 @@ function evaluateSweepCoverageAgainstInputs(
     completedSourceChecks: run.sourceChecks.filter(
       (entry) => entry.required && entry.state === "complete",
     ).length,
+    ...(run.sourceCoverageExceptions !== undefined ? { exceptedSourceChecks: exceptedSources.size } : {}),
     requiredVesselOutcomes: expectedVessels.length,
     completedVesselOutcomes: run.vesselOutcomes.filter((entry) => entry.state === "complete").length,
     blockerCount: [...allChecks, ...run.vesselOutcomes].filter((entry) => entry.state === "blocked").length,
@@ -842,6 +862,7 @@ export function validateReleaseSweepGate({
   } catch (error) {
     failures.push(`${run.runId} has invalid outcome bindings: ${error.message}`);
   }
+  try { validateSweepCertificate(run); } catch (error) { failures.push(error.message); }
   if (!failures.length) {
     return { required: true, pass: true, runId: run.runId, reasons: [] };
   }

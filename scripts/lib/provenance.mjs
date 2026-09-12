@@ -1,3 +1,4 @@
+import { retainedLocationAssessment } from './retained-location.mjs';
 import crypto from "node:crypto";
 
 import { validateReviewedPublicLocation } from "./public-geography.mjs";
@@ -227,6 +228,8 @@ export function validateAssessmentLog(
     }
   }
 
+  for (const assessment of log.assessments) retainedLocationAssessment(assessment, log.assessments);
+
   const current = log.currentAssessmentIds;
   if (!current || typeof current !== "object") throw new Error("Assessment log has no current index.");
   for (const vesselId of currentVesselIds) {
@@ -234,6 +237,7 @@ export function validateAssessmentLog(
     if (!assessment || assessment.vesselId !== vesselId) {
       throw new Error(`No current assessment for ${vesselId}.`);
     }
+    retainedLocationAssessment(assessment, log.assessments, evidenceItems);
     if (!Object.hasOwn(assessment.assessedState, "publicLocation")) {
       throw new Error(`${assessment.assessmentId} has no reviewed publicLocation decision.`);
     }
