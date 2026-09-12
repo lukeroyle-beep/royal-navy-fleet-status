@@ -39,18 +39,18 @@ const app = fs.readFileSync(new URL("../src/app.js", import.meta.url), "utf8");
 const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "utf8");
 const surfaces = fs.readFileSync(new URL("../src/components/SurfaceController.js", import.meta.url), "utf8");
 const details = fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8");
-const fleet = JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"));
+const fleet = JSON.parse(fs.readFileSync(new URL("./fixtures/release-regression-20260906/vessels.json", import.meta.url), "utf8"));
 const shore = JSON.parse(
   fs.readFileSync(new URL("../data/royal-navy/shore-establishments.json", import.meta.url), "utf8"),
 );
 const historyCatalog = JSON.parse(
   fs.readFileSync(
-    new URL("../data/royal-navy/status-history-catalog.json", import.meta.url),
+    new URL("./fixtures/release-regression-20260906/status-history-catalog.json", import.meta.url),
     "utf8",
   ),
 );
 const statusHistory = parseStatusHistory(
-  fs.readFileSync(new URL("../data/royal-navy/status-history.jsonl", import.meta.url), "utf8"),
+  fs.readFileSync(new URL("./fixtures/release-regression-20260906/status-history.jsonl", import.meta.url), "utf8"),
 );
 const snapshotDates = ["2026-07-31", "2026-08-09", "2026-08-12", "2026-08-23"];
 const stateCatalog = createPublicStateCatalog({

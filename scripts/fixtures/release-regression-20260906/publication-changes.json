@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 2,
+  "previousAsOfDate": "2026-08-31",
+  "currentAsOfDate": "2026-09-06",
+  "previousReleaseRevision": 3,
+  "currentReleaseRevision": 1,
+  "previousReleasedAt": "2026-08-31T19:00:20.000Z",
+  "currentReleasedAt": "2026-09-08T05:17:13.704623+00:00",
+  "previousMappedCount": 67,
+  "currentMappedCount": 65,
+  "counts": {
+    "status": 0,
+    "location": 3,
+    "mapping": 3,
+    "marker": 0,
+    "evidence": 0
+  },
+  "changes": [
+    {
+      "vesselId": "hms-tamar",
+      "vesselName": "HMS Tamar",
+      "categories": [
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Ream Naval Base / Sihanoukville, Cambodia; week-long visit reported 28 August 2026",
+          "after": "South China Sea; late-August activity reported 3 September 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Port level",
+          "after": "Approximate region"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-magpie",
+      "vesselName": "HMS Magpie",
+      "categories": [
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Thames Estuary and London Gateway; survey operation reported 26 August 2026",
+          "after": "UK East Coast; survey focus reported 26 August 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Approximate region",
+          "after": "Not mapped"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-tideforce",
+      "vesselName": "RFA Tideforce",
+      "categories": [
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "English Channel; shadowing a Russian military convoy reported 31 August 2026",
+          "after": "Location unconfirmed; earlier English Channel attribution withdrawn"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Approximate region",
+          "after": "Not mapped"
+        }
+      ]
+    }
+  ]
+}

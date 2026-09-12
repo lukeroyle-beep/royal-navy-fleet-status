@@ -15,8 +15,10 @@ import {
   getFleetStatusSummary,
 } from "../src/utils/fleet.js";
 
-const path = new URL("../data/royal-navy/vessels.json", import.meta.url);
+const path = new URL("./fixtures/release-regression-20260906/vessels.json", import.meta.url);
 const dataset = JSON.parse(fs.readFileSync(path, "utf8"));
+// Exact totals below belong to a fixed regression scenario, not the current sweep.
+validateFleet(JSON.parse(fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8")));
 const precisionFixtures = JSON.parse(
   fs.readFileSync(new URL("./fixtures/location-precision.json", import.meta.url), "utf8"),
 );

@@ -319,7 +319,7 @@ test("vessel selection exposes the complete card and survives browser history", 
     ["commission-date", duncan.commissionedDate],
     ["home-port", duncan.homePort],
     ["precision", "Port-level location"],
-    ["snapshot", "6 Sept 2026"],
+    ["snapshot", new Intl.DateTimeFormat("en-GB", {day:"numeric", month:"short", year:"numeric", timeZone:"UTC"}).format(new Date(fleet.metadata.asOfDate+"T00:00:00Z"))],
   ]) {
     const entry = page.locator(`#detailPrimaryMeta [data-term=${JSON.stringify(term)}]`);
     await expect(entry).toBeVisible();

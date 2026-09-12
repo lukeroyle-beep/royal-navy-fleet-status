@@ -32,20 +32,20 @@ import {
 } from "../src/utils/insights.js";
 
 const fleet = JSON.parse(
-  fs.readFileSync(new URL("../data/royal-navy/vessels.json", import.meta.url), "utf8"),
+  fs.readFileSync(new URL("./fixtures/release-regression-20260906/vessels.json", import.meta.url), "utf8"),
 );
 const history = parseStatusHistory(
-  fs.readFileSync(new URL("../data/royal-navy/status-history.jsonl", import.meta.url), "utf8"),
+  fs.readFileSync(new URL("./fixtures/release-regression-20260906/status-history.jsonl", import.meta.url), "utf8"),
 );
 const changes = validatePublicationChanges(
   JSON.parse(
-    fs.readFileSync(new URL("../data/royal-navy/publication-changes.json", import.meta.url), "utf8"),
+    fs.readFileSync(new URL("./fixtures/release-regression-20260906/publication-changes.json", import.meta.url), "utf8"),
   ),
 );
 const historyCatalog = validateStatusHistoryCatalog(
   JSON.parse(
     fs.readFileSync(
-      new URL("../data/royal-navy/status-history-catalog.json", import.meta.url),
+      new URL("./fixtures/release-regression-20260906/status-history-catalog.json", import.meta.url),
       "utf8",
     ),
   ),

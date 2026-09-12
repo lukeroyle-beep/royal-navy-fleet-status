@@ -1,0 +1,1 @@
+Fixed public September6 regression inputs from commit90e17e4. Unit tests with exact historic totals and movement assertions use these immutable fixtures. Current release schema, native evidence, history, delta and browser checks still run against the live candidate. Do not refresh these fixtures each sweep.
