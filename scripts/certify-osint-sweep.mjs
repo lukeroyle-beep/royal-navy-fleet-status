@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url';
+import { authenticateCorrectionCarryForward } from './lib/correction-carry-forward.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { validateCertificateCandidate } from './lib/sweep-validation.mjs';
@@ -23,7 +25,8 @@ delete testEnvironment.RNFS_PRIVATE_DATA_FIXTURE;
 const testOutput = execFileSync('npm', ['test'], { cwd: new URL('..', import.meta.url), env:testEnvironment, encoding:'utf8', maxBuffer:10000000 });
 validation.tests = { pass:true, artifactHash:digest(testOutput), command:'npm test (legacy and synthetic regression inputs)', completedAt:new Date().toISOString() };
 const at = new Date().toISOString();
-const reconciliation = reconcileFleet({ entities:inputs.readJson('vessels'), assessmentLog:inputs.readJson('assessments'), evidenceItems:inputs.readJson('evidence').evidence, run, at });
+const correctionBaseline = arg('baseline-root') ? authenticateCorrectionCarryForward({ root:fileURLToPath(new URL('..',import.meta.url)), privateInputs:resolvePrivateInputs({environment:{RNFS_PRIVATE_DATA_ROOT:arg('baseline-root')}}), run }) : undefined;
+const reconciliation = reconcileFleet({ entities:inputs.readJson('vessels'), assessmentLog:inputs.readJson('assessments'), evidenceItems:inputs.readJson('evidence').evidence, run, at, correctionBaseline });
 run.certificateInputs = { acquisition:read(arg('acquisition')), adjudication:read(arg('adjudication')), validation, reconciliation, registeredSources:inputs.readJson('sources').sources.length };
 run.sweepCertificate = buildSweepCertificate({ run, ...run.certificateInputs, at });
 atomicJson(arg('run'),run);

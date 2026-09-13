@@ -246,3 +246,23 @@ must attempt retrieval again. Modified records or proposals require renewed
 review and approval. All other evidence, reconciliation, snapshot, test and
 sealing gates remain mandatory. MarineTraffic was not adopted as an automated
 backup: its public terms did not establish permission for that use.
+
+### Carry forward a published owner correction
+
+When unchanged baseline state comes from an approved published correction,
+certification can use `--baseline-root=/absolute/private/baseline` to authenticate
+that release through its original correction chain and sealed parent sweep.
+The baseline must match both the sweep's baseline and the current committed
+public projection. A native in-process capability permits only the identical
+baseline assessment to carry forward; JSON flags cannot grant this authority.
+
+Reconciliation records `authenticated-published-correction` separately from
+collected evidence. It does not create an observation, refresh supporting dates,
+remove stale warnings, or excuse an incomplete vessel review or conflict.
+Changed assessments still require normal evidence. Keep the private baseline
+and its append-only correction history available for certification and recovery.
+
+Current limitation: this path authenticates the correction that matches HEAD.
+It does not yet follow inherited correction provenance through a subsequent
+normal snapshot. Do not claim routine future carry-forward is validated until
+that chain is supported and tested; retain the private correction baseline.
