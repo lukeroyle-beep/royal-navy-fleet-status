@@ -2,9 +2,9 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-09-06",
-    "releaseRevision": 3,
-    "releasedAt": "2026-09-08T09:54:56.509Z"
+    "asOfDate": "2026-09-12",
+    "releaseRevision": 1,
+    "releasedAt": "2026-09-13T14:35:32.616Z"
   },
   "vessels": [
     {
@@ -258,15 +258,19 @@
       "status": "Available",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "port",
-      "publicLocationLabel": "HMNB Portsmouth",
-      "lastReportedLocation": "HMNB Portsmouth; NATO ARF(M) high-readiness afloat command platform",
-      "position": {
-        "lat": 50.81,
-        "lon": -1.1,
-        "label": "HMNB Portsmouth"
-      },
-      "uncertaintyArea": null
+      "locationPrecision": "region",
+      "publicLocationLabel": "Plymouth Sound approaches (last reported 2026-09-06; current location unconfirmed)",
+      "lastReportedLocation": "Plymouth Sound approaches (last reported 2026-09-06; current location unconfirmed)",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": 50.34,
+          "lon": -4.15
+        },
+        "radiusKm": 20,
+        "label": "Plymouth Sound approaches (last reported 2026-09-06; current location unconfirmed)",
+        "representation": "representative-marker"
+      }
     },
     {
       "id": "hms-prince-of-wales",
@@ -324,19 +328,15 @@
       "status": "Available",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "English Channel",
-      "lastReportedLocation": "English Channel; last official public operational area reported 20 February 2026",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 50.3,
-          "lon": -1.5
-        },
-        "radiusKm": 180,
-        "label": "English Channel",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "Devonport approaches",
+      "lastReportedLocation": "Devonport approaches; inbound passage reported 8 September 2026",
+      "position": {
+        "lat": 50.38,
+        "lon": -4.18,
+        "label": "Devonport approaches"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-diamond",
@@ -372,15 +372,19 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "port",
-      "publicLocationLabel": "Port of Mombasa",
-      "lastReportedLocation": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
-      "position": {
-        "lat": -4.07,
-        "lon": 39.64,
-        "label": "Port of Mombasa"
-      },
-      "uncertaintyArea": null
+      "locationPrecision": "region",
+      "publicLocationLabel": "Seychelles (last reported 2026-09-02; current location unconfirmed)",
+      "lastReportedLocation": "Seychelles (last reported 2026-09-02; current location unconfirmed)",
+      "position": null,
+      "uncertaintyArea": {
+        "centre": {
+          "lat": -7.5,
+          "lon": 50.5
+        },
+        "radiusKm": 1000,
+        "label": "Seychelles (last reported 2026-09-02; current location unconfirmed)",
+        "representation": "representative-marker"
+      }
     },
     {
       "id": "hms-defender",
@@ -413,16 +417,16 @@
       "pennantNumber": "D37",
       "commissionedDate": "26th September 2013",
       "homePort": "HMNB Portsmouth",
-      "status": "Deployed",
+      "status": "Unknown",
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Copenhagen, Denmark",
-      "lastReportedLocation": "Copenhagen, Denmark; official departure for sea reported 28 August 2026",
+      "publicLocationLabel": "Portsmouth",
+      "lastReportedLocation": "Portsmouth; return reported 6 September 2026, de-storing before planned upkeep",
       "position": {
-        "lat": 55.7,
-        "lon": 12.6,
-        "label": "Copenhagen, Denmark"
+        "lat": 50.81,
+        "lon": -1.1,
+        "label": "Portsmouth"
       },
       "uncertaintyArea": null
     },
@@ -457,16 +461,16 @@
       "pennantNumber": "F81",
       "commissionedDate": "1997",
       "homePort": "HMNB Devonport",
-      "status": "In re-fit",
+      "status": "Unknown",
       "locationClassification": "approximate",
-      "locationState": "confirmed",
+      "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "HMNB Devonport",
-      "lastReportedLocation": "HMNB Devonport; support period reported 19 August 2026",
+      "publicLocationLabel": "Devonport",
+      "lastReportedLocation": "Devonport; return reported 11 September 2026 after post-maintenance trials",
       "position": {
         "lat": 50.38,
         "lon": -4.18,
-        "label": "HMNB Devonport"
+        "label": "Devonport"
       },
       "uncertaintyArea": null
     },
@@ -501,22 +505,18 @@
       "pennantNumber": "F79",
       "commissionedDate": "2001",
       "homePort": "HMNB Devonport",
-      "status": "In re-fit",
+      "status": "Unknown",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Plymouth Sound",
-      "lastReportedLocation": "Plymouth Sound; outbound from Devonport on 26 August 2026",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": 50.34,
-          "lon": -4.15
-        },
-        "radiusKm": 20,
-        "label": "Plymouth Sound",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "Scotstoun, River Clyde",
+      "lastReportedLocation": "Scotstoun, River Clyde; dated reviewed report 2026-09-07",
+      "position": {
+        "lat": 55.87,
+        "lon": -4.35,
+        "label": "Scotstoun, River Clyde"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "hms-st-albans",
@@ -531,12 +531,12 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "HMNB Clyde",
-      "lastReportedLocation": "HMNB Clyde; logistics stop reported 27 August 2026",
+      "publicLocationLabel": "Belfast Harbour",
+      "lastReportedLocation": "Belfast Harbour; dated reviewed report 2026-09-04",
       "position": {
-        "lat": 56.07,
-        "lon": -4.82,
-        "label": "HMNB Clyde"
+        "lat": 54.63,
+        "lon": -5.89,
+        "label": "Belfast Harbour"
       },
       "uncertaintyArea": null
     },
@@ -597,17 +597,17 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "region",
-      "publicLocationLabel": "Portsmouth approaches",
-      "lastReportedLocation": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026",
+      "publicLocationLabel": "Solent (last reported 2026-09-06; current location unconfirmed)",
+      "lastReportedLocation": "Solent (last reported 2026-09-06; current location unconfirmed)",
       "position": null,
       "uncertaintyArea": {
         "centre": {
-          "lat": 50.8,
-          "lon": -1.1
+          "lat": 50.79,
+          "lon": -1.3
         },
-        "radiusKm": 90,
-        "label": "Portsmouth approaches",
-        "representation": "regional"
+        "radiusKm": 40,
+        "label": "Solent (last reported 2026-09-06; current location unconfirmed)",
+        "representation": "representative-marker"
       }
     },
     {
@@ -701,16 +701,16 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "region",
-      "publicLocationLabel": "South China Sea",
-      "lastReportedLocation": "South China Sea; late-August activity reported 3 September 2026",
+      "publicLocationLabel": "Malaysia",
+      "lastReportedLocation": "Malaysia; dated reviewed report 2026-09-07",
       "position": null,
       "uncertaintyArea": {
         "centre": {
-          "lat": 11.78,
-          "lon": 112.31
+          "lat": 4,
+          "lon": 109.5
         },
-        "radiusKm": 1930,
-        "label": "South China Sea",
+        "radiusKm": 1200,
+        "label": "Malaysia",
         "representation": "representative-marker"
       }
     },
@@ -1420,19 +1420,15 @@
       "status": "Deployed",
       "locationClassification": "approximate",
       "locationState": "last_reported",
-      "locationPrecision": "region",
-      "publicLocationLabel": "Waters south of Mombasa",
-      "lastReportedLocation": "Waters south of Mombasa, Kenya; at-sea activity reported 30 August 2026",
-      "position": null,
-      "uncertaintyArea": {
-        "centre": {
-          "lat": -4.5,
-          "lon": 39.7
-        },
-        "radiusKm": 180,
-        "label": "Waters south of Mombasa",
-        "representation": "regional"
-      }
+      "locationPrecision": "port",
+      "publicLocationLabel": "Mombasa",
+      "lastReportedLocation": "Mombasa; reported alongside 11 September 2026",
+      "position": {
+        "lat": -4.07,
+        "lon": 39.64,
+        "label": "Mombasa"
+      },
+      "uncertaintyArea": null
     },
     {
       "id": "rfa-mounts-bay",
