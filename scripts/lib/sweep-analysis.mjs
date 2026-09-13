@@ -1,3 +1,4 @@
+import { correctionCarryForward } from './correction-carry-forward.mjs';
 import { digest } from './acquisition.mjs';
 import { extractEvidenceCandidate, findEvidenceContradictions, clusterEvidenceCandidates } from './evidence-processing.mjs';
 
@@ -74,7 +75,7 @@ export function adjudicationQueue(candidates) {
   return { items: items.sort((a,b) => a.priority - b.priority || a.evidenceId.localeCompare(b.evidenceId)), conflicts, origins: clusterEvidenceCandidates(candidates) };
 }
 
-export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at, staleDays = { 'In re-fit': 180, Maintenance: 180, Alongside: 14, Deployed: 30, 'Museum ship': 365, default: 60 } }) {
+export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at, correctionBaseline, staleDays = { 'In re-fit': 180, Maintenance: 180, Alongside: 14, Deployed: 30, 'Museum ship': 365, default: 60 } }) {
   const evidence = new Map(evidenceItems.map(e => [e.evidenceId, e]));
   const assessments = new Map(assessmentLog.assessments.map(a => [a.assessmentId, a]));
   const outcomes = new Map(run.vesselOutcomes.map(o => [o.vesselId, o]));
@@ -95,7 +96,8 @@ export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at
         retainedSupport && !assessment.retainedLocation) issues.push('last-known-location-review-required');
 
     if (outcome?.state !== 'complete') issues.push('vessel-review-incomplete');
-    if (!selected.length && !['unknown', 'withheld'].includes(assessment?.assessedState?.locationClassification)) issues.push('missing-retained-support');
+    const carriedCorrection = !selected.length ? correctionCarryForward(correctionBaseline, run, assessment) : null;
+    if (!selected.length && !carriedCorrection && !['unknown', 'withheld'].includes(assessment?.assessedState?.locationClassification)) issues.push('missing-retained-support');
     if (selected.some(e => !e || e.vesselId !== v.vesselId)) issues.push('invalid-supporting-evidence');
     if ((assessment?.conflictingEvidenceIds || []).length && !['resolved', 'resolved-temporal-progression', 'resolved-source-precedence'].includes(assessment?.conflictState)) issues.push('unresolved-material-conflict');
     if (selected.some(e => Date.parse(e?.retrievedAt) > Date.parse(at))) issues.push('future-retrieval');
@@ -109,6 +111,7 @@ export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at
     if (!Number.isFinite(thresholdDays) || thresholdDays <= 0) throw new Error('Invalid stale threshold');
     const stale = !latest || Date.parse(at)-Date.parse(latest) > thresholdDays*86400000;
     return { vesselId: v.vesselId, previousAssessmentId: run.coverageInputs.baselineAssessmentIds[v.vesselId], assessmentId: assessment?.assessmentId || null,
+      ...(carriedCorrection ? { retainedCorrection:carriedCorrection } : {}),
       selectedEvidenceIds: assessment?.selectedEvidenceIds || [], reviewedAt: outcome?.reviewedAt || null, latestSupportAt: latest, thresholdDays, stale, issues, pass: issues.length === 0 };
   });
   return { records, total: records.length, reconciled: records.filter(r => r.pass).length, staleWarnings: records.filter(r => r.stale).map(r => r.vesselId), pass: records.every(r => r.pass) };

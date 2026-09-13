@@ -1,3 +1,4 @@
+import { correctionCarryForward, authenticateCorrectionCarryForward } from './lib/correction-carry-forward.mjs';
 import { approvedNativeSourceExceptions } from './lib/sweep.mjs';
 import { BOOTSTRAP_OUTCOME, BOOTSTRAP_POLICY, DIRECTORY_BOOTSTRAP_POLICY, HARBOUR_BOOTSTRAP_POLICY, validateBootstrapException } from './lib/bootstrap-exception.mjs';
 import assert from 'node:assert/strict';
@@ -13,6 +14,13 @@ const cutoff='2026-09-13T12:00:00Z';
 let tests=0;
 const check=(name,fn)=>{fn();tests++;};
 try {
+ check('serialized correction flags cannot replace native authentication',()=>{
+  const run={runId:'test',baselineStateHash:'a'.repeat(64),coverageInputs:{baselineAssessmentIds:{v:'a'}}};
+  const assessment={vesselId:'v',assessmentId:'a',selectedEvidenceIds:[]};
+  for(const proof of [undefined,{}, {pass:true}, {kind:'authenticated-published-correction'}, JSON.parse('{"authenticated":true}')]) assert.equal(correctionCarryForward(proof,run,assessment),null);
+  assert.throws(()=>authenticateCorrectionCarryForward({root:temporary,privateInputs:{readJson(){throw new Error('Missing authenticated baseline')}},run}),/Missing authenticated baseline/);
+ });
+
  check('one-run quarantine preserves failure and rejects scope or evidence changes',()=>{
   const run={runId:'SWEEP_20260908T091115938Z_R1_d8289d45',sourceRegistryHash:'d8289d45a1f1156e249488d5002ef00c561d5654d9ac875b8f2538c71605a379',window:{to:'2026-09-08T09:11:15.938Z'}};
   const record={sourceId:'MARINEVESSELTRAFFIC_NATO_DISCOVERY',window:{from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'},outcome:'PARSING_FAILURE',cursor:null,sourceAttempted:true,attempts:1,candidates:[]};
