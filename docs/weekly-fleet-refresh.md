@@ -231,3 +231,18 @@ that history is building rather than presenting the result as a 12-month availab
 ## Acceleration candidate
 
 See [incremental sweep execution](osint-sweep-acceleration.md) for bounded acquisition, durable cursors, deeper audits, adjudication, certificates and rollout validation. Live full-sweep performance remains to be demonstrated before activation.
+
+### Approved VesselFinder exception: 12 September 2026 run
+
+The owner approved `vesselfinder-partial-outage-2026-09-12` on 13 September
+2026. This applies only to `SWEEP_20260912T151038841Z_R1_1add15ac` and the
+exact reviewed acquisition record and proposal hashes validated by
+`sweep-certificate.mjs`. It is not a standing source exemption.
+
+Preserve `DEFERRED_WITH_JUSTIFICATION`, the null cursor, all 51 candidates
+and their adjudication. Report successful and excepted sources separately;
+do not report complete coverage or a complete no-change sweep. Future runs
+must attempt retrieval again. Modified records or proposals require renewed
+review and approval. All other evidence, reconciliation, snapshot, test and
+sealing gates remain mandatory. MarineTraffic was not adopted as an automated
+backup: its public terms did not establish permission for that use.
