@@ -1,34 +1,225 @@
 {
   "schemaVersion": 2,
   "previousAsOfDate": "2026-09-06",
-  "currentAsOfDate": "2026-09-06",
-  "previousReleaseRevision": 2,
-  "currentReleaseRevision": 3,
-  "previousReleasedAt": "2026-09-08T09:34:39.052Z",
-  "currentReleasedAt": "2026-09-08T09:54:56.509Z",
+  "currentAsOfDate": "2026-09-12",
+  "previousReleaseRevision": 3,
+  "currentReleaseRevision": 1,
+  "previousReleasedAt": "2026-09-08T09:54:56.509Z",
+  "currentReleasedAt": "2026-09-13T14:35:32.616Z",
   "previousMappedCount": 67,
   "currentMappedCount": 67,
   "counts": {
-    "status": 0,
-    "location": 0,
-    "mapping": 0,
+    "status": 3,
+    "location": 10,
+    "mapping": 5,
     "marker": 0,
     "evidence": 0,
-    "metadata": 1
+    "metadata": 0
   },
   "changes": [
     {
-      "vesselId": "rfa-fort-victoria",
-      "vesselName": "RFA Fort Victoria",
+      "vesselId": "hms-queen-elizabeth",
+      "vesselName": "HMS Queen Elizabeth",
       "categories": [
-        "metadata"
+        "location",
+        "mapping"
       ],
       "items": [
         {
-          "kind": "metadata",
-          "label": "Home port",
-          "before": "Not recorded",
-          "after": "Marchwood Military Port, Southampton"
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Portsmouth; NATO ARF(M) high-readiness afloat command platform",
+          "after": "Plymouth Sound approaches (last reported 2026-09-06; current location unconfirmed)"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Port level",
+          "after": "Approximate region"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-dauntless",
+      "vesselName": "HMS Dauntless",
+      "categories": [
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "English Channel; last official public operational area reported 20 February 2026",
+          "after": "Devonport approaches; inbound passage reported 8 September 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Approximate region",
+          "after": "Port level"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-dragon",
+      "vesselName": "HMS Dragon",
+      "categories": [
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Mombasa, Kenya; maintenance and resupply stop reported 12 August 2026",
+          "after": "Seychelles (last reported 2026-09-02; current location unconfirmed)"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Port level",
+          "after": "Approximate region"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-duncan",
+      "vesselName": "HMS Duncan",
+      "categories": [
+        "status",
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "status",
+          "label": "Status",
+          "before": "Deployed",
+          "after": "Unknown"
+        },
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Copenhagen, Denmark; official departure for sea reported 28 August 2026",
+          "after": "Portsmouth; return reported 6 September 2026, de-storing before planned upkeep"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-sutherland",
+      "vesselName": "HMS Sutherland",
+      "categories": [
+        "status",
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "status",
+          "label": "Status",
+          "before": "In re-fit",
+          "after": "Unknown"
+        },
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Devonport; support period reported 19 August 2026",
+          "after": "Devonport; return reported 11 September 2026 after post-maintenance trials"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-portland",
+      "vesselName": "HMS Portland",
+      "categories": [
+        "status",
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "status",
+          "label": "Status",
+          "before": "In re-fit",
+          "after": "Unknown"
+        },
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Plymouth Sound; outbound from Devonport on 26 August 2026",
+          "after": "Scotstoun, River Clyde; dated reviewed report 2026-09-07"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Approximate region",
+          "after": "Port level"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-st-albans",
+      "vesselName": "HMS St Albans",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Clyde; logistics stop reported 27 August 2026",
+          "after": "Belfast Harbour; dated reviewed report 2026-09-04"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-mersey",
+      "vesselName": "HMS Mersey",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "UK waters; last confirmed outbound from Portsmouth on 15 August 2026",
+          "after": "Solent (last reported 2026-09-06; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-tamar",
+      "vesselName": "HMS Tamar",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "South China Sea; late-August activity reported 3 September 2026",
+          "after": "Malaysia; dated reviewed report 2026-09-07"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-lyme-bay",
+      "vesselName": "RFA Lyme Bay",
+      "categories": [
+        "location",
+        "mapping"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Waters south of Mombasa, Kenya; at-sea activity reported 30 August 2026",
+          "after": "Mombasa; reported alongside 11 September 2026"
+        },
+        {
+          "kind": "mapping",
+          "label": "Map precision",
+          "before": "Approximate region",
+          "after": "Port level"
         }
       ]
     }
