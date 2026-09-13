@@ -18,7 +18,32 @@ const APPROVED_QUARANTINES = Object.freeze({
     from: '2026-06-14T15:10:38.841Z', to: '2026-09-12T15:10:38.841Z',
   },
 });
+// Luke approved this exact partial-outage proposal on 13 September 2026.
+// Keep its 51 adjudicated candidates and failed disposition: this is not coverage success.
+const VESSELFINDER_EXCEPTION = Object.freeze({
+  policyId: 'vesselfinder-partial-outage-2026-09-12',
+  approvalReference: 'owner-vesselfinder-partial-outage-approval-2026-09-13',
+  runId: 'SWEEP_20260912T151038841Z_R1_1add15ac',
+  registryHash: '1add15ac6e45ab37ad3e402de0bbd6d634e152c22ce5b90f5042ad54f6e233dd',
+  recordHash: '894036c7e12f0a66223a943bac51e40141aee12ff91a830621e3007ac008137a',
+});
+function validateVesselFinderException(value, run, record) {
+  const p = VESSELFINDER_EXCEPTION;
+  if (value.approvalReference !== p.approvalReference || run.runId !== p.runId ||
+      value.runId !== p.runId || value.registryHash !== p.registryHash ||
+      run.sourceRegistryHash !== p.registryHash || value.recordHash !== p.recordHash ||
+      digest(record) !== p.recordHash || value.sourceId !== 'VESSELFINDER_PUBLIC_WEEKLY' ||
+      run.window?.to !== '2026-09-12T15:10:38.841Z' ||
+      !value.reason?.trim() || !Number.isFinite(Date.parse(value.approvedAt)) ||
+      Date.parse(value.approvedAt) < Date.parse('2026-09-13T00:00:00Z') ||
+      value.reviewArtifactHash !== 'e8f94e78ea603dafdc62d71982bc51143253c55b83f88baecca0fa671da93ffb' ||
+      value.quarantined !== true || value.noChangeClaimAllowed !== false) {
+    throw new Error('Invalid one-run VesselFinder outage exception');
+  }
+  return value;
+}
 export function validateSourceCoverageException(value, run, record) {
+  if (value?.policyId === VESSELFINDER_EXCEPTION.policyId) return validateVesselFinderException(value, run, record);
   const policy = Object.hasOwn(APPROVED_QUARANTINES, value?.policyId || '') ? APPROVED_QUARANTINES[value.policyId] : null;
   if (!policy || value.approvalReference !== policy.approvalReference ||
       run.runId !== policy.runId || value.runId !== run.runId ||

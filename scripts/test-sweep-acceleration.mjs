@@ -52,6 +52,14 @@ try {
   assert.throws(()=>validateSourceCoverageException(value,{...run,runId:'NEXT_SWEEP'},record));
   assert.throws(()=>validateSourceCoverageException({...value,approvalReference:'unapproved'},run,record));
  });
+ check('VesselFinder approval cannot authorize fabricated records or MVT authority',()=>{
+  const run={runId:'SWEEP_20260912T151038841Z_R1_1add15ac',sourceRegistryHash:'1add15ac6e45ab37ad3e402de0bbd6d634e152c22ce5b90f5042ad54f6e233dd',window:{to:'2026-09-12T15:10:38.841Z'}};
+  const record={sourceId:'VESSELFINDER_PUBLIC_WEEKLY',outcome:'DEFERRED_WITH_JUSTIFICATION',cursor:null,candidates:[]};
+  const value={policyId:'vesselfinder-partial-outage-2026-09-12',approvalReference:'owner-vesselfinder-partial-outage-approval-2026-09-13',runId:run.runId,registryHash:run.sourceRegistryHash,sourceId:record.sourceId,recordHash:digest(record),reason:'Partial outage',approvedAt:cutoff,reviewArtifactHash:'a'.repeat(64),quarantined:true,noChangeClaimAllowed:false};
+  assert.throws(()=>validateSourceCoverageException(value,run,record));
+  assert.throws(()=>validateSourceCoverageException({...value,recordHash:'894036c7e12f0a66223a943bac51e40141aee12ff91a830621e3007ac008137a'},run,record));
+  assert.throws(()=>validateSourceCoverageException({...value,policyId:'mvt-identity-quarantine-2026-09-12',approvalReference:'owner-mvt-quarantine-approval-2026-09-12'},run,record));
+ });
  check('extended browser budget is confined to the approved DefenceHQ window',()=>{
   const account={sourceId:'X_DEFENCEHQ'},window={from:'2026-06-10T09:11:15.938Z',to:'2026-09-08T09:11:15.938Z'};
   const method={scrollException:{policyId:'defencehq-bootstrap-scrolls-2026-09-08',approvalReference:'owner-defencehq-scroll-approval-2026-09-08',maxTotalScrolls:30}};
