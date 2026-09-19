@@ -7,7 +7,7 @@ import { sanitisePublicLocationDescription } from "./public-location-safety.mjs"
 import { REPRESENTATIVE_PATROL, REPRESENTATIVE_PATROL_ANCHOR, hasRepresentativePatrolMarker, validateRepresentativePatrolFleet } from "../../src/utils/representativePatrol.js";
 
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.4.0";
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.4.1";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -32,6 +32,7 @@ export function createPublicProjection(entities, assessmentLog, evidenceItems = 
       }
       // Protected policy is evaluated before any ordinary or historical geometry.
       if (assessment.assessedState.mapRepresentation || SUBMARINE_TYPES.has(entity.vesselType)) {
+        if (assessment.assessedState.locationContext) throw new Error('Protected submarine locations cannot carry timing context.');
         if (assessment.retainedLocation) throw new Error('Protected submarine locations cannot use automatic last-known retention.');
         return projectPublicVessel(entity, assessment);
       }
@@ -39,7 +40,7 @@ export function createPublicProjection(entities, assessmentLog, evidenceItems = 
       const retained = retainedLocationAssessment(assessment, assessmentLog.assessments, evidenceItems);
       // The active reviewed point/region wins. A linked old point never promotes recency.
       if (hasPlottablePosition(current) || !retained) {
-        if (evidenceItems) current.locationContext = { retained: false, ...publicDates(assessment.selectedEvidenceIds, evidenceItems) };
+        if (evidenceItems) current.locationContext = { retained: false, ...reviewedPublicDates(assessment, assessment.selectedEvidenceIds, evidenceItems) };
         validateLocationContext(current);
         return current;
       }
@@ -53,7 +54,7 @@ export function createPublicProjection(entities, assessmentLog, evidenceItems = 
         ...publicDates(retained.retained.evidenceIds, evidenceItems || []),
         observedAt: retained.retained.observedAt.slice(0, 10),
         latestReport: { label: current.publicLocationLabel, precision: current.locationPrecision, state: current.locationState,
-          ...publicDates(assessment.selectedEvidenceIds.filter(id => !retained.retained.evidenceIds.includes(id)), evidenceItems || []) },
+          ...reviewedPublicDates(assessment, assessment.selectedEvidenceIds.filter(id => !retained.retained.evidenceIds.includes(id)), evidenceItems || []) },
       };
       validateLocationContext(vessel);
       return vessel;
@@ -61,6 +62,25 @@ export function createPublicProjection(entities, assessmentLog, evidenceItems = 
   };
   validateRepresentativePatrolFleet(projection.vessels);
   return projection;
+}
+
+// A reviewed assessment can suppress a known-bad observation proxy. It cannot
+// manufacture a date, alter publication timing or grant geometry/retention authority.
+export function validateAssessmentLocationContext(assessment) {
+  const state = assessment.assessedState;
+  if (!Object.hasOwn(state, 'locationContext')) return;
+  const context = state.locationContext;
+  if (!context || Array.isArray(context) || typeof context !== 'object' ||
+      Object.keys(context).length !== 1 || !Object.hasOwn(context, 'observedAt') || context.observedAt !== null ||
+      !assessment.assessor?.trim() || !assessment.rationale?.trim() || !Number.isFinite(Date.parse(assessment.assessedAt))) {
+    throw new Error('Reviewed location timing may only suppress an observation date to unknown');
+  }
+}
+
+function reviewedPublicDates(assessment, ids, evidenceItems) {
+  validateAssessmentLocationContext(assessment);
+  const dates = publicDates(ids, evidenceItems);
+  return assessment.assessedState.locationContext ? { ...dates, observedAt: null } : dates;
 }
 
 function publicDates(ids, evidenceItems) {
@@ -106,6 +126,8 @@ export function createPublicStatusHistoryCatalog(entities, history) {
 }
 
 export function projectPublicVessel(entity, assessment) {
+  validateAssessmentLocationContext(assessment);
+  if (SUBMARINE_TYPES.has(entity.vesselType) && assessment.assessedState.locationContext) throw new Error("Protected submarine locations cannot carry timing context.");
   const assessedState = assessment.assessedState;
   const locationState = deriveLocationState(assessedState, assessment.freshness?.state);
   const reviewedLocation = safeReviewedLocation(entity, assessedState);

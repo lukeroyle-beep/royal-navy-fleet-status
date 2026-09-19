@@ -50,6 +50,7 @@ const expectedPublicFields = [
 ].sort();
 for (const vessel of publicProjection.vessels) {
   const fields = [...expectedPublicFields];
+  if (Object.hasOwn(vessel, "locationContext")) fields.push("locationContext");
   if (Object.hasOwn(vessel, "mapRepresentation")) {
     assert.equal(hasRepresentativePatrolMarker(vessel), true, `${vessel.id} has an invalid representative marker.`);
     fields.push("mapRepresentation");
@@ -114,6 +115,8 @@ const medwayAssessment = assessmentLog.assessments.find(
   (assessment) => assessment.assessmentId === assessmentLog.currentAssessmentIds["hms-medway"],
 );
 assert.deepEqual(medwayAssessment.assessedState.publicLocation, {
+  ...(Object.hasOwn(medwayAssessment.assessedState.publicLocation, "representation")
+    ? { representation: "representative-marker" } : {}),
   precision: "region",
   label: "Falkland Islands / South Atlantic",
   geometry: {
@@ -562,3 +565,17 @@ assert.equal(unanchoredPublic.locationContext.latestReport.publishedAt,'2026-09-
 assert.equal(unanchoredPublic.locationContext.observedAt,'2026-08-01');
 
 assert.throws(()=>retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[{...retainedEvidence,claim:{status:'Available'}}]),/requires retained dated/,'Status-only evidence cannot support retained geography');
+
+const suppressedLog=structuredClone(mixedLog);
+suppressedLog.assessments[1].assessor='reviewer';suppressedLog.assessments[1].rationale='Publication proxy is not an observation date';
+suppressedLog.assessments[1].assessedState.locationContext={observedAt:null};
+const suppressed=createPublicProjection(retainedEntities,suppressedLog,[retainedEvidence,datedRegionProof,statusProof]).vessels[0];
+assert.equal(suppressed.locationContext.observedAt,null);
+assert.equal(suppressed.locationContext.publishedAt,'2026-08-01','Suppression cannot change publication timing');
+assert.deepEqual(suppressed.uncertaintyArea,mixedPublic.uncertaintyArea,'Timing metadata cannot choose geometry');
+for(const context of [{observedAt:'2026-09-19'},{observedAt:null,publishedAt:null},{observedAt:null,retained:true},{observedAt:null,geometry:{lat:1,lon:2}}]) {
+ const invalid=structuredClone(suppressedLog);invalid.assessments[1].assessedState.locationContext=context;
+ assert.throws(()=>createPublicProjection(retainedEntities,invalid,[retainedEvidence,datedRegionProof,statusProof]),/only suppress/);
+}
+assert.throws(()=>createPublicProjection({...retainedEntities,vessels:[{...retainedEntity,vesselType:'SSBN'}]},suppressedLog,[retainedEvidence,datedRegionProof]),/Protected submarine/);
+console.log('Reviewed timing suppression preserves unknown observation without inventing publication dates or geometry.');

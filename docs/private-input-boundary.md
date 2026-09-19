@@ -130,3 +130,17 @@ For reference home-port changes, `mode: "home-port-only"` permits only an existi
 coverage must remain identical. Such a correction still receives the next release revision and
 append-only history, but does not manufacture a new operational assessment. Other metadata fields
 or operational changes cannot use this mode.
+
+For reviewed map representations, `mode: "display-only"` permits only public location display
+fields and their date context to change. Identity, operational status, social coverage, and protected
+patrol assignments remain unchanged. An unchanged assessment permits only additive date context.
+A changed assessment must be an explicitly declared owner-reviewed historical assessment; at most
+one declared supporting assessment may precede it in the same vessel's exact assessment chain.
+That supporting assessment must be the retained-location reference and pass the normal evidence
+and retention checks. All appended assessments must be declared exactly once.
+
+Collected evidence dates remain immutable. A reviewed assessment may suppress an unreliable
+observation-date proxy using `assessedState.locationContext: { "observedAt": null }`; it cannot
+invent a replacement date, override publication dates, supply geometry, or add protected-patrol
+timing. Evidence-derived public date context participates in candidate projection and seal hashes.
+The original release is authenticated using its archived projection semantics.

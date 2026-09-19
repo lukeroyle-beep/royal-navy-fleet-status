@@ -1,3 +1,4 @@
+import { isRepresentativeRegionMarker } from '../../src/utils/map.js';
 import { compareReleaseIdentity, readReleaseMetadata } from "../../src/utils/release.js";
 
 export function publicationReleaseFields(previousMetadata, currentMetadata) {
@@ -33,4 +34,23 @@ export function publicationReleaseFields(previousMetadata, currentMetadata) {
         }
       : {}),
   };
+}
+
+// Display-authority changes must remain visible even when the region label and
+// circle centre are unchanged. Do not report them as observed vessel movement.
+export function regionalMarkerChange(before, after) {
+  const wasRepresentative = isRepresentativeRegionMarker(before);
+  const isRepresentative = isRepresentativeRegionMarker(after);
+  if (wasRepresentative !== isRepresentative) return {
+    kind: 'marker', label: 'Map display',
+    before: wasRepresentative ? 'Representative regional marker' : 'No representative regional marker',
+    after: isRepresentative ? 'Representative regional marker' : 'No representative regional marker',
+  };
+  if (before.lastReportedLocation !== after.lastReportedLocation ||
+      JSON.stringify(before.position || before.uncertaintyArea) === JSON.stringify(after.position || after.uncertaintyArea)) return null;
+  const oldLabel = before.position?.label || before.uncertaintyArea?.label || 'Not plotted';
+  const newLabel = after.position?.label || after.uncertaintyArea?.label || 'Not plotted';
+  return { kind: 'marker', label: 'Marker',
+    before: oldLabel === newLabel ? `Previous public geometry: ${oldLabel}` : oldLabel,
+    after: oldLabel === newLabel ? `Revised public geometry: ${newLabel}` : newLabel };
 }

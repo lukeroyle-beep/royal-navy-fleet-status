@@ -41,6 +41,8 @@ export function validateCorrectionInputs({ root, privateInputs, candidate, runs 
   const record = privateInputs.readJson('releaseCorrection'); // Includes realpath containment.
   const git = args => execFileSync('git', args, { cwd:root, encoding:'utf8', maxBuffer:20*1024*1024 });
   const at = (commit, name) => git(['show', `${commit}:data/royal-navy/${name}`]);
+  // Archived 1.4.0 native seals used the two-argument projection. Reproduce that
+  // method exactly; 1.4.1 and later bind evidence-derived public date metadata.
   function archived(commit, code, input) {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'rn-correction-base-'));
     try {
@@ -68,21 +70,21 @@ export function validateCorrectionInputs({ root, privateInputs, candidate, runs 
       return archived(item.baselineCommit, `
         import fs from 'node:fs';
         import {validateReleaseSweepGate} from './scripts/lib/sweep.mjs';
-        import {createPublicProjection} from './scripts/lib/public-projection.mjs';
+        import {createPublicProjection, PUBLIC_PROJECTION_METHOD_VERSION} from './scripts/lib/public-projection.mjs';
         const {baseline,parent}=JSON.parse(fs.readFileSync(0,'utf8')), m=baseline.entities.metadata;
         const gate=validateReleaseSweepGate({...baseline,runs:[parent],datasetDate:m.asOfDate,releaseRevision:m.releaseRevision,releasedAt:m.releasedAt});
-        console.log(JSON.stringify({...gate,projection:createPublicProjection(baseline.entities,baseline.assessmentLog)}));
+        console.log(JSON.stringify({...gate,projection:createPublicProjection(baseline.entities,baseline.assessmentLog, PUBLIC_PROJECTION_METHOD_VERSION === '1.4.0' ? null : baseline.evidenceItems)}));
       `,{baseline:item.baselineInputs,parent});
     },
     validatePublished(commit, args) {
       return archived(commit, `
         import fs from 'node:fs';
         import {validateReleaseCorrection} from './scripts/lib/release-correction.mjs';
-        import {createPublicProjection} from './scripts/lib/public-projection.mjs';
+        import {createPublicProjection, PUBLIC_PROJECTION_METHOD_VERSION} from './scripts/lib/public-projection.mjs';
         import assert from 'node:assert/strict';
         const {args,published}=JSON.parse(fs.readFileSync(0,'utf8'));
         const result=validateReleaseCorrection(args);
-        assert.deepEqual(createPublicProjection(args.candidate.entities,args.candidate.assessmentLog),published,'Correction inputs differ from published bytes');
+        assert.deepEqual(createPublicProjection(args.candidate.entities,args.candidate.assessmentLog, PUBLIC_PROJECTION_METHOD_VERSION === '1.4.0' ? null : args.candidate.evidenceItems),published,'Correction inputs differ from published bytes');
         console.log(JSON.stringify(result));
       `,{args,published:JSON.parse(at(commit,'vessels.json'))});
     },
