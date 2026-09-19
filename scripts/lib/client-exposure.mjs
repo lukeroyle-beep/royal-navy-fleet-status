@@ -1,3 +1,4 @@
+import { validateLocationContext } from '../../src/utils/location-context.js';
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
@@ -21,7 +22,7 @@ const allowedFleetFields = new Set([
   "id", "name", "service", "vesselClass", "vesselType", "pennantNumber",
   "commissionedDate", "homePort", "status", "locationClassification", "locationState",
   "locationPrecision", "publicLocationLabel", "lastReportedLocation", "position",
-  "uncertaintyArea", "mapRepresentation",
+  "uncertaintyArea", "mapRepresentation", "locationContext",
 ]);
 const allowedHistoryFields = new Set([
   "id", "name", "service", "vesselClass", "vesselType", "pennantNumber",
@@ -50,6 +51,7 @@ export function scanPublicExposure({
   }
 
   for (const vessel of publicFleet.vessels) {
+    validateLocationContext(vessel);
     assertNoForbiddenKeys(vessel, `Public fleet record ${vessel.id}`);
     assertAllowedKeys(vessel, allowedFleetFields, `Public fleet record ${vessel.id}`);
   }

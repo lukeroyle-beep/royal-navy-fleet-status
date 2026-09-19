@@ -46,7 +46,7 @@ assert.doesNotMatch(photoService, /Audacious_Under_Construction/);
 assert.match(photoService, /RFA_Proteus_in_Cammell_Laird/);
 assert.match(
   detailPanel,
-  /\["Status", formatOperationalStatus\(vessel\.status\)\],[\s\S]*\["Location", vessel\.publicLocationLabel\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\],[\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
+  /\["Status", formatOperationalStatus\(vessel\.status\)\],[\s\S]*\[formatMapLocationTerm\(vessel\), vessel\.publicLocationLabel\],[\s\S]*\["Class", vessel\.vesselClass\],[\s\S]*\["Type", vessel\.vesselType\],[\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
 );
 assert.match(detailPanel, /#showPhotoFallback\(\)/);
 

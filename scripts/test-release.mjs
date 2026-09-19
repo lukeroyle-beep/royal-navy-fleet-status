@@ -237,7 +237,7 @@ assert.match(appSource, /filter by vessel class/);
 assert.match(appSource, /formatLocationState\(vessel\.locationState\)/);
 assert.match(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),
-  /\["Location", vessel\.publicLocationLabel\][\s\S]*\["Class", vessel\.vesselClass\][\s\S]*\["Type", vessel\.vesselType\][\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
+  /\[formatMapLocationTerm\(vessel\), vessel\.publicLocationLabel\][\s\S]*\["Class", vessel\.vesselClass\][\s\S]*\["Type", vessel\.vesselType\][\s\S]*\["Pennant", vessel\.pennantNumber[\s\S]*\["Commission date", vessel\.commissionedDate[\s\S]*\["Home port", vessel\.homePort/,
 );
 assert.doesNotMatch(
   fs.readFileSync(new URL("../src/components/EventDetailsPanel.js", import.meta.url), "utf8"),

@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
+import { formatMapLocationTerm, locationContextEntries, formatMapDisplay } from "../src/components/EventDetailsPanel.js";
 import { SurfaceController } from "../src/components/SurfaceController.js";
 import {
   COMPACT_SURFACE_QUERY,
@@ -272,12 +273,12 @@ assert.match(details, /this\.supplementaryTitle\.textContent = "Vessel details"/
 assert.match(details, /this\.supplementaryTitle\.textContent = "Establishment details"/);
 assert.match(
   details,
-  /const primaryEntries = \[\s*\["Status", formatOperationalStatus\(vessel\.status\)\],\s*\["Location", vessel\.publicLocationLabel\],\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\],\s*\["Pennant", vessel\.pennantNumber[^\n]*\],\s*\["Commission date", vessel\.commissionedDate[^\n]*\],\s*\["Home port", vessel\.homePort/s,
+  /const primaryEntries = \[\s*\["Status", formatOperationalStatus\(vessel\.status\)\],\s*\[formatMapLocationTerm\(vessel\), vessel\.publicLocationLabel\],\s*\["Class", vessel\.vesselClass\],\s*\["Type", vessel\.vesselType\],\s*\["Pennant", vessel\.pennantNumber[^\n]*\],\s*\["Commission date", vessel\.commissionedDate[^\n]*\],\s*\["Home port", vessel\.homePort/s,
 );
 assert.doesNotMatch(details, /\["Precision"/);
 const primaryDetailsBlock = details.match(/const primaryEntries = \[[\s\S]*?\n    \];/)?.[0];
 assert.ok(primaryDetailsBlock);
-for (const requiredTerm of ["Status", "Location", "Class", "Type", "Pennant", "Commission date", "Home port", "Snapshot"]) {
+for (const requiredTerm of ["Status", "Class", "Type", "Pennant", "Commission date", "Home port", "Snapshot"]) {
   assert.match(primaryDetailsBlock, new RegExp(`\\["${requiredTerm}"`));
 }
 assert.match(details, /this\.classLine\.textContent = `\$\{vessel\.vesselClass\} · \$\{vessel\.vesselType\}`/);
@@ -287,6 +288,44 @@ assert.match(details, /this\.timeline\.open = false/);
 assert.doesNotMatch(details, /\["Last public report",/);
 assert.match(styles, /\.vessel-timeline > summary[^\{]*\{[^}]*min-height:\s*44px;/s);
 assert.doesNotMatch(details, /Supporting source|Evidence grade|Confidence score|Analyst note|Retrieval status/i);
+
+// Publication never substitutes for unknown observation time, and a newer
+// regional report stays separate from the selected retained map location.
+const reportedRegion = {
+  locationPrecision: "region", locationState: "last_reported", position: null,
+  uncertaintyArea: { representation: "representative-marker", centre: { lat: 52, lon: 1 }, radiusKm: 100 },
+  locationContext: { retained: false, observedAt: null, publishedAt: "2026-08-26" },
+};
+assert.equal(formatMapLocationTerm(reportedRegion), "Reported region");
+assert.match(formatMapDisplay(reportedRegion), /reported region.*not an exact or current ship position/);
+assert.deepEqual(locationContextEntries(reportedRegion), [
+  ["Location observed", "Observation time unknown"],
+  ["Location report published", "26 Aug 2026"],
+]);
+const retainedPoint = {
+  locationPrecision: "port", locationState: "last_reported", position: { lat: 50.3, lon: -4.1 },
+  locationContext: {
+    retained: true, observedAt: "2026-08-21", publishedAt: "2026-08-22",
+    latestReport: { label: "Plymouth Sound", precision: "region", state: "last_reported", observedAt: null, publishedAt: "2026-08-28" },
+  },
+};
+assert.equal(formatMapLocationTerm(retainedPoint), "Last-known location");
+assert.match(formatMapDisplay(retainedPoint), /current location unconfirmed/);
+assert.deepEqual(locationContextEntries(retainedPoint), [
+  ["Current location", "Unconfirmed"],
+  ["Location observed", "21 Aug 2026"],
+  ["Location report published", "22 Aug 2026"],
+  ["Latest public report", "Plymouth Sound"],
+  ["Latest report location status", "Last publicly reported location"],
+  ["Latest report observed", "Observation time unknown"],
+  ["Latest report published", "28 Aug 2026"],
+]);
+assert.equal(formatMapLocationTerm({ ...reportedRegion, locationContext: { retained: true } }), "Last-known region");
+const patrol = fleet.vessels.find((vessel) => vessel.mapRepresentation === "representative-patrol");
+assert.ok(patrol);
+assert.equal(formatMapLocationTerm(patrol), "Representative patrol marker");
+assert.deepEqual(locationContextEntries({ ...patrol, locationContext: retainedPoint.locationContext }), []);
+assert.deepEqual(locationContextEntries({ locationPrecision: "port" }), []);
 
 testCompactDetailFocusRestoration();
 

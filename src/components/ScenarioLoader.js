@@ -1,7 +1,8 @@
+import { validateLocationContext } from '../utils/location-context.js';
 import { readReleaseMetadata } from "../utils/release.js";
 import { PUBLIC_LOCATION_STATES } from "../utils/publicEnums.js";
 
-import { hasRepresentativePatrolMarker } from "../utils/representativePatrol.js";
+import { hasRepresentativePatrolMarker, validateRepresentativePatrolFleet } from "../utils/representativePatrol.js";
 
 const CLASSIFICATIONS = new Set(["mapped", "approximate", "unknown", "withheld"]);
 const LOCATION_STATES = new Set(PUBLIC_LOCATION_STATES);
@@ -53,10 +54,12 @@ export function validateFleet(raw) {
     throw new Error(`Fleet data has invalid release metadata: ${error.message}`);
   }
 
+  validateRepresentativePatrolFleet(raw.vessels);
   const ids = new Set();
   const normalizedClasses = new Map();
   for (const [index, vessel] of raw.vessels.entries()) {
     const label = `Vessel ${index + 1}`;
+    validateLocationContext(vessel);
     for (const field of [
       "id",
       "name",

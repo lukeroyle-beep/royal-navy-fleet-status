@@ -673,7 +673,7 @@ for (const viewport of [{width:1366,height:768},{width:390,height:844}]) {
       await page.goto(`/?${query}`);
       await expect(page.locator('#detailTitle')).toHaveText(record.name);
       const terms=page.locator('#detailPrimaryMeta');
-      await expect(terms.locator('div').filter({has:page.locator('dt',{hasText:/^Location$/})})).toContainText(record.label);
+      await expect(terms.locator('div').filter({has:page.locator('dt',{hasText:record.id === 'hms-vengeance' ? /^Representative patrol marker$/ : /^Location$/})})).toContainText(record.label);
       await expect(terms).toContainText(record.status==='In re-fit'?'In Re-fit':record.status);
       const forbidden=['Precision','Location evidence date','Evidence checked','Evidence classification','Supporting source','Source'];
       for(const label of forbidden) await expect(page.locator('#detailCard dt').filter({hasText:new RegExp(`^${label}$`,'i')})).toHaveCount(0);
@@ -718,6 +718,127 @@ test('uncertain current whereabouts retain a dated last-known marker', async ({p
   await expect(page.locator('#loadError')).toBeHidden();
   await expect(page.locator('.fleet-marker.is-selected')).toHaveCount(1);
   await expect(page.locator('.fleet-marker.is-selected')).toHaveClass(/fleet-marker--last_reported/);
-  await expect(page.locator('#detailPrimaryMeta [data-term="location"] dd')).toContainText('last reported 2026-08-01; current location unconfirmed');
+  await expect(page.locator('#detailPrimaryMeta [data-term="last-known-location"] dd')).toContainText('last reported 2026-08-01; current location unconfirmed');
   await expect(page.locator('#detailTitle')).toHaveText(vessel.name);
 });
+
+// Synthetic public fixtures exercise display semantics without publishing any
+// staged operational data or provenance into the browser test repository.
+for (const viewport of [{ width: 1366, height: 768 }, { width: 820, height: 1180 }, { width: 390, height: 844 }]) {
+  test(`Phase2 location semantics and clustered selection at ${viewport.width}px`, async ({ page }, testInfo) => {
+    await page.setViewportSize(viewport);
+    const candidates = fleet.vessels.filter(v => v.position && !['SSBN', 'SSN'].includes(v.vesselType)).slice(0, 3);
+    const [regional, point, retainedRegion] = candidates.map(v => structuredClone(v));
+    const region = { representation: 'representative-marker', centre: { lat: 50.3, lon: -4.1 }, radiusKm: 50, label: 'Synthetic reviewed region' };
+    Object.assign(regional, {
+      locationPrecision: 'region', locationClassification: 'approximate', locationState: 'last_reported', position: null,
+      uncertaintyArea: { ...region, label: 'Synthetic reported region' }, publicLocationLabel: 'Synthetic reported region', lastReportedLocation: 'Synthetic reported region',
+      locationContext: { retained: false, observedAt: null, publishedAt: '2026-08-26' },
+    });
+    Object.assign(point, {
+      locationPrecision: 'port', locationClassification: 'approximate', locationState: 'last_reported',
+      position: { lat: 50.3, lon: -4.1, label: 'Synthetic last-known port' }, uncertaintyArea: null,
+      publicLocationLabel: 'Synthetic last-known port', lastReportedLocation: 'Synthetic last-known port',
+      locationContext: {
+        retained: true, observedAt: '2026-08-21', publishedAt: '2026-08-22',
+        latestReport: { label: 'Synthetic newer regional report', precision: 'region', state: 'last_reported', observedAt: null, publishedAt: '2026-08-28' },
+      },
+    });
+    Object.assign(retainedRegion, {
+      locationPrecision: 'region', locationClassification: 'approximate', locationState: 'last_reported', position: null,
+      uncertaintyArea: { ...region, label: 'Synthetic retained region' }, publicLocationLabel: 'Synthetic retained region', lastReportedLocation: 'Synthetic retained region',
+      locationContext: { retained: true, observedAt: '2026-08-20', publishedAt: '2026-08-21' },
+    });
+    const replacements = new Map([regional, point, retainedRegion].map(v => [v.id, v]));
+    const fixture = { ...fleet, vessels: fleet.vessels.map(v => replacements.get(v.id) || v) };
+    await page.route('**/data/royal-navy/vessels.json', route => route.fulfill({ json: fixture }));
+    const detailValue = term => page.locator(`#detailMeta [data-term="${term}"] dd`);
+    const selectedMarker = () => page.locator('.fleet-marker.is-selected');
+    const select = async vessel => {
+      await page.goto(`/?view=2&vessel=${vessel.id}&layers=fleet,clusters`);
+      await expect(page.locator('#loadError')).toBeHidden();
+      await expect(page.locator('#detailTitle')).toHaveText(vessel.name);
+      await expect(selectedMarker()).toHaveCount(1);
+      await expect(selectedMarker()).toHaveAttribute('title', vessel.name);
+      // Co-located records remain individually selectable with clustering on.
+      await selectedMarker().click({ force: true });
+      await expect(page.locator('#detailTitle')).toHaveText(vessel.name);
+    };
+    await select(regional);
+    await expect(page.locator('#detailPrimaryMeta [data-term="reported-region"] dd')).toHaveText(regional.publicLocationLabel);
+    await expect(selectedMarker()).toHaveClass(/fleet-marker--region/);
+    await expect(selectedMarker()).not.toHaveClass(/fleet-marker--retained/);
+    await expect(detailValue('location-observed')).toHaveText('Observation time unknown');
+    await expect(detailValue('location-report-published')).toHaveText('26 Aug 2026');
+    await expect(detailValue('latest-public-report')).toHaveCount(0);
+    await select(point);
+    await expect(page.locator('#detailPrimaryMeta [data-term="last-known-location"] dd')).toHaveText(point.publicLocationLabel);
+    await expect(selectedMarker()).toHaveClass(/fleet-marker--retained/);
+    await expect(selectedMarker()).not.toHaveClass(/fleet-marker--region/);
+    await expect(detailValue('location-observed')).toHaveText('21 Aug 2026');
+    await expect(detailValue('location-report-published')).toHaveText('22 Aug 2026');
+    await expect(detailValue('latest-public-report')).toHaveText('Synthetic newer regional report');
+    await expect(detailValue('latest-report-observed')).toHaveText('Observation time unknown');
+    await expect(detailValue('latest-report-published')).toHaveText('28 Aug 2026');
+    if (await page.locator('#detailExpand').isVisible()) await page.locator('#detailExpand').click();
+    await page.locator('#detailSupplementary').scrollIntoViewIfNeeded();
+    await expect(detailValue('latest-report-published')).toBeVisible();
+    await page.screenshot({ path: testInfo.outputPath(`phase2-retained-${viewport.width}.png`) });
+    await select(retainedRegion);
+    await expect(page.locator('#detailPrimaryMeta [data-term="last-known-region"] dd')).toHaveText(retainedRegion.publicLocationLabel);
+    await expect(selectedMarker()).toHaveClass(/fleet-marker--region/);
+    await expect(selectedMarker()).toHaveClass(/fleet-marker--retained/);
+    await expect(detailValue('location-observed')).toHaveText('20 Aug 2026');
+    const patrol = fleet.vessels.find(v => v.mapRepresentation === 'representative-patrol');
+    await select(patrol);
+    await expect(page.locator('#detailPrimaryMeta [data-term="representative-patrol-marker"] dd')).toHaveText('On patrol');
+    await expect(detailValue('location-observed')).toHaveCount(0);
+    await expect(detailValue('location-report-published')).toHaveCount(0);
+    await expect(detailValue('latest-public-report')).toHaveCount(0);
+    await expect(page.locator('#detailMeta')).toContainText('not an actual vessel position');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+}
+
+const phase2CandidatePath = process.env.RNFS_PHASE2_CANDIDATE;
+for (const viewport of [{ width: 1366, height: 768 }, { width: 820, height: 1180 }, { width: 390, height: 844 }]) {
+  test(`Phase2 staged candidate full representation at ${viewport.width}px`, async ({ page }, testInfo) => {
+    test.skip(!phase2CandidatePath, 'Set RNFS_PHASE2_CANDIDATE to an external public candidate JSON.');
+    expect(phase2CandidatePath.startsWith('/')).toBe(true);
+    const candidate = JSON.parse(fs.readFileSync(phase2CandidatePath, 'utf8'));
+    await page.setViewportSize(viewport);
+    await page.route('**/data/royal-navy/vessels.json', route => route.fulfill({ json: candidate }));
+    await page.goto('/?view=2&layers=fleet');
+    await expect(page.locator('#loadError')).toBeHidden();
+    await expectCompleteMarkerNames(page, candidate.vessels.map(v => v.name));
+    await openAssets(page);
+    expect(await page.locator('#vesselList button[data-vessel-id]').evaluateAll(nodes => nodes.map(n => n.dataset.vesselId).sort()))
+      .toEqual(candidate.vessels.map(v => v.id).sort());
+    for (const [id, term, observed, published] of [
+      ['hms-magpie', 'reported-region', 'Observation time unknown', '26 Aug 2026'],
+      ['rfa-proteus', 'reported-region', '28 Aug 2026', '28 Aug 2026'],
+      ['rfa-tideforce', 'last-known-region', '20 Aug 2026', '20 Aug 2026'],
+    ]) {
+      const vessel = candidate.vessels.find(v => v.id === id);
+      const query = new URLSearchParams({ view: '2', layers: 'fleet,clusters', vessel: id, class: vessel.vesselClass });
+      await page.goto(`/?${query}`);
+      await expect(page.locator('#loadError')).toBeHidden();
+      await expect(page.locator('#detailTitle')).toHaveText(vessel.name);
+      await expect(page.locator(`#detailPrimaryMeta [data-term="${term}"] dd`)).toHaveText(vessel.publicLocationLabel);
+      await expect(page.locator('#detailMeta [data-term="location-observed"] dd')).toHaveText(observed);
+      await expect(page.locator('#detailMeta [data-term="location-report-published"] dd')).toHaveText(published);
+      await expect(page.locator('.fleet-marker.is-selected')).toHaveCount(1);
+      await expect(page.locator('.fleet-marker.is-selected')).toHaveAttribute('title', vessel.name);
+      await expect(page.locator(classButtonSelector(vessel.vesselClass))).toHaveAttribute('aria-pressed', 'true');
+      if (id === 'rfa-tideforce') {
+        await expect(page.locator('.fleet-marker.is-selected')).toHaveClass(/fleet-marker--retained/);
+        await expect(page.locator('#detailMeta [data-term="latest-public-report"] dd')).toHaveText('Location unconfirmed');
+      }
+      await page.screenshot({ path: testInfo.outputPath(`phase2-candidate-${id}-${viewport.width}.png`) });
+      if (await page.locator('#detailExpand').isVisible()) await page.locator('#detailExpand').click();
+      await page.locator('#detailSupplementary').scrollIntoViewIfNeeded();
+      await expect(page.locator('#detailMeta [data-term="location-observed"] dd')).toBeVisible();
+      await page.screenshot({ path: testInfo.outputPath(`phase2-candidate-context-${id}-${viewport.width}.png`) });
+    }
+  });
+}

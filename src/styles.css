@@ -461,6 +461,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-v
 .fleet-marker--submarine .fleet-marker-symbol { width: 29px; height: 17px; border-radius: 999px; }
 .fleet-marker--patrol .fleet-marker-symbol { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .fleet-marker--last_reported .fleet-marker-symbol { border-style: dashed; }
+.fleet-marker--region .fleet-marker-symbol { background: #e7eef2; }
+.fleet-marker--retained .fleet-marker-symbol { border-style: dashed; }
 .fleet-marker-status { position: absolute; right: -6px; bottom: -6px; display: block; width: 10px; height: 10px; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--navy-950); transform: none; }
 .fleet-marker--status-deployed .fleet-marker-status { border-radius: 50%; background: var(--deployed); }
 .fleet-marker--status-available .fleet-marker-status { border-radius: 50%; border-color: var(--available); background: #fff; }

@@ -1,3 +1,4 @@
+import { formatMapLocationTerm } from "./EventDetailsPanel.js";
 import { hasRepresentativePatrolMarker } from "../utils/representativePatrol.js";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -473,11 +474,12 @@ export class FleetMap {
 
   #createMarker(vessel) {
     const position = getMapPosition(vessel);
+    const locationTerm = formatMapLocationTerm(vessel);
     const representation = isRepresentativeRegionMarker(vessel)
       ? " · Representative regional marker, not an exact or current ship position"
       : "";
     const marker = L.marker([position.lat, position.lon], {
-      alt: `${vessel.name}, ${hasRepresentativePatrolMarker(vessel) ? "On patrol, representative marker, not an actual position" : `${formatLocationState(vessel.locationState)}, ${formatPrecision(vessel.locationPrecision)}${representation}`}`,
+      alt: `${vessel.name}, ${hasRepresentativePatrolMarker(vessel) ? "On patrol, representative marker, not an actual position" : `${locationTerm}, ${formatLocationState(vessel.locationState)}, ${formatPrecision(vessel.locationPrecision)}${representation}`}`,
 
       icon: this.#createMarkerIcon(vessel),
       keyboard: true,
@@ -486,7 +488,7 @@ export class FleetMap {
       vessel,
     });
     marker.bindTooltip(
-      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(position.label)}${hasRepresentativePatrolMarker(vessel) ? "" : ` · ${escapeHtml(formatLocationState(vessel.locationState))}${escapeHtml(representation)}`}</span>`,
+      `<strong>${escapeHtml(vessel.name)}</strong><span>${escapeHtml(locationTerm)}: ${escapeHtml(position.label)}${hasRepresentativePatrolMarker(vessel) ? "" : ` · ${escapeHtml(formatLocationState(vessel.locationState))}${escapeHtml(representation)}`}</span>`,
 
       {
         className: "fleet-tooltip",
