@@ -54,11 +54,13 @@ for (const [vessel, filters] of [
 // Keep the ordinary withheld/submarine protections. A display opt-in cannot carry a position.
 for(const delta of [
   {mapRepresentation:'observed'}, {mapRepresentation:{lat:45,lon:-35}},
-  {id:'hms-vanguard'}, {vesselType:'SSN'}, {status:'Available'},
+  {vesselType:'SSN'}, {status:'Available'},
   {publicLocationLabel:'North Atlantic'}, {lastReportedLocation:'Patrol area'},
   {position:{lat:45,lon:-35,label:'On patrol'}},
   {locationPrecision:'region',uncertaintyArea:{centre:{lat:45,lon:-35},radiusKm:100}},
 ]) assert.throws(()=>validateFleet({...fleet,vessels:[{...vengeance,...delta}]}));
+validateFleet({...fleet,vessels:[{...vengeance,id:'hms-vanguard',name:'HMS Vanguard'}]});
+assert.throws(()=>validateFleet({...fleet,vessels:[vengeance,{...vengeance,id:'hms-vanguard'}]}),/exactly one/);
 const withoutDisplay={...vengeance};delete withoutDisplay.mapRepresentation;
 assert.equal(getMapPosition(withoutDisplay),null);
 const entity={...vengeance,vesselId:vengeance.id};

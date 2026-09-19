@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 
 import {
+  assertCompleteMapRepresentation,
   clusterSizeClass,
   coLocatedMarkerOffsets,
   coLocatedVessels,
@@ -21,6 +22,7 @@ import {
   discretePinchZoomTarget,
   TOUCH_SAFARI_MAX_ZOOM,
 } from "../src/utils/mapInteraction.js";
+import { hasRepresentativePatrolMarker, validateRepresentativePatrolFleet, REPRESENTATIVE_PATROL_ANCHOR } from "../src/utils/representativePatrol.js";
 import { MapStartupViewGate } from "../src/utils/mapStartup.js";
 import { MapViewChangeGate } from "../src/utils/mapViewChange.js";
 import { projectPublicVessel } from "./lib/public-projection.mjs";
@@ -35,7 +37,7 @@ const styles = fs.readFileSync(new URL("../src/styles.css", import.meta.url), "u
 const mapComponent = fs.readFileSync(new URL("../src/components/FleetMap.js", import.meta.url), "utf8");
 
 const expectedPlottedVessels = dataset.vessels.filter(
-  (vessel) => Boolean(vessel.position) || isRepresentativeRegionMarker(vessel) || vessel.id === "hms-vengeance",
+  (vessel) => Boolean(vessel.position) || isRepresentativeRegionMarker(vessel) || hasRepresentativePatrolMarker(vessel),
 
 );
 assert.deepEqual(
@@ -44,7 +46,7 @@ assert.deepEqual(
 );
 assert.equal(
   plottedVessels(dataset.vessels).every((vessel) =>
-    ["port", "city"].includes(vessel.locationPrecision) || isRepresentativeRegionMarker(vessel) || vessel.id === "hms-vengeance",
+    ["port", "city"].includes(vessel.locationPrecision) || isRepresentativeRegionMarker(vessel) || hasRepresentativePatrolMarker(vessel),
 
   ),
   true,
@@ -396,7 +398,7 @@ for (const [source, view] of [
   assert.deepEqual(viewChangeGate.authoritativeView, view);
 }
 
-console.log("Fleet map tests passed.");
+
 
 function mercatorY(latitude) {
   const sine = Math.sin((latitude * Math.PI) / 180);
@@ -438,3 +440,70 @@ assert.equal(representative.position, null);
 for (const override of [{locationState:"withheld"}, {locationState:"unconfirmed"}, {vesselType:"SSBN"}, {vesselType:"SSN"}, {locationPrecision:"none"}, {uncertaintyArea:{...representative.uncertaintyArea,representation:"regional"}}]) {
   assert.equal(getMapPosition({...representative,...override}), null);
 }
+
+// The protected marker follows the reviewed role through a hull handover.
+const activePatrol = dataset.vessels.find(hasRepresentativePatrolMarker);
+assert.ok(activePatrol);
+assert.equal(validateRepresentativePatrolFleet(dataset.vessels, { requireOne: true }), true);
+const handover = { ...activePatrol, id: "hms-vigilant", name: "HMS Vigilant" };
+assert.equal(hasRepresentativePatrolMarker(handover), true);
+assert.deepEqual(getMapPosition(handover), REPRESENTATIVE_PATROL_ANCHOR);
+assert.equal(validateRepresentativePatrolFleet([handover], { requireOne: true }), true);
+assert.throws(() => validateRepresentativePatrolFleet([activePatrol, handover]), /exactly one/);
+assert.throws(() => validateRepresentativePatrolFleet([], { requireOne: true }), /exactly one/);
+assert.equal(validateRepresentativePatrolFleet([]), true);
+for (const override of [
+  { vesselType: "SSN" }, { vesselClass: "Astute class" }, { service: "Royal Fleet Auxiliary" },
+  { status: "Available" }, { locationClassification: "mapped" }, { locationState: "confirmed" },
+  { locationPrecision: "port" }, { position: { lat: 45, lon: -35 } },
+  { uncertaintyArea: { centre: { lat: 45, lon: -35 }, radiusKm: 50 } },
+  { publicLocationLabel: "North Atlantic" }, { lastReportedLocation: "North Atlantic" },
+  { mapRepresentation: "unknown-representation" },
+]) {
+  const malformed = { ...handover, ...override };
+  assert.equal(hasRepresentativePatrolMarker(malformed), false);
+  assert.equal(getMapPosition(malformed), null);
+  assert.throws(() => validateRepresentativePatrolFleet([malformed]), /Invalid representative/);
+}
+
+// Cartographic centres cannot escape into the ordinary point path.
+for (const malformed of [
+  { ...representative, position: { lat: 11.78, lon: 112.31 } },
+  { ...regionFixture, position: { lat: 50, lon: -4 } },
+  { ...scott, locationClassification: "withheld" },
+  { ...scott, locationState: "withheld" },
+  { ...scott, locationState: "unconfirmed" },
+  { ...scott, locationPrecision: "none" },
+  { ...scott, position: { lat: 91, lon: 0 } },
+  { ...scott, position: { lat: 0, lon: 181 } },
+  { ...scott, position: { lat: 50.1234, lon: -4.1234 } },
+  { ...scott, uncertaintyArea: representative.uncertaintyArea },
+]) {
+  assert.equal(getMapPosition(malformed), null);
+  assert.equal(getMapFocusPosition(malformed), null);
+  assert.equal(hasPlottablePosition(malformed), false);
+}
+for (const radiusKm of [undefined, 0, 4, 5.1, 2501, Infinity]) {
+  assert.equal(getMapPosition({ ...representative, uncertaintyArea: { ...representative.uncertaintyArea, radiusKm } }), null);
+}
+const retainedRegion = { ...representative, id: "retained-region", locationContext: { retained: true } };
+assert.match(markerClassName(retainedRegion, retainedRegion.id), /fleet-marker--retained/);
+assert.match(markerClassName(retainedRegion, retainedRegion.id), /is-selected/);
+assert.doesNotMatch(markerClassName(representative), /fleet-marker--retained/);
+const regionSibling = { ...retainedRegion, id: "region-sibling" };
+assert.deepEqual(coLocatedVessels([retainedRegion, regionSibling, scott], retainedRegion.id).map(({ id }) => id), [retainedRegion.id, regionSibling.id]);
+assert.deepEqual(retainedRegion.position, null, "Selection and overlap offsets must never rewrite the geography.");
+// Completion compares fleet IDs, rather than treating an equal marker count as proof.
+const completeFixture = [scott, retainedRegion, handover];
+assert.deepEqual(assertCompleteMapRepresentation(completeFixture), {
+  fleetCount: 3, representedCount: 3, pointCount: 1, regionCount: 1, protectedCount: 1,
+});
+assert.throws(() => assertCompleteMapRepresentation([...completeFixture, { ...scott }]), /unique nonempty/);
+for (const id of [undefined, null, "", "  "]) {
+  assert.throws(() => assertCompleteMapRepresentation([...completeFixture, { ...scott, id }]), /unique nonempty/);
+}
+assert.throws(() => assertCompleteMapRepresentation([scott, retainedRegion]), /exactly one/);
+assert.throws(() => assertCompleteMapRepresentation([...completeFixture, { ...regionFixture, id: "unrepresented" }]), /ID set/);
+assert.throws(() => assertCompleteMapRepresentation(dataset.vessels), /ID set/, "The unchanged 47-marker baseline must not satisfy all-fleet completion.");
+assert.throws(() => assertCompleteMapRepresentation(null), /fleet array/);
+console.log("Fleet map tests passed.");

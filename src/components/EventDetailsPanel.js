@@ -69,7 +69,7 @@ export class EventDetailsPanel {
 
     const primaryEntries = [
       ["Status", formatOperationalStatus(vessel.status)],
-      ["Location", vessel.publicLocationLabel],
+      [formatMapLocationTerm(vessel), vessel.publicLocationLabel],
       ["Class", vessel.vesselClass],
       ["Type", vessel.vesselType],
       ["Pennant", vessel.pennantNumber || "Not recorded"],
@@ -80,6 +80,7 @@ export class EventDetailsPanel {
     const entries = [
       ["Public location status", hasRepresentativePatrolMarker(vessel) ? "On patrol" : formatLocationState(vessel.locationState)],
       ["Map display", formatMapDisplay(vessel)],
+      ...locationContextEntries(vessel),
     ];
     if (releaseChange) entries.push(["This release", formatReleaseChange(releaseChange)]);
     this.primaryMeta.replaceChildren(...primaryEntries.map(([term, value]) => createEntry(term, value)));
@@ -269,14 +270,44 @@ export function formatLocationPrecision(value) {
   }[value] || value;
 }
 
+export function formatMapLocationTerm(vessel) {
+  if (hasRepresentativePatrolMarker(vessel)) return "Representative patrol marker";
+  if (vessel.locationContext?.retained) {
+    return vessel.locationPrecision === "region" ? "Last-known region" : "Last-known location";
+  }
+  return vessel.locationPrecision === "region" ? "Reported region" : "Location";
+}
+
+export function locationContextEntries(vessel) {
+  if (hasRepresentativePatrolMarker(vessel) || !vessel.locationContext) return [];
+  const context = vessel.locationContext;
+  const entries = [
+    ["Location observed", context.observedAt ? formatSnapshotDate(context.observedAt) : "Observation time unknown"],
+    ["Location report published", context.publishedAt ? formatSnapshotDate(context.publishedAt) : "Publication date unknown"],
+  ];
+  if (context.retained) entries.unshift(["Current location", "Unconfirmed"]);
+  if (context.latestReport) {
+    const report = context.latestReport;
+    entries.push(
+      ["Latest public report", report.label],
+      ["Latest report location status", formatLocationState(report.state)],
+      ["Latest report observed", report.observedAt ? formatSnapshotDate(report.observedAt) : "Observation time unknown"],
+      ["Latest report published", report.publishedAt ? formatSnapshotDate(report.publishedAt) : "Publication date unknown"],
+    );
+  }
+  return entries;
+}
+
 export function formatMapDisplay(vessel) {
   if (hasRepresentativePatrolMarker(vessel)) return "Representative marker — not an actual vessel position";
   if (isRepresentativeRegionMarker(vessel)) {
-    return "Representative marker for the reported region — not an exact or current ship position";
+    return `Representative marker for the ${vessel.locationContext?.retained ? "last-known region" : "reported region"} — not an exact or current ship position`;
   }
 
   if (hasPlottablePosition(vessel)) {
-    return "Point-mapped record — marker shown when fleet layer is enabled";
+    return vessel.locationContext?.retained
+      ? "Last-known location — current location unconfirmed"
+      : "Point-mapped record — marker shown when fleet layer is enabled";
   }
   if (vessel?.locationPrecision === "region") {
     return "Regional record — no point marker shown";

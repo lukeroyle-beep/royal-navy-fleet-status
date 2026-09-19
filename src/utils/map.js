@@ -1,4 +1,4 @@
-import { hasRepresentativePatrolMarker, REPRESENTATIVE_PATROL_ANCHOR } from "./representativePatrol.js";
+import { hasRepresentativePatrolMarker, REPRESENTATIVE_PATROL_ANCHOR, validateRepresentativePatrolFleet } from "./representativePatrol.js";
 
 export function hasPlottablePosition(vessel) {
   return Boolean(getMapPosition(vessel));
@@ -6,15 +6,18 @@ export function hasPlottablePosition(vessel) {
 
 export function getMapPosition(vessel) {
   if (hasRepresentativePatrolMarker(vessel)) return REPRESENTATIVE_PATROL_ANCHOR;
+  if (vessel?.mapRepresentation != null || vessel?.locationClassification === "withheld") return null;
   if (isRepresentativeRegionMarker(vessel)) {
     return { ...vessel.uncertaintyArea.centre, label: vessel.publicLocationLabel };
   }
 
   const position = vessel?.position;
   return Boolean(
-    position &&
-      Number.isFinite(position.lat) &&
-      Number.isFinite(position.lon),
+    ["port", "city"].includes(vessel?.locationPrecision) &&
+      ["confirmed", "last_reported"].includes(vessel.locationState) &&
+      !vessel.uncertaintyArea &&
+      isRoundedCoordinate(position?.lat, 90) &&
+      isRoundedCoordinate(position?.lon, 180),
   )
     ? position
     : null;
@@ -26,10 +29,17 @@ export function isRepresentativeRegionMarker(vessel) {
     vessel?.locationPrecision === "region" &&
     ["confirmed", "last_reported"].includes(vessel.locationState) &&
     !["SSBN", "SSN"].includes(vessel.vesselType) &&
+    vessel.locationClassification !== "withheld" &&
+    vessel.position === null &&
     area?.representation === "representative-marker" &&
-    Number.isFinite(area.centre?.lat) && Math.abs(area.centre.lat) <= 90 &&
-    Number.isFinite(area.centre?.lon) && Math.abs(area.centre.lon) <= 180
+    isRoundedCoordinate(area.centre?.lat, 90) &&
+    isRoundedCoordinate(area.centre?.lon, 180) &&
+    Number.isInteger(area.radiusKm) && area.radiusKm >= 5 && area.radiusKm <= 2500
   );
+}
+
+function isRoundedCoordinate(value, limit) {
+  return Number.isFinite(value) && Math.abs(value) <= limit && Number(value.toFixed(2)) === value;
 }
 
 export function getMapFocusPosition(vessel) {
@@ -38,6 +48,30 @@ export function getMapFocusPosition(vessel) {
 
 export function plottedVessels(vessels) {
   return vessels.filter(hasPlottablePosition);
+}
+
+// Explicit candidate/release gate: archives and partial fixtures are not complete fleets.
+export function assertCompleteMapRepresentation(vessels) {
+  if (!Array.isArray(vessels)) throw new Error("Complete map representation requires a fleet array.");
+  const ids = vessels.map((vessel) => vessel?.id);
+  if (ids.some((id) => typeof id !== "string" || !id.trim()) || new Set(ids).size !== ids.length) {
+    throw new Error("Complete map representation requires unique nonempty fleet IDs.");
+  }
+  validateRepresentativePatrolFleet(vessels, { requireOne: true });
+  const represented = plottedVessels(vessels);
+  const representedIds = new Set(represented.map((vessel) => vessel.id));
+  if (representedIds.size !== ids.length || ids.some((id) => !representedIds.has(id))) {
+    throw new Error("Complete map representation requires the represented ID set to equal the fleet ID set.");
+  }
+  const protectedCount = represented.filter(hasRepresentativePatrolMarker).length;
+  const regionCount = represented.filter(isRepresentativeRegionMarker).length;
+  return {
+    fleetCount: ids.length,
+    representedCount: representedIds.size,
+    pointCount: represented.length - protectedCount - regionCount,
+    regionCount,
+    protectedCount,
+  };
 }
 
 export function coLocatedVessels(vessels, selectedId) {
@@ -81,6 +115,7 @@ export function markerClassName(vessel, selectedId = null) {
     `fleet-marker--${vessel.locationPrecision}`,
     `fleet-marker--${vessel.locationState}`,
   ];
+  if (vessel.locationContext?.retained === true) classes.push("fleet-marker--retained");
   if (vessel.id === selectedId) classes.push("is-selected");
   return classes.join(" ");
 }

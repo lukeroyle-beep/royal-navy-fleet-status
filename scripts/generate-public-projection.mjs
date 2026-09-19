@@ -8,6 +8,7 @@ import {
 } from "./lib/public-projection.mjs";
 import { validateAssessmentLog } from "./lib/provenance.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
+import { assertCompleteMapRepresentation } from "../src/utils/map.js";
 import { parseStatusHistory, validateStatusHistoryCatalog } from "../src/utils/insights.js";
 
 const repositoryRoot = fileURLToPath(new URL("../", import.meta.url));
@@ -21,7 +22,13 @@ const preserveReviewedWithoutExternal = process.argv.includes(
   "--preserve-reviewed-without-external",
 );
 
+const requireCompleteMap = process.argv.includes("--require-complete-map");
+
 if (privateInputs.mode === "legacy" && preserveReviewedWithoutExternal) {
+  if (requireCompleteMap) {
+    const preserved = JSON.parse(fs.readFileSync(path.join(outputRoot, "vessels.json"), "utf8"));
+    assertCompleteMapRepresentation(preserved.vessels);
+  }
   console.log(
     "Preserved the reviewed public projection because external private inputs are not configured.",
   );
@@ -37,7 +44,8 @@ if (privateInputs.mode === "legacy" && preserveReviewedWithoutExternal) {
     ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
   ];
   validateAssessmentLog(assessments, evidence.evidence, knownVesselIds, currentVesselIds);
-  const projection = createPublicProjection(entities, assessments);
+  const projection = createPublicProjection(entities, assessments, evidence.evidence);
+  if (requireCompleteMap) assertCompleteMapRepresentation(projection.vessels);
   const history = parseStatusHistory(fs.readFileSync(statusHistoryPath, "utf8"));
   const historyCatalog = validateStatusHistoryCatalog(
     createPublicStatusHistoryCatalog(entities, history),

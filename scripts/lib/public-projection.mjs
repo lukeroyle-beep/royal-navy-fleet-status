@@ -1,18 +1,20 @@
+import { hasPlottablePosition } from '../../src/utils/map.js';
+import { validateLocationContext } from '../../src/utils/location-context.js';
 import { retainedLocationAssessment } from './retained-location.mjs';
 import { readReviewedPublicLocation } from "./public-geography.mjs";
 import { sanitisePublicLocationDescription } from "./public-location-safety.mjs";
 
-import { REPRESENTATIVE_PATROL, REPRESENTATIVE_PATROL_ANCHOR, hasRepresentativePatrolMarker } from "../../src/utils/representativePatrol.js";
+import { REPRESENTATIVE_PATROL, REPRESENTATIVE_PATROL_ANCHOR, hasRepresentativePatrolMarker, validateRepresentativePatrolFleet } from "../../src/utils/representativePatrol.js";
 
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.3.3";
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.4.0";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
   /\b(?:patrol|at sea|underway|approaches?|atlantic|bay|channel|firth|gulf|islands?|ocean|off|region|route|sea|sound|strait|territorial waters|waters)\b/i;
 const LIST_ONLY_STATES = new Set(["unconfirmed", "no_recent_information", "withheld"]);
 
-export function createPublicProjection(entities, assessmentLog) {
+export function createPublicProjection(entities, assessmentLog, evidenceItems = null) {
   if (!entities?.metadata || !Array.isArray(entities.vessels)) {
     throw new Error("Canonical vessel data is malformed.");
   }
@@ -20,7 +22,7 @@ export function createPublicProjection(entities, assessmentLog) {
     assessmentLog.assessments.map((assessment) => [assessment.assessmentId, assessment]),
   );
 
-  return {
+  const projection = {
     metadata: structuredClone(entities.metadata),
     vessels: entities.vessels.map((entity) => {
       const assessmentId = assessmentLog.currentAssessmentIds[entity.vesselId];
@@ -28,17 +30,52 @@ export function createPublicProjection(entities, assessmentLog) {
       if (!assessment || assessment.vesselId !== entity.vesselId) {
         throw new Error(`No current assessment for ${entity.vesselId}.`);
       }
-      const retained = retainedLocationAssessment(assessment, assessmentLog.assessments);
-      if (retained) {
-        if (SUBMARINE_TYPES.has(entity.vesselType)) throw new Error('Protected submarine locations cannot use automatic last-known retention.');
-        const label = `${retained.location.label} (last reported ${retained.retained.observedAt.slice(0, 10)}; current location unconfirmed)`;
-        return projectPublicVessel(entity, { ...assessment, assessedState: {
-          ...assessment.assessedState, locationClassification: 'approximate', locationState: 'last_reported',
-          publicLocation: { ...retained.location, label }, lastReportedLocation: label,
-        } });
+      // Protected policy is evaluated before any ordinary or historical geometry.
+      if (assessment.assessedState.mapRepresentation || SUBMARINE_TYPES.has(entity.vesselType)) {
+        if (assessment.retainedLocation) throw new Error('Protected submarine locations cannot use automatic last-known retention.');
+        return projectPublicVessel(entity, assessment);
       }
-      return projectPublicVessel(entity, assessment);
+      const current = projectPublicVessel(entity, assessment);
+      const retained = retainedLocationAssessment(assessment, assessmentLog.assessments, evidenceItems);
+      // The active reviewed point/region wins. A linked old point never promotes recency.
+      if (hasPlottablePosition(current) || !retained) {
+        if (evidenceItems) current.locationContext = { retained: false, ...publicDates(assessment.selectedEvidenceIds, evidenceItems) };
+        validateLocationContext(current);
+        return current;
+      }
+      const label = `${retained.location.label} (last reported ${retained.retained.observedAt.slice(0, 10)}; current location unconfirmed)`;
+      const vessel = projectPublicVessel(entity, { ...assessment, assessedState: {
+        ...assessment.assessedState, locationClassification: 'approximate', locationState: 'last_reported',
+        publicLocation: { ...retained.location, label }, lastReportedLocation: label,
+      } });
+      vessel.locationContext = {
+        retained: true,
+        ...publicDates(retained.retained.evidenceIds, evidenceItems || []),
+        observedAt: retained.retained.observedAt.slice(0, 10),
+        latestReport: { label: current.publicLocationLabel, precision: current.locationPrecision, state: current.locationState,
+          ...publicDates(assessment.selectedEvidenceIds.filter(id => !retained.retained.evidenceIds.includes(id)), evidenceItems || []) },
+      };
+      validateLocationContext(vessel);
+      return vessel;
     }),
+  };
+  validateRepresentativePatrolFleet(projection.vessels);
+  return projection;
+}
+
+function publicDates(ids, evidenceItems) {
+  const selected = evidenceItems.filter(item => ids.includes(item.evidenceId) && item.claim?.location && !item.supersededBy &&
+    !evidenceItems.some(correction => correction.correctionOf === item.evidenceId));
+  const dates = selected.map(item => {
+    const observation = item.observation;
+    const from = observation?.from?.slice(0, 10), to = observation?.to?.slice(0, 10);
+    return { observedAt: ['explicit', 'inferred'].includes(observation?.basis) && from === to && from ? from : null,
+      publishedAt: item.publishedAt?.slice(0, 10) || null };
+  });
+  // Ambiguous or unknown timing stays unknown; publication never fills that gap.
+  return {
+    observedAt: dates.length && dates.every(d => d.observedAt && d.observedAt === dates[0].observedAt) ? dates[0].observedAt : null,
+    publishedAt: dates.map(d => d.publishedAt).filter(Boolean).sort().at(-1) || null,
   };
 }
 

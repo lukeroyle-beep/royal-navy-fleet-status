@@ -482,7 +482,7 @@ Object.assign(retainedCurrent.assessedState, {status:'Available',locationClassif
 const retainedLog={...assessmentLog,assessments:[retainedPrevious,retainedCurrent],currentAssessmentIds:{'hms-medway':'retained-current'}};
 const retainedEntity=entities.vessels.find(v=>v.vesselId==='hms-medway');
 const retainedEntities={metadata:entities.metadata,vessels:[retainedEntity]};
-const retainedEvidence={evidenceId:'retained-location-proof',vesselId:'hms-medway',directness:'direct',observation:{from:'2026-08-01T00:00:00Z',to:'2026-08-01T00:00:00Z',basis:'explicit'}};
+const retainedEvidence={claim:{location:{name:'Example retained region'}},evidenceId:'retained-location-proof',vesselId:'hms-medway',directness:'direct',observation:{from:'2026-08-01T00:00:00Z',to:'2026-08-01T00:00:00Z',basis:'explicit'}};
 const {retainedLocationAssessment}=await import('./lib/retained-location.mjs');
 assert.ok(retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[retainedEvidence]));
 const retainedPublic=createPublicProjection(retainedEntities,retainedLog).vessels[0];
@@ -514,3 +514,51 @@ assert.ok(!retentionReconciliation(retainedLog).records[0].issues.includes('last
 assert.equal(retentionReconciliation(retainedLog).records[0].latestSupportAt,'2026-08-01T00:00:00Z');
 
 assert.ok(retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[{...retainedEvidence,observation:{...retainedEvidence.observation,basis:'inferred'}}]), 'Reviewed inferred observation dates use the native evidence enum');
+
+// Phase 2: a newer reviewed region and an older retained point remain separate facts.
+const dualPrevious=structuredClone(retainedPrevious);
+dualPrevious.assessedState.publicLocation={precision:'port',label:'Example port',geometry:{type:'point',lat:50.38,lon:-4.18}};
+const dualCurrent=structuredClone(retainedCurrent);
+dualCurrent.retainedLocation.reason='current-location-less-precise';
+dualCurrent.selectedEvidenceIds=['new-region-proof'];
+dualCurrent.assessedState.publicLocation={precision:'region',label:'Example regional report',geometry:{type:'circle',centre:{lat:50.3,lon:-4.1},radiusKm:100},representation:'representative-marker'};
+dualCurrent.assessedState.locationClassification='approximate';dualCurrent.assessedState.locationState='last_reported';
+const regionProof={claim:{location:{name:'Example regional report'}},evidenceId:'new-region-proof',vesselId:'hms-medway',directness:'direct',publishedAt:'2026-09-06T12:00:00Z',observation:{from:null,to:null,basis:'unknown'}};
+const dualLog={...retainedLog,assessments:[dualPrevious,dualCurrent]};
+const dualPublic=createPublicProjection(retainedEntities,dualLog,[retainedEvidence,regionProof]).vessels[0];
+assert.equal(dualPublic.position,null,'Eligible current region wins over older point');
+assert.equal(dualPublic.locationState,'last_reported','Region must not become current merely because it is selected');
+assert.equal(dualPublic.locationContext.observedAt,null,'Publication never substitutes for unknown observation');
+assert.equal(dualPublic.locationContext.publishedAt,'2026-09-06');
+assert.equal(dualCurrent.retainedLocation.observedAt,'2026-08-01T00:00:00Z','Older point date remains unchanged internally');
+assert.deepEqual(createPublicProjection(retainedEntities,dualLog,[retainedEvidence,regionProof]),createPublicProjection(retainedEntities,dualLog,[retainedEvidence,regionProof]),'A weekly no-new-evidence projection preserves region without promotion');
+const withdrawnProof={evidenceId:'correction',correctionOf:'retained-location-proof'};
+assert.throws(()=>createPublicProjection(retainedEntities,retainedLog,[retainedEvidence,withdrawnProof]),/requires retained dated/,'Correction links block withdrawn retention even without backpatched supersededBy');
+const {validateLocationContext}=await import('../src/utils/location-context.js');
+for(const patch of [
+ {observedAt:'2026-02-30'},
+ {sourceUrl:'https://example.com'},
+ {latestReport:{label:'Region',precision:'region',state:'last_reported',observedAt:null,publishedAt:null,geometry:{lat:1,lon:2}}},
+ {latestReport:{label:'ASSESS_PRIVATE',precision:'region',state:'last_reported',observedAt:null,publishedAt:null}},
+]) assert.throws(()=>validateLocationContext({...retainedPublic,locationContext:{...retainedPublic.locationContext,...patch}}),/location context/);
+assert.throws(()=>validateLocationContext({...retainedPublic,vesselType:'SSBN'}),/location context/);
+validateFleet({metadata:entities.metadata,vessels:[dualPublic]});
+console.log('Phase 2 dual facts, current-region precedence, observation unknowns, correction exclusion and metadata allowlist passed.');
+
+const datedRegionProof={...regionProof,observation:{from:'2026-08-01T00:00:00Z',to:'2026-08-01T10:00:00Z',basis:'explicit'},publishedAt:'2026-08-01T12:00:00Z'};
+const statusProof={evidenceId:'new-status-proof',claim:{status:'Available'},publishedAt:'2026-09-19T12:00:00Z',observation:{from:'2026-09-19T00:00:00Z',to:'2026-09-19T10:00:00Z',basis:'explicit'}};
+const mixedLog=structuredClone(dualLog);mixedLog.assessments[1].selectedEvidenceIds.push(statusProof.evidenceId);
+const mixedPublic=createPublicProjection(retainedEntities,mixedLog,[retainedEvidence,datedRegionProof,statusProof]).vessels[0];
+assert.equal(mixedPublic.locationContext.observedAt,'2026-08-01','New status evidence must not erase location observation date');
+assert.equal(mixedPublic.locationContext.publishedAt,'2026-08-01','Status publication must not rejuvenate location report');
+
+const unanchoredLog=structuredClone(dualLog);delete unanchoredLog.assessments[1].assessedState.publicLocation.representation;
+const unanchoredPublic=createPublicProjection(retainedEntities,unanchoredLog,[retainedEvidence,regionProof]).vessels[0];
+assert.equal(unanchoredPublic.locationPrecision,'port','Unanchored region cannot suppress an eligible reviewed retained point');
+assert.equal(unanchoredPublic.locationState,'last_reported');
+assert.equal(unanchoredPublic.locationContext.retained,true);
+assert.equal(unanchoredPublic.locationContext.latestReport.precision,'region','Newer region remains separately disclosed without geometry');
+assert.equal(unanchoredPublic.locationContext.latestReport.publishedAt,'2026-09-06');
+assert.equal(unanchoredPublic.locationContext.observedAt,'2026-08-01');
+
+assert.throws(()=>retainedLocationAssessment(retainedCurrent,retainedLog.assessments,[{...retainedEvidence,claim:{status:'Available'}}]),/requires retained dated/,'Status-only evidence cannot support retained geography');
