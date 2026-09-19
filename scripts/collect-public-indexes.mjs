@@ -30,6 +30,7 @@ const run = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: privateInputs.readJson("evidence").evidence,
   startedAt,
   windowStart,
   releaseRevision,

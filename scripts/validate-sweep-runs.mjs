@@ -56,6 +56,7 @@ if (baseRef && newFiles.length) {
       validateSweepBaselineAgainstState(run, {
         entities: baseEntities,
         assessmentLog: baseAssessments,
+        evidenceItems: readJsonAtRef(baseRef, "data/internal/provenance/evidence.json").evidence,
       });
     }
   }

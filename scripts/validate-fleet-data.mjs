@@ -30,7 +30,7 @@ validateSourceRegistry(registry, knownVesselIds, vesselIds);
 validateEvidenceLog(evidence, registry.sources.map((source) => source.sourceId), knownVesselIds);
 validateAssessmentLog(assessments, evidence.evidence, knownVesselIds, vesselIds);
 
-const expectedProjection = createPublicProjection(entities, assessments);
+const expectedProjection = createPublicProjection(entities, assessments, evidence.evidence);
 const projectionMatches = JSON.stringify(dataset) === JSON.stringify(expectedProjection);
 const publicRelease = readReleaseMetadata(dataset.metadata);
 const legacyRelease = readReleaseMetadata(entities.metadata);

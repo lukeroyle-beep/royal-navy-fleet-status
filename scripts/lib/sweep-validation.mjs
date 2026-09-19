@@ -9,7 +9,7 @@ export function validateCertificateCandidate({ entities, registry, evidenceLog, 
   validateEvidenceLog(evidenceLog, registry.sources.map(s=>s.sourceId), known);
   validateAssessmentLog(assessmentLog, evidenceLog.evidence, known, current);
   validateSweepRunShape(run);
-  const projection=createPublicProjection(entities, assessmentLog);
+  const projection=createPublicProjection(entities, assessmentLog, evidenceLog.evidence);
   validateFleet(projection);
   if (computeReleaseContentHash({entities,registry,assessmentLog,evidenceItems:evidenceLog.evidence}) !== run.releaseContentHash) throw new Error('Certificate candidate differs from sealed release');
   const completedAt=new Date().toISOString();

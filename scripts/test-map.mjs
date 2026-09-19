@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { createHash } from "node:crypto";
 
 import {
   assertCompleteMapRepresentation,
@@ -504,6 +505,21 @@ for (const id of [undefined, null, "", "  "]) {
 }
 assert.throws(() => assertCompleteMapRepresentation([scott, retainedRegion]), /exactly one/);
 assert.throws(() => assertCompleteMapRepresentation([...completeFixture, { ...regionFixture, id: "unrepresented" }]), /ID set/);
-assert.throws(() => assertCompleteMapRepresentation(dataset.vessels), /ID set/, "The unchanged 47-marker baseline must not satisfy all-fleet completion.");
+const predecessorText = fs.readFileSync(new URL("./fixtures/phase2-predecessor-vessels.json", import.meta.url), "utf8");
+assert.equal(createHash("sha256").update(predecessorText).digest("hex"), "9921a008bceb48d68c6fdd982e307355deb913a2215a91ebccc1e13b766bbf4f");
+const predecessor = JSON.parse(predecessorText);
+assert.equal(plottedVessels(predecessor.vessels).length, 47);
+assert.throws(() => assertCompleteMapRepresentation(predecessor.vessels), /ID set/, "The unchanged 47-marker baseline must not satisfy all-fleet completion.");
+assert.equal(assertCompleteMapRepresentation(dataset.vessels).representedCount, dataset.vessels.length);
+// Public predecessor sha256: 9921a008bceb48d68c6fdd982e307355deb913a2215a91ebccc1e13b766bbf4f.
+// Bind the release-specific preservation check to r2; ordinary future releases
+// may legitimately change fleet positions after new evidence review.
+if (dataset.metadata.asOfDate === "2026-09-12" && dataset.metadata.releaseRevision === 2) {
+  for (const prior of plottedVessels(predecessor.vessels)) {
+    const { locationContext: priorContext, ...priorState } = prior;
+    const { locationContext: currentContext, ...currentState } = dataset.vessels.find(vessel => vessel.id === prior.id);
+    assert.deepEqual(currentState, priorState, `${prior.id}: preserve original plotted state and geometry`);
+  }
+}
 assert.throws(() => assertCompleteMapRepresentation(null), /fleet array/);
 console.log("Fleet map tests passed.");

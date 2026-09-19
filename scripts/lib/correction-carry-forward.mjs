@@ -13,15 +13,15 @@ const authenticated = new WeakMap();
 export function authenticateCorrectionCarryForward({ root, privateInputs, run }) {
   const entities = privateInputs.readJson('vessels');
   const assessmentLog = privateInputs.readJson('assessments');
-  validateSweepBaselineAgainstState(run, { entities, assessmentLog });
   const registry = privateInputs.readJson('sources');
   const evidenceItems = privateInputs.readJson('evidence').evidence;
+  validateSweepBaselineAgainstState(run, { entities, assessmentLog, evidenceItems });
   const directory = privateInputs.pathFor('sweepRuns');
   const runs = fs.readdirSync(directory).filter(n => n.endsWith('.json')).map(n => JSON.parse(fs.readFileSync(path.join(directory,n),'utf8')));
   const gate = validateCorrectionInputs({ root, privateInputs, runs, candidate:{ entities, registry, assessmentLog, evidenceItems } });
   assert.equal(gate?.pass, true, 'Carry-forward requires an authenticated correction');
   const published = JSON.parse(execFileSync('git',['show','HEAD:data/royal-navy/vessels.json'],{cwd:root,encoding:'utf8',maxBuffer:20*1024*1024}));
-  assert.deepEqual(createPublicProjection(entities,assessmentLog), published, 'Correction baseline is not the published release');
+  assert.deepEqual(createPublicProjection(entities,assessmentLog,evidenceItems), published, 'Correction baseline is not the published release');
   const proof = Object.freeze({});
   authenticated.set(proof, { runId:run.runId, baselineStateHash:run.baselineStateHash,
     correctionId:gate.correctionId,

@@ -1,8 +1,9 @@
+import { hasPlottablePosition } from '../src/utils/map.js';
 import { hasRepresentativePatrolMarker } from "../src/utils/representativePatrol.js";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 
-import { publicationReleaseFields } from "./lib/publication-release.mjs";
+import { publicationReleaseFields, regionalMarkerChange } from "./lib/publication-release.mjs";
 import { sanitisePublicLocationDescription } from "./lib/public-location-safety.mjs";
 
 const currentPath = new URL("../data/royal-navy/vessels.json", import.meta.url);
@@ -70,18 +71,8 @@ for (const vessel of current.vessels) {
     formatEvidenceClassification(vessel.evidenceClassification),
   );
 
-  if (
-    before.lastReportedLocation === vessel.lastReportedLocation &&
-    JSON.stringify(before.position || before.uncertaintyArea) !==
-      JSON.stringify(vessel.position || vessel.uncertaintyArea)
-  ) {
-    items.push({
-      kind: "marker",
-      label: "Marker",
-      before: before.position?.label || before.uncertaintyArea?.label || "Not plotted",
-      after: vessel.position?.label || vessel.uncertaintyArea?.label || "Not plotted",
-    });
-  }
+  const markerChange = regionalMarkerChange(before, vessel);
+  if (markerChange) items.push(markerChange);
 
   addChange(
     items,
@@ -134,7 +125,7 @@ function addChange(items, kind, label, before, after) {
 }
 
 function hasMapPosition(vessel) {
-  return Boolean(vessel.position || vessel.uncertaintyArea || hasRepresentativePatrolMarker(vessel));
+  return hasPlottablePosition(vessel);
 }
 
 function formatLocationPrecision(precision, legacyClassification) {

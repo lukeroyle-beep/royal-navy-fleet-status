@@ -20,6 +20,7 @@ import {
   validateSweepBaselineAgainstState,
   validateSweepRunShape,
 } from "./lib/sweep.mjs";
+import { createPublicProjection } from "./lib/public-projection.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 
 const privateInputs = resolvePrivateInputs();
@@ -69,6 +70,7 @@ assert.throws(
     registry,
     entities,
     assessmentLog: assessments,
+    evidenceItems: evidence.evidence,
     startedAt,
     windowStart: "2026-08-23T00:00:01Z",
   }),
@@ -79,6 +81,7 @@ const run = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt,
   windowStart: "2026-08-17T00:00:00Z",
 });
@@ -193,6 +196,7 @@ const overlappingRun = createSweepRun({
   registry: overlappingRegistry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt,
   windowStart: "2026-08-17T00:00:00Z",
   discoveryTargets: [PUBLIC_INDEX_TARGETS[0]],
@@ -297,10 +301,26 @@ assert.deepEqual(
   { required: true, pass: true, runId: run.runId, reasons: [] },
 );
 assert.equal(
-  validateSweepBaselineAgainstState(run, { entities, assessmentLog: assessments }),
+  validateSweepBaselineAgainstState(run, { entities, assessmentLog: assessments, evidenceItems: evidence.evidence }),
   run,
   "The captured baseline must match the authenticated pre-change state.",
 );
+// Baseline and release bindings use the same evidence-aware projection as generation.
+assert.deepEqual(run.coverageInputs.baselineProjectionVessels,
+  createPublicProjection(entities, assessments, evidence.evidence).vessels);
+const bindingEvidence = structuredClone(evidence.evidence);
+const datedPublic = run.coverageInputs.baselineProjectionVessels.find(v => v.locationContext?.publishedAt);
+assert.ok(datedPublic, "Fixture must exercise evidence-derived public dates");
+const datedAssessment = assessments.assessments.find(a => a.assessmentId === assessments.currentAssessmentIds[datedPublic.id]);
+for (const item of bindingEvidence) {
+  if (datedAssessment.selectedEvidenceIds.includes(item.evidenceId) && item.claim?.location) {
+    item.publishedAt = "2026-08-22T23:58:00Z";
+  }
+}
+assert.throws(() => validateSweepBaselineAgainstState(run, {
+  entities, assessmentLog: assessments, evidenceItems: bindingEvidence,
+}), /baseline does not match/, "A changed projected report date must invalidate the authenticated baseline");
+assert.notEqual(computeReleaseContentHash({entities:releaseEntities,registry,assessmentLog:assessments,evidenceItems:bindingEvidence}), currentReleaseContentHash);
 const forgedBaseline = structuredClone(run);
 forgedBaseline.coverageInputs.baselineProjectionVessels[0].lastReportedLocation += " (forged)";
 forgedBaseline.baselineStateHash = crypto
@@ -314,7 +334,7 @@ forgedBaseline.baselineStateHash = crypto
   .digest("hex");
 assert.equal(validateSweepRunShape(forgedBaseline), forgedBaseline);
 assert.throws(
-  () => validateSweepBaselineAgainstState(forgedBaseline, { entities, assessmentLog: assessments }),
+  () => validateSweepBaselineAgainstState(forgedBaseline, { entities, assessmentLog: assessments, evidenceItems: evidence.evidence }),
   /authenticated pre-change state/i,
   "A self-consistent but forged baseline must fail comparison with the PR base state.",
 );
@@ -339,6 +359,7 @@ assert.throws(
   () => validateSweepBaselineAgainstState(forgedReleaseBaseline, {
     entities,
     assessmentLog: assessments,
+    evidenceItems: evidence.evidence,
   }),
   /authenticated pre-change state/i,
   "A forged prior-release date cannot legitimise a shortened sweep window.",
@@ -351,6 +372,7 @@ assert.equal(
     entities: releaseEntities,
     registry: registryWithOneOff,
     assessmentLog: assessments,
+    evidenceItems: evidence.evidence,
     evidenceItems: [...evidence.evidence, unrelatedEvidence],
   }),
   currentReleaseContentHash,
@@ -532,6 +554,7 @@ const laterIncomplete = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt: "2026-08-24T12:00:00Z",
   windowStart: "2026-08-23T00:00:00Z",
 });
@@ -831,6 +854,7 @@ const emptyRun = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt,
   windowStart: "2026-08-17T00:00:00Z",
   discoveryTargets: [PUBLIC_INDEX_TARGETS[0]],
@@ -849,6 +873,7 @@ const redirectRun = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt,
   windowStart: "2026-08-17T00:00:00Z",
   discoveryTargets: [PUBLIC_INDEX_TARGETS[0]],
@@ -878,6 +903,7 @@ const oversizedRun = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt,
   windowStart: "2026-08-17T00:00:00Z",
   discoveryTargets: [PUBLIC_INDEX_TARGETS[0]],
@@ -928,6 +954,7 @@ const completenessRun = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
+  evidenceItems: evidence.evidence,
   startedAt: "2026-08-26T00:00:00Z",
   windowStart: "2026-08-23T00:00:00Z",
 });

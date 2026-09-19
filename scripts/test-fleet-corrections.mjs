@@ -13,6 +13,10 @@ import { VesselPhotoService } from '../src/components/VesselPhotoService.js';
 
 const read = name => fs.readFileSync(new URL(`../data/royal-navy/${name}`, import.meta.url), 'utf8');
 const fleet = validateFleet(JSON.parse(read('vessels.json')));
+// Public predecessor sha256: 9921a008bceb48d68c6fdd982e307355deb913a2215a91ebccc1e13b766bbf4f.
+const predecessor=JSON.parse(fs.readFileSync(new URL("./fixtures/phase2-predecessor-vessels.json",import.meta.url),"utf8"));
+const phase2Ids=new Set(predecessor.vessels.filter(v=>!getMapPosition(v)).map(v=>v.id));
+const withoutContext = ({locationContext, ...record}) => record;
 const history = parsePhysicalStatusHistory(read('status-history.jsonl'));
 const catalog = JSON.parse(read('status-history-catalog.json'));
 const locations = parseLocationHistory(read('status-location-history.jsonl'), history, catalog);
@@ -31,7 +35,7 @@ assert.equal(vengeance.locationClassification, 'withheld');
 assert.deepEqual(getMapPosition(vengeance), {lat:45,lon:-35,label:'On patrol'});
 assert.equal(publicPresenceForVessel(vengeance), '', 'A symbolic display anchor cannot establish overseas presence.');
 assert.equal(plottedVessels(fleet.vessels).filter(v=>v.id==='hms-vengeance').length, 1);
-assert.deepEqual(summarizePlotEligibility(fleet.vessels), {total:69,pointMapped:42,regional:20,listOnly:2,representative:5});
+assert.deepEqual(summarizePlotEligibility(fleet.vessels), {total:69,pointMapped:42,regional:0,listOnly:0,representative:27});
 assert.equal(fort.status, 'In re-fit');
 assert.equal(formatOperationalStatus(fort.status), 'In Re-fit');
 assert.equal(fort.publicLocationLabel, 'Seaforth Docks, Liverpool');
@@ -83,7 +87,10 @@ for(const id of ['hms-duncan','hms-sutherland','hms-portland']) assert.equal(fle
 for(const id of ['hms-queen-elizabeth','hms-dragon','hms-mersey']) assert.match(fleet.vessels.find(v=>v.id===id).publicLocationLabel,/current location unconfirmed/);
 const baseline=JSON.parse(fs.readFileSync(new URL('./fixtures/fleet-correction-baseline.json',import.meta.url),'utf8'));
 for (const [id, record] of Object.entries(baseline.reviewedReleaseCorrections)) {
- if(!revisedIds.has(id)) assert.deepEqual(fleet.vessels.find(v=>v.id===id), record, `${id}: preserve the separately reviewed published correction`);
+ if(!revisedIds.has(id)) {
+   const comparisonFleet=phase2Ids.has(id)?predecessor:fleet;
+   assert.deepEqual(withoutContext(comparisonFleet.vessels.find(v=>v.id===id)), withoutContext(record), `${id}: preserve the separately reviewed published correction in its applicable release`);
+ }
 }
 const publishedR1 = history.find(h=>h.snapshotDate==='2026-09-06' && h.releaseRevision===1);
 assert.equal(Object.hasOwn(publishedR1.statuses, fort.id), false, 'Published r1 must not acquire Fort Victoria retrospectively.');
@@ -93,7 +100,14 @@ for(const [name,record] of Object.entries(baseline.history)) {
 }
 const currentMarkers=new Map(plottedVessels(fleet.vessels).map(v=>[v.id,getMapPosition(v)]));
 for(const [id,position] of Object.entries(baseline.markers)) if(!revisedIds.has(id)) assert.deepEqual(currentMarkers.get(id),position,`${id}: existing marker must not disappear or move`);
-assert.equal(currentMarkers.size,47);
+assert.equal(currentMarkers.size,fleet.vessels.length);
+assert.deepEqual(summarizePlotEligibility(predecessor.vessels),{total:69,pointMapped:42,regional:20,listOnly:2,representative:5});
+assert.equal(plottedVessels(predecessor.vessels).length,47);
+if(fleet.metadata.asOfDate === "2026-09-12" && fleet.metadata.releaseRevision === 2) {
+ for(const prior of plottedVessels(predecessor.vessels)) assert.deepEqual(withoutContext(fleet.vessels.find(v=>v.id===prior.id)),withoutContext(prior),`${prior.id}: Phase2 preserves prior plotted state`);
+ assert.equal(phase2Ids.size,22);
+ for(const id of phase2Ids) assert.ok(currentMarkers.has(id),`${id}: newly represented record remains selectable`);
+}
 assert.equal((await new VesselPhotoService(async()=>{throw new Error('Local photo must not need network');}).find(fort)).imageUrl,'./photos/cards/fort_victoria.jpg');
 assert.equal(fort.homePort, 'Marchwood Military Port, Southampton');
 console.log('Fleet correction regressions passed: counts, representative semantics, filters, URL state, images and immutable history.');

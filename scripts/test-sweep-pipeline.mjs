@@ -27,7 +27,7 @@ try {
  }
  fs.writeFileSync(fixture.pathFor('assessments'),JSON.stringify(fixtureAssessments));
 
- const run=createSweepRun({registry:fixture.readJson('sources'),entities:fixture.readJson('vessels'),assessmentLog:fixture.readJson('assessments'),startedAt:new Date(Date.now()-10000).toISOString(),windowStart:'2026-08-01T00:00:00Z'});
+ const run=createSweepRun({registry:fixture.readJson('sources'),entities:fixture.readJson('vessels'),assessmentLog:fixture.readJson('assessments'),evidenceItems:fixture.readJson('evidence').evidence,startedAt:new Date(Date.now()-10000).toISOString(),windowStart:'2026-08-01T00:00:00Z'});
  const runFile=path.join(root,'fixture-run.json'),state=path.join(directory,'state'),packets=path.join(directory,'packets');
  fs.writeFileSync(runFile,JSON.stringify(run));
  fs.mkdirSync(packets);

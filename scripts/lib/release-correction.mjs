@@ -1,3 +1,4 @@
+import { retainedLocationAssessment } from './retained-location.mjs';
 // Owner corrections are separate from collection: a completed sweep retains its original coverage.
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
@@ -46,12 +47,13 @@ export function validateReleaseCorrection({ record, baseline, candidate, parentG
   const changes = indexed(record.changes, 'vesselId');
   assert.ok(changes.size > 0, 'Empty correction');
   const oldEntities = indexed(baseline.entities.vessels, 'vesselId'), newEntities = indexed(candidate.entities.vessels, 'vesselId');
-  const oldPublic = indexed(published.vessels, 'id'), newPublic = indexed(createPublicProjection(candidate.entities, candidate.assessmentLog).vessels, 'id');
+  const oldPublic = indexed(published.vessels, 'id'), newPublic = indexed(createPublicProjection(candidate.entities, candidate.assessmentLog, candidate.evidenceItems).vessels, 'id');
   const oldAssessments = indexed(baseline.assessmentLog.assessments, 'assessmentId'), newAssessments = indexed(candidate.assessmentLog.assessments, 'assessmentId');
   const oldSocial = indexed(baseline.registry.officialSocialCoverage, 'vesselId'), newSocial = indexed(candidate.registry.officialSocialCoverage, 'vesselId');
   for (const id of oldEntities.keys()) assert.ok(newEntities.has(id), 'Inventory removals require a separate review');
   equal([...newSocial.keys()].sort(), [...newEntities.keys()].sort(), 'Social coverage roster mismatch');
   equal(Object.keys(candidate.assessmentLog.currentAssessmentIds).sort(), [...newEntities.keys()].sort(), 'Assessment roster mismatch');
+  const declaredAppends = [];
   for (const [id, entity] of newEntities) {
     const oldId = baseline.assessmentLog.currentAssessmentIds[id], newId = candidate.assessmentLog.currentAssessmentIds[id];
     const change = changes.get(id), assessment = newAssessments.get(newId);
@@ -78,8 +80,52 @@ export function validateReleaseCorrection({ record, baseline, candidate, parentG
       equal(newSocial.get(id), oldSocial.get(id), 'Home-port correction changed social coverage');
       continue;
     }
+    if (change.mode === 'display-only') {
+      assert.equal(change.action, 'update', 'Display correction requires an existing vessel');
+      equal(entity, oldEntities.get(id), 'Display correction changed entity identity');
+      equal(newSocial.get(id), oldSocial.get(id), 'Display correction changed social coverage');
+      const allowed = ['locationClassification', 'locationState', 'locationPrecision', 'publicLocationLabel',
+        'lastReportedLocation', 'position', 'uncertaintyArea', 'locationContext'];
+      equal(omit(newPublic.get(id), allowed), omit(oldPublic.get(id), allowed), 'Display correction changed status, identity or protected assignment');
+      const supportIds = change.supportingAssessmentIds || [];
+      assert.ok(Array.isArray(supportIds) && new Set(supportIds).size === supportIds.length && supportIds.length <= 1,
+        'Display correction permits only one explicitly retained supporting assessment');
+      if (newId === oldId) {
+        assert.equal(supportIds.length, 0, 'Metadata-only correction cannot append support');
+        equal(omit(newPublic.get(id), ['locationContext']), omit(oldPublic.get(id), ['locationContext']),
+          'Unchanged assessment permits only derived public date metadata');
+        continue;
+      }
+      const oldAssessment = oldAssessments.get(oldId);
+      const privateAllowed = ['locationClassification', 'locationState', 'publicLocation', 'lastReportedLocation',
+        'position', 'unmappedReason', 'locationContext'];
+      equal(omit(assessment.assessedState, privateAllowed), omit(oldAssessment.assessedState, privateAllowed),
+        'Display correction changed unrelated assessment state');
+      let prior = oldId;
+      for (const supportId of supportIds) {
+        const support = newAssessments.get(supportId);
+        assert.ok(support && !oldAssessments.has(supportId) && supportId !== newId, 'Invalid supporting assessment');
+        assert.equal(support.vesselId, id, 'Cross-vessel supporting assessment');
+        assert.equal(support.previousAssessmentId, prior, 'Broken supporting assessment chain');
+        validateOwnerAssessment(support, reviewed);
+        equal(omit(support.assessedState, privateAllowed), omit(oldAssessment.assessedState, privateAllowed),
+          'Supporting assessment changed unrelated state');
+        assert.ok(Date.parse(support.assessedAt) >= Date.parse(oldAssessment.assessedAt) &&
+          Date.parse(support.assessedAt) <= Date.parse(assessment.assessedAt), 'Invalid supporting assessment chronology');
+        assert.equal(assessment.retainedLocation?.assessmentId, supportId, 'Supporting row must be the retained assessment');
+        prior = supportId;
+      }
+      assert.equal(assessment.previousAssessmentId, prior, 'Broken current assessment chain');
+      assert.ok(Date.parse(assessment.assessedAt) >= Date.parse(oldAssessment.assessedAt), 'Correction predates baseline assessment');
+      assert.ok(!oldAssessments.has(newId), 'Correction requires a new assessment ID');
+      validateOwnerAssessment(assessment, reviewed);
+      retainedLocationAssessment(assessment, candidate.assessmentLog.assessments, candidate.evidenceItems);
+      declaredAppends.push(...supportIds, newId);
+      continue;
+    }
     assert.ok(change.mode === undefined || change.mode === 'operational', 'Unknown correction mode');
     assert.ok(!oldAssessments.has(newId), 'Correction requires a new assessment ID');
+    declaredAppends.push(newId);
     assert.equal(assessment.previousAssessmentId, oldId || null);
     assert.ok(Number.isFinite(Date.parse(assessment.assessedAt)) && Date.parse(assessment.assessedAt) <= reviewed, 'Assessment postdates review');
     assert.equal(assessment.assessor, 'owner-directed-correction');
@@ -93,7 +139,7 @@ export function validateReleaseCorrection({ record, baseline, candidate, parentG
     }
   }
   for (const id of changes.keys()) assert.ok(newEntities.has(id), 'Unknown correction vessel');
-  equal(candidate.assessmentLog.assessments.slice(baseline.assessmentLog.assessments.length).map(a => a.assessmentId).sort(), [...changes.values()].filter(c => c.mode !== 'home-port-only').map(c => c.assessmentId).sort(), 'Undeclared assessment append');
+  equal(candidate.assessmentLog.assessments.slice(baseline.assessmentLog.assessments.length).map(a => a.assessmentId).sort(), declaredAppends.sort(), 'Undeclared assessment append');
   for (const [name, history] of Object.entries(histories)) {
     assert.ok(history.current.startsWith(history.baseline), `${name}: published history changed`);
     const extra = history.current.slice(history.baseline.length).trim().split('\n').filter(Boolean);
@@ -105,4 +151,11 @@ export function validateReleaseCorrection({ record, baseline, candidate, parentG
   }
   return { required: true, pass: true, kind: record.kind, correctionId: record.correctionId, parentRunId: parentGate.runId,
     baselineVessels: oldEntities.size, candidateVessels: newEntities.size, reviewedCorrections: changes.size, newCollectionPerformed: false, reasons: [] };
+}
+
+function validateOwnerAssessment(assessment, reviewed) {
+  assert.ok(Number.isFinite(Date.parse(assessment.assessedAt)) && Date.parse(assessment.assessedAt) <= reviewed, 'Assessment postdates review');
+  assert.equal(assessment.assessor, 'owner-directed-correction');
+  assert.equal(assessment.conflictState, 'none', 'Unresolved correction conflict');
+  assert.equal(assessment.freshness.state, 'historical', 'Owner instruction cannot manufacture observation freshness');
 }

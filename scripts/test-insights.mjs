@@ -8,7 +8,7 @@ import {
   formatPublicationFreshness,
   formatPublicationChangeLabels,
 } from "../src/utils/release.js";
-import { publicationReleaseFields } from "./lib/publication-release.mjs";
+import { publicationReleaseFields, regionalMarkerChange } from "./lib/publication-release.mjs";
 import { buildStatusSnapshot } from "./lib/status-snapshot.mjs";
 
 import {
@@ -638,3 +638,12 @@ assert.throws(
 );
 
 console.log("Fleet insights tests passed.");
+
+const plainRegion={locationPrecision:'region',locationState:'last_reported',locationClassification:'approximate',vesselType:'Patrol vessel',position:null,lastReportedLocation:'Example region',uncertaintyArea:{centre:{lat:50,lon:-4},radiusKm:20,label:'Example region',representation:'regional'}};
+const plottedRegion=structuredClone(plainRegion);plottedRegion.uncertaintyArea.representation='representative-marker';
+assert.deepEqual(regionalMarkerChange(plainRegion,plottedRegion),{kind:'marker',label:'Map display',before:'No representative regional marker',after:'Representative regional marker'});
+assert.equal(regionalMarkerChange(plottedRegion,plottedRegion),null);
+const movedCircle=structuredClone(plottedRegion);movedCircle.uncertaintyArea.centre.lat=51;
+const circleDelta=regionalMarkerChange(plottedRegion,movedCircle);
+assert.notEqual(circleDelta.before,circleDelta.after,'Changed geometry with unchanged place name remains a valid visible delta');
+assert.ok(!JSON.stringify(circleDelta).includes('51'),'Public change copy does not expose centre coordinates as vessel movement');

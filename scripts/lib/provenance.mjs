@@ -1,3 +1,4 @@
+import { validateAssessmentLocationContext } from './public-projection.mjs';
 import { retainedLocationAssessment } from './retained-location.mjs';
 import crypto from "node:crypto";
 
@@ -211,6 +212,7 @@ export function validateAssessmentLog(
     if (!assessment.assessedState || typeof assessment.assessedState.status !== "string") {
       throw new Error(`${assessment.assessmentId} has no assessed state.`);
     }
+    validateAssessmentLocationContext(assessment);
     if (Object.hasOwn(assessment.assessedState, "publicLocation")) {
       validateAssessmentPublicLocation(assessment);
     }

@@ -197,6 +197,7 @@ export function createSweepRun({
   registry,
   entities,
   assessmentLog = null,
+  evidenceItems = null,
   startedAt,
   windowStart,
   releaseRevision = 1,
@@ -228,7 +229,7 @@ export function createSweepRun({
     throw new Error("Gate-effective sweep creation requires the current assessment baseline.");
   }
   const baselineProjectionVessels = assessmentLog
-    ? createPublicProjection(entities, assessmentLog).vessels
+    ? createPublicProjection(entities, assessmentLog, evidenceItems).vessels
     : null;
   const baselineAssessments = assessmentLog
     ? currentAssessmentsForRoster(assessmentLog, rosterIds)
@@ -944,7 +945,7 @@ export function computeReleaseContentHash({ entities, registry, assessmentLog, e
   ) {
     throw new Error("Release content hash requires canonical entities, sources, evidence and assessments.");
   }
-  const projection = createPublicProjection(entities, assessmentLog);
+  const projection = createPublicProjection(entities, assessmentLog, evidenceItems);
   const currentAssessments = currentAssessmentsForRoster(
     assessmentLog,
     entities.vessels.map((vessel) => vessel.vesselId),
@@ -973,7 +974,7 @@ export function computeReleaseContentHash({ entities, registry, assessmentLog, e
   }));
 }
 
-export function validateSweepBaselineAgainstState(run, { entities, assessmentLog }) {
+export function validateSweepBaselineAgainstState(run, { entities, assessmentLog, evidenceItems = null }) {
   validateSweepRunShape(run);
   if (!run.coverageInputs) return run;
   const rosterIds = entities.vessels.map((vessel) => vessel.vesselId).sort();
@@ -981,7 +982,7 @@ export function validateSweepBaselineAgainstState(run, { entities, assessmentLog
   const assessmentIds = Object.fromEntries(
     assessments.map((assessment) => [assessment.vesselId, assessment.assessmentId]),
   );
-  const projectionVessels = createPublicProjection(entities, assessmentLog).vessels;
+  const projectionVessels = createPublicProjection(entities, assessmentLog, evidenceItems).vessels;
   const releaseMetadata = releaseIdentityFromMetadata(entities.metadata);
   if (
     stableJson(run.coverageInputs.baselineAssessmentIds) !== stableJson(assessmentIds) ||
@@ -1002,7 +1003,7 @@ function validateVesselOutcomeBindings(
   if (!Array.isArray(evidenceItems)) {
     throw new Error("Outcome binding requires the governed evidence ledger.");
   }
-  const currentProjection = createPublicProjection(entities, assessmentLog);
+  const currentProjection = createPublicProjection(entities, assessmentLog, evidenceItems);
   const baselineById = new Map(
     run.coverageInputs.baselineProjectionVessels.map((vessel) => [vessel.id, vessel]),
   );

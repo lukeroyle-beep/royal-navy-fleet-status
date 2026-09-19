@@ -319,6 +319,7 @@ function sweepRun(registry) {
     registry,
     entities,
     assessmentLog: assessments,
+    evidenceItems: privateInputs.readJson("evidence").evidence,
     startedAt: "2026-08-31T00:00:00Z",
     windowStart: "2026-08-23T00:00:00Z",
   });
