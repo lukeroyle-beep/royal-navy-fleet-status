@@ -491,8 +491,11 @@ function updateSnapshotLabels() {
   elements.publicationFreshness.textContent = isCurrent
     ? formatPublicationFreshness(currentDataset.metadata)
     : "Historical public snapshot";
-  elements.snapshotDescription.classList.toggle("sr-only", isCurrent);
-  elements.snapshotDescription.textContent = isCurrent
+  const partial = isCurrent && currentDataset.metadata.sweepCoverage?.classification === "partial";
+  elements.snapshotDescription.classList.toggle("sr-only", isCurrent && !partial);
+  elements.snapshotDescription.textContent = partial
+    ? "Partial evidence review. Some vessel records and map locations are carried forward from earlier dated reports. This publication does not confirm current positions."
+    : isCurrent
     ? `Current public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}.`
     : `Historical public snapshot effective ${formatDatasetReleaseLabel({ asOfDate: selectedSnapshotDate })}. Markers show supported archived public locations; coverage is partial and these are not live positions.`;
 }

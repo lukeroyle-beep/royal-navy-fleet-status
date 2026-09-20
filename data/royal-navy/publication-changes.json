@@ -1,377 +1,139 @@
 {
   "schemaVersion": 2,
   "previousAsOfDate": "2026-09-12",
-  "currentAsOfDate": "2026-09-12",
-  "previousReleaseRevision": 1,
-  "currentReleaseRevision": 2,
-  "previousReleasedAt": "2026-09-13T14:35:32.616Z",
-  "currentReleasedAt": "2026-09-19T19:03:00.743Z",
-  "previousMappedCount": 47,
+  "currentAsOfDate": "2026-09-20",
+  "previousReleaseRevision": 2,
+  "currentReleaseRevision": 1,
+  "previousReleasedAt": "2026-09-19T19:03:00.743Z",
+  "currentReleasedAt": "2026-09-20T17:56:21.436Z",
+  "previousMappedCount": 69,
   "currentMappedCount": 69,
   "counts": {
     "status": 0,
-    "location": 2,
-    "mapping": 2,
-    "marker": 22,
+    "location": 8,
+    "mapping": 0,
+    "marker": 0,
     "evidence": 0,
     "metadata": 0
   },
   "changes": [
     {
-      "vesselId": "hms-forth",
-      "vesselName": "HMS Forth",
+      "vesselId": "hms-dauntless",
+      "vesselName": "HMS Dauntless",
       "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-medway",
-      "vesselName": "HMS Medway",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-trent",
-      "vesselName": "HMS Trent",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-ledbury",
-      "vesselName": "HMS Ledbury",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-hurworth",
-      "vesselName": "HMS Hurworth",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-archer",
-      "vesselName": "HMS Archer",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-smiter",
-      "vesselName": "HMS Smiter",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-pursuer",
-      "vesselName": "HMS Pursuer",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-blazer",
-      "vesselName": "HMS Blazer",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-dasher",
-      "vesselName": "HMS Dasher",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-puncher",
-      "vesselName": "HMS Puncher",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-ranger",
-      "vesselName": "HMS Ranger",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-trumpeter",
-      "vesselName": "HMS Trumpeter",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-example",
-      "vesselName": "HMS Example",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-explorer",
-      "vesselName": "HMS Explorer",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-exploit",
-      "vesselName": "HMS Exploit",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-tracker",
-      "vesselName": "HMS Tracker",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-cutlass",
-      "vesselName": "HMS Cutlass",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "hms-magpie",
-      "vesselName": "HMS Magpie",
-      "categories": [
-        "location",
-        "mapping",
-        "marker"
+        "location"
       ],
       "items": [
         {
           "kind": "location",
           "label": "Location",
-          "before": "UK East Coast; survey focus reported 26 August 2026",
-          "after": "Reported region: East coast of England"
-        },
-        {
-          "kind": "mapping",
-          "label": "Map precision",
-          "before": "Not mapped",
-          "after": "Approximate region"
-        },
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
+          "before": "Devonport approaches; inbound passage reported 8 September 2026",
+          "after": "Devonport approaches (last reported 2026-09-08; current location unconfirmed)"
         }
       ]
     },
     {
-      "vesselId": "rfa-proteus",
-      "vesselName": "RFA Proteus",
+      "vesselId": "hms-portland",
+      "vesselName": "HMS Portland",
       "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-tidesurge",
-      "vesselName": "RFA Tidesurge",
-      "categories": [
-        "marker"
-      ],
-      "items": [
-        {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
-        }
-      ]
-    },
-    {
-      "vesselId": "rfa-tideforce",
-      "vesselName": "RFA Tideforce",
-      "categories": [
-        "location",
-        "mapping",
-        "marker"
+        "location"
       ],
       "items": [
         {
           "kind": "location",
           "label": "Location",
-          "before": "Location unconfirmed; earlier English Channel attribution withdrawn",
-          "after": "Plymouth Sound (last reported 2026-08-20; current location unconfirmed)"
-        },
+          "before": "Scotstoun, River Clyde; dated reviewed report 2026-09-07",
+          "after": "Scotstoun, River Clyde (last reported 2026-09-12; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-st-albans",
+      "vesselName": "HMS St Albans",
+      "categories": [
+        "location"
+      ],
+      "items": [
         {
-          "kind": "mapping",
-          "label": "Map precision",
-          "before": "Not mapped",
-          "after": "Approximate region"
-        },
+          "kind": "location",
+          "label": "Location",
+          "before": "Belfast Harbour; dated reviewed report 2026-09-04",
+          "after": "Belfast Harbour (last reported 2026-09-04; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-severn",
+      "vesselName": "HMS Severn",
+      "categories": [
+        "location"
+      ],
+      "items": [
         {
-          "kind": "marker",
-          "label": "Map display",
-          "before": "No representative regional marker",
-          "after": "Representative regional marker"
+          "kind": "location",
+          "label": "Location",
+          "before": "London; presence reported 28 August 2026",
+          "after": "London / HMS Belfast (last reported 2026-08-28; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-tamar",
+      "vesselName": "HMS Tamar",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Malaysia; dated reviewed report 2026-09-07",
+          "after": "Malaysia (last reported 2026-09-07; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-stirling-castle",
+      "vesselName": "HMS Stirling Castle",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "HMNB Portsmouth; last AIS report 6 August 2026",
+          "after": "HMNB Portsmouth (last reported 2026-08-06; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "hms-scott",
+      "vesselName": "HMS Scott",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Gibraltar; arrival reported 19 August 2026",
+          "after": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)"
+        }
+      ]
+    },
+    {
+      "vesselId": "rfa-tidespring",
+      "vesselName": "RFA Tidespring",
+      "categories": [
+        "location"
+      ],
+      "items": [
+        {
+          "kind": "location",
+          "label": "Location",
+          "before": "Gibraltar; reported alongside 19 August 2026",
+          "after": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)"
         }
       ]
     }

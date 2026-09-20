@@ -10,6 +10,7 @@ import {
   validateSweepRunShape,
 } from "./lib/sweep.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
+import { validatePartialReleaseInputs } from './lib/validate-partial-release-inputs.mjs';
 import { validateCorrectionInputs } from "./lib/validate-correction-inputs.mjs";
 import { readReleaseMetadata } from "../src/utils/release.js";
 
@@ -73,6 +74,10 @@ let gate = validateReleaseSweepGate({
   evidenceItems: evidence.evidence,
 });
 if (!gate.pass) {
+  const partial = validatePartialReleaseInputs({root,privateInputs,candidate:{entities,registry,assessmentLog:assessments,evidenceItems:evidence.evidence}});
+  if (partial) gate=partial;
+}
+if (!gate.pass) {
   const correction = validateCorrectionInputs({ root, privateInputs, runs,
     candidate: { entities, registry, assessmentLog: assessments, evidenceItems: evidence.evidence } });
   if (correction) gate = correction;
@@ -81,7 +86,9 @@ if (!gate.pass) {
   throw new Error(`Fleet publication coverage gate failed: ${gate.reasons.join("; ")}`);
 }
 console.log(
-  gate.kind === "owner-approved-correction"
+  gate.kind === "owner-approved-partial-release"
+    ? `Validated partial release ${gate.runId}: ${gate.updatedReports} updated reports, ${gate.retainedRecords} retained records; sweep remains incomplete.`
+    : gate.kind === "owner-approved-correction"
     ? `Validated owner correction ${gate.correctionId}: ${gate.baselineVessels} vessels in the published baseline; ${gate.reviewedCorrections} corrections; ${gate.candidateVessels} inventory records. No new collection claimed.`
     : gate.required
     ? `Validated ${runs.length} sweep run(s); ${gate.runId} authorises ${release.asOfDate} r${release.releaseRevision}.`

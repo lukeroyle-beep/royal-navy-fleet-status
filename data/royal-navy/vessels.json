@@ -2,9 +2,20 @@
   "metadata": {
     "title": "Royal Navy and RFA OSINT Fleet Map",
     "subtitle": "Last publicly reported vessel locations",
-    "asOfDate": "2026-09-12",
-    "releaseRevision": 2,
-    "releasedAt": "2026-09-19T19:03:00.743Z"
+    "asOfDate": "2026-09-20",
+    "releaseRevision": 1,
+    "releasedAt": "2026-09-20T17:56:21.436Z",
+    "sweepCoverage": {
+      "classification": "partial",
+      "runId": "SWEEP_20260920T110200208Z_R1_1add15ac",
+      "reviewedVessels": 23,
+      "pendingVessels": 46,
+      "sourceChecksSuccessful": 74,
+      "sourceChecksRequired": 77,
+      "retainedVesselRecords": 61,
+      "updatedReportRecords": 8,
+      "noChangeClaimAllowed": false
+    }
   },
   "vessels": [
     {
@@ -356,18 +367,25 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Devonport approaches",
-      "lastReportedLocation": "Devonport approaches; inbound passage reported 8 September 2026",
+      "publicLocationLabel": "Devonport approaches (last reported 2026-09-08; current location unconfirmed)",
+      "lastReportedLocation": "Devonport approaches (last reported 2026-09-08; current location unconfirmed)",
       "position": {
         "lat": 50.38,
         "lon": -4.18,
-        "label": "Devonport approaches"
+        "label": "Devonport approaches (last reported 2026-09-08; current location unconfirmed)"
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-09-08",
-        "publishedAt": "2026-09-09"
+        "publishedAt": "2026-09-09",
+        "latestReport": {
+          "label": "Devonport approaches",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-14",
+          "publishedAt": "2026-09-14"
+        }
       }
     },
     {
@@ -583,18 +601,25 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Scotstoun, River Clyde",
-      "lastReportedLocation": "Scotstoun, River Clyde; dated reviewed report 2026-09-07",
+      "publicLocationLabel": "Scotstoun, River Clyde (last reported 2026-09-12; current location unconfirmed)",
+      "lastReportedLocation": "Scotstoun, River Clyde (last reported 2026-09-12; current location unconfirmed)",
       "position": {
         "lat": 55.87,
         "lon": -4.35,
-        "label": "Scotstoun, River Clyde"
+        "label": "Scotstoun, River Clyde (last reported 2026-09-12; current location unconfirmed)"
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
-        "observedAt": null,
-        "publishedAt": "2026-09-12"
+        "retained": true,
+        "observedAt": "2026-09-12",
+        "publishedAt": "2026-09-12",
+        "latestReport": {
+          "label": "Upper Clyde",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-13",
+          "publishedAt": "2026-09-13"
+        }
       }
     },
     {
@@ -610,18 +635,25 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Belfast Harbour",
-      "lastReportedLocation": "Belfast Harbour; dated reviewed report 2026-09-04",
+      "publicLocationLabel": "Belfast Harbour (last reported 2026-09-04; current location unconfirmed)",
+      "lastReportedLocation": "Belfast Harbour (last reported 2026-09-04; current location unconfirmed)",
       "position": {
         "lat": 54.63,
         "lon": -5.89,
-        "label": "Belfast Harbour"
+        "label": "Belfast Harbour (last reported 2026-09-04; current location unconfirmed)"
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-09-04",
-        "publishedAt": "2026-09-05"
+        "publishedAt": "2026-09-05",
+        "latestReport": {
+          "label": "Faslane approaches",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-13",
+          "publishedAt": "2026-09-15"
+        }
       }
     },
     {
@@ -665,7 +697,7 @@
       "locationState": "last_reported",
       "locationPrecision": "port",
       "publicLocationLabel": "London",
-      "lastReportedLocation": "London; presence reported 28 August 2026",
+      "lastReportedLocation": "London / HMS Belfast (last reported 2026-08-28; current location unconfirmed)",
       "position": {
         "lat": 51.51,
         "lon": -0.08,
@@ -673,9 +705,16 @@
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-08-28",
-        "publishedAt": "2026-08-28"
+        "publishedAt": "2026-08-28",
+        "latestReport": {
+          "label": "Portsmouth",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-16",
+          "publishedAt": "2026-09-16"
+        }
       }
     },
     {
@@ -822,8 +861,8 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "region",
-      "publicLocationLabel": "Malaysia",
-      "lastReportedLocation": "Malaysia; dated reviewed report 2026-09-07",
+      "publicLocationLabel": "Malaysia (last reported 2026-09-07; current location unconfirmed)",
+      "lastReportedLocation": "Malaysia (last reported 2026-09-07; current location unconfirmed)",
       "position": null,
       "uncertaintyArea": {
         "centre": {
@@ -831,13 +870,20 @@
           "lon": 109.5
         },
         "radiusKm": 1200,
-        "label": "Malaysia",
+        "label": "Malaysia (last reported 2026-09-07; current location unconfirmed)",
         "representation": "representative-marker"
       },
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-09-07",
-        "publishedAt": "2026-09-07"
+        "publishedAt": "2026-09-07",
+        "latestReport": {
+          "label": "Brunei",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-14",
+          "publishedAt": "2026-09-14"
+        }
       }
     },
     {
@@ -1050,18 +1096,25 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "HMNB Portsmouth",
-      "lastReportedLocation": "HMNB Portsmouth; last AIS report 6 August 2026",
+      "publicLocationLabel": "HMNB Portsmouth (last reported 2026-08-06; current location unconfirmed)",
+      "lastReportedLocation": "HMNB Portsmouth (last reported 2026-08-06; current location unconfirmed)",
       "position": {
         "lat": 50.81,
         "lon": -1.11,
-        "label": "HMNB Portsmouth"
+        "label": "HMNB Portsmouth (last reported 2026-08-06; current location unconfirmed)"
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-08-06",
-        "publishedAt": "2026-08-06"
+        "publishedAt": "2026-08-06",
+        "latestReport": {
+          "label": "Portsmouth approaches",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-18",
+          "publishedAt": "2026-09-18"
+        }
       }
     },
     {
@@ -1615,18 +1668,25 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Gibraltar harbour",
-      "lastReportedLocation": "Gibraltar; arrival reported 19 August 2026",
+      "publicLocationLabel": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)",
+      "lastReportedLocation": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)",
       "position": {
         "lat": 36.14,
         "lon": -5.36,
-        "label": "Gibraltar harbour"
+        "label": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)"
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-08-19",
-        "publishedAt": "2026-08-19"
+        "publishedAt": "2026-08-19",
+        "latestReport": {
+          "label": "Gibraltar",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-18",
+          "publishedAt": "2026-09-18"
+        }
       }
     },
     {
@@ -1812,18 +1872,25 @@
       "locationClassification": "approximate",
       "locationState": "last_reported",
       "locationPrecision": "port",
-      "publicLocationLabel": "Gibraltar harbour",
-      "lastReportedLocation": "Gibraltar; reported alongside 19 August 2026",
+      "publicLocationLabel": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)",
+      "lastReportedLocation": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)",
       "position": {
         "lat": 36.14,
         "lon": -5.36,
-        "label": "Gibraltar harbour"
+        "label": "Gibraltar harbour (last reported 2026-08-19; current location unconfirmed)"
       },
       "uncertaintyArea": null,
       "locationContext": {
-        "retained": false,
+        "retained": true,
         "observedAt": "2026-08-19",
-        "publishedAt": "2026-08-19"
+        "publishedAt": "2026-08-19",
+        "latestReport": {
+          "label": "Portland",
+          "precision": "none",
+          "state": "unconfirmed",
+          "observedAt": "2026-09-15",
+          "publishedAt": "2026-09-15"
+        }
       }
     },
     {

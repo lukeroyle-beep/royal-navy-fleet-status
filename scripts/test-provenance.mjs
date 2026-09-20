@@ -579,3 +579,12 @@ for(const context of [{observedAt:'2026-09-19'},{observedAt:null,publishedAt:nul
 }
 assert.throws(()=>createPublicProjection({...retainedEntities,vessels:[{...retainedEntity,vesselType:'SSBN'}]},suppressedLog,[retainedEvidence,datedRegionProof]),/Protected submarine/);
 console.log('Reviewed timing suppression preserves unknown observation without inventing publication dates or geometry.');
+
+const localDayProof={...datedRegionProof,observation:{from:'2026-09-15T23:00:00Z',to:'2026-09-16T12:04:07Z',basis:'explicit',timeZone:'Europe/London'}};
+const localDayPublic=createPublicProjection(retainedEntities,dualLog,[retainedEvidence,localDayProof]).vessels[0];
+assert.equal(localDayPublic.locationContext.observedAt,'2026-09-16','Explicit UK calendar-day interval must not become unknown at UTC midnight');
+const wideDayProof={...localDayProof,observation:{...localDayProof.observation,to:'2026-09-17T12:00:00Z'}};
+assert.equal(createPublicProjection(retainedEntities,dualLog,[retainedEvidence,wideDayProof]).vessels[0].locationContext.observedAt,null,'Multiple local dates remain unknown');
+const unknownDayProof={...localDayProof,observation:{...localDayProof.observation,basis:'unknown'}};
+assert.equal(createPublicProjection(retainedEntities,dualLog,[retainedEvidence,unknownDayProof]).vessels[0].locationContext.observedAt,null,'Timezone cannot promote unknown observation evidence');
+console.log('Explicit local calendar-day observation intervals preserve dates without collapsing multi-day or unknown observations.');

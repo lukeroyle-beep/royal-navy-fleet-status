@@ -99,7 +99,14 @@ for(const [name,record] of Object.entries(baseline.history)) {
  const text=read(name);assert.equal(hash(text.slice(0,record.bytes)),record.sha256,`${name}: historical prefix is immutable`);
 }
 const currentMarkers=new Map(plottedVessels(fleet.vessels).map(v=>[v.id,getMapPosition(v)]));
-for(const [id,position] of Object.entries(baseline.markers)) if(!revisedIds.has(id)) assert.deepEqual(currentMarkers.get(id),position,`${id}: existing marker must not disappear or move`);
+for(const [id,position] of Object.entries(baseline.markers)) if(!revisedIds.has(id)) {
+ const current=currentMarkers.get(id), row=fleet.vessels.find(v=>v.id===id);
+ if(fleet.metadata.asOfDate==='2026-09-20' && fleet.metadata.sweepCoverage?.classification==='partial' && row.locationContext?.retained) {
+   assert.ok(current,`${id}: retained marker must remain selectable`);
+   assert.deepEqual({lat:current.lat,lon:current.lon},{lat:position.lat,lon:position.lon},`${id}: retained geometry must not move`);
+   assert.ok(row.locationContext.observedAt && row.locationContext.latestReport?.publishedAt,`${id}: retained and new report dates remain explicit`);
+ } else assert.deepEqual(current,position,`${id}: existing marker must not disappear or move`);
+}
 assert.equal(currentMarkers.size,fleet.vessels.length);
 assert.deepEqual(summarizePlotEligibility(predecessor.vessels),{total:69,pointMapped:42,regional:20,listOnly:2,representative:5});
 assert.equal(plottedVessels(predecessor.vessels).length,47);

@@ -7,7 +7,7 @@ import { sanitisePublicLocationDescription } from "./public-location-safety.mjs"
 import { REPRESENTATIVE_PATROL, REPRESENTATIVE_PATROL_ANCHOR, hasRepresentativePatrolMarker, validateRepresentativePatrolFleet } from "../../src/utils/representativePatrol.js";
 
 
-export const PUBLIC_PROJECTION_METHOD_VERSION = "1.4.1";
+export const PUBLIC_PROJECTION_METHOD_VERSION = "1.4.2";
 
 const SUBMARINE_TYPES = new Set(["SSBN", "SSN"]);
 const SUBMARINE_AT_SEA_PATTERN =
@@ -53,7 +53,7 @@ export function createPublicProjection(entities, assessmentLog, evidenceItems = 
         retained: true,
         ...publicDates(retained.retained.evidenceIds, evidenceItems || []),
         observedAt: retained.retained.observedAt.slice(0, 10),
-        latestReport: { label: current.publicLocationLabel, precision: current.locationPrecision, state: current.locationState,
+        latestReport: { label: sanitisePublicLocationLabel(safeReviewedLocation(entity, assessment.assessedState)?.label || current.publicLocationLabel), precision: current.locationPrecision, state: current.locationState,
           ...reviewedPublicDates(assessment, assessment.selectedEvidenceIds.filter(id => !retained.retained.evidenceIds.includes(id)), evidenceItems || []) },
       };
       validateLocationContext(vessel);
@@ -88,7 +88,13 @@ function publicDates(ids, evidenceItems) {
     !evidenceItems.some(correction => correction.correctionOf === item.evidenceId));
   const dates = selected.map(item => {
     const observation = item.observation;
-    const from = observation?.from?.slice(0, 10), to = observation?.to?.slice(0, 10);
+    const day = value => {
+      if (!value) return null;
+      if (observation.timeZone !== 'Europe/London') return value.slice(0, 10);
+      if (!Number.isFinite(Date.parse(value))) return null;
+      return new Intl.DateTimeFormat('en-CA', {timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value));
+    };
+    const from = day(observation?.from), to = day(observation?.to);
     return { observedAt: ['explicit', 'inferred'].includes(observation?.basis) && from === to && from ? from : null,
       publishedAt: item.publishedAt?.slice(0, 10) || null };
   });
