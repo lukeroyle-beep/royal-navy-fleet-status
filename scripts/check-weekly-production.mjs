@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { evaluateWeeklyProductionHealth } from "./lib/weekly-scheduler.mjs";
+import { createWeeklyWatchdogIssue } from "./lib/weekly-watchdog-issue.mjs";
 
 const mode = readArgument("--mode=") || "scheduled-watchdog";
 const instant = readArgument("--at=") || new Date().toISOString();
@@ -42,7 +43,7 @@ const result = {
       : live.error
         ? "live_check_failed"
         : "expected_snapshot_not_observed",
-  issue: createIssue(evaluated, runUrl),
+  issue: createWeeklyWatchdogIssue(evaluated, runUrl),
 };
 
 const serialised = `${JSON.stringify(result, null, 2)}\n`;
@@ -76,30 +77,6 @@ async function fetchLiveSnapshot(url) {
   } catch (error) {
     return { payload: null, error: safeMessage(error) };
   }
-}
-
-function createIssue(result, runUrl) {
-  const title = `[OSINT scheduler] Sunday fleet sweep blocked — ${result.expectedSnapshotDate}`;
-  const observedRepository = result.repositorySnapshot?.asOfDate || "unavailable";
-  const observedLive = result.liveSnapshot?.asOfDate || "unavailable";
-  return {
-    title,
-    marker: `<!-- rn-fleet-weekly-watchdog:${result.expectedSnapshotDate} -->`,
-    body: [
-      `<!-- rn-fleet-weekly-watchdog:${result.expectedSnapshotDate} -->`,
-      "## Weekly fleet snapshot watchdog",
-      "",
-      `The expected **${result.expectedSnapshotDate}** weekly production snapshot was not confirmed after the Sunday grace period.`,
-      "",
-      `- Repository snapshot observed: \`${observedRepository}\``,
-      `- Live snapshot observed: \`${observedLive}\``,
-      `- Outcome: \`${result.outcome}\``,
-      `- Reasons: ${result.reasons.map((reason) => `\`${reason}\``).join(", ") || "none"}`,
-      `- Workflow run: ${runUrl || "local/manual check"}`,
-      "",
-      "This watchdog never fabricates or publishes fleet data. Run the canonical OpenClaw Sunday automation manually, repair any evidence or private-input prerequisite, and keep the release owner-reviewed.",
-    ].join("\n"),
-  };
 }
 
 function writeJsonAtomic(targetPath, serialised) {
