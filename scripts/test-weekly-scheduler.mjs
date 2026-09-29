@@ -8,6 +8,7 @@ import {
   isSundayWatchdogWindow,
   resolveExpectedSnapshotDate,
 } from "./lib/weekly-scheduler.mjs";
+import { createWeeklyWatchdogIssue } from "./lib/weekly-watchdog-issue.mjs";
 
 const watchdogWorkflow = fs.readFileSync(
   new URL("../.github/workflows/weekly-production-watchdog.yml", import.meta.url),
@@ -88,6 +89,17 @@ const missing = evaluateWeeklyProductionHealth({
 assert.equal(missing.outcome, "snapshot_missing");
 assert.equal(missing.action, "alert");
 assert.deepEqual(missing.reasons, ["repository_snapshot_missing", "live_snapshot_missing"]);
+
+const watchdogIssue = createWeeklyWatchdogIssue(missing, "https://example.test/run/123");
+assert.match(watchdogIssue.body, /existing Codex recovery run for this cutoff/);
+assert.match(watchdogIssue.body, /Respect any active owner lock/);
+assert.match(watchdogIssue.body, /actual scheduled Codex execution context/);
+assert.match(watchdogIssue.body, /GitHub DNS\/connectivity/);
+assert.match(watchdogIssue.body, /repository plus private-store write access/);
+assert.match(watchdogIssue.body, /authenticated 69-record private projection matches both the current main and live production baselines/);
+assert.match(watchdogIssue.body, /encrypted backup is ready and restore-verified/);
+assert.match(watchdogIssue.body, /do not start a competing sweep or reactivate the legacy OpenClaw automation/);
+assert.doesNotMatch(watchdogIssue.body, /canonical OpenClaw Sunday automation manually/);
 
 const deploymentMissing = evaluateWeeklyProductionHealth({
   ...healthyInput,
