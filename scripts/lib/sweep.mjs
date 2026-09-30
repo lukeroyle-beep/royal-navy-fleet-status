@@ -1174,7 +1174,9 @@ function validateCheckArray(entries, idField) {
           const notModified =
             entry.httpStatus === 304 &&
             entry.outcome === "not-modified" &&
-            entry.candidates.length === 0;
+            (entry.candidates.length === 0 || (entry.conditionalBodyReused === true &&
+              /^[a-f0-9]{64}$/.test(entry.contentHash || '') && Number.isFinite(Date.parse(entry.originalRetrievedAt)) &&
+              Date.parse(entry.originalRetrievedAt) <= Date.parse(entry.checkedAt)));
           if (!candidatesFound && !notModified) {
             throw new Error(`${entry.targetId} has an inconsistent automatic discovery result.`);
           }

@@ -1,23 +1,37 @@
 import fs from "node:fs";
+import { assertPrivateArtifact } from "./lib/private-artifacts.mjs";
 import path from "node:path";
+import { checkpointJson, digest } from "./lib/acquisition.mjs";
 
 import { collectPublicIndexes } from "./lib/public-index-collector.mjs";
 import { resolvePrivateInputs } from "./lib/private-inputs.mjs";
 import { createSweepRun, sweepWindowStartFromMetadata } from "./lib/sweep.mjs";
 import { validateSourceRegistry } from "./lib/provenance.mjs";
 
-const startedAt = readEqualsArgument("--as-of=") || new Date().toISOString();
+const resumePath = readEqualsArgument("--resume=");
+const resumed = resumePath ? JSON.parse(fs.readFileSync(resumePath, "utf8")) : null;
+const startedAt = readEqualsArgument("--as-of=") || resumed?.window.to || new Date().toISOString();
 const windowStartArgument = readEqualsArgument("--since=");
 const releaseRevisionArgument = readEqualsArgument("--release-revision=");
-const releaseRevision = releaseRevisionArgument === null ? 1 : Number(releaseRevisionArgument);
+const releaseRevision = releaseRevisionArgument === null ? resumed?.releaseTarget.releaseRevision || 1 : Number(releaseRevisionArgument);
 const outputPath = readEqualsArgument("--output=");
 const privateInputs = resolvePrivateInputs();
+const privateArtifacts = privateInputs.mode === 'external' || Boolean(resumePath || readEqualsArgument('--cache='));
+if (privateArtifacts) {
+  // The cloud legacy discovery path contains public-only migration data. Real
+  // private runs and their cache/continuation receipts may never enter a checkout.
+  if (!outputPath) throw new Error('External discovery requires a private output path');
+  assertPrivateArtifact(outputPath);
+  if (resumePath) assertPrivateArtifact(resumePath);
+  const cacheFile = readEqualsArgument('--cache=');
+  if (cacheFile) assertPrivateArtifact(cacheFile);
+}
 const entities = privateInputs.readJson("vessels");
 const registry = privateInputs.readJson("sources");
 const assessments = privateInputs.readJson("assessments");
 const windowStart =
   windowStartArgument === null
-    ? sweepWindowStartFromMetadata(entities.metadata)
+    ? resumed?.window.from || sweepWindowStartFromMetadata(entities.metadata)
     : windowStartArgument;
 
 const vesselIds = entities.vessels.map((vessel) => vessel.vesselId);
@@ -26,7 +40,7 @@ const knownVesselIds = [
   ...(entities.retiredVessels || []).map((vessel) => vessel.vesselId),
 ];
 validateSourceRegistry(registry, knownVesselIds, vesselIds);
-const run = createSweepRun({
+const plannedRun = createSweepRun({
   registry,
   entities,
   assessmentLog: assessments,
@@ -35,13 +49,25 @@ const run = createSweepRun({
   windowStart,
   releaseRevision,
 });
-await collectPublicIndexes(run, { registry, entities, checkedAt: new Date().toISOString() });
+if (resumed && (resumed.complete || resumed.runId !== plannedRun.runId || resumed.sourceRegistryHash !== plannedRun.sourceRegistryHash || resumed.baselineStateHash !== plannedRun.baselineStateHash || digest(resumed.window) !== digest(plannedRun.window))) throw new Error('Resume binding changed or run sealed');
+const run = resumed || plannedRun;
+if (outputPath && fs.existsSync(path.resolve(outputPath))) throw new Error('Output already exists; choose a new attempt path to preserve prior artifact');
+const checkpointDirectory = outputPath ? `${path.resolve(outputPath)}.checkpoints` : null;
+if (checkpointDirectory && privateArtifacts) assertPrivateArtifact(checkpointDirectory);
+const cachePath = readEqualsArgument('--cache=');
+const cache = cachePath ? JSON.parse(fs.readFileSync(cachePath, 'utf8')) : {};
+await collectPublicIndexes(run, { registry, entities, cache, checkedAt: new Date().toISOString(),
+  onCheckpoint: checkpointDirectory ? (current, retainedCache) => {
+    checkpointJson(checkpointDirectory, 'run.json', current, { privateOnly: privateArtifacts });
+    checkpointJson(checkpointDirectory, 'cache.json', retainedCache, { privateOnly: privateArtifacts });
+  } : undefined,
+});
 const output = `${JSON.stringify(run, null, 2)}\n`;
 
 if (outputPath) {
   const resolved = path.resolve(outputPath);
   fs.mkdirSync(path.dirname(resolved), { recursive: true });
-  fs.writeFileSync(resolved, output);
+  fs.writeFileSync(resolved, output, { flag: "wx", mode: 0o600 });
   console.log(
     `Wrote read-only discovery run ${run.runId}: ${run.coverage.completedDiscoveryChecks}/` +
       `${run.coverage.requiredDiscoveryChecks} public indexes; release remains incomplete pending ` +

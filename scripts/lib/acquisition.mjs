@@ -2,6 +2,7 @@ import { BOOTSTRAP_OUTCOME, validateBootstrapException } from './bootstrap-excep
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { assertPrivateArtifact } from './private-artifacts.mjs';
 
 // Version the shared evidence normaliser independently of source adapter parsers.
 export const NORMALISATION_VERSION = '4';
@@ -54,7 +55,7 @@ export function openAcquisitionJournal(directory, { readOnly = false } = {}) {
       const prior = SUCCESS.has(body.outcome) && transactions.findLast(t =>
         t.runId === body.runId && t.sourceId === body.sourceId && SUCCESS.has(t.outcome) &&
         t.registryHash === body.registryHash && t.cutoff === body.cutoff &&
-        t.sourceIdentityHash === body.sourceIdentityHash &&
+        t.sourceIdentityHash === body.sourceIdentityHash && digest(t.window) === digest(body.window) &&
         t.cursor?.parserVersion === body.cursor?.parserVersion &&
         t.cursor?.normalisationVersion === body.cursor?.normalisationVersion);
       if (prior) return prior;
@@ -66,6 +67,33 @@ export function openAcquisitionJournal(directory, { readOnly = false } = {}) {
     },
     close() { if (!closed) { closed = true; if (!readOnly) { fs.closeSync(fd); fs.unlinkSync(lock); } } },
   };
+}
+
+// Content-addressed derived artifacts retain every previous version. The pointer is not evidence.
+export function checkpointJson(directory, name, value, { privateOnly = true } = {}) {
+  if (!/^[a-z0-9-]+\.json$/.test(name)) throw new Error('Invalid checkpoint name');
+  function preserve(bytes) {
+    const hash = crypto.createHash('sha256').update(bytes).digest('hex');
+    const archive = path.join(directory, 'checkpoints', hash);
+    if (privateOnly) assertPrivateArtifact(archive);
+    fs.mkdirSync(archive, { recursive: true, mode: 0o700 });
+    const file = path.join(archive, name);
+    if (privateOnly) assertPrivateArtifact(file);
+    if (fs.existsSync(file)) {
+      if (!fs.readFileSync(file).equals(bytes)) throw new Error('Immutable checkpoint corruption');
+    } else {
+      const fd = fs.openSync(file, 'wx', 0o600);
+      try { fs.writeFileSync(fd, bytes); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
+    }
+    return file;
+  }
+  const pointer = path.join(directory, name);
+  if (privateOnly) assertPrivateArtifact(pointer);
+  // Archive exact original bytes, including formatting, before any pointer refresh.
+  if (fs.existsSync(pointer)) preserve(fs.readFileSync(pointer));
+  const file = preserve(Buffer.from(JSON.stringify(value) + '\n'));
+  atomicJson(pointer, value);
+  return file;
 }
 
 export function retrievalWindow(previous, cutoff, { overlapDays = 7, deepDays = 90, deepEveryDays = 30, parserVersion = '1', forceDeep = false } = {}) {
@@ -107,19 +135,21 @@ export async function boundedMap(items, worker, { concurrency = 4, group = () =>
   });
 }
 
+const activeAcquisitions = new WeakSet();
 export async function acquireSources({ sources, runId, registryHash, cutoff, journal, adapters, extract, concurrency = 4, limits = {}, policy = {}, signal, sleep = ms => new Promise(r => setTimeout(r, ms)), onProgress = () => {} }) {
   if (new Set(sources.map(s => s.sourceId)).size !== sources.length) throw new Error('Duplicate acquisition source');
   for (const transaction of journal.transactions.filter(t => t.runId === runId)) {
     if (transaction.registryHash !== registryHash || transaction.cutoff !== cutoff) throw new Error('Resume inputs changed');
   }
-  const started = performance.now();
+  if (activeAcquisitions.has(journal)) throw new Error('Acquisition already active for this journal');
+  activeAcquisitions.add(journal);
+  try {
+  const startedAt = new Date().toISOString(), started = performance.now();
+  const reused = new Set();
   const pool = await boundedMap(sources, async source => {
-    const priorRun = journal.transactions.findLast(t => t.runId === runId && t.sourceId === source.sourceId);
-    if (priorRun && (priorRun.registryHash !== registryHash || priorRun.cutoff !== cutoff)) throw new Error('Resume inputs changed');
-    const { sourceIdentityHash, previous, window } = acquisitionContext(source, journal, cutoff, policy);
-    if (priorRun && SUCCESS.has(priorRun.outcome) && priorRun.sourceIdentityHash === sourceIdentityHash &&
-        priorRun.cursor?.parserVersion === window.parserVersion &&
-        priorRun.cursor?.normalisationVersion === NORMALISATION_VERSION) return priorRun;
+    const task = planAcquisitionSource({ source, runId, registryHash, cutoff, journal, policy });
+    const { sourceIdentityHash, previous, window } = task;
+    if (task.action === 'reuse') { reused.add(source.sourceId); return task.receipt; }
     const adapterId = source.acquisition?.adapter || source.collectionMode;
     const adapter = adapters[adapterId];
     const begin = performance.now();
@@ -127,11 +157,19 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
     const retry = source.acquisition?.retry || { attempts: 2, baseMs: 1000, maxMs: 30000 };
     if (!Number.isInteger(retry.attempts) || retry.attempts < 1 || retry.attempts > 5 || !Number.isFinite(retry.baseMs) || retry.baseMs < 0 || !Number.isFinite(retry.maxMs) || retry.maxMs < retry.baseMs || retry.maxMs > 60000) throw new Error('Invalid retry policy');
     let extractionMs = 0;
+    let timeouts = 0, bytes = 0, bytesKnown = true;
+    const sourceStartedAt = new Date().toISOString();
+    let adapterCalls = 0;
+    const attemptUsage = [];
     while (attempts < retry.attempts) {
       attempts++;
       try {
         if (!adapter) throw Object.assign(new Error('No approved acquisition adapter configured'), { outcome: 'DEFERRED_WITH_JUSTIFICATION' });
+        adapterCalls++;
         response = await adapter({ source, window, cursor: previous?.cursor || null, signal });
+        attemptUsage.push(normalizeUsage(response?.usage));
+        if (Number.isFinite(response?.bytes) && response.bytes >= 0) bytes += response.bytes;
+        else bytesKnown = false;
         if (FAILURE.has(response?.outcome)) throw Object.assign(new Error(response.reason || 'Acquisition failed'), response);
         if (response?.examined !== true || response?.extractionComplete !== true || !Array.isArray(response.items) || !response.method) throw Object.assign(new Error('Incomplete acquisition response'), { outcome: 'PARSING_FAILURE' });
         if (response.historicalException) {
@@ -159,8 +197,11 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
         outcome = response.historicalException ? BOOTSTRAP_OUTCOME : items.length ? 'CHECKED_NEW_EVIDENCE' : 'CHECKED_NO_RELEVANT_CHANGE';
         break;
       } catch (error) {
+        if (attemptUsage.length < adapterCalls) attemptUsage.push({ kind: 'unavailable' });
+        bytesKnown = false;
         outcome = FAILURE.has(error.outcome) ? error.outcome : 'RETRIEVAL_FAILURE';
         reason = error.message;
+        if (error.name === 'TimeoutError' || error.name === 'AbortError') timeouts++;
         if (!['RATE_LIMITED', 'RETRIEVAL_FAILURE', 'SOURCE_UNAVAILABLE'].includes(outcome) || attempts >= retry.attempts || signal?.aborted) break;
         const delay = Math.max(retry.baseMs * 2 ** (attempts - 1), Number(error.retryAfterMs) || 0);
         if (delay > retry.maxMs) break; // Do not shorten a server's Retry-After.
@@ -192,6 +233,9 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
       ...(success && response.historicalException ? { historicalException: response.historicalException } : {}),
       outcome, reason: success ? (response.historicalException?.reason || null) : reason, attempts, adapter: adapterId, method: response?.method || null,
       sourceAttempted: attempts > 0 && (outcome !== 'DEFERRED_WITH_JUSTIFICATION' || response?.sourceAttempted === true),
+      startedAt: sourceStartedAt, adapterCalls, retries: Math.max(0, attempts - 1), timeouts, bytes: bytesKnown ? bytes : null,
+      modelUsage: sumUsage(attemptUsage),
+      disposition: success ? 'successful' : response?.partialItems ? 'partial' : outcome === 'AUTHENTICATION_FAILURE' ? 'restricted' : ['restricted', 'partial', 'identity-conflicted', 'unresolved'].includes(response?.disposition) ? response.disposition : 'failed',
       checkedAt: new Date().toISOString(), durationMs: performance.now() - begin, extractionMs,
       items: success || response?.partialItems ? items : [], candidates: success || response?.partialItems ? extracted : [], window,
       cursor: success ? { ...(response.historicalException || previous?.cursor?.historicalGap ? { historicalGap: response.historicalException || previous.cursor.historicalGap } : {}), examinedThrough: cutoff, lastDeepAt: window.deep ? cutoff : previous.cursor.lastDeepAt, parserVersion: window.parserVersion, normalisationVersion: NORMALISATION_VERSION,
@@ -203,11 +247,33 @@ export async function acquireSources({ sources, runId, registryHash, cutoff, jou
   const errors = pool.results.filter(r => r?.error);
   if (errors.length) throw errors[0].error;
   const adapterTimings = {};
-  for (const record of pool.results) {
+  for (const record of pool.results.filter(r => !reused.has(r.sourceId))) {
     const row = adapterTimings[record.adapter] ||= { sources: 0, totalSourceMs: 0, extractionMs: 0 };
     row.sources++; row.totalSourceMs += record.durationMs; row.extractionMs += record.extractionMs;
   }
-  return { records: pool.results, timings: { acquisitionMs: performance.now() - started, peakConcurrency: pool.peak, adapters: adapterTimings } };
+  const attempted = pool.results.filter(r => !reused.has(r.sourceId));
+  const telemetry = {
+    startedAt, finishedAt: new Date().toISOString(), elapsedMs: performance.now() - started,
+    processed: attempted.length, attempted: attempted.filter(r => r.sourceAttempted).length,
+    adapterCalls: attempted.reduce((n, r) => n + r.adapterCalls, 0),
+    httpRequests: null, browserRequests: null, reused: reused.size,
+    retries: attempted.reduce((n, r) => n + r.retries, 0),
+    timeouts: attempted.reduce((n, r) => n + r.timeouts, 0),
+    bytes: attempted.every(r => r.bytes !== null) ? attempted.reduce((n, r) => n + r.bytes, 0) : null,
+    successful: attempted.filter(r => SUCCESS.has(r.outcome)).length,
+    failed: attempted.filter(r => !SUCCESS.has(r.outcome)).length,
+    modelUsage: 'unavailable',
+    restricted: attempted.filter(r => r.disposition === 'restricted').length,
+    partial: attempted.filter(r => r.disposition === 'partial').length,
+    unresolved: attempted.filter(r => ['unresolved', 'identity-conflicted'].includes(r.disposition)).length,
+  };
+  const usages = attempted.map(r => r.modelUsage);
+  if (usages.length && usages.every(u => u.kind !== 'unavailable')) {
+    telemetry.modelUsage = usages.some(u => u.kind === 'estimate') ? 'estimate' : 'provider-reported';
+    for (const key of ['modelCalls', 'inputTokens', 'outputTokens']) if (usages.every(u => u[key] != null)) telemetry[key] = usages.reduce((n,u) => n + u[key], 0);
+  }
+  return { records: pool.results, telemetry, timings: { acquisitionMs: performance.now() - started, peakConcurrency: pool.peak, adapters: adapterTimings } };
+  } finally { activeAcquisitions.delete(journal); }
 }
 
 export function acquisitionContext(source, journal, cutoff, policy = {}) {
@@ -217,4 +283,39 @@ export function acquisitionContext(source, journal, cutoff, policy = {}) {
   const staleAuditDue = source.staleEvidencePriority === true && !previous?.cursor?.lastStaleAuditAt;
   const window = retrievalWindow(previous, cutoff, { ...policy, parserVersion: source.acquisition?.parserVersion || policy.parserVersion || '1', forceDeep: source.acquisition?.forceDeep === true || policy.forceDeep === true || staleAuditDue || previous?.cursor?.normalisationVersion !== NORMALISATION_VERSION });
   return { sourceIdentityHash, previous, window };
+}
+
+function normalizeUsage(usage) {
+  if (!usage || typeof usage !== 'object') return { kind: 'unavailable' };
+  const result = { kind: ['estimate', 'provider-reported'].includes(usage.kind) ? usage.kind : 'unavailable' };
+  if (result.kind === 'unavailable') return result;
+  for (const key of ['modelCalls', 'inputTokens', 'outputTokens']) {
+    if (Number.isFinite(usage[key]) && usage[key] >= 0) result[key] = usage[key];
+  }
+  return Object.keys(result).length > 1 ? result : { kind: 'unavailable' };
+}
+
+// The operator work list and processor share this exact reuse decision. A fresh
+// owner/session is not part of evidence identity; it cannot invalidate a receipt.
+export function planAcquisitionSource({ source, runId, registryHash, cutoff, journal, policy = {} }) {
+  const prior = journal.transactions.findLast(t => t.runId === runId && t.sourceId === source.sourceId);
+  if (prior && (prior.registryHash !== registryHash || prior.cutoff !== cutoff)) throw new Error('Resume inputs changed');
+  const context = acquisitionContext(source, journal, cutoff, policy);
+  const reusable = prior && SUCCESS.has(prior.outcome) && prior.sourceIdentityHash === context.sourceIdentityHash &&
+    prior.cursor?.parserVersion === context.window.parserVersion && prior.cursor?.normalisationVersion === NORMALISATION_VERSION &&
+    (!(source.acquisition?.forceDeep === true || policy.forceDeep === true) || prior.window?.deep === true) &&
+    !(source.staleEvidencePriority && !prior.cursor.lastStaleAuditAt);
+  if (reusable) return { ...context, window: prior.window, action: 'reuse', reason: 'matching-successful-receipt', receipt: prior };
+  const manual = source.collectionMode === 'manual' || ['AUTHENTICATION_FAILURE', 'DEFERRED_WITH_JUSTIFICATION'].includes(prior?.outcome);
+  return { ...context, action: manual ? 'manual-blocked' : prior ? 'retry' : 'collect',
+    reason: manual ? 'permitted-observation-required' : prior ? 'receipt-failed-or-invalidated' : 'no-same-run-receipt', receipt: null };
+}
+
+function sumUsage(attempts) {
+  if (!attempts.length || attempts.some(u => u.kind === 'unavailable')) return { kind: 'unavailable' };
+  const result = { kind: attempts.some(u => u.kind === 'estimate') ? 'estimate' : 'provider-reported' };
+  for (const key of ['modelCalls', 'inputTokens', 'outputTokens']) {
+    if (attempts.every(u => u[key] != null)) result[key] = attempts.reduce((n,u) => n + u[key], 0);
+  }
+  return result;
 }

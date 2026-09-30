@@ -4,7 +4,7 @@ import { resolvePrivateInputs, repositoryRootPath } from './lib/private-inputs.m
 import { buildOperationalSourceRegistry } from './lib/source-registry.mjs';
 import { createXBrowserSession, normalizeBrowserObservation } from './lib/x-browser-collection.mjs';
 import { isRequiredRecurringSource, validateSweepRunShape } from './lib/sweep.mjs';
-import { FAILURE, SUCCESS, acquireSources, acquisitionContext, atomicJson, digest, openAcquisitionJournal, retrievalWindow } from './lib/acquisition.mjs';
+import { FAILURE, SUCCESS, acquireSources, checkpointJson, planAcquisitionSource, digest, openAcquisitionJournal } from './lib/acquisition.mjs';
 import { preprocessEvidence, adjudicationQueue, reconcileFleet } from './lib/sweep-analysis.mjs';
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
@@ -25,13 +25,16 @@ sources.sort((a,b) => Number(b.staleEvidencePriority)-Number(a.staleEvidencePrio
 const journal = openAcquisitionJournal(directory, { readOnly: mode === 'status' });
 try {
   if (mode === 'plan') {
-    const tasks = sources.map(source => ({ sourceId: source.sourceId, mandatory: source.mandatory,
-      acquisition: source.acquisition, staleEvidencePriority: source.staleEvidencePriority, canonicalUrl: source.canonicalUrl,
-      window: acquisitionContext(source, journal, run.window.to).window,
-      previousCursor: journal.latest(source.sourceId)?.cursor || null }));
-    atomicJson(path.join(directory, 'plan.json'), { runId: run.runId, registryHash: run.sourceRegistryHash, tasks,
+    const tasks = sources.map(source => {
+      const task = planAcquisitionSource({ source, runId: run.runId, registryHash: run.sourceRegistryHash, cutoff: run.window.to, journal });
+      return { sourceId: source.sourceId, mandatory: source.mandatory, acquisition: source.acquisition,
+        staleEvidencePriority: source.staleEvidencePriority, canonicalUrl: source.canonicalUrl,
+        action: task.action, reason: task.reason, receiptHash: task.receipt?.hash || null,
+        window: task.window, previousCursor: task.previous?.cursor || null };
+    });
+    checkpointJson(directory, 'plan.json', { runId: run.runId, registryHash: run.sourceRegistryHash, tasks,
       browserConcurrency: 2, httpConcurrency: 4, note: 'Rendered Chrome only for X. Complete canary before full accounts. Two-tab capability observed on 8 September 2026; verify at each wake and fall back to one if unsupported. Record extraction packets for the exact source/window; missing packets fail closed.' });
-    console.log(JSON.stringify({ runId: run.runId, tasks: tasks.length, mandatory: tasks.filter(t => t.mandatory).length }));
+    console.log(JSON.stringify({ runId: run.runId, tasks: tasks.length, actions: tasks.reduce((counts,t) => ({ ...counts, [t.action]: (counts[t.action] || 0) + 1 }), {}), mandatory: tasks.filter(t => t.mandatory).length }));
   } else if (mode === 'process') {
     if (run.complete) throw new Error('Do not process a sealed sweep; use historical replay');
     const packetDirectory = privateDirectory(arg('packets'));
@@ -70,7 +73,7 @@ try {
       adapters: Object.fromEntries(sources.map(s => [s.acquisition.adapter, adapter])),
       extract: (items, source, window) => preprocessEvidence(items, source, { vessels: entities.vessels, sourceRegistry: registry.sources, cutoff: window.to, windowStart: window.from }),
       onProgress: r => console.log(JSON.stringify({ sourceId: r.sourceId, outcome: r.outcome, durationMs: r.durationMs })) });
-    atomicJson(path.join(directory, 'acquisition.json'), result);
+    checkpointJson(directory, 'acquisition.json', result);
     const processedRun = structuredClone(run);
     if (processedRun.complete) throw new Error('Do not modify a sealed sweep; use historical replay');
     for (const record of result.records) {
@@ -84,8 +87,8 @@ try {
       });
     }
     validateSweepRunShape(processedRun);
-    atomicJson(path.join(directory, 'processed-sweep-run.json'), processedRun);
-    atomicJson(path.join(directory, 'adjudication-queue.json'), adjudicationQueue(result.records.flatMap(r => r.candidates)));
+    checkpointJson(directory, 'processed-sweep-run.json', processedRun);
+    checkpointJson(directory, 'adjudication-queue.json', adjudicationQueue(result.records.flatMap(r => r.candidates)));
     if (result.records.some(r => r.mandatory && !SUCCESS.has(r.outcome))) process.exitCode = 1;
   } else {
     const records = sources.map(s => journal.transactions.findLast(t => t.runId === run.runId && t.sourceId === s.sourceId)).filter(Boolean);

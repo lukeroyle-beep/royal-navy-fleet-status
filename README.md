@@ -267,6 +267,7 @@ cache and failure details in [`docs/x-social-sources.md`](docs/x-social-sources.
 scraping, private or logged-in social content, unlicensed commercial tracking collection and
 unattended publication remain outside the current version.
 
-The single production scheduler is the timezone-aware OpenClaw Sunday automation documented in that
-runbook. GitHub Actions provides discovery and an independent post-grace repository/live-snapshot
+The production sweep is operated by the Codex automation documented in that runbook;
+OpenClaw OSINT scheduling is retired. See [operations migration](docs/rnfs-operations-migration.md)
+and [deterministic preflight](docs/osint-preflight.md) for the approved first migration increment. GitHub Actions provides discovery and an independent post-grace repository/live-snapshot
 watchdog; it does not receive private inputs and does not run a second production pipeline.
