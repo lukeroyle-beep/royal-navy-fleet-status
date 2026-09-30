@@ -18,7 +18,7 @@ inspection; outside-canary read/write baseline and safe administrator creation;
 exact returned-versus-retained receipt bytes; stopped-service restoration checks.
 
 Final reviewed source manifest SHA-256:
-`44544b1be9f421fd9cef1a2f40285d031948549dabed7b72f0145c4109f457b0`.
+`4c0b6172319c423eb2fcb67ad37d7a8c64aa2f054bfe2799a1c36bd3a211ca1a`.
 The manifest covers the 16 security-relevant source/package files. This narrative
 record is excluded to avoid circular hashes. No secret or compiled binary is stored.
 

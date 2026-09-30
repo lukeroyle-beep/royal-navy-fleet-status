@@ -1,11 +1,11 @@
 #!/bin/sh
 # HUMAN ADMINISTRATOR ONLY from sealed root-owned staging. Never callable over MCP.
-# update | rotate-key | restore YYYYmmddTHHMMSSZ
+# archive | update | rotate-key | restore YYYYmmddTHHMMSSZ
 set -eu
 [ "$(/usr/bin/id -u)" = 0 ] || exit 1
 cd /Library/RNFSBroker-stage
 [ "$#" -ge 1 ]
-case "$1" in update|rotate-key) [ "$#" = 1 ];; restore) [ "$#" = 2 ]; printf '%s\n' "$2" | /usr/bin/grep -Eq '^[0-9]{8}T[0-9]{6}Z$';; *) exit 1;; esac
+case "$1" in archive|update|rotate-key) [ "$#" = 1 ];; restore) [ "$#" = 2 ]; printf '%s\n' "$2" | /usr/bin/grep -Eq '^[0-9]{8}T[0-9]{6}Z$';; *) exit 1;; esac
 /usr/bin/shasum -a 256 -c SOURCE-SHA256SUMS
 # Archive keys only on the FileVault-protected system volume.
 [ "$(/usr/bin/fdesetup status)" = 'FileVault is On.' ]
@@ -29,6 +29,10 @@ else
  printf 'Forensic copy of possibly partial installation; not an approved restore source.\n' > "$archive/PARTIAL-INSTALLATION"
 fi
 case "$1" in
+ archive)
+  printf 'Verified archive retained at %s; service remains stopped.\n' "$archive"
+  exit 0
+  ;;
  update)
   /usr/bin/env -i PATH=/usr/bin:/bin /bin/sh ./build.sh
   for executable in build/broker build/verify build/sandbox-probe build/hold-lock; do

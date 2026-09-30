@@ -351,8 +351,19 @@ Require no remaining service/process; preserve any error for diagnosis. Remove o
 `rnfs_gate_b` from client MCP configuration and restart that connection. Archive
 `/Library/RNFSBroker`, its launch plist, `/private/var/db/rnfs-broker` and the protected
 key directory into root-only encrypted storage, retaining source/installed hashes.
-Do not place a key archive in the checkout or ordinary user evidence folder. After
-archive verification, use the explicit paths below (never a glob):
+Do not place a key archive in the checkout or ordinary user evidence folder.
+Create and verify the exact root-only archive with the sealed maintenance script:
+
+```sh
+sudo /usr/bin/env -i PATH=/usr/bin:/bin /bin/sh /Library/RNFSBroker-stage/maintenance.sh archive
+```
+
+It requires FileVault On, a stopped service, no worker processes and matching
+installed hashes, then prints the dated archive path and exits without changing
+code, policy or keys. Inspect that archive and its `ARCHIVE-SHA256SUMS`. If the
+installation is damaged and cannot be archived normally, stop removal and recover
+with the prior matching archive; never discard the sole key/evidence copy.
+After archive verification, use the explicit paths below (never a glob):
 
 ```sh
 sudo /bin/rm /Library/LaunchDaemons/org.rnfs.gate-b.plist
