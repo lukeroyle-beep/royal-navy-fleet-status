@@ -1,0 +1,7 @@
+# OPERATOR REVIEW ONLY. Merge this single stanza; never replace existing config.
+# Project .codex/config.toml is protected from this task. Requires trusted project.
+[mcp_servers.rnfs_connectivity_fixture]
+url = "http://127.0.0.1:43187/mcp"
+enabled_tools = ["connectivity_probe", "get_receipt"]
+startup_timeout_sec = 10
+tool_timeout_sec = 10

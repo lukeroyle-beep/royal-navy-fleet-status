@@ -1,0 +1,47 @@
+{
+  "policyVersion": "rnfs-connectivity-fixture-v1",
+  "stage": "Gate A fixture only",
+  "operationManifest": {
+    "operations": [
+      "connectivity_probe",
+      "get_receipt"
+    ],
+    "executable": "/opt/homebrew/bin/node",
+    "launchArguments": [
+      "/Library/Application Support/RNFS Connectivity Fixture/server.mjs"
+    ],
+    "callerSuppliedArguments": false,
+    "cwd": "not used; no cwd-relative reads",
+    "environment": {},
+    "inputs": "typed MCP JSON only",
+    "outputs": "MCP JSON and stdout JSONL; process-local receipt map",
+    "fileReads": [
+      "installed server source",
+      "process.execPath for runtime digest"
+    ],
+    "fileWrites": [],
+    "networkListen": "127.0.0.1:43187/mcp",
+    "outboundDestinations": [],
+    "networkEnforcement": "Application contains no outbound calls; OS deny enforcement NOT installed",
+    "credentials": []
+  },
+  "dependencies": {
+    "nodeVersionTested": "v24.19.0",
+    "nodeExecutableObserved": "/opt/homebrew/bin/node",
+    "nodeSha256": "c8eedc7651a438fb7d2ceb36fd70032676c855586a36c950ba5a662f0b7853bd",
+    "npmPackages": [],
+    "builtins": [
+      "node:http",
+      "node:crypto",
+      "node:fs",
+      "node:url"
+    ],
+    "runtimeClosureEnforced": false
+  },
+  "files": {
+    "server.mjs": "d6e043eb5d241bfb56bf02a329e876e03c898cfd2a556e8784a4c8bf269687a8",
+    "test.mjs": "0eb3b97170d8c300e3d5890ff6a47e702225cba7399f922f467bdf2de0b6393d",
+    "connection.toml.example": "8a360be1c809f0956dd7cc7984cd58f0040e0142b045ac50bd7537afe18b648d",
+    "scheduled-prompt.md": "a5c6576cdf32e3a669716d4aefb7099289467e2733920d97d704457872816186"
+  }
+}
