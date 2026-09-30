@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>Label</key><string>org.rnfs.gate-b</string>
+<key>ProgramArguments</key><array><string>/Library/RNFSBroker/broker</string></array>
+<key>UserName</key><string>_rnfsbroker</string>
+<key>GroupName</key><string>_rnfsbroker</string>
+<key>InitGroups</key><false/>
+<key>WorkingDirectory</key><string>/private/var/db/rnfs-broker</string>
+<key>Umask</key><integer>63</integer>
+<key>inetdCompatibility</key><dict><key>Wait</key><false/></dict>
+<key>Sockets</key><dict><key>Broker</key><dict>
+<key>SockFamily</key><string>Unix</string>
+<key>SockType</key><string>stream</string>
+<key>SockPathName</key><string>/private/var/db/rnfs-broker/service.sock</string>
+<key>SockPathOwner</key><integer>0</integer>
+<key>SockPathGroup</key><integer>0</integer>
+<key>SockPathMode</key><integer>438</integer>
+</dict></dict>
+<key>ProcessType</key><string>Background</string>
+<key>HardResourceLimits</key><dict><key>Core</key><integer>0</integer><key>CPU</key><integer>5</integer><key>FileSize</key><integer>1048576</integer><key>NumberOfFiles</key><integer>32</integer></dict>
+</dict></plist>
