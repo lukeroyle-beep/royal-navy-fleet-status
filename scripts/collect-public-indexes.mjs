@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import { assertPrivateArtifact } from "./lib/private-artifacts.mjs";
+import os from "node:os";
 import path from "node:path";
 import { checkpointJson, digest } from "./lib/acquisition.mjs";
 
@@ -49,14 +50,33 @@ const plannedRun = createSweepRun({
   windowStart,
   releaseRevision,
 });
-if (resumed && (resumed.complete || resumed.runId !== plannedRun.runId || resumed.sourceRegistryHash !== plannedRun.sourceRegistryHash || resumed.baselineStateHash !== plannedRun.baselineStateHash || digest(resumed.window) !== digest(plannedRun.window))) throw new Error('Resume binding changed or run sealed');
+if (resumed) {
+  const targetBinding = checks => Array.isArray(checks)
+    ? checks.map(({ targetId, sourceId, url, contentKind, required }) => ({ targetId, sourceId, url, contentKind, required }))
+      .sort((left, right) => String(left.targetId).localeCompare(String(right.targetId)))
+    : null;
+  const resumedTargets = targetBinding(resumed.discoveryChecks);
+  const plannedTargets = targetBinding(plannedRun.discoveryChecks);
+  if (!resumedTargets || resumedTargets.length !== plannedTargets.length ||
+      new Set(resumedTargets.map(check => check.targetId)).size !== resumedTargets.length ||
+      digest(resumedTargets) !== digest(plannedTargets)) {
+    throw new Error('Resume discovery target set changed or is incomplete');
+  }
+  if (resumed.complete || resumed.runId !== plannedRun.runId || resumed.sourceRegistryHash !== plannedRun.sourceRegistryHash || resumed.baselineStateHash !== plannedRun.baselineStateHash || digest(resumed.window) !== digest(plannedRun.window)) throw new Error('Resume binding changed or run sealed');
+}
 const run = resumed || plannedRun;
 if (outputPath && fs.existsSync(path.resolve(outputPath))) throw new Error('Output already exists; choose a new attempt path to preserve prior artifact');
 const checkpointDirectory = outputPath ? `${path.resolve(outputPath)}.checkpoints` : null;
 if (checkpointDirectory && privateArtifacts) assertPrivateArtifact(checkpointDirectory);
 const cachePath = readEqualsArgument('--cache=');
 const cache = cachePath ? JSON.parse(fs.readFileSync(cachePath, 'utf8')) : {};
+const runLockDirectory = privateInputs.mode === 'external'
+  ? privateInputs.pathFor('sweepRuns')
+  : path.join(os.tmpdir(), 'rnfs-public-index-locks');
+const runLockPath = path.join(runLockDirectory, `public-index-${digest(run.runId)}.lock`);
+assertPrivateArtifact(runLockPath);
 await collectPublicIndexes(run, { registry, entities, cache, checkedAt: new Date().toISOString(),
+  runLockPath,
   onCheckpoint: checkpointDirectory ? (current, retainedCache) => {
     checkpointJson(checkpointDirectory, 'run.json', current, { privateOnly: privateArtifacts });
     checkpointJson(checkpointDirectory, 'cache.json', retainedCache, { privateOnly: privateArtifacts });
