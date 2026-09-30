@@ -1,4 +1,7 @@
 import crypto from "node:crypto";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { boundedMap, digest } from "./acquisition.mjs";
 
 import {
@@ -35,6 +38,7 @@ export async function collectPublicIndexes(
     cache = {},
     onCheckpoint = () => {},
     sleep = ms => new Promise(r => setTimeout(r, ms)),
+    runLockPath,
   },
 ) {
   if (typeof fetchImpl !== "function") throw new Error("Public-index collection requires fetch.");
@@ -46,6 +50,8 @@ export async function collectPublicIndexes(
   const targetById = new Map(targets.map((entry) => [entry.targetId, entry]));
 
   if (activeRuns.has(run.runId)) throw new Error('Discovery already active for this run');
+  const effectiveRunLockPath = runLockPath || path.join(os.tmpdir(), "rnfs-public-index-locks", `public-index-${digest(run.runId)}.lock`);
+  const releaseRunLock = acquireRunLock(effectiveRunLockPath, run.runId);
   activeRuns.add(run.runId);
   try {
   const started = performance.now();
@@ -99,7 +105,42 @@ export async function collectPublicIndexes(
   run.complete = false;
   run.completedAt = null;
   return run;
-  } finally { activeRuns.delete(run.runId); }
+  } finally {
+    activeRuns.delete(run.runId);
+    releaseRunLock();
+  }
+}
+
+function acquireRunLock(lockPath, runId) {
+  if (!path.isAbsolute(lockPath)) throw new Error("Public-index run lock must use an absolute path.");
+  fs.mkdirSync(path.dirname(lockPath), { recursive: true, mode: 0o700 });
+  let fd;
+  try {
+    fd = fs.openSync(lockPath, "wx", 0o600);
+  } catch (error) {
+    if (error?.code === "EEXIST") {
+      throw new Error(`Public-index collection is already locked for run ${runId}; inspect the existing lock before recovery.`);
+    }
+    throw error;
+  }
+  const identity = fs.fstatSync(fd);
+  try {
+    fs.writeFileSync(fd, JSON.stringify({ runId, pid: process.pid, hostname: os.hostname(), startedAt: new Date().toISOString() }));
+    fs.fsyncSync(fd);
+  } catch (error) {
+    fs.closeSync(fd);
+    fs.unlinkSync(lockPath);
+    throw error;
+  }
+  return () => {
+    fs.closeSync(fd);
+    try {
+      const current = fs.statSync(lockPath);
+      if (current.dev === identity.dev && current.ino === identity.ino) fs.unlinkSync(lockPath);
+    } catch (error) {
+      if (error?.code !== "ENOENT") throw error;
+    }
+  };
 }
 
 async function collectOne(target, { fetchImpl, checkedAt, timeoutMs, cached, onRequest }) {

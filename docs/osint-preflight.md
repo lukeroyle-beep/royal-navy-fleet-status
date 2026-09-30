@@ -25,6 +25,13 @@ stderr, private paths, evidence and credentials are never printed. A failure to 
 the receipt also prevents the next stage. Stage failure remains failure even if readiness
 passed; a readiness receipt is never evidence of collection completion.
 
+The public-index collector takes an exclusive same-run lock in the selected private
+`sweep-runs` directory before making requests and releases it on normal exit. A process
+crash leaves the lock in place and blocks another collector for that run. Never steal or
+automatically clear it: verify the recorded host and PID no longer identify a live
+collector, then remove the stale lock as an explicit recovery step. A lock restored from
+backup is historical state, not proof of current ownership.
+
 ## Private configuration
 
 ```json

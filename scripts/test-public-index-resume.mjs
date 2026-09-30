@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { collectPublicIndexes } from './lib/public-index-collector.mjs';
+import { digest } from './lib/acquisition.mjs';
 import { createSweepRun, PUBLIC_INDEX_TARGETS, validateSweepRunShape } from './lib/sweep.mjs';
 import { resolvePrivateInputs } from './lib/private-inputs.mjs';
 const inputs = resolvePrivateInputs();
@@ -108,6 +109,12 @@ try {
     while (!fs.existsSync(checkpoint) && Date.now()<deadline && child.exitCode === null) await new Promise(r=>setTimeout(r,20));
     assert.ok(fs.existsSync(checkpoint), 'First source must be durably checkpointed');
   } finally { child.kill('SIGKILL'); await exited; }
+  const interruptedRun=JSON.parse(fs.readFileSync(checkpoint,'utf8'));
+  const runLock=path.join(os.tmpdir(),'rnfs-public-index-locks',`public-index-${digest(interruptedRun.runId)}.lock`);
+  assert.equal(JSON.parse(fs.readFileSync(runLock,'utf8')).pid,child.pid,'A killed collector leaves an identifiable fail-closed lock');
+  // The test harness acts as the operator: after confirming the owning child exited,
+  // explicitly clear its stale lock before exercising fresh-process recovery.
+  fs.unlinkSync(runLock);
   const before = fs.readFileSync(checkpoint);
   fs.writeFileSync(requests, '');
   const resumedOutput = path.join(directory, 'resumed.json');

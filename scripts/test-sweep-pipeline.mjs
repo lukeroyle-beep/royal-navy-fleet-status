@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { resolvePrivateInputs } from './lib/private-inputs.mjs';
 import { digest } from './lib/acquisition.mjs';
-import { createSweepRun, validateSweepRunShape, finaliseSweepRun, validateReleaseSweepGate } from './lib/sweep.mjs';
+import { createSweepRun, PUBLIC_INDEX_TARGETS, validateSweepRunShape, finaliseSweepRun, validateReleaseSweepGate } from './lib/sweep.mjs';
 import { collectPublicIndexes } from './lib/public-index-collector.mjs';
 import { reconcileFleet } from './lib/sweep-analysis.mjs';
 import { buildSweepCertificate } from './lib/sweep-certificate.mjs';
@@ -32,6 +32,17 @@ try {
  fs.writeFileSync(runFile,JSON.stringify(run));
  fs.mkdirSync(packets);
  const env={...process.env,RNFS_PRIVATE_DATA_ROOT:root};delete env.RNFS_PRIVATE_DATA_FIXTURE;
+ for(const [label,mutate] of [
+  ['missing target',artifact=>artifact.discoveryChecks.pop()],
+  ['altered target',artifact=>{artifact.discoveryChecks[0].url='https://example.invalid/changed';}],
+ ]){
+  const artifact=structuredClone(run),resume=path.join(directory,`resume-${label.replaceAll(' ','-')}.json`),output=path.join(directory,`rejected-${label.replaceAll(' ','-')}.json`);
+  mutate(artifact);fs.writeFileSync(resume,JSON.stringify(artifact));
+  const result=spawnSync(process.execPath,['scripts/collect-public-indexes.mjs',`--resume=${resume}`,`--output=${output}`],{env,encoding:'utf8'});
+  assert.notEqual(result.status,0,`Resume with ${label} must fail closed`);
+  assert.match(result.stderr,/Resume discovery target set changed or is incomplete/);
+  assert.equal(fs.existsSync(output),false,'Invalid resumed target sets must be rejected before collection or output');
+ }
  const invoke=mode=>spawnSync(process.execPath,['scripts/accelerate-osint-sweep.mjs',`--mode=${mode}`,`--run=${runFile}`,`--state=${state}`,`--packets=${packets}`],{env,encoding:'utf8'});
  const plan=invoke('plan');assert.equal(plan.status,0,plan.stderr);
  const tasks=JSON.parse(fs.readFileSync(path.join(state,'plan.json'))).tasks;
@@ -46,6 +57,22 @@ try {
  assert.equal(invoke('status').status,0);
  // Complete fabricated observation packets exercise successful restart without real browsing.
  const registry=fixture.readJson('sources');
+ const entities=fixture.readJson('vessels');
+ const lockRun=createSweepRun({registry,entities,assessmentLog:fixture.readJson('assessments'),evidenceItems:fixture.readJson('evidence').evidence,startedAt:run.startedAt,windowStart:run.window.from,discoveryTargets:[PUBLIC_INDEX_TARGETS[0]]});
+ const lockPath=path.join(directory,'public-index-run.lock');
+ const lockRunFile=path.join(directory,'lock-run.json'),lockRegistryFile=path.join(directory,'lock-registry.json'),lockEntitiesFile=path.join(directory,'lock-entities.json');
+ fs.writeFileSync(lockRunFile,JSON.stringify(lockRun));fs.writeFileSync(lockRegistryFile,JSON.stringify(registry));fs.writeFileSync(lockEntitiesFile,JSON.stringify(entities));
+ let beginRequest,continueRequest;
+ const requestStarted=new Promise(resolve=>{beginRequest=resolve;}),holdRequest=new Promise(resolve=>{continueRequest=resolve;});
+ const targets=[PUBLIC_INDEX_TARGETS[0]];
+ const firstCollection=collectPublicIndexes(lockRun,{registry,entities,targets,runLockPath:lockPath,fetchImpl:async url=>{beginRequest();await holdRequest;return {ok:true,status:200,url,headers:{get:key=>key==='content-type'?'text/html':null},text:async()=>'<html>no candidates in lock regression fixture</html>'};}});
+ await requestStarted;
+ const childCode=`import fs from 'node:fs';import {collectPublicIndexes} from ${JSON.stringify(new URL('./lib/public-index-collector.mjs',import.meta.url).href)};const run=JSON.parse(fs.readFileSync(process.env.RNFS_TEST_RUN_PATH,'utf8'));const registry=JSON.parse(fs.readFileSync(process.env.RNFS_TEST_REGISTRY_PATH,'utf8'));const entities=JSON.parse(fs.readFileSync(process.env.RNFS_TEST_ENTITIES_PATH,'utf8'));await collectPublicIndexes(run,{registry,entities,targets:${JSON.stringify(targets)},runLockPath:process.env.RNFS_TEST_LOCK_PATH,fetchImpl:async()=>{throw new Error('network must not start while another process owns this run');}});`;
+ const lockChild=spawnSync(process.execPath,['--input-type=module','-e',childCode],{env:{...env,RNFS_TEST_RUN_PATH:lockRunFile,RNFS_TEST_REGISTRY_PATH:lockRegistryFile,RNFS_TEST_ENTITIES_PATH:lockEntitiesFile,RNFS_TEST_LOCK_PATH:lockPath},encoding:'utf8'});
+ assert.notEqual(lockChild.status,0,'A separate process must not collect a run while its lock is held');
+ assert.match(lockChild.stderr,/Public-index collection is already locked/);
+ continueRequest();await firstCollection;
+ assert.equal(fs.existsSync(lockPath),false,'The run lock must be released after collection exits');
  const partialTask=tasks.find(t=>registry.sources.find(s=>s.sourceId===t.sourceId)?.xCollection);
  const partialSource=registry.sources.find(s=>s.sourceId===partialTask.sourceId);
  const partialMethod={kind:'x-profile-latest',browser:'chrome',renderedPublicPage:true,readOnly:true,pageUrl:partialSource.canonicalUrl,window:{from:run.window.from,to:run.window.to},scrollCount:0,visibleResultCount:1,limitations:['Synthetic partial-window test']};
@@ -81,7 +108,7 @@ try {
  assert.equal(JSON.parse(fs.readFileSync(runFile)).sourceChecks[0].state,'pending','Input run must not be overwritten');
  const completeRun=JSON.parse(fs.readFileSync(path.join(state,'processed-sweep-run.json')));
  const at=new Date().toISOString();
- const entities=fixture.readJson('vessels'), assessments=fixture.readJson('assessments'), evidence=fixture.readJson('evidence');
+ const assessments=fixture.readJson('assessments'), evidence=fixture.readJson('evidence');
  Object.assign(entities.metadata,{asOfDate:run.releaseTarget.asOfDate,releaseRevision:1,releasedAt:at});
  await collectPublicIndexes(completeRun,{registry,entities,checkedAt:at,fetchImpl:async url=>({ok:true,status:200,url,headers:{get:key=>key==='content-type'?'text/html':null},text:async()=>['/test-item/','/news/test-item/','/cps/test-item/','/services/navy/test-item/'].map(p=>`<a href="${new URL(p,url)}">Synthetic discovery</a>`).join('')})});
  for(const entry of completeRun.integrityChecks)Object.assign(entry,{state:'complete',checkedAt:at,outcome:'passed',notes:'Synthetic integrity review fixture.',blocker:null});
