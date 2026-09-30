@@ -1,0 +1,6 @@
+# Adapter is outside broker trust boundary. Use the inspected local Node path.
+# Add only after separate installation approval and B3 verification.
+[mcp_servers.rnfs_gate_b]
+command = "/opt/homebrew/bin/node"
+args = ["/Library/RNFSBroker/client.mjs"]
+enabled = true
