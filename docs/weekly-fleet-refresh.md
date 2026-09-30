@@ -13,7 +13,7 @@ the Codex automation is active because that would create competing schedulers.
 
 The Sunday scheduled message instructs Codex to:
 
-1. derive the current roster and review all 68 current Royal Navy and Royal Fleet Auxiliary records;
+1. derive the current roster and review all current Royal Navy and Royal Fleet Auxiliary records (69 at this review);
 2. keep or revise only dated, public, vessel-specific locations at supported precision;
 3. retain the last public location irrespective of age while labelling historical evidence;
 4. append every promotion or revision to `data/royal-navy/location-decisions.jsonl`;
@@ -127,7 +127,7 @@ automatic discovery target and remains Tier C, discovery-only material.
 Review every discovery and every required recurring manual source. Add newly governed source
 records and normalised evidence, then create and validate any new assessment revisions. Stage the
 target `metadata.asOfDate` and `metadata.releaseRevision` in the canonical vessel file before
-finalisation, but do not stamp the final release instant yet. Record one allowed outcome for all 68
+finalisation, but do not stamp the final release instant yet. Record one allowed outcome for all current
 vessels after its current assessment exists. A new assessment's `assessedAt` must fall within the
 sweep and be no later than that vessel's `reviewedAt`; the outcome evidence set must equal the new
 assessment's selected evidence set. A source that cannot be checked must have an explicit typed
@@ -266,3 +266,11 @@ Current limitation: this path authenticates the correction that matches HEAD.
 It does not yet follow inherited correction provenance through a subsequent
 normal snapshot. Do not claim routine future carry-forward is validated until
 that chain is supported and tested; retain the private correction baseline.
+
+## Issue 110 preflight and reuse
+
+See [deterministic preflight](osint-preflight.md) before collection and
+[operations migration](rnfs-operations-migration.md) for the verified audit, dependency
+dispositions and remaining owner decisions. The new guarded entry supports plan/index
+collection; scheduled activation and live permission repair have not occurred. Existing
+Chrome canary, evidence, independent acceptance and publication gates remain required.

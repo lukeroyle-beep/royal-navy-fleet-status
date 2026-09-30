@@ -1,0 +1,88 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { digest } from './lib/acquisition.mjs';
+import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
+import { resolvePrivateInputs } from './lib/private-inputs.mjs';
+import { createPublicProjection } from './lib/public-projection.mjs';
+import { createSweepRun } from './lib/sweep.mjs';
+import { collectAfterPreflight, preflightBinding, probeWrite, classifyPreflightError } from './lib/sweep-preflight.mjs';
+
+const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'rnfs-preflight-test-'));
+const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+const write = (file, value) => fs.writeFileSync(file, JSON.stringify(value));
+try {
+  const root = path.join(directory, 'inputs');
+  fs.cpSync(resolvePrivateInputs({ environment: {} }).root, root, { recursive: true });
+  const files = { vessels: 'vessels.json', sources: 'sources.json', evidence: 'evidence.json', assessments: 'assessments.json', sweepRuns: 'sweep-runs', shoreEstablishments: 'shore-establishments.json', shorePhotoSources: 'shore-photo-sources.json' };
+  write(path.join(root, 'private-input-manifest.json'), { schemaVersion: 1, kind: 'rnfs-private-inputs', files });
+  const environment = { RNFS_PRIVATE_DATA_ROOT: root };
+  const inputs = resolvePrivateInputs({ environment });
+  const entities = inputs.readJson('vessels'), registry = inputs.readJson('sources'), assessmentLog = inputs.readJson('assessments'), evidenceItems = inputs.readJson('evidence').evidence;
+  const run = createSweepRun({ entities, registry, assessmentLog, evidenceItems, startedAt: new Date(Date.now()-1000).toISOString(), windowStart: '2026-08-01T00:00:00Z' });
+  const projection = createPublicProjection(entities, assessmentLog, evidenceItems);
+  const config = { schemaVersion: 1, run: path.join(directory, 'run.json'), stateDirectory: path.join(directory, 'state'), ownerLock: path.join(directory, 'owner.json'), ownerId: 'fixture-owner', backupReceipt: path.join(directory, 'backup.json') };
+  fs.mkdirSync(config.stateDirectory); write(config.run, run);
+  const owner = { runId: run.runId, ownerId: config.ownerId, active: true, pid: process.pid };
+  write(config.ownerLock, owner);
+  const inputHash = digest(Object.fromEntries(['vessels', 'sources', 'assessments', 'evidence', 'shoreEstablishments', 'shorePhotoSources'].map(k => [k, sha(fs.readFileSync(inputs.pathFor(k)))])));
+  const bindingHash = preflightBinding({ run, runHash: sha(fs.readFileSync(config.run)), inputHash, checkpointHash: digest([]) });
+  const manifestPath = path.join(directory, 'manifest.json'), restoreProofPath = path.join(directory, 'restore.json');
+  write(manifestPath, { kind: 'rnfs-backup-manifest', bindingHash, completePrivateInputs: true, completeCheckpointState: true, fileCount: 7 });
+  const proof = { bindingHash, manifestSha256: sha(fs.readFileSync(manifestPath)), pass: true, filesVerified: 7 };
+  write(restoreProofPath, proof);
+  const backup = { schemaVersion: 1, kind: 'rnfs-backup-readiness', bindingHash, manifestPath, restoreProofPath,
+    manifestSha256: sha(fs.readFileSync(manifestPath)), restoreProofSha256: sha(fs.readFileSync(restoreProofPath)), verifiedAt: new Date().toISOString() };
+  write(config.backupReceipt, backup);
+  let collections = 0, githubCalls = 0;
+  const probes = { write: probeWrite, ownerAlive: () => true, github: () => { githubCalls++; return { head: 'a'.repeat(40), projection }; }, live: async () => projection, encrypted: () => true };
+  const options = { config, repository: directory, environment, probes };
+  const collect = async () => ++collections;
+  const success = await collectAfterPreflight(options, collect);
+  assert.equal(success.receipt.outcome, 'READY_FOR_COLLECTION'); assert.equal(collections, 1);
+  assert.equal(success.receipt.publicationEligible, false);
+  assert.ok(!JSON.stringify(success.receipt).includes(directory));
+  const expectBlocked = async (changed, expected) => {
+    const before = collections;
+    const result = await collectAfterPreflight({ ...options, ...changed }, collect);
+    assert.equal(result.receipt.outcome, 'DEFERRED_WITH_JUSTIFICATION');
+    assert.equal(result.receipt.diagnostic, expected); assert.equal(collections, before);
+    assert.ok(!JSON.stringify(result.receipt).includes(directory));
+  };
+  const beforeNetwork = githubCalls;
+  await expectBlocked({ config: { ...config, executionPolicy: { networkAccess: false } } }, 'NETWORK_POLICY_DENIED');
+  assert.equal(githubCalls, beforeNetwork);
+  await expectBlocked({ probes: { ...probes, github: () => { throw new Error('Could not resolve host: github.com private-secret'); } } }, 'GITHUB_DNS_UNAVAILABLE');
+  await expectBlocked({ probes: { ...probes, write: () => { throw new Error('EACCES private-secret'); } } }, 'REPOSITORY_WRITE_PERMISSION_DENIED');
+  await expectBlocked({ probes: { ...probes, write: dir => { if (dir === fs.realpathSync(root)) throw new Error('EPERM'); } } }, 'PRIVATE_WRITE_PERMISSION_DENIED');
+  await expectBlocked({ probes: { ...probes, live: () => ({ ...projection, vessels: projection.vessels.slice(1) }) } }, 'PUBLICATION_BASELINE_MISMATCH');
+  await expectBlocked({ probes: { ...probes, encrypted: () => false } }, 'BACKUP_ENCRYPTION_UNAVAILABLE');
+  await expectBlocked({ probes: { ...probes, ownerAlive: () => false } }, 'OWNER_NOT_CONFIRMED');
+  write(config.ownerLock, { ...owner, expiresAt: '2020-01-01T00:00:00Z' });
+  await expectBlocked({}, 'OWNER_NOT_CONFIRMED'); write(config.ownerLock, owner);
+  write(config.backupReceipt, { ...backup, bindingHash: '0'.repeat(64) });
+  await expectBlocked({}, 'BACKUP_RECEIPT_INVALID'); write(config.backupReceipt, backup);
+  write(restoreProofPath, { ...proof, pass: false });
+  await expectBlocked({}, 'BACKUP_PROOF_MISMATCH'); write(restoreProofPath, proof);
+  await expectBlocked({ probes: { ...probes, live: () => {
+    write(config.ownerLock, { ...owner, expiresAt: '2020-01-01T00:00:00Z' }); return projection;
+  } } }, 'OWNER_NOT_CONFIRMED'); write(config.ownerLock, owner);
+  await expectBlocked({ probes: { ...probes, live: () => {
+    write(config.ownerLock, { ...owner, token: 'replacement-owner-token' }); return projection;
+  } } }, 'OWNER_CHANGED'); write(config.ownerLock, owner);
+  const changedRun = structuredClone(run); changedRun.sourceChecks[0].notes = 'Additional retained review';
+  write(config.run, changedRun); await expectBlocked({}, 'BACKUP_RECEIPT_INVALID'); write(config.run, run);
+  const discoveryCheckpoint = path.join(config.stateDirectory, 'discovery-run.json');
+  write(discoveryCheckpoint, { interrupted: true }); await expectBlocked({}, 'BACKUP_RECEIPT_INVALID'); fs.unlinkSync(discoveryCheckpoint);
+  write(path.join(config.stateDirectory, '000000000.json'), { interrupted: true });
+  await expectBlocked({}, 'BACKUP_RECEIPT_INVALID');
+  assert.equal(classifyPreflightError(new Error('403 private details'), 'GITHUB'), 'GITHUB_AUTHENTICATION_UNAVAILABLE');
+  assert.throws(() => assertPrivateArtifact(path.resolve('private-output.json')), /outside every checkout/);
+  const link = path.join(directory, 'repository-link'); fs.symlinkSync(path.resolve('.'), link);
+  assert.throws(() => assertPrivateArtifact(path.join(link, 'new.json')), /outside every checkout/);
+  assert.equal(assertPrivateArtifact(path.join(directory, 'absent', 'deeper', 'file')), path.join(fs.realpathSync(directory), 'absent', 'deeper', 'file'));
+  assert.equal(fs.readdirSync(directory).filter(n => n.startsWith('.rnfs-preflight-')).length, 0);
+  console.log('Preflight: readiness, DNS/auth/policy, actual write probes, projection, backup, owner loss and no-collection failure tests passed (fixtures).');
+} finally { fs.rmSync(directory, { recursive: true, force: true }); }

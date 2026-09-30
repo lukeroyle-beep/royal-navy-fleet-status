@@ -549,3 +549,11 @@ The acquisition remains `PARSING_FAILURE`, with no accepted candidates and a nul
 The approval record and failed acquisition hash remain private. Every other mandatory source,
 fleet reconciliation, conflict and release gate still applies. This exception does not establish
 complete collection, a passing certificate, publication authority or a live runtime result.
+
+## Explicit recovery planning (issue 110)
+
+Plan tasks now expose `reuse`, `collect`, `retry`, or `manual-blocked` plus an exact
+receipt hash where applicable. Reuse the existing successful transaction before any
+browser visit; see [the migration contract](rnfs-operations-migration.md#reuse-and-recovery-contract).
+New attempt telemetry excludes reused duration and distinguishes adapter calls from
+unknown HTTP/browser counts. Run [preflight](osint-preflight.md) in the executor first.

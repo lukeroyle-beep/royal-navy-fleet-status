@@ -97,3 +97,13 @@ processing benchmarks do not demonstrate collection performance. Keep automatic 
 until the fresh run satisfies its own mandatory coverage, 69-record reconciliation (or the actual
 current roster), integrity and certificate gates. Record remaining live bottlenecks if it exceeds
 60 minutes rather than reducing coverage.
+
+## Issue 110 first increment (not a scheduler cutover)
+
+The [migration audit](rnfs-operations-migration.md) recommends retiring unconditional
+weekday AI review and broad hourly model polling. Those jobs are unchanged by this PR.
+Use the [preflight entry](osint-preflight.md) for approved executor integration and verify
+it in the actual scheduled network/write context before claiming readiness. Resolve
+current recovery state from native receipts and issues 104/108; embedded dated prompt
+checkpoints are historical context and must not select an obsolete run. No new dispatcher,
+control branch, source-policy exception or publication authority is introduced.

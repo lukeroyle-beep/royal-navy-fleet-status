@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { boundedMap } from "./acquisition.mjs";
+import { boundedMap, digest } from "./acquisition.mjs";
 
 import {
   PUBLIC_INDEX_TARGETS,
@@ -16,6 +16,8 @@ const ALLOWED_CONTENT_TYPES = [
   "text/xml",
 ];
 
+export const INDEX_PARSER_VERSION = '2';
+const activeRuns = new Set();
 export async function collectPublicIndexes(
   run,
   {
@@ -25,17 +27,55 @@ export async function collectPublicIndexes(
     checkedAt = new Date().toISOString(),
     targets = PUBLIC_INDEX_TARGETS,
     concurrency = 4,
+    parserVersion = INDEX_PARSER_VERSION,
+    perDomain = 1,
+    minIntervalMs = 250,
+    timeoutMs = 20000,
+    attempts = 3,
+    cache = {},
+    onCheckpoint = () => {},
+    sleep = ms => new Promise(r => setTimeout(r, ms)),
   },
 ) {
   if (typeof fetchImpl !== "function") throw new Error("Public-index collection requires fetch.");
+  if (!Number.isInteger(attempts) || attempts < 1 || attempts > 5 || !Number.isInteger(perDomain) || perDomain < 1 || perDomain > 16 || !Number.isFinite(timeoutMs) || timeoutMs < 1 || timeoutMs > 120000 || !Number.isFinite(minIntervalMs) || minIntervalMs < 0 || minIntervalMs > 60000) throw new Error('Invalid network bounds');
+  if (new Set(run.discoveryChecks.map(c => c.targetId)).size !== run.discoveryChecks.length) throw new Error('Duplicate discovery request');
+  const nextDomain = new Map();
+  const telemetry = { startedAt: new Date().toISOString(), attempted: 0, reused: 0, retries: 0, timeouts: 0, bytes: 0, httpRequests: 0, modelCalls: 0, modelUsage: 'deterministic-no-model' };
+  if (new Set(targets.map(t => t.url)).size !== targets.length) throw new Error('Duplicate source URL');
   const targetById = new Map(targets.map((entry) => [entry.targetId, entry]));
 
+  if (activeRuns.has(run.runId)) throw new Error('Discovery already active for this run');
+  activeRuns.add(run.runId);
+  try {
   const started = performance.now();
   const batch = await boundedMap(run.discoveryChecks, async (check) => {
     const target = targetById.get(check.targetId);
     if (!target) throw new Error(`Missing discovery target ${check.targetId}`);
+    const binding = crypto.createHash('sha256').update(JSON.stringify({ runId: run.runId, cutoff: run.window.to, registryHash: run.sourceRegistryHash, window: run.window, parserVersion, target })).digest('hex');
+    if (check.state === 'complete' && check.requestBinding === binding && check.contentHash && check.receiptHash === receiptHash(check)) { telemetry.reused++; return; }
     const sourceStarted = performance.now();
-    const result = await collectOne(target, { fetchImpl, checkedAt });
+    telemetry.attempted++;
+    let result;
+    for (let attempt = 1; attempt <= attempts; attempt++) {
+      const domain = target.allowedHost;
+      const now = Date.now(), start = Math.max(now, nextDomain.get(domain) || 0);
+      nextDomain.set(domain, start + minIntervalMs);
+      if (start > now) await sleep(start - now);
+      result = await collectOne(target, { fetchImpl, checkedAt, timeoutMs, cached: cache[target.targetId], onRequest: () => telemetry.httpRequests++ });
+      if (result.blocker?.type === 'timeout') telemetry.timeouts++;
+      if (result.bytes) telemetry.bytes += result.bytes;
+      result.attempts = attempt;
+      const transient = ['network-error', 'timeout'].includes(result.blocker?.type) || result.httpStatus === 429 || result.httpStatus >= 500;
+      if (!transient || attempt === attempts) break;
+      const delay = Math.max(1000 * 2 ** (attempt - 1), result.retryAfterMs || 0);
+      if (delay > 30000) break;
+      telemetry.retries++;
+      await sleep(delay);
+    }
+    result.requestBinding = binding;
+    if (result.cacheEntry) { cache[target.targetId] = result.cacheEntry; delete result.cacheEntry; }
+    for (const key of ['receiptHash', 'cachedCandidates', 'originalRetrievedAt', 'sourceTimestamp', 'contentHash', 'conditionalBodyReused']) delete check[key];
     Object.assign(check, result);
     check.durationMs = performance.now() - sourceStarted;
     if (target.sourceId) {
@@ -48,33 +88,44 @@ export async function collectPublicIndexes(
         sourceCheck.blocker = result.blocker;
       }
     }
-  }, { concurrency, group: check => new URL(check.url).hostname, limits: Object.fromEntries(targets.map(t => [t.allowedHost, 1])) });
+    if (check.state === 'complete') check.receiptHash = receiptHash(check);
+    await onCheckpoint(run, cache);
+  }, { concurrency, group: check => new URL(check.url).hostname, limits: Object.fromEntries(targets.map(t => [t.allowedHost, perDomain])) });
   for (const result of batch.results) if (result?.error) throw result.error;
+  run.collectionTelemetry = { ...telemetry, finishedAt: new Date().toISOString(), elapsedMs: performance.now() - started, successful: run.discoveryChecks.filter(c => c.state === 'complete').length - telemetry.reused, failed: run.discoveryChecks.filter(c => c.state !== 'complete').length };
   run.acquisitionTiming = { durationMs: performance.now() - started, peakConcurrency: batch.peak };
 
   run.coverage = evaluateSweepCoverage(run, { registry, entities, discoveryTargets: targets });
   run.complete = false;
   run.completedAt = null;
   return run;
+  } finally { activeRuns.delete(run.runId); }
 }
 
-async function collectOne(target, { fetchImpl, checkedAt }) {
+async function collectOne(target, { fetchImpl, checkedAt, timeoutMs, cached, onRequest }) {
   assertAutomaticTarget(target);
   try {
-    const signal = AbortSignal.timeout(20_000);
+    const signal = AbortSignal.timeout(timeoutMs);
     let requestUrl = target.url;
     let response;
+    let conditional = false;
     for (let hop = 0; hop <= 3; hop += 1) {
+      conditional = Boolean(cached?.url === target.url && cached.responseUrl === requestUrl &&
+        cached.contentHash === crypto.createHash('sha256').update(cached.body || '').digest('hex') &&
+        (cached.etag || cached.lastModified) && Number.isFinite(Date.parse(cached.retrievedAt)) && Date.parse(cached.retrievedAt) <= Date.parse(checkedAt));
+      onRequest();
       response = await fetchImpl(requestUrl, {
         method: "GET",
         redirect: "manual",
         signal,
         headers: {
+          ...(conditional ? { ...(cached.etag ? { 'If-None-Match': cached.etag } : {}), ...(cached.lastModified ? { 'If-Modified-Since': cached.lastModified } : {}) } : {}),
           Accept: "application/atom+xml, application/rss+xml, application/xml, text/xml, text/html;q=0.9",
           "User-Agent": "royal-navy-fleet-status/0.2 public-index-discovery (+https://github.com/lukeroyle-beep/royal-navy-fleet-status)",
         },
       });
       const hopStatus = Number(response.status);
+      if (hopStatus === 304) break;
       if (hopStatus < 300 || hopStatus >= 400) break;
       const location = response.headers?.get?.("location");
       if (!location) {
@@ -95,9 +146,18 @@ async function collectOne(target, { fetchImpl, checkedAt }) {
       requestUrl = redirectUrl.toString();
     }
     const status = Number(response.status);
+    if (status === 304) {
+      if (!conditional || (response.url && response.url !== cached.responseUrl)) return blocked('http-error', '304 without verified cached body', checkedAt, status);
+      assertResponseUrl(response.url || requestUrl, target);
+      const candidates = extractCandidateUrls(cached.body, target);
+      if (!candidates.length) return blocked('parse-empty', 'Cached index has no candidates', checkedAt, status);
+      return { state: 'complete', checkedAt, outcome: 'not-modified', httpStatus: status, candidates, conditionalBodyReused: true, collectionMethod: 'automatic-index-get', notes: 'Conditional GET revalidated hashed cached index; article review still required.', blocker: null, contentHash: cached.contentHash, sourceTimestamp: cached.lastModified || null, originalRetrievedAt: cached.retrievedAt, bytes: 0 };
+    }
     if (!response.ok) {
       const blockerType = status === 429 ? "rate-limited" : "http-error";
-      return blocked(blockerType, `${target.targetId} returned HTTP ${status}.`, checkedAt, status);
+      const retryAfter = response.headers?.get?.('retry-after');
+      const retryAfterMs = /^\d+$/.test(retryAfter || '') ? Number(retryAfter) * 1000 : Math.max(0, Date.parse(retryAfter) - Date.parse(checkedAt)) || 0;
+      return { ...blocked(blockerType, `${target.targetId} returned HTTP ${status}.`, checkedAt, status), retryAfterMs };
     }
     assertResponseUrl(response.url || requestUrl, target);
     const contentType = String(response.headers?.get?.("content-type") || "")
@@ -135,6 +195,9 @@ async function collectOne(target, { fetchImpl, checkedAt }) {
       );
     }
     return {
+      contentHash: crypto.createHash('sha256').update(body).digest('hex'),
+      bytes: Buffer.byteLength(body), sourceTimestamp: response.headers?.get?.('last-modified') || null,
+      cacheEntry: { url: target.url, responseUrl: response.url || requestUrl, body, contentHash: crypto.createHash('sha256').update(body).digest('hex'), etag: response.headers?.get?.('etag') || null, lastModified: response.headers?.get?.('last-modified') || null, retrievedAt: checkedAt },
       state: "complete",
       checkedAt,
       outcome: "candidates-found",
@@ -146,7 +209,8 @@ async function collectOne(target, { fetchImpl, checkedAt }) {
     };
   } catch (error) {
     const type = error?.name === "TimeoutError" || error?.name === "AbortError" ? "timeout" : "network-error";
-    return blocked(type, `${target.targetId}: ${safeMessage(error)}`, checkedAt, null);
+    const code = error?.cause?.code || error?.code;
+    return { ...blocked(type, `${target.targetId}: request failed`, checkedAt, null), diagnostic: ['ENOTFOUND', 'EAI_AGAIN'].includes(code) ? 'dns' : type };
   }
 }
 
@@ -261,4 +325,8 @@ function blocked(type, message, checkedAt, httpStatus) {
 function safeMessage(error) {
   const value = error instanceof Error ? error.message : String(error);
   return value.replace(/[\r\n]+/g, " ").slice(0, 300) || "network request failed";
+}
+
+function receiptHash(check) {
+  return digest({ requestBinding: check.requestBinding, contentHash: check.contentHash, checkedAt: check.checkedAt, candidates: check.candidates, conditionalBodyReused: check.conditionalBodyReused === true, collectionMethod: check.collectionMethod, sourceTimestamp: check.sourceTimestamp || null, originalRetrievedAt: check.originalRetrievedAt || null });
 }
