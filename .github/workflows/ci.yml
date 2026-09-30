@@ -45,3 +45,19 @@ jobs:
           path: dist
           if-no-files-found: error
           retention-days: 7
+
+  native-broker:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+      - name: Test Gate B synthetic native boundary
+        run: npm run test:broker
+      - name: Build production broker without installation
+        run: |
+          tools/execution-broker/build.sh
+          plutil -lint tools/execution-broker/org.rnfs.gate-b.plist
+          cd tools/execution-broker
+          shasum -a 256 -c SOURCE-SHA256SUMS
