@@ -27,6 +27,20 @@ export function probeWrite(directory) {
   } finally { if (created) fs.unlinkSync(probe); }
 }
 
+// diskutil accepts a volume mount point, not an arbitrary directory on it.
+// Resolve symlinks before walking device boundaries so the inspected volume
+// is the one actually holding the backup manifest.
+export function filesystemRoot(directory, filesystem = fs) {
+  let current = filesystem.realpathSync(directory);
+  const device = filesystem.statSync(current).dev;
+  while (path.dirname(current) !== current) {
+    const parent = path.dirname(current);
+    if (filesystem.statSync(parent).dev !== device) break;
+    current = parent;
+  }
+  return current;
+}
+
 // Injected probes are for fixture testing. The CLI always uses these actual
 // probes, with bounded child processes/HTTP. No model, browser or remote writes.
 export function productionProbes({ repository, environment = process.env, deadline }) {
@@ -58,7 +72,7 @@ export function productionProbes({ repository, environment = process.env, deadli
     },
     encrypted: (directory, sourceRoot) => {
       if (process.platform !== 'darwin') fail('ENCRYPTION_PROBE_UNSUPPORTED');
-      const plist = command('diskutil', ['info', '-plist', directory]);
+      const plist = command('diskutil', ['info', '-plist', filesystemRoot(directory)]);
       return /<key>FileVault<\/key>\s*<true\s*\/>/.test(plist) &&
         fs.statSync(directory).dev !== fs.statSync(sourceRoot).dev;
     },

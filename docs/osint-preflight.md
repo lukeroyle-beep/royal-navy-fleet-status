@@ -111,6 +111,9 @@ actual complete backup and restore comparison, not merely populated to make pref
 The preflight rehashes both files, verifies exact-state bindings and matching counts,
 checks the mounted backup volume reports FileVault encryption through `diskutil`, requires
 a filesystem device distinct from the source store, and probes backup-directory writes.
+The encryption probe resolves the manifest directory to its filesystem root before
+calling `diskutil`: macOS rejects nested backup folders as disk identifiers. Device
+separation is still checked against the actual manifest directory and source store.
 It does not independently repeat the restore or verify each backed-up payload at every
 wake. The retained proof is trusted operational evidence, not a cryptographic signature.
 No elapsed-time validity period is introduced: changed run/input/checkpoint bytes require
@@ -123,3 +126,32 @@ Repair the named prerequisite in the scheduled context. An unavailable encrypted
 sign-in or challenge remains Luke-only. Never repeat all successful sources merely
 because preflight or ownership failed. Resume the same preserved run/cutoff after
 verification; no pass allows publication, advances the cutoff or closes an incident.
+
+## Operational cutover verification
+
+Adopt the guard in stages: verify the accepted private projection, perform an actual
+encrypted backup/restore comparison, run a check-only preflight interactively, then
+repeat verification in the existing automation's actual execution context. Preserve the
+automation configuration for rollback. Do not change global permissions or treat an
+interactive pass as scheduled validation. Keep collection held until that validation
+is reviewed; an unmerged local fix is not a deployed scheduler prerequisite.
+
+With the volume-root fix, the 30 September interactive check passed all twelve stages
+in 1,968 ms, after a real encrypted archive/restore comparison of 6,298 files and
+read-only validation of the 989-transaction journal. This is an actual interactive
+measurement, not scheduled acceptance or a collection benchmark. The backup occupied
+about 18.7 MB compressed for 132.9 MB of input/checkpoint files. The volume then had
+about 14.8 MB free, insufficient for another equivalent independent backup plus
+headroom. Retain prior verified backups; resolve capacity before the scheduled trial.
+
+The 30 September adoption check confirmed that the preserved 20 September partial-release
+inputs match GitHub main and the September 27 run baseline. The default inherited root
+still contains 68 records and is unsuitable. Select the accepted inputs explicitly for
+the process; do not overwrite them or substitute the unpublished recovery candidate.
+Resolve subsequent state from native receipts and issues 104/108, not an embedded
+September 12 automation checkpoint.
+
+An exact-state backup which includes process ownership records changes when ownership
+is released. Retain its receipt as a dated verification, not a reusable pass token.
+Future owners need a proof matching their actual state. A restored PID or writer mutex
+is historical data, never authority to resume or permission to steal a live lock.
