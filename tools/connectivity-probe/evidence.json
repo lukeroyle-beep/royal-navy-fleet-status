@@ -1,0 +1,59 @@
+{
+  "recordedAt": "2026-09-30T14:53:44.454986+00:00",
+  "displayTime": "2026-09-30 15:53:44 BST",
+  "gateA": "BLOCKED",
+  "gateB": "NOT STARTED",
+  "requestId": "e27e0395-8baf-4a5f-a778-b3da6e4d6ac8",
+  "requestIdStatus": "reserved proposal; NOT executed by scheduler",
+  "schedulerTaskId": null,
+  "schedulerRunId": null,
+  "schedulerTriggeredAt": null,
+  "scheduledReceipt": null,
+  "connection": "proposed local MCP Streamable HTTP http://127.0.0.1:43187/mcp; not configured",
+  "runtime": {
+    "desktopVersion": "26.928.21956",
+    "desktopBuild": "12404",
+    "codexCli": "0.146.0",
+    "node": "v24.19.0"
+  },
+  "mainCommit": "36af4ad95eb5e0408f5623e736e6b45f70d063e7",
+  "blocker": "Absent MCP connection requires protected host/project configuration change and connection restart by operator; task prohibits that change. Native one-shot acceptance and scheduled MCP reachability remain unverified.",
+  "localTests": {
+    "status": "PASS",
+    "assertions": 42,
+    "context": "isolated-local-http-fixture-NOT-scheduled",
+    "rawReceiptExample": {
+      "requestId": "0d3a4bec-d5e3-4a58-a754-9198be29eff1",
+      "operation": "connectivity_probe",
+      "policyVersion": "rnfs-connectivity-fixture-v1",
+      "requestDigest": "80d3c0191994712c37daaeb6136c0f842268dc01dc0ceb8e35890e33a4d7dc3f",
+      "bundleDigest": "d6e043eb5d241bfb56bf02a329e876e03c898cfd2a556e8784a4c8bf269687a8",
+      "runtimeDigest": "c8eedc7651a438fb7d2ceb36fd70032676c855586a36c950ba5a662f0b7853bd",
+      "instanceId": "be69552b-1559-49d9-ba1b-14dcf8818e1f",
+      "executionIdentity": {
+        "uid": 501,
+        "gid": 20,
+        "pid": 79194
+      },
+      "runtime": "v24.19.0",
+      "startedAt": "2026-09-30T14:50:56.348Z",
+      "finishedAt": "2026-09-30T14:50:56.348Z",
+      "result": "PASS",
+      "code": "CONNECTED",
+      "outputHashes": {
+        "response": "06b9f83b2aeaf932f963b7b2e93ce928a77d330c05396e81f474abad85c9aa67"
+      },
+      "provenance": "service-observed-request; scheduler provenance must be independently correlated",
+      "receiptDigest": "0829cdb3f80d8a7ea6f1cb73df16f1dd8e2415d8de5d27757b40a3b35c9e49bd"
+    }
+  },
+  "mainRegressionTests": [
+    "test-sweep-pipeline.mjs PASS with synthetic inputs",
+    "test-public-index-resume.mjs PASS with synthetic inputs"
+  ],
+  "appliedRuntimeConfigurationDiff": [],
+  "productionAutomationMutations": [],
+  "installedService": false,
+  "osEnforcementValidated": false,
+  "historicalBackupRepeated": false
+}
