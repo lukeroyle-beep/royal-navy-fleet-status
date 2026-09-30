@@ -57,13 +57,34 @@ read as context only; the completed encrypted restore was not repeated.
   documentation nor an interactive test proves these facts. A cloud scheduler's
   `127.0.0.1` is not assumed to be this Mac.
 
+## Post-installation compatibility finding
+
+After operator installation and app restart on 30 September, both MCP tools
+became callable and the installed service was listening on loopback. Actual
+interactive probe and receipt calls returned `INVALID_TOOL_FIELDS`; they did not
+produce receipts and were not scheduled proof. The original exact envelope check
+rejects the optional `params._meta` object permitted by the
+[MCP request schema](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2025-03-26/schema.ts).
+A local regression reproduces that incompatibility. Raw client envelope bytes
+were not captured, so `_meta` is a supported compatibility fix, not yet a
+confirmed diagnosis of the client's wire payload.
+
+The corrected source accepts and ignores object-valued protocol metadata only.
+Operation arguments remain exact-key validated; extra operation fields, unknown
+operations and unrelated envelope fields remain rejected. Metadata is never
+used as receipt or scheduler authority. The updated source passes 56 local
+assertions, but is not installed or live-validated yet. The installed root-owned
+source retains its original approved digest. Promote the revised bundle through
+operator review and the documented stop/update/restart procedure, then retest
+actual MCP calls before attempting the separate native scheduled validation.
+
 ## Decisive blocker and smallest next step
 
-The local MCP connection is absent, and adding it changes protected runtime
-configuration. The user prohibited that change during this task. A runtime
-operator must approve and add the single proposed connection, then a separately
-authorised fresh scheduled validation must run. No broker engineering proceeds
-before that result is PASS.
+The original absent-connection blocker is resolved: the operator installed the
+fixture and project stanza, and app restart loaded both tools. The current
+blocker is `INVALID_TOOL_FIELDS` from actual interactive calls. The revised
+metadata-compatible bundle needs operator promotion and live retesting before
+fresh scheduled validation. No broker engineering proceeds before Gate A PASS.
 
 The supported automation tool exposes local standalone jobs and recurrence
 rules, but its current schema does not document a dedicated one-shot trigger.

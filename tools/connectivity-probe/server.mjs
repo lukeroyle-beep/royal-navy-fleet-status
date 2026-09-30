@@ -66,7 +66,11 @@ export function createFixture({ audit = () => {} } = {}) {
     if (message.method === 'tools/list') return reply({ tools });
     if (message.method !== 'tools/call') return { jsonrpc: '2.0', id, error: { code: -32601, message: 'Method not found' } };
     const params = message.params;
-    if (!exact(params, ['name', 'arguments'])) return reply(reject('INVALID_TOOL_FIELDS'));
+    // MCP Request.params permits protocol metadata alongside tool arguments.
+    // Ignore metadata; it must never become operation input or receipt authority.
+    if (!object(params) || !Object.hasOwn(params, 'name') || !Object.hasOwn(params, 'arguments') ||
+        Object.keys(params).some(key => !['name', 'arguments', '_meta'].includes(key)) ||
+        (Object.hasOwn(params, '_meta') && !object(params._meta))) return reply(reject('INVALID_TOOL_FIELDS'));
     if (params.name === 'connectivity_probe') return reply(probe(params.arguments));
     if (params.name !== 'get_receipt') return reply(reject('UNKNOWN_TOOL'));
     const args = params.arguments;
