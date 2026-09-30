@@ -8,12 +8,22 @@ import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
 import { resolvePrivateInputs } from './lib/private-inputs.mjs';
 import { createPublicProjection } from './lib/public-projection.mjs';
 import { createSweepRun } from './lib/sweep.mjs';
-import { collectAfterPreflight, preflightBinding, probeWrite, classifyPreflightError } from './lib/sweep-preflight.mjs';
+import { collectAfterPreflight, preflightBinding, probeWrite, classifyPreflightError, filesystemRoot } from './lib/sweep-preflight.mjs';
 
 const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'rnfs-preflight-test-'));
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const write = (file, value) => fs.writeFileSync(file, JSON.stringify(value));
 try {
+  const volume = '/Volumes/Encrypted Backup';
+  const mountedFilesystem = {
+    realpathSync: value => value === '/backup-link' ? `${volume}/nested/attempt` : value,
+    statSync: value => ({ dev: value === volume || value.startsWith(`${volume}/`) ? 2 : 1 }),
+  };
+  assert.equal(filesystemRoot(`${volume}/nested/attempt`, mountedFilesystem), volume);
+  assert.equal(filesystemRoot(volume, mountedFilesystem), volume);
+  assert.equal(filesystemRoot('/backup-link', mountedFilesystem), volume);
+  assert.equal(filesystemRoot('/local/nested', mountedFilesystem), '/');
+  assert.equal(filesystemRoot('/', mountedFilesystem), '/');
   const root = path.join(directory, 'inputs');
   fs.cpSync(resolvePrivateInputs({ environment: {} }).root, root, { recursive: true });
   const files = { vessels: 'vessels.json', sources: 'sources.json', evidence: 'evidence.json', assessments: 'assessments.json', sweepRuns: 'sweep-runs', shoreEstablishments: 'shore-establishments.json', shorePhotoSources: 'shore-photo-sources.json' };
