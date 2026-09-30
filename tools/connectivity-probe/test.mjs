@@ -41,6 +41,24 @@ try {
   check((await call('shell', { command: 'echo forbidden' })).code, 'UNKNOWN_TOOL');
   check((await rpc('exec', {})).error.code, -32601);
   check((await rpc('tools/list', {}, { extra: true })).error.code, -32600);
+  const metadataRequest = valid();
+  const metadata = { progressToken: 'fixture-token', 'client/example': { ignored: true } };
+  const metaCall = await rpc('tools/call', { name: 'connectivity_probe', arguments: metadataRequest, _meta: metadata });
+  const metaReceipt = JSON.parse(metaCall.result.content[0].text);
+  check(metaReceipt.result, 'PASS');
+  const metaGet = await rpc('tools/call', { name: 'get_receipt', arguments: { requestId: metadataRequest.requestId }, _meta: metadata });
+  check(JSON.parse(metaGet.result.content[0].text), metaReceipt);
+  check(Object.hasOwn(metaReceipt, '_meta'), false);
+  for (const badMeta of [null, [], 'text', 1, true]) {
+    const r = await rpc('tools/call', { name: 'connectivity_probe', arguments: valid(), _meta: badMeta });
+    check(JSON.parse(r.result.content[0].text).code, 'INVALID_TOOL_FIELDS');
+  }
+  const outerExtra = await rpc('tools/call', { name: 'connectivity_probe', arguments: valid(), _meta: {}, unexpected: true });
+  check(JSON.parse(outerExtra.result.content[0].text).code, 'INVALID_TOOL_FIELDS');
+  const innerExtra = await rpc('tools/call', { name: 'connectivity_probe', arguments: { ...valid(), unexpected: true }, _meta: {} });
+  check(JSON.parse(innerExtra.result.content[0].text).code, 'INVALID_FIELDS');
+  const innerUnknown = await rpc('tools/call', { name: 'connectivity_probe', arguments: { ...valid(), operation: 'publication' }, _meta: {} });
+  check(JSON.parse(innerUnknown.result.content[0].text).code, 'UNKNOWN_OPERATION');
   const concurrent = valid();
   check((await Promise.all([call('connectivity_probe', concurrent), call('connectivity_probe', concurrent)])).map(x => x.code).sort(), ['CONNECTED', 'REPLAY']);
   check((await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://forbidden.example' }, body: '{}' })).status, 403);
