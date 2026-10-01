@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readReleaseMetadata } from '../../src/utils/release.js';
+import { readReleaseMetadata, isIsoInstant } from '../../src/utils/release.js';
 import { assertCompleteMapRepresentation, plottedVessels, isRepresentativeRegionMarker } from '../../src/utils/map.js';
 import { hasRepresentativePatrolMarker } from '../../src/utils/representativePatrol.js';
 import { validateSweepCertificate } from './sweep-certificate.mjs';
@@ -29,8 +29,7 @@ const SOURCES = Object.freeze({
   rendered: ['urn:rnfs:source:existing-rendered-verification', 30, 86400],
 });
 export const SOURCE_KINDS = Object.freeze(Object.keys(SOURCES));
-const ISO = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/;
-function instant(x) { if (typeof x !== 'string' || !ISO.test(x) || !Number.isFinite(Date.parse(x))) throw Error('invalid-input'); return new Date(x).toISOString(); }
+function instant(x) { if (!isIsoInstant(x) || Number(x.slice(11, 13)) > 23) throw Error('invalid-input'); return new Date(x).toISOString(); }
 function count(x) { if (!Number.isSafeInteger(x) || x < 0 || x > 1000000) throw Error('invalid-input'); return x; }
 function choice(x, values) { if (!values.includes(x)) throw Error('invalid-input'); return x; }
 function runId(x) { if (typeof x !== 'string' || !/^SWEEP_\d{8}T\d{6,9}Z_R\d+_[a-f0-9]{8}$/.test(x)) throw Error('invalid-input'); return x; }
@@ -64,6 +63,7 @@ function adapt(kind, d) {
     if (c) {
       const value = { classification: choice(c.classification, ['partial', 'complete']), runId: runId(c.runId), reviewedVessels: count(c.reviewedVessels), pendingVessels: count(c.pendingVessels), sourceChecksSuccessful: count(c.sourceChecksSuccessful), sourceChecksRequired: count(c.sourceChecksRequired) };
       if (value.reviewedVessels + value.pendingVessels !== ids.length || value.sourceChecksSuccessful > value.sourceChecksRequired) throw Error('invalid-input');
+      if (value.classification === 'complete' && (value.pendingVessels !== 0 || value.sourceChecksSuccessful !== value.sourceChecksRequired)) throw Error('invalid-input');
       add('coverage', r.releasedAt, value.classification === 'partial' ? 'partial' : 'passed', value, 'public-projection');
     }
     // Presence in a caller-supplied production payload is publication evidence only;

@@ -83,7 +83,7 @@ test('read-only bounded regular-file CLI, offline fixtures and unchanged input m
     assert.equal(readSource('preflight',dir).error,'not-regular-file');
   } finally {fs.rmSync(dir,{recursive:true,force:true});}
 });
-console.log(`${tests} operational status scenarios passed.`);
+
 // Contract regression: schema remains closed at every object boundary and lists
 // exactly the implemented fields. Source validators remain adapter-owned.
 test('published contract and sanitised sample agree with implemented envelope', () => {
@@ -104,3 +104,20 @@ test('published contract and sanitised sample agree with implemented envelope', 
   validate(sample,schema);validate(go([]),schema);
   const bad=structuredClone(sample);bad.fields.fleet.selected.value.privatePath='forbidden';assert.throws(()=>validate(bad,schema));
 });
+
+test('complete classification cannot override pending vessels or missing sources', () => {
+  for (const partial of [{pendingVessels:46,reviewedVessels:23,sourceChecksSuccessful:77}, {pendingVessels:0,reviewedVessels:69,sourceChecksSuccessful:74}]) {
+    const data=structuredClone(fleet);Object.assign(data.metadata.sweepCoverage,partial,{classification:'complete'});
+    const r=go([src('repository-fleet',data)]);assert.equal(r.fields.coverage.status,'unknown');assert.equal(r.inputs[0].status,'invalid-input');
+  }
+  const data=structuredClone(fleet);Object.assign(data.metadata.sweepCoverage,{classification:'complete',pendingVessels:0,reviewedVessels:69,sourceChecksSuccessful:77});
+  assert.equal(go([src('repository-fleet',data)]).fields.coverage.status,'passed');
+});
+test('impossible calendar and clock instants rejected without normalisation', () => {
+  for(const checkedAt of ['2026-02-30T12:00:00Z','2026-02-29T12:00:00Z','2026-04-31T12:00:00Z','2026-10-01T24:00:00Z','2026-10-01T12:60:00Z','2026-10-01T12:00:60Z']) {
+    const r=go([src('preflight',{...preflight,checkedAt})]);assert.equal(r.fields.backup.status,'unknown');assert.equal(r.inputs[0].status,'invalid-input');
+    assert.throws(()=>go([],checkedAt),/invalid-input/);
+  }
+  assert.equal(go([src('preflight',{...preflight,checkedAt:'2026-10-01T13:00:00+01:00'})]).fields.backup.selected.observedAt,now);
+});
+console.log(`${tests} operational status scenarios passed.`);
