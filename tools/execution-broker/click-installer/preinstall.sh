@@ -34,7 +34,7 @@ protected "$(dirname "$sdk")"
 # protected parent and canonical target; do not weaken other path checks.
 [ "$(stat -f %u "$sdk")" = 0 ] || fail 'SDK selector owner'
 protected "$(cd "$sdk" && pwd -P)"
-for p in /Library/RNFSBroker-stage /Library/RNFSBroker /private/var/db/rnfs-broker /private/var/db/rnfs-broker-keys /Library/LaunchDaemons/org.rnfs.gate-b.plist; do
+for p in /Library/RNFSBroker /private/var/db/rnfs-broker /private/var/db/rnfs-broker-keys /Library/LaunchDaemons/org.rnfs.gate-b.plist; do
  [ ! -e "$p" ] && [ ! -L "$p" ] || fail 'existing installation or stage; preserve and use reviewed recovery runbook'
 done
 if launchctl print system/org.rnfs.gate-b >/dev/null 2>&1; then fail 'service already registered'; fi
@@ -42,9 +42,32 @@ if launchctl print system/org.rnfs.gate-b >/dev/null 2>&1; then fail 'service al
 users=$(dscl . -list /Users UniqueID) || fail 'user directory unavailable'
 groups=$(dscl . -list /Groups PrimaryGroupID) || fail 'group directory unavailable'
 printf '%s\n%s\n' "$users" "$groups" | awk '$1=="_rnfsbroker" || $2==499 {bad=1} END {exit bad}' || fail 'reserved identity collision'
+# Recover only the known pre-payload failure shape, preserving every byte.
+# Any payload, hidden file, link, unexpected mode/content or archive collision stops.
+recover_stage=false
+if [ -e /Library/RNFSBroker-stage ] || [ -L /Library/RNFSBroker-stage ]; then
+ protected /Library/RNFSBroker-stage
+ [ -d /Library/RNFSBroker-stage ] && [ "$(stat -f %Lp /Library/RNFSBroker-stage)" = 700 ] || fail 'existing installation or unrecognised stage'
+ count=0
+ for entry in /Library/RNFSBroker-stage/* /Library/RNFSBroker-stage/.[!.]* /Library/RNFSBroker-stage/..?*; do
+  if [ -e "$entry" ] || [ -L "$entry" ]; then
+   [ "$entry" = /Library/RNFSBroker-stage/INSTALL-RESULT.txt ] || fail 'existing installation or unrecognised stage contents'
+   count=$((count + 1))
+  fi
+ done
+ [ "$count" = 1 ] || fail 'existing installation or unrecognised stage contents'
+ protected /Library/RNFSBroker-stage/INSTALL-RESULT.txt
+ [ -f /Library/RNFSBroker-stage/INSTALL-RESULT.txt ] && [ "$(stat -f %l /Library/RNFSBroker-stage/INSTALL-RESULT.txt)" = 1 ] && [ "$(stat -f %Lp /Library/RNFSBroker-stage/INSTALL-RESULT.txt)" = 444 ] || fail 'unrecognised stage result metadata'
+ [ "$(shasum -a 256 /Library/RNFSBroker-stage/INSTALL-RESULT.txt | awk '{print $1}')" = 'ef8fa491753dbbdadb285d50777338cf2d21db5f2d8220865bb9941d33fbe995' ] || fail 'unrecognised stage result bytes'
+ [ ! -e /Library/RNFSBroker-stage-failed-r2 ] && [ ! -L /Library/RNFSBroker-stage-failed-r2 ] || fail 'recovery archive already exists'
+ recover_stage=true
+fi
 cd "$(dirname "$0")/payload"
 [ "$(shasum -a 256 SOURCE-SHA256SUMS | awk '{print $1}')" = '@MANIFEST_SHA256@' ] || fail 'payload manifest differs from reviewed pin'
 shasum -a 256 -c SOURCE-SHA256SUMS >/dev/null || fail 'payload differs from reviewed pin'
+if [ "$recover_stage" = true ]; then
+ /bin/mv /Library/RNFSBroker-stage /Library/RNFSBroker-stage-failed-r2
+fi
 # A fresh root-only directory is reserved atomically. No overlay or deletion.
 mkdir -m 0700 /Library/RNFSBroker-stage || fail 'stage reservation failed'
 # From this point, every ordinary failure retains evidence and remains inactive.
@@ -59,7 +82,10 @@ finish() {
 trap finish EXIT
 # Persist across reboot: a copied LaunchDaemon plist must not activate before B3.
 launchctl disable system/org.rnfs.gate-b
-launchctl print-disabled system | grep -Eq '"org\.rnfs\.gate-b"[[:space:]]*=>[[:space:]]*true' || fail 'could not establish persistent disabled state'
+disabled_status=$(launchctl print-disabled system) || fail 'disabled-state query failed'
+printf '%s\n' "$disabled_status" | awk '
+ $1 == "\"org.rnfs.gate-b\"" {count++; if (NF == 3 && $2 == "=>" && $3 == "disabled") good++}
+ END {exit !(count == 1 && good == 1)}' || fail 'could not establish persistent disabled state'
 # Copy only explicitly pinned regular files; no workspace path is consulted.
 while read -r digest name; do
  [ -f "$name" ] && [ ! -L "$name" ] || fail 'invalid packaged file'

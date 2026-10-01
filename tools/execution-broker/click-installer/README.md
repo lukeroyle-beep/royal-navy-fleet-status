@@ -62,3 +62,25 @@ fixtures, **not installed enforcement evidence**. Native root execution, real
 launchd disabled state, authentication UI, repeat installation on the host, power
 loss recovery and B3/B4 remain installation-dependent. Package extraction/build and
 all 37 existing broker fixture tests are independent pre-authentication checks.
+
+## Narrow recovery added after the second native attempt
+
+Native `launchctl print-disabled system` on this host reports the word `disabled`,
+not boolean `true`. The installer now requires exactly one matching job line with
+that value; enabled/unknown/duplicate results and query failures refuse installation.
+The production parser was also tested against the actual read-only host output.
+
+A prior stage may be archived intact to `/Library/RNFSBroker-stage-failed-r2` only
+when it is root-owned, mode 0700, ACL-free, contains exactly one regular, single-link,
+root-owned mode 0444 `INSTALL-RESULT.txt`, and that file's bytes are exactly the
+known `FAILED_REQUIRES_REVIEW` receipt plus newline. Existing installed paths,
+identities or a registered service still refuse; so does an existing archive. All
+checks and the new package's payload verification occur before the atomic rename.
+Hidden files, payload files, symlinks, hardlinks or different result bytes refuse.
+Nothing is deleted. This is recovery of the observed pre-payload failure only,
+not recovery of arbitrary partial installs. Native stage access is administrator-only.
+
+The expanded fixture suite includes successful simulated installation, recovery
+with original bytes retained, archive collision, unexpected hidden content, altered
+receipt, symlink/hardlink and disabled-state negative cases. OS permissions are
+mocked; these results still do not establish B3 or real privileged recovery.
