@@ -1,0 +1,523 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "nonAuthoritative",
+    "generatedAt",
+    "contentId",
+    "fields",
+    "inputs"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "nonAuthoritative": {
+      "const": true
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "contentId": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "fields": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fleet",
+        "coverage",
+        "sweep",
+        "recovery",
+        "certificate",
+        "lastCollection",
+        "lastCertification",
+        "publication",
+        "deployment",
+        "rendered",
+        "brokerB1",
+        "brokerB2",
+        "brokerB3",
+        "brokerB4",
+        "scheduler",
+        "permissions",
+        "backup",
+        "holds",
+        "engineering",
+        "ownerAction"
+      ],
+      "properties": {
+        "fleet": {
+          "$ref": "#/$defs/field"
+        },
+        "coverage": {
+          "$ref": "#/$defs/field"
+        },
+        "sweep": {
+          "$ref": "#/$defs/field"
+        },
+        "recovery": {
+          "$ref": "#/$defs/field"
+        },
+        "certificate": {
+          "$ref": "#/$defs/field"
+        },
+        "lastCollection": {
+          "$ref": "#/$defs/field"
+        },
+        "lastCertification": {
+          "$ref": "#/$defs/field"
+        },
+        "publication": {
+          "$ref": "#/$defs/field"
+        },
+        "deployment": {
+          "$ref": "#/$defs/field"
+        },
+        "rendered": {
+          "$ref": "#/$defs/field"
+        },
+        "brokerB1": {
+          "$ref": "#/$defs/field"
+        },
+        "brokerB2": {
+          "$ref": "#/$defs/field"
+        },
+        "brokerB3": {
+          "$ref": "#/$defs/field"
+        },
+        "brokerB4": {
+          "$ref": "#/$defs/field"
+        },
+        "scheduler": {
+          "$ref": "#/$defs/field"
+        },
+        "permissions": {
+          "$ref": "#/$defs/field"
+        },
+        "backup": {
+          "$ref": "#/$defs/field"
+        },
+        "holds": {
+          "$ref": "#/$defs/field"
+        },
+        "engineering": {
+          "$ref": "#/$defs/field"
+        },
+        "ownerAction": {
+          "$ref": "#/$defs/field"
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sourceRef",
+          "sourceDigest",
+          "status",
+          "verifiedAt"
+        ],
+        "properties": {
+          "sourceRef": {
+            "enum": [
+              "urn:rnfs:source:existing-broker-static-installation",
+              "urn:rnfs:source:existing-certified-history",
+              "urn:rnfs:source:existing-deployment-verification",
+              "urn:rnfs:source:existing-preflight-receipt",
+              "urn:rnfs:source:existing-recovery-status",
+              "urn:rnfs:source:existing-rendered-verification",
+              "urn:rnfs:source:existing-scheduled-prerequisites",
+              "urn:rnfs:source:existing-sweep-run",
+              "urn:rnfs:source:github-engineering-snapshot",
+              "urn:rnfs:source:production-public-fleet",
+              "urn:rnfs:source:repository-public-fleet"
+            ]
+          },
+          "sourceDigest": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            ]
+          },
+          "status": {
+            "enum": [
+              "read",
+              "missing",
+              "unreadable",
+              "invalid-input",
+              "oversized",
+              "not-regular-file"
+            ]
+          },
+          "verifiedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:rnfs:operational-status:1.0.0",
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceRef",
+        "sourceDigest",
+        "observedAt",
+        "verifiedAt",
+        "freshness",
+        "maxAgeSeconds",
+        "priority",
+        "outcome",
+        "value",
+        "assurance"
+      ],
+      "properties": {
+        "sourceRef": {
+          "enum": [
+            "urn:rnfs:source:existing-broker-static-installation",
+            "urn:rnfs:source:existing-certified-history",
+            "urn:rnfs:source:existing-deployment-verification",
+            "urn:rnfs:source:existing-preflight-receipt",
+            "urn:rnfs:source:existing-recovery-status",
+            "urn:rnfs:source:existing-rendered-verification",
+            "urn:rnfs:source:existing-scheduled-prerequisites",
+            "urn:rnfs:source:existing-sweep-run",
+            "urn:rnfs:source:github-engineering-snapshot",
+            "urn:rnfs:source:production-public-fleet",
+            "urn:rnfs:source:repository-public-fleet"
+          ]
+        },
+        "sourceDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "freshness": {
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown"
+          ]
+        },
+        "maxAgeSeconds": {
+          "enum": [
+            86400,
+            604800,
+            1209600
+          ]
+        },
+        "priority": {
+          "enum": [
+            20,
+            30,
+            40
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "passed",
+            "partial",
+            "blocked",
+            "unknown",
+            "stale",
+            "conflicting"
+          ]
+        },
+        "value": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [],
+          "properties": {
+            "releaseRevision": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "fleetCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "representedCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "pointCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "regionCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "protectedCount": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "reviewedVessels": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "pendingVessels": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "sourceChecksSuccessful": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "sourceChecksRequired": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "requiredSources": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "fleetRecords": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "successfullyChecked": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "reconciled": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "releasedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "completedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "cutoff": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "valid": {
+              "type": "boolean"
+            },
+            "recoverable": {
+              "type": "boolean"
+            },
+            "liveOwnerVerified": {
+              "type": "boolean"
+            },
+            "codeMerged": {
+              "type": "boolean"
+            },
+            "acceptanceReceiptPresent": {
+              "type": "boolean"
+            },
+            "runtimeVerified": {
+              "type": "boolean"
+            },
+            "readyForCollectionClaim": {
+              "type": "boolean"
+            },
+            "productionReady": {
+              "type": "boolean"
+            },
+            "collection": {
+              "type": "boolean"
+            },
+            "publication": {
+              "type": "boolean"
+            },
+            "activate": {
+              "type": "boolean"
+            },
+            "asOfDate": {
+              "type": "string",
+              "format": "date"
+            },
+            "runId": {
+              "type": "string",
+              "pattern": "^SWEEP_[0-9]{8}T[0-9]{6,9}Z_R[0-9]+_[a-f0-9]{8}$"
+            },
+            "commit": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "classification": {
+              "enum": [
+                "partial",
+                "complete"
+              ]
+            },
+            "scope": {
+              "enum": [
+                "check-only-preflight",
+                "scheduled-prerequisites",
+                "dry-run"
+              ]
+            },
+            "reason": {
+              "enum": [
+                "static-identity-prerequisite",
+                "not-run",
+                "GITHUB_CONNECTIVITY_UNAVAILABLE",
+                "GITHUB_DNS_UNAVAILABLE",
+                "BACKUP_ENCRYPTION_UNAVAILABLE"
+              ]
+            },
+            "action": {
+              "enum": [
+                "preserve-same-run",
+                "review-account-authority-resolution"
+              ]
+            },
+            "owner": {
+              "const": "Luke"
+            },
+            "items": {
+              "type": "array",
+              "maxItems": 50,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "number",
+                  "state",
+                  "kind"
+                ],
+                "properties": {
+                  "number": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "state": {
+                    "enum": [
+                      "OPEN",
+                      "CLOSED",
+                      "MERGED"
+                    ]
+                  },
+                  "kind": {
+                    "enum": [
+                      "issue",
+                      "pull-request"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "assurance": {
+          "enum": [
+            "receipt-assertion",
+            "public-projection",
+            "native-validator",
+            "github-snapshot"
+          ]
+        }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "verifiedAt",
+        "selected",
+        "observations",
+        "missingInputs"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "passed",
+            "partial",
+            "blocked",
+            "unknown",
+            "stale",
+            "conflicting"
+          ]
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "selected": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/observation"
+            }
+          ]
+        },
+        "observations": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/observation"
+          }
+        },
+        "missingInputs": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "urn:rnfs:source:existing-broker-static-installation",
+              "urn:rnfs:source:existing-certified-history",
+              "urn:rnfs:source:existing-deployment-verification",
+              "urn:rnfs:source:existing-preflight-receipt",
+              "urn:rnfs:source:existing-recovery-status",
+              "urn:rnfs:source:existing-rendered-verification",
+              "urn:rnfs:source:existing-scheduled-prerequisites",
+              "urn:rnfs:source:existing-sweep-run",
+              "urn:rnfs:source:github-engineering-snapshot",
+              "urn:rnfs:source:production-public-fleet",
+              "urn:rnfs:source:repository-public-fleet"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

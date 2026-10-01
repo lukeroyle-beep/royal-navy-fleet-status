@@ -1,0 +1,884 @@
+{
+  "schemaVersion": "1.0.0",
+  "nonAuthoritative": true,
+  "generatedAt": "2026-10-01T12:03:06.580Z",
+  "fields": {
+    "fleet": {
+      "status": "passed",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:production-public-fleet",
+        "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+        "observedAt": "2026-09-20T17:56:21.436Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 1209600,
+        "priority": 30,
+        "outcome": "passed",
+        "value": {
+          "asOfDate": "2026-09-20",
+          "releaseRevision": 1,
+          "releasedAt": "2026-09-20T17:56:21.436Z",
+          "fleetCount": 69,
+          "representedCount": 69,
+          "pointCount": 42,
+          "regionCount": 26,
+          "protectedCount": 1
+        },
+        "assurance": "public-projection"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:production-public-fleet",
+          "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+          "observedAt": "2026-09-20T17:56:21.436Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 1209600,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "asOfDate": "2026-09-20",
+            "releaseRevision": 1,
+            "releasedAt": "2026-09-20T17:56:21.436Z",
+            "fleetCount": 69,
+            "representedCount": 69,
+            "pointCount": 42,
+            "regionCount": 26,
+            "protectedCount": 1
+          },
+          "assurance": "public-projection"
+        },
+        {
+          "sourceRef": "urn:rnfs:source:repository-public-fleet",
+          "sourceDigest": "04c92eb5142ce0160a979edd7a79a18d843d102039a09858ab49b9dfbd67d109",
+          "observedAt": "2026-09-20T17:56:21.436Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 1209600,
+          "priority": 20,
+          "outcome": "passed",
+          "value": {
+            "asOfDate": "2026-09-20",
+            "releaseRevision": 1,
+            "releasedAt": "2026-09-20T17:56:21.436Z",
+            "fleetCount": 69,
+            "representedCount": 69,
+            "pointCount": 42,
+            "regionCount": 26,
+            "protectedCount": 1
+          },
+          "assurance": "public-projection"
+        }
+      ],
+      "missingInputs": []
+    },
+    "coverage": {
+      "status": "partial",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:production-public-fleet",
+        "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+        "observedAt": "2026-09-20T17:56:21.436Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 1209600,
+        "priority": 30,
+        "outcome": "partial",
+        "value": {
+          "classification": "partial",
+          "runId": "SWEEP_20260920T110200208Z_R1_1add15ac",
+          "reviewedVessels": 23,
+          "pendingVessels": 46,
+          "sourceChecksSuccessful": 74,
+          "sourceChecksRequired": 77
+        },
+        "assurance": "public-projection"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:production-public-fleet",
+          "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+          "observedAt": "2026-09-20T17:56:21.436Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 1209600,
+          "priority": 30,
+          "outcome": "partial",
+          "value": {
+            "classification": "partial",
+            "runId": "SWEEP_20260920T110200208Z_R1_1add15ac",
+            "reviewedVessels": 23,
+            "pendingVessels": 46,
+            "sourceChecksSuccessful": 74,
+            "sourceChecksRequired": 77
+          },
+          "assurance": "public-projection"
+        },
+        {
+          "sourceRef": "urn:rnfs:source:repository-public-fleet",
+          "sourceDigest": "04c92eb5142ce0160a979edd7a79a18d843d102039a09858ab49b9dfbd67d109",
+          "observedAt": "2026-09-20T17:56:21.436Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 1209600,
+          "priority": 20,
+          "outcome": "partial",
+          "value": {
+            "classification": "partial",
+            "runId": "SWEEP_20260920T110200208Z_R1_1add15ac",
+            "reviewedVessels": 23,
+            "pendingVessels": 46,
+            "sourceChecksSuccessful": 74,
+            "sourceChecksRequired": 77
+          },
+          "assurance": "public-projection"
+        }
+      ],
+      "missingInputs": []
+    },
+    "sweep": {
+      "status": "partial",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-recovery-status",
+        "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+        "observedAt": "2026-09-28T11:56:04.918Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 604800,
+        "priority": 40,
+        "outcome": "partial",
+        "value": {
+          "runId": "SWEEP_20260927T110000Z_R1_1add15ac",
+          "complete": false,
+          "cutoff": "2026-09-27T11:00:00.000Z",
+          "requiredSources": 77,
+          "successfullyChecked": 74,
+          "fleetRecords": 69,
+          "reconciled": 0
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-recovery-status",
+          "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+          "observedAt": "2026-09-28T11:56:04.918Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 604800,
+          "priority": 40,
+          "outcome": "partial",
+          "value": {
+            "runId": "SWEEP_20260927T110000Z_R1_1add15ac",
+            "complete": false,
+            "cutoff": "2026-09-27T11:00:00.000Z",
+            "requiredSources": 77,
+            "successfullyChecked": 74,
+            "fleetRecords": 69,
+            "reconciled": 0
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "recovery": {
+      "status": "conflicting",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-recovery-status",
+        "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+        "observedAt": "2026-09-28T11:56:04.918Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 604800,
+        "priority": 40,
+        "outcome": "blocked",
+        "value": {
+          "runId": "SWEEP_20260927T110000Z_R1_1add15ac",
+          "recoverable": true,
+          "liveOwnerVerified": false,
+          "action": "preserve-same-run"
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-recovery-status",
+          "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+          "observedAt": "2026-09-28T11:56:04.918Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 604800,
+          "priority": 40,
+          "outcome": "blocked",
+          "value": {
+            "runId": "SWEEP_20260927T110000Z_R1_1add15ac",
+            "recoverable": true,
+            "liveOwnerVerified": false,
+            "action": "preserve-same-run"
+          },
+          "assurance": "receipt-assertion"
+        },
+        {
+          "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+          "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+          "observedAt": "2026-09-30T14:05:42.199Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "scope": "check-only-preflight"
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "certificate": {
+      "status": "blocked",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-recovery-status",
+        "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+        "observedAt": "2026-09-28T11:56:04.918Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 604800,
+        "priority": 40,
+        "outcome": "blocked",
+        "value": {
+          "runId": "SWEEP_20260927T110000Z_R1_1add15ac",
+          "valid": false,
+          "scope": "dry-run"
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-recovery-status",
+          "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+          "observedAt": "2026-09-28T11:56:04.918Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 604800,
+          "priority": 40,
+          "outcome": "blocked",
+          "value": {
+            "runId": "SWEEP_20260927T110000Z_R1_1add15ac",
+            "valid": false,
+            "scope": "dry-run"
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "lastCollection": {
+      "status": "unknown",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": null,
+      "observations": [],
+      "missingInputs": [
+        "urn:rnfs:source:existing-sweep-run"
+      ]
+    },
+    "lastCertification": {
+      "status": "stale",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-certified-history",
+        "sourceDigest": "34d1623eda16f09e80e862e42ef1852fc82f3cfcd9102668c5779bcfb32723fc",
+        "observedAt": "2026-09-13T14:35:56.013Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "stale",
+        "maxAgeSeconds": 604800,
+        "priority": 30,
+        "outcome": "passed",
+        "value": {
+          "runId": "SWEEP_20260912T151038841Z_R1_1add15ac",
+          "completedAt": "2026-09-13T14:35:56.013Z"
+        },
+        "assurance": "native-validator"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-certified-history",
+          "sourceDigest": "34d1623eda16f09e80e862e42ef1852fc82f3cfcd9102668c5779bcfb32723fc",
+          "observedAt": "2026-09-13T14:35:56.013Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "stale",
+          "maxAgeSeconds": 604800,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "runId": "SWEEP_20260912T151038841Z_R1_1add15ac",
+            "completedAt": "2026-09-13T14:35:56.013Z"
+          },
+          "assurance": "native-validator"
+        }
+      ],
+      "missingInputs": []
+    },
+    "publication": {
+      "status": "passed",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:production-public-fleet",
+        "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+        "observedAt": "2026-09-20T17:56:21.436Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 1209600,
+        "priority": 30,
+        "outcome": "passed",
+        "value": {
+          "asOfDate": "2026-09-20",
+          "releaseRevision": 1,
+          "releasedAt": "2026-09-20T17:56:21.436Z"
+        },
+        "assurance": "public-projection"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:production-public-fleet",
+          "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+          "observedAt": "2026-09-20T17:56:21.436Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 1209600,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "asOfDate": "2026-09-20",
+            "releaseRevision": 1,
+            "releasedAt": "2026-09-20T17:56:21.436Z"
+          },
+          "assurance": "public-projection"
+        }
+      ],
+      "missingInputs": []
+    },
+    "deployment": {
+      "status": "unknown",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": null,
+      "observations": [],
+      "missingInputs": [
+        "urn:rnfs:source:existing-deployment-verification"
+      ]
+    },
+    "rendered": {
+      "status": "unknown",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": null,
+      "observations": [],
+      "missingInputs": [
+        "urn:rnfs:source:existing-rendered-verification"
+      ]
+    },
+    "brokerB1": {
+      "status": "partial",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+        "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+        "observedAt": "2026-10-01T12:03:06.580Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "partial",
+        "value": {
+          "codeMerged": true,
+          "acceptanceReceiptPresent": false
+        },
+        "assurance": "github-snapshot"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+          "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+          "observedAt": "2026-10-01T12:03:06.580Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "partial",
+          "value": {
+            "codeMerged": true,
+            "acceptanceReceiptPresent": false
+          },
+          "assurance": "github-snapshot"
+        }
+      ],
+      "missingInputs": []
+    },
+    "brokerB2": {
+      "status": "partial",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+        "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+        "observedAt": "2026-10-01T12:03:06.580Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "partial",
+        "value": {
+          "codeMerged": true,
+          "acceptanceReceiptPresent": false
+        },
+        "assurance": "github-snapshot"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+          "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+          "observedAt": "2026-10-01T12:03:06.580Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "partial",
+          "value": {
+            "codeMerged": true,
+            "acceptanceReceiptPresent": false
+          },
+          "assurance": "github-snapshot"
+        }
+      ],
+      "missingInputs": []
+    },
+    "brokerB3": {
+      "status": "blocked",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+        "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+        "observedAt": "2026-10-01T09:10:33.237Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "blocked",
+        "value": {
+          "reason": "static-identity-prerequisite",
+          "runtimeVerified": false
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+          "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+          "observedAt": "2026-10-01T09:10:33.237Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "blocked",
+          "value": {
+            "reason": "static-identity-prerequisite",
+            "runtimeVerified": false
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "brokerB4": {
+      "status": "unknown",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+        "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+        "observedAt": "2026-10-01T09:10:33.237Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "unknown",
+        "value": {
+          "reason": "not-run",
+          "runtimeVerified": false
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+          "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+          "observedAt": "2026-10-01T09:10:33.237Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "unknown",
+          "value": {
+            "reason": "not-run",
+            "runtimeVerified": false
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "scheduler": {
+      "status": "conflicting",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-scheduled-prerequisites",
+        "sourceDigest": "84d5da4a4d02720c706326ef3823bf2326ac64b0fde82001508959ff629a0d5b",
+        "observedAt": "2026-10-01T11:01:43.845Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "blocked",
+        "value": {
+          "scope": "scheduled-prerequisites",
+          "reason": "GITHUB_CONNECTIVITY_UNAVAILABLE",
+          "productionReady": false
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-scheduled-prerequisites",
+          "sourceDigest": "84d5da4a4d02720c706326ef3823bf2326ac64b0fde82001508959ff629a0d5b",
+          "observedAt": "2026-10-01T11:01:43.845Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "blocked",
+          "value": {
+            "scope": "scheduled-prerequisites",
+            "reason": "GITHUB_CONNECTIVITY_UNAVAILABLE",
+            "productionReady": false
+          },
+          "assurance": "receipt-assertion"
+        },
+        {
+          "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+          "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+          "observedAt": "2026-09-30T14:05:42.199Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "partial",
+          "value": {
+            "scope": "check-only-preflight",
+            "readyForCollectionClaim": true,
+            "productionReady": false
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "permissions": {
+      "status": "passed",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+        "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+        "observedAt": "2026-09-30T14:05:42.199Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "passed",
+        "value": {
+          "scope": "check-only-preflight"
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+          "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+          "observedAt": "2026-09-30T14:05:42.199Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "scope": "check-only-preflight"
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "backup": {
+      "status": "passed",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+        "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+        "observedAt": "2026-09-30T14:05:42.199Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "passed",
+        "value": {
+          "scope": "check-only-preflight"
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+          "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+          "observedAt": "2026-09-30T14:05:42.199Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "scope": "check-only-preflight"
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "holds": {
+      "status": "blocked",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-scheduled-prerequisites",
+        "sourceDigest": "84d5da4a4d02720c706326ef3823bf2326ac64b0fde82001508959ff629a0d5b",
+        "observedAt": "2026-10-01T11:01:43.845Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "blocked",
+        "value": {
+          "collection": true,
+          "publication": true
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-scheduled-prerequisites",
+          "sourceDigest": "84d5da4a4d02720c706326ef3823bf2326ac64b0fde82001508959ff629a0d5b",
+          "observedAt": "2026-10-01T11:01:43.845Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "blocked",
+          "value": {
+            "collection": true,
+            "publication": true
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    },
+    "engineering": {
+      "status": "passed",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+        "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+        "observedAt": "2026-10-01T12:03:06.580Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "passed",
+        "value": {
+          "commit": "5728f7d28c06265754035bf8e40336bd870b3692",
+          "items": [
+            {
+              "number": 81,
+              "state": "OPEN",
+              "kind": "pull-request"
+            },
+            {
+              "number": 93,
+              "state": "OPEN",
+              "kind": "pull-request"
+            },
+            {
+              "number": 100,
+              "state": "OPEN",
+              "kind": "pull-request"
+            },
+            {
+              "number": 107,
+              "state": "OPEN",
+              "kind": "pull-request"
+            },
+            {
+              "number": 116,
+              "state": "MERGED",
+              "kind": "pull-request"
+            },
+            {
+              "number": 120,
+              "state": "OPEN",
+              "kind": "issue"
+            }
+          ]
+        },
+        "assurance": "github-snapshot"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+          "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+          "observedAt": "2026-10-01T12:03:06.580Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "passed",
+          "value": {
+            "commit": "5728f7d28c06265754035bf8e40336bd870b3692",
+            "items": [
+              {
+                "number": 81,
+                "state": "OPEN",
+                "kind": "pull-request"
+              },
+              {
+                "number": 93,
+                "state": "OPEN",
+                "kind": "pull-request"
+              },
+              {
+                "number": 100,
+                "state": "OPEN",
+                "kind": "pull-request"
+              },
+              {
+                "number": 107,
+                "state": "OPEN",
+                "kind": "pull-request"
+              },
+              {
+                "number": 116,
+                "state": "MERGED",
+                "kind": "pull-request"
+              },
+              {
+                "number": 120,
+                "state": "OPEN",
+                "kind": "issue"
+              }
+            ]
+          },
+          "assurance": "github-snapshot"
+        }
+      ],
+      "missingInputs": []
+    },
+    "ownerAction": {
+      "status": "blocked",
+      "verifiedAt": "2026-10-01T12:03:06.580Z",
+      "selected": {
+        "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+        "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+        "observedAt": "2026-10-01T09:10:33.237Z",
+        "verifiedAt": "2026-10-01T12:03:06.580Z",
+        "freshness": "fresh",
+        "maxAgeSeconds": 86400,
+        "priority": 30,
+        "outcome": "blocked",
+        "value": {
+          "action": "review-account-authority-resolution",
+          "owner": "Luke",
+          "activate": false
+        },
+        "assurance": "receipt-assertion"
+      },
+      "observations": [
+        {
+          "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+          "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+          "observedAt": "2026-10-01T09:10:33.237Z",
+          "verifiedAt": "2026-10-01T12:03:06.580Z",
+          "freshness": "fresh",
+          "maxAgeSeconds": 86400,
+          "priority": 30,
+          "outcome": "blocked",
+          "value": {
+            "action": "review-account-authority-resolution",
+            "owner": "Luke",
+            "activate": false
+          },
+          "assurance": "receipt-assertion"
+        }
+      ],
+      "missingInputs": []
+    }
+  },
+  "inputs": [
+    {
+      "sourceRef": "urn:rnfs:source:repository-public-fleet",
+      "sourceDigest": "04c92eb5142ce0160a979edd7a79a18d843d102039a09858ab49b9dfbd67d109",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:existing-certified-history",
+      "sourceDigest": "34d1623eda16f09e80e862e42ef1852fc82f3cfcd9102668c5779bcfb32723fc",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:github-engineering-snapshot",
+      "sourceDigest": "5470f35f414c53126faa203bacfbd14b681a5eeeb797fcabf6107bc4531be9f4",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:existing-recovery-status",
+      "sourceDigest": "79b2b210f70d309520825969380da68f97d5a032a36a0a0f59dfcb06a395cb60",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:production-public-fleet",
+      "sourceDigest": "7a79ea8fa1661e5c0f8cd3bd1b5a01e33f652a9b565394feb9e4a1bed9d117c8",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:existing-preflight-receipt",
+      "sourceDigest": "7e8ae679874ef21258ae80fc7900052513e715bbf14b4084cd397457b7db61b0",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:existing-scheduled-prerequisites",
+      "sourceDigest": "84d5da4a4d02720c706326ef3823bf2326ac64b0fde82001508959ff629a0d5b",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    },
+    {
+      "sourceRef": "urn:rnfs:source:existing-broker-static-installation",
+      "sourceDigest": "cce810006a6aba116e5ae1c27e0ca4b0edaf2692760b674a7609ad5040c49fcf",
+      "status": "read",
+      "verifiedAt": "2026-10-01T12:03:06.580Z"
+    }
+  ],
+  "contentId": "9b7239d1a4da915bda3b463852f9bf6226a6a0af955da8a68a590366d88665e0"
+}
