@@ -25,7 +25,10 @@ class Lifecycle(unittest.TestCase):
             mock('id', 'echo 0')
             mock('stat', 'if [ "$2" = %u ]; then echo 0; else echo 755; fi')
             mock('ls', 'echo protected')
-            mock('csrutil', 'echo "System Integrity Protection status: enabled."; echo "Authenticated Root status: enabled."')
+            mock('csrutil', '''if [ "$1" = status ]; then echo 'System Integrity Protection status: enabled.';
+elif [ "$CASE" = root-unavailable ]; then echo 'No macOS installations found' >&2; exit 1;
+elif [ "$CASE" = root-disabled ]; then echo 'Authenticated Root status: disabled';
+else echo 'Authenticated Root status: enabled'; fi''')
             mock('xcode-select', 'echo "$FIXTURE/tools"')
             mock('xcrun', 'echo ' + str(root / 'sdk'))
             mock('dscl', 'if [ "$CASE" = collision ]; then echo "_rnfsbroker 499"; else echo "root 0"; fi')
@@ -55,9 +58,9 @@ print-disabled) [ -f "$FIXTURE/disabled" ] && echo '"org.rnfs.gate-b" => true';;
             env = dict(os.environ, FIXTURE=str(root), CASE=case)
             result = subprocess.run(['/bin/sh', str(script_path), 'pkg', '/', '/'], env=env, capture_output=True)
             stage = root / 'Library/RNFSBroker-stage'
-            if case in ['existing', 'collision', 'tamper', 'manifest-tamper']:
+            if case in ['existing', 'collision', 'tamper', 'manifest-tamper', 'root-unavailable', 'root-disabled']:
                 self.assertNotEqual(result.returncode, 0, result.stdout)
-                expected = {'existing': b'existing installation', 'collision': b'reserved identity collision', 'tamper': b'payload differs', 'manifest-tamper': b'payload manifest differs'}
+                expected = {'existing': b'existing installation', 'collision': b'reserved identity collision', 'tamper': b'payload differs', 'manifest-tamper': b'payload manifest differs', 'root-unavailable': b'status unavailable', 'root-disabled': b'did not confirm enabled'}
                 self.assertIn(expected[case], result.stderr)
                 self.assertFalse((root / 'disabled').exists(), result.stderr)
                 self.assertFalse((stage / 'install.sh').exists(), result.stderr)
@@ -67,6 +70,8 @@ print-disabled) [ -f "$FIXTURE/disabled" ] && echo '"org.rnfs.gate-b" => true';;
                 self.assertEqual((stage / 'INSTALL-RESULT.txt').read_text().strip(), 'FAILED_REQUIRES_REVIEW')
                 self.assertTrue((stage / 'install.sh').exists())
 
+    def test_root_unavailable_refused(self): self.run_case('root-unavailable')
+    def test_root_disabled_refused(self): self.run_case('root-disabled')
     def test_existing_refused(self): self.run_case('existing')
     def test_identity_collision_refused(self): self.run_case('collision')
     def test_payload_tamper_refused(self): self.run_case('tamper')

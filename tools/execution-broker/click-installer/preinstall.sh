@@ -24,7 +24,8 @@ protected() {
 for p in /Library /Library/LaunchDaemons /private/var/db /usr/bin/xcrun; do protected "$p"; done
 [ "$(uname -s)" = Darwin ] || fail 'macOS required'
 csrutil status | grep -q 'System Integrity Protection status: enabled.' || fail 'SIP not enabled'
-csrutil authenticated-root status | grep -q 'Authenticated Root status: enabled.' || fail 'authenticated root not enabled'
+root_status=$(csrutil authenticated-root status 2>&1) || fail 'authenticated-root status unavailable; inspect csrutil status outside sandbox'
+printf '%s\n' "$root_status" | grep -Eq '^Authenticated Root status: enabled\.?$' || fail 'authenticated-root status did not confirm enabled'
 protected "$(xcode-select -p)"
 protected "$(/usr/bin/env -i PATH=/usr/bin:/bin /usr/bin/xcrun --find clang)"
 sdk=$(/usr/bin/env -i PATH=/usr/bin:/bin /usr/bin/xcrun --show-sdk-path)
