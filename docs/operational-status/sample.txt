@@ -1,0 +1,25 @@
+RNFS operational status — 2026-10-01T12:03:06.580Z
+Derived, non-authoritative · 9b7239d1a4da915bda3b463852f9bf6226a6a0af955da8a68a590366d88665e0
+
+fleet: passed — {"asOfDate":"2026-09-20","releaseRevision":1,"releasedAt":"2026-09-20T17:56:21.436Z","fleetCount":69,"representedCount":69,"pointCount":42,"regionCount":26,"protectedCount":1} [urn:rnfs:source:production-public-fleet; observed 2026-09-20T17:56:21.436Z; verified 2026-10-01T12:03:06.580Z; fresh]
+coverage: partial — {"classification":"partial","runId":"SWEEP_20260920T110200208Z_R1_1add15ac","reviewedVessels":23,"pendingVessels":46,"sourceChecksSuccessful":74,"sourceChecksRequired":77} [urn:rnfs:source:production-public-fleet; observed 2026-09-20T17:56:21.436Z; verified 2026-10-01T12:03:06.580Z; fresh]
+sweep: partial — {"runId":"SWEEP_20260927T110000Z_R1_1add15ac","complete":false,"cutoff":"2026-09-27T11:00:00.000Z","requiredSources":77,"successfullyChecked":74,"fleetRecords":69,"reconciled":0} [urn:rnfs:source:existing-recovery-status; observed 2026-09-28T11:56:04.918Z; verified 2026-10-01T12:03:06.580Z; fresh]
+recovery: conflicting — {"runId":"SWEEP_20260927T110000Z_R1_1add15ac","recoverable":true,"liveOwnerVerified":false,"action":"preserve-same-run"} [urn:rnfs:source:existing-recovery-status; observed 2026-09-28T11:56:04.918Z; verified 2026-10-01T12:03:06.580Z; fresh]
+  Retained 2 disagreeing observations; selection uses source priority then observation time.
+certificate: blocked — {"runId":"SWEEP_20260927T110000Z_R1_1add15ac","valid":false,"scope":"dry-run"} [urn:rnfs:source:existing-recovery-status; observed 2026-09-28T11:56:04.918Z; verified 2026-10-01T12:03:06.580Z; fresh]
+lastCollection: unknown — missing urn:rnfs:source:existing-sweep-run
+lastCertification: stale — {"runId":"SWEEP_20260912T151038841Z_R1_1add15ac","completedAt":"2026-09-13T14:35:56.013Z"} [urn:rnfs:source:existing-certified-history; observed 2026-09-13T14:35:56.013Z; verified 2026-10-01T12:03:06.580Z; stale]
+publication: passed — {"asOfDate":"2026-09-20","releaseRevision":1,"releasedAt":"2026-09-20T17:56:21.436Z"} [urn:rnfs:source:production-public-fleet; observed 2026-09-20T17:56:21.436Z; verified 2026-10-01T12:03:06.580Z; fresh]
+deployment: unknown — missing urn:rnfs:source:existing-deployment-verification
+rendered: unknown — missing urn:rnfs:source:existing-rendered-verification
+brokerB1: partial — {"codeMerged":true,"acceptanceReceiptPresent":false} [urn:rnfs:source:github-engineering-snapshot; observed 2026-10-01T12:03:06.580Z; verified 2026-10-01T12:03:06.580Z; fresh]
+brokerB2: partial — {"codeMerged":true,"acceptanceReceiptPresent":false} [urn:rnfs:source:github-engineering-snapshot; observed 2026-10-01T12:03:06.580Z; verified 2026-10-01T12:03:06.580Z; fresh]
+brokerB3: blocked — {"reason":"static-identity-prerequisite","runtimeVerified":false} [urn:rnfs:source:existing-broker-static-installation; observed 2026-10-01T09:10:33.237Z; verified 2026-10-01T12:03:06.580Z; fresh]
+brokerB4: unknown — {"reason":"not-run","runtimeVerified":false} [urn:rnfs:source:existing-broker-static-installation; observed 2026-10-01T09:10:33.237Z; verified 2026-10-01T12:03:06.580Z; fresh]
+scheduler: conflicting — {"scope":"scheduled-prerequisites","reason":"GITHUB_CONNECTIVITY_UNAVAILABLE","productionReady":false} [urn:rnfs:source:existing-scheduled-prerequisites; observed 2026-10-01T11:01:43.845Z; verified 2026-10-01T12:03:06.580Z; fresh]
+  Retained 2 disagreeing observations; selection uses source priority then observation time.
+permissions: passed — {"scope":"check-only-preflight"} [urn:rnfs:source:existing-preflight-receipt; observed 2026-09-30T14:05:42.199Z; verified 2026-10-01T12:03:06.580Z; fresh]
+backup: passed — {"scope":"check-only-preflight"} [urn:rnfs:source:existing-preflight-receipt; observed 2026-09-30T14:05:42.199Z; verified 2026-10-01T12:03:06.580Z; fresh]
+holds: blocked — {"collection":true,"publication":true} [urn:rnfs:source:existing-scheduled-prerequisites; observed 2026-10-01T11:01:43.845Z; verified 2026-10-01T12:03:06.580Z; fresh]
+engineering: passed — {"commit":"5728f7d28c06265754035bf8e40336bd870b3692","items":[{"number":81,"state":"OPEN","kind":"pull-request"},{"number":93,"state":"OPEN","kind":"pull-request"},{"number":100,"state":"OPEN","kind":"pull-request"},{"number":107,"state":"OPEN","kind":"pull-request"},{"number":116,"state":"MERGED","kind":"pull-request"},{"number":120,"state":"OPEN","kind":"issue"}]} [urn:rnfs:source:github-engineering-snapshot; observed 2026-10-01T12:03:06.580Z; verified 2026-10-01T12:03:06.580Z; fresh]
+ownerAction: blocked — {"action":"review-account-authority-resolution","owner":"Luke","activate":false} [urn:rnfs:source:existing-broker-static-installation; observed 2026-10-01T09:10:33.237Z; verified 2026-10-01T12:03:06.580Z; fresh]
