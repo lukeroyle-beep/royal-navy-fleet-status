@@ -24,7 +24,7 @@ try {
     try { fs.writeFileSync(fd, `${JSON.stringify(receipt, null, 2)}\n`); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   };
   const receipt = await runSweepPreflight({ config, repository,
-    probes: productionProbes({ repository, deadline: Date.now() + 30000 }) });
+    probes: productionProbes({ repository, deadline: Date.now() + 30000, encryptionQuery: config.encryptionQuery }) });
   persist(receipt);
   let result = null;
   if (stage) {
