@@ -6,6 +6,7 @@ import { validateSourceRegistry } from "./lib/provenance.mjs";
 import {
   assertSessionBinding,
   createXBrowserSession,
+  compactXBrowserSession,
   finalizeXBrowserSession,
   mergeXBrowserSessionProgress,
   recordXBrowserObservation,
@@ -127,7 +128,10 @@ function finalise() {
 
 function printSummary(session) {
   validateXBrowserSession(session);
-  console.log(JSON.stringify(summarizeXBrowserSession(session), null, 2));
+  const summary = process.argv.includes("--compact")
+    ? compactXBrowserSession(session, { batchSize: Number(optionalValue("--batch-size=") || 1) })
+    : summarizeXBrowserSession(session);
+  console.log(JSON.stringify(summary, null, 2));
 }
 
 function readJson(targetPath, label) {
@@ -144,7 +148,7 @@ function requiredValue(prefix) {
     throw new Error(
       "Usage: node scripts/collect-x-browser.mjs --mode=<prepare|record|status|finalise> " +
       "--run=<sweep-run.json> --session=<private-directory> [--source-ids=<id,id>] " +
-      "[--observation=<session-file.json>] [--resume-from=<private-directory>] [--output=<session-file.json>]",
+      "[--observation=<session-file.json>] [--resume-from=<private-directory>] [--output=<session-file.json>] [--compact] [--batch-size=<1|2>]",
     );
   }
   return value;
