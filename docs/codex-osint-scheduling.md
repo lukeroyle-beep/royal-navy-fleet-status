@@ -1,5 +1,7 @@
 # Codex OSINT scheduling
 
+Current native-route acceptance and bounded stage: [native refresh acceptance](native-refresh-acceptance.md). The 2 October candidate replaces broker-specific dependencies only for the separate native route; operational adoption and publication remain held.
+
 Luke authorized replacement of OpenClaw for today's and all future British Armed Forces Tracker
 OSINT sweeps on 6 September 2026. This supersedes earlier scheduler and browser-adapter routing,
 while retaining the evidence, review, privacy and idempotency requirements.

@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { executePreflightStage, stageArguments } from './lib/preflight-stage.mjs';
+const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'rnfs-stage-test-'));
+try {
+  const config = { run: path.join(directory, 'run.json'), stateDirectory: directory, collectionOutput: path.join(directory, 'output.json'), collectionCache: path.join(directory, 'cache.json') };
+  const run = { runId: 'fixture', window: { from: '2026-09-12T00:00:00Z', to: '2026-10-02T06:00:00Z' }, sourceRegistryHash: 'registry', baselineStateHash: 'baseline', discoveryChecks: [{ required: true, state: 'complete' }], coverage: { requiredSourceChecks: 77, completedSourceChecks: 0 }, collectionTelemetry: { httpRequests: 7, modelCalls: 0 } };
+  fs.writeFileSync(config.run, JSON.stringify(run));
+  const receipt = { outcome: 'READY_FOR_COLLECTION', runId: run.runId, main: 'a'.repeat(40) };
+  let calls = 0;
+  const options = { stage: 'indexes', config, receipt, execute: args => { calls++; assert.ok(args.includes('--attempts=2')); assert.ok(args.includes('--timeout-ms=15000')); assert.ok(args.includes('--concurrency=2')); assert.ok(args.includes(`--cache=${config.collectionCache}`)); fs.writeFileSync(config.collectionOutput, JSON.stringify(run)); } };
+  const blocked = executePreflightStage({ ...options, receipt: { outcome: 'DEFERRED_WITH_JUSTIFICATION', diagnostic: 'BACKUP_ENCRYPTION_UNAVAILABLE' } });
+  assert.equal(calls, 0); assert.equal(blocked.collectionStarted, false); assert.equal(blocked.diagnostic, 'BACKUP_ENCRYPTION_UNAVAILABLE');
+  const success = executePreflightStage(options);
+  assert.equal(calls, 1); assert.equal(success.outcome, 'DISCOVERY_COMPLETE_REVIEW_REQUIRED');
+  assert.equal(success.collectionStarted, true); assert.equal(success.publicationEligible, false); assert.equal(success.noChangeClaimAllowed, false);
+  assert.equal(success.schedulerAcceptance, 'NOT_ESTABLISHED'); assert.equal(success.usage.httpRequests, 7);
+  assert.throws(() => executePreflightStage(options), /already exists/); assert.equal(calls, 1);
+  fs.unlinkSync(config.collectionOutput);
+  assert.throws(() => stageArguments('publish', config), /Unsupported/);
+  assert.throws(() => stageArguments('indexes', { ...config, collectionCache: path.resolve('cache.json') }), /outside every checkout/);
+  const interrupted = executePreflightStage({ ...options, execute: () => { throw new Error('private token must not appear'); } });
+  assert.equal(interrupted.outcome, 'STAGE_FAILED'); assert.equal(interrupted.collectionStarted, null);
+  assert.ok(!JSON.stringify(interrupted).includes('private token'));
+  const checkpoint = `${config.collectionOutput}.checkpoints`;
+  const partial = executePreflightStage({ ...options, execute: () => { fs.mkdirSync(checkpoint); fs.writeFileSync(path.join(checkpoint, 'run.json'), JSON.stringify({ ...run, discoveryChecks: [{ required: true, state: 'blocked' }], collectionTelemetry: undefined })); throw new Error('interrupted'); } });
+  assert.equal(partial.outcome, 'INCOMPLETE_DISCOVERY'); assert.equal(partial.usage, null); assert.equal(partial.noChangeClaimAllowed, false);
+  assert.throws(() => executePreflightStage(options), /already exists/);
+  fs.rmSync(checkpoint, { recursive: true });
+  assert.throws(() => executePreflightStage({ ...options, execute: () => { fs.writeFileSync(config.collectionOutput, JSON.stringify({ ...run, runId: 'wrong-run' })); } }), /binding mismatch/);
+  const plan = executePreflightStage({ ...options, stage: 'plan', execute: args => assert.ok(args.includes('--mode=plan')) });
+  assert.equal(plan.outcome, 'PLAN_PREPARED'); assert.equal(plan.collectionStarted, false);
+  console.log('Preflight stage: blocked dispatch, fixed bounds, cache forwarding, replay refusal, partial/failed output, binding and no publication/scheduled claims passed (fixtures).');
+} finally { fs.rmSync(directory, { recursive: true, force: true }); }

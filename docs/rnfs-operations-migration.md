@@ -1,5 +1,7 @@
 # RNFS operations migration — issue 110, first PR
 
+Current native-route acceptance and bounded stage: [native refresh acceptance](native-refresh-acceptance.md). The 2 October candidate replaces broker-specific dependencies only for the separate native route; operational adoption and publication remain held.
+
 ## Delivery boundary
 
 Luke approved the audit and bounded first PR on 30 September 2026. This increment adds
