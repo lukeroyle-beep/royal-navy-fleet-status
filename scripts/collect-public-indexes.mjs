@@ -77,6 +77,9 @@ const runLockPath = path.join(runLockDirectory, `public-index-${digest(run.runId
 assertPrivateArtifact(runLockPath);
 await collectPublicIndexes(run, { registry, entities, cache, checkedAt: new Date().toISOString(),
   runLockPath,
+  attempts: Number(readEqualsArgument('--attempts=') ?? 3),
+  timeoutMs: Number(readEqualsArgument('--timeout-ms=') ?? 20000),
+  concurrency: Number(readEqualsArgument('--concurrency=') ?? 4),
   onCheckpoint: checkpointDirectory ? (current, retainedCache) => {
     checkpointJson(checkpointDirectory, 'run.json', current, { privateOnly: privateArtifacts });
     checkpointJson(checkpointDirectory, 'cache.json', retainedCache, { privateOnly: privateArtifacts });

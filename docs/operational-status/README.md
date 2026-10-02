@@ -77,3 +77,10 @@ No server or transport is implemented here. A later service should expose only:
 The pure `changesSince(current, previous)` helper is not an MCP endpoint. Current reports and their digests must originate from this trusted generator, not arbitrary client JSON. Use bounded responses, private access, no mutation tools, and a small replacement cache. Original receipts remain authoritative in their existing stores.
 
 Rollback: discard generated output or close/revert this code PR. No operational rollback is needed because nothing was activated or changed.
+
+## Native route assessment, 2 October 2026
+
+The broker fields above remain historical broker diagnostics. They are not acceptance
+fields for the separate [native refresh route](../native-refresh-acceptance.md).
+NATIVE-SCHEDULED-1 remains unproven; do not turn a B3/B4 supersession decision into a
+passed status or infer that collection/publication holds have been released.

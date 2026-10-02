@@ -1,5 +1,7 @@
 # Deterministic OSINT preflight
 
+Current native-route acceptance and bounded stage: [native refresh acceptance](native-refresh-acceptance.md). The 2 October candidate replaces broker-specific dependencies only for the separate native route; operational adoption and publication remain held.
+
 This is the first issue-110 implementation, not activation of a new scheduler. Run on the
 trusted Mac in the actual execution context. No AI model, source request, browser or
 remote mutation is used by the probes. The existing Sunday schedule is unchanged.
