@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
 import { productionProbes, runSweepPreflight } from './lib/sweep-preflight.mjs';
+import { reportWithoutChangingSweep, recordEarlyFailure } from './lib/command-centre-hook.mjs';
 import { stageArguments, executePreflightStage } from './lib/preflight-stage.mjs';
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
@@ -34,10 +35,12 @@ try {
     const fd = fs.openSync(resultPath, 'wx', 0o600);
     try { fs.writeFileSync(fd, `${JSON.stringify(result, null, 2)}\n`); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   }
+  reportWithoutChangingSweep({ receipt: result || receipt, receiptPath: resultPath || output });
   console.log(JSON.stringify(result || receipt));
   if (receipt.outcome !== 'READY_FOR_COLLECTION' ||
       (result && !['PLAN_PREPARED', 'DISCOVERY_COMPLETE_REVIEW_REQUIRED'].includes(result.outcome))) process.exitCode = 1;
 } catch {
+  try { recordEarlyFailure({}); } catch (error) { console.error(JSON.stringify({reportingError:error.message,sweepResultUnchanged:true})); }
   console.error(JSON.stringify({ outcome: 'FAILED', diagnostic: 'PREFLIGHT_OR_REQUESTED_STAGE_FAILED', publicationEligible: false }));
   process.exitCode = 1;
 }
