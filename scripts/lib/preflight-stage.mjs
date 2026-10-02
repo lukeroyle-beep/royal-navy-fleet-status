@@ -52,7 +52,8 @@ export function executePreflightStage({ stage, config, receipt, execute, now = (
     result.outcome = childFailed ? 'STAGE_FAILED' : 'PLAN_PREPARED';
   } else {
     result.bounds = { attemptsPerSource: 2, timeoutMs: 15000, concurrency: 2, perDomain: 1, maxBodyBytes: 2_000_000 };
-    const output = fs.existsSync(config.collectionOutput) ? config.collectionOutput : `${config.collectionOutput}.checkpoints/run.json`;
+    const finalOutput = fs.existsSync(config.collectionOutput);
+    const output = finalOutput ? config.collectionOutput : `${config.collectionOutput}.checkpoints/run.json`;
     if (fs.existsSync(output)) {
       const bytes = fs.readFileSync(output), collected = JSON.parse(bytes);
       if (collected.runId !== run.runId || JSON.stringify(collected.window) !== JSON.stringify(run.window) ||
@@ -61,12 +62,14 @@ export function executePreflightStage({ stage, config, receipt, execute, now = (
       }
       result.collectionStarted = true;
       result.resultSha256 = sha(bytes);
-      result.coverage = Object.fromEntries([
+      // Checkpoints retain prior-attempt summary fields until collection finishes.
+      // Never report those as measurements of this interrupted invocation.
+      result.coverage = finalOutput ? Object.fromEntries([
         'requiredDiscoveryChecks', 'completedDiscoveryChecks', 'requiredSourceChecks',
         'completedSourceChecks', 'requiredVesselOutcomes', 'completedVesselOutcomes',
         'requiredIntegrityChecks', 'completedIntegrityChecks', 'blockerCount',
-      ].filter(key => Number.isInteger(collected.coverage?.[key])).map(key => [key, collected.coverage[key]]));
-      result.usage = collected.collectionTelemetry || null;
+      ].filter(key => Number.isInteger(collected.coverage?.[key])).map(key => [key, collected.coverage[key]])) : null;
+      result.usage = finalOutput ? collected.collectionTelemetry || null : null;
       result.outcome = !childFailed && collected.discoveryChecks.every(c => !c.required || c.state === 'complete')
         ? 'DISCOVERY_COMPLETE_REVIEW_REQUIRED' : 'INCOMPLETE_DISCOVERY';
     } else {

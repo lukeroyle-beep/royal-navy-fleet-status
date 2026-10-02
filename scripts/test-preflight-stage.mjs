@@ -25,8 +25,8 @@ try {
   assert.equal(interrupted.outcome, 'STAGE_FAILED'); assert.equal(interrupted.collectionStarted, null);
   assert.ok(!JSON.stringify(interrupted).includes('private token'));
   const checkpoint = `${config.collectionOutput}.checkpoints`;
-  const partial = executePreflightStage({ ...options, execute: () => { fs.mkdirSync(checkpoint); fs.writeFileSync(path.join(checkpoint, 'run.json'), JSON.stringify({ ...run, discoveryChecks: [{ required: true, state: 'blocked' }], collectionTelemetry: undefined })); throw new Error('interrupted'); } });
-  assert.equal(partial.outcome, 'INCOMPLETE_DISCOVERY'); assert.equal(partial.usage, null); assert.equal(partial.noChangeClaimAllowed, false);
+  const partial = executePreflightStage({ ...options, execute: () => { fs.mkdirSync(checkpoint); fs.writeFileSync(path.join(checkpoint, 'run.json'), JSON.stringify({ ...run, discoveryChecks: [{ required: true, state: 'blocked' }], collectionTelemetry: { startedAt: '2026-09-27T11:00:00Z', httpRequests: 999, modelCalls: 0 } })); throw new Error('interrupted'); } });
+  assert.equal(partial.outcome, 'INCOMPLETE_DISCOVERY'); assert.equal(partial.usage, null); assert.equal(partial.coverage, null); assert.ok(!JSON.stringify(partial).includes('999')); assert.equal(partial.noChangeClaimAllowed, false);
   assert.throws(() => executePreflightStage(options), /already exists/);
   fs.rmSync(checkpoint, { recursive: true });
   assert.throws(() => executePreflightStage({ ...options, execute: () => { fs.writeFileSync(config.collectionOutput, JSON.stringify({ ...run, runId: 'wrong-run' })); } }), /binding mismatch/);
