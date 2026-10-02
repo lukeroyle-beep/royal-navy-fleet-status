@@ -1,5 +1,7 @@
 # Codex OSINT scheduling
 
+Outcome finalisation and bounded pending replay: [Command Centre reporting](command-centre-reporting.md). Apply to scheduled and manual runs, including early exits and later recovery/publication events. This adds no collection or publication authority.
+
 Current native-route acceptance and bounded stage: [native refresh acceptance](native-refresh-acceptance.md). The 2 October candidate replaces broker-specific dependencies only for the separate native route; operational adoption and publication remain held.
 
 Luke authorized replacement of OpenClaw for today's and all future British Armed Forces Tracker
