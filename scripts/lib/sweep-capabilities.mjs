@@ -43,6 +43,7 @@ export async function checkSweepCapabilities({ config, probes, now = () => Date.
     elapsedMs: Math.max(0, now() - started), checks,
     outcome: diagnostic ? 'DEFERRED_WITH_JUSTIFICATION' : 'CAPABILITY_CHECK_PASSED', diagnostic,
     ownerChecked: checks.some(c => c.check === 'OWNER_LIVENESS' && c.status === 'pass'),
+    encryptionEvidence: probes.encryptionEvidence?.() || null,
     preflightPassed: false, backupRestoreVerified: false, collectionStarted: false,
     publicationEligible: false, noChangeClaimAllowed: false, modelCalls: 0,
   };

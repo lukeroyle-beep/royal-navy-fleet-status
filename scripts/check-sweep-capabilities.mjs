@@ -11,7 +11,7 @@ try {
   if (fs.existsSync(output)) throw new Error('Existing capability receipt');
   const config = JSON.parse(fs.readFileSync(assertPrivateArtifact(arg('config')), 'utf8'));
   const receipt = await checkSweepCapabilities({ config, probes: productionProbes({
-    repository: fileURLToPath(new URL('..', import.meta.url)), deadline: Date.now() + 30000,
+    repository: fileURLToPath(new URL('..', import.meta.url)), deadline: Date.now() + 30000, encryptionQuery: config.encryptionQuery,
   }) });
   const fd = fs.openSync(output, 'wx', 0o600);
   try { fs.writeFileSync(fd, JSON.stringify(receipt, null, 2) + '\n'); fs.fsyncSync(fd); }

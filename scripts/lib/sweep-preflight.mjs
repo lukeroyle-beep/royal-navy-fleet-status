@@ -9,6 +9,7 @@ import { resolvePrivateInputs } from './private-inputs.mjs';
 import { createPublicProjection } from './public-projection.mjs';
 import { validateAssessmentLog } from './provenance.mjs';
 import { createSweepRun, validateSweepRunShape, validateSweepBaselineAgainstState } from './sweep.mjs';
+import { readNativeEncryptionQuery } from './native-encryption-query.mjs';
 
 const REPOSITORY = 'lukeroyle-beep/royal-navy-fleet-status';
 const LIVE = 'https://british-armed-forces-tracker.open-defence-data.workers.dev/data/royal-navy/vessels.json';
@@ -43,7 +44,8 @@ export function filesystemRoot(directory, filesystem = fs) {
 
 // Injected probes are for fixture testing. The CLI always uses these actual
 // probes, with bounded child processes/HTTP. No model, browser or remote writes.
-export function productionProbes({ repository, environment = process.env, deadline }) {
+export function productionProbes({ repository, environment = process.env, deadline, encryptionQuery }) {
+  let encryptionEvidence = null;
   const timeout = () => {
     const left = deadline - Date.now();
     if (left <= 0) fail('PREFLIGHT_TIMEOUT');
@@ -79,12 +81,23 @@ export function productionProbes({ repository, environment = process.env, deadli
     },
     encrypted: (directory, sourceRoot) => {
       if (process.platform !== 'darwin') fail('ENCRYPTION_PROBE_UNSUPPORTED');
+      if (encryptionQuery) {
+        const observed = readNativeEncryptionQuery({ reference: encryptionQuery, mount: filesystemRoot(directory), sourceRoot, environment });
+        encryptionEvidence = {
+          provenance: observed.provenance, threadId: observed.threadId, callId: observed.callId,
+          requestedAt: observed.requestedAt, completedAt: observed.completedAt,
+          outputSha256: observed.outputSha256,
+          identitySha256: digest({ uuid: observed.VolumeUUID, device: observed.mountedDevice, mount: observed.MountPoint }),
+        };
+        return true;
+      }
       let plist;
       try { plist = command('/usr/sbin/diskutil', ['info', '-plist', filesystemRoot(directory)]); }
       catch { fail('BACKUP_ENCRYPTION_UNAVAILABLE'); }
       return /<key>FileVault<\/key>\s*<true\s*\/>/.test(plist) &&
         fs.statSync(directory).dev !== fs.statSync(sourceRoot).dev;
     },
+    encryptionEvidence: () => encryptionEvidence,
   };
 }
 
@@ -169,6 +182,8 @@ export async function runSweepPreflight({ config, repository, environment = proc
       if (proof.bindingHash !== context.bindingHash || proof.manifestSha256 !== receipt.manifestSha256 || proof.pass !== true ||
           proof.filesVerified !== inventory.fileCount) fail('RESTORE_NOT_VERIFIED');
       if (!(await probes.encrypted(path.dirname(manifest), inputs.root))) fail('BACKUP_ENCRYPTION_UNAVAILABLE');
+      const observation = probes.encryptionEvidence?.();
+      if (observation) context.encryptionEvidence = observation;
       probes.write(path.dirname(manifest));
     });
     await check('OWNERSHIP_RECHECK', () => {
