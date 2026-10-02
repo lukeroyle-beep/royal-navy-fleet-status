@@ -52,7 +52,14 @@ export function productionProbes({ repository, environment = process.env, deadli
   const command = (bin, args) => execFileSync(bin, args, { cwd: repository, env: environment, encoding: 'utf8', timeout: timeout(), maxBuffer: 4_000_000, stdio: ['ignore', 'pipe', 'pipe'] });
   return {
     write: probeWrite,
-    ownerAlive: pid => { try { process.kill(pid, 0); return true; } catch { return false; } },
+    ownerAlive: pid => {
+      try { process.kill(pid, 0); return true; }
+      catch (error) {
+        if (error.code === 'EPERM' || error.code === 'EACCES') fail('OWNER_LIVENESS_PERMISSION_UNAVAILABLE');
+        if (error.code === 'ESRCH') return false;
+        fail('OWNER_LIVENESS_UNAVAILABLE');
+      }
+    },
     github: () => {
       const remote = command('git', ['remote', 'get-url', 'origin']).trim();
       if (![`https://github.com/${REPOSITORY}.git`, `https://github.com/${REPOSITORY}`, `git@github.com:${REPOSITORY}.git`].includes(remote)) fail('REPOSITORY_IDENTITY_MISMATCH');
@@ -72,7 +79,9 @@ export function productionProbes({ repository, environment = process.env, deadli
     },
     encrypted: (directory, sourceRoot) => {
       if (process.platform !== 'darwin') fail('ENCRYPTION_PROBE_UNSUPPORTED');
-      const plist = command('diskutil', ['info', '-plist', filesystemRoot(directory)]);
+      let plist;
+      try { plist = command('/usr/sbin/diskutil', ['info', '-plist', filesystemRoot(directory)]); }
+      catch { fail('BACKUP_ENCRYPTION_UNAVAILABLE'); }
       return /<key>FileVault<\/key>\s*<true\s*\/>/.test(plist) &&
         fs.statSync(directory).dev !== fs.statSync(sourceRoot).dev;
     },
@@ -91,7 +100,15 @@ export async function runSweepPreflight({ config, repository, environment = proc
   let step = 'CONFIGURATION';
   const check = async (name, operation) => {
     step = name;
-    const result = await operation(); checks.push({ check: name, status: 'pass' }); return result;
+    const began = now();
+    try {
+      const result = await operation();
+      checks.push({ check: name, status: 'pass', elapsedMs: Math.max(0, now() - began) });
+      return result;
+    } catch (error) {
+      checks.push({ check: name, status: 'fail', elapsedMs: Math.max(0, now() - began), diagnostic: error.diagnostic || classifyPreflightError(error, name) });
+      throw error;
+    }
   };
   try {
     await check('CONFIGURATION', () => {
@@ -161,7 +178,7 @@ export async function runSweepPreflight({ config, repository, environment = proc
       outcome: 'READY_FOR_COLLECTION', checks, collectionStarted: false, publicationEligible: false, modelCalls: 0 };
   } catch (error) {
     const diagnostic = error.diagnostic || classifyPreflightError(error, step);
-    checks.push({ check: step, status: 'fail', diagnostic });
+    if (checks.at(-1)?.status !== 'fail') checks.push({ check: step, status: 'fail', diagnostic });
     // Never serialize command stderr, filesystem paths, source contents or tokens.
     return { schemaVersion: 1, ...context, checkedAt: new Date(started).toISOString(), elapsedMs: now() - started,
       outcome: 'DEFERRED_WITH_JUSTIFICATION', checks, diagnostic, collectionStarted: false, publicationEligible: false, modelCalls: 0 };
