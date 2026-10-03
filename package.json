@@ -38,7 +38,7 @@
     "sweep:benchmark": "node scripts/benchmark-osint-replay.mjs",
     "test:partial-release": "node scripts/test-partial-release-20260920.mjs",
     "sweep:preflight": "node scripts/preflight-osint-sweep.mjs",
-    "test:operations": "node scripts/test-native-encryption-query.mjs && node scripts/test-sweep-capabilities.mjs && node scripts/test-sweep-preflight.mjs && node scripts/test-source-reuse.mjs && node scripts/test-public-index-resume.mjs && node scripts/test-preflight-stage.mjs && node scripts/test-sweep-preparation.mjs",
+    "test:operations": "node scripts/test-native-encryption-query.mjs && node scripts/test-sweep-capabilities.mjs && node scripts/test-sweep-preflight.mjs && node scripts/test-source-reuse.mjs && node scripts/test-public-index-resume.mjs && node scripts/test-preflight-stage.mjs && node scripts/test-sweep-preparation.mjs && node scripts/test-dedicated-browser-worker.mjs",
     "test:connectivity": "node tools/connectivity-probe/test.mjs",
     "test:broker": "node tools/execution-broker/test.mjs",
     "status:operational": "node scripts/operational-status.mjs",
@@ -49,11 +49,13 @@
     "sweep:guard": "node scripts/check-sweep-work.mjs",
     "sweep:start": "node scripts/start-sweep.mjs",
     "sweep:bootstrap": "node scripts/bootstrap-sweep.mjs",
-    "report:cell": "node scripts/render-reporting-cell.mjs"
+    "report:cell": "node scripts/render-reporting-cell.mjs",
+    "sweep:browser-worker": "node scripts/dedicated-browser-worker.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "vite": "^6.0.0"
+    "vite": "^6.0.0",
+    "playwright-core": "1.62.1"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
