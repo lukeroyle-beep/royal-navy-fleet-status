@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { requireSweepWorkBudget } from "./lib/sweep-work-budget.mjs";
 import path from "node:path";
 
 import { resolvePrivateInputs, repositoryRootPath } from "./lib/private-inputs.mjs";
@@ -16,6 +17,9 @@ import {
 } from "./lib/x-browser-collection.mjs";
 
 const mode = requiredValue("--mode=");
+if (process.env.RNFS_SWEEP_USAGE_SESSION && (mode === "prepare" || (mode === "status" && process.argv.includes("--compact")))) {
+  requireSweepWorkBudget({ sessionPath: process.env.RNFS_SWEEP_USAGE_SESSION });
+}
 const sessionDirectory = path.resolve(requiredValue("--session="));
 assertPrivateDirectory(sessionDirectory, "X browser session");
 const sessionPath = path.join(sessionDirectory, "session.json");

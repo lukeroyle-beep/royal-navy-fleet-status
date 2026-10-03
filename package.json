@@ -38,14 +38,15 @@
     "sweep:benchmark": "node scripts/benchmark-osint-replay.mjs",
     "test:partial-release": "node scripts/test-partial-release-20260920.mjs",
     "sweep:preflight": "node scripts/preflight-osint-sweep.mjs",
-    "test:operations": "node scripts/test-native-encryption-query.mjs && node scripts/test-sweep-capabilities.mjs && node scripts/test-sweep-preflight.mjs && node scripts/test-source-reuse.mjs && node scripts/test-public-index-resume.mjs && node scripts/test-preflight-stage.mjs",
+    "test:operations": "node scripts/test-native-encryption-query.mjs && node scripts/test-sweep-capabilities.mjs && node scripts/test-sweep-preflight.mjs && node scripts/test-source-reuse.mjs && node scripts/test-public-index-resume.mjs && node scripts/test-preflight-stage.mjs && node scripts/test-sweep-preparation.mjs",
     "test:connectivity": "node tools/connectivity-probe/test.mjs",
     "test:broker": "node tools/execution-broker/test.mjs",
     "status:operational": "node scripts/operational-status.mjs",
     "test:operational-status": "node scripts/test-operational-status.mjs",
     "report:command-centre": "node scripts/command-centre.mjs",
     "test:command-centre": "node scripts/test-command-centre.mjs",
-    "sweep:capabilities": "node scripts/check-sweep-capabilities.mjs"
+    "sweep:capabilities": "node scripts/check-sweep-capabilities.mjs",
+    "sweep:guard": "node scripts/check-sweep-work.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
