@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assertPrivateArtifact } from './private-artifacts.mjs';
 import { readReportingFile, summarizePageRead } from './reporting-files.mjs';
-import { validateEvent, DESTINATION, HISTORY } from './command-centre.mjs';
+import { validateEvent, digest, DESTINATION, HISTORY } from './command-centre.mjs';
 import { nativeReportingFlow } from './native-reporting-flow.mjs';
 
 // This function's source runs only in the supported native functions runtime.
@@ -32,9 +32,12 @@ async function nativeAdapter(config, tools, flow) {
     return {file:output,value:await load(output)};
   };
   const fileCommand = async (command,spec) => cli(command,['--files='+await save(spec)]);
-  const event=await load(config.event);
+  const binding=(await cli('event-binding',['--input='+config.event])).value;
+  if(binding.digest!==config.eventDigest) throw Error('REVIEWED_EVENT_CHANGED');
+  const event=binding.event, eventFile=await save(event);
   const planFiles=new Map();
   const io={
+    eventDigest:binding.digest,
     reviewed:async()=>config.reviewedSummaries,
     begin:async()=> (await cli('begin',['--outbox='+config.outbox,'--event='+event.eventId,'--invocation='+config.invocation,'--context='+config.context])).value,
     read:async i=> {
@@ -43,7 +46,7 @@ async function nativeAdapter(config, tools, flow) {
     },
     summary:async file=>JSON.parse(await run(['node','scripts/command-centre.mjs','page-summary','--input='+file].map(quote).join(' '))),
     plan:async(i,page)=> {
-      const result=await fileCommand('plan',{page,event:config.event,kind:i?'history':'summary',at:new Date().toISOString()});
+      const result=await fileCommand('plan',{page,event:eventFile,kind:i?'history':'summary',at:new Date().toISOString()});
       planFiles.set(result.value,result.file);return result.value;
     },
     edit:async plan=> {
@@ -51,11 +54,11 @@ async function nativeAdapter(config, tools, flow) {
       await save(result);return result;
     },
     confirm:async(i,page,plan)=> {
-      const result=await fileCommand('confirm',{page,event:config.event,plan:planFiles.get(plan),at:new Date().toISOString()});
+      const result=await fileCommand('confirm',{page,event:eventFile,plan:planFiles.get(plan),at:new Date().toISOString()});
       planFiles.set(result.value,result.file);return result.value;
     },
     finish:async(attempt,plans,readbacks)=> {
-      const spec=await save({event:config.event,plans:plans.map(p=>planFiles.get(p)),readbacks});
+      const spec=await save({event:eventFile,plans:plans.map(p=>planFiles.get(p)),readbacks});
       const result=await cli('finish',['--outbox='+config.outbox,'--attempt='+attempt.id,'--files='+spec]);
       return {state:result.value.state,eventId:result.value.eventId,confirmedAt:result.value.confirmedAt,receipt:result.file};
     },
@@ -69,7 +72,7 @@ export function renderNativeReportingCell(config, repository) {
       !['manual','scheduled'].includes(config.context) || config.guidanceReviewed !== true ||
       !Array.isArray(config.reviewedReads) || config.reviewedReads.length!==2) throw Error('REVIEWED_REPORTING_CONFIG_REQUIRED');
   const event=assertPrivateArtifact(config.event), outbox=assertPrivateArtifact(config.outbox), directory=assertPrivateArtifact(config.directory);
-  validateEvent(readReportingFile(event));
+  const eventDigest=digest(validateEvent(readReportingFile(event)));
   if(path.resolve(config.directory)!==directory || fs.existsSync(directory) || !fs.statSync(path.dirname(directory)).isDirectory() || !fs.statSync(outbox).isDirectory()) throw Error('NEW_TRANSPORT_DIRECTORY_REQUIRED');
   const pages=[DESTINATION,HISTORY];
   const reviewedSummaries=[];
@@ -79,6 +82,6 @@ export function renderNativeReportingCell(config, repository) {
     reviewedSummaries.push(summary);
     return resolved;
   });
-  const value={repository,directory,event,outbox,invocation:config.invocation,context:config.context,reviewedReads,reviewedSummaries,pages};
+  const value={repository,directory,event,eventDigest,outbox,invocation:config.invocation,context:config.context,reviewedReads,reviewedSummaries,pages};
   return `// Reviewed native reporting cell; execute only after inspecting Page guidance.\ntext(await (${nativeAdapter.toString()})(${JSON.stringify(value)}, tools, ${nativeReportingFlow.toString()}));\n`;
 }

@@ -8,6 +8,7 @@ export async function nativeReportingFlow(io) {
     const reviewed = await io.reviewed();
     if (reviewed.length !== 2 || reviewed.some(s=>!s.wholePageComplete)) throw Error('COMPLETE_REVIEWED_PAGES_REQUIRED');
     attempt = await io.begin();
+    if (!io.eventDigest || attempt.eventDigest!==io.eventDigest) throw Error('QUEUED_EVENT_MISMATCH');
     for (let i=0; i<2; i++) {
       const read = async label => {
         const page = await io.read(i,label);

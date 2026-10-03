@@ -32,6 +32,9 @@ try {
   const link=path.join(root,'link');fs.symlinkSync(root,link);
   assert.throws(()=>bootstrapSweep({...config,directory:path.join(link,'boot')},dependencies),/NEW_PRIVATE/);
   fs.writeFileSync(path.join(repo,'dirty'),'untracked');assert.throws(()=>bootstrapSweep(config,dependencies),/CLEAN_EXPECTED/);fs.unlinkSync(path.join(repo,'dirty'));
+  for(const invalid of [{references:[null]},{references:[{label:'Bad',url:'https://example.invalid'}]},{lastGoodRelease:'Bad|text'},{lastGoodRelease:'Bearer secret'}]){
+    assert.throws(()=>bootstrapSweep({...config,...invalid},dependencies));assert.equal(fs.existsSync(config.directory),false);
+  }
   const boot=bootstrapSweep(config,dependencies);assert.equal(boot.outcome,'BOOTSTRAP_PREPARED');
   assert.equal(boot.sessionPath,session);assert.deepEqual(fs.readdirSync(config.directory).sort(),['reporting-context.json','startup-config.json']);
   assert.equal(fs.existsSync(path.join(config.directory,'attempt')),false);
@@ -44,6 +47,7 @@ try {
     const dir=path.join(root,mode);fs.mkdirSync(dir);
     const outbox=path.join(dir,'outbox'), eventFile=path.join(dir,'event.json');write(eventFile,event);
     enqueue(outbox,event,[{path:eventFile,sha256:digest(fs.readFileSync(eventFile,'utf8'))}]);
+    if(mode==='mismatch')write(eventFile,{...event,facts:'Different valid payload with same identifier'});
     const pages=[DESTINATION,HISTORY].map(page_id=>({structuredContent:{content:{page_id,blocks:[{id:'instructions',kind:'agent_instructions',hash:'i',markdown:'Preserve manual text.'},{id:'manual',kind:'markdown',hash:'m',markdown:'Manual content'}]},metadata:{stream_kind:'content'},guidance:'Respect expected hashes.'}}));
     const reads=pages.map((p,i)=>{const file=path.join(dir,`reviewed${i}.json`);write(file,p);return file;});
     const cellConfig={schemaVersion:1,event:eventFile,outbox,directory:path.join(dir,"transport ' quoted"),invocation:thread,context:'scheduled',guidanceReviewed:true,reviewedReads:reads};
@@ -61,6 +65,7 @@ try {
         fs.writeFileSync(file,lines.slice(2,-1).map(x=>x.slice(1)).join('\n'),{flag:'wx'});return {};
       },
       mcp__codex_apps__chatgpt_space_read_page:async({page_id,stream_kind})=>{
+        if(mode==='event-mutation')write(eventFile,{...event,facts:'Changed after binding'});
         assert.equal(stream_kind,'content');const i=[DESTINATION,HISTORY].indexOf(page_id);counts[i]++;
         if(mode==='denial')throw Error('denied');
         if(mode==='guidance' && counts[i]===2)pages[i].structuredContent.guidance='Changed instructions';
@@ -84,10 +89,10 @@ try {
     await vm.runInNewContext(`(async()=>{${code}})()`,{tools,text:x=>outputs.push(x)});
     assert.equal(outputs.length,1);assert.ok(JSON.stringify(outputs).length<600);
     assert.equal(pages[0].structuredContent.content.blocks[1].markdown,'Manual content');
-    if(mode==='success'){
+    if(mode==='success' || mode==='event-mutation'){
       assert.equal(outputs[0].state,'delivered');assert.equal(edits,4);assert.deepEqual(counts,[3,3]);
       // Repeat a stable event with newly inspected guidance: no writes, same guards.
-      pages.forEach((p,i)=>write(reads[i],p));cellConfig.directory=path.join(dir,'replay');
+      write(eventFile,event);pages.forEach((p,i)=>write(reads[i],p));cellConfig.directory=path.join(dir,'replay');
       const replay=renderNativeReportingCell(cellConfig,process.cwd());
       await vm.runInNewContext(`(async()=>{${replay}})()`,{tools,text:x=>outputs.push(x)});
       assert.equal(outputs[1].state,'delivered');assert.equal(edits,4);
@@ -100,8 +105,9 @@ try {
       else {assert.ok(edits<=1);assert.equal(counts[1],0);}
       if(mode==='unknown' || mode==='rejected')assert.equal(counts[0],2); // reread, never replay
       if(mode==='guidance')assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
+      if(mode==='mismatch'){assert.equal(edits,0);assert.deepEqual(counts,[0,0]);assert.equal(outputs[0].error,'QUEUED_EVENT_MISMATCH');}
     }
   }
-  for(const mode of ['success','guidance','manual','final','unknown','rejected','ignored','partial','denial'])await scenario(mode);
+  for(const mode of ['success','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation'])await scenario(mode);
   console.log('Thin coordination fixtures passed: native cell execution, guarded writes/replay, guidance/manual conflicts, unknown saves, denial/retry bounds, bootstrap provenance and no-mutation stops. No live tools used.');
 } finally {fs.rmSync(root,{recursive:true,force:true});}
