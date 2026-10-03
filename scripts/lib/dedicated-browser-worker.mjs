@@ -62,8 +62,24 @@ export function visibleViewport({expectedHandle, verifiedIdentity}) {
   if (location.origin !== "https://x.com" || location.pathname.toLowerCase() !== `/${expectedHandle}`.toLowerCase() || location.search || location.hash) return {url:location.href, notices:"", articles:[]};
   const visible = el => {
     if (!el) return false;
-    const r = el.getBoundingClientRect(), s = getComputedStyle(el);
-    return r.width > 0 && r.height > 0 && r.bottom > 0 && r.right > 0 && r.top < innerHeight && r.left < innerWidth && s.visibility === 'visible' && s.display !== 'none' && s.opacity !== '0';
+    for(let p=el;p;p=p.parentElement) {
+      const style=getComputedStyle(p);
+      if(style.visibility!=='visible' || style.display==='none' || Number(style.opacity)===0 || style.contentVisibility==='hidden') return false;
+    }
+    const r=el.getBoundingClientRect();
+    return r.width>0 && r.height>0 && r.bottom>0 && r.right>0 && r.top<innerHeight && r.left<innerWidth;
+  };
+  const fullyVisible = (rect, el) => {
+    if(!visible(el) || rect.width<=0 || rect.height<=0 || rect.top<0 || rect.left<0 || rect.bottom>innerHeight || rect.right>innerWidth) return false;
+    for(let p=el;p;p=p.parentElement) {
+      const s=getComputedStyle(p), r=p.getBoundingClientRect();
+      // Unknown shaped clips/masks are not evidence of visible text.
+      if((s.clipPath && s.clipPath!=='none') || (s.maskImage && s.maskImage!=='none') || (s.clip && s.clip!=='auto')) return false;
+      const left=r.left+p.clientLeft, top=r.top+p.clientTop;
+      if(s.overflowX && s.overflowX!=='visible' && (rect.left<left || rect.right>left+p.clientWidth)) return false;
+      if(s.overflowY && s.overflowY!=='visible' && (rect.top<top || rect.bottom>top+p.clientHeight)) return false;
+    }
+    return true;
   };
   const text = el => {
     if (!visible(el)) return '';
@@ -71,8 +87,10 @@ export function visibleViewport({expectedHandle, verifiedIdentity}) {
     const parts=[];
     for(let n=walker.nextNode(); n; n=walker.nextNode()) {
       const range=document.createRange(); range.selectNodeContents(n);
-      const r=range.getBoundingClientRect();
-      if(visible(n.parentElement) && r.bottom>0 && r.top<innerHeight && r.right>0 && r.left<innerWidth) parts.push(n.textContent);
+      const rects=[...range.getClientRects()];
+      // Omit the entire node if even one rendered line is clipped or below fold.
+      // Never copy full textContent merely because its box intersects the view.
+      if(rects.length && rects.every(r=>fullyVisible(r,n.parentElement))) parts.push(n.textContent);
     }
     return parts.join(' ').trim().slice(0,6000);
   };
@@ -87,8 +105,8 @@ export function visibleViewport({expectedHandle, verifiedIdentity}) {
   if (protectedProfile || login || !authenticated || handles.at(-1)?.toLowerCase()!==`@${expectedHandle}`.toLowerCase()) return {url:location.href,authenticated,login,protectedProfile,notices,identity,articles:[]};
   const articles=[...(main?.querySelectorAll('article[data-testid="tweet"]') || [])].filter(visible).slice(0,20).map(article=>({
     text:text(article.querySelector('[data-testid="tweetText"]')),
-    links:[...article.querySelectorAll('a[href]')].filter(visible).map(a=>a.getAttribute('href')).filter(h=>/^\/[A-Za-z0-9_]+\/status\/\d+$/.test(h)).slice(0,8),
-    times:[...article.querySelectorAll('time[datetime]')].filter(visible).map(t=>t.getAttribute('datetime')).slice(0,4),
+    links:[...article.querySelectorAll('a[href]')].filter(el=>fullyVisible(el.getBoundingClientRect(),el)).map(a=>a.getAttribute('href')).filter(h=>/^\/[A-Za-z0-9_]+\/status\/\d+$/.test(h)).slice(0,8),
+    times:[...article.querySelectorAll('time[datetime]')].filter(el=>fullyVisible(el.getBoundingClientRect(),el)).map(t=>t.getAttribute('datetime')).slice(0,4),
     context:text(article.querySelector('[data-testid="socialContext"]')),
   }));
   return {url:location.href, authenticated, login, protectedProfile, notices, identity:text(profile), articles};

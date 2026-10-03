@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import {POLICY,privateDirectory,acquireWriter,bindOperation,classifyViewport,observeOperation,captureAndPersist} from './lib/dedicated-browser-worker.mjs';
+import vm from 'node:vm';
+import {POLICY,privateDirectory,acquireWriter,bindOperation,visibleViewport,classifyViewport,observeOperation,captureAndPersist} from './lib/dedicated-browser-worker.mjs';
 import {createXBrowserSession} from './lib/x-browser-collection.mjs';
 import {createSweepRun} from './lib/sweep.mjs';
 import {resolvePrivateInputs} from './lib/private-inputs.mjs';
@@ -35,6 +36,33 @@ try {
   }
   const ambiguity=classifyViewport({...ready,articles:[{...article,links:[...article.links,'/other/status/42'],times:[...article.times,'2026-10-02T13:00:00Z']}]},op).observations[0];
   assert.equal(ambiguity.candidateUrl,null);assert.equal(ambiguity.publishedAt,null);
+  // Exercise the actual renderer function without starting a browser. Each
+  // text node carries rendered line rectangles, including clipping ancestors.
+  const rect=(top,bottom,left=0,right=300)=>({top,bottom,left,right,width:right-left,height:bottom-top});
+  const style={visibility:'visible',display:'block',opacity:'1',overflowX:'visible',overflowY:'visible',clipPath:'none',maskImage:'none',clip:'auto'};
+  const element=(box,ownStyle={},parentElement=null)=>({getBoundingClientRect:()=>box,style:{...style,...ownStyle},parentElement,clientLeft:0,clientTop:0,clientWidth:box.width,clientHeight:box.height,nodes:[]});
+  const node=(parentElement,textContent,rectangles)=>{const n={parentElement,textContent,rectangles};parentElement.nodes.push(n);return n;};
+  const header=element(rect(0,30));node(header,`Fixture @${op.handle}`,[rect(0,30)]);
+  const account=element(rect(40,60));
+  const post=element(rect(100,400));
+  node(post,'VISIBLE',[rect(100,120)]);
+  node(post,'BELOW_FOLD_SECRET',[rect(880,920)]);
+  const clip=element(rect(200,230),{overflowY:'hidden'});
+  const clipped=element(rect(200,260),{},clip);node(clipped,'CLIPPED_SECRET',[rect(200,260)]);post.nodes.push(...clipped.nodes);
+  const hiddenAncestor=element(rect(300,350),{opacity:'0'});
+  const hidden=element(rect(300,320),{},hiddenAncestor);node(hidden,'HIDDEN_SECRET',[rect(300,320)]);post.nodes.push(...hidden.nodes);
+  const shaped=element(rect(400,440),{clipPath:'circle(10%)'});node(shaped,'MASKED_SECRET',[rect(400,420)]);post.nodes.push(...shaped.nodes);
+  const articleElement=element(rect(100,920));articleElement.querySelector=selector=>selector.includes('tweetText')?post:null;articleElement.querySelectorAll=()=>[];
+  const main={querySelectorAll:()=>[articleElement]};
+  const document={
+    querySelector:selector=>selector==='main'?main:selector.includes('UserName')?header:selector.includes('AccountSwitcher')?account:null,
+    querySelectorAll:()=>[],
+    createTreeWalker:el=>{let i=0;return {nextNode:()=>el.nodes[i++]||null};},
+    createRange:()=>{let selected;return {selectNodeContents:n=>{selected=n;},getClientRects:()=>selected.rectangles};},
+  };
+  const rendered=vm.runInNewContext(`(${visibleViewport.toString()})({expectedHandle:handle,verifiedIdentity:''})`,{document,NodeFilter:{SHOW_TEXT:4},getComputedStyle:el=>el.style,innerWidth:1280,innerHeight:900,location:new URL(op.url),handle:op.handle});
+  assert.equal(rendered.articles[0].text,'VISIBLE');
+  assert.ok(!JSON.stringify(rendered).includes('SECRET'));
   const loading=fake([{...ready,articles:[]},ready]);
   const result=await observeOperation(loading.page,op,loading.dependencies);
   assert.equal(result.status,'partial');assert.equal(result.viewports.length,1);assert.equal(result.coverageComplete,false);assert.equal(loading.counts().reads,2);
