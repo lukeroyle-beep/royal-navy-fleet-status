@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { isOptionalMonitoredMvt } from "./source-registry.mjs";
 import { validateSweepCertificate, validateSourceCoverageException } from "./sweep-certificate.mjs";
 
 import {
@@ -158,7 +159,7 @@ export function createSweepQueue(registry, asOf) {
       promotionPolicy: "discovery-only",
     })),
     sources: registry.sources
-      .filter(isRequiredRecurringSource)
+      .filter(source => isRequiredRecurringSource(source, registry))
       .map((source) => ({
         sourceId: source.sourceId,
         vesselId: source.vesselId || null,
@@ -176,7 +177,8 @@ export function createSweepQueue(registry, asOf) {
   };
 }
 
-export function isRequiredRecurringSource(source) {
+export function isRequiredRecurringSource(source, registry = {}) {
+  if (isOptionalMonitoredMvt(source, registry?.operations || [])) return false;
   if (!source || source.enabled === false) return false;
   if (source.xCollection) {
     return source.xCollection.enabled === true && source.xCollection.required === true;
@@ -219,7 +221,7 @@ export function createSweepRun({
   }
 
   const requiredSources = registry.sources
-    .filter(isRequiredRecurringSource)
+    .filter(source => isRequiredRecurringSource(source, registry))
     .sort((left, right) => left.sourceId.localeCompare(right.sourceId));
   const rosterIds = entities.vessels.map((vessel) => vessel.vesselId).sort();
   const registryHash = coverageSourceHash(registry, discoveryTargets);
@@ -543,7 +545,7 @@ function evaluateSweepCoverageAgainstInputs(
   const reasons = [];
   const expectedVessels = entities.vessels.map((vessel) => vessel.vesselId).sort();
   const expectedSources = registry.sources
-    .filter(isRequiredRecurringSource)
+    .filter(source => isRequiredRecurringSource(source, registry))
     .map((source) => source.sourceId)
     .sort();
   const expectedTargets = discoveryTargets.map((entry) => entry.targetId).sort();
@@ -580,7 +582,7 @@ function evaluateSweepCoverageAgainstInputs(
     }
   }
   const recurringById = new Map(
-    registry.sources.filter(isRequiredRecurringSource).map((source) => [source.sourceId, source]),
+    registry.sources.filter(source => isRequiredRecurringSource(source, registry)).map((source) => [source.sourceId, source]),
   );
   for (const check of run.sourceChecks) {
     const expected = recurringById.get(check.sourceId);
@@ -1462,7 +1464,7 @@ function stableJson(value) {
 function coverageSourceHash(registry, discoveryTargets) {
   return sha256(stableJson({
     recurringSources: registry.sources
-      .filter(isRequiredRecurringSource)
+      .filter(source => isRequiredRecurringSource(source, registry))
       .sort((left, right) => left.sourceId.localeCompare(right.sourceId)),
     officialSocialCoverage: registry.officialSocialCoverage,
     discoveryTargets,

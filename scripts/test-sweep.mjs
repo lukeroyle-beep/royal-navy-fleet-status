@@ -92,6 +92,20 @@ assert.deepEqual(
   "Every current vessel requires exactly one explicit outcome.",
 );
 assert.deepEqual(run.releaseTarget, { asOfDate: "2026-08-24", releaseRevision: 1 });
+const optionalRegistry = structuredClone(registry);
+optionalRegistry.operations.find(s => s.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY").mandatory = false;
+const optionalRun = createSweepRun({ registry: optionalRegistry, entities, assessmentLog: assessments,
+  evidenceItems: evidence.evidence, startedAt, windowStart: "2026-08-17T00:00:00Z" });
+assert.deepEqual(optionalRun.sourceChecks.map(s => s.sourceId), run.sourceChecks
+  .filter(s => s.sourceId !== "MARINEVESSELTRAFFIC_NATO_DISCOVERY").map(s => s.sourceId));
+assert.notEqual(optionalRun.sourceRegistryHash, run.sourceRegistryHash);
+validateSweepRunShape(optionalRun);
+// Synthetic public fixtures need not include the private AIS registry entry.
+// Exercise that source policy directly as well as exact peer equality above.
+assert.equal(isRequiredRecurringSource({ sourceId: "VESSELFINDER_PUBLIC_AIS", enabled: true,
+  monitoring: { recurring: true } }, optionalRegistry), true);
+assert.equal(isRequiredRecurringSource(optionalRegistry.sources.find(s => s.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY"), optionalRegistry), false);
+
 assert.deepEqual(
   run.coverageInputs.rosterIds,
   entities.vessels.map((vessel) => vessel.vesselId).sort(),

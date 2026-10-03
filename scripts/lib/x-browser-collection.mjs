@@ -280,6 +280,35 @@ export function summarizeXBrowserSession(session) {
   };
 }
 
+// A compact work queue, not a coverage assertion. Durable session data is unchanged.
+export function compactXBrowserSession(session, { batchSize = 1 } = {}) {
+  if (!Number.isInteger(batchSize) || batchSize < 1 || batchSize > 2) {
+    throw new Error("Browser batch size must be one or two.");
+  }
+  const summary = summarizeXBrowserSession(session);
+  const pending = session.accounts.filter(entry => entry.state === "not-searched");
+  return {
+    schemaVersion: summary.schemaVersion,
+    sessionId: summary.sessionId,
+    runId: summary.runId,
+    scope: summary.scope,
+    window: summary.window,
+    counts: summary.counts,
+    requiredRemaining: session.accounts.filter(entry => entry.required && entry.state !== "checked").length,
+    pendingCount: pending.length,
+    next: pending.slice(0, batchSize).map(entry => ({
+      sourceId: entry.sourceId, handle: entry.handle, canonicalUrl: entry.canonicalUrl,
+      required: entry.required,
+    })),
+    // Terminal failures remain visible and are never silently retried or passed.
+    blockers: session.accounts.filter(entry => entry.blocker).map(entry => ({
+      sourceId: entry.sourceId, required: entry.required, state: entry.state,
+      type: entry.blocker.type,
+    })),
+    publicationEligible: false,
+  };
+}
+
 export function validateXBrowserSession(session) {
   if (!session || session.schemaVersion !== X_BROWSER_SESSION_SCHEMA_VERSION || session.kind !== SESSION_KIND) {
     throw new Error(`X browser session must use ${SESSION_KIND} schema ${X_BROWSER_SESSION_SCHEMA_VERSION}.`);

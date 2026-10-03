@@ -31,7 +31,7 @@ export function buildOperationalSourceRegistry(registry, entities, existingOpera
     .map((source) => {
       const prior = existingById.get(source.sourceId) || {};
       const vessel = vesselById.get(source.vesselId);
-      const mandatory = isMandatory(source);
+      const mandatory = isMandatory(source, prior);
       return {
         sourceId: source.sourceId,
         name: source.publisher,
@@ -188,7 +188,19 @@ export function createDiscoveryFamilyQueue(generatedAt) {
   };
 }
 
-function isMandatory(source) {
+export function isOptionalMonitoredMvt(source, operations = []) {
+  if (source?.sourceId !== "MARINEVESSELTRAFFIC_NATO_DISCOVERY" ||
+      !operations.some(entry => entry.sourceId === source.sourceId && entry.mandatory === false)) return false;
+  if (source.enabled !== true || source.reliabilityTier !== "D" ||
+      source.category !== "aggregator-discovery" || source.collectionMode !== "manual") {
+    throw new Error("Optional MVT must remain enabled, tier-D, manual discovery.");
+  }
+  return true;
+}
+
+function isMandatory(source, prior = {}) {
+  // This is deliberately not a general mandatory-source override.
+  if (isOptionalMonitoredMvt(source, [prior])) return false;
   if (source.xCollection) {
     return source.enabled !== false &&
       source.xCollection.enabled === true &&
