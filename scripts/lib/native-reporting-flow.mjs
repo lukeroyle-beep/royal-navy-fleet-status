@@ -3,7 +3,12 @@
 export async function nativeReportingFlow(io) {
   let attempt;
   const plans = [], readbacks = [];
-  const guidance = s => JSON.stringify([s.pageId,s.metadata,s.guidance,s.toolMeta,s.toolText,s.instructions]);
+  // Only this documented volatile page timestamp is excluded. All other
+  // metadata/control fields and full guidance remain part of the comparison.
+  const guidance = s => {
+    const metadata = s.metadata && Object.fromEntries(Object.entries(s.metadata).filter(([key])=>key!=='updated_at'));
+    return JSON.stringify([s.pageId,metadata,s.guidance,s.toolMeta,s.toolText,s.instructions]);
+  };
   try {
     const reviewed = await io.reviewed();
     if (reviewed.length !== 2 || reviewed.some(s=>!s.wholePageComplete)) throw Error('COMPLETE_REVIEWED_PAGES_REQUIRED');

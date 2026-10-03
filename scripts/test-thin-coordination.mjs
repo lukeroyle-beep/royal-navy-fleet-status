@@ -68,6 +68,10 @@ try {
         if(mode==='event-mutation')write(eventFile,{...event,facts:'Changed after binding'});
         assert.equal(stream_kind,'content');const i=[DESTINATION,HISTORY].indexOf(page_id);counts[i]++;
         if(mode==='denial')throw Error('denied');
+        if(mode==='timestamp')pages[i].structuredContent.metadata.updated_at=new Date(counts[i]*1000).toISOString();
+        if(mode==='control' && counts[i]===2)pages[i].structuredContent.metadata.stream_kind='other';
+        if(mode==='identity' && counts[i]===2)pages[i].structuredContent.content.page_id='other';
+        if(mode==='instruction' && counts[i]===2)pages[i].structuredContent.content.blocks[0].markdown='Changed policy';
         if(mode==='guidance' && counts[i]===2)pages[i].structuredContent.guidance='Changed instructions';
         if((mode==='manual' && counts[i]===2) || (mode==='final' && counts[i]===3))pages[i].structuredContent.content.blocks.at(-1).markdown='Manual replacement of managed table';
         return structuredClone(pages[i]);
@@ -89,7 +93,7 @@ try {
     await vm.runInNewContext(`(async()=>{${code}})()`,{tools,text:x=>outputs.push(x)});
     assert.equal(outputs.length,1);assert.ok(JSON.stringify(outputs).length<600);
     assert.equal(pages[0].structuredContent.content.blocks[1].markdown,'Manual content');
-    if(mode==='success' || mode==='event-mutation'){
+    if(mode==='success' || mode==='timestamp' || mode==='event-mutation'){
       assert.equal(outputs[0].state,'delivered');assert.equal(edits,4);assert.deepEqual(counts,[3,3]);
       // Repeat a stable event with newly inspected guidance: no writes, same guards.
       write(eventFile,event);pages.forEach((p,i)=>write(reads[i],p));cellConfig.directory=path.join(dir,'replay');
@@ -104,10 +108,10 @@ try {
       if(mode==='final'){assert.equal(edits,4);assert.deepEqual(counts,[3,3]);}
       else {assert.ok(edits<=1);assert.equal(counts[1],0);}
       if(mode==='unknown' || mode==='rejected')assert.equal(counts[0],2); // reread, never replay
-      if(mode==='guidance')assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
+      if(['guidance','control','identity','instruction'].includes(mode))assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
       if(mode==='mismatch'){assert.equal(edits,0);assert.deepEqual(counts,[0,0]);assert.equal(outputs[0].error,'QUEUED_EVENT_MISMATCH');}
     }
   }
-  for(const mode of ['success','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation'])await scenario(mode);
+  for(const mode of ['success','timestamp','control','identity','instruction','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation'])await scenario(mode);
   console.log('Thin coordination fixtures passed: native cell execution, guarded writes/replay, guidance/manual conflicts, unknown saves, denial/retry bounds, bootstrap provenance and no-mutation stops. No live tools used.');
 } finally {fs.rmSync(root,{recursive:true,force:true});}

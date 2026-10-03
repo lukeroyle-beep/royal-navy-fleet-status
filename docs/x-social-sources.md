@@ -3,7 +3,11 @@
 ## Scope and safety boundary
 
 The Sunday fleet review uses the personal Codex skill `royal-navy-x-browser-sweep` and the owner's
-existing signed-in Chrome session to inspect rendered public X pages. This stage is discovery and
+existing signed-in Chrome session to inspect rendered public X pages. Following the owner's explicit
+3 October 2026 approval, the dedicated headed local Chrome profile described in
+[`dedicated-browser-worker.md`](dedicated-browser-worker.md) is also a permitted source method.
+That approval authorises implementation and one-time manual login, not collection, a scheduled
+acceptance run or publication. The normal collection hold remains in force. This stage is discovery and
 human-review support, never an automatic fleet-status publisher. It does not use an X API, a
 third-party provider, non-rendered requests, browser credentials, cookies, storage, DMs, bookmarks,
 protected posts or private account data.
@@ -72,7 +76,9 @@ must remain outside the repository.
 
 ## Chrome observation method
 
-Use only the Chrome-control skill and its required initialization. Navigate directly to each
+Use the Chrome-control skill and its required initialization, or the separately approved
+dedicated-profile worker under its narrow operation contract. Its raw viewport receipts are always
+partial and must undergo evidence review before the existing recorder accepts any observation. Navigate directly to each
 registry account's canonical profile and inspect its rendered chronological Posts timeline, then
 enforce the sweep's exact half-open `[from, to)` timestamps during normalization. An X `Latest`
 search bound to the registry handle and UTC date envelope may be used when the canonical profile
