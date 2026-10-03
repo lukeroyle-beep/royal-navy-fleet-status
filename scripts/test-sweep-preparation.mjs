@@ -32,6 +32,7 @@ try {
   assert.throws(() => evaluateSweepUsage(records(10000), 'fixture', { now: now - 1 }), /MEASUREMENT_UNAVAILABLE/);
   assert.throws(() => evaluateSweepUsage([], 'fixture', { now }), /PROVENANCE/);
   assert.throws(() => evaluateSweepUsage([...records(220000), records(10000)[1]], 'fixture', { now }), /COUNTER_RESET/);
+  assert.throws(() => evaluateSweepUsage([...records(150000), records(10000)[1], records(160000)[1]], 'fixture', { now }), /COUNTER_RESET/);
   const invalid=records(10000);invalid[1].payload.info.total_token_usage.cached_input_tokens=20000;
   assert.throws(() => evaluateSweepUsage(invalid, 'fixture', { now }), /MEASUREMENT_INVALID/);
   assert.throws(() => evaluateSweepUsage(records(10000), 'fixture', { now, limit: 500000 }), /BUDGET_INVALID/);

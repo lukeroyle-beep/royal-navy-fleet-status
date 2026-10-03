@@ -18,7 +18,7 @@ export function evaluateSweepUsage(records, threadId, { limit = 250000, reserve 
   if (usage.cached_input_tokens > usage.input_tokens || usage.total_tokens !== usage.input_tokens + usage.output_tokens) fail('USAGE_MEASUREMENT_INVALID');
   const earlier = records.filter(r => r.type === 'event_msg' && r.payload?.type === 'token_count')
     .map(r => r.payload.info?.total_token_usage?.total_tokens).filter(v => v !== undefined);
-  if (earlier.some(v => !Number.isSafeInteger(v) || v < 0 || v > usage.total_tokens)) fail('USAGE_COUNTER_RESET');
+  if (earlier.some((v, i) => !Number.isSafeInteger(v) || v < 0 || (i > 0 && v < earlier[i - 1]))) fail('USAGE_COUNTER_RESET');
   const allowed = usage.total_tokens < limit - reserve;
   return { outcome: allowed ? 'WORK_BUDGET_AVAILABLE' : 'WORK_BUDGET_STOP',
     allowed, measuredAt: record.timestamp, totalTokens: usage.total_tokens,
