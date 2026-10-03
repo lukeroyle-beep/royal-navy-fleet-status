@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { requireSweepWorkBudget } from './lib/sweep-work-budget.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -11,6 +12,7 @@ const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(na
 const repository = fileURLToPath(new URL('..', import.meta.url));
 try {
   const config = JSON.parse(fs.readFileSync(assertPrivateArtifact(arg('config')), 'utf8'));
+  if (config.usageBudget) requireSweepWorkBudget(config.usageBudget);
   const output = assertPrivateArtifact(arg('output'));
   if (fs.existsSync(output)) throw new Error('Existing preflight receipt');
   const stage = arg('then');
@@ -39,8 +41,8 @@ try {
   console.log(JSON.stringify(result || receipt));
   if (receipt.outcome !== 'READY_FOR_COLLECTION' ||
       (result && !['PLAN_PREPARED', 'DISCOVERY_COMPLETE_REVIEW_REQUIRED'].includes(result.outcome))) process.exitCode = 1;
-} catch {
+} catch (error) {
   try { recordEarlyFailure({}); } catch (error) { console.error(JSON.stringify({reportingError:error.message,sweepResultUnchanged:true})); }
-  console.error(JSON.stringify({ outcome: 'FAILED', diagnostic: 'PREFLIGHT_OR_REQUESTED_STAGE_FAILED', publicationEligible: false }));
+  console.error(JSON.stringify({ outcome: 'FAILED', diagnostic: error.diagnostic || 'PREFLIGHT_OR_REQUESTED_STAGE_FAILED', publicationEligible: false }));
   process.exitCode = 1;
 }
