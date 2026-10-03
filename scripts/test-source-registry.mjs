@@ -171,3 +171,25 @@ for (const fixture of regressions.cases) {
 }
 
 console.log("Operational source registry, account reconciliation and discovery-queue tests passed.");
+
+// The approved prospective MVT policy survives a rebuild without changing peers.
+const optionalMvt = structuredClone(registry);
+const mvtOperation = optionalMvt.operations.find(entry => entry.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY");
+mvtOperation.mandatory = false;
+const rebuiltOptional = buildOperationalSourceRegistry(optionalMvt, entities);
+assert.equal(rebuiltOptional.find(entry => entry.sourceId === mvtOperation.sourceId).mandatory, false);
+assert.deepEqual(rebuiltOptional.filter(entry => entry.sourceId !== mvtOperation.sourceId),
+  buildOperationalSourceRegistry(registry, entities).filter(entry => entry.sourceId !== mvtOperation.sourceId));
+assert.equal(validateOperationalSourceRegistry(optionalMvt, entities), optionalMvt);
+for (const patch of [{ reliabilityTier: "A" }, { enabled: false }, { category: "official-vessel-social" }, { collectionMode: "api" }]) {
+  const unsafe = structuredClone(optionalMvt);
+  Object.assign(unsafe.sources.find(entry => entry.sourceId === mvtOperation.sourceId), patch);
+  assert.throws(() => buildOperationalSourceRegistry(unsafe, entities), /Optional MVT must remain/);
+}
+const failedMvt = updateOperationalSourceState(optionalMvt.operations, [{
+  sourceId: mvtOperation.sourceId, state: "blocked", outcome: null, checkedAt: null,
+  blocker: { at: "2026-10-02T09:10:00Z", type: "identity-mismatch" },
+}]).find(entry => entry.sourceId === mvtOperation.sourceId);
+assert.equal(failedMvt.mandatory, false);
+assert.equal(failedMvt.lastSuccessAt, mvtOperation.lastSuccessAt);
+assert.equal(failedMvt.consecutiveFailures, mvtOperation.consecutiveFailures + 1);

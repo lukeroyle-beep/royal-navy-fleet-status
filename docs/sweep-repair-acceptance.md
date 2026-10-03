@@ -68,9 +68,10 @@ and [command rules](https://learn.chatgpt.com/docs/agent-configuration/rules).
 
 ## Subsequent steps and completion evidence
 
-2. Resolve Marine Vessel Traffic page/panel identity with corrected source evidence
-   or a validated registry replacement. Historical one-run quarantines cannot carry
-   forward. Check this known mandatory failure before broad browser collection.
+2. Apply the owner-approved prospective optional-monitored MVT policy as described
+   in [sweep continuation](sweep-continuation.md), or resolve its identity before
+   treating it as evidence. This policy is not a source success or a validated
+   replacement. Historical one-run quarantines cannot carry forward.
 3. Trial compact rendered-public Chrome batches with one writer and the existing
    canary/scroll bounds. Compare equivalent examined windows and coverage, not packet
    processing speed. Retain partial observations and count actual browser calls.

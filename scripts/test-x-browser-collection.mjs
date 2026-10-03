@@ -9,6 +9,7 @@ import { createSweepRun } from "./lib/sweep.mjs";
 import {
   assertSessionBinding,
   createXBrowserSession,
+  compactXBrowserSession,
   finalizeXBrowserSession,
   mergeXBrowserSessionProgress,
   recordXBrowserObservation,
@@ -140,6 +141,26 @@ try {
   assert.equal(resumed.accounts.find((entry) => entry.sourceId === "NAVY_LOOKOUT_SOCIAL").state, "not-searched");
   assert.equal(resumed.posts.length, canary.posts.length);
   assertSessionBinding(resumed, { registry, run: canaryRun });
+  // Persist/reopen the exact session: completed acquisition does not re-enter the queue.
+  const savedSession = path.join(temporaryRoot, "compact-recovery.json");
+  writeJsonAtomic(savedSession, resumed);
+  const reopened = JSON.parse(fs.readFileSync(savedSession, "utf8"));
+  const beforeCompact = JSON.stringify(reopened);
+  const compact = compactXBrowserSession(reopened, { batchSize: 2 });
+  assert.deepEqual(compact.counts, summarizeXBrowserSession(reopened).counts);
+  assert.deepEqual(compact.next.map(entry => entry.sourceId), ["NAVY_LOOKOUT_SOCIAL"]);
+  assert.equal(compact.next[0].canonicalUrl, reopened.accounts[0].canonicalUrl);
+  assert.equal(compact.requiredRemaining, 0);
+  assert.equal(JSON.stringify(reopened), beforeCompact, "Compact output never edits evidence.");
+  for (const batchSize of [0, 3, 1.5, NaN]) assert.throws(() => compactXBrowserSession(reopened, { batchSize }), /batch size/);
+  const changedWindow = structuredClone(canaryRun);
+  changedWindow.window.toExclusive = "2026-09-01T00:00:00Z";
+  assert.throws(() => assertSessionBinding(reopened, { registry, run: changedWindow }));
+  const blockedCompact = compactXBrowserSession(session);
+  assert.equal(blockedCompact.next.length, 0);
+  assert.equal(blockedCompact.blockers.length, 1);
+  assert.equal(blockedCompact.publicationEligible, false);
+
   assert.throws(
     () => finalizeXBrowserSession({
       session: resumed,

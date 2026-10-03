@@ -297,7 +297,7 @@ export function compactXBrowserSession(session, { batchSize = 1 } = {}) {
     requiredRemaining: session.accounts.filter(entry => entry.required && entry.state !== "checked").length,
     pendingCount: pending.length,
     next: pending.slice(0, batchSize).map(entry => ({
-      sourceId: entry.sourceId, handle: entry.handle, profileUrl: entry.profileUrl,
+      sourceId: entry.sourceId, handle: entry.handle, canonicalUrl: entry.canonicalUrl,
       required: entry.required,
     })),
     // Terminal failures remain visible and are never silently retried or passed.
