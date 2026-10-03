@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { execFileSync } from 'node:child_process';
+import { summarizePageRead, reportingInputFromFiles } from './lib/reporting-files.mjs';
+import { planPage, confirmPage, verifyPage, DESTINATION } from './lib/command-centre.mjs';
+import { startSweep } from './lib/sweep-startup.mjs';
+const root=fs.mkdtempSync(path.join(os.tmpdir(),'rnfs-compact-fixture-'));
+const write=(n,v)=>{const p=path.join(root,n);fs.writeFileSync(p,JSON.stringify(v));return p;};
+try {
+ const event={schemaVersion:1,runId:'RUN_A',eventId:'EVENT_A',revision:1,runStartedAt:'2026-10-03T10:00:00Z',recordedAt:'2026-10-03T10:01:00Z',evidenceAt:'2026-10-03T10:01:00Z',completedAt:'2026-10-03T10:01:00Z',trigger:'scheduled',outcome:'PREFLIGHT_FAILED',coverage:{sources:[0,76],discovery:[0,7],vessels:[0,69],integrity:[0,6]},publication:'Unchanged',lastGoodRelease:'Prior release',blocker:'Usage stop',nextAction:'Review budget',backup:'Not reached',nextScheduledAt:null,facts:'No collection',references:[]};
+ const page={structuredContent:{content:{page_id:DESTINATION,blocks:[{id:'instructions',kind:'agent_instructions',hash:'i',markdown:'Retain manual content.'},{id:'manual',kind:'markdown',hash:'m',markdown:'Unrelated manual note. '.repeat(3000)}]},metadata:{stream_kind:'content'},guidance:'Use expected hashes.'}};
+ const compact=summarizePageRead(page);assert.equal(compact.guidance,'Use expected hashes.');assert.equal(compact.instructions[0].markdown,'Retain manual content.');assert.ok(JSON.stringify(compact).length<1000);
+ const eventFile=write('event.json',event), pageFile=write('page.json',page);
+ const spec={page:pageFile,event:eventFile,kind:'summary',at:'2026-10-03T10:02:00Z'};
+ const input=reportingInputFromFiles('plan',spec);const expected=planPage(page,event,'summary',spec.at);
+ assert.deepEqual(planPage(input.page,input.event,input.kind,input.savedAt),expected);
+ const output=path.join(root,'plan.json');
+ const stdout=execFileSync(process.execPath,['scripts/command-centre.mjs','plan','--files='+write('spec.json',spec),'--output='+output,'--compact'],{encoding:'utf8'});
+ assert.deepEqual(JSON.parse(fs.readFileSync(output)),expected);assert.equal(JSON.parse(stdout).operationCount,1);assert.ok(stdout.length<350);assert.ok(!stdout.includes('Unrelated'));
+ const saved=structuredClone(page);const op=expected.operations[0];saved.structuredContent.content.blocks.push({id:'managed',hash:'n',markdown:op.markdown,metadata:op.block_units[0].metadata});
+ const confirmation=reportingInputFromFiles('confirm',{page:write('saved.json',saved),event:eventFile,plan:output,at:'2026-10-03T10:03:00Z'});
+ const confirmed=confirmPage(confirmation.page,confirmation.event,confirmation.plan,confirmation.confirmedAt);assert.equal(confirmed.operations.length,1);
+ assert.equal(saved.structuredContent.content.blocks[1].markdown,page.structuredContent.content.blocks[1].markdown);
+ const bad=structuredClone(saved);bad.structuredContent.content.blocks.at(-1).markdown='Edited manually';
+ assert.throws(()=>verifyPage(bad,event,expected),/READBACK/);
+ assert.throws(()=>reportingInputFromFiles('finish',{event:eventFile,plans:[],readbacks:[]}),/BOTH_REPORTING/);
+ let calls=0;const probes={encrypted:()=>{calls++;return true;},write:()=>{calls++;}};
+ const config={schemaVersion:1,privateRoot:root,backupDirectory:root,attemptDirectory:path.join(root,'attempt'),sessionPath:'/fixture-only'};
+ const stopped=await startSweep({config,usage:{allowed:false},probes});assert.equal(stopped.outcome,'WORK_BUDGET_STOP');assert.equal(calls,0);assert.equal(fs.existsSync(config.attemptDirectory),false);
+ const check=await startSweep({config,usage:{allowed:true},probes,checkOnly:true});assert.equal(check.outcome,'CAPABILITY_CHECK_PASSED');assert.equal(fs.existsSync(config.attemptDirectory),false);
+ const prepared=await startSweep({config,usage:{allowed:true},probes});assert.equal(prepared.outcome,'DIRECTORIES_PREPARED');assert.equal(fs.existsSync(prepared.preparation.collectionOutput+'.checkpoints'),false);
+ assert.deepEqual(prepared.preparation.usageBudget,{sessionPath:'/fixture-only'});
+ const blocked=await startSweep({config:{...config,attemptDirectory:path.join(root,'blocked')},usage:{allowed:true},probes:{...probes,encrypted:()=>false}});assert.equal(blocked.outcome,'DEFERRED_WITH_JUSTIFICATION');assert.equal(fs.existsSync(path.join(root,'blocked')),false);
+ console.log('Compact file reporting preserves exact operations/readback checks; startup usage/capability/preparation order passed (fixtures only).');
+} finally {fs.rmSync(root,{recursive:true,force:true});}
