@@ -10,6 +10,9 @@ Targets (never create replacements):
 - Command Centre: `page_16c3cf55b8d48191b8750da033279fa5`
 - Existing History: `page_bb858131ca6c8191ab2650a42515bfa3`
 
+Use the [compact execution and file transport](compact-sweep-execution.md) to keep full Page
+objects in private files. This changes transport, not edit or readback semantics.
+
 ## Every invocation, including manual execution
 
 Use the durable private `command-centre-outbox` directory under the existing
