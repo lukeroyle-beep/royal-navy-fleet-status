@@ -92,6 +92,17 @@ assert.deepEqual(
   "Every current vessel requires exactly one explicit outcome.",
 );
 assert.deepEqual(run.releaseTarget, { asOfDate: "2026-08-24", releaseRevision: 1 });
+const optionalRegistry = structuredClone(registry);
+optionalRegistry.operations.find(s => s.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY").mandatory = false;
+const optionalRun = createSweepRun({ registry: optionalRegistry, entities, assessmentLog: assessments,
+  evidenceItems: evidence.evidence, startedAt, windowStart: "2026-08-17T00:00:00Z" });
+assert.deepEqual(optionalRun.sourceChecks.map(s => s.sourceId), run.sourceChecks
+  .filter(s => s.sourceId !== "MARINEVESSELTRAFFIC_NATO_DISCOVERY").map(s => s.sourceId));
+assert.notEqual(optionalRun.sourceRegistryHash, run.sourceRegistryHash);
+validateSweepRunShape(optionalRun);
+assert.ok(optionalRun.sourceChecks.some(s => /VESSELFINDER/i.test(s.sourceId)));
+assert.equal(isRequiredRecurringSource(optionalRegistry.sources.find(s => s.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY"), optionalRegistry), false);
+
 assert.deepEqual(
   run.coverageInputs.rosterIds,
   entities.vessels.map((vessel) => vessel.vesselId).sort(),

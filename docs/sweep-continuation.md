@@ -7,7 +7,8 @@ monitored discovery on 2 October 2026, accepting the risk of missing unique
 aggregator leads when retrieval fails. This is not a successful source check or
 validated replacement. Its operation may be explicitly set `mandatory: false`;
 the generator preserves that choice only for this source and requires it to remain
-enabled, manual, tier-D aggregator discovery. Legacy registries remain mandatory.
+enabled, manual, tier-D aggregator discovery. Legacy registries remain mandatory. The same scoped policy controls fresh-run
+checks, coverage validation and binding; acquisition retains optional MVT monitoring.
 
 Apply the two approved private changes after this code is reviewed and merged:
 set that operation's mandatory flag false, and retain notes explaining the identity

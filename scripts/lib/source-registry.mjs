@@ -188,16 +188,19 @@ export function createDiscoveryFamilyQueue(generatedAt) {
   };
 }
 
-function isMandatory(source, prior = {}) {
-  // Preserve the owner-approved, prospective MVT discovery policy on rebuild.
-  // This is deliberately not a general mandatory-source override.
-  if (source.sourceId === "MARINEVESSELTRAFFIC_NATO_DISCOVERY" && prior.mandatory === false) {
-    if (source.enabled !== true || source.reliabilityTier !== "D" ||
-        source.category !== "aggregator-discovery" || source.collectionMode !== "manual") {
-      throw new Error("Optional MVT must remain enabled, tier-D, manual discovery.");
-    }
-    return false;
+export function isOptionalMonitoredMvt(source, operations = []) {
+  if (source?.sourceId !== "MARINEVESSELTRAFFIC_NATO_DISCOVERY" ||
+      !operations.some(entry => entry.sourceId === source.sourceId && entry.mandatory === false)) return false;
+  if (source.enabled !== true || source.reliabilityTier !== "D" ||
+      source.category !== "aggregator-discovery" || source.collectionMode !== "manual") {
+    throw new Error("Optional MVT must remain enabled, tier-D, manual discovery.");
   }
+  return true;
+}
+
+function isMandatory(source, prior = {}) {
+  // This is deliberately not a general mandatory-source override.
+  if (isOptionalMonitoredMvt(source, [prior])) return false;
   if (source.xCollection) {
     return source.enabled !== false &&
       source.xCollection.enabled === true &&

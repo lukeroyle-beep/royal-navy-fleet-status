@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { resolvePrivateInputs, repositoryRootPath } from './lib/private-inputs.mjs';
-import { buildOperationalSourceRegistry } from './lib/source-registry.mjs';
+import { buildOperationalSourceRegistry, isOptionalMonitoredMvt } from './lib/source-registry.mjs';
 import { createXBrowserSession, normalizeBrowserObservation } from './lib/x-browser-collection.mjs';
 import { isRequiredRecurringSource, validateSweepRunShape } from './lib/sweep.mjs';
 import { FAILURE, SUCCESS, acquireSources, checkpointJson, planAcquisitionSource, digest, openAcquisitionJournal } from './lib/acquisition.mjs';
@@ -16,7 +16,7 @@ const directory = privateDirectory(arg('state'));
 const run = JSON.parse(fs.readFileSync(arg('run'), 'utf8'));
 const registry = inputs.readJson('sources'), entities = inputs.readJson('vessels');
 const operations = buildOperationalSourceRegistry(registry, entities);
-const sources = registry.sources.filter(s => isRequiredRecurringSource(s) || (s.enabled !== false && s.xCollection?.enabled)).map(s => ({ ...s, ...{ mandatory: isRequiredRecurringSource(s), acquisition: operations.find(o => o.sourceId === s.sourceId).acquisition } }));
+const sources = registry.sources.filter(s => isRequiredRecurringSource(s, registry) || isOptionalMonitoredMvt(s, operations) || (s.enabled !== false && s.xCollection?.enabled)).map(s => ({ ...s, ...{ mandatory: isRequiredRecurringSource(s, registry), acquisition: operations.find(o => o.sourceId === s.sourceId).acquisition } }));
 const stale = new Set(reconcileFleet({ entities, assessmentLog: inputs.readJson('assessments'), evidenceItems: inputs.readJson('evidence').evidence, run, at: run.window.to }).staleWarnings);
 for (const source of sources) {
   source.staleEvidencePriority = Boolean(source.vesselId && stale.has(source.vesselId));
