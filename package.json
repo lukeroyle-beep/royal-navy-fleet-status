@@ -44,10 +44,12 @@
     "status:operational": "node scripts/operational-status.mjs",
     "test:operational-status": "node scripts/test-operational-status.mjs",
     "report:command-centre": "node scripts/command-centre.mjs",
-    "test:command-centre": "node scripts/test-command-centre.mjs && node scripts/test-compact-sweep-context.mjs",
+    "test:command-centre": "node scripts/test-command-centre.mjs && node scripts/test-compact-sweep-context.mjs && node scripts/test-thin-coordination.mjs",
     "sweep:capabilities": "node scripts/check-sweep-capabilities.mjs",
     "sweep:guard": "node scripts/check-sweep-work.mjs",
-    "sweep:start": "node scripts/start-sweep.mjs"
+    "sweep:start": "node scripts/start-sweep.mjs",
+    "sweep:bootstrap": "node scripts/bootstrap-sweep.mjs",
+    "report:cell": "node scripts/render-reporting-cell.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",

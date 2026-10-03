@@ -1,5 +1,9 @@
 # Compact current execution contract
 
+Use the [thin coordination helpers](thin-sweep-coordination.md) for routine
+bootstrap and a generated native reporting cell. They preserve the steps below;
+they do not release a hold or authorise a measurement.
+
 This brief routes current work; it does not exempt applicable repository, skill or
 platform instructions. Read those once as required, then retain their constraints.
 Keep historical handoffs and full evidence in private files; load a specific item

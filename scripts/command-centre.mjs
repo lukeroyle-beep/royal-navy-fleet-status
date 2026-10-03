@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { readReportingFile, reportingInputFromFiles, summarizePageRead, summarizeReportingResult } from './lib/reporting-files.mjs';
-import { enqueue, pending, beginAttempt, planPage, confirmPage, finishAttempt } from './lib/command-centre.mjs';
+import { enqueue, pending, beginAttempt, planPage, confirmPage, finishAttempt, validateEvent, digest } from './lib/command-centre.mjs';
 import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
 const [command,...args] = process.argv.slice(2);
 const arg = name => args.find(x=>x.startsWith(`--${name}=`))?.slice(name.length+3);
@@ -10,6 +10,7 @@ try {
   if(args.includes('--compact') && !arg('output') && command !== 'page-summary') throw new Error('COMPACT_REQUIRES_FULL_PRIVATE_OUTPUT');
   let result;
   if(command==='page-summary') result=summarizePageRead(read('input'));
+  else if(command==='event-binding') { const event=validateEvent(read('input')); result={event,digest:digest(event)}; }
   else if(command==='record') { const value=read('input'); result=enqueue(arg('outbox'),value.event,value.receipts); }
   else if(command==='pending') result=pending(arg('outbox'));
   else if(command==='begin') result=beginAttempt(arg('outbox'),arg('event'),arg('invocation'),arg('context'));
