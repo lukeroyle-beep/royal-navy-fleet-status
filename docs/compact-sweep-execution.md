@@ -1,5 +1,8 @@
 # Compact current execution contract
 
+Use [bounded review, browser batches and usage attribution](osint-efficiency.md)
+for the current low-overhead path. This does not release collection holds.
+
 Use the [thin coordination helpers](thin-sweep-coordination.md) for routine
 bootstrap and a generated native reporting cell. They preserve the steps below;
 they do not release a hold or authorise a measurement.
