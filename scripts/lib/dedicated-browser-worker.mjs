@@ -197,7 +197,7 @@ export async function observeBatch(root,page,batch,{now=Date.now,sleep,deadline=
   if(typeof beforeOperation!=='function'||!Array.isArray(batch.operations)||!batch.operations.length||batch.operations.length>6||
      !Number.isFinite(deadline)||deadline>now()+90000) fail('BATCH_CONTROL_REQUIRED');
   const receipts=[];
-  let stop=null;
+  let stop=null,failure=null;
   for(const operation of batch.operations) {
     if(now()>=deadline) {stop='BATCH_DEADLINE';break;}
     try { await beforeOperation(); } // existing fresh native work guard, never a fabricated usage estimate
@@ -206,12 +206,19 @@ export async function observeBatch(root,page,batch,{now=Date.now,sleep,deadline=
       break;
     }
     if(now()>=deadline) {stop='BATCH_DEADLINE';break;}
-    const receipt=await captureAndPersist(root,page,operation,{now,...(sleep ? {sleep} : {}),deadline});
+    let receipt;
+    try { receipt=await captureAndPersist(root,page,operation,{now,...(sleep ? {sleep} : {}),deadline}); }
+    catch(error) {
+      const recoveryCodes=['SOURCE_LIMIT_REACHED','OPERATION_ID_CONFLICT','EVIDENCE_HASH_MISMATCH','ORPHAN_EVIDENCE_REQUIRES_REVIEW','CHECKPOINT_BINDING_INVALID'];
+      stop=recoveryCodes.includes(error.message)?error.message:'BATCH_PERSISTENCE_FAILED';
+      failure=sanitizedBrowserFailure(error,'persistence');
+      break; // an unknown save is inspected, never automatically replayed
+    }
     receipts.push(receipt);
     if(receipt.status!=='partial') {stop=receipt.status;break;}
   }
-  return {status:stop?'batch-stopped':'batch-partial',stop,receipts,
-    pending:batch.operations.slice(receipts.length).map(o=>({sourceId:o.request.sourceId,operationId:o.request.operationId})),
+  return {status:stop?'batch-stopped':'batch-partial',stop,receipts,...(failure?{failure}:{}),
+    pending:batch.operations.slice(receipts.length).map((o,i)=>({sourceId:o.request.sourceId,operationId:o.request.operationId,state:failure&&i===0?'review-required':'not-started'})),
     sourceReviewRequired:true,coverageComplete:false,noChangeClaimAllowed:false,publicationEligible:false};
 }
 export async function captureAndPersist(root, page, operation, dependencies) {

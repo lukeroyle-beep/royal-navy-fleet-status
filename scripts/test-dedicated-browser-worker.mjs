@@ -94,6 +94,15 @@ try {
   const guardRoot=privateDirectory(path.join(root,'guard-batch')), guarded=fake([ready]);let guardCalls=0;
   const guardStop=await observeBatch(guardRoot,guarded.page,batch,{...guarded.dependencies,beforeOperation:()=>{if(++guardCalls===2)throw Error('WORK_BUDGET_STOP');}});
   assert.equal(guardStop.stop,'WORK_BUDGET_STOP');assert.equal(guardStop.receipts.length,1);assert.equal(guarded.counts().navigations,1);
+  const interruptedRoot=privateDirectory(path.join(root,'interrupted-batch')), interrupted=fake([ready]);let attempts=0;
+  const persistenceStop=await observeBatch(interruptedRoot,interrupted.page,batch,{...interrupted.dependencies,beforeOperation:()=>{
+    if(++attempts===2){const o=batch.operations[1];fs.writeFileSync(path.join(interruptedRoot,'evidence',`${o.binding}-${o.request.sourceId}-${o.request.operationId}.json.pending`),'{}',{flag:'wx',mode:0o600});}
+  }});
+  assert.equal(persistenceStop.stop,'BATCH_PERSISTENCE_FAILED');assert.equal(persistenceStop.receipts.length,1);assert.equal(persistenceStop.pending.length,1);
+  assert.deepEqual(persistenceStop.failure,{phase:'persistence',code:'EEXIST'});assert.equal(persistenceStop.pending[0].state,'review-required');
+  assert.ok(fs.existsSync(persistenceStop.receipts[0].file));assert.equal(interrupted.counts().navigations,1);
+  const interruptedReplay=await observeBatch(interruptedRoot,interrupted.page,batch,{...interrupted.dependencies,beforeOperation:()=>{}});
+  assert.equal(interruptedReplay.receipts[0].reused,true);assert.equal(interruptedReplay.pending[0].state,'review-required');assert.equal(interrupted.counts().navigations,1);
   const deadlineRoot=privateDirectory(path.join(root,'deadline-batch')), noTime=fake([ready]);
   assert.equal((await observeBatch(deadlineRoot,noTime.page,batch,{...noTime.dependencies,deadline:0,beforeOperation:()=>{}})).stop,'BATCH_DEADLINE');
   assert.equal(noTime.counts().navigations,0);
