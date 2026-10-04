@@ -136,9 +136,9 @@ export function classifyViewport(view, operation) {
   }
   return {status:'partial', observations}; // a viewport never certifies coverage
 }
-export async function observeOperation(page, operation, {now=Date.now, sleep=ms=>new Promise(r=>setTimeout(r,ms))}={}) {
-  const deadline=now()+operation.request.timeoutMs;
-  const viewports=[]; let scrolls=0, status='timeout', identity='';
+export async function observeOperation(page, operation, {now=Date.now, sleep=ms=>new Promise(r=>setTimeout(r,ms)),deadline:batchDeadline=Infinity}={}) {
+  const deadline=Math.min(now()+operation.request.timeoutMs,batchDeadline);
+  const viewports=[]; let scrolls=0, status='timeout', identity='', phase='navigation', failure=null;
   const bounded=async work=>{
     let timer;
     try {return await Promise.race([work(),new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('DEADLINE')),Math.max(1,deadline-now()));})]);}
@@ -147,8 +147,10 @@ export async function observeOperation(page, operation, {now=Date.now, sleep=ms=
   try {
     await bounded(()=>page.goto(operation.url,{waitUntil:'domcontentloaded',timeout:Math.max(1,deadline-now())}));
     while(now()<deadline) {
+      phase='rendered-read';
       const view=await bounded(()=>page.evaluate(visibleViewport,{expectedHandle:operation.handle,verifiedIdentity:identity}));
       if(now()>=deadline) {status='timeout';break;}
+      phase='classification';
       const result=classifyViewport({...view,identity:view.identity||identity},operation);
       if(result.status==='loading') {await sleep(Math.min(250,Math.max(1,deadline-now())));continue;}
       status=result.status;
@@ -156,12 +158,68 @@ export async function observeOperation(page, operation, {now=Date.now, sleep=ms=
       identity=view.identity||identity;
       viewports.push({capturedAt:new Date(now()).toISOString(),url:operation.url,identity,observations:result.observations});
       if(scrolls>=operation.request.maxScrolls) break;
+      phase='scroll';
       await bounded(()=>page.mouse.wheel(0,600)); scrolls++;
       await sleep(Math.min(500,Math.max(1,deadline-now())));
       status='timeout';
     }
-  } catch(error) {status=error.message==='DEADLINE'||error.name==='TimeoutError'||now()>=deadline?'timeout':'navigation-failed';}
-  return {status,scrolls,viewports,coverageComplete:false,publicationEligible:false,noChangeClaimAllowed:false};
+  } catch(error) {
+    status=error.message==='DEADLINE'||error.name==='TimeoutError'||now()>=deadline?'timeout':'navigation-failed';
+    failure=sanitizedBrowserFailure(error,phase);
+  }
+  return {status,scrolls,viewports,...(failure ? {failure} : {}),coverageComplete:false,publicationEligible:false,noChangeClaimAllowed:false};
+}
+
+// Classify errors without retaining raw messages, URLs, browser/profile details
+// or credentials. Phase distinguishes launch, navigation and renderer failures.
+export function sanitizedBrowserFailure(error, phase) {
+  const allowed = ['configuration','usage','lock','launch','navigation','rendered-read','classification','scroll','persistence','cleanup'];
+  const message=String(error?.message || ''), name=String(error?.name || '');
+  const code=message==='DEADLINE'||name==='TimeoutError' ? 'DEADLINE' :
+    /Target.*closed|browser.*closed|context.*closed/i.test(message) ? 'BROWSER_CLOSED' :
+    /net::ERR_|NS_ERROR_/i.test(message) ? 'NETWORK_FAILURE' :
+    /Execution context was destroyed/i.test(message) ? 'RENDER_CONTEXT_CHANGED' :
+    ['EEXIST','EACCES','EPERM'].includes(error?.code) ? error.code : 'OPERATION_FAILED';
+  return {phase:allowed.includes(phase)?phase:'configuration',code};
+}
+
+export function bindObservationBatch({registry,run,session,requests,maxDurationMs}) {
+  if(!Array.isArray(requests)||!requests.length||requests.length>6||!Number.isInteger(maxDurationMs)||maxDurationMs<1000||maxDurationMs>90000) fail('BATCH_CONTRACT_INVALID');
+  const operations=requests.map(request=>bindOperation({registry,run,session,request}));
+  if(new Set(operations.map(o=>`${o.request.sourceId}:${o.request.operationId}`)).size!==operations.length) fail('BATCH_DUPLICATE_OPERATION');
+  return {operations,maxDurationMs};
+}
+
+// A single page and exclusive writer serve a bounded, sequential batch. Each
+// operation checkpoints before the next starts. Any blocked result stops the
+// batch; untouched operations remain pending, never implicitly complete.
+export async function observeBatch(root,page,batch,{now=Date.now,sleep,deadline=now()+batch.maxDurationMs,beforeOperation}={}) {
+  if(typeof beforeOperation!=='function'||!Array.isArray(batch.operations)||!batch.operations.length||batch.operations.length>6||
+     !Number.isFinite(deadline)||deadline>now()+90000) fail('BATCH_CONTROL_REQUIRED');
+  const receipts=[];
+  let stop=null,failure=null;
+  for(const operation of batch.operations) {
+    if(now()>=deadline) {stop='BATCH_DEADLINE';break;}
+    try { await beforeOperation(); } // existing fresh native work guard, never a fabricated usage estimate
+    catch(error) {
+      stop=['WORK_BUDGET_STOP','USAGE_MEASUREMENT_UNAVAILABLE','USAGE_PROVENANCE_UNAVAILABLE','USAGE_COUNTER_RESET','USAGE_MEASUREMENT_INVALID'].includes(error.message)?error.message:'BATCH_GUARD_FAILED';
+      break;
+    }
+    if(now()>=deadline) {stop='BATCH_DEADLINE';break;}
+    let receipt;
+    try { receipt=await captureAndPersist(root,page,operation,{now,...(sleep ? {sleep} : {}),deadline}); }
+    catch(error) {
+      const recoveryCodes=['SOURCE_LIMIT_REACHED','OPERATION_ID_CONFLICT','EVIDENCE_HASH_MISMATCH','ORPHAN_EVIDENCE_REQUIRES_REVIEW','CHECKPOINT_BINDING_INVALID'];
+      stop=recoveryCodes.includes(error.message)?error.message:'BATCH_PERSISTENCE_FAILED';
+      failure=sanitizedBrowserFailure(error,'persistence');
+      break; // an unknown save is inspected, never automatically replayed
+    }
+    receipts.push(receipt);
+    if(receipt.status!=='partial') {stop=receipt.status;break;}
+  }
+  return {status:stop?'batch-stopped':'batch-partial',stop,receipts,...(failure?{failure}:{}),
+    pending:batch.operations.slice(receipts.length).map((o,i)=>({sourceId:o.request.sourceId,operationId:o.request.operationId,state:failure&&i===0?'review-required':'not-started'})),
+    sourceReviewRequired:true,coverageComplete:false,noChangeClaimAllowed:false,publicationEligible:false};
 }
 export async function captureAndPersist(root, page, operation, dependencies) {
   const evidence=privateDirectory(path.join(root,'evidence'));
@@ -195,6 +253,7 @@ export async function captureAndPersist(root, page, operation, dependencies) {
   const artifact={schemaVersion:1,policy:POLICY,binding:operation.binding,request:operation.request,...result};
   const ref=immutable(evidence,name,artifact);
   const receipt={operationId:operation.request.operationId,requestHash:hash(operation.request),...ref,status:result.status,
+    sourceId:operation.request.sourceId,checkpoint,sourceReviewRequired:true,...(result.failure?{failure:result.failure}:{}),
     viewportCount:result.viewports.length,scrolls:result.scrolls,coverageComplete:false,publicationEligible:false,noChangeClaimAllowed:false};
   const next={...prior,scrolls:prior.scrolls+result.scrolls,operations:[...prior.operations,receipt]};
   const temp=path.join(evidence,`${key}.tmp`);

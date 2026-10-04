@@ -1,6 +1,7 @@
 import { correctionCarryForward } from './correction-carry-forward.mjs';
 import { digest } from './acquisition.mjs';
 import { extractEvidenceCandidate, findEvidenceContradictions, clusterEvidenceCandidates } from './evidence-processing.mjs';
+import { evidenceReasoning } from './review-routing.mjs';
 
 // Absence of maritime words in an excerpt is not evidence of irrelevance.
 // Only a complete text-only observation can use these deliberately narrow rules.
@@ -47,7 +48,7 @@ export function preprocessEvidence(items, source, { vessels, current = [], cutof
     if (!eventTime) reasons.push('event-time-unknown');
     if (eventTime && (Date.parse(eventTime) >= Date.parse(cutoff) || Date.parse(eventTime) < Date.parse(windowStart))) reasons.push('retrospective-or-outside-window');
     if (item.revised) reasons.push('historical-content-revised');
-    if (vessel && /submarine|ssbn|ssn/i.test(JSON.stringify({ type: vessel.type, class: vessel.class, vesselType: vessel.vesselType }))) reasons.push('protected-activity-review');
+    if (matches.some(v => /submarine|ssbn|ssn/i.test(JSON.stringify({ type: v.type, class: v.class, vesselType: v.vesselType })))) reasons.push('protected-activity-review');
     if (status && state && status !== state.status) reasons.push('state-transition');
     if (location && state && location !== state.location?.name) reasons.push('location-change');
     if (!status && !location) reasons.push('claim-requires-review');
@@ -71,8 +72,30 @@ export function adjudicationQueue(candidates) {
   const conflictIds = new Set(conflicts.flatMap(c => c.candidateIds));
   const items = candidates.map(c => ({ ...c, priority: conflictIds.has(c.evidenceId) ? 1 : c.priority,
     reasons: [...new Set([...c.reasons, ...(conflictIds.has(c.evidenceId) ? ['conflicting-evidence'] : [])])],
-    reasoning: (conflictIds.has(c.evidenceId) || c.priority === 1) ? { model: 'gpt-6-astra', effort: 'xhigh' } : c.triageAudit ? { effort: 'none', method: 'deterministic-triage' } : { effort: 'verification' } }));
+    reasoning: evidenceReasoning(c, conflictIds.has(c.evidenceId)) }));
   return { items: items.sort((a,b) => a.priority - b.priority || a.evidenceId.localeCompare(b.evidenceId)), conflicts, origins: clusterEvidenceCandidates(candidates) };
+}
+
+// Bind comparisons to the run's frozen baseline, never to a later published
+// snapshot. Only selected, unconflicted native evidence is eligible for an exact
+// hash match; this context does not accept candidates or infer event dates.
+export function preprocessingBaseline({ vessels, assessmentLog, evidenceItems, run }) {
+  const assessments = new Map(assessmentLog.assessments.map(a => [a.assessmentId, a]));
+  const evidence = new Map(evidenceItems.map(e => [e.evidenceId, e]));
+  const current = [], retainedEvidence = [], labels = new Set();
+  for (const vessel of vessels) {
+    const a = assessments.get(run.coverageInputs?.baselineAssessmentIds?.[vessel.vesselId]);
+    if (!a || a.vesselId !== vessel.vesselId || !a.assessedState) throw Error('PREPROCESSING_BASELINE_INVALID');
+    const label = a.assessedState.publicLocation?.label || null;
+    current.push({ vesselId: vessel.vesselId, status: a.assessedState.status, location: { name: label } });
+    if (label) labels.add(label);
+    for (const id of a.selectedEvidenceIds || []) {
+      const e = evidence.get(id);
+      if (e?.vesselId === vessel.vesselId && !e.supersededBy && !(a.excludedEvidenceIds || []).includes(id) &&
+          !(a.conflictingEvidenceIds || []).includes(id) && /^[a-f0-9]{64}$/.test(e.contentHash || '')) retainedEvidence.push({ ...e, reviewState: 'approved' });
+    }
+  }
+  return { current, retainedEvidence, locations: [...labels] };
 }
 
 export function reconcileFleet({ entities, assessmentLog, evidenceItems, run, at, correctionBaseline, staleDays = { 'In re-fit': 180, Maintenance: 180, Alongside: 14, Deployed: 30, 'Museum ship': 365, default: 60 } }) {

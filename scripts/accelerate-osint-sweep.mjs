@@ -5,7 +5,8 @@ import { buildOperationalSourceRegistry, isOptionalMonitoredMvt } from './lib/so
 import { createXBrowserSession, normalizeBrowserObservation } from './lib/x-browser-collection.mjs';
 import { isRequiredRecurringSource, validateSweepRunShape } from './lib/sweep.mjs';
 import { FAILURE, SUCCESS, acquireSources, checkpointJson, planAcquisitionSource, digest, openAcquisitionJournal } from './lib/acquisition.mjs';
-import { preprocessEvidence, adjudicationQueue, reconcileFleet } from './lib/sweep-analysis.mjs';
+import { preprocessEvidence, preprocessingBaseline, adjudicationQueue, reconcileFleet } from './lib/sweep-analysis.mjs';
+import { buildReviewPlan } from './lib/review-routing.mjs';
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const mode = arg('mode');
@@ -40,6 +41,7 @@ try {
     const packetDirectory = privateDirectory(arg('packets'));
     const plans = JSON.parse(fs.readFileSync(path.join(directory, 'plan.json'), 'utf8'));
     if (plans.runId !== run.runId || plans.registryHash !== run.sourceRegistryHash) throw new Error('Acquisition plan binding changed');
+    const baseline = preprocessingBaseline({ vessels: entities.vessels, assessmentLog: inputs.readJson('assessments'), evidenceItems: inputs.readJson('evidence').evidence, run });
     const adapter = async ({ source, window }) => {
       const file = path.join(packetDirectory, `${digest(source.sourceId)}.json`);
       if (!fs.existsSync(file)) return { outcome: 'DEFERRED_WITH_JUSTIFICATION', reason: 'No completed source observation packet' };
@@ -71,8 +73,8 @@ try {
     };
     const result = await acquireSources({ sources, runId: run.runId, registryHash: run.sourceRegistryHash, cutoff: run.window.to, journal,
       adapters: Object.fromEntries(sources.map(s => [s.acquisition.adapter, adapter])),
-      extract: (items, source, window) => preprocessEvidence(items, source, { vessels: entities.vessels, sourceRegistry: registry.sources, cutoff: window.to, windowStart: window.from }),
-      onProgress: r => console.log(JSON.stringify({ sourceId: r.sourceId, outcome: r.outcome, durationMs: r.durationMs })) });
+      extract: (items, source, window) => preprocessEvidence(items, source, { ...baseline, vessels: entities.vessels, sourceRegistry: registry.sources, cutoff: window.to, windowStart: window.from }),
+      onProgress: r => { if (!process.argv.includes('--compact')) console.log(JSON.stringify({ sourceId: r.sourceId, outcome: r.outcome, durationMs: r.durationMs })); } });
     checkpointJson(directory, 'acquisition.json', result);
     const processedRun = structuredClone(run);
     if (processedRun.complete) throw new Error('Do not modify a sealed sweep; use historical replay');
@@ -89,6 +91,12 @@ try {
     validateSweepRunShape(processedRun);
     checkpointJson(directory, 'processed-sweep-run.json', processedRun);
     checkpointJson(directory, 'adjudication-queue.json', adjudicationQueue(result.records.flatMap(r => r.candidates)));
+    const reviewPlan = buildReviewPlan({ acquisition: result });
+    checkpointJson(directory, 'review-plan.json', reviewPlan);
+    if (process.argv.includes('--compact')) console.log(JSON.stringify({ runId: run.runId, sources: result.records.length,
+      outcomes: result.records.reduce((a,r) => ({ ...a, [r.outcome]: (a[r.outcome] || 0) + 1 }), {}),
+      candidates: reviewPlan.candidateCount, reviewBatches: reviewPlan.batches.length, effortCounts: reviewPlan.effortCounts,
+      reviewPlan: path.join(directory, 'review-plan.json'), publicationEligible: false }));
     if (result.records.some(r => r.mandatory && !SUCCESS.has(r.outcome))) process.exitCode = 1;
   } else {
     const records = sources.map(s => journal.transactions.findLast(t => t.runId === run.runId && t.sourceId === s.sourceId)).filter(Boolean);
