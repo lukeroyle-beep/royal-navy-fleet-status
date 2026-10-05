@@ -79,6 +79,12 @@ List the coordinator, worker and reporting sessions once each (maximum eight).
 Paths must be the protected native session journals, bound to their actual IDs.
 The parser uses only provider token-count metadata, never emits transcript content,
 rejects missing/reset counters, and does not double-count repeated events or IDs.
+An unchanged cumulative snapshot can contain an internally inconsistent last-response
+block. The report exposes this in `counterAnomalies` and the compact summary's
+`counterAnomalyCount`; it does not add that block as separate usage. Invalid cumulative
+counters or an invalid/mismatched last block on a genuine increase still stop the
+report. These are reconciled provider cumulative totals, with the anomaly retained;
+the additional cost suggested by an inconsistent block cannot be established.
 
 Report first/peak input, context capacity, response count, cumulative total,
 cached/uncached input and output separately. Optional non-overlapping phases use
