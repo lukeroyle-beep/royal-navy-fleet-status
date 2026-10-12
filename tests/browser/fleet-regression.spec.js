@@ -503,6 +503,8 @@ test("compact interactive controls retain 44 pixel touch targets", async ({ page
 });
 
 test("loading, partial insight and malformed-data states are explicit", async ({ page }) => {
+  // This test isolates loading failures; stale-data warnings have their own test.
+  await page.clock.setFixedTime(new Date(`${fleet.metadata.asOfDate}T12:00:00Z`));
   let releaseFleetRequest;
   const fleetGate = new Promise((resolve) => {
     releaseFleetRequest = resolve;
