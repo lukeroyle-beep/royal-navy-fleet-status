@@ -35,7 +35,13 @@ try {
   for(const invalid of [{references:[null]},{references:[{label:'Bad',url:'https://example.invalid'}]},{lastGoodRelease:'Bad|text'},{lastGoodRelease:'Bearer secret'}]){
     assert.throws(()=>bootstrapSweep({...config,...invalid},dependencies));assert.equal(fs.existsSync(config.directory),false);
   }
-  const boot=bootstrapSweep(config,dependencies);assert.equal(boot.outcome,'BOOTSTRAP_PREPARED');
+  const headroom={nextResponseTokens:10000,closeoutTokens:80000};
+  assert.equal(bootstrapSweep({...config,headroom:{}},dependencies).outcome,'WORK_HEADROOM_UNKNOWN');
+  assert.equal(fs.existsSync(config.directory),false);
+  assert.equal(bootstrapSweep({...config,headroom:{...headroom,nextResponseTokens:200000}},dependencies).outcome,'WORK_HEADROOM_STOP');
+  assert.equal(fs.existsSync(config.directory),false);
+  const boot=bootstrapSweep({...config,headroom},dependencies);assert.equal(boot.outcome,'BOOTSTRAP_PREPARED');
+  assert.deepEqual(JSON.parse(fs.readFileSync(boot.startupConfig)).headroom,headroom);
   assert.equal(boot.sessionPath,session);assert.deepEqual(fs.readdirSync(config.directory).sort(),['reporting-context.json','startup-config.json']);
   assert.equal(fs.existsSync(path.join(config.directory,'attempt')),false);
   assert.throws(()=>bootstrapSweep(config,dependencies),/NEW_PRIVATE/);

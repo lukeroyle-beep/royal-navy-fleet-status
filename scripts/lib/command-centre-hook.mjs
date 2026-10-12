@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { enqueue, digest } from './command-centre.mjs';
 import { assertPrivateArtifact } from './private-artifacts.mjs';
+import { sweepStop, persistSweepStop } from './sweep-stop.mjs';
 
 // Hooks record evidence only. The authenticated Codex Pages adapter performs
 // delivery; this module has no network, model, collection or credential access.
@@ -11,12 +12,14 @@ export function recordPreflightReporting({receipt, receiptPath, contextPath=proc
   const context=JSON.parse(fs.readFileSync(assertPrivateArtifact(contextPath),'utf8'));
   const at=receipt.finishedAt || receipt.completedAt || new Date(Date.parse(receipt.startedAt || receipt.checkedAt) + (receipt.elapsedMs || 0)).toISOString();
   if (receipt.runId && receipt.runId !== context.runId) throw new Error('REPORTING_RUN_MISMATCH');
-  const failed=receipt.outcome==='DEFERRED_WITH_JUSTIFICATION' || receipt.outcome==='BLOCKED' || receipt.outcome==='FAILED' || receipt.outcome==='STAGE_FAILED' || receipt.outcome==='INCOMPLETE_DISCOVERY';
-  const preflightFailed=receipt.preflightOutcome ? receipt.preflightOutcome!=='READY_FOR_COLLECTION' : receipt.outcome!=='READY_FOR_COLLECTION';
+  const terminal=receipt.kind==='rnfs-terminal-stop';
+  const preparationStop=terminal && receipt.phase==='preparation' && receipt.collectionStarted===false;
+  const failed=terminal || receipt.outcome==='DEFERRED_WITH_JUSTIFICATION' || receipt.outcome==='BLOCKED' || receipt.outcome==='FAILED' || receipt.outcome==='STAGE_FAILED' || receipt.outcome==='INCOMPLETE_DISCOVERY';
+  const preflightFailed=terminal ? receipt.phase!=='indexes' : receipt.preflightOutcome ? receipt.preflightOutcome!=='READY_FOR_COLLECTION' : receipt.outcome!=='READY_FOR_COLLECTION';
   const outcome=failed ? (preflightFailed?'PREFLIGHT_FAILED':'COLLECTION_FAILED') : 'IN_PROGRESS';
   const event={...context,schemaVersion:1,eventId:`${context.runId}_${digest(fs.readFileSync(receiptPath,'utf8')).slice(0,16)}`,revision:Date.parse(at),recordedAt:at,evidenceAt:at,completedAt:failed?at:null,outcome,
     coverage:{sources:[receipt.coverage?.completedSourceChecks??null,receipt.coverage?.requiredSourceChecks??null],discovery:[receipt.coverage?.completedDiscoveryChecks??null,receipt.coverage?.requiredDiscoveryChecks??null],vessels:[receipt.coverage?.completedVesselOutcomes??null,receipt.coverage?.requiredVesselOutcomes??null],integrity:[receipt.coverage?.completedIntegrityChecks??null,receipt.coverage?.requiredIntegrityChecks??null]},
-    publication:'Not published by preflight/discovery; subsequent publication unverified',blocker:failed?'Recorded preflight or discovery stage failure; see private receipt':'Full coverage and release gates remain incomplete',nextAction:failed?'Review recorded gate; retain prior release':'Continue only authorised coverage and review',backup:'See recorded preflight backup gate; final recovery backup unverified',facts:'Automatic stage report. Discovery completion is not full source coverage. Space authentication is separate.'};
+    publication:'Not published by preflight/discovery; subsequent publication unverified',blocker:preparationStop?'Preparation stopped before preflight or collection; see private receipt':failed?'Recorded preflight or discovery stage failure; see private receipt':'Full coverage and release gates remain incomplete',nextAction:failed?'Review recorded gate; retain prior release':'Continue only authorised coverage and review',backup:'See recorded preflight backup gate; final recovery backup unverified',facts:preparationStop?'Preparation stopped. No collection started. The private receipt retains the terminal reason.':terminal && receipt.collectionStarted===null?'Stage stopped; whether collection started is unknown. See private receipt.':'Automatic stage report. Discovery completion is not full source coverage. Space authentication is separate.'};
   return enqueue(outbox,event,[{path:receiptPath,sha256:digest(fs.readFileSync(receiptPath,'utf8'))},{path:contextPath,sha256:digest(fs.readFileSync(contextPath,'utf8'))}]);
 }
 export function reportWithoutChangingSweep(args) {
@@ -29,11 +32,11 @@ export function reportWithoutChangingSweep(args) {
     console.error(JSON.stringify(diagnostic)); return {reportingError:error.message};
   }
 }
-export function recordEarlyFailure({contextPath=process.env.RNFS_COMMAND_CENTRE_CONTEXT,outbox=process.env.RNFS_COMMAND_CENTRE_OUTBOX}) {
+export function recordEarlyFailure({error,phase='preparation',collectionStarted=false,receiptPath:explicitReceipt,at,contextPath=process.env.RNFS_COMMAND_CENTRE_CONTEXT,outbox=process.env.RNFS_COMMAND_CENTRE_OUTBOX}) {
   if(!contextPath || !outbox) return;
   const folder=assertPrivateArtifact(outbox);fs.mkdirSync(folder,{recursive:true,mode:0o700});
-  const at=new Date().toISOString();const receipt={outcome:'FAILED',finishedAt:at,diagnostic:'PREFLIGHT_OR_REQUESTED_STAGE_FAILED',publicationEligible:false};
-  const receiptPath=path.join(folder,`early-failure-${at.replaceAll(':','-')}.json`);
-  fs.writeFileSync(receiptPath,JSON.stringify(receipt)+'\n',{flag:'wx',mode:0o600});
+  const receipt=sweepStop({error,phase,collectionStarted,at});
+  const receiptPath=explicitReceipt || path.join(folder,`early-failure-${receipt.finishedAt.replaceAll(':','-')}.json`);
+  persistSweepStop(receiptPath,receipt);
   return reportWithoutChangingSweep({receipt,receiptPath,contextPath,outbox});
 }

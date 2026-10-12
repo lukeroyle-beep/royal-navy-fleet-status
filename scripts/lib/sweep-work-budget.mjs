@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-const fail = code => { throw Object.assign(new Error(code), { diagnostic: code }); };
+const fail = (code, details = {}) => { throw Object.assign(new Error(code), { diagnostic: code, ...details }); };
 export function evaluateSweepUsage(records, threadId, { limit = 250000, reserve = 50000, now = Date.now() } = {}) {
   if (!Number.isSafeInteger(limit) || limit < 1 || limit > 250000 ||
       !Number.isSafeInteger(reserve) || reserve < 50000 || reserve >= limit) fail('USAGE_BUDGET_INVALID');
@@ -44,6 +44,37 @@ export function readSweepUsage(config, environment = process.env) {
 // This stops the guarded command, not model turns or platform billing.
 export function requireSweepWorkBudget(config, environment = process.env) {
   const receipt = readSweepUsage(config, environment);
-  if (!receipt.allowed) fail('WORK_BUDGET_STOP');
-  return receipt;
+  if (!receipt.allowed) fail('WORK_BUDGET_STOP', { usage: receipt });
+  const headroom = config.headroom === undefined ? undefined : evaluateSweepHeadroom(receipt, config.headroom);
+  if (headroom && !headroom.allowed) fail(headroom.outcome, { usage: receipt, headroom });
+  return { ...receipt, ...(headroom ? { headroom } : {}) };
+}
+
+// Planning allowances are explicitly supplied, never inferred token measurements.
+// This can refuse work earlier; the native counter guard still runs independently.
+export function evaluateSweepHeadroom(usage, plan) {
+  const { limit, reserve, totalTokens } = usage || {};
+  if (!Number.isSafeInteger(limit) || limit < 1 || limit > 250000 ||
+      !Number.isSafeInteger(reserve) || reserve < 50000 || reserve >= limit ||
+      !Number.isSafeInteger(totalTokens) || totalTokens < 0 ||
+      usage.allowed !== (totalTokens < limit - reserve)) fail('USAGE_MEASUREMENT_INVALID');
+  const keys = ['nextResponseTokens', 'closeoutTokens'];
+  if (!plan || typeof plan !== 'object' || Array.isArray(plan) ||
+      Object.keys(plan).some(key => !keys.includes(key))) fail('WORK_HEADROOM_PLAN_INVALID', { usage });
+  const missing = keys.filter(key => plan[key] === undefined || plan[key] === null);
+  for (const key of keys.filter(key => !missing.includes(key))) {
+    if (!Number.isSafeInteger(plan[key]) || plan[key] < 1 || plan[key] > 250000 ||
+        (key === 'closeoutTokens' && plan[key] < reserve)) fail('WORK_HEADROOM_PLAN_INVALID', { usage });
+  }
+  const base = { kind: 'advisory-headroom', observedTotalTokens: totalTokens,
+    workThreshold: limit - reserve, totalTarget: limit,
+    allowances: Object.fromEntries(keys.map(key => [key, plan[key] ?? null])),
+    measuredFutureCost: false, hardConversationCeilingEnforced: false };
+  if (!usage.allowed) return { ...base, outcome: 'WORK_HEADROOM_STOP', allowed: false, reason: 'MEASURED_WORK_STOP' };
+  if (missing.length) return { ...base, outcome: 'WORK_HEADROOM_UNKNOWN', allowed: false, missing };
+  const plannedWorkTotal = totalTokens + plan.nextResponseTokens;
+  const plannedTotal = plannedWorkTotal + plan.closeoutTokens;
+  const allowed = usage.allowed && plannedWorkTotal < limit - reserve && plannedTotal <= limit;
+  return { ...base, outcome: allowed ? 'WORK_HEADROOM_AVAILABLE' : 'WORK_HEADROOM_STOP',
+    allowed, plannedWorkTotal, plannedTotal };
 }
