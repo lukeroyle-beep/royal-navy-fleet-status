@@ -66,10 +66,25 @@ bootstrap, file discovery or documentation reads between query and consumer. A
 fresh query remains necessary if later backup work exceeds the freshness window.
 No native-query wrapper, supplied plist or copied session file is accepted.
 
+The optional advisory headroom and terminal-receipt contract is documented in
+[bounded sweep execution](osint-efficiency.md#admit-the-next-stage-and-close-out-once).
+Bootstrap preserves its core no-files-on-stop rule. Only an explicit
+`--stop-output` asks the CLI to save a separate terminal receipt beneath an
+already existing private parent. Startup/preflight configurations carry an
+explicitly supplied headroom plan; no default forecast or new budget is invented.
+The latest user-specified account remaining-usage floor controls this invocation.
+
 Future separately authorised collection still requires real ownership, exclusive
 run identity, exact-state encrypted backup/restore, full preflight, usage checks,
 source coverage, evidence review and website validation. Reuse existing commands;
 neither this bootstrap nor reporting grants those permissions.
+
+Two preparation responses are not the whole workflow budget. Plan for the
+standalone encryption query and immediate consumer, ownership/run binding,
+exact-state backup/restore, any fresh encryption query required for preflight,
+source acquisition and review, and terminal reporting. Token snapshots older than
+120 seconds still stop work, even after deterministic work with no model calls.
+Do not merge native-query steps or relax freshness to achieve a response target.
 
 ## Generate a reviewed native reporting cell
 

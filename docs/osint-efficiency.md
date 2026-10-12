@@ -93,7 +93,50 @@ Unassigned responses remain visible. Journal coverage and omitted sessions limit
 the result. These totals are neither a currency charge nor an account-allowance
 percentage. The command guard remains a 200k work stop with 50k reserve, not a hard
 conversation cap; this change does not raise it. Continue checking the account's
-weekly meter and honour the user's 50% remaining checkpoint instruction.
+available account meters and honour the latest explicit remaining-usage floor for
+the current invocation. Account allowance is separate from provider token totals.
+
+## Admit the next stage and close out once
+
+The native 200k work stop remains a check of observed cumulative usage. It cannot
+cancel the next model response. Optional `headroom` in bootstrap/startup config
+(or preflight's `usageBudget.headroom`) contains exactly `nextResponseTokens` and
+`closeoutTokens`. These are explicit planning allowances, not token measurements.
+No allowance is selected automatically. Both must be positive whole tokens; the
+closeout allowance must be at least the existing reserve. Missing/null allowances
+refuse work as `WORK_HEADROOM_UNKNOWN`; invalid values refuse the request.
+
+The additional check allows work only if observed usage plus the next allowance is
+strictly below the existing work threshold, and that sum plus closeout is at most
+the existing total target. It can only stop earlier. It keeps the actual native
+guard, lower configured limits and 120-second freshness rule. An allowed estimate
+does not establish that a future response fits, reduce actual counters or enforce
+platform billing. Refresh planning assumptions for the next stage; do not treat
+the bootstrap allowance copied into startup/preflight as measured future cost.
+
+`sweep:guard` accepts `--headroom=/private/allowances.json`. The file has the same
+two fields. Omitting this option retains the measured-only guard. On bootstrap,
+guard or preflight errors, `--stop-output=/private/existing-parent/new-stop.json`
+can persist a terminal receipt in the same command. Startup normally writes its
+returned stop to `--output`; `--stop-output` also captures errors before that write.
+All stop destinations must be private and their parent must already exist. No
+attempt/run/collector directory is created for reporting. Receipts are owner-only,
+create-only; a collision can reuse only identical bytes and otherwise preserves the
+existing file. Inspect a failed save; do not claim persistence from stdout alone.
+
+Early preflight reporting retains the allowlisted diagnostic and known phase in
+the private receipt. A preparation stop uses the existing `PREFLIGHT_FAILED`
+event category with explicit preparation-before-collection wording; it does not
+claim that preflight executed. A potentially started index stage keeps
+`collectionStarted:null` when its state is unknown. Unknown coverage stays unknown.
+The existing outbox can enqueue the same saved receipt; authenticated Page delivery,
+stable event identity, manual-content guards and retry limits are unchanged.
+
+After a terminal stop, save facts once, perform only necessary owned-resource
+cleanup and return a short final response. Leave undeliverable reporting pending.
+Do not add model turns to measure their own finalisation cost or start another
+invocation to bypass a stop. A later authorized offline read includes final-response
+lag. These helpers make no model, browser, network or Page calls.
 
 Reuse the existing thin bootstrap and guarded reporting cell. Do not read source
 implementations or full histories on each wake, poll a worker repeatedly for its

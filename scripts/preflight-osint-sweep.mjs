@@ -7,9 +7,11 @@ import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
 import { productionProbes, runSweepPreflight } from './lib/sweep-preflight.mjs';
 import { reportWithoutChangingSweep, recordEarlyFailure } from './lib/command-centre-hook.mjs';
 import { stageArguments, executePreflightStage } from './lib/preflight-stage.mjs';
+import { sweepStop, saveSweepStop } from './lib/sweep-stop.mjs';
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const repository = fileURLToPath(new URL('..', import.meta.url));
+let phase = 'preparation', collectionStarted = false;
 try {
   const config = JSON.parse(fs.readFileSync(assertPrivateArtifact(arg('config')), 'utf8'));
   if (config.usageBudget) requireSweepWorkBudget(config.usageBudget);
@@ -25,15 +27,19 @@ try {
     const fd = fs.openSync(output, 'wx', 0o600);
     try { fs.writeFileSync(fd, `${JSON.stringify(receipt, null, 2)}\n`); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   };
+  phase = 'preflight';
   const receipt = await runSweepPreflight({ config, repository,
     probes: productionProbes({ repository, deadline: Date.now() + 30000, encryptionQuery: config.encryptionQuery }) });
   persist(receipt);
   let result = null;
   if (stage) {
     result = executePreflightStage({ stage, config, receipt, execute: args => {
+      phase = stage;
+      if (stage === 'indexes') collectionStarted = null;
       execFileSync(process.execPath, args, { cwd: repository, env: process.env,
         stdio: ['ignore', 'pipe', 'pipe'], timeout: 300000, maxBuffer: 2_000_000 });
     } });
+    collectionStarted = result.collectionStarted;
     const fd = fs.openSync(resultPath, 'wx', 0o600);
     try { fs.writeFileSync(fd, `${JSON.stringify(result, null, 2)}\n`); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   }
@@ -42,7 +48,11 @@ try {
   if (receipt.outcome !== 'READY_FOR_COLLECTION' ||
       (result && !['PLAN_PREPARED', 'DISCOVERY_COMPLETE_REVIEW_REQUIRED'].includes(result.outcome))) process.exitCode = 1;
 } catch (error) {
-  try { recordEarlyFailure({}); } catch (error) { console.error(JSON.stringify({reportingError:error.message,sweepResultUnchanged:true})); }
-  console.error(JSON.stringify({ outcome: 'FAILED', diagnostic: error.diagnostic || 'PREFLIGHT_OR_REQUESTED_STAGE_FAILED', publicationEligible: false }));
+  const stop=sweepStop({error,phase,collectionStarted});
+  const terminalReceipt=saveSweepStop(arg('stop-output'),stop);
+  try { recordEarlyFailure({error,phase,collectionStarted,at:stop.finishedAt,
+    receiptPath:terminalReceipt.saved ? terminalReceipt.path : undefined}); }
+  catch { console.error(JSON.stringify({reportingError:'EARLY_STOP_NOT_RECORDED',sweepResultUnchanged:true})); }
+  console.error(JSON.stringify({...stop,...(arg('stop-output') ? {terminalReceipt} : {})}));
   process.exitCode = 1;
 }

@@ -4,6 +4,7 @@ import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
 import { readSweepUsage } from './lib/sweep-work-budget.mjs';
 import { productionProbes } from './lib/sweep-preflight.mjs';
 import { startSweep } from './lib/sweep-startup.mjs';
+import { sweepStop, saveSweepStop } from './lib/sweep-stop.mjs';
 const arg = name => process.argv.find(a=>a.startsWith(`--${name}=`))?.slice(name.length+3);
 try {
   const output=assertPrivateArtifact(arg('output'));
@@ -18,4 +19,8 @@ try {
   try{fs.writeFileSync(fd,JSON.stringify(result,null,2)+'\n');fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
   console.log(JSON.stringify({outcome:result.outcome,totalTokens:usage.totalTokens,checks:result.capability?.checks.map(c=>({check:c.check,status:c.status}))||[],collectionStarted:false}));
   if(!['DIRECTORIES_PREPARED','CAPABILITY_CHECK_PASSED'].includes(result.outcome))process.exitCode=2;
-} catch(error) { console.log(JSON.stringify({outcome:'STARTUP_STOPPED',diagnostic:error.diagnostic||'STARTUP_INVALID',collectionStarted:false}));process.exitCode=2; }
+} catch(error) {
+  const stop=sweepStop({error}), terminalReceipt=saveSweepStop(arg('stop-output'),stop);
+  console.log(JSON.stringify({...stop,outcome:'STARTUP_STOPPED',...(arg('stop-output') ? {terminalReceipt} : {})}));
+  process.exitCode=2;
+}

@@ -3,7 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { assertPrivateArtifact } from './private-artifacts.mjs';
-import { readSweepUsage } from './sweep-work-budget.mjs';
+import { readSweepUsage, evaluateSweepHeadroom } from './sweep-work-budget.mjs';
 import { validateEvent } from './command-centre.mjs';
 
 const fail = code => { throw new Error(code); };
@@ -46,6 +46,8 @@ export function bootstrapSweep(config, { repository, environment = process.env,
   if (inside(directory, sessionPath) || inside(directory, privateRoot) || inside(directory, backupDirectory)) fail('OUTPUT_CONTAINS_PROTECTED_INPUT');
   const measured = usage({sessionPath}, environment);
   if (!measured.allowed) return {outcome:'WORK_BUDGET_STOP', usage:measured, filesCreated:false, collectionStarted:false};
+  const headroom = config.headroom === undefined ? undefined : evaluateSweepHeadroom(measured, config.headroom);
+  if (headroom && !headroom.allowed) return {outcome:headroom.outcome, usage:measured, headroom, filesCreated:false, collectionStarted:false};
   const context = {runId:`WAKE_${environment.CODEX_THREAD_ID}`, runStartedAt:new Date(now).toISOString(),
     trigger:config.trigger, lastGoodRelease:config.lastGoodRelease, nextScheduledAt:config.nextScheduledAt, references:config.references};
   // Validate the future reporting fields with the same public-text/reference
@@ -54,13 +56,14 @@ export function bootstrapSweep(config, { repository, environment = process.env,
     recordedAt:context.runStartedAt,evidenceAt:context.runStartedAt,completedAt:null,outcome:'IN_PROGRESS',
     coverage:{sources:[null,null],discovery:[null,null],vessels:[null,null],integrity:[null,null]},
     publication:'Unverified',blocker:'Unverified',nextAction:'Unverified',backup:'Unverified',facts:'Context validation only'});
-  const startup = {schemaVersion:1, privateRoot, backupDirectory, sessionPath, attemptDirectory:path.join(directory, 'attempt')};
+  const startup = {schemaVersion:1, privateRoot, backupDirectory, sessionPath, attemptDirectory:path.join(directory, 'attempt'),
+    ...(config.headroom === undefined ? {} : {headroom:config.headroom})};
   fs.mkdirSync(directory, {mode:0o700});
   for (const [name, value] of [['reporting-context.json',context], ['startup-config.json',startup]]) {
     const fd = fs.openSync(path.join(directory,name), 'wx', 0o600);
     try { fs.writeFileSync(fd, JSON.stringify(value,null,2)+'\n'); fs.fsyncSync(fd); } finally { fs.closeSync(fd); }
   }
-  return {outcome:'BOOTSTRAP_PREPARED', directory, sessionPath, usage:measured,
+  return {outcome:'BOOTSTRAP_PREPARED', directory, sessionPath, usage:measured, ...(headroom ? {headroom} : {}),
     startupConfig:path.join(directory,'startup-config.json'), reportingContext:path.join(directory,'reporting-context.json'),
     instructions:['docs/compact-sweep-execution.md','docs/command-centre-reporting.md'],
     collectionStarted:false, preflightPassed:false};
