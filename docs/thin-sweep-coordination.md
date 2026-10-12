@@ -6,6 +6,27 @@ Keep the existing native scheduler and its hold until explicitly released.
 
 ## Bootstrap once
 
+For a future authorised acceptance, put the already verified commit, private-root,
+backup and fresh-output paths in the invocation's compact configuration. Keep all
+of their runtime validation; do not rediscover them through separate model turns.
+In the first preparation response, batch the account-meter check, authority/config
+reads, clean-checkout verification and required instruction reads. Once inspected,
+use the existing bootstrap in the next response: it already resolves the actual
+journal, checks fresh native usage and writes both configurations. Do not spend
+separate responses finding the journal, reading the usage implementation, printing
+its counters and recreating those configurations. Target two preparation responses
+before the native encryption query, stopping immediately on any failed prerequisite.
+The query and immediate startup consumer retain their exact native call sequence.
+
+The 4 October acceptance reached its first work stop after five responses at
+254,632 cumulative tokens, before encryption or browser launch. Its fourth response
+was already at 190,173; another preparation response added 64,459. Moving the native
+guard earlier and grouping deterministic preparation removes those separate
+coordination steps. This is an execution plan, not measured savings or proof that
+all later gates fit within the unchanged budget. At a terminal stop, persist facts
+once and return a short final response; a later offline reader measures that final
+response. Do not request further model turns solely to measure their own cost.
+
 Read applicable instructions once, in the same initial orchestration call where
 practical. The bootstrap returns document paths, not permission to omit instructions.
 Do not reread source implementations during every routine wake.

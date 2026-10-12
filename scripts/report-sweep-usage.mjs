@@ -23,4 +23,4 @@ const result = aggregateSessionUsage(sessions), file = assertPrivateArtifact(arg
 fs.writeFileSync(file, JSON.stringify(result, null, 2)+'\n', { flag: 'wx', mode: 0o600 });
 console.log(JSON.stringify({ file, sessions: sessions.length, totalTokens: result.total_tokens,
   cachedInputTokens: result.cached_input_tokens, uncachedInputTokens: result.uncached_input_tokens,
-  outputTokens: result.output_tokens, responses: result.responses, accountAllowanceCost: null }));
+  outputTokens: result.output_tokens, responses: result.responses, counterAnomalyCount: result.counterAnomalyCount, accountAllowanceCost: null }));

@@ -68,4 +68,16 @@ assert.throws(() => summarizeSessionUsage(records, { threadId: 'fixture-thread',
 assert.throws(() => aggregateSessionUsage([report, report]), /DUPLICATE/);
 const combined = aggregateSessionUsage([report, { ...report, threadId: 'worker' }]);
 assert.equal(combined.total_tokens, 160400); assert.equal(combined.responses, 4); assert.equal(combined.accountAllowanceCost, null);
+// Native journal regression: unchanged cumulative snapshot with a malformed last
+// block must be visible without rejecting otherwise reconciled session totals.
+const malformedLast={...usage(0,0,0),total_tokens:24598};
+const anomalousRepeat=event('2026-10-03T12:00:02Z',first.payload.info.total_token_usage,malformedLast);
+const recovered=summarizeSessionUsage([records[0],first,anomalousRepeat,second],{threadId:'fixture-thread'});
+assert.equal(recovered.total_tokens,report.total_tokens);assert.equal(recovered.responses,2);
+assert.equal(recovered.unchangedCounterReports,1);
+assert.deepEqual(recovered.counterAnomalies,[{at:anomalousRepeat.timestamp,code:'UNCHANGED_TOTAL_INVALID_LAST',reportedLast:malformedLast}]);
+assert.equal(aggregateSessionUsage([recovered]).counterAnomalyCount,1);
+assert.throws(()=>summarizeSessionUsage([records[0],first,event(second.timestamp,second.payload.info.total_token_usage,malformedLast)],{threadId:'fixture-thread'}),/COUNTER_INVALID/);
+assert.throws(()=>summarizeSessionUsage([records[0],first,{...anomalousRepeat,payload:{type:'token_count',info:{total_token_usage:malformedLast,last_token_usage:malformedLast}}}],{threadId:'fixture-thread'}),/COUNTER_INVALID/);
+assert.throws(()=>summarizeSessionUsage([records[0],first,anomalousRepeat,{...second,timestamp:first.timestamp}],{threadId:'fixture-thread'}),/TIMESTAMP_INVALID/);
 console.log('Sweep efficiency fixtures passed: conservative routing, exact decision reuse, bounded complete batches, unchanged evidence hashes, phase attribution, cache/capacity separation, duplicate/reset/prefix rejection.');
