@@ -20,7 +20,7 @@ export function sweepStop({ error, diagnostic, phase = 'preparation', collection
   const code = diagnostics.has(candidate) ? candidate : 'PREFLIGHT_OR_REQUESTED_STAGE_FAILED';
   return { schemaVersion: 1, kind: 'rnfs-terminal-stop', outcome: code === 'WORK_BUDGET_STOP' ||
       code === 'WORK_HEADROOM_STOP' || code === 'WORK_HEADROOM_UNKNOWN' ? code : 'FAILED',
-    diagnostic: code, phase, finishedAt: at, collectionStarted,
+    diagnostic: code, allowed: false, phase, finishedAt: at, collectionStarted,
     publicationEligible: false, noChangeClaimAllowed: false,
     ...(usage || error?.usage ? { usage: usage || error.usage } : {}),
     ...(headroom || error?.headroom ? { headroom: headroom || error.headroom } : {}) };

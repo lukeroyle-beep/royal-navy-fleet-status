@@ -33,8 +33,8 @@ try {
   persist(receipt);
   let result = null;
   if (stage) {
-    phase = stage;
     result = executePreflightStage({ stage, config, receipt, execute: args => {
+      phase = stage;
       if (stage === 'indexes') collectionStarted = null;
       execFileSync(process.execPath, args, { cwd: repository, env: process.env,
         stdio: ['ignore', 'pipe', 'pipe'], timeout: 300000, maxBuffer: 2_000_000 });

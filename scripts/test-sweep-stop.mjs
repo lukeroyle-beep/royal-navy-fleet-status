@@ -20,6 +20,18 @@ try {
   // The unchanged native gate admits the historical prefix; planning refuses the next response.
   const historical=measured(190173);
   assert.equal(historical.allowed,true);
+  // Terminal admission must never copy the native guard's affirmative answer.
+  for (const plan of [allowances,{}, {...allowances,nextResponseTokens:0}]) {
+    let terminal;
+    try {
+      const headroom=evaluateSweepHeadroom(historical,plan);
+      terminal=sweepStop({diagnostic:headroom.outcome,usage:historical,headroom,at});
+    } catch (error) { terminal=sweepStop({error,at}); }
+    const output=JSON.parse(JSON.stringify(terminal));
+    assert.equal(output.allowed,false);assert.equal(output.usage.allowed,true);
+    assert.ok(['WORK_HEADROOM_STOP','WORK_HEADROOM_UNKNOWN','WORK_HEADROOM_PLAN_INVALID'].includes(output.diagnostic));
+    assert.equal(output.totalTokens,undefined);
+  }
   assert.equal(evaluateSweepHeadroom(historical,{nextResponseTokens:64459,closeoutTokens:76952}).allowed,false);
   assert.equal(evaluateSweepHeadroom(measured(200000),{nextResponseTokens:1,closeoutTokens:50000}).allowed,false);
   assert.equal(evaluateSweepHeadroom(measured(100000),allowances).allowed,true);
@@ -115,6 +127,8 @@ try {
     const child=spawnSync(process.execPath,['scripts/'+name+'.mjs',...args,'--stop-output='+output],{env,encoding:'utf8'});
     assert.ok(child.status>0,child.stderr);assert.equal(child.error,undefined);
     const saved=JSON.parse(fs.readFileSync(output));
+    assert.equal(saved.allowed,false);
+    if(name==='check-sweep-work')assert.equal(JSON.parse(child.stdout).allowed,false);
     assert.equal(saved.collectionStarted,false);assert.equal(saved.publicationEligible,false);
     assert.equal(saved.phase,'preparation');
     if(name!=='bootstrap-sweep')assert.equal(saved.diagnostic,'USAGE_PROVENANCE_UNAVAILABLE');
@@ -123,5 +137,22 @@ try {
     assert.ok(collision.status>0);assert.deepEqual(fs.readFileSync(output),original);
   }
   for(const file of ['never-created','never-started.json','never-preflight.json'])assert.equal(fs.existsSync(path.join(root,file)),false);
+  // A deferred preflight never dispatched a stage, even if saving its result fails.
+  const deferredConfig=path.join(root,'deferred-config.json');
+  const deferredOutput=path.join(root,'deferred-preflight.json');
+  const deferredStop=path.join(root,'deferred-stop.json');
+  const deferredOutbox=path.join(root,'deferred-outbox');
+  fs.writeFileSync(deferredConfig,JSON.stringify({schemaVersion:999,run:path.join(root,'unused-run.json'),
+    collectionOutput:path.join(root,'unused-collection.json')}));
+  const deferred=spawnSync(process.execPath,['scripts/preflight-osint-sweep.mjs','--config='+deferredConfig,
+    '--output='+deferredOutput,'--then=indexes','--result='+path.join(root,'absent','stage.json'),
+    '--stop-output='+deferredStop],{encoding:'utf8',env:{...env,
+      RNFS_COMMAND_CENTRE_CONTEXT:contextPath,RNFS_COMMAND_CENTRE_OUTBOX:deferredOutbox}});
+  assert.equal(deferred.status,1,deferred.stderr);
+  assert.equal(JSON.parse(fs.readFileSync(deferredOutput)).outcome,'DEFERRED_WITH_JUSTIFICATION');
+  const savedDeferred=JSON.parse(fs.readFileSync(deferredStop));
+  assert.equal(savedDeferred.phase,'preflight');assert.equal(savedDeferred.collectionStarted,false);
+  assert.equal(pending(deferredOutbox)[0].outcome,'PREFLIGHT_FAILED');
+  assert.equal(fs.existsSync(path.join(root,'unused-collection.json')),false);
   console.log('Budget/stop fixtures passed: conservative admission, mandatory native guard, no-probe refusal, immutable receipts, diagnostic retention, unknown collection, reporting failure and real CLI error paths. No live tools used.');
 } finally {fs.rmSync(root,{recursive:true,force:true});}

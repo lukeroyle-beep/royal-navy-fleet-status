@@ -6,7 +6,7 @@ import { sweepStop, saveSweepStop } from './lib/sweep-stop.mjs';
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const stop = receipt => {
   const terminalReceipt=saveSweepStop(arg('stop-output'),receipt);
-  console.log(JSON.stringify({...receipt.usage,...receipt,...(arg('stop-output') ? {terminalReceipt} : {})}));
+  console.log(JSON.stringify({...receipt,...(arg('stop-output') ? {terminalReceipt} : {})}));
   process.exitCode=2;
 };
 try {
