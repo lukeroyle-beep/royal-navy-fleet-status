@@ -3,11 +3,11 @@
 export async function nativeReportingFlow(io) {
   let attempt;
   const plans = [], readbacks = [];
-  // Only this documented volatile page timestamp is excluded. All other
-  // metadata/control fields and full guidance remain part of the comparison.
+  // The summary separates documented snapshot data from stable controls.
+  // Exclude this volatile metadata timestamp too; retain all other controls.
   const guidance = s => {
     const metadata = s.metadata && Object.fromEntries(Object.entries(s.metadata).filter(([key])=>key!=='updated_at'));
-    return JSON.stringify([s.pageId,metadata,s.guidance,s.toolMeta,s.toolText,s.instructions]);
+    return JSON.stringify([s.pageId,metadata,s.guidance,s.toolMeta,s.toolText,s.instructions,s.controlFields]);
   };
   try {
     const reviewed = await io.reviewed();
