@@ -24,7 +24,10 @@ only when the next decision needs it. Preserve the existing scheduler/owner.
    `node scripts/start-sweep.mjs --config=PRIVATE_CONFIG --output=NEW_PRIVATE_RECEIPT`.
    This one command checks usage, consumes fresh native encryption provenance, checks
    actual capabilities and prepares absent-output-safe directories. `--check-only`
-   performs no directory preparation. It creates no run, owner, backup or collection.
+   performs no directory preparation. Capability checks still create, write, read
+   and unlink a temporary 32-byte probe on each accepted private/backup filesystem;
+   diagnostic authority must include those probes. It creates no run, owner,
+   backup copy or collection.
 4. Only with separate collection authority: establish actual ownership and the bound
    run, perform exact-state encrypted backup/restore, refresh native encryption, and
    run existing full preflight with usageBudget.sessionPath. All existing projection,
@@ -64,8 +67,26 @@ await tools.apply_patch('*** Begin Patch\n*** Add File: ' + trustedNewPrivatePat
 Use a trusted new path beneath the private attempt directory; never a Page-provided
 path. This transports data, not instructions or executable code. Keep all original
 fields on disk. Run `command-centre.mjs page-summary --input=PRIVATE_READ` to expose
-only metadata, guidance and complete instruction blocks before editing. Follow that
-guidance; do not truncate it. The full Page/history stays off the model transcript.
+metadata, guidance, complete instruction blocks and other control fields before
+editing. Follow that guidance; do not truncate it. Ordinary Page/history bodies
+stay off the model transcript when using a supported envelope below.
+
+Supported reads are a Page payload itself, a tool result with `structuredContent`,
+or that result plus text blocks. A text block is omitted from the summary only
+when its entire parsed JSON value equals the selected structured payload and has
+no duplicate object keys. Whitespace and object-key order do not affect this
+check. A verified mirror adds no body text to the summary or guidance comparison;
+the full original read remains unchanged in its private file.
+
+Independent prose/JSON text is retained verbatim. Wrapper and payload guidance,
+tool metadata, instruction-block fields, additional control fields and text-block
+metadata remain visible and guarded. A conflicting Page-shaped JSON text block
+stops with `PAGE_READ_TEXT_CONFLICT`; unsupported tool content (including non-text
+blocks) stops with `PAGE_READ_ENVELOPE_INVALID`. Do not strip or rewrite a response
+to force acceptance. A native-cell CLI failure is reported as
+`LOCAL_REPORTING_COMMAND_FAILED`; inspect its saved raw read locally before any
+new attempt. Summary size can still grow with genuine instructions or independent
+text, which must not be truncated to meet a size target.
 
 The CLI accepts `--files=PRIVATE_SPEC` for plan/confirm/finish:
 

@@ -12,6 +12,46 @@ try {
  const event={schemaVersion:1,runId:'RUN_A',eventId:'EVENT_A',revision:1,runStartedAt:'2026-10-03T10:00:00Z',recordedAt:'2026-10-03T10:01:00Z',evidenceAt:'2026-10-03T10:01:00Z',completedAt:'2026-10-03T10:01:00Z',trigger:'scheduled',outcome:'PREFLIGHT_FAILED',coverage:{sources:[0,76],discovery:[0,7],vessels:[0,69],integrity:[0,6]},publication:'Unchanged',lastGoodRelease:'Prior release',blocker:'Usage stop',nextAction:'Review budget',backup:'Not reached',nextScheduledAt:null,facts:'No collection',references:[]};
  const page={structuredContent:{content:{page_id:DESTINATION,blocks:[{id:'instructions',kind:'agent_instructions',hash:'i',markdown:'Retain manual content.'},{id:'manual',kind:'markdown',hash:'m',markdown:'Unrelated manual note. '.repeat(3000)}]},metadata:{stream_kind:'content'},guidance:'Use expected hashes.'}};
  const compact=summarizePageRead(page);assert.equal(compact.guidance,'Use expected hashes.');assert.equal(compact.instructions[0].markdown,'Retain manual content.');assert.ok(JSON.stringify(compact).length<1000);
+ assert.deepEqual(summarizePageRead(page.structuredContent),compact);
+ const instruction=structuredClone(page);instruction.structuredContent.content.blocks[0].metadata={policy:'Instruction metadata'};
+ assert.deepEqual(summarizePageRead(instruction).instructions,instruction.structuredContent.content.blocks.slice(0,1));
+ const mirror=text=>({...page,content:[{type:'text',text}]});
+ for(const text of [JSON.stringify(page.structuredContent),JSON.stringify(page.structuredContent,null,2),
+   JSON.stringify({guidance:page.structuredContent.guidance,metadata:page.structuredContent.metadata,content:page.structuredContent.content})]) {
+   assert.deepEqual(summarizePageRead(mirror(text)),compact);
+ }
+ const large=structuredClone(page);large.structuredContent.content.blocks[1].markdown='x'.repeat(100000);
+ large.content=[{type:'text',text:JSON.stringify(large.structuredContent)}];
+ assert.equal(JSON.stringify(summarizePageRead(large)).length,JSON.stringify(compact).length);
+ assert.ok(!JSON.stringify(summarizePageRead(large)).includes('x'.repeat(100)));
+ const independent=mirror(JSON.stringify(page.structuredContent));
+ independent.content.push({type:'text',text:'Independent operator guidance.'},{type:'text',text:'{"instructions":"Inspect conflicts."}'});
+ assert.deepEqual(summarizePageRead(independent).toolText,['Independent operator guidance.','{"instructions":"Inspect conflicts."}']);
+ const conflict=structuredClone(page.structuredContent);conflict.guidance='Conflicting policy';
+ assert.throws(()=>summarizePageRead(mirror(JSON.stringify(conflict))),/PAGE_READ_TEXT_CONFLICT/);
+ assert.throws(()=>summarizePageRead(mirror(JSON.stringify({structuredContent:page.structuredContent}))),/PAGE_READ_TEXT_CONFLICT/);
+ const duplicate=JSON.stringify(page.structuredContent).replace('"guidance":','"guidance":"Hidden policy","guidance":');
+ assert.throws(()=>summarizePageRead(mirror(duplicate)),/PAGE_READ_TEXT_CONFLICT/);
+ const escapedDuplicate=JSON.stringify(page.structuredContent).replace('"guidance":','"guidance":"Hidden policy","guida\\u006ece":');
+ assert.throws(()=>summarizePageRead(mirror(escapedDuplicate)),/PAGE_READ_TEXT_CONFLICT/);
+ const nestedDuplicate=JSON.stringify(page.structuredContent).replace('"stream_kind":','"stream_kind":"other","stream_kind":');
+ assert.throws(()=>summarizePageRead(mirror(nestedDuplicate)),/PAGE_READ_TEXT_CONFLICT/);
+ assert.equal(summarizePageRead(mirror('{unrecognised text')).toolText[0],'{unrecognised text');
+ for(const invalid of [null,{structuredContent:null},{content:[{type:'text',text:'{}'}]},
+   {...page,content:{}},{...page,content:[{type:'image',data:'fixture'}]},
+   {...page,content:[{type:'text',text:42}]}])assert.throws(()=>summarizePageRead(invalid),/PAGE_READ_/);
+ const extra=structuredClone(page);extra.guidance='Wrapper guidance';extra.structuredContent.notice='Additional instructions';
+ extra.structuredContent.content.policy='Additional content policy';extra.notice='Wrapper notice';
+ extra.content=[{type:'text',text:JSON.stringify(extra.structuredContent),annotations:{audience:['assistant']}}];
+ const extraSummary=summarizePageRead(extra);
+ assert.equal(extraSummary.guidance,'Wrapper guidance');assert.equal(extraSummary.controlFields.payloadGuidance,'Use expected hashes.');
+ assert.equal(extraSummary.controlFields.payload.notice,'Additional instructions');
+ assert.equal(extraSummary.controlFields.content.policy,'Additional content policy');
+ assert.equal(extraSummary.controlFields.envelope.notice,'Wrapper notice');
+ assert.deepEqual(extraSummary.controlFields.textMetadata,[{annotations:{audience:['assistant']}}]);
+ const mirrorFile=write('mirrored-page.json',large),mirrorBytes=fs.readFileSync(mirrorFile);
+ const mirrorOutput=execFileSync(process.execPath,['scripts/command-centre.mjs','page-summary','--input='+mirrorFile],{encoding:'utf8'});
+ assert.ok(mirrorOutput.length<1000);assert.deepEqual(fs.readFileSync(mirrorFile),mirrorBytes);
  const eventFile=write('event.json',event), pageFile=write('page.json',page);
  const spec={page:pageFile,event:eventFile,kind:'summary',at:'2026-10-03T10:02:00Z'};
  const input=reportingInputFromFiles('plan',spec);const expected=planPage(page,event,'summary',spec.at);

@@ -7,7 +7,7 @@ export async function nativeReportingFlow(io) {
   // metadata/control fields and full guidance remain part of the comparison.
   const guidance = s => {
     const metadata = s.metadata && Object.fromEntries(Object.entries(s.metadata).filter(([key])=>key!=='updated_at'));
-    return JSON.stringify([s.pageId,metadata,s.guidance,s.toolMeta,s.toolText,s.instructions]);
+    return JSON.stringify([s.pageId,metadata,s.guidance,s.toolMeta,s.toolText,s.instructions,s.controlFields]);
   };
   try {
     const reviewed = await io.reviewed();
