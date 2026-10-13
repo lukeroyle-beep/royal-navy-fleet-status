@@ -88,6 +88,14 @@ to force acceptance. A native-cell CLI failure is reported as
 new attempt. Summary size can still grow with genuine instructions or independent
 text, which must not be truncated to meet a size target.
 
+Documented snapshot fields (`through_sequence`, `checkpoint_id`, whole-document
+`markdown`, `view` and selection coverage) are kept in the raw read rather than
+frozen as guidance. Own edits and complete full/selected-to-editing reads can
+change those values. Every read must still be whole-Page complete, and planning
+still uses the raw block hashes and metadata. Text annotations remain bound to
+their verified mirror or independent text, so changing the text they govern
+stops reporting even if the annotations themselves are unchanged.
+
 The CLI accepts `--files=PRIVATE_SPEC` for plan/confirm/finish:
 
 - plan: `{page: READ_PATH, event: EVENT_PATH, kind: 'summary'|'history', at: ISO}`

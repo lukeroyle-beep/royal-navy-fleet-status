@@ -24,6 +24,14 @@ try {
  large.content=[{type:'text',text:JSON.stringify(large.structuredContent)}];
  assert.equal(JSON.stringify(summarizePageRead(large)).length,JSON.stringify(compact).length);
  assert.ok(!JSON.stringify(summarizePageRead(large)).includes('x'.repeat(100)));
+ const full=structuredClone(large);full.structuredContent.content.markdown='x'.repeat(100000);
+ full.structuredContent.content.through_sequence=12;full.structuredContent.content.checkpoint_id='snapshot';full.structuredContent.view='full';
+ full.content[0].text=JSON.stringify(full.structuredContent);
+ assert.deepEqual(summarizePageRead(full),summarizePageRead(large));
+ const selected=structuredClone(page);selected.structuredContent.selection={whole_page_complete:true,page_block_count:2,returned_block_count:2};
+ assert.deepEqual(summarizePageRead(selected),compact);
+ selected.structuredContent.selection.whole_page_complete=false;
+ assert.equal(summarizePageRead(selected).wholePageComplete,false);
  const independent=mirror(JSON.stringify(page.structuredContent));
  independent.content.push({type:'text',text:'Independent operator guidance.'},{type:'text',text:'{"instructions":"Inspect conflicts."}'});
  assert.deepEqual(summarizePageRead(independent).toolText,['Independent operator guidance.','{"instructions":"Inspect conflicts."}']);
@@ -48,7 +56,12 @@ try {
  assert.equal(extraSummary.controlFields.payload.notice,'Additional instructions');
  assert.equal(extraSummary.controlFields.content.policy,'Additional content policy');
  assert.equal(extraSummary.controlFields.envelope.notice,'Wrapper notice');
- assert.deepEqual(extraSummary.controlFields.textMetadata,[{annotations:{audience:['assistant']}}]);
+ assert.deepEqual(extraSummary.controlFields.textMetadata,[{kind:'mirror',metadata:{annotations:{audience:['assistant']}}}]);
+ const bound=mirror(JSON.stringify(page.structuredContent));bound.content[0].annotations={audience:['assistant']};
+ bound.content.push({type:'text',text:'Independent guidance',annotations:{audience:['user']}});
+ const reassociated=structuredClone(bound);
+ [reassociated.content[0].text,reassociated.content[1].text]=[reassociated.content[1].text,reassociated.content[0].text];
+ assert.notDeepEqual(summarizePageRead(bound),summarizePageRead(reassociated));
  const mirrorFile=write('mirrored-page.json',large),mirrorBytes=fs.readFileSync(mirrorFile);
  const mirrorOutput=execFileSync(process.execPath,['scripts/command-centre.mjs','page-summary','--input='+mirrorFile],{encoding:'utf8'});
  assert.ok(mirrorOutput.length<1000);assert.deepEqual(fs.readFileSync(mirrorFile),mirrorBytes);

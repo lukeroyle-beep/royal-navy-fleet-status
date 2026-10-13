@@ -57,7 +57,17 @@ try {
     const pages=[DESTINATION,HISTORY].map(page_id=>({structuredContent:{content:{page_id,blocks:[{id:'instructions',kind:'agent_instructions',hash:'i',markdown:'Preserve manual text.'},{id:'manual',kind:'markdown',hash:'m',markdown:'Manual content'}]},metadata:{stream_kind:'content'},guidance:'Respect expected hashes.'}}));
     if(mode==='text')pages.forEach(p=>{p.content=[{type:'text',text:'Independent guidance'}];});
     if(mode==='shadowed-guidance')pages.forEach(p=>{p.guidance='Wrapper guidance';});
-    const present=p=>mirrored?{...structuredClone(p),content:[{type:'text',text:JSON.stringify(p.structuredContent)},...(p.content||[])]}:structuredClone(p);
+    if(mode==='sequence')pages.forEach(p=>{p.structuredContent.content.through_sequence=0;});
+    if(mode==='checkpoint')pages.forEach(p=>{p.structuredContent.content.checkpoint_id='initial';});
+    if(mode==='selected-read' || mode==='incomplete-read')pages.forEach(p=>{p.structuredContent.selection={whole_page_complete:true,page_block_count:2,returned_block_count:2};});
+    if(mode==='full-read')pages.forEach(p=>{p.structuredContent.view='full';p.structuredContent.content.markdown=p.structuredContent.content.blocks.map(b=>b.markdown).join('\n\n');});
+    if(mode==='view')pages.forEach(p=>{p.structuredContent.view='editing';});
+    const present=p=>{
+      const result=structuredClone(p);
+      if(mode==='text-association')result.content=[{type:'text',text:JSON.stringify(p.structuredContent),annotations:{audience:['assistant']}},{type:'text',text:'Independent guidance',annotations:{audience:['user']}}];
+      if(mirrored)result.content=[{type:'text',text:JSON.stringify(p.structuredContent)},...(result.content||[])];
+      return result;
+    };
     const reads=pages.map((p,i)=>{const file=path.join(dir,`reviewed${i}.json`);write(file,present(p));return file;});
     const cellConfig={schemaVersion:1,event:eventFile,outbox,directory:path.join(dir,"transport ' quoted"),invocation:thread,context:'scheduled',guidanceReviewed:true,reviewedReads:reads};
     assert.throws(()=>renderNativeReportingCell({...cellConfig,guidanceReviewed:false},process.cwd()),/REVIEWED/);
@@ -78,6 +88,12 @@ try {
         assert.equal(stream_kind,'content');const i=[DESTINATION,HISTORY].indexOf(page_id);counts[i]++;
         if(mode==='denial')throw Error('denied');
         if(mode==='timestamp')pages[i].structuredContent.metadata.updated_at=new Date(counts[i]*1000).toISOString();
+        if(mode==='sequence' && counts[i]===2)pages[i].structuredContent.content.through_sequence++;
+        if(mode==='checkpoint' && counts[i]===2)pages[i].structuredContent.content.checkpoint_id='saved';
+        if(mode==='selected-read')delete pages[i].structuredContent.selection;
+        if(mode==='incomplete-read')pages[i].structuredContent.selection.whole_page_complete=false;
+        if(mode==='view')delete pages[i].structuredContent.view;
+        if(mode==='full-read'){pages[i].structuredContent.view='editing';delete pages[i].structuredContent.content.markdown;}
         if(mode==='control' && counts[i]===2)pages[i].structuredContent.metadata.stream_kind='other';
         if(mode==='identity' && counts[i]===2)pages[i].structuredContent.content.page_id='other';
         if(mode==='instruction' && counts[i]===2)pages[i].structuredContent.content.blocks[0].markdown='Changed policy';
@@ -92,6 +108,7 @@ try {
         const result=present(pages[i]);
         if(mode==='conflicting-text' && counts[i]===2)result.content=[{type:'text',text:JSON.stringify({...pages[i].structuredContent,guidance:'Contradictory mirror'})}];
         if(mode==='unsupported' && counts[i]===2)result.content=[{type:'image',data:'fixture'}];
+        if(mode==='text-association' && counts[i]===2){const pair=result.content.slice(-2);[pair[0].text,pair[1].text]=[pair[1].text,pair[0].text];}
         return result;
       },
       mcp__codex_apps__chatgpt_space_edit_page:async({page_id,operations})=>{
@@ -111,7 +128,7 @@ try {
     await vm.runInNewContext(`(async()=>{${code}})()`,{tools,text:x=>outputs.push(x)});
     assert.equal(outputs.length,1);assert.ok(JSON.stringify(outputs).length<600);
     assert.equal(pages[0].structuredContent.content.blocks[1].markdown,'Manual content');
-    if(mode==='success' || mode==='timestamp' || mode==='event-mutation'){
+    if(['success','timestamp','event-mutation','sequence','checkpoint','selected-read','full-read','view'].includes(mode)){
       assert.equal(outputs[0].state,'delivered');assert.equal(edits,4);assert.deepEqual(counts,[3,3]);
       // Repeat a stable event with newly inspected guidance: no writes, same guards.
       write(eventFile,event);pages.forEach((p,i)=>write(reads[i],present(p)));cellConfig.directory=path.join(dir,'replay');
@@ -126,13 +143,14 @@ try {
       if(mode==='final'){assert.equal(edits,4);assert.deepEqual(counts,[3,3]);}
       else {assert.ok(edits<=1);assert.equal(counts[1],0);}
       if(mode==='unknown' || mode==='rejected')assert.equal(counts[0],2); // reread, never replay
-      if(['guidance','control','identity','instruction','instruction-metadata','text','payload-control','content-control','wrapper-control','shadowed-guidance'].includes(mode))assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
+      if(['guidance','control','identity','instruction','instruction-metadata','text','payload-control','content-control','wrapper-control','shadowed-guidance','text-association','incomplete-read'].includes(mode))assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
+      if(mode==='incomplete-read')assert.equal(edits,0);
       // The native adapter retains the raw read and wraps a failed local CLI.
       // Parser-specific diagnostics are asserted in the compact-summary tests.
       if(['conflicting-text','unsupported'].includes(mode))assert.equal(outputs[0].error,'LOCAL_REPORTING_COMMAND_FAILED');
       if(mode==='mismatch'){assert.equal(edits,0);assert.deepEqual(counts,[0,0]);assert.equal(outputs[0].error,'QUEUED_EVENT_MISMATCH');}
     }
   }
-  for(const mirrored of [false,true])for(const mode of ['success','timestamp','control','identity','instruction','instruction-metadata','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation','text','payload-control','content-control','wrapper-control','shadowed-guidance','conflicting-text','unsupported'])await scenario(mode,mirrored);
+  for(const mirrored of [false,true])for(const mode of ['success','timestamp','control','identity','instruction','instruction-metadata','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation','text','payload-control','content-control','wrapper-control','shadowed-guidance','conflicting-text','unsupported','sequence','checkpoint','selected-read','full-read','view','text-association','incomplete-read'])await scenario(mode,mirrored);
   console.log('Thin coordination fixtures passed: native cell execution, guarded writes/replay, guidance/manual conflicts, unknown saves, denial/retry bounds, bootstrap provenance and no-mutation stops. No live tools used.');
 } finally {fs.rmSync(root,{recursive:true,force:true});}

@@ -33,18 +33,19 @@ function controlText(page, structured) {
   for (const block of page.content || []) {
     if (!object(block) || block.type !== 'text' || typeof block.text !== 'string') fail('PAGE_READ_ENVELOPE_INVALID');
     const extra = without(block, ['type', 'text']);
-    if (Object.keys(extra).length) metadata.push(extra);
     let parsed;
-    try { parsed = JSON.parse(block.text); } catch { text.push(block.text);continue; }
+    try { parsed = JSON.parse(block.text); } catch { /* Independent prose is retained below. */ }
     const pageLike = object(parsed) && (Object.hasOwn(parsed, 'structuredContent') ||
       (object(parsed.content) && (Object.hasOwn(parsed.content, 'page_id') || Object.hasOwn(parsed.content, 'blocks'))));
     if (isDeepStrictEqual(parsed, structured)) {
       if (hasDuplicateKeys(block.text)) fail('PAGE_READ_TEXT_CONFLICT');
+      if (Object.keys(extra).length) metadata.push({ kind: 'mirror', metadata: extra });
       continue;
     }
     if (pageLike) fail('PAGE_READ_TEXT_CONFLICT');
     // Independent JSON and prose may carry instructions; retain them verbatim.
-    text.push(block.text);
+    const textIndex = text.push(block.text) - 1;
+    if (Object.keys(extra).length) metadata.push({ kind: 'text', textIndex, metadata: extra });
   }
   return { text, metadata };
 }
@@ -64,12 +65,13 @@ export function summarizePageRead(page) {
   if (!object(p) || page.isError || p.error || !p.content?.page_id || !Array.isArray(p.content.blocks) ||
       p.content.blocks.some(block => !object(block))) fail('PAGE_READ_UNAVAILABLE');
   const controls = controlText(page, p);
-  // Unknown control fields stay visible and participate in guidance readback.
-  // Only ordinary block bodies and a verified full data mirror are omitted.
+  // Known snapshot data can change under our own edits or between complete
+  // read views. Raw guards/body/coverage remain in the private planning input;
+  // completeness is checked separately on every read. Unknown controls stay.
   const controlFields = {
-    payload: without(p, ['content', 'metadata', 'guidance']),
+    payload: without(p, ['content', 'metadata', 'guidance', 'view', 'selection', 'excerpt_selection']),
     payloadGuidance: p.guidance ?? null,
-    content: without(p.content, ['page_id', 'blocks']),
+    content: without(p.content, ['page_id', 'blocks', 'markdown', 'through_sequence', 'checkpoint_id']),
     envelope: wrapped ? without(page, ['structuredContent', 'content', 'guidance', '_meta', 'isError']) : {},
     textMetadata: controls.metadata,
   };
