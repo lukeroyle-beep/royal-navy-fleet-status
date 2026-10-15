@@ -55,6 +55,7 @@ try {
     enqueue(outbox,event,[{path:eventFile,sha256:digest(fs.readFileSync(eventFile,'utf8'))}]);
     if(mode==='mismatch')write(eventFile,{...event,facts:'Different valid payload with same identifier'});
     const pages=[DESTINATION,HISTORY].map(page_id=>({structuredContent:{content:{page_id,blocks:[{id:'instructions',kind:'agent_instructions',hash:'i',markdown:'Preserve manual text.'},{id:'manual',kind:'markdown',hash:'m',markdown:'Manual content'}]},metadata:{stream_kind:'content'},guidance:'Respect expected hashes.'}}));
+    pages.forEach(p=>Object.assign(p.structuredContent.metadata,{preview:'Initial preview',current_sequence:0,projection_through_sequence:0}));
     if(mode==='text')pages.forEach(p=>{p.content=[{type:'text',text:'Independent guidance'}];});
     if(mode==='shadowed-guidance')pages.forEach(p=>{p.guidance='Wrapper guidance';});
     if(mode==='sequence')pages.forEach(p=>{p.structuredContent.content.through_sequence=0;});
@@ -95,6 +96,9 @@ try {
         if(mode==='view')delete pages[i].structuredContent.view;
         if(mode==='full-read'){pages[i].structuredContent.view='editing';delete pages[i].structuredContent.content.markdown;}
         if(mode==='control' && counts[i]===2)pages[i].structuredContent.metadata.stream_kind='other';
+        if(mode==='metadata-policy' && counts[i]===2)pages[i].structuredContent.metadata.policy='Changed control';
+        if(mode==='access' && counts[i]===2)pages[i].structuredContent.metadata.access={can_write:false};
+        if(mode==='owner' && counts[i]===2)pages[i].structuredContent.metadata.owner_workspace_id='changed-owner';
         if(mode==='identity' && counts[i]===2)pages[i].structuredContent.content.page_id='other';
         if(mode==='instruction' && counts[i]===2)pages[i].structuredContent.content.blocks[0].markdown='Changed policy';
         if(mode==='instruction-metadata' && counts[i]===2)pages[i].structuredContent.content.blocks[0].metadata={policy:'Changed instruction metadata'};
@@ -121,6 +125,12 @@ try {
           if(op.op==='insert_markdown')blocks.push(block);
           else {const i=blocks.findIndex(b=>b.id===op.block_id);assert.equal(blocks[i].hash,op.expected_hash);blocks[i]=block;}
         }
+        // Native Page reads change snapshot metadata after our own writes.
+        // Exercise this drift alongside every content and control guard.
+        const metadata=pages[[DESTINATION,HISTORY].indexOf(page_id)].structuredContent.metadata;
+        metadata.preview=blocks.map(b=>b.markdown).join('\n\n').slice(0,250);
+        metadata.current_sequence++;
+        metadata.projection_through_sequence=metadata.current_sequence;
         if(mode==='unknown')throw Error('transport lost');
         return {structuredContent:{operation_results:operations.map((_,operation_index)=>({operation_index,status:'applied'}))}};
       },
@@ -143,7 +153,7 @@ try {
       if(mode==='final'){assert.equal(edits,4);assert.deepEqual(counts,[3,3]);}
       else {assert.ok(edits<=1);assert.equal(counts[1],0);}
       if(mode==='unknown' || mode==='rejected')assert.equal(counts[0],2); // reread, never replay
-      if(['guidance','control','identity','instruction','instruction-metadata','text','payload-control','content-control','wrapper-control','shadowed-guidance','text-association','incomplete-read'].includes(mode))assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
+      if(['guidance','control','metadata-policy','access','owner','identity','instruction','instruction-metadata','text','payload-control','content-control','wrapper-control','shadowed-guidance','text-association','incomplete-read'].includes(mode))assert.equal(outputs[0].error,'PAGE_GUIDANCE_CHANGED');
       if(mode==='incomplete-read')assert.equal(edits,0);
       // The native adapter retains the raw read and wraps a failed local CLI.
       // Parser-specific diagnostics are asserted in the compact-summary tests.
@@ -151,6 +161,6 @@ try {
       if(mode==='mismatch'){assert.equal(edits,0);assert.deepEqual(counts,[0,0]);assert.equal(outputs[0].error,'QUEUED_EVENT_MISMATCH');}
     }
   }
-  for(const mirrored of [false,true])for(const mode of ['success','timestamp','control','identity','instruction','instruction-metadata','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation','text','payload-control','content-control','wrapper-control','shadowed-guidance','conflicting-text','unsupported','sequence','checkpoint','selected-read','full-read','view','text-association','incomplete-read'])await scenario(mode,mirrored);
+  for(const mirrored of [false,true])for(const mode of ['success','timestamp','control','metadata-policy','access','owner','identity','instruction','instruction-metadata','guidance','manual','final','unknown','rejected','ignored','partial','denial','mismatch','event-mutation','text','payload-control','content-control','wrapper-control','shadowed-guidance','conflicting-text','unsupported','sequence','checkpoint','selected-read','full-read','view','text-association','incomplete-read'])await scenario(mode,mirrored);
   console.log('Thin coordination fixtures passed: native cell execution, guarded writes/replay, guidance/manual conflicts, unknown saves, denial/retry bounds, bootstrap provenance and no-mutation stops. No live tools used.');
 } finally {fs.rmSync(root,{recursive:true,force:true});}

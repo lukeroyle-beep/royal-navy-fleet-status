@@ -96,6 +96,12 @@ still uses the raw block hashes and metadata. Text annotations remain bound to
 their verified mirror or independent text, so changing the text they govern
 stops reporting even if the annotations themselves are unchanged.
 
+The native reporting flow likewise excludes only top-level Page metadata
+`updated_at`, `preview`, `current_sequence` and `projection_through_sequence`
+from its stable-control comparison. A successful own edit changes those snapshot
+fields. Full raw reads and exact content/managed-metadata readback remain required;
+identity, access, ownership, instructions and other metadata still stop on drift.
+
 The CLI accepts `--files=PRIVATE_SPEC` for plan/confirm/finish:
 
 - plan: `{page: READ_PATH, event: EVENT_PATH, kind: 'summary'|'history', at: ISO}`
