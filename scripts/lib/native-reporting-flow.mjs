@@ -4,9 +4,11 @@ export async function nativeReportingFlow(io) {
   let attempt;
   const plans = [], readbacks = [];
   // The summary separates documented snapshot data from stable controls.
-  // Exclude this volatile metadata timestamp too; retain all other controls.
+  // Page edits also advance these top-level snapshot fields. Keep raw reads,
+  // content hashes, identity, permissions and every other control guarded.
   const guidance = s => {
-    const metadata = s.metadata && Object.fromEntries(Object.entries(s.metadata).filter(([key])=>key!=='updated_at'));
+    const metadata = s.metadata && Object.fromEntries(Object.entries(s.metadata).filter(([key])=>
+      !['updated_at','preview','current_sequence','projection_through_sequence'].includes(key)));
     return JSON.stringify([s.pageId,metadata,s.guidance,s.toolMeta,s.toolText,s.instructions,s.controlFields]);
   };
   try {

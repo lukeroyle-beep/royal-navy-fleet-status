@@ -24,6 +24,19 @@ try {
  const successful={...event,outcome:'PUBLISHED',coverage:{sources:[77,77],discovery:[7,7],vessels:[69,69],integrity:[6,6]}};validateEvent(successful);
  for(const outcome of ['PREFLIGHT_FAILED','COLLECTION_FAILED','PUBLICATION_FAILED'])validateEvent({...event,outcome,coverage:{sources:[null,null],discovery:[0,7],vessels:[0,69],integrity:[0,6]}});
  assert.match(london('2026-10-24T11:00:00Z'),/12:00:00 BST/);assert.match(london('2026-10-26T12:00:00Z'),/12:00:00 GMT/);
+ // Report only the verified next instant; the event carries no recurrence rule.
+ for(const kind of ['summary','history']) {
+  for(const [nextScheduledAt,expected] of [
+   [null,'Unverified'],
+   ['2026-10-18T11:00:00Z','18 Oct 2026, 12:00:00 BST'],
+   ['2026-10-25T12:00:00Z','25 Oct 2026, 12:00:00 GMT'],
+   ['2026-10-20T08:30:00Z','20 Oct 2026, 09:30:00 BST']
+  ]) {
+   const plan=planPage(page(kind==='summary'?DESTINATION:HISTORY),{...event,nextScheduledAt},kind,event.recordedAt);
+   assert.equal(plan.expected.split('\n').find(line=>line.startsWith('| Next scheduled run |')),`| Next scheduled run | ${expected} |`);
+   assert.doesNotMatch(plan.expected,/daily 12:00|weekly|every Sunday/i);
+  }
+ }
  const ctx={runId:'EARLY_RUN',runStartedAt:event.runStartedAt,trigger:'manual',lastGoodRelease:event.lastGoodRelease,nextScheduledAt:event.nextScheduledAt,references:[]};
  const ctxPath=path.join(root,'context.json');fs.writeFileSync(ctxPath,JSON.stringify(ctx));
  const preflight={runId:'EARLY_RUN',checkedAt:'2026-10-02T09:02:00Z',elapsedMs:100,outcome:'DEFERRED_WITH_JUSTIFICATION',diagnostic:'GITHUB_AUTH_FAILED'};

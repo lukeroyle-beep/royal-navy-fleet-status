@@ -111,7 +111,7 @@ export function render(event, savedAt) {
     `| Coverage completed/expected | Sources ${count(event.coverage.sources)}; discovery ${count(event.coverage.discovery)}; vessels ${count(event.coverage.vessels)}; integrity ${count(event.coverage.integrity)} |`,
     ...[['Publication','publication'],['Last good release','lastGoodRelease'],['Blocker','blocker'],['Next action','nextAction'],['Backup','backup'],['Evidence qualifications','facts']].map(([label,key])=>`| ${label} | ${safeText(event[key])} |`),
     `| Evidence date | ${london(event.evidenceAt)} |`, `| Run completion | ${london(event.completedAt)} |`,
-    `| Outcome recorded | ${london(event.recordedAt)} |`, `| Next scheduled run | ${london(event.nextScheduledAt)}; daily 12:00 Europe/London |`,
+    `| Outcome recorded | ${london(event.recordedAt)} |`, `| Next scheduled run | ${london(event.nextScheduledAt)} |`,
     `| Space update attempt | ${london(savedAt)} |`,
     '| Confirmed Space update | Pending saved-field readback |',
     `| Evidence links | ${event.references.map(r=>`[${safeText(r.label)}](${r.url})`).join(' · ') || 'No accessible receipt link verified; private receipts retained'} |`
