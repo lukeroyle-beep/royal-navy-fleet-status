@@ -23,6 +23,10 @@ from verified existing scheduler state, or null), and `references` (verified
 accessible GitHub receipts/releases or Pages links). These fields are the context,
 not source payloads. Use the same run identity for all recovery and publication
 events; a new scheduler invocation does not by itself establish a new sweep.
+The next-run row displays only that verified instant in Europe/London, or
+`Unverified` for null. It does not infer a recurrence rule from an instant. Use
+`facts` to qualify a paused schedule or a requested cadence that is not yet enabled;
+do not put a desired Sunday into `nextScheduledAt` without scheduler evidence.
 Set `RNFS_COMMAND_CENTRE_OUTBOX` and `RNFS_COMMAND_CENTRE_CONTEXT` explicitly when
 invoking native preflight. The preflight entrypoint enqueues its persisted outcome,
 including rejected config/early exits. Missing reporting configuration is not proof
