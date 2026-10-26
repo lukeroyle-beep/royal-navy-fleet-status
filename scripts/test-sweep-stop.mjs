@@ -37,6 +37,25 @@ try {
   assert.equal(evaluateSweepHeadroom(measured(100000),allowances).allowed,true);
   assert.equal(evaluateSweepHeadroom(measured(100000),{nextResponseTokens:99999,closeoutTokens:50000}).allowed,true);
   assert.equal(evaluateSweepHeadroom(measured(100000),{nextResponseTokens:100000,closeoutTokens:50000}).allowed,false);
+  // A cheap next response does not establish that the remaining workflow fits.
+  const workflow={nextResponseTokens:40000,closeoutTokens:50000,remainingWorkResponses:4};
+  const infeasible=evaluateSweepHeadroom(measured(40000),workflow);
+  assert.equal(infeasible.allowed,false);assert.equal(infeasible.plannedWorkTotal,200000);
+  assert.equal(infeasible.plannedTotal,250000);assert.equal(infeasible.remainingWorkResponses,4);
+  assert.equal(infeasible.planningScope,'remaining-work-responses');
+  assert.equal(evaluateSweepHeadroom(measured(40000),{...workflow,nextResponseTokens:39999}).allowed,true);
+  assert.equal(evaluateSweepHeadroom(measured(40000),{...workflow,closeoutTokens:100000,remainingWorkResponses:3}).allowed,false);
+  assert.deepEqual(evaluateSweepHeadroom(measured(40000),allowances),
+    evaluateSweepHeadroom(measured(40000),{...allowances,remainingWorkResponses:1}));
+  for(const remainingWorkResponses of [null,0,-1,1.5,65,Infinity,'4'])
+    assert.throws(()=>evaluateSweepHeadroom(measured(40000),{...workflow,remainingWorkResponses}),/PLAN_INVALID/);
+  assert.equal(evaluateSweepHeadroom(measured(40000),{remainingWorkResponses:4}).outcome,'WORK_HEADROOM_UNKNOWN');
+  // More planned rounds can refuse earlier but can never make admission easier.
+  for(const total of [40000,150000,199999,200000]) for(const count of [1,2,4,64]) {
+    const one=evaluateSweepHeadroom(measured(total),allowances);
+    const many=evaluateSweepHeadroom(measured(total),{...allowances,remainingWorkResponses:count});
+    assert.ok(!many.allowed || one.allowed);
+  }
   // Total target is an independent boundary, even when the work threshold would allow it.
   assert.equal(evaluateSweepHeadroom(measured(100000),{nextResponseTokens:60000,closeoutTokens:90000}).allowed,true);
   assert.equal(evaluateSweepHeadroom(measured(100000),{nextResponseTokens:60000,closeoutTokens:90001}).allowed,false);
@@ -60,6 +79,9 @@ try {
   const config={schemaVersion:1,privateRoot:root,backupDirectory:root,sessionPath:'/fixture',
     attemptDirectory:path.join(root,'attempt'),headroom:allowances};
   const dependencies={encrypted:()=>{probes++;return true;},write:()=>{probes++;}};
+  const wholeWorkflowStop=await startSweep({config:{...config,headroom:workflow},usage:measured(40000),probes:dependencies});
+  assert.equal(wholeWorkflowStop.outcome,'WORK_HEADROOM_STOP');assert.equal(probes,0);
+  assert.equal(fs.existsSync(config.attemptDirectory),false);
   const stopped=await startSweep({config,usage:historical,probes:dependencies});
   assert.equal(stopped.outcome,'WORK_HEADROOM_STOP');assert.equal(probes,0);
   assert.equal(fs.existsSync(config.attemptDirectory),false);

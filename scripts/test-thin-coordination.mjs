@@ -3,8 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import vm from 'node:vm';
-import { execFileSync } from 'node:child_process';
-import { bootstrapSweep, locateSweepSession } from './lib/sweep-bootstrap.mjs';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { bootstrapSweep, inspectSweepBootstrap, locateSweepSession } from './lib/sweep-bootstrap.mjs';
 import { evaluateSweepUsage } from './lib/sweep-work-budget.mjs';
 import { renderNativeReportingCell } from './lib/native-reporting-cell.mjs';
 import { enqueue, digest, DESTINATION, HISTORY } from './lib/command-centre.mjs';
@@ -22,6 +22,58 @@ try {
   fs.writeFileSync(session,records.map(x=>JSON.stringify(x)).join('\n')+'\n');
   const config={schemaVersion:1,expectedHead:git(['rev-parse','HEAD']),directory:path.join(root,'boot'),privateRoot:root,backupDirectory:root,trigger:'scheduled',lastGoodRelease:'Fixture',nextScheduledAt:null,references:[]};
   const dependencies={repository:repo,environment:{CODEX_THREAD_ID:thread},now,locate:id=>locateSweepSession(id,sessions,now),usage:()=>evaluateSweepUsage(records,thread,{now})};
+  const snapshot=()=>fs.readdirSync(root,{recursive:true}).sort().map(name=>{
+    const file=path.join(root,name),stat=fs.lstatSync(file);
+    return [name,stat.mode,stat.isFile()?fs.readFileSync(file):null];
+  });
+  const beforeInspect=snapshot();
+  const inspected=inspectSweepBootstrap(config,{...dependencies,
+    locate:()=>assert.fail('Inspection must not locate/read the native journal'),
+    usage:()=>assert.fail('Inspection must not invoke the usage guard')});
+  assert.equal(inspected.outcome,'BOOTSTRAP_INSPECTED');
+  assert.equal(inspected.usageChecked,false);assert.equal(inspected.filesCreated,false);
+  assert.equal(inspected.collectionStarted,false);assert.equal(inspected.preflightPassed,false);
+  assert.ok(JSON.stringify(inspected).length<700);
+  assert.deepEqual(snapshot(),beforeInspect);
+  assert.throws(()=>inspectSweepBootstrap({...config,expectedHead:'0'.repeat(40)},dependencies),/CLEAN_EXPECTED/);
+  assert.throws(()=>inspectSweepBootstrap({...config,references:[null]},dependencies));
+  assert.deepEqual(snapshot(),beforeInspect);
+  // A completed first model round supplies usage; inspection does not invent it.
+  const delayedRecords=[records[0]], delayedConfig={...config,directory:path.join(root,'delayed-boot')};
+  const delayedDependencies={...dependencies,now:now+691,
+    usage:()=>evaluateSweepUsage(delayedRecords,thread,{now:now+691})};
+  assert.equal(inspectSweepBootstrap(delayedConfig,delayedDependencies).outcome,'BOOTSTRAP_INSPECTED');
+  assert.throws(()=>bootstrapSweep(delayedConfig,delayedDependencies),/USAGE_MEASUREMENT_UNAVAILABLE/);
+  assert.equal(fs.existsSync(delayedConfig.directory),false);
+  delayedRecords.push({...records[1],timestamp:new Date(now+690).toISOString()});
+  assert.equal(bootstrapSweep(delayedConfig,delayedDependencies).outcome,'BOOTSTRAP_PREPARED');
+  const expiredDependencies={...dependencies,usage:()=>evaluateSweepUsage(delayedRecords,thread,{now:now+120691})};
+  assert.throws(()=>bootstrapSweep(config,expiredDependencies),/USAGE_MEASUREMENT_UNAVAILABLE/);
+  const thresholdRecords=[records[0],{...records[1],payload:{type:'token_count',info:{total_token_usage:{input_tokens:199998,cached_input_tokens:199000,output_tokens:2,total_tokens:200000}}}}];
+  assert.equal(bootstrapSweep(config,{...dependencies,usage:()=>evaluateSweepUsage(thresholdRecords,thread,{now})}).outcome,'WORK_BUDGET_STOP');
+  assert.equal(fs.existsSync(config.directory),false);
+  // Run the real CLI in a clean isolated checkout; no native journal is needed.
+  const cliRepo=path.join(root,'cli-repo');fs.mkdirSync(path.join(cliRepo,'scripts','lib'),{recursive:true});
+  for(const file of ['bootstrap-sweep.mjs','lib/private-artifacts.mjs','lib/sweep-bootstrap.mjs',
+    'lib/sweep-work-budget.mjs','lib/command-centre.mjs','lib/sweep-stop.mjs'])
+    fs.copyFileSync(path.join('scripts',file),path.join(cliRepo,'scripts',file));
+  const cliGit=args=>execFileSync('git',args,{cwd:cliRepo,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
+  cliGit(['init']);cliGit(['add','scripts']);
+  cliGit(['-c','user.name=Fixture','-c','user.email=fixture@example.invalid','commit','-m','fixture']);
+  const cliConfig=path.join(root,'inspect-config.json'), stopFile=path.join(root,'forbidden-stop.json');
+  write(cliConfig,{...config,expectedHead:cliGit(['rev-parse','HEAD'])});
+  const invoke=extra=>spawnSync(process.execPath,[path.join(cliRepo,'scripts/bootstrap-sweep.mjs'),
+    '--inspect','--config='+cliConfig,...extra],{encoding:'utf8',env:{...process.env,CODEX_THREAD_ID:thread}});
+  const cliBefore=snapshot(),cliSuccess=invoke([]);
+  assert.equal(cliSuccess.status,0,cliSuccess.stderr);assert.equal(JSON.parse(cliSuccess.stdout).outcome,'BOOTSTRAP_INSPECTED');
+  assert.deepEqual(snapshot(),cliBefore);
+  const cliConflict=invoke(['--stop-output='+stopFile]);
+  assert.equal(cliConflict.status,2);assert.equal(JSON.parse(cliConflict.stdout).outcome,'BOOTSTRAP_INSPECTION_STOPPED');
+  assert.equal(JSON.parse(cliConflict.stdout).diagnostic,'INSPECTION_CANNOT_SAVE_STOP');
+  assert.equal(fs.existsSync(stopFile),false);assert.deepEqual(snapshot(),cliBefore);
+  fs.writeFileSync(cliConfig,'malformed');const malformedBefore=snapshot(),cliInvalid=invoke([]);
+  assert.equal(cliInvalid.status,2);assert.equal(JSON.parse(cliInvalid.stdout).filesCreated,false);
+  assert.deepEqual(snapshot(),malformedBefore);
   assert.throws(()=>bootstrapSweep({...config,expectedHead:'0'.repeat(40)},dependencies),/CLEAN_EXPECTED/);
   assert.equal(fs.existsSync(config.directory),false);
   assert.throws(()=>bootstrapSweep({...config,schemaVersion:2},dependencies),/CONFIG/);

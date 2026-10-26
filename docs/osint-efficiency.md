@@ -100,22 +100,33 @@ the current invocation. Account allowance is separate from provider token totals
 
 The native 200k work stop remains a check of observed cumulative usage. It cannot
 cancel the next model response. Optional `headroom` in bootstrap/startup config
-(or preflight's `usageBudget.headroom`) contains exactly `nextResponseTokens` and
-`closeoutTokens`. These are explicit planning allowances, not token measurements.
+(or preflight's `usageBudget.headroom`) contains `nextResponseTokens` and
+`closeoutTokens`, with optional `remainingWorkResponses` (1 through 64, default 1).
+These are explicit planning allowances, not token measurements.
 No allowance is selected automatically. Both must be positive whole tokens; the
 closeout allowance must be at least the existing reserve. Missing/null allowances
 refuse work as `WORK_HEADROOM_UNKNOWN`; invalid values refuse the request.
 
-The additional check allows work only if observed usage plus the next allowance is
+The additional check allows work only if observed usage plus the per-response
+allowance multiplied by `remainingWorkResponses` is
 strictly below the existing work threshold, and that sum plus closeout is at most
 the existing total target. It can only stop earlier. It keeps the actual native
 guard, lower configured limits and 120-second freshness rule. An allowed estimate
 does not establish that a future response fits, reduce actual counters or enforce
-platform billing. Refresh planning assumptions for the next stage; do not treat
+platform billing. Count the current in-flight completion if it is not yet in the
+journal, every further work completion, and all separately planned closeout work.
+For example, 40,000 measured plus four planned 40,000-token work responses reaches
+the unchanged 200,000 work stop and refuses before probes or directory creation.
+This arithmetic is an illustration, not a forecast of this host's usage.
+Refresh planning assumptions for the next stage; do not treat
 the bootstrap allowance copied into startup/preflight as measured future cost.
+`remainingWorkResponses` is not decremented automatically when configurations are
+copied. Recalculate it from actual completed work before a later stage, still
+including any unjournalled in-flight completion. Keeping the original count is
+conservative and may stop earlier; never subtract from the measured native total.
 
 `sweep:guard` accepts `--headroom=/private/allowances.json`. The file has the same
-two fields. Omitting this option retains the measured-only guard. On bootstrap,
+fields. Omitting this option retains the measured-only guard. On bootstrap,
 guard or preflight errors, `--stop-output=/private/existing-parent/new-stop.json`
 can persist a terminal receipt in the same command. Startup normally writes its
 returned stop to `--output`; `--stop-output` also captures errors before that write.

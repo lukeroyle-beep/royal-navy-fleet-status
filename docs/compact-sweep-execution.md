@@ -12,16 +12,24 @@ platform instructions. Read those once as required, then retain their constraint
 Keep historical handoffs and full evidence in private files; load a specific item
 only when the next decision needs it. Preserve the existing scheduler/owner.
 
-1. Read the compact private dispatch status and explicit invocation authority. If
+1. First model round: read the compact private dispatch status and explicit invocation authority. If
    held, missing authority or no-collection measurement mode, do not collect. Verify
    clean merged main and the accepted private root. Never modify the dirty checkout.
-2. Bind your actual protected native journal and current invocation; check cumulative
-   usage including cached input. Configure a private startup file with schemaVersion1,
-   privateRoot, backupDirectory, sessionPath and fresh attemptDirectory. Set reporting
-   context/outbox from the existing protocol. Never supply a synthetic usage receipt.
+   Batch required instruction/configuration reads with
+   `node scripts/bootstrap-sweep.mjs --inspect --config=PRIVATE_CONFIG` using the
+   prepared compact configuration. Inspection creates no files and reads no usage.
+   Complete this model round; do not invoke the guard in it or poll for usage.
+2. Following model round: invoke
+   `node scripts/bootstrap-sweep.mjs --config=PRIVATE_CONFIG` once. It rechecks the
+   clean checkout/configuration, binds the actual protected journal, checks cumulative
+   usage including cached input and prepares startup/reporting configuration. Missing,
+   stale or exhausted usage still stops. Never supply a synthetic usage receipt or
+   restart an invocation to bypass a stop. Keep the existing reporting context/outbox.
 3. Read required startup instructions before the encryption call. Issue exactly the
    native call returned by encryptionQueryToolInput, then immediately run
-   `node scripts/start-sweep.mjs --config=PRIVATE_CONFIG --output=NEW_PRIVATE_RECEIPT`.
+   `node scripts/start-sweep.mjs --config=BOOTSTRAP_STARTUP_CONFIG --output=NEW_PRIVATE_RECEIPT`.
+   `BOOTSTRAP_STARTUP_CONFIG` is the `startupConfig` path returned by successful
+   bootstrap, not its input configuration.
    This one command checks usage, consumes fresh native encryption provenance, checks
    actual capabilities and prepares absent-output-safe directories. `--check-only`
    performs no directory preparation. Capability checks still create, write, read
