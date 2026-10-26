@@ -10,9 +10,18 @@ For a future authorised acceptance, put the already verified commit, private-roo
 backup and fresh-output paths in the invocation's compact configuration. Keep all
 of their runtime validation; do not rediscover them through separate model turns.
 In the first preparation response, batch the account-meter check, authority/config
-reads, clean-checkout verification and required instruction reads. Once inspected,
-use the existing bootstrap in the next response: it already resolves the actual
-journal, checks fresh native usage and writes both configurations. Do not spend
+reads, required instruction reads and
+`node scripts/bootstrap-sweep.mjs --inspect --config=PRIVATE_CONFIG`.
+This read-only inspection verifies the clean expected checkout and static configuration;
+it does not read usage, run probes or create any files. It rejects `--stop-output`.
+Complete that model response before admission. A provider usage record may not exist
+while the first response's tools are executing, so do not invoke the guard or normal
+bootstrap in the same round, and do not sleep or poll for a record.
+
+In the following model response, invoke normal bootstrap once: it resolves the actual
+journal, checks fresh native usage and writes both configurations. Missing usage at
+this point still stops, with no zero estimate, retry or changed failure rule. Inspection
+is not admission; normal bootstrap rechecks the configuration and checkout. Do not spend
 separate responses finding the journal, reading the usage implementation, printing
 its counters and recreating those configurations. Target two preparation responses
 before the native encryption query, stopping immediately on any failed prerequisite.
@@ -47,7 +56,7 @@ Prepare a private config with:
 }
 ```
 
-Run `node scripts/bootstrap-sweep.mjs --config=PRIVATE_CONFIG` from the clean
+In the second round run `node scripts/bootstrap-sweep.mjs --config=PRIVATE_CONFIG` from the clean
 operational checkout. It verifies the expected clean HEAD, resolves only the
 current thread's protected journal in adjacent date directories, checks actual
 fresh usage and exclusively creates reporting-context.json and startup-config.json.

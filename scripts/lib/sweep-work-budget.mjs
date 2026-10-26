@@ -60,7 +60,10 @@ export function evaluateSweepHeadroom(usage, plan) {
       usage.allowed !== (totalTokens < limit - reserve)) fail('USAGE_MEASUREMENT_INVALID');
   const keys = ['nextResponseTokens', 'closeoutTokens'];
   if (!plan || typeof plan !== 'object' || Array.isArray(plan) ||
-      Object.keys(plan).some(key => !keys.includes(key))) fail('WORK_HEADROOM_PLAN_INVALID', { usage });
+      Object.keys(plan).some(key => ![...keys, 'remainingWorkResponses'].includes(key))) fail('WORK_HEADROOM_PLAN_INVALID', { usage });
+  const remainingWorkResponses = plan.remainingWorkResponses === undefined ? 1 : plan.remainingWorkResponses;
+  if (!Number.isSafeInteger(remainingWorkResponses) || remainingWorkResponses < 1 || remainingWorkResponses > 64)
+    fail('WORK_HEADROOM_PLAN_INVALID', { usage });
   const missing = keys.filter(key => plan[key] === undefined || plan[key] === null);
   for (const key of keys.filter(key => !missing.includes(key))) {
     if (!Number.isSafeInteger(plan[key]) || plan[key] < 1 || plan[key] > 250000 ||
@@ -69,10 +72,13 @@ export function evaluateSweepHeadroom(usage, plan) {
   const base = { kind: 'advisory-headroom', observedTotalTokens: totalTokens,
     workThreshold: limit - reserve, totalTarget: limit,
     allowances: Object.fromEntries(keys.map(key => [key, plan[key] ?? null])),
+    remainingWorkResponses, planningScope: remainingWorkResponses === 1 ? 'one-response' : 'remaining-work-responses',
     measuredFutureCost: false, hardConversationCeilingEnforced: false };
   if (!usage.allowed) return { ...base, outcome: 'WORK_HEADROOM_STOP', allowed: false, reason: 'MEASURED_WORK_STOP' };
   if (missing.length) return { ...base, outcome: 'WORK_HEADROOM_UNKNOWN', allowed: false, missing };
-  const plannedWorkTotal = totalTokens + plan.nextResponseTokens;
+  // Include the in-flight completion when its usage has not reached the journal.
+  // This is an explicit forecast, never a replacement for cumulative accounting.
+  const plannedWorkTotal = totalTokens + plan.nextResponseTokens * remainingWorkResponses;
   const plannedTotal = plannedWorkTotal + plan.closeoutTokens;
   const allowed = usage.allowed && plannedWorkTotal < limit - reserve && plannedTotal <= limit;
   return { ...base, outcome: allowed ? 'WORK_HEADROOM_AVAILABLE' : 'WORK_HEADROOM_STOP',

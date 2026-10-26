@@ -32,7 +32,15 @@ cached input or reset the count for a new stage/compaction. The default 250,000 
 reserves 50,000 for saving and reporting, so work stops at 200,000. Smaller limits
 are supported; larger limits are rejected. Never infer missing measurements as zero.
 
-Run `sweep:guard -- --session=PROTECTED_CURRENT_SESSION` before reading more task
+First complete one compact read-only startup response using
+`node scripts/bootstrap-sweep.mjs --config=PRIVATE_CONFIG --inspect`.
+This does not check usage or admit work. Invoke the guarded bootstrap once in the
+following model response, after the preceding completion can be journalled. Do not
+call inspect and bootstrap in the same orchestration cell, sleep/poll for a token
+record, retry a stopped guard, or treat a missing record as zero. A still-missing
+record at admission remains a stop. The original closed attempt remains closed.
+
+After this startup ordering, run `sweep:guard -- --session=PROTECTED_CURRENT_SESSION` before reading more task
 context, before backup preparation, before each browser acquisition batch and before
 adjudication. Include `usageBudget: {sessionPath: PROTECTED_CURRENT_SESSION}` in
 preflight configuration. Set `RNFS_SWEEP_USAGE_SESSION` to that same protected path
