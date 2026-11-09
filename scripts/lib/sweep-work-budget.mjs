@@ -19,12 +19,17 @@ export function evaluateSweepUsage(records, threadId, { limit = 250000, reserve 
   const earlier = records.filter(r => r.type === 'event_msg' && r.payload?.type === 'token_count')
     .map(r => r.payload.info?.total_token_usage?.total_tokens).filter(v => v !== undefined);
   if (earlier.some((v, i) => !Number.isSafeInteger(v) || v < 0 || (i > 0 && v < earlier[i - 1]))) fail('USAGE_COUNTER_RESET');
+  let lastResponseTokens = null;
+  for (let i = 0; i < earlier.length; i++) {
+    const delta = earlier[i] - (i ? earlier[i - 1] : 0);
+    if (delta > 0) lastResponseTokens = delta;
+  }
   const allowed = usage.total_tokens < limit - reserve;
   return { outcome: allowed ? 'WORK_BUDGET_AVAILABLE' : 'WORK_BUDGET_STOP',
     allowed, measuredAt: record.timestamp, totalTokens: usage.total_tokens,
     cachedInputTokens: usage.cached_input_tokens,
     uncachedInputTokens: usage.input_tokens - usage.cached_input_tokens,
-    outputTokens: usage.output_tokens, limit, reserve,
+    outputTokens: usage.output_tokens, lastResponseTokens, limit, reserve,
     hardConversationCeilingEnforced: false };
 }
 
@@ -77,4 +82,22 @@ export function evaluateSweepHeadroom(usage, plan) {
   const allowed = usage.allowed && plannedWorkTotal < limit - reserve && plannedTotal <= limit;
   return { ...base, outcome: allowed ? 'WORK_HEADROOM_AVAILABLE' : 'WORK_HEADROOM_STOP',
     allowed, plannedWorkTotal, plannedTotal };
+}
+
+// Before a browser or review batch, the next response is at least as large as
+// the last observed one. A smaller caller allowance is raised to that floor.
+// Cached input stays inside the cumulative total. The 250000 cap is unchanged.
+export function admitSweepBatch(usage, plan) {
+  const observed = usage?.lastResponseTokens;
+  if (!Number.isSafeInteger(observed) || observed < 1) fail('USAGE_MEASUREMENT_INVALID');
+  const requested = plan?.nextResponseTokens;
+  if (requested !== undefined && (!Number.isSafeInteger(requested) || requested < 1 || requested > 250000)) {
+    fail('WORK_HEADROOM_PLAN_INVALID', { usage });
+  }
+  const closeoutTokens = plan?.closeoutTokens ?? usage.reserve;
+  const nextResponseTokens = Math.max(requested ?? 0, observed);
+  const headroom = evaluateSweepHeadroom(usage, { nextResponseTokens, closeoutTokens });
+  return { ...headroom, observedResponseTokens: observed,
+    requestedNextResponseTokens: requested ?? null, appliedNextResponseTokens: nextResponseTokens,
+    fitsObservedResponse: headroom.allowed === true, publicationEligible: false };
 }

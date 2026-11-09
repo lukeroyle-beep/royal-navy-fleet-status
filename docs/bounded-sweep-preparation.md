@@ -66,7 +66,7 @@ input. These are historical measurements, not proof of savings from this change.
 A small total-token allowance may prevent any acquisition in this execution context;
 report that limitation honestly rather than quietly redefining the budget.
 
-Keep the existing daily noon schedule and reporting ownership. Until this correction
+Keep the Sunday noon sweep and reporting ownership. Do not add a weekday model review. Until this correction
 is merged/adopted and another test is authorised, normal wakes retain the failed
 acceptance hold: no run preparation, backup, acquisition or automatic acceptance retry.
 Report only a meaningful changed blocker through the existing Command Centre path;

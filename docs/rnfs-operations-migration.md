@@ -70,8 +70,8 @@ LaunchAgents alone do not establish an RNFS execution dependency.
 | Operation | Decision/downstream consumer | Cost and overlap | Removal consequence / disposition |
 |---|---|---|---|
 | Sunday governed sweep | Candidate refresh and release readiness | Browser acquisition plus scoped analysis | Retain; authoritative refresh |
-| Weekday AI review | Early material findings | Unconditional model wake; recent inspected wakes only deferred | Recommend retiring unconditional review; early X-only findings could be delayed |
-| Hourly health summary | Owner awareness | Repeated model inspection overlaps receipts/watchdog | Recommend change-based reporting; preserve meaningful failure notification |
+| Weekday AI review | Early material findings | Unconditional model wake; recent inspected wakes only deferred | Retired from the repository contract. Not defined in repo code or workflows. Disable the live Mac task by hand. |
+| Hourly health summary | Owner awareness | Repeated model inspection overlaps receipts/watchdog | Retired from the repository contract. Not defined in repo code or workflows. The deterministic Sunday watchdog stays. Disable the live model poll by hand. |
 | Public publisher indexes | Candidate URLs | Cheap bounded HTTP; early Sunday artifact cannot certify noon coverage | Retain conditional retrieval/reuse; trial a detector only if useful |
 | Signed-in rendered X | Public evidence unavailable from indexes | Browser and occasional reasoning; owner access needed | Retain governed collection; no API/provider fallback |
 | Restricted/manual sources | Claim corroboration and policy obligations | Owner/manual effort; repeated unavailable history | Do not automate or silently waive; request policy decisions separately |
@@ -192,8 +192,9 @@ No live under-60-minute result or token-saving percentage is claimed.
 ## Subsequent delivery and removal gates
 
 1. Verify the approved network/write context in a real scheduled wake; keep Sunday timing.
-2. Retire unconditional weekday AI review and hourly broad polling through a separately
-   reviewed configuration cutover. The current jobs are unchanged by this PR.
+2. Weekday AI review and the hourly model health poll are not in this repository.
+   The Sunday contract no longer includes them. Disable the live Codex tasks on the Mac by hand.
+   This change does not edit a live schedule.
 3. Only if useful, adapt existing cheap public discovery for a bounded detector trial;
    no 69-vessel review, certification or publication reasoning, and no model on no-change.
 4. Add exact-hash adjudication reuse and measure/reduce duplicate test execution without
