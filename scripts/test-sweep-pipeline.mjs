@@ -75,13 +75,15 @@ try {
  assert.equal(fs.existsSync(lockPath),false,'The run lock must be released after collection exits');
  const partialTask=tasks.find(t=>registry.sources.find(s=>s.sourceId===t.sourceId)?.xCollection);
  const partialSource=registry.sources.find(s=>s.sourceId===partialTask.sourceId);
- const partialMethod={kind:'x-profile-latest',browser:'chrome',renderedPublicPage:true,readOnly:true,pageUrl:partialSource.canonicalUrl,window:{from:run.window.from,to:run.window.to},scrollCount:0,visibleResultCount:1,limitations:['Synthetic partial-window test']};
- const partialPacket={runId:run.runId,registryHash:run.sourceRegistryHash,sourceId:partialTask.sourceId,window:partialTask.window,outcome:'DEFERRED_WITH_JUSTIFICATION',reason:'Synthetic deep coverage incomplete',partialObservation:{schemaVersion:'1.0.0',sourceId:partialTask.sourceId,state:'checked',checkedAt:new Date().toISOString(),method:partialMethod,blocker:null,posts:[{postId:'1234567890',canonicalUrl:`${partialSource.canonicalUrl}/status/1234567890`,publishedAt:run.window.from,text:'Synthetic ambiguous fleet evidence',postType:'original',repostOfPostId:null,quotedPostId:null}]}};
+ // Keep the synthetic partial observation within the rolling acquisition window.
+ const partialWindow={from:new Date((Date.parse(partialTask.window.from)+Date.parse(partialTask.window.to))/2).toISOString(),to:partialTask.window.to};
+ const partialMethod={kind:'x-profile-latest',browser:'chrome',renderedPublicPage:true,readOnly:true,pageUrl:partialSource.canonicalUrl,window:partialWindow,scrollCount:0,visibleResultCount:1,limitations:['Synthetic partial-window test']};
+ const partialPacket={runId:run.runId,registryHash:run.sourceRegistryHash,sourceId:partialTask.sourceId,window:partialTask.window,outcome:'DEFERRED_WITH_JUSTIFICATION',reason:'Synthetic deep coverage incomplete',partialObservation:{schemaVersion:'1.0.0',sourceId:partialTask.sourceId,state:'checked',checkedAt:new Date().toISOString(),method:partialMethod,blocker:null,posts:[{postId:'1234567890',canonicalUrl:`${partialSource.canonicalUrl}/status/1234567890`,publishedAt:partialWindow.from,text:'Synthetic ambiguous fleet evidence',postType:'original',repostOfPostId:null,quotedPostId:null}]}};
  fs.writeFileSync(path.join(packets,`${digest(partialTask.sourceId)}.json`),JSON.stringify(partialPacket));
  assert.equal(invoke('process').status,1);
  const partialResult=JSON.parse(fs.readFileSync(path.join(state,'acquisition.json'))).records.find(r=>r.sourceId===partialTask.sourceId);
  assert.equal(partialResult.cursor,null);
- assert.equal(partialResult.outcome,'DEFERRED_WITH_JUSTIFICATION');
+ assert.equal(partialResult.outcome,'DEFERRED_WITH_JUSTIFICATION',partialResult.reason);
  assert.equal(partialResult.candidates.length,1,'Valid partial evidence must reach adjudication even while source coverage fails');
  assert.equal(JSON.parse(fs.readFileSync(path.join(state,'adjudication-queue.json'))).items.length,1);
  const bypassPacket={...partialPacket,partialObservation:undefined,method:{kind:'unapproved'},partialItems:[{id:'unapproved',url:partialSource.canonicalUrl,publishedAt:run.window.from,text:'Unapproved direct X input'}]};
