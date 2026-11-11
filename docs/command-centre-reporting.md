@@ -121,6 +121,6 @@ scheduler-originated attempt with actual native automation/thread correlation,
 supported authenticated writes to both Pages, matching readbacks, and a delivered
 queue receipt. A supplied context string or interactive success does not prove this.
 Use a reporting-only replay of an already recorded outcome, never an extra sweep.
-Keep the original daily noon schedule and collection/publication gates. Workflow
+Keep the Sunday noon sweep and collection/publication gates. Workflow
 code uses a reviewed PR; Luke retains merge authority. Report implementation,
 interactive delivery, scheduled delivery and merged/adopted state separately.

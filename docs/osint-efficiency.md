@@ -75,7 +75,7 @@ credentials and profile details are not logged.
 Use `npm run sweep:usage-report -- --input=/private/spec.json --output=/private/new-usage.json`
 after completion, from the parent coordinator, to include the worker's final
 response. The spec contains `sessions: [{path, threadId, phases?: [{name,from,to}]}]`.
-List the coordinator, worker and reporting sessions once each (maximum eight).
+List every round thread once (maximum 61: indexes, canary, 16 browser batches, 41 review batches, the opening round, and reporting). A `rounds` list must be fully present or the summary fails.
 Paths must be the protected native session journals, bound to their actual IDs.
 The parser uses only provider token-count metadata, never emits transcript content,
 rejects missing/reset counters, and does not double-count repeated events or IDs.
@@ -113,6 +113,17 @@ guard, lower configured limits and 120-second freshness rule. An allowed estimat
 does not establish that a future response fits, reduce actual counters or enforce
 platform billing. Refresh planning assumptions for the next stage; do not treat
 the bootstrap allowance copied into startup/preflight as measured future cost.
+
+Before a browser batch or a review batch, `admitSweepBatch` raises a smaller
+`nextResponseTokens` value up to the last observed response size. A caller cannot
+set that floor below the observation. Cached input stays inside `total_tokens`.
+The 250,000 cap is unchanged. A refused batch can persist the existing terminal
+receipt with a resume block (run id, cutoff, registry hash, acquisition directory,
+browser session path, next review batch index, and thread id). That receipt creates
+no run, lock, or cursor, and `publicationEligible` stays false. The next thread
+continues only when `assertSweepResume` matches run id, registry hash, and cutoff
+against the run, the public-index checkpoint, the X session, and the review batch.
+The week's summed `total_tokens` stays above 250,000 by design.
 
 `sweep:guard` accepts `--headroom=/private/allowances.json`. The file has the same
 two fields. Omitting this option retains the measured-only guard. On bootstrap,

@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { POLICY, privateDirectory, acquireWriter, readPrivateJson, bindOperation, bindObservationBatch, observeBatch, captureAndPersist, sanitizedBrowserFailure } from './lib/dedicated-browser-worker.mjs';
-import { requireSweepWorkBudget } from './lib/sweep-work-budget.mjs';
+import { requireSweepWorkBudget, admitSweepBatch } from './lib/sweep-work-budget.mjs';
+import { assertPrivateArtifact } from './lib/private-artifacts.mjs';
+import { sweepStop, saveSweepStop } from './lib/sweep-stop.mjs';
 
 // No daemon, web server, CDP endpoint, arbitrary script, URL or shell interface.
 // Authentication belongs to Chrome. This process never reads profile files.
@@ -13,7 +15,29 @@ if(args[0]==='--help') {
   process.exit(0);
 }
 let release, context, phase='configuration';
-const workGuard=()=>requireSweepWorkBudget({sessionPath:process.env.RNFS_SWEEP_USAGE_SESSION});
+const persistBatchStop=error=>{
+  const code=error?.diagnostic||error?.message;
+  const budget=code==='WORK_BUDGET_STOP'||code==='WORK_HEADROOM_STOP';
+  let resume;
+  if(budget&&process.env.RNFS_SWEEP_RESUME){
+    try{resume=JSON.parse(fs.readFileSync(assertPrivateArtifact(process.env.RNFS_SWEEP_RESUME),'utf8'));}catch{resume=undefined;}
+  }
+  let stop;
+  try{stop=sweepStop({error,resume});}catch{stop=sweepStop({error});}
+  saveSweepStop(process.env.RNFS_SWEEP_STOP_OUTPUT,stop);
+};
+const workGuard=()=>{
+  let usage;
+  try{usage=requireSweepWorkBudget({sessionPath:process.env.RNFS_SWEEP_USAGE_SESSION});}
+  catch(error){persistBatchStop(error);throw error;}
+  const plan=process.env.RNFS_SWEEP_HEADROOM?JSON.parse(fs.readFileSync(assertPrivateArtifact(process.env.RNFS_SWEEP_HEADROOM),'utf8')):undefined;
+  const admission=admitSweepBatch(usage,plan);
+  if(!admission.allowed){
+    const error=Object.assign(new Error(admission.outcome),{diagnostic:admission.outcome,usage,headroom:admission});
+    persistBatchStop(error);
+    throw error;
+  }
+};
 try {
   if(!((args.length===1 && args[0]==='setup') || (args.length===3 && ['observe','observe-batch'].includes(args[0]) && args[1]==='--authorised-collection'))) throw Error('USAGE_INVALID');
   if(process.platform!=='darwin' || process.getuid()===0) throw Error('UNPRIVILEGED_MAC_REQUIRED');

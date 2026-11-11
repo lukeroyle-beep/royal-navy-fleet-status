@@ -25,8 +25,9 @@ is not evidence of a reduction in the current live historical queue.
 
 ## Retained architecture and inspection findings
 
-- The daily noon Europe/London Codex heartbeat selects the full Sunday sweep or bounded weekday
-  discovery. The independent Sunday GitHub job collects seven public indexes; the watchdog checks
+- The inspected Codex heartbeat was a daily noon Europe/London task that selected a full Sunday
+  sweep or a bounded weekday discovery. That weekday model wake is not defined in this repository
+  and is no longer part of the schedule contract. The independent Sunday GitHub job collects seven public indexes; the watchdog checks
   missed publication. Neither substitutes for a full sweep.
 - `sources.json` under the external private-input resolver is canonical. `sources` describes
   authority and provenance; `operations` supplies retrieval metadata. Historical evidence pages

@@ -11,9 +11,9 @@ import { sweepStop, saveSweepStop } from './lib/sweep-stop.mjs';
 
 const arg = name => process.argv.find(a => a.startsWith(`--${name}=`))?.slice(name.length + 3);
 const repository = fileURLToPath(new URL('..', import.meta.url));
-let phase = 'preparation', collectionStarted = false;
+let phase = 'preparation', collectionStarted = false, config;
 try {
-  const config = JSON.parse(fs.readFileSync(assertPrivateArtifact(arg('config')), 'utf8'));
+  config = JSON.parse(fs.readFileSync(assertPrivateArtifact(arg('config')), 'utf8'));
   if (config.usageBudget) requireSweepWorkBudget(config.usageBudget);
   const output = assertPrivateArtifact(arg('output'));
   if (fs.existsSync(output)) throw new Error('Existing preflight receipt');
@@ -48,7 +48,11 @@ try {
   if (receipt.outcome !== 'READY_FOR_COLLECTION' ||
       (result && !['PLAN_PREPARED', 'DISCOVERY_COMPLETE_REVIEW_REQUIRED'].includes(result.outcome))) process.exitCode = 1;
 } catch (error) {
-  const stop=sweepStop({error,phase,collectionStarted});
+  const code = error?.diagnostic || error?.message;
+  const budget = code === 'WORK_BUDGET_STOP' || code === 'WORK_HEADROOM_STOP';
+  let stop;
+  try { stop = sweepStop({ error, phase, collectionStarted, resume: budget ? config?.resume : undefined }); }
+  catch { stop = sweepStop({ error, phase, collectionStarted }); }
   const terminalReceipt=saveSweepStop(arg('stop-output'),stop);
   try { recordEarlyFailure({error,phase,collectionStarted,at:stop.finishedAt,
     receiptPath:terminalReceipt.saved ? terminalReceipt.path : undefined}); }
