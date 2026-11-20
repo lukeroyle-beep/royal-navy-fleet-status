@@ -15,8 +15,8 @@ ChatGPT coordinates and reports from receipts. No Buzz agent, workflow, credenti
 message, administrator broker or new command service is required for this route.
 The installed broker and its files remain intact and disabled as last observed.
 
-The agreed cadence remains daily **12:00 Europe/London**, Sunday full review and
-Monday–Saturday at most ten substantive vessel reviews. Preserve the weekday
+The agreed cadence is Sunday **12:00 Europe/London** full review. Monday–Saturday
+model review is not part of this contract. Preserve the per-thread
 250,000-token target as a ceiling target, not a measured saving or hard enforcement.
 No model is called by the deterministic preflight/collector. Browser and model
 usage must remain unavailable unless actually measured. This milestone additionally

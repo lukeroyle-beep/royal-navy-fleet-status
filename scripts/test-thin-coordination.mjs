@@ -55,7 +55,8 @@ try {
   // Run the real CLI in a clean isolated checkout; no native journal is needed.
   const cliRepo=path.join(root,'cli-repo');fs.mkdirSync(path.join(cliRepo,'scripts','lib'),{recursive:true});
   for(const file of ['bootstrap-sweep.mjs','lib/private-artifacts.mjs','lib/sweep-bootstrap.mjs',
-    'lib/sweep-work-budget.mjs','lib/command-centre.mjs','lib/sweep-stop.mjs'])
+    'lib/sweep-work-budget.mjs','lib/command-centre.mjs','lib/sweep-stop.mjs','lib/sweep-rounds.mjs',
+    'lib/acquisition.mjs','lib/bootstrap-exception.mjs'])
     fs.copyFileSync(path.join('scripts',file),path.join(cliRepo,'scripts',file));
   const cliGit=args=>execFileSync('git',args,{cwd:cliRepo,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
   cliGit(['init']);cliGit(['add','scripts']);

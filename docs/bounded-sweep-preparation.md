@@ -38,7 +38,10 @@ This does not check usage or admit work. Invoke the guarded bootstrap once in th
 following model response, after the preceding completion can be journalled. Do not
 call inspect and bootstrap in the same orchestration cell, sleep/poll for a token
 record, retry a stopped guard, or treat a missing record as zero. A still-missing
-record at admission remains a stop. The original closed attempt remains closed.
+record at admission remains a stop. Inspection does not attach a resume block or
+write a stop receipt. A later guarded bootstrap stop on `WORK_BUDGET_STOP` or
+`WORK_HEADROOM_STOP` still records `config.resume` for the same run. The original
+closed attempt remains closed.
 
 After this startup ordering, run `sweep:guard -- --session=PROTECTED_CURRENT_SESSION` before reading more task
 context, before backup preparation, before each browser acquisition batch and before
@@ -74,7 +77,7 @@ input. These are historical measurements, not proof of savings from this change.
 A small total-token allowance may prevent any acquisition in this execution context;
 report that limitation honestly rather than quietly redefining the budget.
 
-Keep the existing daily noon schedule and reporting ownership. Until this correction
+Keep the Sunday noon sweep and reporting ownership. Do not add a weekday model review. Until this correction
 is merged/adopted and another test is authorised, normal wakes retain the failed
 acceptance hold: no run preparation, backup, acquisition or automatic acceptance retry.
 Report only a meaningful changed blocker through the existing Command Centre path;

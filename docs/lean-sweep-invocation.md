@@ -11,7 +11,9 @@ usage journal or scheduler. Keep the current checkpoint and last good release.
 Use a fresh, explicitly authorised execution task supplied with the current compact
 dispatch receipt and exact private configuration path. Preserve the task reference
 and count coordinator, worker and reporting usage together. Never create successive
-tasks to reset a failed attempt's allowance. Do not inherit a troubleshooting chat,
+tasks to reset a failed attempt's allowance. A budget stop's resume block continues
+the same run on a later thread; it does not clear the stopped thread's counters.
+Do not inherit a troubleshooting chat,
 replay its transcript, or load all past handoffs. Applicable instructions still apply.
 Where supported, scope the task's integrations to the repository, required native
 execution/browser and reporting tools. Keep required security/accounting tools.

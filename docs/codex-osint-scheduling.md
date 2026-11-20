@@ -11,16 +11,31 @@ while retaining the evidence, review, privacy and idempotency requirements.
 ## Live schedule
 
 - Codex automation: **Tracker OSINT sweeps**, ID `tracker-sunday-full-osint-sweep`.
-- Daily at noon in the host's Europe/London timezone. Keep the Mac on and Codex running. Recheck
+- Sunday at noon in the host's Europe/London timezone. Keep the Mac on and Codex running. Recheck
   the displayed schedule if the host timezone changes; retain UK daylight-saving behaviour.
 - Sunday: full public-index, required recurring/manual-source, six-account X canary, full enabled
   registry, current-vessel, retired-record and integrity review.
-- Monday to Saturday: incremental discovery and review of at most ten affected vessels, retaining
-  the prior target budget of 250,000 cloud-model tokens. Do not append a weekly status snapshot.
+- Monday to Saturday model review is not part of this schedule. Do not append a weekly status snapshot.
 - The former OpenClaw Sunday and daily OSINT jobs are disabled, not deleted. Their configuration
   and run history remain recovery evidence. Other OpenClaw workflows are outside this migration.
 - The existing GitHub discovery collector and missed-publication watchdog remain independent;
   neither is a competing full sweep or publication mechanism.
+
+## Retired model wakes
+
+The Monday–Saturday review of at most ten vessels, and the separate hourly
+health-summary model poll, are not implemented in this repository. No workflow,
+LaunchAgent, test, or script starts them. They were observed only in the Codex
+configuration on the operational Mac.
+
+On that Mac, in the Codex app, and without re-enabling OpenClaw:
+
+1. Edit automation `tracker-sunday-full-osint-sweep` so it runs only on Sunday at
+   noon Europe/London. Remove the Monday–Saturday branch.
+2. Disable the hourly health-summary model poll. Leave the deterministic Sunday
+   GitHub snapshot watchdog in place.
+
+This repository cannot see or change those live tasks.
 
 ## Execution and browser
 
@@ -79,8 +94,8 @@ See [incremental sweep execution](osint-sweep-acceleration.md) for bounded acqui
 ## Adoption preflight for subsequent runs
 
 After the acceleration change is merged, use the incremental plan, packet processing and certificate
-commands in the runbook for every full Sunday sweep. Retain the existing daily schedule and weekday
-scope. This changes orchestration, not publication authority. A weekday partial check cannot issue a
+commands in the runbook for every full Sunday sweep. The schedule contract is Sunday noon only.
+This changes orchestration, not publication authority. A partial round cannot issue a
 full-sweep PASS certificate.
 
 Before collection, compare the resolved private projection with the current reviewed public release.
@@ -104,8 +119,10 @@ current roster), integrity and certificate gates. Record remaining live bottlene
 
 ## Issue 110 first increment (not a scheduler cutover)
 
-The [migration audit](rnfs-operations-migration.md) recommends retiring unconditional
-weekday AI review and broad hourly model polling. Those jobs are unchanged by this PR.
+The [migration audit](rnfs-operations-migration.md) recorded unconditional
+weekday AI review and an hourly model health poll on the operational Mac. Neither job is
+defined in this repository. The Sunday contract no longer includes them. Disable the live
+Codex tasks on that Mac by hand; this repository does not change a live schedule.
 Use the [preflight entry](osint-preflight.md) for approved executor integration and verify
 it in the actual scheduled network/write context before claiming readiness. Resolve
 current recovery state from native receipts and issues 104/108; embedded dated prompt

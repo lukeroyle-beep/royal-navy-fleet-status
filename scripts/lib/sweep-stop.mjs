@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assertPrivateArtifact } from './private-artifacts.mjs';
+import { sweepResumeBlock } from './sweep-rounds.mjs';
 
 const diagnostics = new Set(['WORK_BUDGET_STOP', 'USAGE_BUDGET_INVALID',
   'USAGE_PROVENANCE_UNAVAILABLE', 'USAGE_MEASUREMENT_UNAVAILABLE',
@@ -13,17 +14,21 @@ const diagnostics = new Set(['WORK_BUDGET_STOP', 'USAGE_BUDGET_INVALID',
 const fail = code => { throw new Error(code); };
 
 export function sweepStop({ error, diagnostic, phase = 'preparation', collectionStarted = false,
-  usage, headroom, at = new Date().toISOString() } = {}) {
+  usage, headroom, resume, at = new Date().toISOString() } = {}) {
   if (!['preparation', 'preflight', 'plan', 'indexes'].includes(phase) ||
       ![false, true, null].includes(collectionStarted) || !Number.isFinite(Date.parse(at))) fail('STOP_CONTEXT_INVALID');
   const candidate = diagnostic || error?.diagnostic || error?.message;
   const code = diagnostics.has(candidate) ? candidate : 'PREFLIGHT_OR_REQUESTED_STAGE_FAILED';
+  const budgetStop = code === 'WORK_BUDGET_STOP' || code === 'WORK_HEADROOM_STOP';
+  if (resume !== undefined && !budgetStop) fail('RESUME_BLOCK_NOT_A_BUDGET_STOP');
+  const block = resume === undefined ? undefined : sweepResumeBlock(resume);
   return { schemaVersion: 1, kind: 'rnfs-terminal-stop', outcome: code === 'WORK_BUDGET_STOP' ||
       code === 'WORK_HEADROOM_STOP' || code === 'WORK_HEADROOM_UNKNOWN' ? code : 'FAILED',
     diagnostic: code, allowed: false, phase, finishedAt: at, collectionStarted,
     publicationEligible: false, noChangeClaimAllowed: false,
     ...(usage || error?.usage ? { usage: usage || error.usage } : {}),
-    ...(headroom || error?.headroom ? { headroom: headroom || error.headroom } : {}) };
+    ...(headroom || error?.headroom ? { headroom: headroom || error.headroom } : {}),
+    ...(block ? { resume: block } : {}) };
 }
 
 // Explicit private destination; never mkdir an attempt or collector directory.

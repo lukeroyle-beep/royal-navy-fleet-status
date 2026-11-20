@@ -1,5 +1,6 @@
 import fs from "node:fs";
-import { requireSweepWorkBudget } from "./lib/sweep-work-budget.mjs";
+import { requireSweepWorkBudget, admitSweepBatch } from "./lib/sweep-work-budget.mjs";
+import { sweepStop, saveSweepStop } from "./lib/sweep-stop.mjs";
 import path from "node:path";
 
 import { resolvePrivateInputs, repositoryRootPath } from "./lib/private-inputs.mjs";
@@ -18,7 +19,25 @@ import {
 
 const mode = requiredValue("--mode=");
 if (process.env.RNFS_SWEEP_USAGE_SESSION && (mode === "prepare" || (mode === "status" && process.argv.includes("--compact")))) {
-  requireSweepWorkBudget({ sessionPath: process.env.RNFS_SWEEP_USAGE_SESSION });
+  const budget = code => code === "WORK_BUDGET_STOP" || code === "WORK_HEADROOM_STOP";
+  try {
+    const usage = requireSweepWorkBudget({ sessionPath: process.env.RNFS_SWEEP_USAGE_SESSION });
+    const plan = process.env.RNFS_SWEEP_HEADROOM ? JSON.parse(fs.readFileSync(process.env.RNFS_SWEEP_HEADROOM, "utf8")) : undefined;
+    const admission = admitSweepBatch(usage, plan);
+    if (!admission.allowed) throw Object.assign(new Error(admission.outcome), { diagnostic: admission.outcome, usage, headroom: admission });
+  } catch (error) {
+    const code = error.diagnostic || error.message;
+    let resume;
+    if (budget(code) && process.env.RNFS_SWEEP_RESUME) {
+      try { resume = JSON.parse(fs.readFileSync(process.env.RNFS_SWEEP_RESUME, "utf8")); } catch { resume = undefined; }
+    }
+    let stop;
+    try { stop = sweepStop({ error, resume }); }
+    catch { stop = sweepStop({ error }); }
+    const terminalReceipt = saveSweepStop(process.env.RNFS_SWEEP_STOP_OUTPUT, stop);
+    console.log(JSON.stringify({ ...stop, ...(process.env.RNFS_SWEEP_STOP_OUTPUT ? { terminalReceipt } : {}) }));
+    process.exit(2);
+  }
 }
 const sessionDirectory = path.resolve(requiredValue("--session="));
 assertPrivateDirectory(sessionDirectory, "X browser session");

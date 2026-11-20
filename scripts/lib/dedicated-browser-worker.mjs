@@ -202,7 +202,7 @@ export async function observeBatch(root,page,batch,{now=Date.now,sleep,deadline=
     if(now()>=deadline) {stop='BATCH_DEADLINE';break;}
     try { await beforeOperation(); } // existing fresh native work guard, never a fabricated usage estimate
     catch(error) {
-      stop=['WORK_BUDGET_STOP','USAGE_MEASUREMENT_UNAVAILABLE','USAGE_PROVENANCE_UNAVAILABLE','USAGE_COUNTER_RESET','USAGE_MEASUREMENT_INVALID'].includes(error.message)?error.message:'BATCH_GUARD_FAILED';
+      stop=['WORK_BUDGET_STOP','WORK_HEADROOM_STOP','USAGE_MEASUREMENT_UNAVAILABLE','USAGE_PROVENANCE_UNAVAILABLE','USAGE_COUNTER_RESET','USAGE_MEASUREMENT_INVALID'].includes(error.message)?error.message:'BATCH_GUARD_FAILED';
       break;
     }
     if(now()>=deadline) {stop='BATCH_DEADLINE';break;}

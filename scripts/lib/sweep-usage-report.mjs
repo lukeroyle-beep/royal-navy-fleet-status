@@ -1,4 +1,8 @@
 const keys = ['input_tokens', 'cached_input_tokens', 'output_tokens', 'total_tokens'];
+// One Sunday split: indexes, canary, 16 browser batches of at most six profiles
+// (91 enabled accounts), 41 review batches of 12 (the retained 482-candidate queue),
+// one opening round, and reporting.
+export const MAX_SWEEP_SESSIONS = 1 + 1 + 16 + 41 + 1 + 1;
 const zero = () => Object.fromEntries(keys.map(k => [k, 0]));
 const fail = code => { throw Error(code); };
 function valid(usage) {
@@ -56,8 +60,13 @@ export function summarizeSessionUsage(records, { threadId, phases = [] }) {
     phases: byPhase, phaseAttribution: 'response-completion-time', finalResponseIncluded: 'only-if-present-in-input-journal' };
 }
 
-export function aggregateSessionUsage(sessions) {
-  if (!Array.isArray(sessions) || !sessions.length || sessions.length > 8 || new Set(sessions.map(s => s.threadId)).size !== sessions.length) fail('USAGE_DUPLICATE_OR_INVALID_SESSIONS');
+export function aggregateSessionUsage(sessions, { rounds } = {}) {
+  if (!Array.isArray(sessions) || !sessions.length || sessions.length > MAX_SWEEP_SESSIONS || new Set(sessions.map(s => s.threadId)).size !== sessions.length) fail('USAGE_DUPLICATE_OR_INVALID_SESSIONS');
+  if (rounds !== undefined) {
+    if (!Array.isArray(rounds) || rounds.some(round => !round || typeof round.threadId !== 'string' || !round.threadId)) fail('USAGE_ROUNDS_INVALID');
+    const supplied = new Set(sessions.map(session => session.threadId));
+    if (rounds.some(round => !supplied.has(round.threadId))) fail('USAGE_ROUND_OMITTED');
+  }
   const total = zero();
   for (const s of sessions) { valid(s); for (const k of keys) total[k] += s[k]; }
   valid(total);
@@ -65,8 +74,10 @@ export function aggregateSessionUsage(sessions) {
     uncached_input_tokens: total.input_tokens-total.cached_input_tokens,
     responses: sessions.reduce((n,s) => n+s.responses,0), accountAllowanceCost: null,
     counterAnomalyCount: sessions.reduce((n,s) => n+(s.counterAnomalies?.length || 0),0),
+    roundsChecked: rounds?.length ?? 0,
     limitations: ['Includes cached input; not a currency charge or weekly allowance percentage.',
       'Totals follow validated cumulative counters. Inconsistent last-response blocks on unchanged snapshots are disclosed, not added as independent usage; their additional cost cannot be established.',
-      'Only explicitly supplied unique sessions are counted. Supply coordinator, worker and reporting sessions.',
-      'Read completed journals from the parent to include final-response lag. Missing or reset counters fail closed.'] };
+      'Only explicitly supplied unique sessions are counted. A weekly summary that lists resume rounds must include every round thread.',
+      'Read completed journals from the parent to include final-response lag. Missing or reset counters fail closed.',
+      'The summed week is not required to stay under 250000. Each thread keeps that cap.'] };
 }

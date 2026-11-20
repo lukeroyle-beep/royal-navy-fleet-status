@@ -24,7 +24,10 @@ only when the next decision needs it. Preserve the existing scheduler/owner.
    clean checkout/configuration, binds the actual protected journal, checks cumulative
    usage including cached input and prepares startup/reporting configuration. Missing,
    stale or exhausted usage still stops. Never supply a synthetic usage receipt or
-   restart an invocation to bypass a stop. Keep the existing reporting context/outbox.
+   restart an invocation to bypass a stop. A `WORK_BUDGET_STOP` or `WORK_HEADROOM_STOP`
+   may still carry `config.resume` for the same run on a later thread. That block
+   does not reset the stopped thread's counters. Inspection never writes it.
+   Keep the existing reporting context/outbox.
 3. Read required startup instructions before the encryption call. Issue exactly the
    native call returned by encryptionQueryToolInput, then immediately run
    `node scripts/start-sweep.mjs --config=BOOTSTRAP_STARTUP_CONFIG --output=NEW_PRIVATE_RECEIPT`.
