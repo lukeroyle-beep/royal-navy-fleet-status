@@ -1,10 +1,11 @@
 name: Weekly production snapshot watchdog
 
 on:
-  schedule:
-    # Hourly after the 18:00 UK-local grace threshold. The script applies the
-    # Europe/London guard; repeated runs reconcile one idempotent issue.
-    - cron: "15 17-22 * * 0"
+  # Paused 2026-11-23 while Sunday OSINT sweeps are paused (see #150). Uncomment to re-enable.
+  # schedule:
+  #   # Hourly after the 18:00 UK-local grace threshold. The script applies the
+  #   # Europe/London guard; repeated runs reconcile one idempotent issue.
+  #   - cron: "15 17-22 * * 0"
   workflow_dispatch:
     inputs:
       expected_snapshot_date:
